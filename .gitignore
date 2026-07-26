@@ -1,0 +1,72 @@
+# Dependencies
+node_modules/
+
+# Playwright browser cache (browsers live in /opt/pw-browsers in CI/remote)
+.cache/
+.playwright/
+pw-browsers/
+
+# Render working directories: PNG frame sequences are regenerated
+# deterministically by `npm run render`, never committed.
+out/frames/
+out/frames-*/
+**/frames/
+render-temp/
+tmp/
+.tmp/
+
+# Render outputs. The approved masters are large binaries; their identity is
+# pinned by sha256 in baselines/*.json instead of by committing the file.
+out/**
+!out/.gitkeep
+!out/evlek_audio_markers.json
+!out/evlek_audio_markers.csv
+
+# Audio mixes and platform deliverables
+*.wav
+*.aif
+*.aiff
+*.mp3
+*.m4a
+*.mov
+*.mp4
+!video-system/assets/audio/**/*.md
+
+# QC scratch output
+qc-temp/
+*.qc.png
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Local backups
+.backup/
+
+# Explicitly KEPT in git (documented here so the rules above are not widened
+# by accident): source images under project/img and template project dirs,
+# template sources, marker JSON/CSV, baseline metadata and baseline snapshot
+# PNGs under baselines/, all documentation, all render scripts.
+
+# Vendored CDN artifacts. render/stage.mjs serves exactly three files from here
+# to satisfy support.js's unpkg imports offline; their sha384 digests match the
+# SRI attributes support.js sets. Only those three (plus licences and provenance)
+# are tracked — the rest of the unpacked tarballs (dev builds, source maps,
+# 48 MB in total) stays on disk but out of git. render/vendor/README.md documents
+# how to restore it byte-identically.
+render/vendor/**
+!render/vendor/README.md
+!render/vendor/react-18.3.1/
+!render/vendor/react-18.3.1/LICENSE
+!render/vendor/react-18.3.1/umd/
+!render/vendor/react-18.3.1/umd/react.production.min.js
+!render/vendor/react-dom-18.3.1/
+!render/vendor/react-dom-18.3.1/LICENSE
+!render/vendor/react-dom-18.3.1/umd/
+!render/vendor/react-dom-18.3.1/umd/react-dom.production.min.js
+!render/vendor/babel-standalone-7.29.0/
+!render/vendor/babel-standalone-7.29.0/LICENSE
+!render/vendor/babel-standalone-7.29.0/babel.min.js
