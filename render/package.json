@@ -9,7 +9,13 @@
     "capture": "node capture.mjs",
     "encode": "node encode.mjs",
     "verify": "node verify.mjs",
-    "qc": "node qc.mjs"
+    "qc": "node qc.mjs",
+    "render:template": "node render-template.mjs",
+    "markers:export": "node markers.mjs",
+    "baseline:create": "node baseline.mjs create",
+    "baseline:check": "node baseline.mjs check",
+    "domaudit": "node domaudit.mjs",
+    "reproduce": "node reproduce.mjs"
   },
   "dependencies": {
     "ffmpeg-static": "^5.2.0",

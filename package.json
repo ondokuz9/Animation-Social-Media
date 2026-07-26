@@ -1,0 +1,21 @@
+{
+  "name": "evlek-video-system",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Evlek reel design sources, deterministic 60fps renderer and reusable video system",
+  "scripts": {
+    "postinstall": "npm --prefix render install",
+    "render": "npm --prefix render run render",
+    "render:template": "npm --prefix render run render:template --",
+    "verify": "npm --prefix render run verify",
+    "qc": "npm --prefix render run qc",
+    "markers:export": "npm --prefix render run markers:export --",
+    "baseline:create": "npm --prefix render run baseline:create --",
+    "baseline:check": "npm --prefix render run baseline:check --",
+    "content:apply": "node video-system/templates/brand-reel-v7/apply-content.mjs",
+    "content:check": "node video-system/templates/brand-reel-v7/apply-content.mjs --check"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

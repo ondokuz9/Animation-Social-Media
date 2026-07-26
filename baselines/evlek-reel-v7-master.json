@@ -1,0 +1,133 @@
+{
+  "filename": "evlek_reel_v7_1080x1920_60fps_silent_master.mp4",
+  "sha256": "3c22d5a3b6483127e3ca871d915453c5a17f844be0776387d46381950603ff71",
+  "width": 1080,
+  "height": 1920,
+  "fps": 60,
+  "duration_seconds": 21.55,
+  "total_frames": 1293,
+  "codec": "h264",
+  "profile": "High",
+  "level": 4.2,
+  "pixel_format": "yuv420p",
+  "color_space": "bt709",
+  "color_primaries": "bt709",
+  "color_transfer": "bt709",
+  "color_range": "tv",
+  "field_order": "progressive",
+  "audio_stream_count": 0,
+  "size_bytes": 11353550,
+  "bitrate_kbps": 4215,
+  "container": "mov,mp4,m4a,3gp,3g2,mj2",
+  "created_at": "2026-07-26T10:59:35.931Z",
+  "design": {
+    "source": "project",
+    "page": "Evlek Reel v7.dc.html"
+  },
+  "checkpoints": [
+    {
+      "time_seconds": 0.5,
+      "exact_time_seconds": 0.5,
+      "frame": 31,
+      "render_png": "baselines/frames/render/t0p50.png",
+      "render_sha256": "35add4fdeff16e5c794dcc5c840232f12092471958a83643e79a5142a9397035",
+      "master_png": "baselines/frames/master/t0p50.png",
+      "master_vs_render_psnr_db": 41.938
+    },
+    {
+      "time_seconds": 1.4,
+      "exact_time_seconds": 1.4,
+      "frame": 85,
+      "render_png": "baselines/frames/render/t1p40.png",
+      "render_sha256": "26f88b1e922126f58d81c0b376137b0fe8410863560481b8e2a5bbd6b8429973",
+      "master_png": "baselines/frames/master/t1p40.png",
+      "master_vs_render_psnr_db": 40.515
+    },
+    {
+      "time_seconds": 2.7,
+      "exact_time_seconds": 2.7,
+      "frame": 163,
+      "render_png": "baselines/frames/render/t2p70.png",
+      "render_sha256": "72ff4047c8e0d5b69f29c592a17801bf7a2023fd71a47c793ba7fa5aa15ef83a",
+      "master_png": "baselines/frames/master/t2p70.png",
+      "master_vs_render_psnr_db": 51.019
+    },
+    {
+      "time_seconds": 4.5,
+      "exact_time_seconds": 4.5,
+      "frame": 271,
+      "render_png": "baselines/frames/render/t4p50.png",
+      "render_sha256": "1f02a3706605c3bc5f4a84d09eab99179c5280814e1ce006c89d7414954f324e",
+      "master_png": "baselines/frames/master/t4p50.png",
+      "master_vs_render_psnr_db": 39.148
+    },
+    {
+      "time_seconds": 7.2,
+      "exact_time_seconds": 7.2,
+      "frame": 433,
+      "render_png": "baselines/frames/render/t7p20.png",
+      "render_sha256": "0b5c548f34e626135e874f268953a04621718ca31bc9d8d7ac9aedba343435e8",
+      "master_png": "baselines/frames/master/t7p20.png",
+      "master_vs_render_psnr_db": 41.518
+    },
+    {
+      "time_seconds": 9.3,
+      "exact_time_seconds": 9.3,
+      "frame": 559,
+      "render_png": "baselines/frames/render/t9p30.png",
+      "render_sha256": "ef8049d69c5195065b694f6d9e0e78eb43f35bd5c320d38a7bd4648a2859d5c1",
+      "master_png": "baselines/frames/master/t9p30.png",
+      "master_vs_render_psnr_db": 40.11
+    },
+    {
+      "time_seconds": 10.8,
+      "exact_time_seconds": 10.8,
+      "frame": 649,
+      "render_png": "baselines/frames/render/t10p80.png",
+      "render_sha256": "8f3e1cd51dfbef180736b6a33a08881d2a399df699964a59500a9c6766e539f0",
+      "master_png": "baselines/frames/master/t10p80.png",
+      "master_vs_render_psnr_db": 43.051
+    },
+    {
+      "time_seconds": 13.2,
+      "exact_time_seconds": 13.2,
+      "frame": 793,
+      "render_png": "baselines/frames/render/t13p20.png",
+      "render_sha256": "27fb3a36170f6512198f55b2271154a414d04970cdb05b3767310f8700ba168e",
+      "master_png": "baselines/frames/master/t13p20.png",
+      "master_vs_render_psnr_db": 43.12
+    },
+    {
+      "time_seconds": 16.5,
+      "exact_time_seconds": 16.5,
+      "frame": 991,
+      "render_png": "baselines/frames/render/t16p50.png",
+      "render_sha256": "0916bcaf4322deaddf833c6a7adae773d52d6588b2a25146479f3fba6c3f7d60",
+      "master_png": "baselines/frames/master/t16p50.png",
+      "master_vs_render_psnr_db": 44.187
+    },
+    {
+      "time_seconds": 19.5,
+      "exact_time_seconds": 19.5,
+      "frame": 1171,
+      "render_png": "baselines/frames/render/t19p50.png",
+      "render_sha256": "d04c4a4120ee6f0398c6b13bbc5fd1b0d7fcbb928c620977f4a5532af5a81d3d",
+      "master_png": "baselines/frames/master/t19p50.png",
+      "master_vs_render_psnr_db": 38.699
+    },
+    {
+      "time_seconds": 21.3,
+      "exact_time_seconds": 21.3,
+      "frame": 1279,
+      "render_png": "baselines/frames/render/t21p30.png",
+      "render_sha256": "d04c4a4120ee6f0398c6b13bbc5fd1b0d7fcbb928c620977f4a5532af5a81d3d",
+      "master_png": "baselines/frames/master/t21p30.png",
+      "master_vs_render_psnr_db": 38.704
+    }
+  ],
+  "notes": [
+    "This file is the approved golden master. Never re-encode, overwrite, move or delete it.",
+    "The MP4 is not tracked in git (large binary); this sha256 is its identity.",
+    "To add audio, mux with -c:v copy so the video stream is bit-identical."
+  ]
+}

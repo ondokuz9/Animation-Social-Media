@@ -1,0 +1,217 @@
+{
+  "baseline": "evlek-reel-v7-master",
+  "checked_video": "out/evlek_reel_v7_1080x1920_60fps_silent_master.mp4",
+  "design": {
+    "source": "project",
+    "page": "Evlek Reel v7.dc.html"
+  },
+  "label": "source",
+  "psnr_tolerance_db": 1.5,
+  "psnr_floor_db": 30,
+  "worst_drift_db": 0,
+  "drift": [
+    {
+      "t": 0.5,
+      "delta": 0
+    },
+    {
+      "t": 1.4,
+      "delta": 0
+    },
+    {
+      "t": 2.7,
+      "delta": 0
+    },
+    {
+      "t": 4.5,
+      "delta": 0
+    },
+    {
+      "t": 7.2,
+      "delta": 0
+    },
+    {
+      "t": 9.3,
+      "delta": 0
+    },
+    {
+      "t": 10.8,
+      "delta": 0
+    },
+    {
+      "t": 13.2,
+      "delta": 0
+    },
+    {
+      "t": 16.5,
+      "delta": 0
+    },
+    {
+      "t": 19.5,
+      "delta": 0
+    },
+    {
+      "t": 21.3,
+      "delta": 0
+    }
+  ],
+  "pixels": [
+    {
+      "time_seconds": 0.5,
+      "frame": 31,
+      "byte_identical": true,
+      "psnr_vs_render_baseline_db": "identical",
+      "psnr_vs_master_db": 41.938,
+      "baseline_master_psnr_db": 41.938
+    },
+    {
+      "time_seconds": 1.4,
+      "frame": 85,
+      "byte_identical": true,
+      "psnr_vs_render_baseline_db": "identical",
+      "psnr_vs_master_db": 40.515,
+      "baseline_master_psnr_db": 40.515
+    },
+    {
+      "time_seconds": 2.7,
+      "frame": 163,
+      "byte_identical": true,
+      "psnr_vs_render_baseline_db": "identical",
+      "psnr_vs_master_db": 51.019,
+      "baseline_master_psnr_db": 51.019
+    },
+    {
+      "time_seconds": 4.5,
+      "frame": 271,
+      "byte_identical": true,
+      "psnr_vs_render_baseline_db": "identical",
+      "psnr_vs_master_db": 39.148,
+      "baseline_master_psnr_db": 39.148
+    },
+    {
+      "time_seconds": 7.2,
+      "frame": 433,
+      "byte_identical": true,
+      "psnr_vs_render_baseline_db": "identical",
+      "psnr_vs_master_db": 41.518,
+      "baseline_master_psnr_db": 41.518
+    },
+    {
+      "time_seconds": 9.3,
+      "frame": 559,
+      "byte_identical": true,
+      "psnr_vs_render_baseline_db": "identical",
+      "psnr_vs_master_db": 40.11,
+      "baseline_master_psnr_db": 40.11
+    },
+    {
+      "time_seconds": 10.8,
+      "frame": 649,
+      "byte_identical": true,
+      "psnr_vs_render_baseline_db": "identical",
+      "psnr_vs_master_db": 43.051,
+      "baseline_master_psnr_db": 43.051
+    },
+    {
+      "time_seconds": 13.2,
+      "frame": 793,
+      "byte_identical": true,
+      "psnr_vs_render_baseline_db": "identical",
+      "psnr_vs_master_db": 43.12,
+      "baseline_master_psnr_db": 43.12
+    },
+    {
+      "time_seconds": 16.5,
+      "frame": 991,
+      "byte_identical": true,
+      "psnr_vs_render_baseline_db": "identical",
+      "psnr_vs_master_db": 44.187,
+      "baseline_master_psnr_db": 44.187
+    },
+    {
+      "time_seconds": 19.5,
+      "frame": 1171,
+      "byte_identical": true,
+      "psnr_vs_render_baseline_db": "identical",
+      "psnr_vs_master_db": 38.699,
+      "baseline_master_psnr_db": 38.699
+    },
+    {
+      "time_seconds": 21.3,
+      "frame": 1279,
+      "byte_identical": true,
+      "psnr_vs_render_baseline_db": "identical",
+      "psnr_vs_master_db": 38.704,
+      "baseline_master_psnr_db": 38.704
+    }
+  ],
+  "checks": [
+    {
+      "name": "width",
+      "pass": true,
+      "detail": "1080"
+    },
+    {
+      "name": "height",
+      "pass": true,
+      "detail": "1920"
+    },
+    {
+      "name": "fps",
+      "pass": true,
+      "detail": "60"
+    },
+    {
+      "name": "total frames",
+      "pass": true,
+      "detail": "1293"
+    },
+    {
+      "name": "codec",
+      "pass": true,
+      "detail": "h264"
+    },
+    {
+      "name": "profile",
+      "pass": true,
+      "detail": "High"
+    },
+    {
+      "name": "pixel format",
+      "pass": true,
+      "detail": "yuv420p"
+    },
+    {
+      "name": "colour space",
+      "pass": true,
+      "detail": "bt709"
+    },
+    {
+      "name": "audio streams",
+      "pass": true,
+      "detail": "0"
+    },
+    {
+      "name": "duration",
+      "pass": true,
+      "detail": "21.55s (baseline 21.55s)"
+    },
+    {
+      "name": "sha256 matches the approved master",
+      "pass": true,
+      "detail": "3c22d5a3b6483127…"
+    },
+    {
+      "name": "every checkpoint renders byte-identically to the baseline",
+      "pass": true,
+      "detail": "11/11 identical"
+    },
+    {
+      "name": "every checkpoint stays within tolerance of the approved master",
+      "pass": true,
+      "detail": "worst drift 0.000 dB vs the recorded baseline PSNR (tolerance 1.5 dB)"
+    }
+  ],
+  "passed": true,
+  "checked_at": "2026-07-26T11:21:17.302Z"
+}

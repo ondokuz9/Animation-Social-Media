@@ -1,0 +1,44 @@
+{
+  "purpose": "Section K verification: the reusable template must render the approved reel unchanged.",
+  "checked_at": "2026-07-26T11:21:17.392159+00:00",
+  "golden_master": {
+    "file": "out/evlek_reel_v7_1080x1920_60fps_silent_master.mp4",
+    "sha256": "3c22d5a3b6483127e3ca871d915453c5a17f844be0776387d46381950603ff71",
+    "unchanged": true
+  },
+  "template_render": {
+    "template": "video-system/templates/brand-reel-v7",
+    "output": "out/evlek_brand-reel-v7_1080x1920_60fps_silent.mp4",
+    "sha256": "3c22d5a3b6483127e3ca871d915453c5a17f844be0776387d46381950603ff71",
+    "probe": {
+      "codec": "h264",
+      "profile": "High",
+      "level": 4.2,
+      "width": 1080,
+      "height": 1920,
+      "pixFmt": "yuv420p",
+      "fieldOrder": "progressive",
+      "colorSpace": "bt709",
+      "colorRange": "tv",
+      "frameRate": 60,
+      "nbFrames": 1293,
+      "durationSeconds": 21.55,
+      "audioStreams": 0,
+      "sizeBytes": 11353550
+    }
+  },
+  "results": {
+    "all_1293_frame_hashes_identical": true,
+    "frame_mismatches": 0,
+    "reference_manifest": "out/capture-manifest.json",
+    "encoded_file_bit_identical_to_golden_master": true,
+    "video_stream_md5": "aef47dc9dc194544093154322934422f (identical for both files)",
+    "baseline_checkpoints_byte_identical": "11/11 for both the original source and the template",
+    "baseline_check_passed": true
+  },
+  "notes": [
+    "The template MP4 hashes the same as the approved master: identical frames plus identical encode settings produce an identical file.",
+    "The approved master was not re-encoded, moved or overwritten at any point; its sha256 is unchanged.",
+    "Frame directories for both renders were removed after verification; they regenerate deterministically."
+  ]
+}

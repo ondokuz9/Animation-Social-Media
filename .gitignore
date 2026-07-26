@@ -7,10 +7,12 @@ node_modules/
 pw-browsers/
 
 # Render working directories: PNG frame sequences are regenerated
-# deterministically by `npm run render`, never committed.
+# deterministically by `npm run render`, never committed. Narrow on purpose —
+# baselines/frames/ holds the committed checkpoint snapshots and must stay
+# visible to git.
 out/frames/
 out/frames-*/
-**/frames/
+frames-*/
 render-temp/
 tmp/
 .tmp/

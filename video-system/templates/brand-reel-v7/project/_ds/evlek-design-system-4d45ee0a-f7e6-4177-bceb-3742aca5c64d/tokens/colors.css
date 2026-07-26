@@ -1,0 +1,41 @@
+:root{
+  /* ---- Base palette (STRICT: blue + cream only) ---- */
+  --evlek-cream:#F4F1EB;        /* primary background */
+  --evlek-cream-deep:#EDE9E0;   /* card wells / subtle fills on cream */
+  --evlek-navy:#14213D;         /* ink, walls, headlines */
+  --evlek-cobalt:#2F5CFF;       /* single accent: highlighted word, CTA, plan lines, wave */
+  --evlek-cobalt-press:#2247D6; /* pressed / hover-darken cobalt */
+  --evlek-blue-light:#B9D0FF;   /* eyebrows on dark photos, soft strokes */
+  --evlek-lavender:#D9DCEF;     /* wave under-layer, muted panels */
+  --evlek-white:#FFFFFF;        /* photo text, cards on cream */
+
+  /* ---- Navy tints (text hierarchy on cream) ---- */
+  --evlek-navy-80:rgba(20,33,61,0.80);
+  --evlek-navy-64:rgba(20,33,61,0.64);
+  --evlek-navy-48:rgba(20,33,61,0.48);
+  --evlek-navy-16:rgba(20,33,61,0.16);
+  --evlek-navy-08:rgba(20,33,61,0.08);
+
+  /* ---- Semantic aliases ---- */
+  --bg-page:var(--evlek-cream);
+  --bg-photo-ink:var(--evlek-navy);
+  --surface-card:var(--evlek-white);
+  --surface-well:var(--evlek-cream-deep);
+  --surface-dark:var(--evlek-navy);
+
+  --text-strong:var(--evlek-navy);
+  --text-body:var(--evlek-navy-80);
+  --text-muted:var(--evlek-navy-64);
+  --text-on-dark:var(--evlek-white);
+  --text-eyebrow:var(--evlek-cobalt);
+  --text-eyebrow-on-dark:var(--evlek-blue-light);
+
+  --accent:var(--evlek-cobalt);
+  --accent-press:var(--evlek-cobalt-press);
+  --accent-soft:var(--evlek-blue-light);
+
+  --border-hairline:var(--evlek-navy-16);
+  --border-soft:var(--evlek-navy-08);
+  --plan-wall:var(--evlek-navy);
+  --plan-detail:var(--evlek-cobalt);
+}

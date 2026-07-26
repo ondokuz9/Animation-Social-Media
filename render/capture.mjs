@@ -24,6 +24,10 @@ export async function captureFrames({
   framesDir = FRAMES_DIR,
   designPage = DESIGN_PAGE,
   projectDir = PROJECT_DIR,
+  // Where the per-frame hash manifest is written. Defaults to the V7 path, so
+  // `npm run render` behaves exactly as it did; a template render passes its own
+  // path instead of overwriting the approved capture's manifest.
+  manifestPath = path.join(OUT_DIR, 'capture-manifest.json'),
   fps = FPS,
 } = {}) {
   await fs.rm(framesDir, { recursive: true, force: true });
@@ -84,7 +88,8 @@ export async function captureFrames({
     imagesDecoded: stage.imageCount,
     frameHashes: hashes,
   };
-  await fs.writeFile(path.join(OUT_DIR, 'capture-manifest.json'), JSON.stringify(manifest, null, 2));
+  await fs.mkdir(path.dirname(manifestPath), { recursive: true });
+  await fs.writeFile(manifestPath, JSON.stringify(manifest, null, 2));
   console.log(`[capture] wrote ${frameCount} PNGs in ${manifest.captureSeconds}s`);
   return manifest;
 }

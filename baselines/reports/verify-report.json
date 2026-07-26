@@ -1,0 +1,619 @@
+{
+  "probe": {
+    "file": "evlek_reel_v7_1080x1920_60fps_silent_master.mp4",
+    "codec": "h264",
+    "profile": "High",
+    "level": 4.2,
+    "width": 1080,
+    "height": 1920,
+    "pixFmt": "yuv420p",
+    "fieldOrder": "progressive",
+    "colorSpace": "bt709",
+    "colorPrimaries": "bt709",
+    "colorTransfer": "bt709",
+    "colorRange": "tv",
+    "frameRate": 60,
+    "avgFrameRate": "60/1",
+    "nbFrames": 1293,
+    "durationSeconds": 21.55,
+    "bitRateKbps": 4215,
+    "sizeBytes": 11353550,
+    "audioStreams": 0,
+    "formatName": "mov,mp4,m4a,3gp,3g2,mj2"
+  },
+  "frames": {
+    "decoded": 1293,
+    "uniqueDecoded": 1090,
+    "uniquePercent": 84.3,
+    "capturedPng": 1293,
+    "uniquePng": 804,
+    "distinctDesignStates": 825,
+    "designHoldFrames": 473,
+    "subPixelFrames": [
+      {
+        "frame": 224,
+        "t": 3.717
+      },
+      {
+        "frame": 237,
+        "t": 3.933
+      },
+      {
+        "frame": 342,
+        "t": 5.683
+      },
+      {
+        "frame": 645,
+        "t": 10.733
+      },
+      {
+        "frame": 747,
+        "t": 12.433
+      },
+      {
+        "frame": 748,
+        "t": 12.45
+      },
+      {
+        "frame": 940,
+        "t": 15.65
+      },
+      {
+        "frame": 1005,
+        "t": 16.733
+      },
+      {
+        "frame": 1175,
+        "t": 19.567
+      },
+      {
+        "frame": 1176,
+        "t": 19.583
+      },
+      {
+        "frame": 1177,
+        "t": 19.6
+      },
+      {
+        "frame": 1199,
+        "t": 19.967
+      },
+      {
+        "frame": 1200,
+        "t": 19.983
+      },
+      {
+        "frame": 1201,
+        "t": 20
+      },
+      {
+        "frame": 1202,
+        "t": 20.017
+      }
+    ],
+    "serialisationTies": [
+      {
+        "frame": 343,
+        "t": 5.7
+      }
+    ],
+    "encoderCollapsedFrames": [],
+    "duplicateRunsDecoded": [
+      {
+        "fromFrame": 309,
+        "toFrame": 310,
+        "length": 2,
+        "fromTime": 5.133,
+        "toTime": 5.15
+      },
+      {
+        "fromFrame": 354,
+        "toFrame": 356,
+        "length": 3,
+        "fromTime": 5.883,
+        "toTime": 5.917
+      },
+      {
+        "fromFrame": 358,
+        "toFrame": 360,
+        "length": 3,
+        "fromTime": 5.95,
+        "toTime": 5.983
+      },
+      {
+        "fromFrame": 363,
+        "toFrame": 364,
+        "length": 2,
+        "fromTime": 6.033,
+        "toTime": 6.05
+      },
+      {
+        "fromFrame": 366,
+        "toFrame": 368,
+        "length": 3,
+        "fromTime": 6.083,
+        "toTime": 6.117
+      },
+      {
+        "fromFrame": 369,
+        "toFrame": 370,
+        "length": 2,
+        "fromTime": 6.133,
+        "toTime": 6.15
+      },
+      {
+        "fromFrame": 376,
+        "toFrame": 378,
+        "length": 3,
+        "fromTime": 6.25,
+        "toTime": 6.283
+      },
+      {
+        "fromFrame": 380,
+        "toFrame": 382,
+        "length": 3,
+        "fromTime": 6.317,
+        "toTime": 6.35
+      },
+      {
+        "fromFrame": 385,
+        "toFrame": 386,
+        "length": 2,
+        "fromTime": 6.4,
+        "toTime": 6.417
+      },
+      {
+        "fromFrame": 519,
+        "toFrame": 520,
+        "length": 2,
+        "fromTime": 8.633,
+        "toTime": 8.65
+      },
+      {
+        "fromFrame": 620,
+        "toFrame": 622,
+        "length": 3,
+        "fromTime": 10.317,
+        "toTime": 10.35
+      },
+      {
+        "fromFrame": 624,
+        "toFrame": 626,
+        "length": 3,
+        "fromTime": 10.383,
+        "toTime": 10.417
+      },
+      {
+        "fromFrame": 628,
+        "toFrame": 630,
+        "length": 3,
+        "fromTime": 10.45,
+        "toTime": 10.483
+      },
+      {
+        "fromFrame": 758,
+        "toFrame": 760,
+        "length": 3,
+        "fromTime": 12.617,
+        "toTime": 12.65
+      },
+      {
+        "fromFrame": 782,
+        "toFrame": 784,
+        "length": 3,
+        "fromTime": 13.017,
+        "toTime": 13.05
+      },
+      {
+        "fromFrame": 786,
+        "toFrame": 788,
+        "length": 3,
+        "fromTime": 13.083,
+        "toTime": 13.117
+      },
+      {
+        "fromFrame": 789,
+        "toFrame": 790,
+        "length": 2,
+        "fromTime": 13.133,
+        "toTime": 13.15
+      },
+      {
+        "fromFrame": 800,
+        "toFrame": 801,
+        "length": 2,
+        "fromTime": 13.317,
+        "toTime": 13.333
+      },
+      {
+        "fromFrame": 812,
+        "toFrame": 813,
+        "length": 2,
+        "fromTime": 13.517,
+        "toTime": 13.533
+      },
+      {
+        "fromFrame": 816,
+        "toFrame": 818,
+        "length": 3,
+        "fromTime": 13.583,
+        "toTime": 13.617
+      },
+      {
+        "fromFrame": 819,
+        "toFrame": 820,
+        "length": 2,
+        "fromTime": 13.633,
+        "toTime": 13.65
+      },
+      {
+        "fromFrame": 853,
+        "toFrame": 856,
+        "length": 4,
+        "fromTime": 14.2,
+        "toTime": 14.25
+      },
+      {
+        "fromFrame": 1029,
+        "toFrame": 1030,
+        "length": 2,
+        "fromTime": 17.133,
+        "toTime": 17.15
+      },
+      {
+        "fromFrame": 1059,
+        "toFrame": 1060,
+        "length": 2,
+        "fromTime": 17.633,
+        "toTime": 17.65
+      },
+      {
+        "fromFrame": 1156,
+        "toFrame": 1158,
+        "length": 3,
+        "fromTime": 19.25,
+        "toTime": 19.283
+      },
+      {
+        "fromFrame": 1160,
+        "toFrame": 1162,
+        "length": 3,
+        "fromTime": 19.317,
+        "toTime": 19.35
+      },
+      {
+        "fromFrame": 1164,
+        "toFrame": 1166,
+        "length": 3,
+        "fromTime": 19.383,
+        "toTime": 19.417
+      },
+      {
+        "fromFrame": 1168,
+        "toFrame": 1170,
+        "length": 3,
+        "fromTime": 19.45,
+        "toTime": 19.483
+      },
+      {
+        "fromFrame": 1172,
+        "toFrame": 1174,
+        "length": 3,
+        "fromTime": 19.517,
+        "toTime": 19.55
+      },
+      {
+        "fromFrame": 1209,
+        "toFrame": 1210,
+        "length": 2,
+        "fromTime": 20.133,
+        "toTime": 20.15
+      },
+      {
+        "fromFrame": 1216,
+        "toFrame": 1218,
+        "length": 3,
+        "fromTime": 20.25,
+        "toTime": 20.283
+      },
+      {
+        "fromFrame": 1220,
+        "toFrame": 1222,
+        "length": 3,
+        "fromTime": 20.317,
+        "toTime": 20.35
+      },
+      {
+        "fromFrame": 1224,
+        "toFrame": 1226,
+        "length": 3,
+        "fromTime": 20.383,
+        "toTime": 20.417
+      },
+      {
+        "fromFrame": 1228,
+        "toFrame": 1230,
+        "length": 3,
+        "fromTime": 20.45,
+        "toTime": 20.483
+      },
+      {
+        "fromFrame": 1232,
+        "toFrame": 1234,
+        "length": 3,
+        "fromTime": 20.517,
+        "toTime": 20.55
+      },
+      {
+        "fromFrame": 1236,
+        "toFrame": 1238,
+        "length": 3,
+        "fromTime": 20.583,
+        "toTime": 20.617
+      },
+      {
+        "fromFrame": 1239,
+        "toFrame": 1240,
+        "length": 2,
+        "fromTime": 20.633,
+        "toTime": 20.65
+      },
+      {
+        "fromFrame": 1246,
+        "toFrame": 1248,
+        "length": 3,
+        "fromTime": 20.75,
+        "toTime": 20.783
+      },
+      {
+        "fromFrame": 1250,
+        "toFrame": 1252,
+        "length": 3,
+        "fromTime": 20.817,
+        "toTime": 20.85
+      },
+      {
+        "fromFrame": 1254,
+        "toFrame": 1256,
+        "length": 3,
+        "fromTime": 20.883,
+        "toTime": 20.917
+      },
+      {
+        "fromFrame": 1258,
+        "toFrame": 1260,
+        "length": 3,
+        "fromTime": 20.95,
+        "toTime": 20.983
+      },
+      {
+        "fromFrame": 1262,
+        "toFrame": 1264,
+        "length": 3,
+        "fromTime": 21.017,
+        "toTime": 21.05
+      },
+      {
+        "fromFrame": 1266,
+        "toFrame": 1268,
+        "length": 3,
+        "fromTime": 21.083,
+        "toTime": 21.117
+      },
+      {
+        "fromFrame": 1269,
+        "toFrame": 1270,
+        "length": 2,
+        "fromTime": 21.133,
+        "toTime": 21.15
+      }
+    ],
+    "duplicateRunsPng": [
+      {
+        "fromFrame": 223,
+        "toFrame": 224,
+        "length": 2,
+        "fromTime": 3.7,
+        "toTime": 3.717
+      },
+      {
+        "fromFrame": 236,
+        "toFrame": 237,
+        "length": 2,
+        "fromTime": 3.917,
+        "toTime": 3.933
+      },
+      {
+        "fromFrame": 296,
+        "toFrame": 328,
+        "length": 33,
+        "fromTime": 4.917,
+        "toTime": 5.45
+      },
+      {
+        "fromFrame": 341,
+        "toFrame": 342,
+        "length": 2,
+        "fromTime": 5.667,
+        "toTime": 5.683
+      },
+      {
+        "fromFrame": 343,
+        "toFrame": 387,
+        "length": 45,
+        "fromTime": 5.7,
+        "toTime": 6.433
+      },
+      {
+        "fromFrame": 453,
+        "toFrame": 478,
+        "length": 26,
+        "fromTime": 7.533,
+        "toTime": 7.95
+      },
+      {
+        "fromFrame": 490,
+        "toFrame": 526,
+        "length": 37,
+        "fromTime": 8.15,
+        "toTime": 8.75
+      },
+      {
+        "fromFrame": 606,
+        "toFrame": 631,
+        "length": 26,
+        "fromTime": 10.083,
+        "toTime": 10.5
+      },
+      {
+        "fromFrame": 644,
+        "toFrame": 646,
+        "length": 3,
+        "fromTime": 10.717,
+        "toTime": 10.75
+      },
+      {
+        "fromFrame": 746,
+        "toFrame": 825,
+        "length": 80,
+        "fromTime": 12.417,
+        "toTime": 13.733
+      },
+      {
+        "fromFrame": 853,
+        "toFrame": 856,
+        "length": 4,
+        "fromTime": 14.2,
+        "toTime": 14.25
+      },
+      {
+        "fromFrame": 926,
+        "toFrame": 940,
+        "length": 15,
+        "fromTime": 15.417,
+        "toTime": 15.65
+      },
+      {
+        "fromFrame": 961,
+        "toFrame": 988,
+        "length": 28,
+        "fromTime": 16,
+        "toTime": 16.45
+      },
+      {
+        "fromFrame": 1004,
+        "toFrame": 1083,
+        "length": 80,
+        "fromTime": 16.717,
+        "toTime": 18.033
+      },
+      {
+        "fromFrame": 1153,
+        "toFrame": 1177,
+        "length": 25,
+        "fromTime": 19.2,
+        "toTime": 19.6
+      },
+      {
+        "fromFrame": 1198,
+        "toFrame": 1293,
+        "length": 96,
+        "fromTime": 19.95,
+        "toTime": 21.533
+      }
+    ]
+  },
+  "checks": [
+    {
+      "name": "resolution 1080x1920",
+      "pass": true,
+      "detail": "1080x1920"
+    },
+    {
+      "name": "codec h264",
+      "pass": true,
+      "detail": "h264"
+    },
+    {
+      "name": "profile High",
+      "pass": true,
+      "detail": "High"
+    },
+    {
+      "name": "pixel format yuv420p",
+      "pass": true,
+      "detail": "yuv420p"
+    },
+    {
+      "name": "progressive",
+      "pass": true,
+      "detail": "progressive"
+    },
+    {
+      "name": "BT.709 colour tags",
+      "pass": true,
+      "detail": "bt709/bt709/bt709 range=tv"
+    },
+    {
+      "name": "frame rate 60",
+      "pass": true,
+      "detail": "60"
+    },
+    {
+      "name": "silent (no audio stream)",
+      "pass": true,
+      "detail": "0 audio streams"
+    },
+    {
+      "name": "faststart (moov before mdat)",
+      "pass": true,
+      "detail": "moov position"
+    },
+    {
+      "name": "frame count matches design",
+      "pass": true,
+      "detail": "1293 decoded vs 1293 captured"
+    },
+    {
+      "name": "duration matches design",
+      "pass": true,
+      "detail": "21.55s vs design 21.55s"
+    },
+    {
+      "name": "maxrate respected (<=16 Mbps avg)",
+      "pass": true,
+      "detail": "4215 kbps avg"
+    },
+    {
+      "name": "design-state audit present",
+      "pass": true,
+      "detail": "825 distinct design states over 1293 frames"
+    },
+    {
+      "name": "render reproduces byte-for-byte on a second pass",
+      "pass": true,
+      "detail": "1293/1293 frames byte-identical"
+    },
+    {
+      "name": "every repeat is explained by the design, not by the capture",
+      "pass": true,
+      "detail": "488 repeats = 473 design holds + 15 sub-pixel moves"
+    },
+    {
+      "name": "60 fps buys real motion (sub-pixel repeats stay rare)",
+      "pass": true,
+      "detail": "15/1293 frames moved by less than one pixel"
+    },
+    {
+      "name": "no frame interpolation or blending",
+      "pass": true,
+      "detail": "PNG sequence encoded 1:1, no filter beyond colour conversion"
+    },
+    {
+      "name": "encoder introduced no duplicates",
+      "pass": true,
+      "detail": "1090 distinct decoded frames from 804 distinct source frames"
+    }
+  ],
+  "passed": true
+}
