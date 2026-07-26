@@ -1,0 +1,40 @@
+{
+  "label": "brand-reel-v7",
+  "template": "video-system/templates/brand-reel-v7",
+  "page": "Evlek Reel v7.dc.html",
+  "output": "out/evlek_brand-reel-v7_1080x1920_60fps_silent.mp4",
+  "probe": {
+    "file": "evlek_brand-reel-v7_1080x1920_60fps_silent.mp4",
+    "codec": "h264",
+    "profile": "High",
+    "level": 4.2,
+    "width": 1080,
+    "height": 1920,
+    "pixFmt": "yuv420p",
+    "fieldOrder": "progressive",
+    "colorSpace": "bt709",
+    "colorPrimaries": "bt709",
+    "colorTransfer": "bt709",
+    "colorRange": "tv",
+    "frameRate": 60,
+    "avgFrameRate": "60/1",
+    "nbFrames": 1293,
+    "durationSeconds": 21.55,
+    "bitRateKbps": 4215,
+    "sizeBytes": 11353550,
+    "audioStreams": 0,
+    "formatName": "mov,mp4,m4a,3gp,3g2,mj2"
+  },
+  "comparison": {
+    "reference": "out/capture-manifest.json",
+    "frames": 1293,
+    "mismatches": [],
+    "identical": true
+  },
+  "baseline_check": {
+    "id": "evlek-reel-v7-master",
+    "passed": true
+  },
+  "frames_kept": null,
+  "rendered_at": "2026-07-26T11:19:38.930Z"
+}

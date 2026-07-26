@@ -1,0 +1,104 @@
+{
+  "_readme": [
+    "An asset registry: what each file is, where it came from, and whether it is",
+    "cleared for publication. content.json points at filenames; this file records",
+    "what those files are. Keep them in step.",
+    "Approved assets are append-only: a new or reprocessed image gets a new",
+    "filename and a new entry. Never overwrite a file that has already shipped."
+  ],
+
+  "project_id": "evlek-brand-reel-v7",
+
+  "assets": [
+    {
+      "id": "hook_image",
+      "file": "img/hook-girne-liman.jpg",
+      "role": "Scene 1 hook — Girne harbour and castle from a terrace",
+      "source": "uploads/01_girne_harbor_hook.jpg",
+      "generated": true,
+      "approved": true,
+      "notes": "Must read as Girne. Do not substitute generic coastline or Karpaz beach imagery."
+    },
+    {
+      "id": "living_room_image",
+      "file": "img/niyet-salon.jpg",
+      "role": "Scene 1 intent layer — Mediterranean living room",
+      "source": "uploads/02_mediterranean_livingroom.jpg",
+      "generated": true,
+      "approved": true,
+      "notes": "Intent layer only. Never presented as the £165.000 listing."
+    },
+    {
+      "id": "listing_main_image",
+      "file": "img/room-01-akdeniz.jpg",
+      "role": "Scenes 3–4 main listing card and detail hero; Scene 5 staged room",
+      "source": "project asset set",
+      "generated": true,
+      "approved": true,
+      "notes": "Also the staging_after image — same room as room-00-bos.jpg."
+    },
+    {
+      "id": "listing_stack[0]",
+      "file": "img/peek-balkon.jpg",
+      "role": "Scene 3 stack, deepest card",
+      "source": "uploads/03_coastal_balcony_peek.jpg",
+      "generated": true,
+      "approved": true,
+      "notes": "Only the card edge is visible; not read as a listing."
+    },
+    {
+      "id": "listing_stack[1]",
+      "file": "img/kiyi.jpg",
+      "role": "Scene 3 stack, middle card",
+      "source": "project asset set",
+      "generated": true,
+      "approved": true,
+      "notes": ""
+    },
+    {
+      "id": "listing_stack[2]",
+      "file": "img/room-02-minimal.jpg",
+      "role": "Scene 3 stack, front card",
+      "source": "project asset set",
+      "generated": true,
+      "approved": true,
+      "notes": ""
+    },
+    {
+      "id": "staging_before",
+      "file": "img/room-00-bos.jpg",
+      "role": "Scene 5 empty room, the 'before' side of the slider",
+      "source": "uploads/Empty_Mediterranean_apartment_li..._202607252248.jpeg",
+      "generated": true,
+      "approved": true,
+      "notes": "Geometry, camera, windows and floor must match room-01-akdeniz.jpg exactly."
+    },
+    {
+      "id": "wordmark",
+      "file": "img/wordmark.png",
+      "role": "Closing lockup",
+      "source": "Evlek wordmark",
+      "generated": false,
+      "approved": true,
+      "notes": "Rendered with filter: invert(1) on the navy closing card, i.e. the white variant."
+    }
+  ],
+
+  "unused_in_this_reel": [
+    {
+      "file": "img/room-03-dogal.jpg",
+      "reason": "part of the source set; not referenced by the final V7 cut"
+    },
+    {
+      "file": "uploads/OPTIONAL_staging_alt_warm.jpg",
+      "reason": "style reference only — explicitly excluded from the final video"
+    }
+  ],
+
+  "rules": [
+    "Disclosure is mandatory on AI-visualised interiors: the Scene 5 pill reads 'AI ile görselleştirildi · Temsilî'.",
+    "Never present a generated interior as a specific real listing's photograph.",
+    "Do not alter a room's geometry, window proportions, camera angle, ceiling height or door openings between a before/after pair.",
+    "No asset with unclear licensing enters assets/approved/."
+  ]
+}

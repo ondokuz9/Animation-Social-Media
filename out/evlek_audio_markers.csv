@@ -1,0 +1,18 @@
+id,cue,time_seconds,frame,end_seconds,duration_seconds,scene,scene_local_seconds,category,label,suggested_sound,intensity,suggested_gain_db,scene_as_intended,notes
+intro-swell-01,intro-swell,0,1,1.2,1.2,Kanca,0,music,Intro swell,music_intro_swell,medium,-6,true,Opening bed under the Girne harbour push-in.
+match-cut-whoosh-01,match-cut-whoosh,1,61,1.35,0.35,Kanca,1,transitions,Match cut whoosh,card_morph,medium,-9,true,Directional cut from harbour to living room; keep the movement left-to-right.
+morph-soft-01,morph-soft,2.1,127,2.5,0.4,Arama,0,transitions,Morph soft,card_morph,low,-12,true,Living room resolves into the search field.
+chip-tick-01,chip-tick,2.95,178,3.05,0.1,Arama,0.85,ui,Chip tick,query_parse_tick,low,-15,true,One criterion chip confirms. Five chips stagger; vary pitch slightly per hit.
+price-tick-01,price-tick,3,181,3.12,0.12,Arama,0.9,ui,Price tick,query_parse_tick,low,-14,true,"The ""≤ £180K"" clause lands in the query."
+chip-tick-02,chip-tick,3.14,189,3.24,0.1,Arama,1.04,ui,Chip tick,query_parse_tick,low,-15,true,One criterion chip confirms. Five chips stagger; vary pitch slightly per hit.
+chip-tick-03,chip-tick,3.32,200,3.42,0.1,Arama,1.22,ui,Chip tick,query_parse_tick,low,-15,true,One criterion chip confirms. Five chips stagger; vary pitch slightly per hit.
+chip-tick-04,chip-tick,3.51,212,3.61,0.1,Arama,1.41,ui,Chip tick,query_parse_tick,low,-15,true,One criterion chip confirms. Five chips stagger; vary pitch slightly per hit.
+search-click-01,search-click,3.72,224,3.87,0.15,Arama,1.62,ui,Search click,search_click,high,-8,true,Cursor presses Ara (button scales 1.00 → 0.96 → 1.00).
+result-confirm-01,result-confirm,4.15,250,4.65,0.5,Sonuçlar,0.2,ui,Result confirm,result_confirmation,medium,-9,true,"Main listing card settles, stack rises behind it."
+verification-confirm-01,verification-confirm,8.85,532,9.15,0.3,Okuma,2.4,data,Verification confirm,verification_tick,medium,-11,true,"Verified-lister check mark. Confirm against the draw, which completes early in the scene."
+chart-tonal-rise-01,chart-tonal-rise,10.2,613,10.8,0.6,Sanal Düzenleme,0.45,data,Chart tonal rise,chart_draw,medium,-12,false,12-month price line drawing left to right.
+staging-swipe-01,staging-swipe,10.75,646,11.95,1.2,Sanal Düzenleme,1,staging,Staging swipe,staging_swipe,medium,-10,true,"Divider travels 110 → 970 px over 1.2 s; a moving sound, not a one-shot."
+staging-snap-01,staging-snap,11.95,718,12.3,0.35,Sanal Düzenleme,2.2,staging,Staging snap,staging_complete,high,-8,true,Snap to final position with the gold confirmation ring.
+index-countup-01,index-countup,14.85,892,15.45,0.6,Piyasa,1.1,data,Index countup,data_count,medium,-12,true,"KKTC index value counting up to 142,8."
+data-tick-01,data-tick,16.45,988,16.7,0.25,Piyasa,2.7,data,Data tick,data_count,low,-13,true,Gross yield figure emphasised.
+sonic-logo-01,sonic-logo,18.7,1123,20.2,1.5,Kapanış,0.65,brand,Sonic logo,sonic_logo,high,-5,true,Wordmark settle. Let the tail ring into the held CTA.

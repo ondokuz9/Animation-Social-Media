@@ -1,0 +1,78 @@
+# Template: brand-reel-v7
+
+The approved Evlek brand reel, made reusable. 1080×1920 · 60 fps · 21.55 s ·
+1293 frames · 7 scenes. Rendering this template unmodified reproduces the
+approved master frame for frame — that is asserted, not assumed (see below).
+
+```
+brand-reel-v7/
+  project/                    the design, byte-identical to the repo's project/
+    Evlek Reel v7.dc.html     scene list, audio markers, inlined content manifest
+    evlek-reel-v7.jsx         the seven scenes; reads content through CP/LI/AS
+    animations-v2.jsx         Stage / SceneStage / useScene — the timeline engine
+    tweaks-panel.jsx          authoring panel (hidden during capture)
+    support.js                Claude Design runtime (x-dc / x-import)
+    evlek.css                 brand tokens + base64 Hanken, Fraunces, JetBrains Mono
+    img/                      the reel's photography and wordmark
+    _ds/                      the Evlek design system bundle
+  content.json                the active content manifest
+  content.example.json        the annotated schema
+  assets.example.json         asset registry: provenance and approvals
+  apply-content.mjs           inlines content.json into the design page
+```
+
+## How content reaches the design
+
+`evlek-reel-v7.jsx` never contains a string you would want to change per reel.
+It reads through three accessors, each falling back to the approved V7 value:
+
+```js
+CP('results', 'Evlek bulur.')          // content.copy.results
+LI('price', '£165.000')                // content.listing.price
+AS('hook_image', 'img/hook-...jpg')    // content.assets.hook_image
+```
+
+`apply-content.mjs` writes `content.json` into the page's `<helmet>` as
+`window.EVLEK_CONTENT`, next to the existing `OM_SCENES` and `OM_AUDIO_MARKERS`
+declarations. It is inlined rather than fetched on purpose: the reel must stay a
+pure function of `t`, and a runtime fetch would make the first frames depend on
+when a response arrived. `npm run render:template` runs it before capturing, so
+the page can never drift from the manifest.
+
+A missing manifest is not an error — every accessor falls back, so the approved
+reel still renders.
+
+## Two things the manifest does not control
+
+**Scene durations and order** live in `window.OM_SCENES` in the design page. The
+renderer reads the total from the Stage, never from a constant, so editing that
+list is how you change timing — and it changes the frame count, which invalidates
+the baseline. It needs explicit approval and a new baseline.
+
+**Layout and motion** — card sizes, positions, easing, the slider curve, the
+morphs — are in the JSX. A new reel with different framing is a design change,
+not a content change. Ask first.
+
+## Text nodes are load-bearing
+
+Two fields that read as one line on screen are built as a single interpolated
+string:
+
+```js
+{`${LI('location', 'Girne · Zeytinlik')} · ${LI('type', '2+1')}`}
+```
+
+not as `{LI('location')} · {LI('type')}`. Splitting one text node into three
+changes how the line is shaped: it moved 48 pixels by up to 39 levels in the
+detail scene and broke byte-identity against the baseline. If you add a field to
+an existing line, keep the line one string.
+
+## Verification behind this template
+
+* Eleven baseline checkpoints (0.50 … 21.30 s) render **byte-identically** to the
+  approved baseline snapshots — `npm run baseline:check`.
+* A full 1293-frame capture of this template matches the approved capture's
+  per-frame hashes — `npm run render:template -- --template … --compare out/capture-manifest.json`.
+
+Re-run both after any change here. If either reports a difference, the template
+no longer reproduces the approved reel: stop and report it.

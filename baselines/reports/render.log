@@ -1,0 +1,151 @@
+=== 1/6 capture ======================================
+[capture] serving /home/claude/repo/project at http://127.0.0.1:35839
+  loading http://127.0.0.1:35839/Evlek%20Reel%20v7.dc.html
+  decoded 9 images
+  fonts ready (8 faces: Fraunces 700 normal:unloaded, Hanken Grotesk 800 normal:loaded, Hanken Grotesk 400 italic:unloaded, JetBrains Mono 500 normal:loaded, Fraunces 700 normal:unloaded, Hanken Grotesk 800 normal:loaded, Hanken Grotesk 400 italic:unloaded, JetBrains Mono 500 normal:loaded)
+  warm pass done (217 seeks)
+[capture] duration 21.55s from design -> 1293 frames @ 60fps
+[capture] viewport 1080x1920 @ dsf 1
+[capture] 1/1293 (t=0.000s) 1.3 fps · eta 965s
+[capture] 61/1293 (t=1.000s) 1.4 fps · eta 856s
+[capture] 121/1293 (t=2.000s) 1.4 fps · eta 811s
+[capture] 181/1293 (t=3.000s) 1.9 fps · eta 600s
+[capture] 241/1293 (t=4.000s) 2.3 fps · eta 449s
+[capture] 301/1293 (t=5.000s) 2.6 fps · eta 388s
+[capture] 361/1293 (t=6.000s) 2.7 fps · eta 346s
+[capture] 421/1293 (t=7.000s) 2.8 fps · eta 311s
+[capture] 481/1293 (t=8.000s) 2.9 fps · eta 282s
+[capture] 541/1293 (t=9.000s) 3.0 fps · eta 255s
+[capture] 601/1293 (t=10.000s) 2.9 fps · eta 238s
+[capture] 661/1293 (t=11.000s) 2.6 fps · eta 240s
+[capture] 721/1293 (t=12.000s) 2.4 fps · eta 235s
+[capture] 781/1293 (t=13.000s) 2.3 fps · eta 225s
+[capture] 841/1293 (t=14.000s) 2.2 fps · eta 206s
+[capture] 901/1293 (t=15.000s) 2.3 fps · eta 169s
+[capture] 961/1293 (t=16.000s) 2.4 fps · eta 136s
+[capture] 1021/1293 (t=17.000s) 2.6 fps · eta 107s
+[capture] 1081/1293 (t=18.000s) 2.7 fps · eta 80s
+[capture] 1141/1293 (t=19.000s) 2.8 fps · eta 55s
+[capture] 1201/1293 (t=20.000s) 2.9 fps · eta 32s
+[capture] 1261/1293 (t=21.000s) 3.0 fps · eta 11s
+[capture] 1293/1293 (t=21.533s) 3.1 fps · eta 0s
+[capture] wrote 1293 PNGs in 424s
+=== 2/6 encode =======================================
+[encode] ffmpeg -hide_banner -y -framerate 60 -i /home/claude/repo/out/frames/frame_%06d.png -vf scale=1080:1920:in_range=full:out_range=tv:in_color_matrix=bt709:out_color_matrix=bt709,format=yuv420p -c:v libx264 -preset slow -crf 17 -profile:v high -level:v 4.2 -pix_fmt yuv420p -maxrate 16M -bufsize 24M -g 30 -x264-params interlaced=0 -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv -movflags +faststart -an -r 60 /home/claude/repo/out/evlek_reel_v7_1080x1920_60fps_silent_master.mp4
+  frame=    0 fps=0.0 q=0.0 size=       0KiB time=N/A bitrate=N/A speed=N/A  frame=    0 fps=0.0 q=0.0 size=       0KiB time=N/A bitrate=N/A speed=N/A  frame=    0 fps=0.0 q=0.0 size=       0KiB time=N/A bitrate=N/A speed=N/A  frame=    0 fps=0.0 q=0.0 size=       0KiB time=N/A bitrate=N/A speed=N/A  frame=    5 fps=2.0 q=25.0 size=       0KiB time=00:00:00.06 bitrate=   5.8kbits/s speed=0.0265x  frame=   14 fps=4.6 q=25.0 size=     256KiB time=00:00:00.20 bitrate=10487.7kbits/s speed=0.0664x  frame=   24 fps=6.8 q=25.0 size=     256KiB time=00:00:00.36 bitrate=5720.5kbits/s speed=0.104x  frame=   30 fps=7.5 q=25.0 size=     256KiB time=00:00:00.46 bitrate=4494.7kbits/s speed=0.116x  frame=   43 fps=9.5 q=25.0 size=     768KiB time=00:00:00.68 bitrate=9207.6kbits/s speed=0.151x  frame=   54 fps= 11 q=25.0 size=     768KiB time=00:00:00.86 bitrate=7259.8kbits/s speed=0.173x  frame=   60 fps= 11 q=25.0 size=     768KiB time=00:00:00.96 bitrate=6508.8kbits/s speed=0.175x  frame=   69 fps= 11 q=25.0 size=    1280KiB time=00:00:01.11 bitrate=9390.6kbits/s speed=0.186x  frame=   81 fps= 12 q=25.0 size=    1536KiB time=00:00:01.31 bitrate=9556.9kbits/s speed=0.202x  frame=   90 fps= 13 q=25.0 size=    1536KiB time=00:00:01.46 bitrate=8579.5kbits/s speed=0.209x  frame=  100 fps= 13 q=25.0 size=    2048KiB time=00:00:01.63 bitrate=10272.0kbits/s speed=0.217x  frame=  115 fps= 14 q=25.0 size=    2048KiB time=00:00:01.88 bitrate=8908.5kbits/s speed=0.235x  frame=  125 fps= 15 q=25.0 size=    2560KiB time=00:00:02.05 bitrate=10230.2kbits/s speed=0.241x  frame=  136 fps= 15 q=25.0 size=    2816KiB time=00:00:02.23 bitrate=10329.4kbits/s speed=0.247x  frame=  161 fps= 17 q=25.0 size=    2816KiB time=00:00:02.65 bitrate=8705.3kbits/s speed=0.278x  frame=  199 fps= 20 q=25.0 size=    3072KiB time=00:00:03.28 bitrate=7664.8kbits/s speed=0.327x  frame=  237 fps= 23 q=25.0 size=    3072KiB time=00:00:03.91 bitrate=6425.4kbits/s speed=0.372x  frame=  257 fps= 23 q=25.0 size=    3072KiB time=00:00:04.25 bitrate=5921.5kbits/s speed=0.385x  frame=  271 fps= 23 q=25.0 size=    3328KiB time=00:00:04.48 bitrate=6081.0kbits/s speed=0.389x  frame=  285 fps= 24 q=25.0 size=    3840KiB time=00:00:04.71 bitrate=6669.5kbits/s speed=0.392x  frame=  310 fps= 25 q=25.0 size=    3840KiB time=00:00:05.13 bitrate=6128.1kbits/s speed=0.409x  frame=  338 fps= 26 q=25.0 size=    4096KiB time=00:00:05.60 bitrate=5991.9kbits/s speed=0.43x  frame=  370 fps= 27 q=25.0 size=    4352KiB time=00:00:06.13 bitrate=5812.8kbits/s speed=0.453x  frame=  388 fps= 28 q=25.0 size=    4608KiB time=00:00:06.43 bitrate=5867.7kbits/s speed=0.458x  frame=  407 fps= 28 q=25.0 size=    4864KiB time=00:00:06.75 bitrate=5903.2kbits/s speed=0.464x  frame=  430 fps= 29 q=25.0 size=    5120KiB time=00:00:07.13 bitrate=5879.9kbits/s speed=0.474x  frame=  460 fps= 30 q=25.0 size=    5120KiB time=00:00:07.63 bitrate=5494.8kbits/s speed=0.491x  frame=  490 fps= 31 q=25.0 size=    5376KiB time=00:00:08.13 bitrate=5414.8kbits/s speed=0.507x  frame=  520 fps= 31 q=25.0 size=    5632KiB time=00:00:08.63 bitrate=5344.1kbits/s speed=0.522x  frame=  545 fps= 32 q=25.0 size=    5632KiB time=00:00:09.05 bitrate=5098.1kbits/s speed=0.531x  frame=  568 fps= 32 q=25.0 size=    5888KiB time=00:00:09.43 bitrate=5113.2kbits/s speed=0.538x  frame=  587 fps= 33 q=25.0 size=    6144KiB time=00:00:09.75 bitrate=5162.3kbits/s speed=0.54x  frame=  593 fps= 32 q=25.0 size=    6400KiB time=00:00:09.85 bitrate=5322.8kbits/s speed=0.531x  frame=  601 fps= 32 q=25.0 size=    6656KiB time=00:00:09.98 bitrate=5461.7kbits/s speed=0.524x  frame=  610 fps= 31 q=25.0 size=    6912KiB time=00:00:10.13 bitrate=5587.8kbits/s speed=0.518x  frame=  640 fps= 32 q=25.0 size=    7168KiB time=00:00:10.63 bitrate=5522.3kbits/s speed=0.53x  frame=  646 fps= 31 q=25.0 size=    7424KiB time=00:00:10.73 bitrate=5666.3kbits/s speed=0.522x  frame=  666 fps= 32 q=23.0 size=    7680KiB time=00:00:11.06 bitrate=5685.1kbits/s speed=0.526x  frame=  673 fps= 31 q=25.0 size=    7936KiB time=00:00:11.18 bitrate=5813.3kbits/s speed=0.519x  frame=  693 fps= 31 q=25.0 size=    8192KiB time=00:00:11.51 bitrate=5827.1kbits/s speed=0.522x  frame=  700 fps= 31 q=25.0 size=    8192KiB time=00:00:11.63 bitrate=5768.7kbits/s speed=0.516x  frame=  723 fps= 31 q=25.0 size=    8704KiB time=00:00:12.01 bitrate=5933.7kbits/s speed=0.521x  frame=  730 fps= 31 q=25.0 size=    8704KiB time=00:00:12.13 bitrate=5876.7kbits/s speed=0.515x  frame=  759 fps= 32 q=25.0 size=    9216KiB time=00:00:12.61 bitrate=5984.0kbits/s speed=0.524x  frame=  763 fps= 31 q=25.0 size=    9472KiB time=00:00:12.68 bitrate=6117.9kbits/s speed=0.516x  frame=  790 fps= 32 q=25.0 size=    9472KiB time=00:00:13.13 bitrate=5908.2kbits/s speed=0.524x  frame=  800 fps= 31 q=25.0 size=    9984KiB time=00:00:13.30 bitrate=6149.6kbits/s speed=0.52x  frame=  820 fps= 31 q=25.0 size=    9984KiB time=00:00:13.63 bitrate=5999.2kbits/s speed=0.523x  frame=  846 fps= 32 q=23.0 size=   10240KiB time=00:00:14.06 bitrate=5963.5kbits/s speed=0.529x  frame=  884 fps= 33 q=25.0 size=   10496KiB time=00:00:14.70 bitrate=5849.2kbits/s speed=0.543x  frame=  935 fps= 34 q=25.0 size=   10496KiB time=00:00:15.55 bitrate=5529.5kbits/s speed=0.564x  frame=  971 fps= 35 q=25.0 size=   10496KiB time=00:00:16.15 bitrate=5324.1kbits/s speed=0.575x  frame= 1018 fps= 36 q=25.0 size=   10752KiB time=00:00:16.93 bitrate=5201.6kbits/s speed=0.592x  frame= 1060 fps= 36 q=25.0 size=   10752KiB time=00:00:17.63 bitrate=4995.1kbits/s speed=0.606x  frame= 1108 fps= 37 q=25.0 size=   10752KiB time=00:00:18.43 bitrate=4778.3kbits/s speed=0.623x  frame= 1159 fps= 39 q=25.0 size=   10752KiB time=00:00:19.28 bitrate=4567.7kbits/s speed=0.641x  frame= 1211 fps= 40 q=25.0 size=   11008KiB time=00:00:20.15 bitrate=4475.3kbits/s speed=0.659x  frame= 1293 fps= 42 q=-1.0 Lsize=   11087KiB time=00:00:21.51 bitrate=4221.3kbits/s speed=0.696x
+[encode] wrote evlek_reel_v7_1080x1920_60fps_silent_master.mp4 (10.83 MiB)
+=== 3/6 design-state audit ===========================
+[domaudit] 0/1293
+[domaudit] 300/1293
+[domaudit] 600/1293
+[domaudit] 900/1293
+[domaudit] 1200/1293
+[domaudit] hashed 1293 DOM states, 825 distinct (818 ignoring the debug label)
+=== 4/6 reproducibility pass =========================
+[reproduce] 0/1293 (0 mismatched)
+[reproduce] 300/1293 (0 mismatched)
+[reproduce] 600/1293 (0 mismatched)
+[reproduce] 900/1293 (0 mismatched)
+[reproduce] 1200/1293 (0 mismatched)
+[reproduce] 1293/1293 frames byte-identical to the capture
+=== 5/6 verify =======================================
+
+─── ffprobe ───────────────────────────────────────────
+  file        evlek_reel_v7_1080x1920_60fps_silent_master.mp4  (10.83 MiB, mov,mp4,m4a,3gp,3g2,mj2)
+  video       h264 High L4.2  1080x1920  yuv420p  progressive
+  colour      bt709/bt709/bt709  range tv
+  rate        60 fps (avg 60/1)  1293 frames  21.55s
+  bitrate     4215 kbps average
+  audio       0 streams
+─── frames ────────────────────────────────────────────
+  decoded     1293  unique 1090 (84.3%)
+  source PNG  1293  unique 804
+  design      825 distinct states · 473 hold frames · 15 sub-pixel frames
+  design hold frames 223-224 (2) t=3.7-3.717s
+  design hold frames 236-237 (2) t=3.917-3.933s
+  design hold frames 296-328 (33) t=4.917-5.45s
+  design hold frames 341-342 (2) t=5.667-5.683s
+  design hold frames 343-387 (45) t=5.7-6.433s
+  design hold frames 453-478 (26) t=7.533-7.95s
+  design hold frames 490-526 (37) t=8.15-8.75s
+  design hold frames 606-631 (26) t=10.083-10.5s
+  design hold frames 644-646 (3) t=10.717-10.75s
+  design hold frames 746-825 (80) t=12.417-13.733s
+  design hold frames 853-856 (4) t=14.2-14.25s
+  design hold frames 926-940 (15) t=15.417-15.65s
+  design hold frames 961-988 (28) t=16-16.45s
+  design hold frames 1004-1083 (80) t=16.717-18.033s
+  design hold frames 1153-1177 (25) t=19.2-19.6s
+  design hold frames 1198-1293 (96) t=19.95-21.533s
+─── checks ────────────────────────────────────────────
+  PASS  resolution 1080x1920 — 1080x1920
+  PASS  codec h264 — h264
+  PASS  profile High — High
+  PASS  pixel format yuv420p — yuv420p
+  PASS  progressive — progressive
+  PASS  BT.709 colour tags — bt709/bt709/bt709 range=tv
+  PASS  frame rate 60 — 60
+  PASS  silent (no audio stream) — 0 audio streams
+  PASS  faststart (moov before mdat) — moov position
+  PASS  frame count matches design — 1293 decoded vs 1293 captured
+  PASS  duration matches design — 21.55s vs design 21.55s
+  PASS  maxrate respected (<=16 Mbps avg) — 4215 kbps avg
+  PASS  design-state audit present — 825 distinct design states over 1293 frames
+  PASS  render reproduces byte-for-byte on a second pass — 1293/1293 frames byte-identical
+  PASS  every repeat is explained by the design, not by the capture — 488 repeats = 473 design holds + 15 sub-pixel moves
+  PASS  60 fps buys real motion (sub-pixel repeats stay rare) — 15/1293 frames moved by less than one pixel
+  PASS  no frame interpolation or blending — PNG sequence encoded 1:1, no filter beyond colour conversion
+  PASS  encoder introduced no duplicates — 1090 distinct decoded frames from 804 distinct source frames
+
+  ALL CHECKS PASSED
+
+=== 6/6 visual QC ====================================
+[qc] analysing 1293 frames
+[qc] 0/1293
+[qc] 200/1293
+[qc] 400/1293
+[qc] 600/1293
+[qc] 800/1293
+[qc] 1000/1293
+[qc] 1200/1293
+
+─── visual QC ─────────────────────────────────────────
+  luma range        33.35 … 254.42
+  slider tracked    235 frames, x 983 -> 867
+  opening pan       mean Δ 1.0498, max jerk 0.202
+  motion Kanca                0-2.1  s  mean Δ 1.468
+  motion Arama              2.1-3.95 s  mean Δ 1.8494
+  motion Sonuçlar          3.95-6.45 s  mean Δ 1.0819
+  motion Okuma             6.45-9.75 s  mean Δ 0.9724
+  motion Sanal Düzenleme   9.75-13.75s  mean Δ 1.7985
+  motion Piyasa           13.75-18.05s  mean Δ 0.5636
+  motion Kapanış          18.05-21.55s  mean Δ 1.0406
+  identical frames  224-224 (1) t=3.717-3.717s · Arama
+  identical frames  237-237 (1) t=3.933-3.933s · Arama
+  identical frames  297-328 (32) t=4.933-5.45s · Sonuçlar
+  identical frames  342-342 (1) t=5.683-5.683s · Sonuçlar
+  identical frames  344-387 (44) t=5.717-6.433s · Sonuçlar
+  identical frames  454-478 (25) t=7.55-7.95s · Okuma
+  identical frames  491-526 (36) t=8.167-8.75s · Okuma
+  identical frames  607-631 (25) t=10.1-10.5s · Sanal Düzenleme
+  identical frames  645-646 (2) t=10.733-10.75s · Sanal Düzenleme
+  identical frames  718-718 (1) t=11.95-11.95s · Sanal Düzenleme
+  identical frames  747-825 (79) t=12.433-13.733s · Sanal Düzenleme
+  identical frames  854-856 (3) t=14.217-14.25s · Piyasa
+  identical frames  927-940 (14) t=15.433-15.65s · Piyasa
+  identical frames  962-988 (27) t=16.017-16.45s · Piyasa
+  identical frames  1004-1083 (80) t=16.717-18.033s · Piyasa
+  identical frames  1146-1146 (1) t=19.083-19.083s · Kapanış
+  identical frames  1148-1177 (30) t=19.117-19.6s · Kapanış
+  identical frames  1199-1293 (95) t=19.967-21.533s · Kapanış
+─── checks ────────────────────────────────────────────
+  PASS  no white flash frames — none
+  PASS  sub-pixel repeats are not softer than neighbours — 15 frames checked, worst sharpness delta -0.401%
+  PASS  text stable while held (Okuma) — 175 held frames, max deviation < 25%
+  FAIL  slider never backtracks — [{"frame":600,"t":9.983,"delta":-117},{"frame":601,"t":10,"delta":-13},{"frame":602,"t":10.017,"delta":-438}]
+  FAIL  slider advances sub-pixel-smoothly — max step 427px, mean -0.61px
+  PASS  opening pan has no stall or jump — mean Δ 1.050, max jerk 0.202
+
+  VISUAL QC FAILED
+
+visual QC failed — frames kept at /home/claude/repo/out/frames

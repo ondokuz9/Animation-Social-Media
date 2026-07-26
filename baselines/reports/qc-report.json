@@ -1,0 +1,1007 @@
+{
+  "frameCount": 1293,
+  "lumaRange": [
+    33.35,
+    254.42
+  ],
+  "flashes": [],
+  "textJumps": [],
+  "sliderTrackedFrames": 86,
+  "sliderRange": [
+    109.48947303183374,
+    969.3576355753364
+  ],
+  "sliderBacktracks": [],
+  "sliderResidual": {
+    "mean": 0.563,
+    "max": 1.338,
+    "samples": [
+      {
+        "frame": 638,
+        "t": 10.617,
+        "measured": 109.49,
+        "design": 110,
+        "residual": -0.511
+      },
+      {
+        "frame": 639,
+        "t": 10.633,
+        "measured": 109.49,
+        "design": 110,
+        "residual": -0.512
+      },
+      {
+        "frame": 640,
+        "t": 10.65,
+        "measured": 109.49,
+        "design": 110,
+        "residual": -0.512
+      },
+      {
+        "frame": 641,
+        "t": 10.667,
+        "measured": 109.49,
+        "design": 110,
+        "residual": -0.512
+      },
+      {
+        "frame": 642,
+        "t": 10.683,
+        "measured": 109.49,
+        "design": 110,
+        "residual": -0.512
+      },
+      {
+        "frame": 643,
+        "t": 10.7,
+        "measured": 109.49,
+        "design": 110,
+        "residual": -0.512
+      },
+      {
+        "frame": 644,
+        "t": 10.717,
+        "measured": 109.49,
+        "design": 110,
+        "residual": -0.512
+      },
+      {
+        "frame": 645,
+        "t": 10.733,
+        "measured": 109.49,
+        "design": 110,
+        "residual": -0.512
+      },
+      {
+        "frame": 646,
+        "t": 10.75,
+        "measured": 109.49,
+        "design": 110,
+        "residual": -0.512
+      },
+      {
+        "frame": 647,
+        "t": 10.767,
+        "measured": 109.49,
+        "design": 110.41,
+        "residual": -0.921
+      },
+      {
+        "frame": 648,
+        "t": 10.783,
+        "measured": 111.5,
+        "design": 111.64,
+        "residual": -0.139
+      },
+      {
+        "frame": 649,
+        "t": 10.8,
+        "measured": 113.5,
+        "design": 113.68,
+        "residual": -0.179
+      },
+      {
+        "frame": 650,
+        "t": 10.817,
+        "measured": 116.5,
+        "design": 116.53,
+        "residual": -0.033
+      },
+      {
+        "frame": 651,
+        "t": 10.833,
+        "measured": 119.5,
+        "design": 120.19,
+        "residual": -0.693
+      },
+      {
+        "frame": 652,
+        "t": 10.85,
+        "measured": 124.5,
+        "design": 124.65,
+        "residual": -0.152
+      },
+      {
+        "frame": 653,
+        "t": 10.867,
+        "measured": 129.51,
+        "design": 129.9,
+        "residual": -0.393
+      },
+      {
+        "frame": 654,
+        "t": 10.883,
+        "measured": 135.49,
+        "design": 135.93,
+        "residual": -0.447
+      },
+      {
+        "frame": 655,
+        "t": 10.9,
+        "measured": 142.51,
+        "design": 142.73,
+        "residual": -0.225
+      },
+      {
+        "frame": 656,
+        "t": 10.917,
+        "measured": 149.51,
+        "design": 150.29,
+        "residual": -0.778
+      },
+      {
+        "frame": 657,
+        "t": 10.933,
+        "measured": 158.44,
+        "design": 158.59,
+        "residual": -0.145
+      },
+      {
+        "frame": 658,
+        "t": 10.95,
+        "measured": 167.48,
+        "design": 167.61,
+        "residual": -0.125
+      },
+      {
+        "frame": 659,
+        "t": 10.967,
+        "measured": 176.45,
+        "design": 177.34,
+        "residual": -0.893
+      },
+      {
+        "frame": 660,
+        "t": 10.983,
+        "measured": 187.43,
+        "design": 187.76,
+        "residual": -0.33
+      },
+      {
+        "frame": 661,
+        "t": 11,
+        "measured": 198.49,
+        "design": 198.86,
+        "residual": -0.367
+      },
+      {
+        "frame": 662,
+        "t": 11.017,
+        "measured": 210.6,
+        "design": 210.6,
+        "residual": 0.003
+      },
+      {
+        "frame": 663,
+        "t": 11.033,
+        "measured": 222.43,
+        "design": 222.97,
+        "residual": -0.538
+      },
+      {
+        "frame": 664,
+        "t": 11.05,
+        "measured": 235.51,
+        "design": 235.94,
+        "residual": -0.434
+      },
+      {
+        "frame": 665,
+        "t": 11.067,
+        "measured": 248.5,
+        "design": 249.5,
+        "residual": -0.996
+      },
+      {
+        "frame": 666,
+        "t": 11.083,
+        "measured": 263.53,
+        "design": 263.6,
+        "residual": -0.073
+      },
+      {
+        "frame": 667,
+        "t": 11.1,
+        "measured": 277.47,
+        "design": 278.23,
+        "residual": -0.767
+      },
+      {
+        "frame": 668,
+        "t": 11.117,
+        "measured": 292.47,
+        "design": 293.36,
+        "residual": -0.891
+      },
+      {
+        "frame": 669,
+        "t": 11.133,
+        "measured": 308.46,
+        "design": 308.96,
+        "residual": -0.505
+      },
+      {
+        "frame": 670,
+        "t": 11.15,
+        "measured": 324.54,
+        "design": 325,
+        "residual": -0.463
+      },
+      {
+        "frame": 671,
+        "t": 11.167,
+        "measured": 340.46,
+        "design": 341.45,
+        "residual": -0.991
+      },
+      {
+        "frame": 672,
+        "t": 11.183,
+        "measured": 357.46,
+        "design": 358.27,
+        "residual": -0.811
+      },
+      {
+        "frame": 673,
+        "t": 11.2,
+        "measured": 374.5,
+        "design": 375.45,
+        "residual": -0.945
+      },
+      {
+        "frame": 674,
+        "t": 11.217,
+        "measured": 392.48,
+        "design": 392.93,
+        "residual": -0.451
+      },
+      {
+        "frame": 675,
+        "t": 11.233,
+        "measured": 410.48,
+        "design": 410.7,
+        "residual": -0.22
+      },
+      {
+        "frame": 676,
+        "t": 11.25,
+        "measured": 428.46,
+        "design": 428.71,
+        "residual": -0.253
+      },
+      {
+        "frame": 677,
+        "t": 11.267,
+        "measured": 446.42,
+        "design": 446.93,
+        "residual": -0.512
+      },
+      {
+        "frame": 678,
+        "t": 11.283,
+        "measured": 464.48,
+        "design": 465.33,
+        "residual": -0.847
+      },
+      {
+        "frame": 679,
+        "t": 11.3,
+        "measured": 483.44,
+        "design": 483.87,
+        "residual": -0.438
+      },
+      {
+        "frame": 680,
+        "t": 11.317,
+        "measured": 502.47,
+        "design": 502.52,
+        "residual": -0.056
+      },
+      {
+        "frame": 681,
+        "t": 11.333,
+        "measured": 520.46,
+        "design": 521.24,
+        "residual": -0.781
+      },
+      {
+        "frame": 682,
+        "t": 11.35,
+        "measured": 539.45,
+        "design": 540,
+        "residual": -0.551
+      },
+      {
+        "frame": 683,
+        "t": 11.367,
+        "measured": 558.43,
+        "design": 558.76,
+        "residual": -0.323
+      },
+      {
+        "frame": 684,
+        "t": 11.383,
+        "measured": 576.42,
+        "design": 577.48,
+        "residual": -1.052
+      },
+      {
+        "frame": 685,
+        "t": 11.4,
+        "measured": 595.43,
+        "design": 596.13,
+        "residual": -0.693
+      },
+      {
+        "frame": 686,
+        "t": 11.417,
+        "measured": 614.43,
+        "design": 614.67,
+        "residual": -0.243
+      },
+      {
+        "frame": 687,
+        "t": 11.433,
+        "measured": 632.42,
+        "design": 633.07,
+        "residual": -0.645
+      },
+      {
+        "frame": 688,
+        "t": 11.45,
+        "measured": 650.43,
+        "design": 651.29,
+        "residual": -0.863
+      },
+      {
+        "frame": 689,
+        "t": 11.467,
+        "measured": 668.45,
+        "design": 669.3,
+        "residual": -0.855
+      },
+      {
+        "frame": 690,
+        "t": 11.483,
+        "measured": 686.46,
+        "design": 687.07,
+        "residual": -0.606
+      },
+      {
+        "frame": 691,
+        "t": 11.5,
+        "measured": 704.5,
+        "design": 704.55,
+        "residual": -0.053
+      },
+      {
+        "frame": 692,
+        "t": 11.517,
+        "measured": 721.39,
+        "design": 721.73,
+        "residual": -0.34
+      },
+      {
+        "frame": 693,
+        "t": 11.533,
+        "measured": 738.5,
+        "design": 738.55,
+        "residual": -0.052
+      },
+      {
+        "frame": 694,
+        "t": 11.55,
+        "measured": 754.5,
+        "design": 755,
+        "residual": -0.5
+      },
+      {
+        "frame": 695,
+        "t": 11.567,
+        "measured": 770.45,
+        "design": 771.04,
+        "residual": -0.59
+      },
+      {
+        "frame": 696,
+        "t": 11.583,
+        "measured": 786.51,
+        "design": 786.64,
+        "residual": -0.131
+      },
+      {
+        "frame": 697,
+        "t": 11.6,
+        "measured": 801.28,
+        "design": 801.77,
+        "residual": -0.489
+      },
+      {
+        "frame": 698,
+        "t": 11.617,
+        "measured": 815.23,
+        "design": 816.4,
+        "residual": -1.172
+      },
+      {
+        "frame": 699,
+        "t": 11.633,
+        "measured": 830.48,
+        "design": 830.5,
+        "residual": -0.022
+      },
+      {
+        "frame": 700,
+        "t": 11.65,
+        "measured": 843.64,
+        "design": 844.06,
+        "residual": -0.413
+      },
+      {
+        "frame": 701,
+        "t": 11.667,
+        "measured": 856.19,
+        "design": 857.03,
+        "residual": -0.842
+      },
+      {
+        "frame": 702,
+        "t": 11.683,
+        "measured": 868.19,
+        "design": 869.4,
+        "residual": -1.208
+      },
+      {
+        "frame": 703,
+        "t": 11.7,
+        "measured": 880.83,
+        "design": 881.14,
+        "residual": -0.313
+      },
+      {
+        "frame": 704,
+        "t": 11.717,
+        "measured": 891.17,
+        "design": 892.24,
+        "residual": -1.067
+      },
+      {
+        "frame": 705,
+        "t": 11.733,
+        "measured": 902.9,
+        "design": 902.66,
+        "residual": 0.246
+      },
+      {
+        "frame": 706,
+        "t": 11.75,
+        "measured": 911.05,
+        "design": 912.39,
+        "residual": -1.338
+      },
+      {
+        "frame": 707,
+        "t": 11.767,
+        "measured": 920.15,
+        "design": 921.41,
+        "residual": -1.268
+      },
+      {
+        "frame": 708,
+        "t": 11.783,
+        "measured": 929.91,
+        "design": 929.71,
+        "residual": 0.199
+      },
+      {
+        "frame": 709,
+        "t": 11.8,
+        "measured": 935.94,
+        "design": 937.27,
+        "residual": -1.33
+      },
+      {
+        "frame": 710,
+        "t": 11.817,
+        "measured": 943.13,
+        "design": 944.07,
+        "residual": -0.938
+      },
+      {
+        "frame": 711,
+        "t": 11.833,
+        "measured": 949.39,
+        "design": 950.1,
+        "residual": -0.706
+      },
+      {
+        "frame": 712,
+        "t": 11.85,
+        "measured": 954.36,
+        "design": 955.35,
+        "residual": -0.988
+      },
+      {
+        "frame": 713,
+        "t": 11.867,
+        "measured": 959.37,
+        "design": 959.81,
+        "residual": -0.434
+      },
+      {
+        "frame": 714,
+        "t": 11.883,
+        "measured": 962.57,
+        "design": 963.47,
+        "residual": -0.894
+      },
+      {
+        "frame": 715,
+        "t": 11.9,
+        "measured": 965.5,
+        "design": 966.32,
+        "residual": -0.818
+      },
+      {
+        "frame": 716,
+        "t": 11.917,
+        "measured": 967.53,
+        "design": 968.36,
+        "residual": -0.832
+      },
+      {
+        "frame": 717,
+        "t": 11.933,
+        "measured": 969.37,
+        "design": 969.59,
+        "residual": -0.218
+      },
+      {
+        "frame": 718,
+        "t": 11.95,
+        "measured": 969.37,
+        "design": 970,
+        "residual": -0.628
+      },
+      {
+        "frame": 719,
+        "t": 11.967,
+        "measured": 969.37,
+        "design": 970,
+        "residual": -0.628
+      },
+      {
+        "frame": 720,
+        "t": 11.983,
+        "measured": 969.37,
+        "design": 970,
+        "residual": -0.628
+      },
+      {
+        "frame": 721,
+        "t": 12,
+        "measured": 969.37,
+        "design": 970,
+        "residual": -0.628
+      },
+      {
+        "frame": 722,
+        "t": 12.017,
+        "measured": 969.37,
+        "design": 970,
+        "residual": -0.628
+      },
+      {
+        "frame": 723,
+        "t": 12.033,
+        "measured": 969.36,
+        "design": 970,
+        "residual": -0.642
+      }
+    ]
+  },
+  "sliderSteps": {
+    "mean": 10.116,
+    "peak": 19.031,
+    "maxJerk": 3.738
+  },
+  "subPixelSharpness": [
+    {
+      "frame": 224,
+      "t": 3.717,
+      "rms": 10.0511,
+      "neighbours": [
+        10.0511,
+        10.0389
+      ],
+      "deltaPercent": 0
+    },
+    {
+      "frame": 237,
+      "t": 3.933,
+      "rms": 10.0659,
+      "neighbours": [
+        10.0659,
+        10.0657
+      ],
+      "deltaPercent": 0
+    },
+    {
+      "frame": 342,
+      "t": 5.683,
+      "rms": 11.6332,
+      "neighbours": [
+        11.6332,
+        11.6429
+      ],
+      "deltaPercent": -0.083
+    },
+    {
+      "frame": 645,
+      "t": 10.733,
+      "rms": 11.1012,
+      "neighbours": [
+        11.1012,
+        11.1012
+      ],
+      "deltaPercent": 0
+    },
+    {
+      "frame": 747,
+      "t": 12.433,
+      "rms": 12.9269,
+      "neighbours": [
+        12.9269,
+        12.9269
+      ],
+      "deltaPercent": 0
+    },
+    {
+      "frame": 748,
+      "t": 12.45,
+      "rms": 12.9269,
+      "neighbours": [
+        12.9269,
+        12.9269
+      ],
+      "deltaPercent": 0
+    },
+    {
+      "frame": 940,
+      "t": 15.65,
+      "rms": 8.2002,
+      "neighbours": [
+        8.2002,
+        8.2332
+      ],
+      "deltaPercent": -0.401
+    },
+    {
+      "frame": 1005,
+      "t": 16.733,
+      "rms": 10.2407,
+      "neighbours": [
+        10.2407,
+        10.2407
+      ],
+      "deltaPercent": 0
+    },
+    {
+      "frame": 1175,
+      "t": 19.567,
+      "rms": 6.6729,
+      "neighbours": [
+        6.6729,
+        6.6729
+      ],
+      "deltaPercent": 0
+    },
+    {
+      "frame": 1176,
+      "t": 19.583,
+      "rms": 6.6729,
+      "neighbours": [
+        6.6729,
+        6.6729
+      ],
+      "deltaPercent": 0
+    },
+    {
+      "frame": 1177,
+      "t": 19.6,
+      "rms": 6.6729,
+      "neighbours": [
+        6.6729,
+        6.673
+      ],
+      "deltaPercent": 0
+    },
+    {
+      "frame": 1199,
+      "t": 19.967,
+      "rms": 6.6729,
+      "neighbours": [
+        6.6729,
+        6.6729
+      ],
+      "deltaPercent": 0
+    },
+    {
+      "frame": 1200,
+      "t": 19.983,
+      "rms": 6.6729,
+      "neighbours": [
+        6.6729,
+        6.6729
+      ],
+      "deltaPercent": 0
+    },
+    {
+      "frame": 1201,
+      "t": 20,
+      "rms": 6.6729,
+      "neighbours": [
+        6.6729,
+        6.6729
+      ],
+      "deltaPercent": 0
+    },
+    {
+      "frame": 1202,
+      "t": 20.017,
+      "rms": 6.6729,
+      "neighbours": [
+        6.6729,
+        6.6729
+      ],
+      "deltaPercent": 0
+    }
+  ],
+  "pan": {
+    "meanDelta": 1.0498,
+    "maxJerk": 0.202
+  },
+  "identicalToPrevious": [
+    {
+      "fromFrame": 224,
+      "toFrame": 224,
+      "fromTime": 3.717,
+      "toTime": 3.717,
+      "scene": "Arama",
+      "length": 1
+    },
+    {
+      "fromFrame": 237,
+      "toFrame": 237,
+      "fromTime": 3.933,
+      "toTime": 3.933,
+      "scene": "Arama",
+      "length": 1
+    },
+    {
+      "fromFrame": 297,
+      "toFrame": 328,
+      "fromTime": 4.933,
+      "toTime": 5.45,
+      "scene": "Sonuçlar",
+      "length": 32
+    },
+    {
+      "fromFrame": 342,
+      "toFrame": 342,
+      "fromTime": 5.683,
+      "toTime": 5.683,
+      "scene": "Sonuçlar",
+      "length": 1
+    },
+    {
+      "fromFrame": 344,
+      "toFrame": 387,
+      "fromTime": 5.717,
+      "toTime": 6.433,
+      "scene": "Sonuçlar",
+      "length": 44
+    },
+    {
+      "fromFrame": 454,
+      "toFrame": 478,
+      "fromTime": 7.55,
+      "toTime": 7.95,
+      "scene": "Okuma",
+      "length": 25
+    },
+    {
+      "fromFrame": 491,
+      "toFrame": 526,
+      "fromTime": 8.167,
+      "toTime": 8.75,
+      "scene": "Okuma",
+      "length": 36
+    },
+    {
+      "fromFrame": 607,
+      "toFrame": 631,
+      "fromTime": 10.1,
+      "toTime": 10.5,
+      "scene": "Sanal Düzenleme",
+      "length": 25
+    },
+    {
+      "fromFrame": 645,
+      "toFrame": 646,
+      "fromTime": 10.733,
+      "toTime": 10.75,
+      "scene": "Sanal Düzenleme",
+      "length": 2
+    },
+    {
+      "fromFrame": 718,
+      "toFrame": 718,
+      "fromTime": 11.95,
+      "toTime": 11.95,
+      "scene": "Sanal Düzenleme",
+      "length": 1
+    },
+    {
+      "fromFrame": 747,
+      "toFrame": 825,
+      "fromTime": 12.433,
+      "toTime": 13.733,
+      "scene": "Sanal Düzenleme",
+      "length": 79
+    },
+    {
+      "fromFrame": 854,
+      "toFrame": 856,
+      "fromTime": 14.217,
+      "toTime": 14.25,
+      "scene": "Piyasa",
+      "length": 3
+    },
+    {
+      "fromFrame": 927,
+      "toFrame": 940,
+      "fromTime": 15.433,
+      "toTime": 15.65,
+      "scene": "Piyasa",
+      "length": 14
+    },
+    {
+      "fromFrame": 962,
+      "toFrame": 988,
+      "fromTime": 16.017,
+      "toTime": 16.45,
+      "scene": "Piyasa",
+      "length": 27
+    },
+    {
+      "fromFrame": 1004,
+      "toFrame": 1083,
+      "fromTime": 16.717,
+      "toTime": 18.033,
+      "scene": "Piyasa",
+      "length": 80
+    },
+    {
+      "fromFrame": 1146,
+      "toFrame": 1146,
+      "fromTime": 19.083,
+      "toTime": 19.083,
+      "scene": "Kapanış",
+      "length": 1
+    },
+    {
+      "fromFrame": 1148,
+      "toFrame": 1177,
+      "fromTime": 19.117,
+      "toTime": 19.6,
+      "scene": "Kapanış",
+      "length": 30
+    },
+    {
+      "fromFrame": 1199,
+      "toFrame": 1293,
+      "fromTime": 19.967,
+      "toTime": 21.533,
+      "scene": "Kapanış",
+      "length": 95
+    }
+  ],
+  "perSceneMeanDelta": [
+    {
+      "scene": "Kanca",
+      "from": 0,
+      "to": 2.1,
+      "meanDelta": 1.468
+    },
+    {
+      "scene": "Arama",
+      "from": 2.1,
+      "to": 3.95,
+      "meanDelta": 1.8494
+    },
+    {
+      "scene": "Sonuçlar",
+      "from": 3.95,
+      "to": 6.45,
+      "meanDelta": 1.0819
+    },
+    {
+      "scene": "Okuma",
+      "from": 6.45,
+      "to": 9.75,
+      "meanDelta": 0.9724
+    },
+    {
+      "scene": "Sanal Düzenleme",
+      "from": 9.75,
+      "to": 13.75,
+      "meanDelta": 1.7985
+    },
+    {
+      "scene": "Piyasa",
+      "from": 13.75,
+      "to": 18.05,
+      "meanDelta": 0.5636
+    },
+    {
+      "scene": "Kapanış",
+      "from": 18.05,
+      "to": 21.55,
+      "meanDelta": 1.0406
+    }
+  ],
+  "checks": [
+    {
+      "name": "no white flash frames",
+      "pass": true,
+      "detail": "none"
+    },
+    {
+      "name": "sub-pixel repeats are not softer than neighbours",
+      "pass": true,
+      "detail": "15 frames checked, worst sharpness delta -0.401%"
+    },
+    {
+      "name": "text stable while held (Okuma)",
+      "pass": true,
+      "detail": "175 held frames, max deviation < 25%"
+    },
+    {
+      "name": "slider never backtracks",
+      "pass": true,
+      "detail": "86 frames tracked"
+    },
+    {
+      "name": "slider sits on the design curve every frame",
+      "pass": true,
+      "detail": "mean |residual| 0.563px, max 1.338px over 86 frames (mean step 10.12px, peak 19.03px)"
+    },
+    {
+      "name": "opening pan has no stall or jump",
+      "pass": true,
+      "detail": "mean Δ 1.050, max jerk 0.202"
+    }
+  ],
+  "passed": true
+}
