@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="evlek.css">
+  <link rel="preload" as="image" href="img/room-00-bos.jpg">
+  <link rel="preload" as="image" href="img/room-01-akdeniz.jpg">
+  <link rel="preload" as="image" href="img/room-02-minimal.jpg">
+  <link rel="preload" as="image" href="img/room-03-dogal.jpg">
+  <link rel="preload" as="image" href="img/wordmark.png">
+  <script>window.OM_SCENES = '[{"name":"Oda Dönüşümü","dur":5},{"name":"Yeni Çağ","dur":2.6},{"name":"Soru","dur":2.8},{"name":"Kaynak","dur":3.6},{"name":"Veri Katmanı","dur":3},{"name":"Kapanış","dur":3}]';</script>
+  <script>window.OM_PLAYBACK = '{"mode":"loop"}';</script>
+  <script>/*EDITMODE-BEGIN*/window.TWEAK_DEFAULTS = {"motionEditor": true};/*EDITMODE-END*/</script>
+  <style>
+    html, body { margin: 0; padding: 0; height: 100%; background: #14213D; }
+    a { color: #2F5CFF; } a:hover { color: #2247D6; }
+  </style>
+</helmet>
+<div style="position:fixed;inset:0;background:#14213D">
+  <x-import component-from-global-scope="EvlekReel" from="./animations-v2.jsx ./tweaks-panel.jsx ./evlek-reel.jsx" hint-size="100%,100%"></x-import>
+</div>
+</x-dc>
+</body>
+</html>

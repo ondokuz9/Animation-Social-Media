@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="evlek.css">
+  <link rel="preload" as="image" href="img/room-00-bos.jpg">
+  <link rel="preload" as="image" href="img/room-01-akdeniz.jpg">
+  <link rel="preload" as="image" href="img/kiyi.jpg">
+  <link rel="preload" as="image" href="img/wordmark.png">
+  <script>window.OM_SCENES = '[{"name":"Arama","dur":2.3},{"name":"Sonuçlar","dur":2.2},{"name":"Okuma","dur":3.3},{"name":"Sanal Düzenleme","dur":3.7},{"name":"Piyasa","dur":4.3},{"name":"Kapanış","dur":3.5}]';</script>
+  <script>window.OM_PLAYBACK = '{"mode":"loop"}';</script>
+  <script>window.OM_AUDIO_MARKERS = '[{"t":0.5,"cue":"typing-block"},{"t":1.1,"cue":"typing-block"},{"t":1.75,"cue":"search-click"},{"t":2.65,"cue":"result-ticks"},{"t":5.3,"cue":"verification-confirm"},{"t":7.1,"cue":"chart-tonal-rise"},{"t":8.85,"cue":"staging-swipe"},{"t":12.6,"cue":"index-countup"},{"t":14.1,"cue":"data-tick"},{"t":16.1,"cue":"sonic-logo"}]';</script>
+  <script>/*EDITMODE-BEGIN*/window.TWEAK_DEFAULTS = {"motionEditor": true};/*EDITMODE-END*/</script>
+  <style>
+    html, body { margin: 0; padding: 0; height: 100%; background: #0A2540; }
+    a { color: #2F5CFF; } a:hover { color: #2247D6; }
+  </style>
+</helmet>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#0A2540"/><text x="50" y="58" font-family="sans-serif" font-size="26" font-weight="800" fill="#F4F1EB" text-anchor="middle">Ev</text><rect x="38" y="66" width="24" height="3" fill="#C9A157"/></svg></template>
+<div style="position:fixed;inset:0;background:#0A2540">
+  <x-import component-from-global-scope="EvlekReel" from="./animations-v2.jsx ./tweaks-panel.jsx ./evlek-reel-v6.jsx" hint-size="100%,100%"></x-import>
+</div>
+</x-dc>
+</body>
+</html>

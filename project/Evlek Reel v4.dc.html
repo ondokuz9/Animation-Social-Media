@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="evlek.css">
+  <link rel="preload" as="image" href="img/room-00-bos.jpg">
+  <link rel="preload" as="image" href="img/room-01-akdeniz.jpg">
+  <link rel="preload" as="image" href="img/room-02-minimal.jpg">
+  <link rel="preload" as="image" href="img/room-03-dogal.jpg">
+  <link rel="preload" as="image" href="img/kiyi.jpg">
+  <link rel="preload" as="image" href="img/wordmark.png">
+  <script>window.OM_SCENES = '[{"name":"Problem","dur":0.75},{"name":"Arama","dur":2.65},{"name":"Sonuçlar","dur":2.1},{"name":"Okuma","dur":3.3},{"name":"Sanal Düzenleme","dur":2.4},{"name":"Veri","dur":2.3},{"name":"Destek","dur":1.7},{"name":"Kapanış","dur":4.3}]';</script>
+  <script>window.OM_PLAYBACK = '{"mode":"loop"}';</script>
+  <script>window.OM_AUDIO_MARKERS = '[{"t":1.25,"cue":"typing-start"},{"t":2.95,"cue":"search-click"},{"t":3.7,"cue":"result-confirm"},{"t":6.3,"cue":"data-tick"},{"t":7.1,"cue":"data-tick"},{"t":7.9,"cue":"data-tick"},{"t":9.55,"cue":"staging-swipe"},{"t":15.65,"cue":"sonic-logo"}]';</script>
+  <script>/*EDITMODE-BEGIN*/window.TWEAK_DEFAULTS = {"motionEditor": true};/*EDITMODE-END*/</script>
+  <style>
+    html, body { margin: 0; padding: 0; height: 100%; background: #0A2540; }
+    a { color: #2F5CFF; } a:hover { color: #2247D6; }
+  </style>
+</helmet>
+<div style="position:fixed;inset:0;background:#0A2540">
+  <x-import component-from-global-scope="EvlekReel" from="./animations-v2.jsx ./tweaks-panel.jsx ./evlek-reel-v4.jsx" hint-size="100%,100%"></x-import>
+</div>
+</x-dc>
+</body>
+</html>
