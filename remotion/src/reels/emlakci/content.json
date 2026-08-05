@@ -9,7 +9,13 @@
   "copy": {
     "placeholder": "Açıklama ekle…",
     "description": "Girne Zeytinlik'te, denize yürüme mesafesinde, geniş balkonlu 2+1 daire.",
-    "languages": ["TR", "EN", "RU", "DE", "AR"],
+    "languages": [
+      "TR",
+      "EN",
+      "RU",
+      "DE",
+      "AR"
+    ],
     "publish": "Yayınla",
     "confirm": "Onayla",
     "confirmed": "Onaylandı",
@@ -17,7 +23,11 @@
     "row_lang": "Beş dile çevrildi",
     "row_photo": "Fotoğraf hazırlandı",
     "row_match": "Doğru alıcıya çıkıyor",
-    "buyer_chips": ["Girne · 2+1", "Deniz yakını", "Yatırımlık"],
+    "buyer_chips": [
+      "Girne · 2+1",
+      "Deniz yakını",
+      "Yatırımlık"
+    ],
     "hook_1": "Bunu sen yapmadın.",
     "hook_2": "Sen sadece Yayınla'ya bastın.",
     "line_written": "Açıklaman yazıldı. Sen onayla.",
@@ -30,7 +40,39 @@
     "close": "Sen ilanı koy. Gerisi Evlek'te.",
     "cta": "evlek.app",
     "query": "Girne'de deniz gören, bahçeli 2+1",
-    "query_chips": ["Girne", "Deniz manzarası", "Bahçeli", "2+1"]
+    "query_chips": [
+      "Girne",
+      "Deniz manzarası",
+      "Bahçeli",
+      "2+1"
+    ],
+    "translations": [
+      {
+        "code": "TR",
+        "rtl": false,
+        "text": "Girne Zeytinlik'te, denize yürüme mesafesinde, geniş balkonlu 2+1 daire."
+      },
+      {
+        "code": "EN",
+        "rtl": false,
+        "text": "In Girne Zeytinlik, walking distance to the sea, a 2+1 apartment with a large balcony."
+      },
+      {
+        "code": "RU",
+        "rtl": false,
+        "text": "В Гирне, район Зейтинлик, в пешей доступности от моря, квартира 2+1 с большим балконом."
+      },
+      {
+        "code": "DE",
+        "rtl": false,
+        "text": "In Girne Zeytinlik, fußläufig zum Meer, eine 2+1-Wohnung mit großem Balkon."
+      },
+      {
+        "code": "AR",
+        "rtl": true,
+        "text": "في غيرنة زيتينليك، على بعد خطوات من البحر، شقة ٢+١ بشرفة واسعة."
+      }
+    ]
   },
   "assets": {
     "listing_image": "room-01-akdeniz.jpg",
