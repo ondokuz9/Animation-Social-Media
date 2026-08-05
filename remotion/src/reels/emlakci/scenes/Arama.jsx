@@ -20,7 +20,10 @@
 //   0.03–0.52   the sentence types itself, a phrase at a time, caret trailing
 //   0.55        submit — the field presses in and the focus halo collapses
 //   0.60–1.14   the four phrases become filters, 90ms apart, 260ms each
-//   0.66–0.92   three loading cards rise, 60ms apart
+//   0.30–0.65   three loading cards rise WHILE the sentence is still being
+//               typed — which is what a live search does, and which is also
+//               the only way this act does not spend its first second on a
+//               search field floating in an otherwise empty frame
 //   1.16–1.72   each one resolves into its listing, 100ms apart
 //   1.62        the count appears
 //   1.80–2.10   the agent's listing takes the gold ring and its label
@@ -32,15 +35,15 @@ import { Caret } from '../../../brand/ui.jsx';
 import { SearchField, ResultCard } from '../parts.jsx';
 import content from '../content.json';
 
-export const ARAMA_SECONDS = 2.5;
+export const ARAMA_SECONDS = 3.0;
 
 const P = content.copy.query_parts;      // [{text, chip}]
 const R = content.copy.results;
 
 const FIELD_W = 920;
-const MORPH_FROM = 0.60;
-const MORPH_STEP = 0.09;
-const MORPH_LEN = 0.26;
+const MORPH_FROM = 0.86;
+const MORPH_STEP = 0.11;
+const MORPH_LEN = 0.28;
 
 export const Arama = ({ tOverride, bare = false }) => {
   const frame = useCurrentFrame();
@@ -49,17 +52,17 @@ export const Arama = ({ tOverride, bare = false }) => {
 
   // Typing: one phrase at a time, not one character. At 60fps a character
   // typewriter reads as a cheap effect; phrase-level reads as someone thinking.
-  const typed = tp(t, 0.03, 0.52, ease.linear) * P.length;
-  const typing = t < 0.55;
+  const typed = tp(t, 0.05, 0.74, ease.linear) * P.length;
+  const typing = t < 0.78;
 
   const focus = tp(t, 0.0, 0.22);
-  const submit = pulse(t, 0.55, 0.22);
+  const submit = pulse(t, 0.78, 0.24);
 
-  const line1 = holdLine(frame, 0.08, 1.42);
-  const line2 = holdLine(frame, 1.50, 2.42);
+  const line1 = holdLine(frame, 0.08, 1.70);
+  const line2 = holdLine(frame, 1.82, 2.92);
 
-  const count = tp(t, 1.62, 1.62 + dur.md, ease.out);
-  const ringP = tp(t, 1.80, 2.10, ease.out);
+  const count = tp(t, 2.00, 2.00 + dur.md, ease.out);
+  const ringP = tp(t, 2.24, 2.60, ease.out);
 
   // Continuous drift, for the same reason Diller has one: after the ring lands at
   // 2.10 nothing else is scheduled before the cut at 2.60, and the audit found
@@ -123,8 +126,8 @@ export const Arama = ({ tOverride, bare = false }) => {
           <ResultCard
             key={item.asset}
             item={item}
-            p={tp(t, 0.66 + i * 0.06, 0.66 + i * 0.06 + dur.md, ease.out)}
-            real={tp(t, 1.16 + i * 0.10, 1.16 + i * 0.10 + dur.lg, ease.out)}
+            p={tp(t, 0.30 + i * 0.07, 0.30 + i * 0.07 + dur.md, ease.out)}
+            real={tp(t, 1.56 + i * 0.12, 1.56 + i * 0.12 + dur.lg, ease.out)}
             ring={item.mine ? ringP : 0}
           />
         ))}

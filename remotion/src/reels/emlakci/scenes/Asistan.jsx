@@ -21,7 +21,7 @@ import { WordReveal } from '../../../brand/ui.jsx';
 import { Grain } from '../parts.jsx';
 import content from '../content.json';
 
-export const ASISTAN_SECONDS = 1.9;
+export const ASISTAN_SECONDS = 2.2;
 
 const A = content.copy.assistant;
 
@@ -63,13 +63,15 @@ export const Asistan = ({ tOverride }) => {
   const { fps } = useVideoConfig();
   const t = tOverride ?? frame / fps;
 
-  const line = holdLine(frame, 0.06, 1.76);
+  const line = holdLine(frame, 0.06, 2.06);
 
   const q = tp(t, 0.12, 0.12 + dur.lg, ease.out);
-  const spark = tp(t, 0.52, 0.52 + dur.md, ease.out);
-  const answer = tp(t, 0.80, 1.52, ease.linear);
-  const answerIn = tp(t, 0.78, 0.78 + dur.md, ease.out);
-  const src = tp(t, 1.40, 1.40 + dur.lg, ease.out);
+  const spark = tp(t, 0.60, 0.60 + dur.md, ease.out);
+  // Sixteen words. At the old 0.72s that was 22 words a second — past the point
+  // where a reader is reading rather than watching text arrive.
+  const answer = tp(t, 0.94, 1.86, ease.linear);
+  const answerIn = tp(t, 0.92, 0.92 + dur.md, ease.out);
+  const src = tp(t, 1.74, 1.74 + dur.lg, ease.out);
 
   // The navy is never flat: a wide, very slow radial bloom drifts across it.
   const bloom = interpolate(t, [0, ASISTAN_SECONDS], [46, 58]);
@@ -112,7 +114,7 @@ export const Asistan = ({ tOverride }) => {
       <div style={{ position: 'absolute', left: 80, top: 940, right: 100 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 20, height: 60 }}>
           <Spark p={spark} rot={-8 + spark * 8} />
-          <Thinking t={t} from={0.50} len={0.34} />
+          <Thinking t={t} from={0.56} len={0.38} />
         </div>
 
         <div

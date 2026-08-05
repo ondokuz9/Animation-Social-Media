@@ -18,7 +18,7 @@ import { C, T, SANS, MONO, dur, at, ease, tp, holdLine } from '../../../brand/to
 import { asset, Grain } from '../parts.jsx';
 import content from '../content.json';
 
-export const KAPANIS_SECONDS = 1.9;
+export const KAPANIS_SECONDS = 2.05;
 
 export const Kapanis = ({ tOverride }) => {
   const frame = useCurrentFrame();
@@ -27,12 +27,12 @@ export const Kapanis = ({ tOverride }) => {
 
   const push = interpolate(t, [0, KAPANIS_SECONDS], [1.06, 1.0], { extrapolateRight: 'clamp' });
 
-  const mark = tp(t, 0.08, 0.08 + dur.lg, ease.out);
-  const rule = tp(t, 0.34, 0.34 + dur.lg, ease.out);
-  const l1 = tp(t, 0.46, 0.46 + dur.md, ease.out);
-  const l2 = tp(t, 0.62, 0.62 + dur.md, ease.out);
-  const cta = tp(t, 0.96, 0.96 + dur.md, ease.out);
-  const mail = tp(t, 1.20, 1.20 + dur.md, ease.out);
+  const mark = tp(t, 0.10, 0.10 + dur.lg, ease.out);
+  const rule = tp(t, 0.38, 0.38 + dur.lg, ease.out);
+  const l1 = tp(t, 0.54, 0.54 + dur.md, ease.out);
+  const l2 = tp(t, 0.76, 0.76 + dur.md, ease.out);
+  const cta = tp(t, 1.16, 1.16 + dur.md, ease.out);
+  const mail = tp(t, 1.42, 1.42 + dur.md, ease.out);
 
   const Reveal = ({ p, dy = 20, children, style }) => (
     <div style={{ opacity: p, transform: `translateY(${(1 - p) * dy}px)`, ...style }}>{children}</div>

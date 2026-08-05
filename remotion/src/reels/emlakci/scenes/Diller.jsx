@@ -20,14 +20,19 @@ import { AbsoluteFill, useCurrentFrame, useVideoConfig, interpolate } from 'remo
 import { C, T, SANS, MONO, dur, at, ease, tp, SAFE, holdLine } from '../../../brand/tokens.js';
 import content from '../content.json';
 
-export const DILLER_SECONDS = 2.2;
+export const DILLER_SECONDS = 2.7;
 
 const L = content.copy.translations;      // [{code, text, rtl}]
 
-/** Where each language starts. Turkish is readable; the rest accelerate. */
-const START = [0.30, 0.85, 1.17, 1.46, 1.72];
+/** Where each language starts. Turkish is the one this audience reads and it now
+    holds for 0.75s — long enough to actually finish the sentence — then each of
+    the others gets a little less than the one before. The acceleration is the
+    argument: it says "and it keeps going" without a line of copy claiming it.
+    An earlier cut gave Turkish 0.55s and the rest 0.26–0.32s, which was below
+    the threshold at which a reader even registers that the script changed. */
+const START = [0.34, 1.09, 1.53, 1.92, 2.26];
 const END = DILLER_SECONDS;
-const TRANS = 0.17;                        // how long one language becomes the next
+const TRANS = 0.20;                        // how long one language becomes the next
 
 const TICK_W = 78;                         // ticker cell, fixed so the underline
 const TICK_GAP = 14;                       // can slide to a computed position
@@ -44,8 +49,17 @@ export const Diller = ({ tOverride, bare = false }) => {
   const trans = tp(t, nextStart - TRANS, nextStart, ease.inOut);
   const j = Math.min(L.length - 1, i + 1);
 
-  const line = holdLine(frame, 0.10, 1.98);
-  const intro = at(frame, 0.22, dur.lg);
+  // Two headlines, one line each. "Sen Türkçe yaz." while the Turkish sentence is
+  // on screen; "Beş dilde yayınlansın." as it starts turning into the others. The
+  // single wrapping headline this replaces said both things at once and was read
+  // as neither.
+  // The handover matters. Turkish starts turning into English at 0.89, so
+  //  "Sen Türkçe yaz." has to be gone by then — an earlier cut held it to 1.22
+  // and there were 20 frames of that line sitting over an English sentence,
+  // which is the exact opposite of what the act is claiming.
+  const line1 = holdLine(frame, 0.10, 0.78);
+  const line2 = holdLine(frame, 0.96, 2.52);
+  const intro = tp(t, 0.24, 0.24 + dur.lg, ease.out);   // t, not frame — see Staging
 
   // A slow, continuous rise across the whole act. Between one language and the
   // next this scene has literally nothing moving, and a frame-hash audit found
@@ -92,7 +106,8 @@ export const Diller = ({ tOverride, bare = false }) => {
 
       {!bare && (
         <div style={{ position: 'absolute', left: SAFE.left + 20, top: 300, right: SAFE.right }}>
-          <div style={{ ...T.headline, color: C.navy, ...line }}>{content.copy.line_langs}</div>
+          <div style={{ ...T.headline, color: C.navy, position: 'absolute', ...line1 }}>{content.copy.line_langs}</div>
+          <div style={{ ...T.headline, color: C.navy, position: 'absolute', ...line2 }}>{content.copy.line_langs_2}</div>
         </div>
       )}
 

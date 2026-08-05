@@ -106,7 +106,7 @@ export const MontageWord = ({ children, dark }) => (
     style={{
       position: 'absolute',
       left: 100,
-      bottom: 430,
+      bottom: 560,
       ...T.monoSm,
       fontSize: 34,
       letterSpacing: '0.2em',

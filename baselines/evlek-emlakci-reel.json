@@ -1,12 +1,12 @@
 {
   "filename": "evlek_emlakci_reel_1080x1920_60fps_silent_master.mp4",
   "path": "remotion/out/evlek_emlakci_reel_1080x1920_60fps_silent_master.mp4",
-  "sha256": "1bf018a1a1dbe65931d1a06f310e182eda60882d5bd7d213b4610ef6a18d2e4a",
+  "sha256": "c92779255812e3c5462204058c55979b78c91f42baa3852f6a71bc821a40b40d",
   "width": 1080,
   "height": 1920,
   "fps": 60,
-  "duration_seconds": 20.5,
-  "total_frames": 1230,
+  "duration_seconds": 25.0,
+  "total_frames": 1500,
   "codec": "h264",
   "profile": "High",
   "level": 4.2,
@@ -17,8 +17,8 @@
   "color_range": "tv",
   "field_order": "progressive",
   "audio_stream_count": 0,
-  "size_bytes": 10415622,
-  "bitrate_kbps": 4065,
+  "size_bytes": 11726815,
+  "bitrate_kbps": 3753,
   "container": "mov,mp4,m4a,3gp,3g2,mj2",
   "source": {
     "authoring": "remotion",
@@ -27,20 +27,19 @@
     "encoder": "render/encode.mjs (shared with the approved V7 pipeline)"
   },
   "frame_audit": {
-    "unique_frames": 1196,
-    "unique_percent": 97.2,
-    "held_runs": 16,
-    "held_frames": 34,
+    "unique_frames": 1446,
+    "unique_percent": 96.4,
+    "held_frames": 54,
     "longest_hold": {
-      "from": 534,
-      "to": 543,
+      "from": 658,
+      "to": 667,
       "frames": 10,
-      "reason": "Diller holding on Arabic; the act's drift is sub-pixel between these frames"
+      "reason": "Diller holding a language; the act's drift is sub-pixel between these frames"
     }
   },
   "notes": [
-    "Not a golden master yet \u2014 the film still renders against placeholder photography.",
-    "Four photographs are doing eleven jobs; SET A, A2 and B of EMLAKCI_REEL_ASSET_REQUESTS.md fix that, and this checksum will change when they land.",
+    "25.000s cut. The 20.5s version was legible frame by frame and illegible in motion.",
+    "Still renders against placeholder photography \u2014 four images doing eleven jobs. The user's own matched-camera set is generated but this environment's network policy blocks every Google host, so it has not been fetched yet; see remotion/public/README.md.",
     "The V7 master is untouched: 3c22d5a3b6483127e3ca871d915453c5a17f844be0776387d46381950603ff71."
   ]
 }

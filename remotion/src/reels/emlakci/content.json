@@ -43,14 +43,14 @@
     ],
     "hook_1": "Bunların hiçbirini sen yapmadın.",
     "hook_2": "Sen sadece Yayınla'ya bastın.",
-    "line_written": "Açıklaman yazıldı. Sen onayla.",
-    "line_langs": "Sen Türkçe yaz. Beş dilde yayınlansın.",
+    "line_written": "Açıklamayı Evlek yazdı.",
+    "line_langs": "Sen Türkçe yaz.",
     "line_photo": "Boş oda, döşenmiş görünüyor.",
     "line_variants": "İstediğin stili seç.",
-    "line_match": "Doğru alıcının karşısına çıkıyor.",
+    "line_match": "Doğru alıcıya çıkıyor.",
     "line_search": "Alıcı cümleyle arıyor.",
     "line_found": "İlanın karşısına çıkıyor.",
-    "line_assistant": "Yapay zekâ da senin ilanını okuyor.",
+    "line_assistant": "Yapay zekâ da okuyor.",
     "close_1": "Sen ilanı koy.",
     "close_2": "Gerisi Evlek'te.",
     "cta": "evlek.app",
@@ -148,9 +148,7 @@
         "name": "العربية"
       }
     ],
-    "line_control": "Onay hep sende kalıyor.",
-    "kicker": "EVLEK · KKTC EMLAKÇILARI İÇİN",
-    "setup_head": "Tek bir ilan için yapılacaklar:",
+    "line_control": "Onayı sen veriyorsun.",
     "setup_items": [
       "Açıklamayı yaz",
       "Beş dile çevir",
@@ -161,7 +159,12 @@
     "listing_photos": [
       "stage_base",
       "listing_2"
-    ]
+    ],
+    "callout_1": "KKTC'de emlakçıysan",
+    "callout_2": "bu listeyi ezbere bilirsin.",
+    "setup_label": "TEK BİR İLAN İÇİN",
+    "line_langs_2": "Beş dilde yayınlansın.",
+    "line_match_sub": "GİRNE'DE 2+1 ARAYANLAR"
   },
   "_assets_note": "Her anahtar bir dosyaya bakar. Yeni görseller geldiğinde (bkz. video-system/docs/EMLAKCI_REEL_ASSET_REQUESTS.md) sadece bu tablodaki değerler değişir; hiçbir sahne dosyası dokunulmaz. 'pending' sütunu, istenen nihai dosya adıdır.",
   "assets": {

@@ -7,20 +7,22 @@
 // it is the mechanism that keeps a scrolling viewer in the frame.
 //
 //   #  act        s      ground        register                     person
-//   1  Açılış     4.00   cream→mixed   the job, then the montage    agent
-//   2  Yayınla    3.20   cream         device, macro → wide         agent
-//   3  Diller     2.20   cream         typography only              —
-//   4  Staging    2.85   photograph    full-bleed, no interface     —
-//   5  Match      2.40   navy          drawn diagram                —
-//   6  Arama      2.50   cream         full-frame interface         buyer
-//   7  Asistan    1.90   navy          conversation, no surface     buyer
-//   8  Kapanış    1.68   navy          brand plate                  —
+//   1  Açılış     5.80   navy→cream    call-out, list, montage      agent
+//   2  Yayınla    3.70   cream         device, macro → wide         agent
+//   3  Diller     2.70   cream         typography only              —
+//   4  Staging    3.20   photograph    full-bleed, no interface     —
+//   5  Match      2.60   navy          drawn diagram                —
+//   6  Arama      3.00   cream         full-frame interface         buyer
+//   7  Asistan    2.20   navy          conversation, no surface     buyer
+//   8  Kapanış    2.03   navy          brand plate                  —
 //
-// Açılış carries the extra 1.2s on purpose. An earlier cut opened straight into
-// the montage and never said who the film was for; five register changes with no
-// frame of reference is a showreel, not an argument. It now names the audience in
-// the first tenth of a second, lists the four jobs an agent does for every
-// listing, and only then spends the montage answering them.
+// 25.000s / 1500 frames. The 20.5s cut was legible frame by frame and illegible
+// in motion: the eye needs time to fixate, parse and move on, and several beats
+// were under that threshold — a wipe the viewer could not compare the two ends
+// of, five languages held for a quarter second each, sixteen words of answer
+// streaming in 0.7s. Every act is now 15–30% longer, and the extra 1.8s in
+// Açılış buys the one thing the film was missing entirely: a second and a half
+// where it does nothing but say who it is talking to.
 //
 // Cuts. Five are hard, two are dissolves, and each dissolve is earned:
 //
@@ -59,7 +61,7 @@ const FadeIn = ({ frames, children }) => {
 const s = (sec) => Math.round(sec * FPS);
 
 /* Kapanış is given its length in frames rather than seconds so the film lands on
-   a round total after the two overlaps are subtracted: 1230 frames, 20.500s. */
+   a round total after the two overlaps are subtracted: 1500 frames, 25.000s. */
 const ACTS = [
   { key: 'acilis', Scene: Acilis, frames: s(ACILIS_SECONDS), overlap: 0 },
   { key: 'yayinla', Scene: Yayinla, frames: s(YAYINLA_SECONDS), overlap: 0 },
@@ -68,7 +70,7 @@ const ACTS = [
   { key: 'match', Scene: Match, frames: s(MATCH_SECONDS), overlap: 0 },
   { key: 'arama', Scene: Arama, frames: s(ARAMA_SECONDS), overlap: 0 },
   { key: 'asistan', Scene: Asistan, frames: s(ASISTAN_SECONDS), overlap: 0 },
-  { key: 'kapanis', Scene: Kapanis, frames: 101, overlap: 8 },
+  { key: 'kapanis', Scene: Kapanis, frames: 122, overlap: 8 },
 ];
 
 export const FILM_FRAMES = ACTS.reduce((n, a) => n + a.frames - a.overlap, 0);

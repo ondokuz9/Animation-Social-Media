@@ -26,10 +26,10 @@ import { Disclosure } from '../../../brand/ui.jsx';
 import { asset, Grain } from '../parts.jsx';
 import content from '../content.json';
 
-export const STAGING_SECONDS = 2.85;
+export const STAGING_SECONDS = 3.2;
 
 const V = content.copy.variants;          // [{asset, label}]
-const VAR_AT = [null, 2.10, 2.46];        // index 0 is the wipe's own result
+const VAR_AT = [null, 2.34, 2.76];        // index 0 is the wipe's own result
 
 export const Staging = ({ tOverride, bare = false }) => {
   const frame = useCurrentFrame();
@@ -38,15 +38,23 @@ export const Staging = ({ tOverride, bare = false }) => {
 
   // The push never stops. A still full-bleed photograph reads as a slide the
   // moment it holds for more than half a second.
-  const push = interpolate(t, [0, STAGING_SECONDS], [1, 1.055], { extrapolateRight: 'clamp' });
+  const push = interpolate(t, [0, STAGING_SECONDS], [1, 1.06], { extrapolateRight: 'clamp' });
 
-  const wipe = tp(t, 0.45, 1.80, ease.inOut);
-  const snap = pulse(t, 1.78, 0.34);
+  // 0.55 → 2.05. Half a second of the empty room BEFORE anything moves, so the
+  // viewer has something to compare against; 1.5s of travel, so they can watch
+  // it happen. A fast wipe hides the one thing the act exists to show.
+  const wipe = tp(t, 0.55, 2.05, ease.inOut);
+  const snap = pulse(t, 2.03, 0.36);
 
-  const line1 = holdLine(frame, 0.15, 1.72);
-  const line2 = holdLine(frame, 1.86, 2.74);
-  const pill = at(frame, 0.28, dur.md);
-  const strip = at(frame, 1.95, dur.lg);
+  const line1 = holdLine(frame, 0.16, 2.02);
+  const line2 = holdLine(frame, 2.16, 3.10);
+  // These two were reading `frame` rather than `t`. Inside the cold open's montage
+  // an act is driven by tOverride at its own timecode while `frame` belongs to the
+  // montage — so the variation strip was showing up in a shot taken from 1.6s,
+  // where it does not exist yet. Anything an act draws has to be a function of the
+  // same clock, or the montage stops being a real frame of the film.
+  const pill = tp(t, 0.30, 0.30 + dur.md, ease.out);
+  const strip = tp(t, 2.16, 2.16 + dur.lg, ease.out);
 
   // Which variation is showing, and how far the dissolve has come.
   const varP = VAR_AT.map((s, i) => (i === 0 ? 1 : tp(t, s, s + 0.30, ease.out)));

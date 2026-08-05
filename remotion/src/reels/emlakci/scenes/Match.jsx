@@ -12,11 +12,11 @@
 
 import React from 'react';
 import { AbsoluteFill, useCurrentFrame, useVideoConfig, Img, interpolate, random } from 'remotion';
-import { C, T, dur, at, ease, tp, SAFE, holdLine } from '../../../brand/tokens.js';
+import { C, T, dur, at, ease, tp, MONO, SAFE, holdLine } from '../../../brand/tokens.js';
 import { asset, Grain } from '../parts.jsx';
 import content from '../content.json';
 
-export const MATCH_SECONDS = 2.4;
+export const MATCH_SECONDS = 2.6;
 
 const CX = 540, CY = 1090;
 
@@ -40,20 +40,21 @@ export const Match = ({ tOverride, bare = false }) => {
   const { fps } = useVideoConfig();
   const t = tOverride ?? frame / fps;
 
-  const cardIn = tp(t, 0, 0.38);
-  const fieldIn = tp(t, 0.28, 0.92);
-  const drawP = tp(t, 0.82, 1.74);
-  const settle = tp(t, 1.70, 2.14);
+  const cardIn = tp(t, 0, 0.40);
+  const fieldIn = tp(t, 0.32, 1.06);
+  const drawP = tp(t, 0.96, 1.98);
+  const settle = tp(t, 1.94, 2.42);
 
-  const line = holdLine(frame, 0.15, 2.26);
+  const line = holdLine(frame, 0.12, 2.46);
+  const sub = tp(t, 0.42, 0.42 + dur.md, ease.out);
 
   // Two rings leaving the listing, 0.55s apart. The act's claim is reach, and a
   // static starburst does not read as reach — something has to travel.
   const ring = (from) => {
-    const r = tp(t, from, from + 1.15, ease.out);
+    const r = tp(t, from, from + 1.25, ease.out);
     return r > 0.001 && r < 0.999 ? { r: 60 + r * 660, o: 0.34 * (1 - r) } : null;
   };
-  const rings = [ring(0.55), ring(1.10)].filter(Boolean);
+  const rings = [ring(0.62), ring(1.24)].filter(Boolean);
 
   // A very slow parallax so the diagram breathes instead of sitting there.
   const par = interpolate(t, [0, MATCH_SECONDS], [-8, 8]);
@@ -72,6 +73,15 @@ export const Match = ({ tOverride, bare = false }) => {
       {!bare && (
         <div style={{ position: 'absolute', left: SAFE.left + 20, top: 300, right: SAFE.right }}>
           <div style={{ ...T.headline, color: C.white, ...line }}>{content.copy.line_match}</div>
+          <div
+            style={{
+              fontFamily: MONO, fontWeight: 500, fontSize: 27, letterSpacing: '0.14em',
+              color: 'rgba(255,255,255,0.58)', marginTop: 22,
+              opacity: sub * line.opacity, transform: `translateY(${(1 - sub) * 10}px)`,
+            }}
+          >
+            {content.copy.line_match_sub}
+          </div>
         </div>
       )}
 
