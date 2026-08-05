@@ -1,0 +1,19 @@
+{
+  "name": "evlek-remotion",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Evlek reels authored in Remotion. Masters are encoded by render/encode.mjs.",
+  "scripts": {
+    "studio": "remotion studio",
+    "still": "remotion still src/index.js",
+    "render": "remotion render src/index.js",
+    "sequence": "remotion render src/index.js --sequence"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.499",
+    "@remotion/renderer": "4.0.499",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.499"
+  }
+}

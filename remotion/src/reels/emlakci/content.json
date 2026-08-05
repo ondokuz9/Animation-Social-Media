@@ -1,0 +1,24 @@
+{
+  "project_id": "evlek-emlakci-reel-v1",
+  "language": "tr",
+  "listing": {
+    "price": "£165.000",
+    "place": "Girne · Zeytinlik",
+    "meta": "95 m² · 2+1 · Girne · Zeytinlik"
+  },
+  "copy": {
+    "description": "Girne Zeytinlik'te, denize yürüme mesafesinde, geniş balkonlu 2+1 daire.",
+    "languages": ["TR", "EN", "RU", "DE", "AR"],
+    "line_written": "Açıklaman yazıldı.",
+    "line_translated": "Beş dile çevriliyor.",
+    "confirm": "Onayla",
+    "confirmed": "Onaylandı",
+    "confirm_hint": "Sen kontrol et"
+  },
+  "assets": {
+    "listing_image": "room-01-akdeniz.jpg",
+    "staging_before": "room-00-bos.jpg",
+    "staging_after": "room-01-akdeniz.jpg",
+    "wordmark": "wordmark.png"
+  }
+}
