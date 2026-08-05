@@ -89,17 +89,38 @@ export const dur = {
   xl: 0.62,   // act transition, with the device tilt
 };
 
+/* Interface motion is held under 300ms — anything slower on a UI element reads
+   as sluggish. dur.lg and dur.xl deliberately exceed that and are reserved for
+   CAMERA-level moves: an act transition, the device leaving frame. A button
+   inside the phone may never use them. The distinction matters: the film obeys
+   film timing, the interface inside it obeys interface timing. */
+
+/** A press: deliberate going down, snapping back. Symmetric press timing is a
+    craft finding — the human half of an interaction earns more time than the
+    machine's answer. */
+export const pressAt = (frame, atSec) => {
+  const down = at(frame, atSec, 0.12, ease.out);
+  const up = at(frame, atSec + 0.12, 0.08, ease.out);
+  return Math.max(0, down - up);
+};
+
 export const f = (seconds) => Math.round(seconds * FPS);
 
 /* ── Easing tokens ────────────────────────────────────────────────────────
-   The rule, without exception: entering uses ease-out, exiting uses ease-in,
-   an element changing state in place uses ease-in-out. */
+   Both entering AND exiting use ease-out. This is not the textbook symmetry
+   (in for exits) — it is the craft rule: ease-in starts slow and so delays the
+   exact moment the viewer is watching, which reads as sluggish even at the same
+   duration. There is deliberately no `ease.in` token, so it cannot be reached
+   for by accident.
+
+   `out` keeps the brand's documented curve rather than forking it. `inOut` is
+   the stronger curve, for an element moving or morphing on screen. */
 
 export const ease = {
-  out: Easing.bezier(0.22, 1, 0.36, 1),
-  in: Easing.bezier(0.64, 0, 0.78, 0),
-  inOut: Easing.bezier(0.65, 0, 0.35, 1),
-  linear: Easing.linear,
+  out: Easing.bezier(0.22, 1, 0.36, 1),      // brand curve — entering AND exiting
+  inOut: Easing.bezier(0.77, 0, 0.175, 1),   // on-screen movement / morph
+  drawer: Easing.bezier(0.32, 0.72, 0, 1),   // panels sliding from an edge
+  linear: Easing.linear,                     // constant motion only (drift, typing)
 };
 
 export const SPRING_SOFT = { damping: 18, mass: 0.5, stiffness: 140 };
@@ -120,16 +141,16 @@ export const enter = (frame, atSec, { lenSec = dur.md, dy = 18, easing = ease.ou
   return { opacity: p, transform: `translateY(${(1 - p) * dy}px)` };
 };
 
-/** Exit: fade away, using ease-in as the rule requires. */
+/** Exit: fade away — ease-out here too, for the reason above. */
 export const exit = (frame, atSec, { lenSec = dur.sm, dy = -12 } = {}) => {
-  const p = at(frame, atSec, lenSec, ease.in);
+  const p = at(frame, atSec, lenSec, ease.out);
   return { opacity: 1 - p, transform: `translateY(${p * dy}px)` };
 };
 
 /** Hold a line on screen between two times, entering and exiting by the rules. */
 export const holdLine = (frame, fromSec, toSec, opts = {}) => {
   const a = enter(frame, fromSec, opts);
-  const b = at(frame, toSec, opts.outLenSec ?? dur.sm, ease.in);
+  const b = at(frame, toSec, opts.outLenSec ?? dur.sm, ease.out);
   return { opacity: Math.min(a.opacity, 1 - b), transform: a.transform };
 };
 

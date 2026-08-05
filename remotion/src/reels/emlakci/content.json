@@ -7,18 +7,37 @@
     "meta": "95 m² · 2+1 · Girne · Zeytinlik"
   },
   "copy": {
+    "placeholder": "Açıklama ekle…",
     "description": "Girne Zeytinlik'te, denize yürüme mesafesinde, geniş balkonlu 2+1 daire.",
     "languages": ["TR", "EN", "RU", "DE", "AR"],
-    "line_written": "Açıklaman yazıldı.",
-    "line_translated": "Beş dile çevriliyor.",
+    "publish": "Yayınla",
     "confirm": "Onayla",
     "confirmed": "Onaylandı",
-    "confirm_hint": "Sen kontrol et"
+    "row_desc": "Açıklama yazıldı",
+    "row_lang": "Beş dile çevrildi",
+    "row_photo": "Fotoğraf hazırlandı",
+    "row_match": "Doğru alıcıya çıkıyor",
+    "buyer_chips": ["Girne · 2+1", "Deniz yakını", "Yatırımlık"],
+    "hook_1": "Bunu sen yapmadın.",
+    "hook_2": "Sen sadece Yayınla'ya bastın.",
+    "line_written": "Açıklaman yazıldı. Sen onayla.",
+    "line_langs": "Beş dile çevriliyor.",
+    "line_photo": "Fotoğrafın hazırlanıyor.",
+    "line_match": "Doğru alıcının karşısına çıkıyor.",
+    "line_search": "Alıcı cümleyle arıyor.",
+    "line_found": "İlanın karşısına çıkıyor.",
+    "line_assistant": "Yapay zekâ asistanları da okuyor.",
+    "close": "Sen ilanı koy. Gerisi Evlek'te.",
+    "cta": "evlek.app",
+    "query": "Girne'de deniz gören, bahçeli 2+1",
+    "query_chips": ["Girne", "Deniz manzarası", "Bahçeli", "2+1"]
   },
   "assets": {
     "listing_image": "room-01-akdeniz.jpg",
     "staging_before": "room-00-bos.jpg",
     "staging_after": "room-01-akdeniz.jpg",
+    "result_2": "room-02-minimal.jpg",
+    "result_3": "peek-balkon.jpg",
     "wordmark": "wordmark.png"
   }
 }
