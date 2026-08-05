@@ -1,0 +1,71 @@
+{
+  "_readme": [
+    "Copy this to content.json in your own template copy and fill it in.",
+    "Every key is optional: a missing key falls back to the approved V7 value, so",
+    "an empty manifest renders the approved reel unchanged.",
+    "Run `node apply-content.mjs` after editing — it inlines the manifest into the",
+    "design page. `npm run render:template` does that for you.",
+    "Scene DURATIONS are not here: they live in window.OM_SCENES in the design page.",
+    "Changing them changes the frame count and invalidates the baseline."
+  ],
+
+  "project_id": "evlek-<reel-name>",
+  "language": "tr",
+  "duration_seconds": 21.55,
+
+  "listing": {
+    "price": "£000.000",
+    "location": "Şehir · Semt",
+    "type": "2+1",
+    "title_type": "Türk Koçanı"
+  },
+
+  "copy": {
+    "hook_1": "Scene 1, first line, over the hook photograph.",
+    "hook_2": "Scene 1, second line, over the interior photograph.",
+    "ai_search": "Scene 2 headline. One trailing word is set in gold.",
+    "ai_search_accent": "the trailing word, exactly as it appears in ai_search",
+    "ai_badge": "AI arama",
+    "search_query": "The natural-language query typed into the search field.",
+    "search_price_clause": "≤ £000K",
+    "search_button": "Ara",
+    "criteria": ["Chip 1", "Chip 2", "Chip 3", "Chip 4", "Chip 5"],
+    "results": "Scene 3 headline.",
+    "analysis": "Scene 4 headline, line one.\nLine two.",
+    "detail_title_label": "KOÇAN BİLGİSİ",
+    "staging_before": "Scene 5, before the slider moves.",
+    "staging_after": "Scene 5, after the slider lands.",
+    "staging_disclosure": "AI ile görselleştirildi · Temsilî",
+    "market": "Scene 6 headline, line one.\nLine two.",
+    "tagline": "Closing tagline.",
+    "cta": "Closing call to action.",
+    "platforms": "Web · iOS · Android · 5 dil"
+  },
+
+  "assets": {
+    "_readme": [
+      "Paths are relative to the template's project/ directory.",
+      "Add new imagery under a NEW filename; never overwrite an approved asset.",
+      "listing_stack is the real shape of the results scene: three cards stacked",
+      "BEHIND the main card, deepest first. The listing_peek_left / listing_peek_right",
+      "spellings are accepted as aliases for the first two, for schema compatibility."
+    ],
+    "hook_image": "img/<hook>.jpg",
+    "living_room_image": "img/<interior>.jpg",
+    "listing_main_image": "img/<listing-main>.jpg",
+    "listing_stack": [
+      "img/<stack-deepest>.jpg",
+      "img/<stack-middle>.jpg",
+      "img/<stack-front>.jpg"
+    ],
+    "staging_before": "img/<empty-room>.jpg",
+    "staging_after": "img/<staged-room>.jpg",
+    "wordmark": "img/wordmark.png"
+  },
+
+  "_staging_pair_rule": [
+    "staging_before and staging_after must be the SAME room from the SAME camera:",
+    "identical geometry, window proportions, camera angle, ceiling height and door",
+    "openings. The slider reveals one over the other; any mismatch reads as a cheat."
+  ]
+}
