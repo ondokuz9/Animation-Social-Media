@@ -136,8 +136,8 @@ export const Match = ({ tOverride, bare = false }) => {
               transform: `translateX(${p.x < CX ? '-100%' : '0'}) translateY(${(1 - o) * 8}px)`,
               opacity: o,
               ...T.uiLabel,
-              fontSize: 27,
-              color: 'rgba(255,255,255,0.92)',
+              fontSize: 29,
+              color: 'rgba(255,255,255,0.96)',
               whiteSpace: 'nowrap',
             }}
           >

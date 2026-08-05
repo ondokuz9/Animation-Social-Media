@@ -137,7 +137,7 @@ export const Diller = ({ tOverride, bare = false }) => {
               style={{
                 width: TICK_W,
                 fontFamily: MONO, fontWeight: 500, fontSize: 32, letterSpacing: '0.08em',
-                color: k === i ? C.navy : C.ink(k < i ? 0.34 : 0.17),
+                color: k === i ? C.navy : C.ink(k < i ? 0.46 : 0.28),
                 transform: `translateY(${k === i ? -2 : 0}px)`,
               }}
             >
@@ -146,7 +146,7 @@ export const Diller = ({ tOverride, bare = false }) => {
           ))}
         </div>
         <div style={{ position: 'relative', height: 3, marginTop: 12 }}>
-          <div style={{ position: 'absolute', left: 0, right: 0, top: 0, height: 3, background: C.ink(0.1) }} />
+          <div style={{ position: 'absolute', left: 0, right: 0, top: 0, height: 3, background: C.ink(0.16) }} />
           <div
             style={{
               position: 'absolute', top: 0, left: 0, width: TICK_W, height: 3,

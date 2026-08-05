@@ -17,6 +17,7 @@ import { Card, Chip, Button, Cursor, WordReveal, Disclosure } from '../../brand/
 import content from './content.json';
 
 const DESC = content.copy.description;
+const PHOTOS = content.copy.listing_photos;   // asset keys, in order
 
 /** A completed step. These stack under the card and are the visible proof that
     one press produced many outcomes. */
@@ -68,13 +69,27 @@ export const AgentPhone = ({ s }) => {
       </div>
 
       <Card lifted={s.match > 0.4 ? 1 : 0} selected={s.match ?? 0}>
-        {/* The photo. During staging the prepared version wipes over the raw one,
-            inside the card — the listing never leaves the frame. */}
+        {/* The photos. A listing is never one photograph, and a card that shows
+            the same frame for four seconds reads as a mock-up rather than a
+            product. `photoIdx` is a float: 0.5 means half way between the first
+            and the second, so the carousel is scrubbable like everything else. */}
         <div style={{ position: 'relative', height: photoH, overflow: 'hidden' }}>
-          <Img
-            src={staticFile(content.assets.staging_before)}
-            style={{ position: 'absolute', inset: 0, width: '100%', height: photoH, objectFit: 'cover' }}
-          />
+          {PHOTOS.map((key, i) => {
+            const d = Math.abs((s.photoIdx ?? 0) - i);
+            const o = Math.max(0, 1 - d);
+            if (o <= 0.001) return null;
+            return (
+              <Img
+                key={key}
+                src={staticFile(content.assets[key])}
+                style={{
+                  position: 'absolute', inset: 0, width: '100%', height: photoH,
+                  objectFit: 'cover', opacity: o,
+                  transform: `scale(${1 + 0.012 * (1 - o)})`,
+                }}
+              />
+            );
+          })}
           {s.stage > 0 && (
             <Img
               src={staticFile(content.assets.staging_after)}
@@ -98,6 +113,23 @@ export const AgentPhone = ({ s }) => {
               <Disclosure style={{ fontSize: 24, padding: '9px 18px' }} />
             </div>
           )}
+
+          {/* Dots. Even standing still they say "there are more of these". */}
+          <div style={{ position: 'absolute', left: 0, right: 0, bottom: 22, display: 'flex', justifyContent: 'center', gap: 11 }}>
+            {PHOTOS.map((key, i) => {
+              const on = Math.max(0, 1 - Math.abs((s.photoIdx ?? 0) - i));
+              return (
+                <div
+                  key={key}
+                  style={{
+                    width: 10 + 12 * on, height: 10, borderRadius: 999,
+                    background: `rgba(255,255,255,${0.5 + 0.45 * on})`,
+                    boxShadow: '0 1px 6px rgba(4,14,28,0.4)',
+                  }}
+                />
+              );
+            })}
+          </div>
         </div>
 
         <div style={{ padding: '28px 30px 30px' }}>

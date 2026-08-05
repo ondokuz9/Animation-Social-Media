@@ -109,14 +109,19 @@ export const MontageWord = ({ children, dark }) => (
       bottom: 430,
       ...T.monoSm,
       fontSize: 34,
-      letterSpacing: '0.22em',
-      color: dark ? 'rgba(255,255,255,0.96)' : C.navy,
+      letterSpacing: '0.2em',
+      color: dark ? '#FFFFFF' : C.navy,
       display: 'flex',
       alignItems: 'center',
-      gap: 20,
+      gap: 18,
+      // On a photograph the word has 250ms to be read and no time to be squinted
+      // at, so it gets a plate rather than a text-shadow.
+      background: dark ? 'rgba(4,14,28,0.62)' : 'transparent',
+      padding: dark ? '14px 26px 14px 22px' : '14px 4px',
+      borderRadius: dark ? 999 : 0,
     }}
   >
-    <span style={{ width: 44, height: 3, background: C.gold, display: 'block' }} />
+    <span style={{ width: 44, height: 3, background: C.gold, display: 'block', flexShrink: 0 }} />
     {children}
   </div>
 );

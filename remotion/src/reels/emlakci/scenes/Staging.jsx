@@ -26,10 +26,10 @@ import { Disclosure } from '../../../brand/ui.jsx';
 import { asset, Grain } from '../parts.jsx';
 import content from '../content.json';
 
-export const STAGING_SECONDS = 3.0;
+export const STAGING_SECONDS = 2.85;
 
 const V = content.copy.variants;          // [{asset, label}]
-const VAR_AT = [null, 2.20, 2.60];        // index 0 is the wipe's own result
+const VAR_AT = [null, 2.10, 2.46];        // index 0 is the wipe's own result
 
 export const Staging = ({ tOverride, bare = false }) => {
   const frame = useCurrentFrame();
@@ -44,7 +44,7 @@ export const Staging = ({ tOverride, bare = false }) => {
   const snap = pulse(t, 1.78, 0.34);
 
   const line1 = holdLine(frame, 0.15, 1.72);
-  const line2 = holdLine(frame, 1.88, 2.88);
+  const line2 = holdLine(frame, 1.86, 2.74);
   const pill = at(frame, 0.28, dur.md);
   const strip = at(frame, 1.95, dur.lg);
 
@@ -124,17 +124,17 @@ export const Staging = ({ tOverride, bare = false }) => {
       <AbsoluteFill
         style={{
           background:
-            'linear-gradient(180deg, rgba(10,37,64,0.66) 0%, rgba(10,37,64,0.14) 32%, rgba(10,37,64,0) 56%, rgba(10,37,64,0.42) 100%)',
+            'linear-gradient(180deg, rgba(6,22,40,0.86) 0%, rgba(6,22,40,0.66) 18%, rgba(8,28,50,0.22) 36%, rgba(10,37,64,0) 58%, rgba(10,37,64,0.46) 100%)',
         }}
       />
       <Grain opacity={0.045} />
 
       {!bare && (
         <div style={{ position: 'absolute', left: SAFE.left + 20, top: 300, right: SAFE.right, height: 180 }}>
-          <div style={{ ...T.headline, color: C.white, textShadow: '0 2px 30px rgba(10,37,64,0.55)', position: 'absolute', ...line1 }}>
+          <div style={{ ...T.headline, color: C.white, textShadow: '0 2px 24px rgba(4,14,28,0.8)', position: 'absolute', ...line1 }}>
             {content.copy.line_photo}
           </div>
-          <div style={{ ...T.headline, color: C.white, textShadow: '0 2px 30px rgba(10,37,64,0.55)', position: 'absolute', ...line2 }}>
+          <div style={{ ...T.headline, color: C.white, textShadow: '0 2px 24px rgba(4,14,28,0.8)', position: 'absolute', ...line2 }}>
             {content.copy.line_variants}
           </div>
         </div>
@@ -152,7 +152,7 @@ export const Staging = ({ tOverride, bare = false }) => {
           display: 'flex', gap: 18,
           padding: '18px 20px 14px',
           borderRadius: 28,
-          background: 'rgba(4,14,28,0.52)',
+          background: 'rgba(4,14,28,0.66)',
           backdropFilter: 'blur(14px)',
           opacity: strip, transform: `translateY(${(1 - strip) * 26}px)`,
         }}
@@ -175,7 +175,7 @@ export const Staging = ({ tOverride, bare = false }) => {
                 style={{
                   fontFamily: MONO, fontWeight: 500, fontSize: 24, letterSpacing: '0.1em',
                   textTransform: 'uppercase', marginTop: 12,
-                  color: on ? C.gold : 'rgba(255,255,255,0.5)',
+                  color: on ? C.gold : 'rgba(255,255,255,0.72)',
                 }}
               >
                 {v.label}

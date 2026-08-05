@@ -133,7 +133,7 @@ export const Asistan = ({ tOverride }) => {
               transform: `scaleX(${src})`, transformOrigin: 'left center',
             }}
           />
-          <span style={{ fontFamily: MONO, fontWeight: 500, fontSize: 27, letterSpacing: '0.12em', color: 'rgba(255,255,255,0.6)' }}>
+          <span style={{ fontFamily: MONO, fontWeight: 500, fontSize: 28, letterSpacing: '0.12em', color: 'rgba(255,255,255,0.78)' }}>
             {A.source}
           </span>
         </div>

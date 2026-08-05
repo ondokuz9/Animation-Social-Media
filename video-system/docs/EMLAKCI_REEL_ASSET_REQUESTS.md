@@ -1,14 +1,18 @@
 # Emlakçı Reel · görsel ihtiyaç listesi
 
-Bu dosya, filmin şu anda **eksik olan** görsellerini listeler. Her madde için
-neden gerektiği, teknik şartı ve doğrudan kopyalanabilir bir üretim prompt'u var.
+Filmin şu anda **eksik olan** görselleri. Her madde için neden gerektiği, teknik
+şartı ve doğrudan kopyalanabilir bir üretim prompt'u var.
 
 Mevcut varlıklar (`remotion/public/`): `room-00-bos.jpg`, `room-01-akdeniz.jpg`,
-`room-02-minimal.jpg`, `peek-balkon.jpg`, `wordmark.png`.
+`room-02-minimal.jpg`, `peek-balkon.jpg`, `wordmark.png` — **dört fotoğraf, on bir
+rol.** "Sürekli aynı fotoğraf" hissinin tek sebebi bu; aşağıdaki setler geldiğinde
+tamamen kayboluyor.
 
-> **Film bunlarsız da render oluyor.** Her yeni görsel `content.json` içinde bir
-> anahtara bağlı; dosya gelmezse mevcut görsele düşüyor. Yani bekleme yok —
-> görseller geldikçe kalite artıyor.
+> **Film bunlarsız da render oluyor.** `content.json → assets` her anahtarı bir
+> dosyaya bağlıyor; dosya gelmezse mevcut görsele düşüyor. Yani bekleme yok —
+> görseller geldikçe kalite artıyor, tek bir sahne dosyası bile açılmıyor.
+
+**Öncelik: SET A → SET A2 → SET B → SET C → SET D.**
 
 ---
 
@@ -16,9 +20,8 @@ Mevcut varlıklar (`remotion/public/`): `room-00-bos.jpg`, `room-01-akdeniz.jpg`
 
 Filmin en güçlü iki anı (staging wipe'ı ve üç varyasyon) yalnızca fotoğraflar
 **birebir aynı kamera açısından** olduğunda çalışır. Duvarlar, pencere, kapı,
-zemin çizgileri, ufuk hattı pikselinde aynı olmalı; sadece içerideki eşya
-değişmeli. Kamera 2 derece kaysa wipe "geçiş" değil "kesme" gibi okunur ve
-etki tamamen kaybolur.
+zemin çizgileri pikselinde aynı olmalı; sadece içerideki eşya değişmeli. Kamera
+2 derece kaysa wipe "geçiş" değil "kesme" gibi okunur ve etki tamamen kaybolur.
 
 **Yöntem:** metinden sıfırdan 4 ayrı görsel üretme. **Bir tane** boş oda üret,
 sonra onu **görselden-görsele düzenleme** (Gemini image editing / Nano Banana
@@ -32,11 +35,10 @@ sonra onu **görselden-görsele düzenleme** (Gemini image editing / Nano Banana
 
 ## SET A — Ana ilan / staging seti (4 görsel) · **ZORUNLU**
 
-Nerede kullanılıyor: Act 3 tam ekran staging wipe'ı, Act 4 üç varyasyon beat'i,
-telefon içindeki ilan kartı, Act 5 eşleşme diyagramının merkezi.
+Nerede: Act 4 tam ekran staging wipe'ı, üç varyasyon beat'i, telefon içindeki
+ilan kartı, Act 5 eşleşme diyagramının merkezi, Act 6 sonuç kartı.
 
-Format: **1080 × 1920 dikey** (tam ekran kullanılıyor, yatay görsel kırpılınca
-oda kayboluyor). JPEG, yüksek kalite.
+Format: **1080 × 1920 dikey**, JPEG, yüksek kalite.
 
 | dosya | ne |
 |---|---|
@@ -45,7 +47,7 @@ oda kayboluyor). JPEG, yüksek kalite.
 | `stage-02-modern.jpg` | aynı oda · modern stil |
 | `stage-03-minimal.jpg` | aynı oda · minimal stil |
 
-### A0 — boş oda (önce bunu üret, diğerleri bunun düzenlemesi)
+### A0 — boş oda (önce bunu üret, diğer üçü bunun düzenlemesi)
 
 ```
 Vertical 9:16 real estate listing photo of an EMPTY, unfurnished living room in a
@@ -102,21 +104,59 @@ the camera. No text, no watermark, no people.
 
 ---
 
+## SET A2 — Aynı dairenin diğer odaları (2 görsel) · **ZORUNLU**
+
+Nerede: telefon içindeki ilan kartının fotoğraf karuseli. Kart artık noktalarla
+birden fazla fotoğrafı olduğunu gösteriyor ve açıklama yazılırken fotoğraf
+değişiyor. Şu an ikinci fotoğraf başka bir setten ödünç — aynı daire değil.
+
+**Bunlar da A0 ile aynı daireden olmalı** ama farklı odalardan; kamera aynı olmak
+zorunda değil, **daire** aynı olmalı: aynı zemin karosu, aynı duvar rengi, aynı
+ışık.
+
+Format: **1080 × 1920 dikey**.
+
+| dosya | ne |
+|---|---|
+| `stage-10-balkon.jpg` | aynı dairenin balkonu, boş |
+| `stage-11-mutfak.jpg` | aynı dairenin mutfağı, boş |
+
+```
+Vertical 9:16 real estate listing photo of the EMPTY balcony of a new-build
+apartment in Kyrenia, Northern Cyprus — the same apartment as the empty living
+room: identical light-grey porcelain floor tiles, identical white walls,
+identical warm late-afternoon light. A glass balustrade, the Mediterranean and
+low terracotta rooftops beyond, a distant mountain ridge. Completely bare: no
+furniture, no plants, no people. Shot on a phone by an estate agent — honest and
+plain. Natural colours, no HDR. No text, no watermark.
+```
+
+```
+Vertical 9:16 real estate listing photo of the EMPTY kitchen of a new-build
+apartment in Kyrenia, Northern Cyprus — the same apartment as the empty living
+room: identical light-grey porcelain floor tiles, identical white walls,
+identical warm daylight. Plain white handleless cabinets, a light stone
+worktop, a window on the left. Completely bare: nothing on the counters, no
+appliances on show, no people. Shot on a phone by an estate agent. Natural
+colours, no HDR. No text, no watermark.
+```
+
+---
+
 ## SET B — Arama sonuçları (3 görsel) · **ZORUNLU**
 
-Nerede kullanılıyor: Act 6, alıcı cümleyle aradığında ekrana gelen üç ilan
-kartı. Üçü de **belirgin biçimde farklı** görünmeli — aksi hâlde "sonuç listesi"
-değil "aynı görselin üç kopyası" gibi okunuyor. Şu an elimizde bu üçlü yok.
+Nerede: Act 6, alıcı cümleyle aradığında ekrana gelen üç ilan kartı. Üçü de
+**belirgin biçimde farklı** görünmeli — şu an ikisi filmin başka yerlerinde de
+kullanılan görseller, o yüzden "sonuç listesi" değil "aynı görselin tekrarı"
+gibi okunuyor.
 
-Format: **1600 × 1200 yatay** (kart içinde yatay kırpılıyor).
+Format: **1600 × 1200 yatay**.
 
 | dosya | ne |
 |---|---|
 | `ilan-a-deniz.jpg` | deniz manzaralı teras |
 | `ilan-b-bahce.jpg` | bahçeli müstakil ev |
 | `ilan-c-site.jpg` | havuzlu modern site |
-
-### B1 — deniz manzaralı teras
 
 ```
 Horizontal real estate photo: a furnished apartment terrace in Kyrenia, Northern
@@ -126,8 +166,6 @@ glass balustrade, the sea and distant mountains beyond. Warm low sun, natural
 colours, no people, no text, no watermark.
 ```
 
-### B2 — bahçeli müstakil ev
-
 ```
 Horizontal real estate photo: a modern two-storey detached villa in Northern
 Cyprus seen from its garden. White rendered walls, large windows, a mature lawn,
@@ -135,8 +173,6 @@ olive and citrus trees, a stone path to the front door, mountains in the far
 background. Bright midday Mediterranean light, natural colours, no people, no
 text, no watermark.
 ```
-
-### B3 — havuzlu modern site
 
 ```
 Horizontal real estate photo: a contemporary low-rise apartment complex in
@@ -150,9 +186,8 @@ watermark.
 
 ## SET C — Girne kimliği (2 görsel) · **ÖNEMLİ**
 
-Nerede kullanılıyor: açılış montajının ilk karesi ve kapanışta marka planının
-altında yavaşça kayan zemin. Filmin "burası KKTC" demesi için tek şansı — şu an
-hiç yer görseli yok, film havada duruyor.
+Nerede: kapanışta marka planının altında yavaşça kayan zemin. Filmin "burası
+KKTC" demesi için tek şansı — şu an orada bir balkon fotoğrafı duruyor.
 
 Format: **1080 × 1920 dikey**.
 
@@ -161,8 +196,6 @@ Format: **1080 × 1920 dikey**.
 | `girne-hava.jpg` | Girne sahil şeridi, kuşbakışı |
 | `girne-liman.jpg` | Girne antik limanı, akşamüstü |
 
-### C1 — kuşbakışı sahil
-
 ```
 Vertical 9:16 aerial drone photograph of the Kyrenia coastline, Northern Cyprus,
 at golden hour. Turquoise and deep blue Mediterranean water meeting a rocky
@@ -170,8 +203,6 @@ shore, low white buildings with terracotta roofs among palms and cypress, the
 Beşparmak mountain ridge rising behind. Warm low sunlight, long soft shadows,
 natural colours, cinematic, no people visible, no text, no watermark, no logo.
 ```
-
-### C2 — liman
 
 ```
 Vertical 9:16 photograph of Kyrenia's old harbour, Northern Cyprus, in the blue
@@ -183,20 +214,13 @@ watermark.
 
 ---
 
-## SET D — Makro detaylar (2 görsel) · **İSTEĞE BAĞLI ama açılışı çok güçlendirir**
+## SET D — Makro dokular (2 görsel) · **İSTEĞE BAĞLI**
 
-Nerede kullanılıyor: açılış montajının sert kesmeleri arasında 8–10 karelik
-nefes planları. Montaj sadece arayüzden oluşursa yorucu oluyor; araya giren
-fiziksel doku onu "reklam" hissettiriyor.
+Nerede: açılış montajına nefes planı olarak girebilir. Montaj sadece arayüz ve
+oda planlarından oluşuyor; araya giren fiziksel doku onu "reklam"dan çıkarıp
+"film"e yaklaştırıyor.
 
 Format: **1080 × 1920 dikey**.
-
-| dosya | ne |
-|---|---|
-| `detay-isik.jpg` | zeminde pencere ışığı |
-| `detay-balkon.jpg` | balkon kapısında tül, deniz bulanık |
-
-### D1
 
 ```
 Vertical 9:16 macro photograph: warm late-afternoon sunlight falling through a
@@ -204,8 +228,6 @@ window onto a pale porcelain tile floor, casting a sharp geometric shadow, a
 corner of a jute rug at the edge of frame. Very shallow depth of field, warm
 tones, quiet and still. No people, no text, no watermark.
 ```
-
-### D2
 
 ```
 Vertical 9:16 photograph: a sheer white curtain lifting slightly in the breeze at
@@ -220,11 +242,11 @@ no watermark.
 
 1. **Metin yok.** Hiçbir görselde yazı, filigran, logo, arayüz elemanı olmasın —
    filmin bütün tipografisi vektör olarak üstte çiziliyor.
-2. **İnsan yok.** Yüz girdiği anda izleyicinin gözü oraya kilitleniyor ve
-   ürünü bırakıyor. Ayrıca temsilî görselde kimlik sorunu doğuruyor.
-3. **HDR / aşırı işlem yok.** Filmin paleti lacivert + krem + altın; aşırı
-   doygun görsel bu paletin dışına düşüyor.
-4. **Dosya adları yukarıdaki tabloyla birebir aynı olsun**, doğrudan
+2. **İnsan yok.** Yüz girdiği anda izleyicinin gözü oraya kilitleniyor ve ürünü
+   bırakıyor; ayrıca temsilî görselde kimlik sorunu doğuruyor.
+3. **HDR / aşırı işlem yok.** Filmin paleti lacivert + krem + altın; aşırı doygun
+   görsel bu paletin dışına düşüyor.
+4. **Dosya adları yukarıdaki tablolarla birebir aynı olsun**, doğrudan
    `remotion/public/` içine bırakılabilsin.
-5. Öncelik sırası: **SET A → SET B → SET C → SET D**. Sadece SET A gelse bile
-   filmin en güçlü iki anı çalışır hâle geliyor.
+5. Geldiğinde tek yapılacak: `content.json → assets` tablosundaki değerleri
+   `assets_pending` sütunundaki adlarla değiştirmek, sonra `npm run emlakci`.

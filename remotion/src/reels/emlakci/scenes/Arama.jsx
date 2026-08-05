@@ -32,7 +32,7 @@ import { Caret } from '../../../brand/ui.jsx';
 import { SearchField, ResultCard } from '../parts.jsx';
 import content from '../content.json';
 
-export const ARAMA_SECONDS = 2.6;
+export const ARAMA_SECONDS = 2.5;
 
 const P = content.copy.query_parts;      // [{text, chip}]
 const R = content.copy.results;
@@ -56,7 +56,7 @@ export const Arama = ({ tOverride, bare = false }) => {
   const submit = pulse(t, 0.55, 0.22);
 
   const line1 = holdLine(frame, 0.08, 1.42);
-  const line2 = holdLine(frame, 1.52, 2.52);
+  const line2 = holdLine(frame, 1.50, 2.42);
 
   const count = tp(t, 1.62, 1.62 + dur.md, ease.out);
   const ringP = tp(t, 1.80, 2.10, ease.out);
@@ -106,10 +106,10 @@ export const Arama = ({ tOverride, bare = false }) => {
 
       <div
         style={{
-          position: 'absolute', left: 80, top: 830, transform: `translateY(${drift}px)`,
-          fontFamily: MONO, fontWeight: 500, fontSize: 26, letterSpacing: '0.12em',
-          textTransform: 'uppercase', color: C.ink(0.42),
-          opacity: count, transform: `translateY(${(1 - count) * 10}px)`,
+          position: 'absolute', left: 80, top: 830,
+          fontFamily: MONO, fontWeight: 500, fontSize: 28, letterSpacing: '0.12em',
+          textTransform: 'uppercase', color: C.ink(0.58),
+          opacity: count, transform: `translateY(${drift + (1 - count) * 10}px)`,
         }}
       >
         {P.length} kritere uyan ilanlar

@@ -36,15 +36,15 @@
     ],
     "montage_words": [
       "FOTOĞRAF",
-      "BEŞ DİL",
-      "GÖRÜNÜRLÜK",
       "AÇIKLAMA",
+      "GÖRÜNÜRLÜK",
+      "BEŞ DİL",
       "ALICI"
     ],
-    "hook_1": "Bunları sen yapmadın.",
+    "hook_1": "Bunların hiçbirini sen yapmadın.",
     "hook_2": "Sen sadece Yayınla'ya bastın.",
     "line_written": "Açıklaman yazıldı. Sen onayla.",
-    "line_langs": "İlanın beş dilde.",
+    "line_langs": "Sen Türkçe yaz. Beş dilde yayınlansın.",
     "line_photo": "Boş oda, döşenmiş görünüyor.",
     "line_variants": "İstediğin stili seç.",
     "line_match": "Doğru alıcının karşısına çıkıyor.",
@@ -148,7 +148,20 @@
         "name": "العربية"
       }
     ],
-    "line_control": "Onay hep sende kalıyor."
+    "line_control": "Onay hep sende kalıyor.",
+    "kicker": "EVLEK · KKTC EMLAKÇILARI İÇİN",
+    "setup_head": "Tek bir ilan için yapılacaklar:",
+    "setup_items": [
+      "Açıklamayı yaz",
+      "Beş dile çevir",
+      "Fotoğrafları hazırla",
+      "Doğru alıcıya ulaştır"
+    ],
+    "setup_sub": "Her ilan için. Her seferinde.",
+    "listing_photos": [
+      "stage_base",
+      "listing_2"
+    ]
   },
   "_assets_note": "Her anahtar bir dosyaya bakar. Yeni görseller geldiğinde (bkz. video-system/docs/EMLAKCI_REEL_ASSET_REQUESTS.md) sadece bu tablodaki değerler değişir; hiçbir sahne dosyası dokunulmaz. 'pending' sütunu, istenen nihai dosya adıdır.",
   "assets": {
@@ -164,7 +177,8 @@
     "wordmark": "wordmark.png",
     "listing_image": "room-01-akdeniz.jpg",
     "staging_before": "room-00-bos.jpg",
-    "staging_after": "room-01-akdeniz.jpg"
+    "staging_after": "room-01-akdeniz.jpg",
+    "listing_2": "peek-balkon.jpg"
   },
   "assets_pending": {
     "stage_base": "stage-00-bos.jpg",
@@ -175,6 +189,8 @@
     "result_b": "ilan-b-bahce.jpg",
     "result_c": "ilan-c-site.jpg",
     "girne": "girne-hava.jpg",
-    "detay_isik": "detay-isik.jpg"
+    "detay_isik": "detay-isik.jpg",
+    "listing_2": "stage-10-balkon.jpg",
+    "listing_3": "stage-11-mutfak.jpg"
   }
 }

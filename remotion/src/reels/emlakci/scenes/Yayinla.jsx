@@ -53,6 +53,8 @@ export const yayinlaState = (t) => ({
   confirm: tp(t, 2.34, 2.52),
   confirmed: tp(t, 2.72, 2.90),
   confirmedCheck: tp(t, 2.76, 2.98, ease.out),
+  // The card turns to the second photograph while the copy is being written.
+  photoIdx: tp(t, 1.86, 2.34, ease.inOut),
   langs: 0,
   stageOn: 0,
   stage: 0,
