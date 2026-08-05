@@ -20,7 +20,7 @@ import { AbsoluteFill, useCurrentFrame, useVideoConfig, interpolate } from 'remo
 import { C, T, SANS, MONO, dur, at, ease, tp, SAFE, holdLine } from '../../../brand/tokens.js';
 import content from '../content.json';
 
-export const DILLER_SECONDS = 2.7;
+export const DILLER_SECONDS = 2.9;
 
 const L = content.copy.translations;      // [{code, text, rtl}]
 
@@ -30,7 +30,7 @@ const L = content.copy.translations;      // [{code, text, rtl}]
     argument: it says "and it keeps going" without a line of copy claiming it.
     An earlier cut gave Turkish 0.55s and the rest 0.26–0.32s, which was below
     the threshold at which a reader even registers that the script changed. */
-const START = [0.34, 1.09, 1.53, 1.92, 2.26];
+const START = [0.36, 1.20, 1.66, 2.06, 2.42];
 const END = DILLER_SECONDS;
 const TRANS = 0.20;                        // how long one language becomes the next
 
@@ -58,7 +58,7 @@ export const Diller = ({ tOverride, bare = false }) => {
   // and there were 20 frames of that line sitting over an English sentence,
   // which is the exact opposite of what the act is claiming.
   const line1 = holdLine(frame, 0.10, 0.78);
-  const line2 = holdLine(frame, 0.96, 2.52);
+  const line2 = holdLine(frame, 1.02, 2.72);
   const intro = tp(t, 0.24, 0.24 + dur.lg, ease.out);   // t, not frame — see Staging
 
   // A slow, continuous rise across the whole act. Between one language and the

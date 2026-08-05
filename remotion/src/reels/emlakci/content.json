@@ -41,16 +41,16 @@
       "BEŞ DİL",
       "ALICI"
     ],
-    "hook_1": "Bunların hiçbirini sen yapmadın.",
-    "hook_2": "Sen sadece Yayınla'ya bastın.",
+    "hook_1": "Bunları Evlek yaptı.",
+    "hook_2": "Sen sadece “Yayınla”ya bastın.",
     "line_written": "Açıklamayı Evlek yazdı.",
     "line_langs": "Sen Türkçe yaz.",
     "line_photo": "Boş oda, döşenmiş görünüyor.",
     "line_variants": "İstediğin stili seç.",
-    "line_match": "Doğru alıcıya çıkıyor.",
+    "line_match": "Doğru alıcıya ulaşır.",
     "line_search": "Alıcı cümleyle arıyor.",
     "line_found": "İlanın karşısına çıkıyor.",
-    "line_assistant": "Yapay zekâ da okuyor.",
+    "line_assistant": "Cevap senin ilanından geliyor.",
     "close_1": "Sen ilanı koy.",
     "close_2": "Gerisi Evlek'te.",
     "cta": "evlek.app",
@@ -161,10 +161,46 @@
       "listing_2"
     ],
     "callout_1": "KKTC'de emlakçıysan",
-    "callout_2": "bu listeyi ezbere bilirsin.",
+    "callout_2": "bunu görmen lazım.",
     "setup_label": "TEK BİR İLAN İÇİN",
     "line_langs_2": "Beş dilde yayınlansın.",
-    "line_match_sub": "GİRNE'DE 2+1 ARAYANLAR"
+    "line_match_sub": "NİYETİ İLANA YAKIN OLAN ALICILAR",
+    "thesis_kicker": "YENİ NESİL İLAN",
+    "thesis": "İlan koymak değişti.",
+    "thesis_sub": "Sen yayınla. Gerisini Evlek yönetsin.",
+    "caps": [
+      {
+        "no": "01",
+        "line": "Açıklamayı yazar",
+        "note": "Sen onayla, o yazsın"
+      },
+      {
+        "no": "02",
+        "line": "Beş dile çevirir",
+        "note": "TR · EN · RU · DE · AR"
+      },
+      {
+        "no": "03",
+        "line": "Boş odayı döşer",
+        "note": "Virtual staging"
+      },
+      {
+        "no": "04",
+        "line": "Yapay zekâya hazırlar",
+        "note": "Sorulara ilanından cevap"
+      },
+      {
+        "no": "05",
+        "line": "Doğru alıcıyla eşleştirir",
+        "note": "Niyete göre, ilana göre"
+      }
+    ],
+    "match_points": [
+      "Girne · 2+1",
+      "Deniz yakını",
+      "Balkonlu",
+      "Yatırımlık"
+    ]
   },
   "_assets_note": "Her anahtar bir dosyaya bakar. Yeni görseller geldiğinde (bkz. video-system/docs/EMLAKCI_REEL_ASSET_REQUESTS.md) sadece bu tablodaki değerler değişir; hiçbir sahne dosyası dokunulmaz. 'pending' sütunu, istenen nihai dosya adıdır.",
   "assets": {

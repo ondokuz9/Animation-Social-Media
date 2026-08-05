@@ -7,22 +7,23 @@
 // it is the mechanism that keeps a scrolling viewer in the frame.
 //
 //   #  act        s      ground        register                     person
-//   1  Açılış     5.80   navy→cream    call-out, list, montage      agent
+//   1  Açılış     9.20   navy→cream    hook, thesis, five cards     agent
 //   2  Yayınla    3.70   cream         device, macro → wide         agent
-//   3  Diller     2.70   cream         typography only              —
-//   4  Staging    3.20   photograph    full-bleed, no interface     —
-//   5  Match      2.60   navy          drawn diagram                —
-//   6  Arama      3.00   cream         full-frame interface         buyer
-//   7  Asistan    2.20   navy          conversation, no surface     buyer
+//   3  Diller     2.90   cream         typography only              —
+//   4  Staging    3.30   photograph    full-bleed, no interface     —
+//   5  Match      3.30   navy          a dendrite, growing          —
+//   6  Arama      3.10   cream         full-frame interface         buyer
+//   7  Asistan    2.70   navy          conversation + citation      buyer
 //   8  Kapanış    2.03   navy          brand plate                  —
 //
-// 25.000s / 1500 frames. The 20.5s cut was legible frame by frame and illegible
-// in motion: the eye needs time to fixate, parse and move on, and several beats
-// were under that threshold — a wipe the viewer could not compare the two ends
-// of, five languages held for a quarter second each, sixteen words of answer
-// streaming in 0.7s. Every act is now 15–30% longer, and the extra 1.8s in
-// Açılış buys the one thing the film was missing entirely: a second and a half
-// where it does nothing but say who it is talking to.
+// 30.000s / 1800 frames. Three cuts of this film have now been too fast, each
+// for a different reason. The 20.5s version was under the eye's fixate-parse-move
+// threshold in half a dozen places. The 25s version fixed the acts and left the
+// opening carrying too much: it spent 1.5s on a montage whose words were set at
+// 34px over photographs, and it framed the product as a chore list. Açılış is now
+// 9.2s and does three separate jobs in sequence instead of three at once —
+// address, thesis, proof — and the proof is five cards with 64px type on clean
+// ground rather than captions over pictures.
 //
 // Cuts. Five are hard, two are dissolves, and each dissolve is earned:
 //
@@ -61,7 +62,7 @@ const FadeIn = ({ frames, children }) => {
 const s = (sec) => Math.round(sec * FPS);
 
 /* Kapanış is given its length in frames rather than seconds so the film lands on
-   a round total after the two overlaps are subtracted: 1500 frames, 25.000s. */
+   a round total after the two overlaps are subtracted: 1800 frames, 30.000s. */
 const ACTS = [
   { key: 'acilis', Scene: Acilis, frames: s(ACILIS_SECONDS), overlap: 0 },
   { key: 'yayinla', Scene: Yayinla, frames: s(YAYINLA_SECONDS), overlap: 0 },

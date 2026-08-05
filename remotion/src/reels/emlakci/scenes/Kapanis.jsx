@@ -18,7 +18,7 @@ import { C, T, SANS, MONO, dur, at, ease, tp, holdLine } from '../../../brand/to
 import { asset, Grain } from '../parts.jsx';
 import content from '../content.json';
 
-export const KAPANIS_SECONDS = 2.05;
+export const KAPANIS_SECONDS = 2.1;
 
 export const Kapanis = ({ tOverride }) => {
   const frame = useCurrentFrame();

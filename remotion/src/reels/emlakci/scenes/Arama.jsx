@@ -35,7 +35,7 @@ import { Caret } from '../../../brand/ui.jsx';
 import { SearchField, ResultCard } from '../parts.jsx';
 import content from '../content.json';
 
-export const ARAMA_SECONDS = 3.0;
+export const ARAMA_SECONDS = 3.1;
 
 const P = content.copy.query_parts;      // [{text, chip}]
 const R = content.copy.results;
@@ -58,11 +58,11 @@ export const Arama = ({ tOverride, bare = false }) => {
   const focus = tp(t, 0.0, 0.22);
   const submit = pulse(t, 0.78, 0.24);
 
-  const line1 = holdLine(frame, 0.08, 1.70);
-  const line2 = holdLine(frame, 1.82, 2.92);
+  const line1 = holdLine(frame, 0.08, 1.78);
+  const line2 = holdLine(frame, 1.90, 3.00);
 
-  const count = tp(t, 2.00, 2.00 + dur.md, ease.out);
-  const ringP = tp(t, 2.24, 2.60, ease.out);
+  const count = tp(t, 2.10, 2.10 + dur.md, ease.out);
+  const ringP = tp(t, 2.38, 2.78, ease.out);
 
   // Continuous drift, for the same reason Diller has one: after the ring lands at
   // 2.10 nothing else is scheduled before the cut at 2.60, and the audit found
@@ -127,7 +127,7 @@ export const Arama = ({ tOverride, bare = false }) => {
             key={item.asset}
             item={item}
             p={tp(t, 0.30 + i * 0.07, 0.30 + i * 0.07 + dur.md, ease.out)}
-            real={tp(t, 1.56 + i * 0.12, 1.56 + i * 0.12 + dur.lg, ease.out)}
+            real={tp(t, 1.62 + i * 0.13, 1.62 + i * 0.13 + dur.lg, ease.out)}
             ring={item.mine ? ringP : 0}
           />
         ))}
