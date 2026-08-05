@@ -1,0 +1,199 @@
+{
+  "project_id": "evlek-emlakci-reel-v1",
+  "language": "tr",
+  "listing": {
+    "price": "£165.000",
+    "place": "Girne · Zeytinlik",
+    "meta": "95 m² · 2+1 · Girne · Zeytinlik",
+    "attrs": [
+      "2+1",
+      "95 m²",
+      "Balkonlu",
+      "Zeytinlik"
+    ]
+  },
+  "copy": {
+    "placeholder": "Açıklama ekle…",
+    "description": "Girne Zeytinlik'te, denize yürüme mesafesinde, geniş balkonlu 2+1 daire.",
+    "languages": [
+      "TR",
+      "EN",
+      "RU",
+      "DE",
+      "AR"
+    ],
+    "publish": "Yayınla",
+    "confirm": "Onayla",
+    "confirmed": "Onaylandı",
+    "row_desc": "Açıklama yazıldı",
+    "row_lang": "Beş dile çevrildi",
+    "row_photo": "Fotoğraf hazırlandı",
+    "row_match": "Doğru alıcıya çıkıyor",
+    "buyer_chips": [
+      "Girne · 2+1",
+      "Deniz yakını",
+      "Yatırımlık"
+    ],
+    "montage_words": [
+      "FOTOĞRAF",
+      "AÇIKLAMA",
+      "GÖRÜNÜRLÜK",
+      "BEŞ DİL",
+      "ALICI"
+    ],
+    "hook_1": "Bunların hiçbirini sen yapmadın.",
+    "hook_2": "Sen sadece Yayınla'ya bastın.",
+    "line_written": "Açıklamayı Evlek yazdı.",
+    "line_langs": "Sen Türkçe yaz.",
+    "line_photo": "Boş oda, döşenmiş görünüyor.",
+    "line_variants": "İstediğin stili seç.",
+    "line_match": "Doğru alıcıya çıkıyor.",
+    "line_search": "Alıcı cümleyle arıyor.",
+    "line_found": "İlanın karşısına çıkıyor.",
+    "line_assistant": "Yapay zekâ da okuyor.",
+    "close_1": "Sen ilanı koy.",
+    "close_2": "Gerisi Evlek'te.",
+    "cta": "evlek.app",
+    "contact": "hello@evlek.app",
+    "query": "Girne'de deniz gören bahçeli 2+1",
+    "query_parts": [
+      {
+        "text": "Girne'de",
+        "chip": "Girne"
+      },
+      {
+        "text": "deniz gören",
+        "chip": "Deniz manzarası"
+      },
+      {
+        "text": "bahçeli",
+        "chip": "Bahçeli"
+      },
+      {
+        "text": "2+1",
+        "chip": "2+1"
+      }
+    ],
+    "results": [
+      {
+        "asset": "result_a",
+        "price": "£165.000",
+        "place": "Girne · Zeytinlik",
+        "meta": "95 m² · 2+1",
+        "mine": true
+      },
+      {
+        "asset": "result_b",
+        "price": "£210.000",
+        "place": "Girne · Karaoğlanoğlu",
+        "meta": "130 m² · 3+1",
+        "mine": false
+      },
+      {
+        "asset": "result_c",
+        "price": "£148.000",
+        "place": "Girne · Alsancak",
+        "meta": "82 m² · 2+1",
+        "mine": false
+      }
+    ],
+    "variants": [
+      {
+        "asset": "stage_akdeniz",
+        "label": "Akdeniz"
+      },
+      {
+        "asset": "stage_modern",
+        "label": "Modern"
+      },
+      {
+        "asset": "stage_minimal",
+        "label": "Minimal"
+      }
+    ],
+    "assistant": {
+      "question": "Bu daire denize ne kadar uzakta?",
+      "answer": "Denize yürüme mesafesinde — ilanda yaklaşık 450 metre olarak belirtilmiş. Balkonu deniz cephesine bakıyor.",
+      "source": "KAYNAK: EVLEK.APP"
+    },
+    "translations": [
+      {
+        "code": "TR",
+        "rtl": false,
+        "text": "Girne Zeytinlik'te, denize yürüme mesafesinde, geniş balkonlu 2+1 daire.",
+        "name": "Türkçe"
+      },
+      {
+        "code": "EN",
+        "rtl": false,
+        "text": "In Girne Zeytinlik, walking distance to the sea, a 2+1 apartment with a large balcony.",
+        "name": "English"
+      },
+      {
+        "code": "RU",
+        "rtl": false,
+        "text": "В Гирне, район Зейтинлик, в пешей доступности от моря, квартира 2+1 с большим балконом.",
+        "name": "Русский"
+      },
+      {
+        "code": "DE",
+        "rtl": false,
+        "text": "In Girne Zeytinlik, fußläufig zum Meer, eine 2+1-Wohnung mit großem Balkon.",
+        "name": "Deutsch"
+      },
+      {
+        "code": "AR",
+        "rtl": true,
+        "text": "في غيرنة زيتينليك، على بعد خطوات من البحر، شقة ٢+١ بشرفة واسعة.",
+        "name": "العربية"
+      }
+    ],
+    "line_control": "Onayı sen veriyorsun.",
+    "setup_items": [
+      "Açıklamayı yaz",
+      "Beş dile çevir",
+      "Fotoğrafları hazırla",
+      "Doğru alıcıya ulaştır"
+    ],
+    "setup_sub": "Her ilan için. Her seferinde.",
+    "listing_photos": [
+      "stage_base",
+      "listing_2"
+    ],
+    "callout_1": "KKTC'de emlakçıysan",
+    "callout_2": "bu listeyi ezbere bilirsin.",
+    "setup_label": "TEK BİR İLAN İÇİN",
+    "line_langs_2": "Beş dilde yayınlansın.",
+    "line_match_sub": "GİRNE'DE 2+1 ARAYANLAR"
+  },
+  "_assets_note": "Her anahtar bir dosyaya bakar. Yeni görseller geldiğinde (bkz. video-system/docs/EMLAKCI_REEL_ASSET_REQUESTS.md) sadece bu tablodaki değerler değişir; hiçbir sahne dosyası dokunulmaz. 'pending' sütunu, istenen nihai dosya adıdır.",
+  "assets": {
+    "stage_base": "room-00-bos.jpg",
+    "stage_akdeniz": "room-01-akdeniz.jpg",
+    "stage_modern": "room-02-minimal.jpg",
+    "stage_minimal": "room-02-minimal.jpg",
+    "result_a": "room-01-akdeniz.jpg",
+    "result_b": "peek-balkon.jpg",
+    "result_c": "room-02-minimal.jpg",
+    "girne": "peek-balkon.jpg",
+    "detay_isik": "room-00-bos.jpg",
+    "wordmark": "wordmark.png",
+    "listing_image": "room-01-akdeniz.jpg",
+    "staging_before": "room-00-bos.jpg",
+    "staging_after": "room-01-akdeniz.jpg",
+    "listing_2": "peek-balkon.jpg"
+  },
+  "assets_pending": {
+    "stage_base": "stage-00-bos.jpg",
+    "stage_akdeniz": "stage-01-akdeniz.jpg",
+    "stage_modern": "stage-02-modern.jpg",
+    "stage_minimal": "stage-03-minimal.jpg",
+    "result_a": "stage-01-akdeniz.jpg",
+    "result_b": "ilan-b-bahce.jpg",
+    "result_c": "ilan-c-site.jpg",
+    "girne": "girne-hava.jpg",
+    "detay_isik": "detay-isik.jpg",
+    "listing_2": "stage-10-balkon.jpg",
+    "listing_3": "stage-11-mutfak.jpg"
+  }
+}
