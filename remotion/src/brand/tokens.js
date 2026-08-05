@@ -51,7 +51,12 @@ export const C = REEL;
    face come from evlek.css. The design system's own tokens ask for 500 body and
    600 medium, which evlek.css never shipped — hence the extra file. */
 
-export const SANS = "'Hanken Grotesk', system-ui, sans-serif";
+/* The two non-Latin families are not decoration: the Diller act morphs one
+   sentence through Russian and Arabic, and Hanken Grotesk contains neither
+   script. Without them the browser silently falls through to DejaVu — a visible
+   change of typeface inside the one shot whose subject is the typeface. Per
+   character fallback picks them up automatically; see brand/nonlatin.css. */
+export const SANS = "'Hanken Grotesk', 'IBM Plex Sans Arabic', 'Noto Sans', system-ui, sans-serif";
 export const MONO = "'JetBrains Mono', ui-monospace, monospace";
 
 export const T = {
@@ -67,7 +72,13 @@ export const T = {
 
 /* ── Layout ───────────────────────────────────────────────────────────── */
 
-export const SAFE = { left: 80, right: 80, top: 280, bottom: 700 };
+/* Platform-safe area, measured against where Reels/TikTok actually place their
+   own UI: caption and action rail occupy roughly the bottom 420px of a 1920 frame
+   and the top 220. An earlier value of 700 for the bottom was guesswork, and it
+   pushed every act's content into the upper half — twenty seconds of top-heavy
+   frames with a third of the picture empty. Composition follows this constant, so
+   getting it wrong is not a detail. */
+export const SAFE = { left: 80, right: 80, top: 260, bottom: 420 };
 export const RADIUS = { card: 28, pill: 999, field: 16, phone: 64, screen: 50, sm: 12 };
 export const SHADOW = {
   card: '0 18px 48px rgba(10,37,64,0.10)',
@@ -128,6 +139,21 @@ export const SPRING_SOFT = { damping: 18, mass: 0.5, stiffness: 140 };
 /* ── Helpers ──────────────────────────────────────────────────────────────
    Every scene animates through these three, so the vocabulary stays enforced
    rather than merely documented. */
+
+/** Progress 0→1 between two times, in SECONDS. `at()` is the frame-based twin.
+    Scenes that describe themselves as a timeline read better in seconds; scenes
+    that describe entrances read better in `at`. Both clamp at both ends, which
+    is what makes every value in this file safe to compose. */
+export const tp = (t, a, b, easing = ease.out) =>
+  interpolate(t, [a, b], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing });
+
+/** A press expressed in seconds: 120ms down, 80ms back. See `pressAt`. */
+export const press = (t, atSec) =>
+  Math.max(0, tp(t, atSec, atSec + 0.12) - tp(t, atSec + 0.12, atSec + 0.20));
+
+/** 0→1→0 over a window — for a ring, a flare, a snap. Sine, so it has no corner. */
+export const pulse = (t, atSec, lenSec) =>
+  Math.sin(Math.PI * Math.max(0, Math.min(1, (t - atSec) / lenSec)));
 
 /** Progress 0→1 for a window that starts at `atSec` and lasts `lenSec`. */
 export const at = (frame, atSec, lenSec = dur.md, easing = ease.out) =>

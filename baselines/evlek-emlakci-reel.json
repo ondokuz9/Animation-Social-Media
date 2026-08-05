@@ -1,0 +1,46 @@
+{
+  "filename": "evlek_emlakci_reel_1080x1920_60fps_silent_master.mp4",
+  "path": "remotion/out/evlek_emlakci_reel_1080x1920_60fps_silent_master.mp4",
+  "sha256": "c01300fbe4b2093e6130a731eea986d893660df9080c9fb55ca48011f3fd1176",
+  "width": 1080,
+  "height": 1920,
+  "fps": 60,
+  "duration_seconds": 20.0,
+  "total_frames": 1200,
+  "codec": "h264",
+  "profile": "High",
+  "level": 4.2,
+  "pixel_format": "yuv420p",
+  "color_space": "bt709",
+  "color_primaries": "bt709",
+  "color_transfer": "bt709",
+  "color_range": "tv",
+  "field_order": "progressive",
+  "audio_stream_count": 0,
+  "size_bytes": 10132440,
+  "bitrate_kbps": 4053,
+  "container": "mov,mp4,m4a,3gp,3g2,mj2",
+  "source": {
+    "authoring": "remotion",
+    "composition": "EmlakciReel",
+    "entry": "remotion/src/index.js",
+    "encoder": "render/encode.mjs (shared with the approved V7 pipeline)"
+  },
+  "frame_audit": {
+    "unique_frames": 1154,
+    "unique_percent": 96.2,
+    "held_runs": 16,
+    "held_frames": 46,
+    "longest_hold": {
+      "from": 1186,
+      "to": 1199,
+      "frames": 14,
+      "reason": "deliberate final hold on the brand plate"
+    }
+  },
+  "notes": [
+    "Not a golden master yet \u2014 the film still renders against placeholder photography.",
+    "SET A of video-system/docs/EMLAKCI_REEL_ASSET_REQUESTS.md changes the staging wipe and the three variations; this checksum will change when those land.",
+    "The V7 master is untouched: 3c22d5a3b6483127e3ca871d915453c5a17f844be0776387d46381950603ff71."
+  ]
+}

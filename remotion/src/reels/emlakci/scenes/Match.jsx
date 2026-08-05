@@ -11,11 +11,12 @@
 // connect, far ones fade — not a broadcast.
 
 import React from 'react';
-import { AbsoluteFill, useCurrentFrame, useVideoConfig, Img, staticFile, interpolate, random } from 'remotion';
-import { C, T, dur, at, ease, SAFE, holdLine } from '../../../brand/tokens.js';
+import { AbsoluteFill, useCurrentFrame, useVideoConfig, Img, interpolate, random } from 'remotion';
+import { C, T, dur, at, ease, tp, SAFE, holdLine } from '../../../brand/tokens.js';
+import { asset, Grain } from '../parts.jsx';
 import content from '../content.json';
 
-export const MATCH_SECONDS = 3.0;
+export const MATCH_SECONDS = 2.4;
 
 const CX = 540, CY = 1090;
 
@@ -26,25 +27,33 @@ const POINTS = (() => {
     { x: 858, y: 966, label: 'Deniz yakını', match: true },
     { x: 300, y: 1390, label: 'Yatırımlık', match: true },
   ];
-  const rest = Array.from({ length: 16 }, (_, i) => {
+  const rest = Array.from({ length: 44 }, (_, i) => {
     const a = random(`a${i}`) * Math.PI * 2;
-    const r = 320 + random(`r${i}`) * 420;
-    return { x: CX + Math.cos(a) * r * 1.02, y: CY + Math.sin(a) * r * 0.86, match: false };
-  }).filter((p) => p.x > 90 && p.x < 990 && p.y > 700 && p.y < 1560);
+    const r = 250 + random(`r${i}`) * 520;
+    return { x: CX + Math.cos(a) * r * 1.05, y: CY + Math.sin(a) * r * 0.92, match: false };
+  }).filter((p) => p.x > 70 && p.x < 1010 && p.y > 560 && p.y < 1660);
   return [...rest, ...named];
 })();
 
-export const Match = ({ tOverride }) => {
+export const Match = ({ tOverride, bare = false }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = tOverride ?? frame / fps;
 
-  const cardIn = interpolate(t, [0, 0.42], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: ease.out });
-  const fieldIn = interpolate(t, [0.35, 1.05], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: ease.out });
-  const drawP = interpolate(t, [1.0, 2.05], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: ease.out });
-  const settle = interpolate(t, [2.0, 2.6], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: ease.out });
+  const cardIn = tp(t, 0, 0.38);
+  const fieldIn = tp(t, 0.28, 0.92);
+  const drawP = tp(t, 0.82, 1.74);
+  const settle = tp(t, 1.70, 2.14);
 
-  const line = holdLine(frame, 0.2, 2.7);
+  const line = holdLine(frame, 0.15, 2.26);
+
+  // Two rings leaving the listing, 0.55s apart. The act's claim is reach, and a
+  // static starburst does not read as reach — something has to travel.
+  const ring = (from) => {
+    const r = tp(t, from, from + 1.15, ease.out);
+    return r > 0.001 && r < 0.999 ? { r: 60 + r * 660, o: 0.34 * (1 - r) } : null;
+  };
+  const rings = [ring(0.55), ring(1.10)].filter(Boolean);
 
   // A very slow parallax so the diagram breathes instead of sitting there.
   const par = interpolate(t, [0, MATCH_SECONDS], [-8, 8]);
@@ -60,11 +69,26 @@ export const Match = ({ tOverride }) => {
         }}
       />
 
-      <div style={{ position: 'absolute', left: SAFE.left + 20, top: 300, right: SAFE.right }}>
-        <div style={{ ...T.headline, color: C.white, ...line }}>{content.copy.line_match}</div>
-      </div>
+      {!bare && (
+        <div style={{ position: 'absolute', left: SAFE.left + 20, top: 300, right: SAFE.right }}>
+          <div style={{ ...T.headline, color: C.white, ...line }}>{content.copy.line_match}</div>
+        </div>
+      )}
 
       <svg width={1080} height={1920} style={{ position: 'absolute', inset: 0, transform: `translateY(${par}px)` }}>
+        {/* Two reference circles, so the field reads as a space with a centre
+            rather than as scattered dots. */}
+        {[330, 620].map((r) => (
+          <circle key={r} cx={CX} cy={CY} r={r * fieldIn} fill="none"
+                  stroke="rgba(255,255,255,0.07)" strokeWidth="1.5" strokeDasharray="3 9" />
+        ))}
+
+        {/* Reach, travelling outward. */}
+        {rings.map((g, i) => (
+          <circle key={`r${i}`} cx={CX} cy={CY} r={g.r} fill="none"
+                  stroke={C.gold} strokeWidth="2" opacity={g.o} />
+        ))}
+
         {/* Connections to the matching buyers, drawn one after another. */}
         {matches.map((p, i) => {
           const d = Math.max(0, Math.min(1, (drawP * matches.length) - i));
@@ -85,13 +109,13 @@ export const Match = ({ tOverride }) => {
         {POINTS.map((p, i) => {
           const appear = Math.max(0, Math.min(1, (fieldIn * 1.4) - random(`d${i}`) * 0.4));
           const dim = p.match ? 0 : settle * 0.72;
-          const r = p.match ? 9 + 3 * settle : 5;
+          const r = p.match ? 9 + 3 * settle : 5.5;
           return (
             <circle
               key={`p${i}`}
               cx={p.x} cy={p.y} r={r * appear}
               fill={p.match ? C.gold : C.white}
-              opacity={(p.match ? 1 : 0.42) * appear * (1 - dim)}
+              opacity={(p.match ? 1 : 0.5) * appear * (1 - dim)}
             />
           );
         })}
@@ -139,8 +163,11 @@ export const Match = ({ tOverride }) => {
             boxShadow: `0 24px 70px rgba(0,0,0,0.45), 0 0 ${40 * settle}px rgba(201,161,87,0.28)`,
           }}
         >
+          {/* The same photograph the previous act ended on. The cut into this
+              act is a match cut: a room that filled the frame becomes an object
+              small enough to be pushed at a market. */}
           <Img
-            src={staticFile(content.assets.staging_after)}
+            src={asset('stage_minimal')}
             style={{ width: '100%', height: 200, objectFit: 'cover', display: 'block' }}
           />
           <div style={{ padding: '16px 18px 18px' }}>
@@ -149,6 +176,7 @@ export const Match = ({ tOverride }) => {
           </div>
         </div>
       </div>
+      <Grain opacity={0.05} />
     </AbsoluteFill>
   );
 };

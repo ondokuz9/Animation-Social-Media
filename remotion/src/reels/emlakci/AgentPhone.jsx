@@ -57,7 +57,7 @@ const DoneRow = ({ label, p }) => {
  */
 export const AgentPhone = ({ s }) => {
   const showForm = s.form ?? 0;          // 1 = still the empty publish form
-  const photoH = 400;
+  const photoH = 460;
 
   return (
     <div style={{ padding: '46px 40px 0' }}>
@@ -103,37 +103,57 @@ export const AgentPhone = ({ s }) => {
         <div style={{ padding: '28px 30px 30px' }}>
           <div style={{ ...T.price, color: C.navy, fontSize: 46 }}>{content.listing.price}</div>
 
-          {/* Description: empty field before publish, written copy after. */}
-          <div style={{ ...T.uiBody, color: C.ink(0.8), marginTop: 14, minHeight: 118 }}>
-            {showForm > 0.5 ? (
-              <span style={{ color: C.ink(0.32) }}>{content.copy.placeholder}</span>
-            ) : (
+          {/* Description. The placeholder and the written copy occupy the SAME
+              box and cross-fade — `form` is continuous, not a switch. A hard swap
+              here is the difference between "the product filled this in" and two
+              unrelated screenshots cut together. */}
+          <div style={{ position: 'relative', ...T.uiBody, color: C.ink(0.8), marginTop: 14, minHeight: 118 }}>
+            <span style={{ position: 'absolute', inset: 0, color: C.ink(0.32), opacity: showForm }}>
+              {content.copy.placeholder}
+            </span>
+            <span style={{ display: 'block', opacity: 1 - showForm }}>
               <WordReveal text={DESC} progress={s.desc ?? 0} />
-            )}
+            </span>
           </div>
 
-          {/* Confirm. The agent stays in control — this beat answers the first
-              objection any agent has to automation. */}
-          {(s.confirm ?? 0) > 0 && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: 18, marginTop: 6, opacity: Math.min(1, s.confirm * 2) }}>
+          {/* One action slot, two buttons. Publish lives here first; confirm
+              takes the same position after. Reusing the slot is what makes the
+              second press feel like a continuation of the first. */}
+          <div style={{ position: 'relative', height: 92, marginTop: 10 }}>
+            <div style={{ position: 'absolute', left: 0, top: 0, opacity: showForm }}>
+              <Button
+                press={s.press ?? 0}
+                ring={s.published ?? 0}
+                check={s.publishedCheck ?? 0}
+                style={{ height: 76, minWidth: 300, fontSize: 30 }}
+              >
+                {(s.published ?? 0) > 0.5 ? 'Yayınlandı' : content.copy.publish}
+              </Button>
+            </div>
+
+            {/* Confirm. The agent stays in control — this beat answers the first
+                objection any agent has to automation, before it is asked. */}
+            <div
+              style={{
+                position: 'absolute', left: 0, top: 2,
+                display: 'flex', alignItems: 'center', gap: 20,
+                opacity: Math.min(1, (s.confirm ?? 0) * 2),
+                transform: `translateY(${(1 - Math.min(1, (s.confirm ?? 0) * 2)) * 10}px)`,
+              }}
+            >
               <Button
                 press={s.press ?? 0}
                 ring={s.confirmed ?? 0}
-                style={{ height: 72, minWidth: 200, fontSize: 29 }}
+                check={s.confirmedCheck ?? 0}
+                style={{ height: 72, minWidth: 270, fontSize: 29 }}
               >
                 {(s.confirmed ?? 0) > 0.5 ? content.copy.confirmed : content.copy.confirm}
               </Button>
+              <span style={{ ...T.uiBody, fontSize: 27, color: C.ink(0.42), opacity: 1 - (s.confirmed ?? 0) }}>
+                Sen kontrol et
+              </span>
             </div>
-          )}
-
-          {/* Publish, only in the form state. */}
-          {showForm > 0.5 && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: 18, marginTop: 10 }}>
-              <Button press={s.press ?? 0} ring={s.published ?? 0} style={{ height: 76, minWidth: 240, fontSize: 30 }}>
-                {content.copy.publish}
-              </Button>
-            </div>
-          )}
+          </div>
 
           {/* Languages. */}
           {(s.langs ?? 0) > 0 && (
@@ -152,6 +172,15 @@ export const AgentPhone = ({ s }) => {
           )}
         </div>
       </Card>
+
+      {/* The listing's own attributes. They are here for composition as much as
+          for realism: without them the lower half of the device is an empty cream
+          slab, and an empty slab reads as an unfinished mock-up. */}
+      <div style={{ display: 'flex', gap: 10, marginTop: 20, flexWrap: 'wrap' }}>
+        {content.listing.attrs.map((a) => (
+          <Chip key={a} style={{ height: 50, fontSize: 26, padding: '0 20px' }}>{a}</Chip>
+        ))}
+      </div>
 
       {/* The work, stacking up. One press above; a list of outcomes below. */}
       <div style={{ marginTop: 14 }}>

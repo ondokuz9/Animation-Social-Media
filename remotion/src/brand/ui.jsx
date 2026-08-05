@@ -94,7 +94,20 @@ export const Chip = ({ children, active = 0, gold = false, style }) => (
   </div>
 );
 
-export const Button = ({ children, press = 0, ring = 0, style }) => (
+/** A tick that draws itself rather than appearing. 220ms, stroke-dashoffset on a
+    single path — the cheapest piece of motion in the whole system and the one
+    that most reliably reads as "done" rather than "shown". */
+export const DrawnCheck = ({ p = 1, size = 30, color = '#fff', width = 2.6 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
+    <path
+      d="M4.5 12.4 L9.6 17.4 L19.5 7"
+      stroke={color} strokeWidth={width} strokeLinecap="round" strokeLinejoin="round"
+      pathLength="1" strokeDasharray="1" strokeDashoffset={1 - Math.max(0, Math.min(1, p))}
+    />
+  </svg>
+);
+
+export const Button = ({ children, press = 0, ring = 0, check = 0, style }) => (
   <div
     style={{
       position: 'relative',
@@ -103,6 +116,7 @@ export const Button = ({ children, press = 0, ring = 0, style }) => (
       display: 'inline-flex',
       alignItems: 'center',
       justifyContent: 'center',
+      gap: 12,
       height: 88,
       minWidth: 320,
       padding: '0 44px',
@@ -114,6 +128,7 @@ export const Button = ({ children, press = 0, ring = 0, style }) => (
     }}
   >
     {children}
+    {check > 0 && <DrawnCheck p={check} size={30} color={C.gold} width={2.8} />}
     {ring > 0 && ring < 1 && (
       <div
         style={{

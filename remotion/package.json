@@ -7,7 +7,10 @@
     "studio": "remotion studio",
     "still": "remotion still src/index.js",
     "render": "remotion render src/index.js",
-    "sequence": "remotion render src/index.js --sequence"
+    "sequence": "remotion render src/index.js --sequence",
+    "emlakci:frames": "remotion render src/index.js EmlakciReel out/seq --sequence --image-format=png --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell --concurrency=3",
+    "emlakci:encode": "node encode-emlakci.mjs",
+    "emlakci": "npm run emlakci:frames && npm run emlakci:encode"
   },
   "dependencies": {
     "@remotion/cli": "4.0.499",
