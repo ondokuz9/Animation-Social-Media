@@ -351,10 +351,14 @@ export const Acilis = () => {
           </AbsoluteFill>
         )}
 
-        {/* Incoming act, full bleed, sliding in from the right. */}
+        {/* Incoming act, full bleed, sliding in from the right — and pushing
+            very slowly for its whole beat. Some sampled windows (Diller's
+            stable English hold) are near-static at this compression, and a
+            frame-hash audit caught 33 identical frames there: the push is
+            what guarantees no beat ever freezes. */}
         <AbsoluteFill
           style={{
-            transform: `translateX(${(1 - hand) * 100}%) scale(${1.04 - 0.04 * entry})`,
+            transform: `translateX(${(1 - hand) * 100}%) scale(${(1.04 - 0.04 * entry) * (1 + 0.028 * local)})`,
             opacity: i === 0 ? Math.min(1, entry * 2.5) : 1,
           }}
         >
