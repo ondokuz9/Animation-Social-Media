@@ -13,7 +13,11 @@
     "baseline:create": "npm --prefix render run baseline:create --",
     "baseline:check": "npm --prefix render run baseline:check --",
     "content:apply": "node video-system/templates/brand-reel-v7/apply-content.mjs",
-    "content:check": "node video-system/templates/brand-reel-v7/apply-content.mjs --check"
+    "content:check": "node video-system/templates/brand-reel-v7/apply-content.mjs --check",
+    "vo:plan": "node video-system/tools/vo-timing.mjs plan",
+    "vo:measure": "node video-system/tools/vo-timing.mjs measure",
+    "vo:calibrate": "node video-system/tools/vo-timing.mjs calibrate",
+    "cuts": "node video-system/tools/cuts.mjs"
   },
   "engines": {
     "node": ">=20"
