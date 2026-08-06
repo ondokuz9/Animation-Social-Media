@@ -31,7 +31,11 @@ export const asset = (key) => staticFile(content.assets[key] ?? key);
 export const ResultCard = ({ item, p = 1, ring = 0, real = 1, style }) => (
   <div
     style={{
-      width: 290,
+      // 294, not 290, and the row's gap drops to 18 to pay for it. "Girne ·
+      // Karaoğlanoğlu" is 21 characters and it was wrapping to a second line,
+      // which pushed the mono meta line out through the bottom of the card's own
+      // rounded corner. A district name is not something we get to shorten.
+      width: 294,
       background: C.white,
       borderRadius: RADIUS.card,
       padding: 14,
@@ -50,17 +54,26 @@ export const ResultCard = ({ item, p = 1, ring = 0, real = 1, style }) => (
         style={{ width: '100%', height: 330, objectFit: 'cover', display: 'block', opacity: real }}
       />
     </div>
-    <div style={{ position: 'relative', padding: '14px 8px 6px', height: 142 }}>
+    <div style={{ position: 'relative', padding: '14px 6px 6px', height: 150 }}>
       {/* Skeleton bars, sitting exactly where the three lines of type will be. */}
-      <div style={{ position: 'absolute', inset: '14px 8px 6px', opacity: 1 - real }}>
+      <div style={{ position: 'absolute', inset: '14px 6px 6px', opacity: 1 - real }}>
         <div style={{ width: 150, height: 30, borderRadius: 8, background: C.ink(0.1) }} />
         <div style={{ width: 200, height: 20, borderRadius: 6, background: C.ink(0.07), marginTop: 12 }} />
         <div style={{ width: 120, height: 18, borderRadius: 6, background: C.ink(0.06), marginTop: 10 }} />
       </div>
       <div style={{ opacity: real }}>
         <div style={{ ...T.price, fontSize: 40, color: C.navy }}>{item.price}</div>
-        <div style={{ ...T.uiBody, fontSize: 26, color: C.ink(0.62), marginTop: 2 }}>{item.place}</div>
-        <div style={{ fontFamily: MONO, fontWeight: 500, fontSize: 23, color: C.ink(0.4), marginTop: 6 }}>{item.meta}</div>
+        <div
+          style={{
+            ...T.uiBody, fontSize: 24, lineHeight: 1.3, color: C.ink(0.62), marginTop: 4,
+            whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
+          }}
+        >
+          {item.place}
+        </div>
+        <div style={{ fontFamily: MONO, fontWeight: 500, fontSize: 22, color: C.ink(0.42), marginTop: 8, whiteSpace: 'nowrap' }}>
+          {item.meta}
+        </div>
       </div>
     </div>
   </div>

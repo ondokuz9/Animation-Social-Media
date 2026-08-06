@@ -1,12 +1,12 @@
 {
   "filename": "evlek_emlakci_reel_1080x1920_60fps_silent_master.mp4",
   "path": "remotion/out/evlek_emlakci_reel_1080x1920_60fps_silent_master.mp4",
-  "sha256": "1ceebabb9a38baf45b853b6480a988ff63491d4a781225061b6131836fb94cdf",
+  "sha256": "9b21aade925a2a0b76c1027987a87bd3ec670404dcde73814790c40faafe9d18",
   "width": 1080,
   "height": 1920,
   "fps": 60,
-  "duration_seconds": 30.0,
-  "total_frames": 1800,
+  "duration_seconds": 33.0,
+  "total_frames": 1980,
   "codec": "h264",
   "profile": "High",
   "level": 4.2,
@@ -17,8 +17,8 @@
   "color_range": "tv",
   "field_order": "progressive",
   "audio_stream_count": 0,
-  "size_bytes": 13104458,
-  "bitrate_kbps": 3495,
+  "size_bytes": 14647314,
+  "bitrate_kbps": 3551,
   "container": "mov,mp4,m4a,3gp,3g2,mj2",
   "source": {
     "authoring": "remotion",
@@ -27,13 +27,18 @@
     "encoder": "render/encode.mjs (shared with the approved V7 pipeline)"
   },
   "frame_audit": {
-    "unique_frames": 1736,
-    "unique_percent": 96.4,
-    "held_frames": 60
+    "unique_frames": 1924,
+    "unique_percent": 97.2,
+    "held_frames": 56
   },
   "notes": [
-    "30.000s cut. Repositioned: the thesis is 'ilan koymak de\u011fi\u015fti' and every capability is a sentence with Evlek as its subject.",
-    "Still renders against placeholder photography \u2014 the user's matched-camera set exists but this environment's network policy blocks every Google host; see remotion/public/README.md.",
+    "33.000s cut. Staging and Asistan rebuilt from their premises by a 20-agent design panel.",
+    "Girne aerial still missing \u2014 the closing plate's ground is a placeholder.",
     "The V7 master is untouched: 3c22d5a3b6483127e3ca871d915453c5a17f844be0776387d46381950603ff71."
-  ]
+  ],
+  "photography": {
+    "source": "user-supplied, 11 files, merged from origin/main PR #4",
+    "provenance": "ALL ELEVEN are AI-generated. Every file carries a C2PA manifest signed by Google with digitalSourceType http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia \u2014 including the 'empty room' that the film calls the agent's own photograph.",
+    "consequence": "The Staging act labels the visualisation feature where AI generation IS the claim; a blanket line on the closing plate covers the rest of the picture."
+  }
 }

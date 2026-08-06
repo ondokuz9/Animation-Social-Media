@@ -1,4 +1,4 @@
-// Act 1 · the cold open. 9.20s.
+// Act 1 · the cold open. 10.30s.
 //
 // Three previous cuts failed here, each in a way worth recording.
 //
@@ -27,16 +27,16 @@
 //   0.00–1.80  THE HOOK.  Navy, 86px, alone. "KKTC'de emlakçıysan / bunu görmen
 //              lazım." A direct address and a reason to stay, and nothing else in
 //              the frame competing for the 1.8 seconds it has.
-//   1.80–5.00  THE THESIS. Cream. The claim, then the five things the product
-//              does, 0.42s apart — slow enough that each one lands as a separate
+//   1.80–5.40  THE THESIS. Cream. The claim, then the five things the product
+//              does, 0.50s apart — slow enough that each one lands as a separate
 //              promise rather than a paragraph that scrolled past.
-//   5.00–8.00  THE FIVE CARDS. Each capability gets 0.60s of its own: a gold
+//   5.40–8.98  THE FIVE CARDS. Each capability gets 0.72s of its own: a gold
 //              index, the line at 64px on a clean ground, and a live frame of the
 //              act that delivers it in a window that opens from the centre.
 //              An earlier cut put these words at 34px over a photograph for
 //              300ms. They were unreadable, and a word that is not read is worse
 //              than no word — it is noise with a cost.
-//   8.00–9.20  THE TURN. Everything stops on the form the agent actually touched.
+//   8.98–10.30 THE TURN. Everything stops on the form the agent actually touched.
 //              "Bunları Evlek yaptı." The other half of the thought lands in the
 //              next act, over the button being pressed.
 
@@ -54,13 +54,13 @@ import { Yayinla, yayinlaState } from './Yayinla.jsx';
 import { Asistan } from './Asistan.jsx';
 import content from '../content.json';
 
-export const ACILIS_SECONDS = 9.2;
+export const ACILIS_SECONDS = 10.3;
 
 const HOOK_END = 108;                    // f0–107    1.80s  navy
-const THESIS_END = 300;                  // f108–299  3.20s  cream
-const CARD = 36;                         // 0.60s per card — twice the old montage
-const CARDS_END = THESIS_END + CARD * 5; // f300–479  3.00s
-                                         // f480–551  1.20s  the turn
+const THESIS_END = 324;                  // f108–323  3.60s  cream
+const CARD = 43;                         // 0.717s per card
+const CARDS_END = THESIS_END + CARD * 5; // f324–538  3.58s
+                                         // f539–617  1.32s  the turn
 
 const K = content.copy;
 const CAPS = K.caps;
@@ -75,11 +75,11 @@ const CARDS = [
   // through its own bezels, the search field cut in half, the language ticker
   // below the sill.
   { Scene: Yayinla, from: 2.16, to: 2.52, dark: false, zoom: 1.20, dy: 10 },
-  { Scene: Diller, from: 1.24, to: 1.56, dark: true, zoom: 1.00, dy: 132 },
-  { Scene: Staging, from: 1.34, to: 1.70, dark: false, zoom: 1.00, dy: 0 },
-  // 2.10, not 1.40: the citation card is what makes this capability legible, and
-  // it does not exist in that act until 2.02.
-  { Scene: Asistan, from: 2.12, to: 2.48, dark: true, zoom: 1.00, dy: 100 },
+  { Scene: Diller, from: 1.18, to: 1.33, dark: true, zoom: 1.00, dy: 132 },
+  { Scene: Staging, from: 1.86, to: 2.22, dark: false, zoom: 1.02, dy: 40 },
+  // 3.40, not 1.40: the citation card is what makes this capability legible, and
+  // it does not resolve in that act until 3.34.
+  { Scene: Asistan, from: 3.40, to: 3.76, dark: true, zoom: 1.02, dy: 60 },
   // Match, not Arama. The capability is matching; showing the buyer's search
   // here illustrated a different sentence from the one written above it.
   { Scene: Match, from: 2.56, to: 2.94, dark: false, zoom: 0.90, dy: 0 },
@@ -169,8 +169,8 @@ export const Acilis = () => {
 
     const kick = lp(0.02, dur.sm);
     const head = lp(0.12);
-    const sub = lp(2.72);
-    const creep = interpolate(b, [0, 3.20], [5, -7]);
+    const sub = lp(3.10);
+    const creep = interpolate(b, [0, 3.60], [5, -8]);
 
     return (
       <AbsoluteFill style={{ background: C.creamWarm, overflow: 'hidden' }}>
@@ -207,11 +207,11 @@ export const Acilis = () => {
               style={{
                 position: 'absolute', left: 0, top: 6, width: 2, height: 'calc(100% - 40px)',
                 background: C.ink(0.16),
-                transform: `scaleY(${lp(0.58, 1.9)})`, transformOrigin: 'top center',
+                transform: `scaleY(${lp(0.60, 2.3)})`, transformOrigin: 'top center',
               }}
             />
             {CAPS.map((cap, i) => (
-              <Cap key={cap.no} cap={cap} p={lp(0.62 + i * 0.42)} />
+              <Cap key={cap.no} cap={cap} p={lp(0.64 + i * 0.50)} />
             ))}
           </div>
 

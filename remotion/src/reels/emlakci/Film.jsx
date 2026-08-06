@@ -7,23 +7,20 @@
 // it is the mechanism that keeps a scrolling viewer in the frame.
 //
 //   #  act        s      ground        register                     person
-//   1  Açılış     9.20   navy→cream    hook, thesis, five cards     agent
+//   1  Açılış    10.30   navy→cream    hook, thesis, five cards     agent
 //   2  Yayınla    3.70   cream         device, macro → wide         agent
-//   3  Diller     2.90   cream         typography only              —
-//   4  Staging    3.30   photograph    full-bleed, no interface     —
+//   3  Diller     2.70   cream         typography only              —
+//   4  Staging    4.03   photograph    a production line            —
 //   5  Match      3.30   navy          a dendrite, growing          —
 //   6  Arama      3.10   cream         full-frame interface         buyer
-//   7  Asistan    2.70   navy          conversation + citation      buyer
-//   8  Kapanış    2.03   navy          brand plate                  —
+//   7  Asistan    4.20   navy          a FOREIGN panel + citation   buyer
+//   8  Kapanış    2.20   navy          brand plate                  —
 //
-// 30.000s / 1800 frames. Three cuts of this film have now been too fast, each
-// for a different reason. The 20.5s version was under the eye's fixate-parse-move
-// threshold in half a dozen places. The 25s version fixed the acts and left the
-// opening carrying too much: it spent 1.5s on a montage whose words were set at
-// 34px over photographs, and it framed the product as a chore list. Açılış is now
-// 9.2s and does three separate jobs in sequence instead of three at once —
-// address, thesis, proof — and the proof is five cards with 64px type on clean
-// ground rather than captions over pictures.
+// 33.000s / 1980 frames. Staging and Asistan are the two acts a twenty-agent
+// design panel rebuilt from their premises rather than their surfaces: the first
+// was a comparison where the brief needed a production, the second put an
+// assistant on Evlek's own ground and so read as Evlek's own chatbot. Both grew;
+// Diller and the budget elsewhere paid for it.
 //
 // Cuts. Five are hard, two are dissolves, and each dissolve is earned:
 //
@@ -62,7 +59,7 @@ const FadeIn = ({ frames, children }) => {
 const s = (sec) => Math.round(sec * FPS);
 
 /* Kapanış is given its length in frames rather than seconds so the film lands on
-   a round total after the two overlaps are subtracted: 1800 frames, 30.000s. */
+   a round total after the two overlaps are subtracted: 1980 frames, 33.000s. */
 const ACTS = [
   { key: 'acilis', Scene: Acilis, frames: s(ACILIS_SECONDS), overlap: 0 },
   { key: 'yayinla', Scene: Yayinla, frames: s(YAYINLA_SECONDS), overlap: 0 },
@@ -71,7 +68,7 @@ const ACTS = [
   { key: 'match', Scene: Match, frames: s(MATCH_SECONDS), overlap: 0 },
   { key: 'arama', Scene: Arama, frames: s(ARAMA_SECONDS), overlap: 0 },
   { key: 'asistan', Scene: Asistan, frames: s(ASISTAN_SECONDS), overlap: 0 },
-  { key: 'kapanis', Scene: Kapanis, frames: 122, overlap: 8 },
+  { key: 'kapanis', Scene: Kapanis, frames: 120, overlap: 8 },
 ];
 
 export const FILM_FRAMES = ACTS.reduce((n, a) => n + a.frames - a.overlap, 0);

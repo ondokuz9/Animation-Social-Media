@@ -18,7 +18,7 @@ import { C, T, SANS, MONO, dur, at, ease, tp, holdLine } from '../../../brand/to
 import { asset, Grain } from '../parts.jsx';
 import content from '../content.json';
 
-export const KAPANIS_SECONDS = 2.1;
+export const KAPANIS_SECONDS = 2.2;
 
 export const Kapanis = ({ tOverride }) => {
   const frame = useCurrentFrame();
@@ -33,6 +33,7 @@ export const Kapanis = ({ tOverride }) => {
   const l2 = tp(t, 0.76, 0.76 + dur.md, ease.out);
   const cta = tp(t, 1.16, 1.16 + dur.md, ease.out);
   const mail = tp(t, 1.42, 1.42 + dur.md, ease.out);
+  const note = tp(t, 1.62, 1.62 + dur.md, ease.out);
 
   const Reveal = ({ p, dy = 20, children, style }) => (
     <div style={{ opacity: p, transform: `translateY(${(1 - p) * dy}px)`, ...style }}>{children}</div>
@@ -93,6 +94,17 @@ export const Kapanis = ({ tOverride }) => {
         <Reveal p={mail} dy={12} style={{ marginTop: 30 }}>
           <div style={{ fontFamily: MONO, fontWeight: 500, fontSize: 30, letterSpacing: '0.06em', color: 'rgba(255,255,255,0.62)' }}>
             {content.copy.contact}
+          </div>
+        </Reveal>
+
+        {/* Every photograph in this film is AI-generated — the C2PA manifests on
+            all eleven supplied files carry digitalSourceType trainedAlgorithmicMedia.
+            The Staging act labels the visualisation feature where that is the
+            claim; this line covers the rest of the picture, which is the
+            proportionate place for a blanket disclosure in an advertisement. */}
+        <Reveal p={note} dy={10} style={{ marginTop: 44 }}>
+          <div style={{ fontFamily: MONO, fontWeight: 500, fontSize: 22, letterSpacing: '0.08em', color: 'rgba(255,255,255,0.42)' }}>
+            {content.copy.close_note}
           </div>
         </Reveal>
       </AbsoluteFill>

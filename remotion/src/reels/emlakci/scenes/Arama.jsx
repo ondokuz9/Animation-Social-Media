@@ -35,7 +35,7 @@ import { Caret } from '../../../brand/ui.jsx';
 import { SearchField, ResultCard } from '../parts.jsx';
 import content from '../content.json';
 
-export const ARAMA_SECONDS = 3.1;
+export const ARAMA_SECONDS = 3.0;
 
 const P = content.copy.query_parts;      // [{text, chip}]
 const R = content.copy.results;
@@ -59,7 +59,7 @@ export const Arama = ({ tOverride, bare = false }) => {
   const submit = pulse(t, 0.78, 0.24);
 
   const line1 = holdLine(frame, 0.08, 1.78);
-  const line2 = holdLine(frame, 1.90, 3.00);
+  const line2 = holdLine(frame, 1.86, 2.90);
 
   const count = tp(t, 2.10, 2.10 + dur.md, ease.out);
   const ringP = tp(t, 2.38, 2.78, ease.out);
@@ -121,7 +121,7 @@ export const Arama = ({ tOverride, bare = false }) => {
       {/* Results. The agent's listing is first, and it is the only object in the
           frame allowed to carry gold — the entire payoff of the act for the
           audience actually watching this film. */}
-      <div style={{ position: 'absolute', left: 80, top: 890, display: 'flex', gap: 25, transform: `translateY(${drift}px)` }}>
+      <div style={{ position: 'absolute', left: 80, top: 890, display: 'flex', gap: 18, transform: `translateY(${drift}px)` }}>
         {R.map((item, i) => (
           <ResultCard
             key={item.asset}
