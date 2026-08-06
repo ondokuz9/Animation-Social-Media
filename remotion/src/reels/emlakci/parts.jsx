@@ -139,6 +139,31 @@ export const MontageWord = ({ children, dark }) => (
   </div>
 );
 
+/* ── Brand plate ──────────────────────────────────────────────────────────
+   The wordmark on a dark translucent plate — a product signature for frames
+   that otherwise carry no brand at all. A viewer who lands mid-film on a
+   capability card must never need to wait for the closing plate to learn
+   whose film this is; a client review caught exactly that: an agent read
+   "İlan koymak değişti." over an unbranded frame and swiped away. */
+
+export const BrandPlate = ({ opacity = 1, left = 28, bottom = 28, top }) => (
+  <div
+    style={{
+      position: 'absolute', left,
+      ...(top != null ? { top } : { bottom }),
+      display: 'flex', alignItems: 'center',
+      background: 'rgba(4,14,28,0.55)',
+      padding: '12px 20px', borderRadius: 12,
+      opacity,
+    }}
+  >
+    <Img
+      src={staticFile(content.assets.wordmark)}
+      style={{ height: 26, width: 'auto', display: 'block', filter: 'brightness(0) invert(1)' }}
+    />
+  </div>
+);
+
 /* ── Touch ────────────────────────────────────────────────────────────────
    A fingertip, not a pointer. Two acts used the desktop arrow cursor over what
    the film frames as a phone and a touch surface — a platform contradiction the

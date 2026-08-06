@@ -41,11 +41,11 @@
 //              next act, over the button being pressed.
 
 import React from 'react';
-import { AbsoluteFill, useCurrentFrame, useVideoConfig, interpolate } from 'remotion';
+import { AbsoluteFill, Img, useCurrentFrame, useVideoConfig, interpolate } from 'remotion';
 import { C, T, FPS, SANS, MONO, ease, tp, at, dur, SAFE, RADIUS, trUpper } from '../../../brand/tokens.js';
 import { Phone } from '../../../brand/ui.jsx';
 import { AgentPhone } from '../AgentPhone.jsx';
-import { Grain } from '../parts.jsx';
+import { asset, Grain, BrandPlate } from '../parts.jsx';
 import { Staging } from './Staging.jsx';
 import { Diller } from './Diller.jsx';
 import { Match } from './Match.jsx';
@@ -152,16 +152,19 @@ export const Acilis = () => {
             transformOrigin: '38% 50%',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, marginBottom: 46 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 20, marginBottom: 46 }}>
             <span
               style={{
                 width: 52, height: 4, background: C.gold, display: 'block',
                 transform: `scaleX(${rule})`, transformOrigin: 'left center',
               }}
             />
-            <span style={{ fontFamily: MONO, fontWeight: 500, fontSize: 30, letterSpacing: '0.2em', color: 'rgba(255,255,255,0.62)' }}>
-              EVLEK
-            </span>
+            {/* The real wordmark, not a mono approximation — this is the cover
+                frame, and the cover is where the brand earns its recall. */}
+            <Img
+              src={asset('wordmark')}
+              style={{ height: 44, width: 'auto', display: 'block', filter: 'brightness(0) invert(1)', opacity: 0.94 }}
+            />
           </div>
 
           <div style={{ ...T.hook, fontSize: 86, color: C.white }}>{K.callout_1}</div>
@@ -203,7 +206,12 @@ export const Acilis = () => {
             top: '50%', transform: `translateY(calc(-52% + ${creep}px))`,
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 16, opacity: kick, marginBottom: 34 }}>
+          {/* The wordmark opens the row, not a bare gold tick. A client review
+              caught an agent reading this frame with no idea whose claim it
+              was — the thesis is the one screen a viewer must be able to
+              attribute without having seen the hook. */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 20, opacity: kick, marginBottom: 34 }}>
+            <Img src={asset('wordmark')} style={{ height: 46, width: 'auto', display: 'block', opacity: 0.92 }} />
             <span style={{ width: 34, height: 4, background: C.gold, display: 'block' }} />
             <span style={{ fontFamily: MONO, fontWeight: 500, fontSize: 30, letterSpacing: '0.18em', color: C.ink(0.6) }}>
               {K.thesis_kicker}
@@ -306,6 +314,8 @@ export const Acilis = () => {
             position: 'absolute', left: 44, right: 44, top: 636, height: 908,
             borderRadius: RADIUS.card + 12,
             overflow: 'hidden',
+            border: `1px solid ${card.dark ? 'rgba(255,255,255,0.14)' : 'rgba(10,37,64,0.10)'}`,
+            boxSizing: 'border-box',
             boxShadow: card.dark
               ? '0 40px 90px rgba(0,0,0,0.5)'
               : '0 34px 80px rgba(10,37,64,0.18)',
@@ -321,6 +331,9 @@ export const Acilis = () => {
           >
             <Scene tOverride={interpolate(local, [0, 1], [card.from, card.to])} bare />
           </div>
+          {/* The signature, on every card. A viewer arriving mid-montage
+              should not have to reach the closing plate to learn the brand. */}
+          <BrandPlate opacity={open} />
         </div>
       </AbsoluteFill>
     );

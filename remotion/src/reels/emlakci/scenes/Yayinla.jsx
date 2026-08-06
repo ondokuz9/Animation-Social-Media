@@ -47,7 +47,7 @@ import { AbsoluteFill, useCurrentFrame, useVideoConfig, interpolate } from 'remo
 import { C, T, dur, ease, tp, press as pressAtT, SAFE, holdLine } from '../../../brand/tokens.js';
 import { Phone } from '../../../brand/ui.jsx';
 import { AgentPhone } from '../AgentPhone.jsx';
-import { Touch } from '../parts.jsx';
+import { Touch, BrandPlate } from '../parts.jsx';
 import content from '../content.json';
 
 export const YAYINLA_SECONDS = 5.0;
@@ -135,6 +135,12 @@ export const Yayinla = ({ tOverride, bare = false }) => {
   // The vignette is the depth cue that sells the macro. It leaves with the move.
   const vig = 1 - camP;
 
+  // A tap leaves a ring. The button already presses and rings on its own state
+  // change, but the FINGER's contact point deserves its own physics — one gold
+  // ripple per press, dying as it expands.
+  const rip1 = tp(t, 0.68, 1.06, ease.out);
+  const rip2 = tp(t, 3.62, 4.00, ease.out);
+
   return (
     <AbsoluteFill style={{ background: C.creamWarm, overflow: 'hidden' }}>
       {!bare && (
@@ -161,7 +167,28 @@ export const Yayinla = ({ tOverride, bare = false }) => {
         {curVisible > 0.02 && (
           <Touch x={curX} y={curY} opacity={Math.min(1, curVisible)} press={s.press} />
         )}
+
+        {[[rip1, ORIGIN_X - 34, ORIGIN_Y - 8], [rip2, ORIGIN_X - 44, ORIGIN_Y + 60]].map(([r, x, y], i) =>
+          r > 0.01 && r < 0.999 ? (
+            <div
+              key={i}
+              style={{
+                position: 'absolute',
+                left: x - 30 - 80 * r, top: y - 30 - 80 * r,
+                width: 60 + 160 * r, height: 60 + 160 * r,
+                borderRadius: 999,
+                border: `2.5px solid rgba(201,161,87,${0.55 * (1 - r)})`,
+              }}
+            />
+          ) : null
+        )}
       </AbsoluteFill>
+
+      {/* The brand, while the app bar that normally carries it is out of frame.
+          At 2.4x the macro shows a button and a price and belongs to nobody;
+          the plate leaves with the pull-back, exactly when the phone's own
+          EVLEK app bar re-enters. */}
+      {!bare && vig > 0.02 && <BrandPlate opacity={vig} left={80} top={306} />}
 
       {vig > 0.01 && (
         <AbsoluteFill
