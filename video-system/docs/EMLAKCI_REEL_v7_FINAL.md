@@ -53,12 +53,19 @@ Toplam: 2160 kare = 36.000 sn.
 
 ## 2 · Akt notları (v6'dan değişenler)
 
-**Açılış.** Hook nefes alıyor (1.00→1.03, kare 0 dokunulmadı — kapak).
-Hook'ta ve tezde gerçek wordmark. Tez alt satırı "Sen yayınla. Gerisini
-Evlek yönetsin." 2.2 sn tam görünür (liste 0.44 sn arayla). Beş kartın
-penceresinde marka plakası + ince çerçeve; örnekleme pencereleri sabit
-bölgelere alındı (Yayınla 2.25–2.55, Staging 1.70–2.00, Asistan 3.78–3.98).
-Dönüş anında kart artık BİTMİŞ ilan: "Bunları Evlek yaptı." geçmiş zamanı
+**Açılış.** Hook: dört satır 800 ağırlık / 128px SLAM tipografi
+("KKTC'DE / EMLAKÇIYSAN / BUNU GÖRMEN / LAZIM.") beyaz-altın dönüşümlü,
+her satır 180ms ölçek çarpmasıyla iniyor ve blok her inişte 5px çöküp
+oturuyor; balkon fotoğrafı arkada karanlık bir köz. Tezde gerçek wordmark
+("Evlek — YENİ NESİL İLAN"); tez alt satırı 2.2 sn tam görünür. 01–05
+bölümü TAM-KARE film beat'leri: her yetenek kendi aktının birebir sahnesi
+olarak tam ekran oynar (pencere/künye/segment bar yok), filmin standart
+başlık stili maskeden rulo yapar, sağ üstte başlığın arkasında dev hayalet
+rakam (01→05) sayaç gibi döner, altında Evlek plakası; devirler altın
+dikişli tek tam-kare itmedir ve her beat %2.8 sürekli push taşır.
+Örnekleme pencereleri sabit bölgelerde (Yayınla 2.35–2.65, Diller
+1.18–1.33, Staging 1.70–2.00, Asistan 3.78–3.98, Match 2.56–2.94).
+Dönüş anında kart BİTMİŞ ilan: "Bunları Evlek yaptı." geçmiş zamanı
 görüntüyle çelişmiyor; sonraki aktın makrosu geriye dönüş olarak okunuyor.
 
 **Yayınla.** 5.00 sn. Makro 2.4× (fiyat + boş açıklama + buton birlikte).
