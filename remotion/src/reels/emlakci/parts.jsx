@@ -31,7 +31,11 @@ export const asset = (key) => staticFile(content.assets[key] ?? key);
 export const ResultCard = ({ item, p = 1, ring = 0, real = 1, style }) => (
   <div
     style={{
-      width: 290,
+      // 294, not 290, and the row's gap drops to 18 to pay for it. "Girne ·
+      // Karaoğlanoğlu" is 21 characters and it was wrapping to a second line,
+      // which pushed the mono meta line out through the bottom of the card's own
+      // rounded corner. A district name is not something we get to shorten.
+      width: 294,
       background: C.white,
       borderRadius: RADIUS.card,
       padding: 14,
@@ -50,17 +54,26 @@ export const ResultCard = ({ item, p = 1, ring = 0, real = 1, style }) => (
         style={{ width: '100%', height: 330, objectFit: 'cover', display: 'block', opacity: real }}
       />
     </div>
-    <div style={{ position: 'relative', padding: '14px 8px 6px', height: 142 }}>
+    <div style={{ position: 'relative', padding: '14px 6px 6px', height: 150 }}>
       {/* Skeleton bars, sitting exactly where the three lines of type will be. */}
-      <div style={{ position: 'absolute', inset: '14px 8px 6px', opacity: 1 - real }}>
+      <div style={{ position: 'absolute', inset: '14px 6px 6px', opacity: 1 - real }}>
         <div style={{ width: 150, height: 30, borderRadius: 8, background: C.ink(0.1) }} />
         <div style={{ width: 200, height: 20, borderRadius: 6, background: C.ink(0.07), marginTop: 12 }} />
         <div style={{ width: 120, height: 18, borderRadius: 6, background: C.ink(0.06), marginTop: 10 }} />
       </div>
       <div style={{ opacity: real }}>
         <div style={{ ...T.price, fontSize: 40, color: C.navy }}>{item.price}</div>
-        <div style={{ ...T.uiBody, fontSize: 26, color: C.ink(0.62), marginTop: 2 }}>{item.place}</div>
-        <div style={{ fontFamily: MONO, fontWeight: 500, fontSize: 23, color: C.ink(0.4), marginTop: 6 }}>{item.meta}</div>
+        <div
+          style={{
+            ...T.uiBody, fontSize: 24, lineHeight: 1.3, color: C.ink(0.62), marginTop: 4,
+            whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
+          }}
+        >
+          {item.place}
+        </div>
+        <div style={{ fontFamily: MONO, fontWeight: 500, fontSize: 22, color: C.ink(0.42), marginTop: 8, whiteSpace: 'nowrap' }}>
+          {item.meta}
+        </div>
       </div>
     </div>
   </div>
@@ -124,6 +137,67 @@ export const MontageWord = ({ children, dark }) => (
     <span style={{ width: 44, height: 3, background: C.gold, display: 'block', flexShrink: 0 }} />
     {children}
   </div>
+);
+
+/* ── Brand plate ──────────────────────────────────────────────────────────
+   The wordmark on a dark translucent plate — a product signature for frames
+   that otherwise carry no brand at all. A viewer who lands mid-film on a
+   capability card must never need to wait for the closing plate to learn
+   whose film this is; a client review caught exactly that: an agent read
+   "İlan koymak değişti." over an unbranded frame and swiped away. */
+
+export const BrandPlate = ({ opacity = 1, left, right, bottom = 28, top }) => (
+  <div
+    style={{
+      position: 'absolute',
+      ...(right != null ? { right } : { left: left ?? 28 }),
+      ...(top != null ? { top } : { bottom }),
+      display: 'flex', alignItems: 'center',
+      background: 'rgba(4,14,28,0.55)',
+      padding: '12px 20px', borderRadius: 12,
+      opacity,
+    }}
+  >
+    <Img
+      src={staticFile(content.assets.wordmark)}
+      style={{ height: 26, width: 'auto', display: 'block', filter: 'brightness(0) invert(1)' }}
+    />
+  </div>
+);
+
+/* ── Touch ────────────────────────────────────────────────────────────────
+   A fingertip, not a pointer. Two acts used the desktop arrow cursor over what
+   the film frames as a phone and a touch surface — a platform contradiction the
+   inspection flagged in both places. This is the soft shadow a finger casts on
+   glass: it travels, presses, and never draws an arrow. */
+
+export const Touch = ({ x, y, opacity = 1, press = 0 }) => (
+  <div
+    style={{
+      position: 'absolute', left: x - 30, top: y - 30,
+      width: 60, height: 60, borderRadius: 999,
+      background: 'radial-gradient(circle, rgba(10,37,64,0.30) 0%, rgba(10,37,64,0.12) 52%, rgba(10,37,64,0) 74%)',
+      border: '1.5px solid rgba(10,37,64,0.20)',
+      opacity,
+      transform: `scale(${1 - 0.16 * press})`,
+      pointerEvents: 'none',
+    }}
+  />
+);
+
+/** The same fingertip on a dark ground, where a navy shadow disappears. */
+export const TouchDark = ({ x, y, opacity = 1, press = 0 }) => (
+  <div
+    style={{
+      position: 'absolute', left: x - 30, top: y - 30,
+      width: 60, height: 60, borderRadius: 999,
+      background: 'radial-gradient(circle, rgba(255,246,228,0.34) 0%, rgba(255,246,228,0.12) 52%, rgba(255,246,228,0) 74%)',
+      border: '1.5px solid rgba(255,246,228,0.30)',
+      opacity,
+      transform: `scale(${1 - 0.16 * press})`,
+      pointerEvents: 'none',
+    }}
+  />
 );
 
 /* ── Grain ────────────────────────────────────────────────────────────────

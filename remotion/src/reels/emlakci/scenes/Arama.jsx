@@ -30,9 +30,9 @@
 
 import React from 'react';
 import { AbsoluteFill, useCurrentFrame, useVideoConfig, interpolate } from 'remotion';
-import { C, T, dur, ease, tp, pulse, SAFE, holdLine, MONO } from '../../../brand/tokens.js';
+import { C, T, dur, ease, tp, pulse, SAFE, holdLine, MONO, trUpper } from '../../../brand/tokens.js';
 import { Caret } from '../../../brand/ui.jsx';
-import { SearchField, ResultCard } from '../parts.jsx';
+import { SearchField, ResultCard, Grain } from '../parts.jsx';
 import content from '../content.json';
 
 export const ARAMA_SECONDS = 3.0;
@@ -41,7 +41,7 @@ const P = content.copy.query_parts;      // [{text, chip}]
 const R = content.copy.results;
 
 const FIELD_W = 920;
-const MORPH_FROM = 0.86;
+const MORPH_FROM = 0.98;
 const MORPH_STEP = 0.11;
 const MORPH_LEN = 0.28;
 
@@ -52,17 +52,19 @@ export const Arama = ({ tOverride, bare = false }) => {
 
   // Typing: one phrase at a time, not one character. At 60fps a character
   // typewriter reads as a cheap effect; phrase-level reads as someone thinking.
-  const typed = tp(t, 0.05, 0.74, ease.linear) * P.length;
-  const typing = t < 0.78;
+  // Typing starts 0.18 — six frames AFTER the headline, so the act's first
+  // visible frame is never a bare search field with no sentence naming it.
+  const typed = tp(t, 0.18, 0.86, ease.linear) * P.length;
+  const typing = t < 0.90;
 
   const focus = tp(t, 0.0, 0.22);
-  const submit = pulse(t, 0.78, 0.24);
+  const submit = pulse(t, 0.90, 0.24);
 
-  const line1 = holdLine(frame, 0.08, 1.70);
-  const line2 = holdLine(frame, 1.82, 2.92);
+  const line1 = holdLine(frame, 0.02, 1.78, { lenSec: dur.sm });
+  const line2 = holdLine(frame, 1.86, 2.90);
 
-  const count = tp(t, 2.00, 2.00 + dur.md, ease.out);
-  const ringP = tp(t, 2.24, 2.60, ease.out);
+  const count = tp(t, 2.10, 2.10 + dur.md, ease.out);
+  const ringP = tp(t, 2.38, 2.78, ease.out);
 
   // Continuous drift, for the same reason Diller has one: after the ring lands at
   // 2.10 nothing else is scheduled before the cut at 2.60, and the audit found
@@ -90,7 +92,7 @@ export const Arama = ({ tOverride, bare = false }) => {
                 key={part.chip}
                 style={{
                   display: 'inline-block',
-                  marginRight: `${10 + 8 * m}px`,
+                  marginRight: `${10 + 6 * m}px`,
                   padding: `${7 * m}px ${17 * m}px`,
                   borderRadius: 999,
                   border: `${1.6 * m}px solid rgba(201,161,87,${0.62 * m})`,
@@ -111,23 +113,26 @@ export const Arama = ({ tOverride, bare = false }) => {
         style={{
           position: 'absolute', left: 80, top: 830,
           fontFamily: MONO, fontWeight: 500, fontSize: 28, letterSpacing: '0.12em',
-          textTransform: 'uppercase', color: C.ink(0.58),
+          color: C.ink(0.58),
           opacity: count, transform: `translateY(${drift + (1 - count) * 10}px)`,
         }}
       >
-        {P.length} kritere uyan ilanlar
+        {P.length} {trUpper('kritere uyan ilanlar')}
       </div>
 
       {/* Results. The agent's listing is first, and it is the only object in the
           frame allowed to carry gold — the entire payoff of the act for the
-          audience actually watching this film. */}
-      <div style={{ position: 'absolute', left: 80, top: 890, display: 'flex', gap: 25, transform: `translateY(${drift}px)` }}>
+          audience actually watching this film. Resolve runs 0.08 apart / 0.42
+          long, down from 0.13/0.62: at the old pace a 0.4s sample could catch a
+          single card at 15% opacity floating alone, which read as a half-loaded
+          page rather than as a stagger. */}
+      <div style={{ position: 'absolute', left: 80, top: 890, display: 'flex', gap: 18, transform: `translateY(${drift}px)` }}>
         {R.map((item, i) => (
           <ResultCard
             key={item.asset}
             item={item}
             p={tp(t, 0.30 + i * 0.07, 0.30 + i * 0.07 + dur.md, ease.out)}
-            real={tp(t, 1.56 + i * 0.12, 1.56 + i * 0.12 + dur.lg, ease.out)}
+            real={tp(t, 1.58 + i * 0.08, 1.58 + i * 0.08 + 0.42, ease.out)}
             ring={item.mine ? ringP : 0}
           />
         ))}
@@ -145,12 +150,15 @@ export const Arama = ({ tOverride, bare = false }) => {
             padding: '9px 20px', borderRadius: 999,
             opacity: Math.min(1, ringP * 1.6),
             transform: `translateY(${(1 - ringP) * 8}px)`,
-            boxShadow: '0 10px 26px rgba(10,37,64,0.22)',
+            border: '1.5px solid rgba(10,37,64,0.28)',
+            boxShadow: '0 10px 26px rgba(10,37,64,0.3)',
           }}
         >
           Senin ilanın
         </div>
       )}
+
+      <Grain opacity={0.03} />
     </AbsoluteFill>
   );
 };

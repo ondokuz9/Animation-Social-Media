@@ -1,12 +1,12 @@
 {
   "filename": "evlek_emlakci_reel_1080x1920_60fps_silent_master.mp4",
   "path": "remotion/out/evlek_emlakci_reel_1080x1920_60fps_silent_master.mp4",
-  "sha256": "c92779255812e3c5462204058c55979b78c91f42baa3852f6a71bc821a40b40d",
+  "sha256": "06445523d081d0a6700ee32ddb6082fdb7a5d920c0ad0a8561fcb17e264bb71c",
   "width": 1080,
   "height": 1920,
   "fps": 60,
-  "duration_seconds": 25.0,
-  "total_frames": 1500,
+  "duration_seconds": 36.0,
+  "total_frames": 2160,
   "codec": "h264",
   "profile": "High",
   "level": 4.2,
@@ -17,8 +17,8 @@
   "color_range": "tv",
   "field_order": "progressive",
   "audio_stream_count": 0,
-  "size_bytes": 11726815,
-  "bitrate_kbps": 3753,
+  "size_bytes": 15608102,
+  "bitrate_kbps": 3468,
   "container": "mov,mp4,m4a,3gp,3g2,mj2",
   "source": {
     "authoring": "remotion",
@@ -27,19 +27,27 @@
     "encoder": "render/encode.mjs (shared with the approved V7 pipeline)"
   },
   "frame_audit": {
-    "unique_frames": 1446,
-    "unique_percent": 96.4,
-    "held_frames": 54,
-    "longest_hold": {
-      "from": 658,
-      "to": 667,
-      "frames": 10,
-      "reason": "Diller holding a language; the act's drift is sub-pixel between these frames"
-    }
+    "unique_frames": 2031,
+    "unique_percent": 94.0,
+    "held_frames": 129,
+    "longest_holds": "12f at 16.37s and 14f at 17.82s, both sub-quarter-second language holds in Diller"
+  },
+  "tags": {
+    "_note": "Tag pushes are blocked by the remote execution environment's git proxy; recreate and push these from a local clone.",
+    "evlek-emlakci-final": "c1d8fa3",
+    "evlek-video-system-v1": "9ca153e",
+    "evlek-video-system-v1-baseline": "3ee5274"
   },
   "notes": [
-    "25.000s cut. The 20.5s version was legible frame by frame and illegible in motion.",
-    "Still renders against placeholder photography \u2014 four images doing eleven jobs. The user's own matched-camera set is generated but this environment's network policy blocks every Google host, so it has not been fetched yet; see remotion/public/README.md.",
+    "36.000s FINAL cut. Retimed after a two-expert 0.4s-interval frame inspection of all 83 samples of the 33s master (26 defects; all 4 critical resolved): Yay\u0131nla 5.00s, Diller 3.20s with equal language holds, Kapan\u0131\u015f 3.2s with a readable disclosure, Turkish-locale uppercase throughout, search results made consistent with the query, Match card carries the picked Akdeniz render.",
+    "Brand pass: the real wordmark on the hook cover and the thesis kicker, a BrandPlate signature inside every capability card window, and the plate holding the Yay\u0131nla macro until the phone's own EVLEK app bar re-enters. See video-system/docs/EMLAKCI_REEL_v7_FINAL.md.",
+    "Hook: four lines of 800-weight 128px slam type (white/gold on a near-black ember of the balcony photograph) with cumulative impact settles. Montage (01-05): full-bleed film beats \u2014 each capability plays as its own act, full frame, under the film's standard headline register rolling through a mask, with a giant ghost numeral (01-05) odometer-rolling behind the headline and the wordmark beneath it; handovers are single full-frame pushes under a gold seam, and every beat carries a continuous 2.8% push so no beat can freeze.",
+    "The closing plate's ground is now the story's own Akdeniz room; a Girne aerial remains welcome but no longer blocks.",
     "The V7 master is untouched: 3c22d5a3b6483127e3ca871d915453c5a17f844be0776387d46381950603ff71."
-  ]
+  ],
+  "photography": {
+    "source": "user-supplied, 11 files, merged from origin/main PR #4",
+    "provenance": "ALL ELEVEN are AI-generated. Every file carries a C2PA manifest signed by Google with digitalSourceType http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia \u2014 including the 'empty room' that the film calls the agent's own photograph.",
+    "consequence": "The Staging act labels the visualisation feature where AI generation IS the claim; a blanket line on the closing plate covers the rest of the picture."
+  }
 }

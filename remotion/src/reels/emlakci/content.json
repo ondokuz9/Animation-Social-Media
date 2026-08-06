@@ -41,33 +41,33 @@
       "BEŞ DİL",
       "ALICI"
     ],
-    "hook_1": "Bunların hiçbirini sen yapmadın.",
-    "hook_2": "Sen sadece Yayınla'ya bastın.",
+    "hook_1": "Bunları Evlek yaptı.",
+    "hook_2": "Sen sadece “Yayınla”ya bastın.",
     "line_written": "Açıklamayı Evlek yazdı.",
     "line_langs": "Sen Türkçe yaz.",
-    "line_photo": "Boş oda, döşenmiş görünüyor.",
-    "line_variants": "İstediğin stili seç.",
-    "line_match": "Doğru alıcıya çıkıyor.",
+    "line_photo": "Boş odayı sen çektin.",
+    "line_variants": "Evlek üç stilde döşüyor.",
+    "line_match": "Doğru alıcıya ulaşır.",
     "line_search": "Alıcı cümleyle arıyor.",
     "line_found": "İlanın karşısına çıkıyor.",
-    "line_assistant": "Yapay zekâ da okuyor.",
-    "close_1": "Sen ilanı koy.",
+    "line_assistant": "Cevap senin ilanından geliyor.",
+    "close_1": "Sen yayınla.",
     "close_2": "Gerisi Evlek'te.",
     "cta": "evlek.app",
     "contact": "hello@evlek.app",
-    "query": "Girne'de deniz gören bahçeli 2+1",
+    "query": "Girne'de denize yakın balkonlu 2+1",
     "query_parts": [
       {
         "text": "Girne'de",
         "chip": "Girne"
       },
       {
-        "text": "deniz gören",
-        "chip": "Deniz manzarası"
+        "text": "denize yakın",
+        "chip": "Deniz yakını"
       },
       {
-        "text": "bahçeli",
-        "chip": "Bahçeli"
+        "text": "balkonlu",
+        "chip": "Balkonlu"
       },
       {
         "text": "2+1",
@@ -84,27 +84,27 @@
       },
       {
         "asset": "result_b",
-        "price": "£210.000",
+        "price": "£185.000",
         "place": "Girne · Karaoğlanoğlu",
-        "meta": "130 m² · 3+1",
+        "meta": "110 m² · 2+1",
         "mine": false
       },
       {
         "asset": "result_c",
-        "price": "£148.000",
+        "price": "£178.000",
         "place": "Girne · Alsancak",
-        "meta": "82 m² · 2+1",
+        "meta": "90 m² · 2+1",
         "mine": false
       }
     ],
     "variants": [
       {
-        "asset": "stage_akdeniz",
-        "label": "Akdeniz"
-      },
-      {
         "asset": "stage_modern",
         "label": "Modern"
+      },
+      {
+        "asset": "stage_akdeniz",
+        "label": "Akdeniz"
       },
       {
         "asset": "stage_minimal",
@@ -112,9 +112,18 @@
       }
     ],
     "assistant": {
-      "question": "Bu daire denize ne kadar uzakta?",
-      "answer": "Denize yürüme mesafesinde — ilanda yaklaşık 450 metre olarak belirtilmiş. Balkonu deniz cephesine bakıyor.",
-      "source": "KAYNAK: EVLEK.APP"
+      "question": "Girne'de denize yakın 2+1 var mı?",
+      "answer_pre": "Evet. Evlek'te Girne Zeytinlik'te,",
+      "answer_cite": "denize yürüme mesafesinde,",
+      "answer_post": "geniş balkonlu bir 2+1 ilanı var.",
+      "cite_phrase": "denize yürüme mesafesinde",
+      "surface": "YAPAY ZEKÂ ASİSTANI",
+      "state_1": "KAYNAK ARANIYOR",
+      "state_2": "KAYNAK BULUNDU",
+      "sources": "KAYNAKLAR",
+      "domain": "evlek.app",
+      "mine": "Senin ilanın",
+      "temsili": "Temsilî"
     },
     "translations": [
       {
@@ -158,42 +167,81 @@
     "setup_sub": "Her ilan için. Her seferinde.",
     "listing_photos": [
       "stage_base",
-      "listing_2"
+      "listing_2",
+      "listing_3"
     ],
     "callout_1": "KKTC'de emlakçıysan",
-    "callout_2": "bu listeyi ezbere bilirsin.",
+    "callout_2": "bunu görmen lazım.",
     "setup_label": "TEK BİR İLAN İÇİN",
     "line_langs_2": "Beş dilde yayınlansın.",
-    "line_match_sub": "GİRNE'DE 2+1 ARAYANLAR"
+    "line_match_sub": "NİYETİ İLANA YAKIN OLAN ALICILAR",
+    "thesis_kicker": "YENİ NESİL İLAN",
+    "thesis": "İlan koymak değişti.",
+    "thesis_sub": "Sen yayınla. Gerisini Evlek yönetsin.",
+    "caps": [
+      {
+        "no": "01",
+        "line": "Açıklamayı yazar",
+        "note": "Sen onayla, o yazsın"
+      },
+      {
+        "no": "02",
+        "line": "Beş dile çevirir",
+        "note": "TR · EN · RU · DE · AR"
+      },
+      {
+        "no": "03",
+        "line": "Boş odayı döşer",
+        "note": "VIRTUAL STAGING"
+      },
+      {
+        "no": "04",
+        "line": "Yapay zekâya hazırlar",
+        "note": "Sorulara ilanından cevap"
+      },
+      {
+        "no": "05",
+        "line": "Doğru alıcıyla eşleştirir",
+        "note": "Niyete göre, ilana göre"
+      }
+    ],
+    "match_points": [
+      "Girne'de 2+1 arıyor",
+      "Denize yakın istiyor",
+      "Balkonlu arıyor",
+      "Yatırım için bakıyor"
+    ],
+    "line_stage_ready": "Paylaşmaya hazır.",
+    "stage_src_label": "SENİN FOTOĞRAFIN",
+    "stage_status": [
+      "FOTOĞRAF OKUNUYOR",
+      "ÜÇ STİL ÜRETİLİYOR",
+      "AYNI ODA · AYNI AÇI"
+    ],
+    "disclosure": "AI ile görselleştirildi · Temsilî",
+    "disclosure_sub": "Filmdeki tüm görseller temsilîdir.",
+    "writing_hint": "Evlek yazıyor…",
+    "line_assistant_1": "Alıcı yapay zekâya soruyor.",
+    "close_note": "Görseller ve ilan bilgileri temsilîdir."
   },
-  "_assets_note": "Her anahtar bir dosyaya bakar. Yeni görseller geldiğinde (bkz. video-system/docs/EMLAKCI_REEL_ASSET_REQUESTS.md) sadece bu tablodaki değerler değişir; hiçbir sahne dosyası dokunulmaz. 'pending' sütunu, istenen nihai dosya adıdır.",
+  "_assets_note": "Her anahtar bir dosyaya bakar; hiçbir sahne dosyası doğrudan dosya adı yazmaz. Görsel değiştirmek yalnızca bu tablonun bir satırıdır. Girne kuşbakışı henüz yok — kapanış zemini geçici olarak ilan-c-site kullanıyor.",
   "assets": {
-    "stage_base": "room-00-bos.jpg",
-    "stage_akdeniz": "room-01-akdeniz.jpg",
-    "stage_modern": "room-02-minimal.jpg",
-    "stage_minimal": "room-02-minimal.jpg",
-    "result_a": "room-01-akdeniz.jpg",
-    "result_b": "peek-balkon.jpg",
-    "result_c": "room-02-minimal.jpg",
-    "girne": "peek-balkon.jpg",
-    "detay_isik": "room-00-bos.jpg",
-    "wordmark": "wordmark.png",
-    "listing_image": "room-01-akdeniz.jpg",
-    "staging_before": "room-00-bos.jpg",
-    "staging_after": "room-01-akdeniz.jpg",
-    "listing_2": "peek-balkon.jpg"
-  },
-  "assets_pending": {
     "stage_base": "stage-00-bos.jpg",
     "stage_akdeniz": "stage-01-akdeniz.jpg",
     "stage_modern": "stage-02-modern.jpg",
     "stage_minimal": "stage-03-minimal.jpg",
-    "result_a": "stage-01-akdeniz.jpg",
-    "result_b": "ilan-b-bahce.jpg",
-    "result_c": "ilan-c-site.jpg",
-    "girne": "girne-hava.jpg",
-    "detay_isik": "detay-isik.jpg",
     "listing_2": "stage-10-balkon.jpg",
-    "listing_3": "stage-11-mutfak.jpg"
+    "listing_3": "stage-11-mutfak.jpg",
+    "result_a": "stage-01-akdeniz.jpg",
+    "result_b": "ilan-a-deniz.jpg",
+    "result_c": "detay-balkon.jpg",
+    "result_d": "ilan-c-site.jpg",
+    "girne": "ilan-c-site.jpg",
+    "detay_isik": "detay-isik.jpg",
+    "detay_balkon": "detay-balkon.jpg",
+    "wordmark": "wordmark.png",
+    "listing_image": "stage-01-akdeniz.jpg",
+    "staging_before": "stage-00-bos.jpg",
+    "staging_after": "stage-01-akdeniz.jpg"
   }
 }
