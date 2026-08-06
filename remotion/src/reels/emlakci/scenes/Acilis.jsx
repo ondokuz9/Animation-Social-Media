@@ -42,7 +42,7 @@
 
 import React from 'react';
 import { AbsoluteFill, Img, useCurrentFrame, useVideoConfig, interpolate } from 'remotion';
-import { C, T, FPS, SANS, MONO, ease, tp, at, dur, SAFE, RADIUS, trUpper } from '../../../brand/tokens.js';
+import { C, T, FPS, SANS, MONO, ease, tp, at, dur, SAFE, RADIUS, trUpper, pulse } from '../../../brand/tokens.js';
 import { Phone } from '../../../brand/ui.jsx';
 import { AgentPhone } from '../AgentPhone.jsx';
 import { asset, Grain, BrandPlate } from '../parts.jsx';
@@ -78,20 +78,28 @@ const CARDS = [
   // Every window sits inside a STABLE stretch of its act — never across a
   // text handover, a status flip or a pill entrance. A sampled transition
   // freezes both of its endpoints into one frame.
-  { Scene: Yayinla, from: 2.25, to: 2.55, dark: false, zoom: 1.20, dy: 10 },
-  { Scene: Diller, from: 1.18, to: 1.33, dark: true, zoom: 1.00, dy: 132 },
+  // `plate` picks the corner of the window where the brand signature sits —
+  // a frame review caught the fixed bottom-left plate covering the phone's
+  // attribute chips, the assistant's skeleton sources and the staging
+  // disclosure bar, in three different cards.
+  { Scene: Yayinla, from: 2.35, to: 2.65, zoom: 1.20, dy: 10, plate: 'tl' },
+  // zoom 1.10 / dy 60: the earlier crop left the window's whole upper half
+  // as empty cream — the sentence block now fills the frame.
+  { Scene: Diller, from: 1.18, to: 1.33, zoom: 1.10, dy: 60, plate: 'tl' },
   // 1.70–2.00 sits wholly inside the ÜRETİLİYOR status: two style cards are
   // mid-develop and the progress bar is filling, with no status flip inside
-  // the window.
-  { Scene: Staging, from: 1.70, to: 2.00, dark: false, zoom: 1.02, dy: 40 },
+  // the window. zoom 1.06 / dy −60 frames the production band — source foot,
+  // fan, three developing outputs, disclosure — instead of the dead
+  // workbench above it.
+  { Scene: Staging, from: 1.70, to: 2.00, zoom: 1.06, dy: -60, plate: 'tr' },
   // 3.78, not 3.40: at 3.40 the act was still mid-beat — the "Senin ilanın"
   // pill entering and the handoff dimming — and the inspection caught the pill
   // as a half-rendered ghost. By 3.78 everything in the panel has settled:
   // question, answer, resolved citation, pill.
-  { Scene: Asistan, from: 3.78, to: 3.98, dark: true, zoom: 1.02, dy: 60 },
+  { Scene: Asistan, from: 3.78, to: 3.98, zoom: 1.02, dy: 60, plate: 'tl' },
   // Match, not Arama. The capability is matching; showing the buyer's search
   // here illustrated a different sentence from the one written above it.
-  { Scene: Match, from: 2.56, to: 2.94, dark: false, zoom: 0.90, dy: 0 },
+  { Scene: Match, from: 2.56, to: 2.94, zoom: 0.90, dy: 0, plate: 'tl' },
 ];
 
 /** One promise in the thesis list. The number carries the colour so the line
@@ -139,31 +147,51 @@ export const Acilis = () => {
   //              snaps from blur, 100ms apart, the one kinetic-type gesture
   //              in the film
   //   0.95–1.30  a gold rule sweeps under the promise
+  // Four lines of 800-weight display type SLAM into the frame in sequence —
+  // huge, high-contrast, unmissable. The photograph survives only as a dark
+  // ember behind them: the client's brief for this shot was explicit — thick
+  // heavy type hitting the screen with contrast is what makes a KKTC agent
+  // stop, not an aesthetic. Each line lands with a 180ms scale-slam and the
+  // whole block takes a 5px settle on impact, which is what makes weight FELT
+  // rather than merely large.
   if (frame < HOOK_END) {
     const push = 1.06 + 0.07 * (frame / HOOK_END);
-    const drift = -10 * (frame / HOOK_END);
-    const words = K.callout_2.split(' ');
-    const sweep = at(frame, 0.95, 0.35, ease.inOut);
+    const c1 = K.callout_1.split(' ');                       // KKTC'de · emlakçıysan
+    const c2 = K.callout_2.split(' ');                       // bunu · görmen · lazım.
+    const LINES = [
+      { text: trUpper(c1[0]), color: C.white, at: -1 },      // on the cover
+      { text: trUpper(c1[1]), color: C.gold, at: 0.26 },
+      { text: trUpper(`${c2[0]} ${c2[1]}`), color: C.white, at: 0.58 },
+      { text: trUpper(c2[2]), color: C.gold, at: 0.90 },
+    ];
+    const slam = (a) => (a < 0 ? 1 : at(frame, a, 0.18, ease.out));
+    // The block dips on every impact after the first — cumulative, so late
+    // lines land on a surface that visibly carries their weight.
+    const dip = LINES.slice(1).reduce((d, l) => d + 5 * pulse(frame / FPS, l.at + 0.06, 0.22), 0);
+    const sweep = at(frame, 1.14, 0.30, ease.inOut);
 
     return (
-      <AbsoluteFill style={{ background: C.navy, overflow: 'hidden' }}>
-        <AbsoluteFill style={{ transform: `scale(${push}) translateY(${drift}px)`, transformOrigin: '58% 42%' }}>
+      <AbsoluteFill style={{ background: '#050D18', overflow: 'hidden' }}>
+        <AbsoluteFill style={{ transform: `scale(${push})`, transformOrigin: '58% 42%' }}>
           <Img
             src={asset('detay_balkon')}
-            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: '50% 38%' }}
+            style={{
+              position: 'absolute', inset: 0, width: '100%', height: '100%',
+              objectFit: 'cover', objectPosition: '50% 38%',
+              opacity: 0.5, filter: 'brightness(0.62) saturate(0.85)',
+            }}
           />
         </AbsoluteFill>
-        {/* The scrim carries the type; the photograph carries the stop. */}
         <AbsoluteFill
           style={{
             background:
-              'linear-gradient(180deg, rgba(6,16,30,0.42) 0%, rgba(6,16,30,0.06) 34%, rgba(5,14,26,0.30) 58%, rgba(4,12,24,0.82) 86%, rgba(4,12,24,0.88) 100%)',
+              'linear-gradient(180deg, rgba(4,10,20,0.72) 0%, rgba(4,10,20,0.30) 36%, rgba(4,10,20,0.44) 62%, rgba(3,9,18,0.92) 100%)',
           }}
         />
         <Grain opacity={0.05} />
 
-        <div style={{ position: 'absolute', left: SAFE.left + 20, right: SAFE.right, top: 1010 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 20, marginBottom: 40 }}>
+        <div style={{ position: 'absolute', left: SAFE.left + 20, right: SAFE.right, top: 668, transform: `translateY(${dip}px)` }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 20, marginBottom: 44 }}>
             <span style={{ width: 52, height: 4, background: C.gold, display: 'block' }} />
             <Img
               src={asset('wordmark')}
@@ -171,33 +199,32 @@ export const Acilis = () => {
             />
           </div>
 
-          <div style={{ ...T.hook, fontSize: 86, color: C.white, textShadow: '0 3px 30px rgba(2,8,18,0.65)' }}>
-            {K.callout_1}
-          </div>
-          <div style={{ ...T.hook, fontSize: 86, color: C.gold, marginTop: 10, textShadow: '0 3px 30px rgba(2,8,18,0.65)' }}>
-            {words.map((w, k) => {
-              const p = at(frame, 0.50 + k * 0.10, 0.26, ease.out);
-              return (
-                <span
-                  key={k}
-                  style={{
-                    display: 'inline-block', marginRight: '0.24em',
-                    opacity: p,
-                    filter: p < 0.99 ? `blur(${(1 - p) * 7}px)` : 'none',
-                    transform: `translateY(${(1 - p) * 26}px) scale(${1.1 - 0.1 * p})`,
-                  }}
-                >
-                  {w}
-                </span>
-              );
-            })}
-          </div>
+          {LINES.map((l, k) => {
+            const p = slam(l.at);
+            if (p <= 0.001) return null;
+            return (
+              <div
+                key={k}
+                style={{
+                  fontFamily: SANS, fontWeight: 800, fontSize: 128, lineHeight: 1.06,
+                  letterSpacing: '-0.022em', color: l.color,
+                  textShadow: '0 4px 40px rgba(0,0,0,0.55)',
+                  opacity: p,
+                  transform: `scale(${1.3 - 0.3 * p}) translateY(${(1 - p) * 10}px)`,
+                  transformOrigin: 'left center',
+                  filter: p < 0.99 ? `blur(${(1 - p) * 5}px)` : 'none',
+                }}
+              >
+                {l.text}
+              </div>
+            );
+          })}
 
           <div
             style={{
-              width: 560, height: 3, marginTop: 30, background: C.gold,
+              width: 430, height: 5, marginTop: 34, background: C.gold,
               transform: `scaleX(${sweep})`, transformOrigin: 'left center',
-              boxShadow: '0 0 18px rgba(201,161,87,0.5)',
+              boxShadow: '0 0 22px rgba(201,161,87,0.55)',
             }}
           />
         </div>
@@ -417,9 +444,9 @@ export const Acilis = () => {
             position: 'absolute', left: 44, right: 44, top: 636, height: 908,
             borderRadius: RADIUS.card + 12,
             overflow: 'hidden',
-            border: '1px solid rgba(10,37,64,0.10)',
+            border: '1px solid rgba(10,37,64,0.16)',
             boxSizing: 'border-box',
-            boxShadow: '0 34px 80px rgba(10,37,64,0.18)',
+            boxShadow: '0 34px 80px rgba(10,37,64,0.22)',
             clipPath: i === 0 ? `inset(${(1 - open) * 50}% 0% ${(1 - open) * 50}% 0% round ${RADIUS.card + 12}px)` : undefined,
           }}
         >
@@ -465,9 +492,13 @@ export const Acilis = () => {
             />
           )}
 
-          {/* The signature, on every card. A viewer arriving mid-montage
-              should not have to reach the closing plate to learn the brand. */}
-          <BrandPlate opacity={open} />
+          {/* The signature, on every card, in the corner that card can spare. */}
+          <BrandPlate
+            opacity={open}
+            {...(card.plate === 'tr'
+              ? { right: 28, top: 28 }
+              : { left: 28, top: 28 })}
+          />
         </div>
       </AbsoluteFill>
     );

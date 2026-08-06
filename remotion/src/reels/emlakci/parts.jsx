@@ -146,10 +146,11 @@ export const MontageWord = ({ children, dark }) => (
    whose film this is; a client review caught exactly that: an agent read
    "İlan koymak değişti." over an unbranded frame and swiped away. */
 
-export const BrandPlate = ({ opacity = 1, left = 28, bottom = 28, top }) => (
+export const BrandPlate = ({ opacity = 1, left, right, bottom = 28, top }) => (
   <div
     style={{
-      position: 'absolute', left,
+      position: 'absolute',
+      ...(right != null ? { right } : { left: left ?? 28 }),
       ...(top != null ? { top } : { bottom }),
       display: 'flex', alignItems: 'center',
       background: 'rgba(4,14,28,0.55)',
