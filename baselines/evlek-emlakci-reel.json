@@ -1,7 +1,7 @@
 {
   "filename": "evlek_emlakci_reel_1080x1920_60fps_silent_master.mp4",
   "path": "remotion/out/evlek_emlakci_reel_1080x1920_60fps_silent_master.mp4",
-  "sha256": "551b83068eca3c10502ce9c515d302cf0920893b09d7dd45c7d142f25c35f68e",
+  "sha256": "06445523d081d0a6700ee32ddb6082fdb7a5d920c0ad0a8561fcb17e264bb71c",
   "width": 1080,
   "height": 1920,
   "fps": 60,
@@ -17,8 +17,8 @@
   "color_range": "tv",
   "field_order": "progressive",
   "audio_stream_count": 0,
-  "size_bytes": 15367326,
-  "bitrate_kbps": 3415,
+  "size_bytes": 15608102,
+  "bitrate_kbps": 3468,
   "container": "mov,mp4,m4a,3gp,3g2,mj2",
   "source": {
     "authoring": "remotion",
@@ -35,7 +35,7 @@
   "notes": [
     "36.000s FINAL cut. Retimed after a two-expert 0.4s-interval frame inspection of all 83 samples of the 33s master (26 defects; all 4 critical resolved): Yay\u0131nla 5.00s, Diller 3.20s with equal language holds, Kapan\u0131\u015f 3.2s with a readable disclosure, Turkish-locale uppercase throughout, search results made consistent with the query, Match card carries the picked Akdeniz render.",
     "Brand pass: the real wordmark on the hook cover and the thesis kicker, a BrandPlate signature inside every capability card window, and the plate holding the Yay\u0131nla macro until the phone's own EVLEK app bar re-enters. See video-system/docs/EMLAKCI_REEL_v7_FINAL.md.",
-    "Hook & montage rebuild: the hook is four lines of 800-weight 128px slam type (white/gold on a near-black ember of the balcony photograph) with cumulative impact settles; the five-card montage is one permanent surface (fixed ground, header, headline mask, five-segment cumulative progress, window) through which content travels in shared 150ms pushes under a gold seam \u2014 no full-frame cuts remain inside 5.4-9.0s. Brand plate sits in the corner each card can spare; Diller and Staging card crops reframed to fill their windows.",
+    "Hook: four lines of 800-weight 128px slam type (white/gold on a near-black ember of the balcony photograph) with cumulative impact settles. Montage (01-05): full-bleed film beats \u2014 each capability plays as its own act, full frame, under the film's standard headline register rolling through a mask, with a giant ghost numeral (01-05) odometer-rolling behind the headline and the wordmark beneath it; handovers are single full-frame pushes under a gold seam, and every beat carries a continuous 2.8% push so no beat can freeze.",
     "The closing plate's ground is now the story's own Akdeniz room; a Girne aerial remains welcome but no longer blocks.",
     "The V7 master is untouched: 3c22d5a3b6483127e3ca871d915453c5a17f844be0776387d46381950603ff71."
   ],
