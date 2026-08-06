@@ -32,6 +32,12 @@
     "held_frames": 129,
     "longest_holds": "12f at 16.37s and 14f at 17.82s, both sub-quarter-second language holds in Diller"
   },
+  "tags": {
+    "_note": "Tag pushes are blocked by the remote execution environment's git proxy; recreate and push these from a local clone.",
+    "evlek-emlakci-final": "c1d8fa3",
+    "evlek-video-system-v1": "9ca153e",
+    "evlek-video-system-v1-baseline": "3ee5274"
+  },
   "notes": [
     "36.000s FINAL cut. Retimed after a two-expert 0.4s-interval frame inspection of all 83 samples of the 33s master (26 defects; all 4 critical resolved): Yay\u0131nla 5.00s, Diller 3.20s with equal language holds, Kapan\u0131\u015f 3.2s with a readable disclosure, Turkish-locale uppercase throughout, search results made consistent with the query, Match card carries the picked Akdeniz render.",
     "Brand pass: the real wordmark on the hook cover and the thesis kicker, a BrandPlate signature inside every capability card window, and the plate holding the Yay\u0131nla macro until the phone's own EVLEK app bar re-enters. See video-system/docs/EMLAKCI_REEL_v7_FINAL.md.",
