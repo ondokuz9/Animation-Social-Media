@@ -1,0 +1,37 @@
+{
+  "project_id": "evlek-emlakci-reel-v1",
+  "language": "tr",
+  "voice": {
+    "provider": "elevenlabs",
+    "name": "Cicek",
+    "model": "v3",
+    "settings": "speed 100 · stability 50 · similarity 75",
+    "art": 5.73,
+    "gap": 0.42,
+    "note": "art/gap measured with `calibrate` from the 2026-08-06 read. Stability must stay in Creative or Natural — Robust deliberately under-responds to audio tags."
+  },
+  "target": {
+    "video_seconds": 36.0,
+    "tail_seconds": 1.0,
+    "master": "remotion/out/evlek_emlakci_reel_1080x1920_60fps_silent_master.mp4",
+    "output": "out/cuts/evlek_emlakci_reel_36s_mixed.mp4"
+  },
+  "lines": [
+    { "tag": "excited",     "text": "Kıbrıs'ta emlakçıysan bunu görmen lazım." },
+    { "tag": "confident",   "text": "İlanın artık kendi işini yapıyor." },
+    { "tag": "determined",  "text": "Beş iş, tek dokunuşta işlensin." },
+    { "tag": "energetic",   "text": "Toplam otuz saniye." },
+    { "tag": "warm",        "text": "Sen yayınla, Evlek üstlensin." },
+    { "tag": "thoughtful",  "text": "Onay hep sende kalıyor." },
+    { "tag": "confident",   "text": "Yazan Evlek, karar veren sen." },
+    { "tag": "warm",        "text": "Beş dil. Alıcın kendi dilinde okuyor." },
+    { "tag": "emphatic",    "text": "Boş oda zor satılır, döşenmiş oda hayal ettirir." },
+    { "tag": "thoughtful",  "text": "Herkese değil, doğru alıcıya." },
+    { "tag": "curious",     "text": "Artık filtre değil, cümle yazıyor." },
+    {                       "text": "Cevabı yapay zekâ veriyor." },
+    { "tag": "emphatic",    "text": "Kaynak, senin ilanın." },
+    { "tag": "warm",        "text": "Alıcı sana geliyor." },
+    { "tag": "confident",   "text": "Tek yapman gereken yayınlamak." },
+    { "tag": "warm",        "text": "Gerisi Evlek'te. Evlek nokta app." }
+  ]
+}
