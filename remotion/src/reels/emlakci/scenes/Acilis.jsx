@@ -78,28 +78,23 @@ const CARDS = [
   // Every window sits inside a STABLE stretch of its act — never across a
   // text handover, a status flip or a pill entrance. A sampled transition
   // freezes both of its endpoints into one frame.
-  // `plate` picks the corner of the window where the brand signature sits —
-  // a frame review caught the fixed bottom-left plate covering the phone's
-  // attribute chips, the assistant's skeleton sources and the staging
-  // disclosure bar, in three different cards.
-  { Scene: Yayinla, from: 2.35, to: 2.65, zoom: 1.20, dy: 10, plate: 'tl' },
-  // zoom 1.10 / dy 60: the earlier crop left the window's whole upper half
-  // as empty cream — the sentence block now fills the frame.
-  { Scene: Diller, from: 1.18, to: 1.33, zoom: 1.10, dy: 60, plate: 'tl' },
+  // `dark` names the scene's own ground, which sets the headline ink and the
+  // ghost numeral's colour. There is no window and no crop any more — every
+  // scene plays FULL BLEED, exactly as its own act does later in the film.
+  { Scene: Yayinla, from: 2.35, to: 2.65, dark: false },
+  { Scene: Diller, from: 1.18, to: 1.33, dark: false },
   // 1.70–2.00 sits wholly inside the ÜRETİLİYOR status: two style cards are
   // mid-develop and the progress bar is filling, with no status flip inside
-  // the window. zoom 1.06 / dy −60 frames the production band — source foot,
-  // fan, three developing outputs, disclosure — instead of the dead
-  // workbench above it.
-  { Scene: Staging, from: 1.70, to: 2.00, zoom: 1.06, dy: -60, plate: 'tr' },
+  // the window.
+  { Scene: Staging, from: 1.70, to: 2.00, dark: true },
   // 3.78, not 3.40: at 3.40 the act was still mid-beat — the "Senin ilanın"
   // pill entering and the handoff dimming — and the inspection caught the pill
   // as a half-rendered ghost. By 3.78 everything in the panel has settled:
   // question, answer, resolved citation, pill.
-  { Scene: Asistan, from: 3.78, to: 3.98, zoom: 1.02, dy: 60, plate: 'tl' },
+  { Scene: Asistan, from: 3.78, to: 3.98, dark: true },
   // Match, not Arama. The capability is matching; showing the buyer's search
   // here illustrated a different sentence from the one written above it.
-  { Scene: Match, from: 2.56, to: 2.94, zoom: 0.90, dy: 0, plate: 'tl' },
+  { Scene: Match, from: 2.56, to: 2.94, dark: true },
 ];
 
 /** One promise in the thesis list. The number carries the colour so the line
@@ -310,196 +305,147 @@ export const Acilis = () => {
     );
   }
 
-  /* ── 3 · The five cards ──────────────────────────────────────────────── */
-  // ONE surface, five contents — not five slides. The version this replaces
-  // hard-cut the entire frame every 0.72s, alternating cream and navy grounds:
-  // a client review scored those cuts 2/10, and the diagnosis is simple — when
-  // EVERYTHING changes at once there is no motion, only flicker. So nothing
-  // structural changes any more. The ground, the header row, the headline box,
-  // the progress bar and the window are permanent; at each handover the CONTENT
-  // travels through them in one shared 150ms push:
-  //
-  //   window   the incoming act slides in from the right and the outgoing act
-  //            gives way beneath it, a gold seam riding the edge
-  //   headline the old line exits upward inside a masked box, the new one
-  //            rises into its place
-  //   index    01 → 02 as an odometer flip, the same mechanic the Asistan act
-  //            uses for its status
-  //   progress five fixed segments fill left to right and NEVER reset — the
-  //            bar answers "how much of this is left", which a restarting
-  //            rule cannot
+  /* ── 3 · The five beats ──────────────────────────────────────────────── */
+  // FIVE SCENES FROM THE FILM ITSELF, full bleed — not five framed slides.
+  // Two client reviews killed the previous designs in turn: hard-cut cards
+  // read as flicker, and a windowed layout with an index row, a note line, a
+  // progress bar and a border read as a slide template — "çiğ ve yabancı",
+  // raw and foreign, was the verdict, and it was right: the film never
+  // speaks that chrome language anywhere else. So the montage now speaks the
+  // film's own: each capability IS its act, playing full frame exactly as it
+  // will later, with the film's standard headline over it and one editorial
+  // signature — a giant ghost numeral, top right, rolling 01 → 05 — to say
+  // where we are. Handover is a single full-frame push: the incoming act
+  // slides in under a gold seam, the outgoing gives way beneath it, and the
+  // headline and numeral travel in the same 150ms.
   if (frame < CARDS_END) {
     const seg = (frame - THESIS_END) / CARD;                 // 0 → 5, continuous
     const i = Math.min(4, Math.floor(seg));
-    const local = seg - i;                                   // 0 → 1 in this card
+    const local = seg - i;                                   // 0 → 1 in this beat
     const cap = CAPS[i];
     const card = CARDS[i];
     const { Scene } = card;
 
-    // The handover: the first ~9 frames of every card after the first. One
-    // progress value drives every layer, so the whole frame moves as one thing.
-    const hand = i === 0 ? 1 : tp(local, 0, 0.21, ease.inOut);
+    // One progress value drives every layer of the handover.
+    const hand = i === 0 ? 1 : tp(local, 0, 0.22, ease.inOut);
     const prevCard = i > 0 ? CARDS[i - 1] : null;
     const prevCap = i > 0 ? CAPS[i - 1] : null;
 
-    const open = i === 0 ? tp(local, 0.0, 0.33, ease.out) : 1;
-    const push = interpolate(local, [0, 1], [1.0, 1.045]);
-    const numIn = i === 0 ? 1 : tp(hand, 0.45, 1);
+    // Beat 0 enters on its own: a 200ms scale-settle out of the thesis.
+    const entry = i === 0 ? tp(local, 0.0, 0.20, ease.out) : 1;
+
+    const ink = card.dark ? '#FFFFFF' : C.navy;
+    const prevInk = prevCard && prevCard.dark ? '#FFFFFF' : C.navy;
+    const ghost = card.dark ? 'rgba(255,255,255,0.12)' : 'rgba(10,37,64,0.09)';
+    const prevGhost = prevCard && prevCard.dark ? 'rgba(255,255,255,0.12)' : 'rgba(10,37,64,0.09)';
+    const darkShadow = '0 2px 26px rgba(4,14,28,0.8)';
 
     return (
       <AbsoluteFill style={{ background: C.creamWarm, overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', left: SAFE.left + 20, top: 300, right: SAFE.right }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
-            {/* The index, flipping like an odometer. */}
-            <span style={{ position: 'relative', width: 56, height: 38, display: 'block', overflow: 'hidden', flexShrink: 0 }}>
-              {prevCap && hand < 0.999 && (
-                <span
-                  style={{
-                    position: 'absolute', left: 0, top: 2,
-                    fontFamily: MONO, fontWeight: 500, fontSize: 30, letterSpacing: '0.14em', color: C.gold,
-                    opacity: 1 - tp(hand, 0, 0.55), transform: `translateY(${-30 * hand}px)`,
-                  }}
-                >
-                  {prevCap.no}
-                </span>
-              )}
-              <span
-                style={{
-                  position: 'absolute', left: 0, top: 2,
-                  fontFamily: MONO, fontWeight: 500, fontSize: 30, letterSpacing: '0.14em', color: C.gold,
-                  opacity: numIn, transform: `translateY(${(1 - numIn) * 30}px)`,
-                }}
-              >
-                {cap.no}
-              </span>
-            </span>
-            <span style={{ flex: 1, height: 2, background: C.ink(0.14) }} />
-            <span style={{ position: 'relative', display: 'inline-block', height: 34, flexShrink: 0 }}>
-              {prevCap && hand < 0.999 && (
-                <span
-                  style={{
-                    position: 'absolute', right: 0, top: 0, whiteSpace: 'nowrap',
-                    fontFamily: MONO, fontWeight: 500, fontSize: 26, letterSpacing: '0.12em', color: C.ink(0.45),
-                    opacity: 1 - tp(hand, 0, 0.45),
-                  }}
-                >
-                  {trUpper(prevCap.note)}
-                </span>
-              )}
-              <span
-                style={{
-                  fontFamily: MONO, fontWeight: 500, fontSize: 26, letterSpacing: '0.12em', color: C.ink(0.45),
-                  whiteSpace: 'nowrap', display: 'inline-block',
-                  opacity: i === 0 ? 1 : tp(hand, 0.5, 1),
-                }}
-              >
-                {trUpper(cap.note)}
-              </span>
-            </span>
-          </div>
+        {/* Outgoing act, giving way beneath the push — frozen at its last
+            sampled moment; 150ms is below the threshold at which a frozen
+            scene reads as frozen. */}
+        {prevCard && hand < 0.999 && (
+          <AbsoluteFill style={{ transform: `translateX(${-hand * 26}%)`, filter: `brightness(${1 - 0.15 * hand})` }}>
+            <prevCard.Scene tOverride={prevCard.to} bare />
+          </AbsoluteFill>
+        )}
 
-          {/* The headline, swapping inside a masked box — lines travel, the
-              box does not. */}
-          <div style={{ position: 'relative', height: 96, marginTop: 24, overflow: 'hidden' }}>
+        {/* Incoming act, full bleed, sliding in from the right. */}
+        <AbsoluteFill
+          style={{
+            transform: `translateX(${(1 - hand) * 100}%) scale(${1.04 - 0.04 * entry})`,
+            opacity: i === 0 ? Math.min(1, entry * 2.5) : 1,
+          }}
+        >
+          <Scene tOverride={interpolate(local, [0, 1], [card.from, card.to])} bare />
+        </AbsoluteFill>
+
+        {/* The seam — a gold edge riding the push, full height, so the
+            handover has one visible physical cause. */}
+        {hand > 0.001 && hand < 0.999 && (
+          <div
+            style={{
+              position: 'absolute', top: 0, bottom: 0,
+              left: `${(1 - hand) * 100}%`, width: 3, marginLeft: -1.5,
+              background: C.gold, boxShadow: '0 0 30px rgba(201,161,87,0.9)',
+            }}
+          />
+        )}
+
+        {/* The signature: a giant ghost numeral rolling 01 → 05, top right,
+            BEHIND the headline — the magazine layering that replaces a whole
+            rail of chrome. It says the position and the count and never
+            competes with the scene under it. */}
+        <div style={{ position: 'absolute', right: SAFE.right, top: 176, width: 330, textAlign: 'right', opacity: i === 0 ? entry : 1 }}>
+          <div style={{ position: 'relative', height: 240, overflow: 'hidden' }}>
             {prevCap && hand < 0.999 && (
               <div
                 style={{
-                  ...T.hook, fontSize: 68, color: C.navy, position: 'absolute', left: 0, right: 0, top: 0,
-                  transform: `translateY(${-96 * hand}px)`, opacity: 1 - hand * 0.5,
+                  position: 'absolute', right: 0, top: 0,
+                  fontFamily: SANS, fontWeight: 800, fontSize: 236, lineHeight: 1,
+                  letterSpacing: '-0.04em', color: prevGhost,
+                  transform: `translateY(${-240 * hand}px)`,
                 }}
               >
-                {prevCap.line}
+                {prevCap.no}
               </div>
             )}
             <div
               style={{
-                ...T.hook, fontSize: 68, color: C.navy, position: 'absolute', left: 0, right: 0, top: 0,
-                transform: `translateY(${(1 - hand) * 96}px)`,
+                position: 'absolute', right: 0, top: 0,
+                fontFamily: SANS, fontWeight: 800, fontSize: 236, lineHeight: 1,
+                letterSpacing: '-0.04em', color: ghost,
+                transform: `translateY(${(1 - hand) * 240}px)`,
               }}
             >
-              {cap.line}
+              {cap.no}
             </div>
           </div>
-
-          {/* Five segments, filling and never resetting. */}
-          <div style={{ display: 'flex', gap: 12, marginTop: 24 }}>
-            {CAPS.map((c, k) => (
-              <div key={c.no} style={{ flex: 1, height: 4, background: C.ink(0.1) }}>
-                <div
-                  style={{
-                    height: 4, background: C.gold,
-                    transform: `scaleX(${k < i ? 1 : k === i ? local : 0})`,
-                    transformOrigin: 'left center',
-                  }}
-                />
-              </div>
-            ))}
+          <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 12 }}>
+            <div
+              style={{
+                display: 'flex', alignItems: 'center',
+                background: 'rgba(4,14,28,0.55)', padding: '10px 18px', borderRadius: 11,
+              }}
+            >
+              <Img
+                src={asset('wordmark')}
+                style={{ height: 24, width: 'auto', display: 'block', filter: 'brightness(0) invert(1)' }}
+              />
+            </div>
           </div>
         </div>
 
-        {/* The proof, in a PERMANENT window. Contents change; the frame the
-            viewer's eye has settled on does not. */}
-        <div
-          style={{
-            position: 'absolute', left: 44, right: 44, top: 636, height: 908,
-            borderRadius: RADIUS.card + 12,
-            overflow: 'hidden',
-            border: '1px solid rgba(10,37,64,0.16)',
-            boxSizing: 'border-box',
-            boxShadow: '0 34px 80px rgba(10,37,64,0.22)',
-            clipPath: i === 0 ? `inset(${(1 - open) * 50}% 0% ${(1 - open) * 50}% 0% round ${RADIUS.card + 12}px)` : undefined,
-          }}
-        >
-          {/* Outgoing act: gives way beneath the push, frozen at its last
-              sampled moment — 150ms is below the threshold at which a frozen
-              scene reads as frozen. */}
-          {prevCard && hand < 0.999 && (
-            <div style={{ position: 'absolute', inset: 0, transform: `translateX(${-hand * 26}%)`, filter: `brightness(${1 - 0.16 * hand})` }}>
-              <div
-                style={{
-                  position: 'absolute', left: -44, right: -44, top: -636, height: 1920,
-                  transform: `translateY(${prevCard.dy}px) scale(${1.045 * prevCard.zoom})`,
-                  transformOrigin: '540px 1090px',
-                }}
-              >
-                <prevCard.Scene tOverride={prevCard.to} bare />
-              </div>
-            </div>
-          )}
-
-          {/* Incoming act, sliding in from the right. */}
-          <div style={{ position: 'absolute', inset: 0, transform: `translateX(${(1 - hand) * 100}%)` }}>
+        {/* The headline — the film's own register, rolling through a mask.
+            Every bare scene keeps its top band empty, which is exactly the
+            space this line owns in every other act. */}
+        <div style={{ position: 'absolute', left: SAFE.left + 20, right: SAFE.right, top: 300, height: 100, overflow: 'hidden' }}>
+          {prevCap && hand < 0.999 && (
             <div
               style={{
-                position: 'absolute', left: -44, right: -44, top: -636, height: 1920,
-                transform: `translateY(${card.dy}px) scale(${push * card.zoom})`,
-                transformOrigin: '540px 1090px',
+                ...T.hook, fontSize: 68, color: prevInk,
+                textShadow: prevCard.dark ? darkShadow : 'none',
+                position: 'absolute', left: 0, right: 0, top: 0,
+                transform: `translateY(${-100 * hand}px)`, opacity: 1 - hand * 0.5,
               }}
             >
-              <Scene tOverride={interpolate(local, [0, 1], [card.from, card.to])} bare />
+              {prevCap.line}
             </div>
-          </div>
-
-          {/* The seam — a gold edge riding the push, so the handover has a
-              visible physical cause. */}
-          {hand > 0.001 && hand < 0.999 && (
-            <div
-              style={{
-                position: 'absolute', top: 0, bottom: 0,
-                left: `${(1 - hand) * 100}%`, width: 3, marginLeft: -1.5,
-                background: C.gold, boxShadow: '0 0 26px rgba(201,161,87,0.85)',
-              }}
-            />
           )}
-
-          {/* The signature, on every card, in the corner that card can spare. */}
-          <BrandPlate
-            opacity={open}
-            {...(card.plate === 'tr'
-              ? { right: 28, top: 28 }
-              : { left: 28, top: 28 })}
-          />
+          <div
+            style={{
+              ...T.hook, fontSize: 68, color: ink,
+              textShadow: card.dark ? darkShadow : 'none',
+              position: 'absolute', left: 0, right: 0, top: 0,
+              transform: `translateY(${(1 - hand) * 100}px)`,
+              opacity: i === 0 ? entry : 1,
+            }}
+          >
+            {cap.line}
+          </div>
         </div>
+
       </AbsoluteFill>
     );
   }
