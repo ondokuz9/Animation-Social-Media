@@ -1,7 +1,7 @@
 {
   "filename": "evlek_emlakci_reel_1080x1920_60fps_silent_master.mp4",
   "path": "remotion/out/evlek_emlakci_reel_1080x1920_60fps_silent_master.mp4",
-  "sha256": "6d76f5924ce420353bda521a42436ceda2197fa2d18b9d931d7903b2f633204c",
+  "sha256": "72e3dbf1b3f048879c0331f12b67056879fbf7f19009304e0a031c353cf3f684",
   "width": 1080,
   "height": 1920,
   "fps": 60,
@@ -17,8 +17,8 @@
   "color_range": "tv",
   "field_order": "progressive",
   "audio_stream_count": 0,
-  "size_bytes": 14802974,
-  "bitrate_kbps": 3293,
+  "size_bytes": 14906003,
+  "bitrate_kbps": 3312,
   "container": "mov,mp4,m4a,3gp,3g2,mj2",
   "source": {
     "authoring": "remotion",
@@ -27,13 +27,14 @@
     "encoder": "render/encode.mjs (shared with the approved V7 pipeline)"
   },
   "frame_audit": {
-    "unique_frames": 2032,
-    "unique_percent": 94.1,
-    "held_frames": 128,
+    "unique_frames": 2031,
+    "unique_percent": 94.0,
+    "held_frames": 129,
     "longest_holds": "12f at 16.37s and 14f at 17.82s, both sub-quarter-second language holds in Diller"
   },
   "notes": [
-    "36.000s cut. Retimed after a two-expert 0.4s-interval frame inspection of all 83 samples of the 33s master (26 defects; all 4 critical resolved): Yay\u0131nla 5.00s, Diller 3.20s with equal language holds, Kapan\u0131\u015f 3.2s with a readable disclosure, Turkish-locale uppercase throughout, search results made consistent with the query, Match card carries the picked Akdeniz render.",
+    "36.000s FINAL cut. Retimed after a two-expert 0.4s-interval frame inspection of all 83 samples of the 33s master (26 defects; all 4 critical resolved): Yay\u0131nla 5.00s, Diller 3.20s with equal language holds, Kapan\u0131\u015f 3.2s with a readable disclosure, Turkish-locale uppercase throughout, search results made consistent with the query, Match card carries the picked Akdeniz render.",
+    "Brand pass: the real wordmark on the hook cover and the thesis kicker, a BrandPlate signature inside every capability card window, and the plate holding the Yay\u0131nla macro until the phone's own EVLEK app bar re-enters. See video-system/docs/EMLAKCI_REEL_v7_FINAL.md.",
     "The closing plate's ground is now the story's own Akdeniz room; a Girne aerial remains welcome but no longer blocks.",
     "The V7 master is untouched: 3c22d5a3b6483127e3ca871d915453c5a17f844be0776387d46381950603ff71."
   ],
