@@ -140,9 +140,29 @@ export const AgentPhone = ({ s }) => {
               here is the difference between "the product filled this in" and two
               unrelated screenshots cut together. */}
           <div style={{ position: 'relative', ...T.uiBody, color: C.ink(0.8), marginTop: 14, minHeight: 118 }}>
-            <span style={{ position: 'absolute', inset: 0, color: C.ink(0.32), opacity: showForm }}>
+            <span style={{ position: 'absolute', inset: 0, color: C.ink(0.32), opacity: showForm * (1 - (s.writing ?? 0)) }}>
               {content.copy.placeholder}
             </span>
+            {/* Between "Yayınlandı" and the first written word the description
+                box used to sit on its grey placeholder — a published listing
+                with an empty field reads as a broken interface, not a pending
+                one. This says the emptiness is work in progress. */}
+            {(s.writing ?? 0) > 0.01 && (
+              <span
+                style={{
+                  position: 'absolute', inset: 0, display: 'flex', alignItems: 'flex-start', gap: 12,
+                  color: C.gold, fontWeight: 600, opacity: (s.writing ?? 0) * showForm,
+                }}
+              >
+                <span
+                  style={{
+                    width: 12, height: 12, borderRadius: 999, background: C.gold, marginTop: 12,
+                    opacity: 0.5 + 0.5 * Math.sin((s.writingT ?? 0) * Math.PI * 3.2),
+                  }}
+                />
+                {content.copy.writing_hint}
+              </span>
+            )}
             <span style={{ display: 'block', opacity: 1 - showForm }}>
               <WordReveal text={DESC} progress={s.desc ?? 0} />
             </span>

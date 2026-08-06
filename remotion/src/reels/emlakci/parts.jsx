@@ -139,6 +139,41 @@ export const MontageWord = ({ children, dark }) => (
   </div>
 );
 
+/* ── Touch ────────────────────────────────────────────────────────────────
+   A fingertip, not a pointer. Two acts used the desktop arrow cursor over what
+   the film frames as a phone and a touch surface — a platform contradiction the
+   inspection flagged in both places. This is the soft shadow a finger casts on
+   glass: it travels, presses, and never draws an arrow. */
+
+export const Touch = ({ x, y, opacity = 1, press = 0 }) => (
+  <div
+    style={{
+      position: 'absolute', left: x - 30, top: y - 30,
+      width: 60, height: 60, borderRadius: 999,
+      background: 'radial-gradient(circle, rgba(10,37,64,0.30) 0%, rgba(10,37,64,0.12) 52%, rgba(10,37,64,0) 74%)',
+      border: '1.5px solid rgba(10,37,64,0.20)',
+      opacity,
+      transform: `scale(${1 - 0.16 * press})`,
+      pointerEvents: 'none',
+    }}
+  />
+);
+
+/** The same fingertip on a dark ground, where a navy shadow disappears. */
+export const TouchDark = ({ x, y, opacity = 1, press = 0 }) => (
+  <div
+    style={{
+      position: 'absolute', left: x - 30, top: y - 30,
+      width: 60, height: 60, borderRadius: 999,
+      background: 'radial-gradient(circle, rgba(255,246,228,0.34) 0%, rgba(255,246,228,0.12) 52%, rgba(255,246,228,0) 74%)',
+      border: '1.5px solid rgba(255,246,228,0.30)',
+      opacity,
+      transform: `scale(${1 - 0.16 * press})`,
+      pointerEvents: 'none',
+    }}
+  />
+);
+
 /* ── Grain ────────────────────────────────────────────────────────────────
    A single static SVG turbulence layer at very low opacity. Flat digital navy
    at 1080×1920 bands visibly once encoded; this is cheaper and more honest than

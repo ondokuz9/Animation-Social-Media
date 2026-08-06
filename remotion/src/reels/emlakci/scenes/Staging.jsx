@@ -33,9 +33,9 @@
 
 import React from 'react';
 import { AbsoluteFill, useCurrentFrame, useVideoConfig, Img, interpolate } from 'remotion';
-import { C, T, SANS, MONO, dur, ease, tp, press, SAFE, holdLine } from '../../../brand/tokens.js';
-import { Cursor, DrawnCheck } from '../../../brand/ui.jsx';
-import { asset, Grain } from '../parts.jsx';
+import { C, T, SANS, MONO, dur, ease, tp, press, SAFE, holdLine, trUpper } from '../../../brand/tokens.js';
+import { DrawnCheck } from '../../../brand/ui.jsx';
+import { asset, Grain, TouchDark } from '../parts.jsx';
 import content from '../content.json';
 
 export const STAGING_SECONDS = 4.03;
@@ -104,7 +104,10 @@ export const Staging = ({ tOverride, bare = false }) => {
     ? interpolate(t, [0, 1.0], [1.0, 1.016])
     : interpolate(t, [3.46, STAGING_SECONDS], [1.0, 1.026], { extrapolateLeft: 'clamp' });
 
-  const scrims = Math.max(1 - tp(t, 0.58, 0.82), tp(t, 3.10, 3.42));
+  // The opening scrim holds until the photograph has docked, not until the dock
+  // merely begins: the inspection caught "Boş odayı sen çektin." in thin white
+  // over the room's brightest wall at ~2.8:1 the moment the scrim left early.
+  const scrims = Math.max(1 - tp(t, 0.84, 1.08), tp(t, 3.10, 3.42));
   const heroBox = dockBox(promote > 0 ? 1 - promote : dock);
 
   const FILL = { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: OBJ_POS, display: 'block' };
@@ -145,16 +148,20 @@ export const Staging = ({ tOverride, bare = false }) => {
         )}
       </div>
 
-      {/* Source label, under the docked card. */}
+      {/* Source label — anchored to the card's top edge with a tick, not
+          floating at its vertical centre. An unanchored label in an otherwise
+          empty right half read as a caption that had lost its picture. */}
       {srcLabel > 0.01 && clear < 0.99 && (
         <div
           style={{
-            position: 'absolute', left: SRC.x + SRC.w + 24, top: SRC.y + SRC.h / 2 - 16,
+            position: 'absolute', left: SRC.x + SRC.w + 24, top: SRC.y + 6,
+            display: 'flex', alignItems: 'center', gap: 14,
             fontFamily: MONO, fontWeight: 500, fontSize: 26,
             letterSpacing: '0.14em', color: 'rgba(255,255,255,0.62)',
             opacity: srcLabel * (1 - clear), transform: `translateY(${clear * 6}px)`,
           }}
         >
+          <span style={{ width: 26, height: 2, background: C.gold, display: 'block', transform: `scaleX(${srcLabel})`, transformOrigin: 'left center' }} />
           {K.stage_src_label}
         </div>
       )}
@@ -210,7 +217,15 @@ export const Staging = ({ tOverride, bare = false }) => {
                 <Img src={asset(VARIANTS[i].asset)} style={{ ...FILL, clipPath: `inset(0 0 ${(1 - d) * 100}% 0)` }} />
               )}
               {d > 0.02 && d < 0.98 && (
-                <div style={{ position: 'absolute', left: 0, right: 0, top: `${d * 100}%`, height: 3, background: '#FFF6E4', boxShadow: '0 0 22px rgba(201,161,87,0.9)' }} />
+                <div
+                  style={{
+                    position: 'absolute', left: 0, right: 0, top: `${d * 100}%`, height: 3,
+                    background: '#FFF6E4', boxShadow: '0 0 22px rgba(201,161,87,0.9)',
+                    // Ramp in and out so the line never sits as a bright bar on
+                    // the card's very first or last developed row.
+                    opacity: Math.min(1, d * 8, (1 - d) * 8),
+                  }}
+                />
               )}
               {chosen && pick > 0.02 && (
                 <div
@@ -229,12 +244,11 @@ export const Staging = ({ tOverride, bare = false }) => {
               style={{
                 marginTop: 14, textAlign: 'center',
                 fontFamily: MONO, fontWeight: 500, fontSize: 24, letterSpacing: '0.12em',
-                textTransform: 'uppercase',
                 color: chosen && pick > 0.4 ? C.gold : 'rgba(255,255,255,0.66)',
                 opacity: s,
               }}
             >
-              {VARIANTS[i].label}
+              {trUpper(VARIANTS[i].label)}
             </div>
             {chosen && pick > 0.02 && (
               <div style={{ height: 3, background: C.gold, transform: `scaleX(${pick * un})`, marginTop: 8 }} />
@@ -255,9 +269,9 @@ export const Staging = ({ tOverride, bare = false }) => {
       )}
 
       {cursorIn > 0.02 && cursorOut < 0.98 && (
-        <Cursor
-          x={interpolate(cursorGo, [0, 1], [830, 533])}
-          y={interpolate(cursorGo, [0, 1], [1560, 1102])}
+        <TouchDark
+          x={interpolate(cursorGo, [0, 1], [830, 540])}
+          y={interpolate(cursorGo, [0, 1], [1560, 1110])}
           opacity={cursorIn * (1 - cursorOut)}
           press={press(t, 2.60)}
         />

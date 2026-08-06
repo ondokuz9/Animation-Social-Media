@@ -64,7 +64,7 @@ const DESC_POST = DESC.slice(DESC.indexOf(CITE) + CITE.length);
     which for a wrapping phrase is a full-width gold block; a background-size
     sweep with box-decoration-break: clone paints each line fragment correctly. */
 const lit = (p) => ({
-  backgroundImage: 'linear-gradient(rgba(201,161,87,0.34), rgba(201,161,87,0.34))',
+  backgroundImage: 'linear-gradient(rgba(201,161,87,0.26), rgba(201,161,87,0.26))',
   backgroundRepeat: 'no-repeat',
   backgroundSize: `${p * 100}% 100%`,
   boxDecorationBreak: 'clone',
@@ -94,13 +94,26 @@ export const Asistan = ({ tOverride, bare = false }) => {
   const t = tOverride ?? frame / fps;
 
   const panel = tp(t, 0.00, 0.30, ease.out);
-  const q = tp(t, 0.34, 0.62, ease.out);
-  const chip = tp(t, 0.72, 0.92, ease.out);
+  // 0.22, not 0.34: the act's first sampled frame used to be the panel sitting
+  // empty for most of half a second. The question now enters while the panel is
+  // still settling — an app opening onto a conversation, not before one.
+  const q = tp(t, 0.22, 0.50, ease.out);
+  const chip = tp(t, 0.58, 0.78, ease.out);
   const card = tp(t, 0.96, 1.24, ease.out);
   const divider = tp(t, 0.96, 1.24, ease.out);
   const others = (i) => tp(t, 1.06 + i * 0.06, 1.34 + i * 0.06, ease.out);
   const scan = tp(t, 1.10, 1.52, ease.inOut);
-  const flip = tp(t, 1.46, 1.58, ease.out);
+  const flip = tp(t, 1.46, 1.62, ease.out);
+  // The flip is a SWAP with disjoint windows — the two states never share more
+  // than a sliver of opacity. The old single-progress cross-move left ARANIYOR
+  // and BULUNDU superimposed at 50/50 in a sampled frame: an unreadable pile of
+  // letters at the exact moment the act proves its causal claim.
+  const flipOut = tp(flip, 0, 0.55);
+  const flipIn = tp(flip, 0.45, 1);
+  // The card's text is skeleton-dim until the scan has passed over it: a source
+  // whose description is readable while the status still says ARANIYOR has
+  // already been found.
+  const readIn = 0.35 + 0.65 * tp(t, 1.34, 1.58, ease.out);
   const ansIn = tp(t, 1.60, 1.88, ease.out);
   const railGrey = tp(t, 1.60, 1.88, ease.out);
   // 13 tokens over 1.18s = 11.0 tokens/s, under the film's 12/s ceiling.
@@ -126,7 +139,7 @@ export const Asistan = ({ tOverride, bare = false }) => {
   return (
     <AbsoluteFill style={{ background: C.navy, overflow: 'hidden' }}>
       <AbsoluteFill
-        style={{ background: `radial-gradient(1200px 900px at 50% ${bloomY}%, rgba(255,255,255,0.045), rgba(10,37,64,0) 66%)` }}
+        style={{ background: `radial-gradient(1200px 900px at 50% ${bloomY}%, rgba(255,255,255,0.06), rgba(10,37,64,0) 66%)` }}
       />
       {handoff > 0.01 && (
         <AbsoluteFill
@@ -153,8 +166,8 @@ export const Asistan = ({ tOverride, bare = false }) => {
         style={{
           position: 'absolute', left: HOST.x, top: HOST.y, width: HOST.w, height: HOST.h,
           borderRadius: HOST.r, background: HOST.bg,
-          border: '1.5px solid rgba(255,255,255,0.10)',
-          boxShadow: '0 44px 110px rgba(0,0,0,0.55)',
+          border: '1.5px solid rgba(255,255,255,0.15)',
+          boxShadow: '0 0 0 1px rgba(255,255,255,0.04), 0 44px 110px rgba(0,0,0,0.55), 0 0 90px rgba(255,255,255,0.05)',
           opacity: Math.min(1, panel * 1.7),
           transform: `translateY(${(1 - panel) * 30 + groupDrift}px) scale(${0.976 + 0.024 * panel})`,
           overflow: 'hidden',
@@ -222,10 +235,10 @@ export const Asistan = ({ tOverride, bare = false }) => {
         >
           {/* An odometer flip, not a crossfade: one leaves upward, one arrives
               from below, 100ms, so the state CHANGES rather than dissolving. */}
-          <span style={{ position: 'absolute', left: 18, fontFamily: MONO, fontWeight: 500, fontSize: 22, letterSpacing: '0.14em', color: 'rgba(255,255,255,0.6)', opacity: 1 - flip, transform: `translateY(${-12 * flip}px)` }}>
+          <span style={{ position: 'absolute', left: 18, fontFamily: MONO, fontWeight: 500, fontSize: 22, letterSpacing: '0.14em', color: 'rgba(255,255,255,0.6)', opacity: 1 - flipOut, transform: `translateY(${-14 * flipOut}px)` }}>
             {A.state_1}
           </span>
-          <span style={{ position: 'absolute', left: 18, fontFamily: MONO, fontWeight: 500, fontSize: 22, letterSpacing: '0.14em', color: 'rgba(255,255,255,0.72)', opacity: flip, transform: `translateY(${12 * (1 - flip)}px)` }}>
+          <span style={{ position: 'absolute', left: 18, fontFamily: MONO, fontWeight: 500, fontSize: 22, letterSpacing: '0.14em', color: 'rgba(255,255,255,0.72)', opacity: flipIn, transform: `translateY(${14 * (1 - flipIn)}px)` }}>
             {A.state_2}
           </span>
         </div>
@@ -327,11 +340,11 @@ export const Asistan = ({ tOverride, bare = false }) => {
                 {A.domain}
               </span>
             </div>
-            <div style={{ fontFamily: SANS, fontWeight: 800, fontSize: 37, color: inkOn(0.3 + 0.7 * resolve), marginTop: 6 }}>
+            <div style={{ fontFamily: SANS, fontWeight: 800, fontSize: 37, color: inkOn((0.3 + 0.7 * resolve) * readIn), marginTop: 6 }}>
               {content.listing.price}
             </div>
             {/* The sentence the film showed Evlek writing in act 2. */}
-            <div style={{ fontFamily: SANS, fontWeight: 500, fontSize: 30, lineHeight: 1.3, color: inkOn(0.3 + 0.44 * resolve), marginTop: 5 }}>
+            <div style={{ fontFamily: SANS, fontWeight: 500, fontSize: 30, lineHeight: 1.3, color: inkOn((0.3 + 0.44 * resolve) * readIn), marginTop: 5 }}>
               {DESC_PRE}
               <span style={proof > 0.001 ? lit(proof) : undefined}>{CITE}</span>
               {DESC_POST}

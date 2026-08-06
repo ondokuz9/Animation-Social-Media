@@ -23,13 +23,21 @@
 //
 // Timeline, act-local:
 //   0.00–0.42  the listing arrives at the centre
-//   0.26–0.90  the field's reference rings open
-//   0.42–1.06  first generation — seven primary branches
-//   0.92–1.60  second generation — each primary forks
-//   1.46–2.10  third generation — terminals
-//   2.00–2.52  the four matches take gold; everything else recedes
-//   2.16–3.50  signals travel root → match along the built structure
-//   2.24       the four labels
+//   0.18–0.72  the field's reference rings open
+//   0.30–0.86  first generation — ten primary branches
+//   0.64–1.22  second generation — each primary forks
+//   1.00–1.58  third generation — terminals
+//   1.50–2.00  the four matches take gold; everything else recedes
+//   1.66–3.30  signals travel root → match along the built structure
+//   1.30–1.86  the four labels
+//
+// A frame inspection compressed the front of this act and paid the time into
+// the back: the dendrite used to grow unexplained for 2.4 of the act's 3.3
+// seconds and then show its four labelled matches for 0.8 — the picture's
+// entire meaning arrived just in time to be cut off. Growth and labelling now
+// run in parallel and the fully-labelled field holds for the final 1.4s.
+// The labels themselves changed grammar: "Balkonlu" is a filter, "Balkonlu
+// arıyor" is a person — and people are what the headline promises.
 
 import React from 'react';
 import { AbsoluteFill, useCurrentFrame, useVideoConfig, Img, interpolate, random } from 'remotion';
@@ -87,7 +95,9 @@ const TREE = (() => {
 const TERMINALS = TREE.map((n, i) => ({ ...n, i })).filter((n) => n.depth === GEN.length - 1);
 const MATCH_IDX = (() => {
   const QUADS = [-Math.PI * 0.72, -Math.PI * 0.28, Math.PI * 0.28, Math.PI * 0.72];
-  const inFrame = (c) => c.x > 260 && c.x < 820 && c.y > 580 && c.y < 1600;
+  // y < 1470: labels hang up to ~66px below a terminal, and anything under
+  // ~1500 sits beneath Instagram's own interface on a real phone.
+  const inFrame = (c) => c.x > 260 && c.x < 820 && c.y > 580 && c.y < 1470;
   const picked = [];
   for (const want of QUADS) {
     let best = null, bestScore = Infinity;
@@ -134,7 +144,7 @@ const ON_CHAIN = (() => {
 /* Growth windows per generation, overlapping by ~0.14s. A generation that waits
    for the previous one to finish reads as three separate animations; one that
    starts while its parent is still arriving reads as a single thing growing. */
-const GROW = [[0.42, 1.06], [0.92, 1.60], [1.46, 2.10]];
+const GROW = [[0.30, 0.86], [0.64, 1.22], [1.00, 1.58]];
 const CHAINS = MATCH_IDX.map(chainPath);
 const LABELS = content.copy.match_points;
 
@@ -144,8 +154,11 @@ export const Match = ({ tOverride, bare = false }) => {
   const t = tOverride ?? frame / fps;
 
   const cardIn = tp(t, 0, 0.42);
-  const fieldIn = tp(t, 0.26, 0.90);
-  const settle = tp(t, 2.00, 2.52);
+  const fieldIn = tp(t, 0.18, 0.72);
+  const settle = tp(t, 1.50, 2.00);
+  // The whole field eases in over the first 200ms — the cut from Staging's
+  // full-bleed photograph to a bare navy plane landed with no entrance at all.
+  const entry = tp(t, 0, 0.20, ease.out);
 
   const line = holdLine(frame, 0.12, 3.16);
   const sub = tp(t, 0.44, 0.44 + dur.md, ease.out);
@@ -174,8 +187,9 @@ export const Match = ({ tOverride, bare = false }) => {
         height={1920}
         style={{
           position: 'absolute', inset: 0,
-          transform: `translateY(${par}px) rotate(${spin}deg)`,
+          transform: `translateY(${par}px) rotate(${spin}deg) scale(${0.97 + 0.03 * entry})`,
           transformOrigin: `${CX}px ${CY}px`,
+          opacity: Math.min(1, entry * 2),
         }}
       >
         <defs>
@@ -191,8 +205,8 @@ export const Match = ({ tOverride, bare = false }) => {
           <ellipse
             key={r}
             cx={CX} cy={CY}
-            rx={r * tp(t, 0.26 + i * 0.1, 0.90 + i * 0.1, ease.out)}
-            ry={r * 1.18 * tp(t, 0.26 + i * 0.1, 0.90 + i * 0.1, ease.out)}
+            rx={r * tp(t, 0.18 + i * 0.09, 0.72 + i * 0.09, ease.out)}
+            ry={r * 1.18 * tp(t, 0.18 + i * 0.09, 0.72 + i * 0.09, ease.out)}
             fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="1.5" strokeDasharray="2 10"
           />
         ))}
@@ -251,7 +265,7 @@ export const Match = ({ tOverride, bare = false }) => {
 
         {MATCH_IDX.map((i) => {
           const n = TREE[i];
-          const p = tp(t, 2.00, 2.52, ease.out);
+          const p = tp(t, 1.50, 2.00, ease.out);
           if (p <= 0.01) return null;
           return (
             <circle key={`h${i}`} cx={n.x} cy={n.y} r={13 + 16 * p} fill="none"
@@ -265,7 +279,7 @@ export const Match = ({ tOverride, bare = false }) => {
         {/* Rings leaving the core, on a loop. Reach has to be something that
             travels; a static starburst does not read as reach. */}
         {[0, 1, 2].map((i) => {
-          const u = ((t - 0.55 - i * 0.42) / 1.30);
+          const u = ((t - 0.45 - i * 0.42) / 1.30);
           if (u < 0 || u > 1) return null;
           return (
             <ellipse key={`ring${i}`} cx={CX} cy={CY}
@@ -279,7 +293,7 @@ export const Match = ({ tOverride, bare = false }) => {
             wider soft pass underneath so it reads as light rather than as a
             dash. This is the beat that makes the picture mean "reaching". */}
         {CHAINS.map((d, i) => {
-          const start = 2.10 + i * 0.12;
+          const start = 1.66 + i * 0.12;
           if (t < start) return null;
           const off = -(((t - start) / 0.90) % 1);
           return (
@@ -313,7 +327,7 @@ export const Match = ({ tOverride, bare = false }) => {
       {/* Labels, outside the SVG so they get real type on a real plate. */}
       {MATCH_IDX.map((i, k) => {
         const n = TREE[i];
-        const p = tp(t, 2.24 + k * 0.10, 2.24 + k * 0.10 + dur.md, ease.out);
+        const p = tp(t, 1.30 + k * 0.14, 1.30 + k * 0.14 + dur.md, ease.out);
         if (p <= 0.02) return null;
         // A label anchored to a node near the edge runs off it. Estimate the
         // plate's width from the string and clamp the anchor so the whole thing
@@ -330,7 +344,7 @@ export const Match = ({ tOverride, bare = false }) => {
             key={`lb${i}`}
             style={{
               position: 'absolute',
-              left: x, top: n.y + (k % 2 ? -66 : 24) + par,
+              left: x, top: Math.min(n.y + (k % 2 ? -66 : 24), 1436) + par,
               transform: `translateX(${right ? '0' : '-100%'}) translateY(${(1 - p) * 8}px)`,
               opacity: p,
               fontFamily: MONO, fontWeight: 500, fontSize: 26, letterSpacing: '0.06em',
@@ -363,8 +377,12 @@ export const Match = ({ tOverride, bare = false }) => {
             boxShadow: `0 26px 74px rgba(0,0,0,0.5), 0 0 ${52 * settle}px rgba(201,161,87,0.34)`,
           }}
         >
+          {/* The Akdeniz render the agent picked in the previous act — the
+              inspection caught this card wearing the Minimal style while Arama
+              and Asistan carried Akdeniz, one listing circulating with two
+              different shopfronts. */}
           <Img
-            src={asset('stage_minimal')}
+            src={asset('listing_image')}
             style={{ width: '100%', height: 172, objectFit: 'cover', display: 'block' }}
           />
           <div style={{ padding: '15px 18px 17px' }}>

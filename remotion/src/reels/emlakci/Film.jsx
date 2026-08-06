@@ -8,19 +8,21 @@
 //
 //   #  act        s      ground        register                     person
 //   1  Açılış    10.30   navy→cream    hook, thesis, five cards     agent
-//   2  Yayınla    3.70   cream         device, macro → wide         agent
-//   3  Diller     2.70   cream         typography only              —
+//   2  Yayınla    5.00   cream         device, macro → wide         agent
+//   3  Diller     3.20   cream         typography only              —
 //   4  Staging    4.03   photograph    a production line            —
 //   5  Match      3.30   navy          a dendrite, growing          —
-//   6  Arama      3.10   cream         full-frame interface         buyer
+//   6  Arama      3.00   cream         full-frame interface         buyer
 //   7  Asistan    4.20   navy          a FOREIGN panel + citation   buyer
-//   8  Kapanış    2.20   navy          brand plate                  —
+//   8  Kapanış    3.20   navy          brand plate                  —
 //
-// 33.000s / 1980 frames. Staging and Asistan are the two acts a twenty-agent
-// design panel rebuilt from their premises rather than their surfaces: the first
-// was a comparison where the brief needed a production, the second put an
-// assistant on Evlek's own ground and so read as Evlek's own chatbot. Both grew;
-// Diller and the budget elsewhere paid for it.
+// 36.000s / 2160 frames. Two rounds of expert review shaped this assembly. A
+// twenty-agent design panel rebuilt Staging and Asistan from their premises; a
+// later 0.4s-interval frame inspection (a finishing specialist and a defect
+// inspector over all 83 samples of the 33s cut) then bought time for the three
+// places the film was spending its words faster than anyone reads: Yayınla's
+// three headlines, Diller's five languages, and a Kapanış whose disclosure line
+// existed for a fifth of a second.
 //
 // Cuts. Five are hard, two are dissolves, and each dissolve is earned:
 //
@@ -59,7 +61,7 @@ const FadeIn = ({ frames, children }) => {
 const s = (sec) => Math.round(sec * FPS);
 
 /* Kapanış is given its length in frames rather than seconds so the film lands on
-   a round total after the two overlaps are subtracted: 1980 frames, 33.000s. */
+   a round total after the two overlaps are subtracted: 2160 frames, 36.000s. */
 const ACTS = [
   { key: 'acilis', Scene: Acilis, frames: s(ACILIS_SECONDS), overlap: 0 },
   { key: 'yayinla', Scene: Yayinla, frames: s(YAYINLA_SECONDS), overlap: 0 },
@@ -68,7 +70,7 @@ const ACTS = [
   { key: 'match', Scene: Match, frames: s(MATCH_SECONDS), overlap: 0 },
   { key: 'arama', Scene: Arama, frames: s(ARAMA_SECONDS), overlap: 0 },
   { key: 'asistan', Scene: Asistan, frames: s(ASISTAN_SECONDS), overlap: 0 },
-  { key: 'kapanis', Scene: Kapanis, frames: 120, overlap: 8 },
+  { key: 'kapanis', Scene: Kapanis, frames: 192, overlap: 8 },
 ];
 
 export const FILM_FRAMES = ACTS.reduce((n, a) => n + a.frames - a.overlap, 0);

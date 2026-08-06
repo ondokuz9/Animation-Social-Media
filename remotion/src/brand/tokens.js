@@ -117,6 +117,13 @@ export const pressAt = (frame, atSec) => {
 
 export const f = (seconds) => Math.round(seconds * FPS);
 
+/** Turkish-locale uppercase. CSS text-transform: uppercase runs without a
+    locale and turns "ilan" into "ILAN" — a dotless-I spelling error in every
+    mono eyebrow that contained an i. Pre-transform strings with this instead;
+    a frame audit found AKDENIZ, MINIMAL, ILANLAR and ILANINDAN all on screen
+    while ÜÇ STİL ÜRETİLİYOR sat correctly İ'd two acts away. */
+export const trUpper = (s) => s.toLocaleUpperCase('tr-TR');
+
 /* ── Easing tokens ────────────────────────────────────────────────────────
    Both entering AND exiting use ease-out. This is not the textbook symmetry
    (in for exits) — it is the craft rule: ease-in starts slow and so delays the

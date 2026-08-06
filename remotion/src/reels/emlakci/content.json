@@ -46,28 +46,28 @@
     "line_written": "Açıklamayı Evlek yazdı.",
     "line_langs": "Sen Türkçe yaz.",
     "line_photo": "Boş odayı sen çektin.",
-    "line_variants": "Evlek üç stilde döşedi.",
+    "line_variants": "Evlek üç stilde döşüyor.",
     "line_match": "Doğru alıcıya ulaşır.",
     "line_search": "Alıcı cümleyle arıyor.",
     "line_found": "İlanın karşısına çıkıyor.",
     "line_assistant": "Cevap senin ilanından geliyor.",
-    "close_1": "Sen ilanı koy.",
+    "close_1": "Sen yayınla.",
     "close_2": "Gerisi Evlek'te.",
     "cta": "evlek.app",
     "contact": "hello@evlek.app",
-    "query": "Girne'de deniz gören bahçeli 2+1",
+    "query": "Girne'de denize yakın balkonlu 2+1",
     "query_parts": [
       {
         "text": "Girne'de",
         "chip": "Girne"
       },
       {
-        "text": "deniz gören",
-        "chip": "Deniz manzarası"
+        "text": "denize yakın",
+        "chip": "Deniz yakını"
       },
       {
-        "text": "bahçeli",
-        "chip": "Bahçeli"
+        "text": "balkonlu",
+        "chip": "Balkonlu"
       },
       {
         "text": "2+1",
@@ -84,16 +84,16 @@
       },
       {
         "asset": "result_b",
-        "price": "£210.000",
+        "price": "£185.000",
         "place": "Girne · Karaoğlanoğlu",
-        "meta": "130 m² · 3+1",
+        "meta": "110 m² · 2+1",
         "mine": false
       },
       {
         "asset": "result_c",
-        "price": "£340.000",
-        "place": "Girne · Çatalköy",
-        "meta": "220 m² · 4+1",
+        "price": "£178.000",
+        "place": "Girne · Alsancak",
+        "meta": "90 m² · 2+1",
         "mine": false
       }
     ],
@@ -206,10 +206,10 @@
       }
     ],
     "match_points": [
-      "Girne · 2+1",
-      "Deniz yakını",
-      "Balkonlu",
-      "Yatırımlık"
+      "Girne'de 2+1 arıyor",
+      "Denize yakın istiyor",
+      "Balkonlu arıyor",
+      "Yatırım için bakıyor"
     ],
     "line_stage_ready": "Paylaşmaya hazır.",
     "stage_src_label": "SENİN FOTOĞRAFIN",
@@ -220,6 +220,7 @@
     ],
     "disclosure": "AI ile görselleştirildi · Temsilî",
     "disclosure_sub": "Filmdeki tüm görseller temsilîdir.",
+    "writing_hint": "Evlek yazıyor…",
     "line_assistant_1": "Alıcı yapay zekâya soruyor.",
     "close_note": "Görseller ve ilan bilgileri temsilîdir."
   },
@@ -233,7 +234,7 @@
     "listing_3": "stage-11-mutfak.jpg",
     "result_a": "stage-01-akdeniz.jpg",
     "result_b": "ilan-a-deniz.jpg",
-    "result_c": "ilan-b-bahce.jpg",
+    "result_c": "detay-balkon.jpg",
     "result_d": "ilan-c-site.jpg",
     "girne": "ilan-c-site.jpg",
     "detay_isik": "detay-isik.jpg",

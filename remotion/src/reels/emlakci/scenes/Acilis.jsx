@@ -42,7 +42,7 @@
 
 import React from 'react';
 import { AbsoluteFill, useCurrentFrame, useVideoConfig, interpolate } from 'remotion';
-import { C, T, FPS, SANS, MONO, ease, tp, at, dur, SAFE, RADIUS } from '../../../brand/tokens.js';
+import { C, T, FPS, SANS, MONO, ease, tp, at, dur, SAFE, RADIUS, trUpper } from '../../../brand/tokens.js';
 import { Phone } from '../../../brand/ui.jsx';
 import { AgentPhone } from '../AgentPhone.jsx';
 import { Grain } from '../parts.jsx';
@@ -74,12 +74,21 @@ const CARDS = [
   // them the window shows the same slab of every scene: the phone cropped
   // through its own bezels, the search field cut in half, the language ticker
   // below the sill.
-  { Scene: Yayinla, from: 2.16, to: 2.52, dark: false, zoom: 1.20, dy: 10 },
+  //
+  // Every window sits inside a STABLE stretch of its act — never across a
+  // text handover, a status flip or a pill entrance. A sampled transition
+  // freezes both of its endpoints into one frame.
+  { Scene: Yayinla, from: 2.25, to: 2.55, dark: false, zoom: 1.20, dy: 10 },
   { Scene: Diller, from: 1.18, to: 1.33, dark: true, zoom: 1.00, dy: 132 },
-  { Scene: Staging, from: 1.86, to: 2.22, dark: false, zoom: 1.02, dy: 40 },
-  // 3.40, not 1.40: the citation card is what makes this capability legible, and
-  // it does not resolve in that act until 3.34.
-  { Scene: Asistan, from: 3.40, to: 3.76, dark: true, zoom: 1.02, dy: 60 },
+  // 1.70–2.00 sits wholly inside the ÜRETİLİYOR status: two style cards are
+  // mid-develop and the progress bar is filling, with no status flip inside
+  // the window.
+  { Scene: Staging, from: 1.70, to: 2.00, dark: false, zoom: 1.02, dy: 40 },
+  // 3.78, not 3.40: at 3.40 the act was still mid-beat — the "Senin ilanın"
+  // pill entering and the handoff dimming — and the inspection caught the pill
+  // as a half-rendered ghost. By 3.78 everything in the panel has settled:
+  // question, answer, resolved citation, pill.
+  { Scene: Asistan, from: 3.78, to: 3.98, dark: true, zoom: 1.02, dy: 60 },
   // Match, not Arama. The capability is matching; showing the buyer's search
   // here illustrated a different sentence from the one written above it.
   { Scene: Match, from: 2.56, to: 2.94, dark: false, zoom: 0.90, dy: 0 },
@@ -122,6 +131,12 @@ export const Acilis = () => {
     const l2 = at(frame, 0.62, dur.md);
     const rule = at(frame, 0.02, 0.34, ease.out);
     const bloom = interpolate(frame, [0, HOOK_END], [42, 58]);
+    // The hook was five statically identical samples in a row — 1.2 seconds in
+    // which nothing in the first shot of a silent reel moved. The block now
+    // breathes: a 3% scale-up across the whole 1.8s, from exactly 1.0 at frame
+    // zero so the cover frame is untouched. Slower than anything the interface
+    // does, because this is a camera move, not a UI one.
+    const breathe = 1 + 0.03 * (frame / HOOK_END);
 
     return (
       <AbsoluteFill style={{ background: C.navy, overflow: 'hidden' }}>
@@ -133,7 +148,8 @@ export const Acilis = () => {
         <div
           style={{
             position: 'absolute', left: SAFE.left + 20, right: SAFE.right,
-            top: '50%', transform: 'translateY(-58%)',
+            top: '50%', transform: `translateY(-58%) scale(${breathe})`,
+            transformOrigin: '38% 50%',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, marginBottom: 46 }}>
@@ -169,7 +185,11 @@ export const Acilis = () => {
 
     const kick = lp(0.02, dur.sm);
     const head = lp(0.12);
-    const sub = lp(3.10);
+    // 2.86, not 3.10, and the list is staggered at 0.44s rather than 0.50s to
+    // pay for it: the inspection clocked "Sen yayınla. Gerisini Evlek
+    // yönetsin." — the film's actual thesis — at a single fully-visible 0.4s
+    // sample before the cards cut in. It now holds for over two seconds.
+    const sub = lp(2.86);
     const creep = interpolate(b, [0, 3.60], [5, -8]);
 
     return (
@@ -211,13 +231,16 @@ export const Acilis = () => {
               }}
             />
             {CAPS.map((cap, i) => (
-              <Cap key={cap.no} cap={cap} p={lp(0.64 + i * 0.50)} />
+              <Cap key={cap.no} cap={cap} p={lp(0.64 + i * 0.44)} />
             ))}
           </div>
 
           <div
             style={{
               fontFamily: SANS, fontWeight: 600, fontSize: 40, color: C.ink(0.58),
+              // Aligned with the list's spine, not the headline's margin — the
+              // sentence answers the list, so it hangs from the same rule.
+              paddingLeft: 46,
               marginTop: 26, opacity: sub, transform: `translateY(${(1 - sub) * 12}px)`,
             }}
           >
@@ -259,11 +282,10 @@ export const Acilis = () => {
             <span
               style={{
                 fontFamily: MONO, fontWeight: 500, fontSize: 26, letterSpacing: '0.12em',
-                textTransform: 'uppercase',
                 color: card.dark ? 'rgba(255,255,255,0.5)' : C.ink(0.45),
               }}
             >
-              {cap.note}
+              {trUpper(cap.note)}
             </span>
           </div>
 
@@ -313,7 +335,15 @@ export const Acilis = () => {
   const cam = interpolate(b, [0, ACILIS_SECONDS - CARDS_END / FPS], [1.0, 1.15], {
     extrapolateRight: 'clamp', easing: ease.inOut,
   });
-  const s = { ...yayinlaState(0), photoIdx: 1 - tp(b, 0.08, 0.62, ease.inOut), published: 0 };
+  // The FINISHED listing, not the empty form. "Bunları Evlek yaptı." is a
+  // past-tense claim, and the inspection put its earlier staging plainly: the
+  // headline said "done" over a card whose description still read "Açıklama
+  // ekle…" and whose button still read "Yayınla" — the claim and the picture
+  // contradicted each other. The card now shows the end state of act 2 —
+  // description written, confirmed — and the ring pulses on the one control the
+  // agent ever touched. The cut to act 2's macro then reads as a flashback to
+  // the press itself.
+  const s = { ...yayinlaState(4.95), press: 0, writing: 0 };
   const hint = Math.max(
     Math.sin(Math.PI * Math.max(0, Math.min(1, (b - 0.34) / 0.46))),
     Math.sin(Math.PI * Math.max(0, Math.min(1, (b - 0.78) / 0.46))),
