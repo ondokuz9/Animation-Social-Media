@@ -1,22 +1,26 @@
-// Evlek — "YERİNE OTURDU" · 30.000s · 1800 frames · 1080×1920 · 60fps
+// Evlek — "YERİNE OTURDU" · 30.000s · 1800 frames · 1080×1920 · 60fps · v2
 //
-// Implementation of the LOCKED final cut (external director pass over the
-// four-agent panel). One physical spine: a messy wall-ad pile → redacted →
-// covered by the cobalt stage → one hero card aligned → the gold "BU." tab →
-// a printed final page → the whole stack lifted to reveal frame 0 (the loop).
-//
-// Physics contract (motion bible):
-//   · everything is paper, placed by an invisible hand — nothing flies
-//   · one settle curve for every placement: ≤5% overshoot, single return
-//   · the shadow announces intent 3 frames before a move, hardens on landing
-//   · grain never moves · no cross-dissolve · max 2 elements moving at once
-//   · gold exists ONLY as the BU. tab
-//
-// Deltas from the paper spec (deliberate):
-//   · headline y178 → y236 (Reels top-UI safe area, measured ~220px)
-//   · manifesto opacity is gated to the alignment beat — physically it reads
-//     as revealed by the hero card's 24px lift; an ungated print would have
-//     been visible (and spoiled) between the stage rise and the card landing.
+// v1 → v2: full surgical pass from the external director's timecoded review
+// (78/100 verdict). Every [KRİTİK] and [ÖNEMLİ] note is in:
+//   · "Konum?/Son fiyat?" strips CUT — strike starts 0.9s earlier
+//   · loose pieces now live INSIDE the stack, under the cobalt page: nothing
+//     moves during the page rise (kills the double-headline artifact) and
+//     they leave with the final lift (keeps the loop exact)
+//   · "HER ŞEY AŞAĞI YUKARI." prints mid-page: it rides the rise, then the
+//     hero card lands ON it — the solution physically covers the problem
+//   · hero enters flat (translate+rotate only, no scale read), lands askew
+//     (+40px, −1.8°), and the alignment beat is a real 56px correction
+//   · accessory strips overlap-stack with a 14px left paper edge, sit snug
+//     on the card, and COLLAPSE behind it before the fermata — the last
+//     visible motion that makes the stillness legible
+//   · fermata: exactly 90 frames of absolute stillness (f1110–f1200)
+//   · the card has a real 132×72 die-cut notch top-right from landing on;
+//     the gold BU. tab fills that hole; impact = 1-frame scaleY squash
+//   · redaction strike shoves the pile 6px on contact; wave edge dips 4px
+//     when the hero lands; strike & approval line share one 16px token
+//   · final page placement 18f longer; staggered 3-layer loop lift
+//   · verdict strip drops from ABOVE and fully covers the old headline,
+//     carrying a small static wordmark (brand present from 2.35s)
 
 import React from 'react';
 import { AbsoluteFill, useCurrentFrame, Easing, interpolate } from 'remotion';
@@ -27,17 +31,18 @@ export const FILM30_FRAMES = 1800;
 
 const COBALT = C.cobalt, NAVY = C.navy, GOLD = C.gold, CREAM = C.cream;
 const PAPER_HI = '#FBF9F4';
+const STROKE_W = 16;                      // one token: redaction + approval
 
-/* ── the one settle curve: ~5% overshoot, single return ── */
 const SETTLE = Easing.bezier(0.34, 1.28, 0.64, 1);
 const clamp = { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' };
 const prog = (f, f0, durF, easing = SETTLE) =>
   interpolate(f, [f0, f0 + durF], [0, 1], { ...clamp, easing });
 const lin = (f, f0, durF) => interpolate(f, [f0, f0 + durF], [0, 1], clamp);
+const pulse01 = (f, f0, durF) =>
+  Math.sin(Math.PI * Math.min(1, Math.max(0, (f - f0) / durF)));
 
-/* One paper placement. Hidden until its shadow-frame; travels (dx,dy) with a
-   -3° in-flight tilt resolving to `rot`; shadow lifts early, hardens on land. */
-const usePut = (f, f0, durF, { dx = 0, dy = 0, rot = 0 } = {}) => {
+/* One paper placement: shadow announces 3f early, hardens on landing. */
+const usePut = (f, f0, durF, { dx = 0, dy = 0, rot = 0, tilt = -3, sh = 1 } = {}) => {
   const p = prog(f, f0, durF);
   const land = Math.min(1, Math.max(0, lin(f, f0, durF)));
   const vis = f >= f0 - 3;
@@ -45,18 +50,18 @@ const usePut = (f, f0, durF, { dx = 0, dy = 0, rot = 0 } = {}) => {
     vis,
     style: {
       opacity: vis ? 1 : 0,
-      transform: `translate(${(1 - p) * dx}px, ${(1 - p) * dy}px) rotate(${rot + (1 - p) * -3}deg)`,
-      boxShadow: `0 ${3 + 9 * (1 - land)}px ${6 + 16 * (1 - land)}px rgba(10,37,64,${0.09 + 0.08 * land})`,
+      transform: `translate(${(1 - p) * dx}px, ${(1 - p) * dy}px) rotate(${rot + (1 - p) * tilt}deg)`,
+      boxShadow: `0 ${(3 + 9 * (1 - land)) * sh}px ${(6 + 16 * (1 - land)) * sh}px rgba(10,37,64,${0.09 + 0.08 * land})`,
     },
   };
 };
 
-const Strip = ({ put, x, y, w, h, bg = PAPER_HI, children, pad = '0 26px', edge }) => (
+const Strip = ({ put, x, y, w, h, bg = PAPER_HI, children, pad = '0 26px', edge, extra = {} }) => (
   <div style={{
     position: 'absolute', left: x, top: y, width: w, height: h,
     background: bg, borderRadius: 8, display: 'flex', alignItems: 'center', padding: pad,
-    borderTop: edge ? `6px solid ${COBALT}` : 'none',
-    ...put.style,
+    borderLeft: edge ? `4px solid rgba(10,37,64,0.10)` : 'none',
+    ...put.style, ...extra,
   }}>{children}</div>
 );
 
@@ -68,7 +73,12 @@ const TMONO = (size, color = NAVY, extra = {}) => ({
   fontFamily: MONO, fontWeight: 500, fontSize: size, color, whiteSpace: 'nowrap', ...extra,
 });
 
-/* Tiny paper lizard — three quiet appearances, never animated. */
+const Wordmark = ({ w, fill = NAVY, style }) => (
+  <svg viewBox={WORDMARK_VIEW_BOX} width={w} style={style}>
+    {Object.values(WORDMARK_PATHS).map((d, i) => <path key={i} d={d} fill={fill} />)}
+  </svg>
+);
+
 const Lizard = ({ x, y, color = NAVY, o = 0.5, s = 1 }) => (
   <svg width={22 * s} height={14 * s} viewBox="0 0 22 14"
        style={{ position: 'absolute', left: x, top: y, opacity: o }}>
@@ -76,8 +86,6 @@ const Lizard = ({ x, y, color = NAVY, o = 0.5, s = 1 }) => (
   </svg>
 );
 
-/* Flat "photo" in the brand's own vector language (photos to be swapped for
-   mat architectural imagery later — composition stays). amateur = wall ad. */
 const FlatPhoto = ({ w, h, amateur = false }) => (
   <svg width={w} height={h} viewBox="0 0 400 280" preserveAspectRatio="none"
        style={{ display: 'block', borderRadius: amateur ? 2 : 14 }}>
@@ -98,72 +106,89 @@ const FlatPhoto = ({ w, h, amateur = false }) => (
   </svg>
 );
 
+/* Card geometry (page-local px) */
+const CARD = { x: 164, y: 274, w: 752, h: 1030 };
+const NOTCH = { w: 132, h: 72, right: 48 };
+const GOLDTAB = { w: 124, h: 64 };
+
 export const Film30 = () => {
   const f = useCurrentFrame();
 
+  /* ── v2 timeline (frames) ── */
   const F = {
     whats: 21, tag1: 54, tag2: 84, tag3: 114, verdict: 141,
-    msg1: 180, msg2: 204,
-    strike: 264,
-    page: 309,
-    hero: 405, heroTak: 450, heroLine: 456,
-    search: 558, res1: 648, res2: 696, resLabel: 700,
-    lang: 732, price: 822,
-    res1Off: 918, res2Off: 951,
-    rayMove: 984, align: 1035, alignTak: 1090,
-    gold: 1269, goldTak: 1320,
-    final: 1413, mark: 1476, markTak: 1518, under: 1521,
-    lift: 1716,
+    strike: 210, strikeHit: 253,
+    page: 273,
+    hero: 369, heroTak: 411, heroLine: 421, heroLineOut: 468,
+    search: 480, res1: 570, res2: 578, resLabel: 600,
+    lang: 640, price: 694,
+    res1Off: 770, res2Off: 803,
+    rayMove: 836, align: 900, alignTak: 956,
+    collapse: 1030,
+    fermataEnd: 1200,
+    gold: 1203, goldTak: 1256,
+    final: 1322, mark: 1420, markTak: 1462, under: 1466,
+    liftPage: 1655, liftStack: 1661,
   };
 
   const whats = usePut(f, F.whats, 30, { dx: 220, rot: -2 });
-  const tag1 = usePut(f, F.tag1, 27, { dy: -90, rot: 4 });
-  const tag2 = usePut(f, F.tag2, 27, { dy: -80, rot: -3 });
-  const tag3 = usePut(f, F.tag3, 24, { dy: -72, rot: 2 });
-  const verdict = usePut(f, F.verdict, 39, { dx: -260 });
-  const msg1 = usePut(f, F.msg1, 22, { dy: -60, rot: -1.5 });
-  const msg2 = usePut(f, F.msg2, 22, { dy: -60, rot: 2 });
+  const tag1 = usePut(f, F.tag1, 27, { dy: -90, rot: 2.4, sh: 1.0 });
+  const tag2 = usePut(f, F.tag2, 27, { dy: -80, rot: -2.2, sh: 1.25 });
+  const tag3 = usePut(f, F.tag3, 24, { dy: -72, rot: 1.2, sh: 1.5 });
+  const verdict = usePut(f, F.verdict, 39, { dy: -70 });
 
   const strikeP = prog(f, F.strike, 45, Easing.bezier(0.3, 0, 0.2, 1));
+  /* strike contact: the pile takes the hit — 6px shove + 1.5% lateral squeeze */
+  const hitP = pulse01(f, F.strikeHit, 12);
+  const pileHit = `translateY(${6 * hitP}px) scaleX(${1 + 0.015 * hitP})`;
 
   const pageP = prog(f, F.page, 78, Easing.bezier(0.5, 0, 0.15, 1));
   const pageY = 1920 - (1920 - 126) * pageP;
-  const looseY = -(1500 * pageP);
+  /* wave edge dips 4px when the hero lands — the page takes the weight */
+  const dip = 4 * pulse01(f, F.heroTak, 12);
 
-  const hero = usePut(f, F.hero, 48, { dy: -220 });
+  const hero = usePut(f, F.hero, 42, { dx: 72, dy: -220, tilt: 3 });
   const heroLine = usePut(f, F.heroLine, 30, { dy: -40 });
-  const heroLineOut = prog(f, 546, 27);
+  const heroLineOut = prog(f, F.heroLineOut, 24);
   const search = usePut(f, F.search, 38, { dy: -70, rot: -0.6 });
   const res1P = prog(f, F.res1, 26);
   const res2P = prog(f, F.res2, 26);
   const res1Off = prog(f, F.res1Off, 27);
   const res2Off = prog(f, F.res2Off, 27);
-  const lang = usePut(f, F.lang, 34, { dy: -64, rot: 0.5 });
-  const priceS = usePut(f, F.price, 34, { dy: -64, rot: -0.4 });
+  const lang = usePut(f, F.lang, 30, { dy: -64, rot: 0.5 });
+  const priceS = usePut(f, F.price, 30, { dy: -64, rot: -0.4 });
 
   const rayP = prog(f, F.rayMove, 51);
   const alignP = prog(f, F.align, 56);
-  const heroRot = -1.2 * (1 - alignP);
-  const heroLift = -24 * alignP;
+  const collapseP = prog(f, F.collapse, 80, Easing.bezier(0.45, 0, 0.2, 1));
+
+  const heroRot = -1.8 * (1 - alignP);
+  const heroMisX = 40 * (1 - alignP);
+  const heroLift = -56 * alignP;
 
   const gold = usePut(f, F.gold, 53, { dy: -96 });
-  const finalPage = usePut(f, F.final, 59, { dy: 480 });
+  /* gold impact: one-frame vertical squash on the card, 6f recovery */
+  const squash = f >= F.goldTak ? Math.max(0, 1 - (f - F.goldTak) / 6) : 0;
+
+  const finalPage = usePut(f, F.final, 77, { dy: 480, rot: 0, tilt: -1.2 });
   const mark = usePut(f, F.mark, 44, { dy: -110 });
   const underP = prog(f, F.under, 36, Easing.bezier(0.3, 0, 0.2, 1));
 
-  const liftPre = lin(f, 1713, 3);
-  const liftP = prog(f, F.lift, 74, Easing.bezier(0.55, 0, 0.25, 1));
-  const stackY = -2780 * liftP;
+  /* staggered loop lift: cream page leads, cobalt stack follows 6f later */
+  const liftPagP = prog(f, F.liftPage, 78, Easing.bezier(0.55, 0, 0.25, 1));
+  const liftP = prog(f, F.liftStack, 78, Easing.bezier(0.55, 0, 0.25, 1));
+  const liftPre = lin(f, F.liftPage - 3, 3);
 
   const takPulse = (atF) => 1 + Math.sin(Math.PI * Math.min(1, Math.max(0, lin(f, atF, 8)))) * 0.018;
 
-  const rayX = 224 - 34 * rayP;
-  const rayY = 180 - 18 * rayP;
+  const rayX = 224 - 60 * rayP;            // ends on the card's left axis (164)
+  const rayY = 178 - 18 * rayP + 300 * collapseP;   // collapse: tucked behind the card
+  const rayRot = 1.2 * (1 - rayP);
 
   return (
     <AbsoluteFill style={{ background: CREAM, overflow: 'hidden' }}>
 
-      {/* ═ BASE — frame 0 lives here for the whole film ═ */}
+      {/* ═ BASE — frame 0, untouched for the whole film ═ */}
       <svg width="1080" height="1920" viewBox="0 0 1080 1920" style={{ position: 'absolute', inset: 0 }}>
         <defs>
           <filter id="tooth30"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" stitchTiles="stitch" />
@@ -181,10 +206,10 @@ export const Film30 = () => {
         {'KIBRIS’TA EV ARAMAK:'}
       </div>
 
-      {/* the wall ad */}
+      {/* the wall ad — takes the strike shove with the pile */}
       <div style={{
         position: 'absolute', left: 142, top: 460, width: 796, height: 650,
-        background: PAPER_HI, borderRadius: 4, transform: 'rotate(-0.8deg)',
+        background: PAPER_HI, borderRadius: 4, transform: `rotate(-0.8deg) ${pileHit}`,
         boxShadow: '0 8px 18px rgba(10,37,64,0.12)', padding: '30px 38px 0',
       }}>
         <div style={{ ...T800(122), letterSpacing: '0.01em', filter: 'url(#roughT)' }}>SATILIK</div>
@@ -211,55 +236,56 @@ export const Film30 = () => {
         </div>
       </div>
 
-      {/* ═ LOOSE PIECES — swept off by the rising stage ═ */}
-      <div style={{ position: 'absolute', inset: 0, transform: `translateY(${looseY}px)` }}>
-        <Strip put={whats} x={438} y={886} w={430} h={66}>
-          <div style={T800(34)}>{'Hâlâ duruyor mu?'}</div>
-        </Strip>
-        <Strip put={tag1} x={568} y={576} w={264} h={66} bg="#FFFFFF">
-          <div style={T800(38)}>{'£185.000'}</div>
-        </Strip>
-        <Strip put={tag2} x={492} y={628} w={318} h={66} bg="#FFFFFF">
-          <div style={T800(38)}>{'₺9.850.000'}</div>
-        </Strip>
-        <Strip put={tag3} x={548} y={686} w={276} h={66} bg="#FFFFFF">
-          <div style={T800(38)}>$220.000</div>
-        </Strip>
-        <Strip put={verdict} x={92} y={298} w={824} h={94}>
+      {/* ═ THE STACK — loose pieces UNDER the cobalt page; lifts as one ═ */}
+      <div style={{ position: 'absolute', inset: 0, transform: `translateY(${-2780 * liftP}px)` }}>
+
+        {/* loose pieces: placed 0.35–3.0s, covered by the page, gone with it */}
+        <div style={{ position: 'absolute', inset: 0, transform: pileHit }}>
+          <Strip put={whats} x={424} y={880} w={472} h={78} pad="0 36px">
+            <div style={T800(39)}>{'Hâlâ duruyor mu?'}</div>
+          </Strip>
+          <Strip put={tag1} x={568} y={576} w={264} h={66} bg="#FFFFFF">
+            <div style={T800(38)}>{'£185.000'}</div>
+          </Strip>
+          <Strip put={tag2} x={492} y={640} w={318} h={66} bg="#FFFFFF">
+            <div style={T800(38)}>{'₺9.850.000'}</div>
+          </Strip>
+          <Strip put={tag3} x={548} y={702} w={276} h={66} bg="#FFFFFF">
+            <div style={T800(38)}>$220.000</div>
+          </Strip>
+          {f >= F.strike && (
+            <svg width="1080" height="1920" viewBox="0 0 1080 1920" style={{ position: 'absolute', inset: 0 }}>
+              <line x1={72} y1={796} x2={1010} y2={846}
+                    stroke={COBALT} strokeWidth={STROKE_W} strokeLinecap="round"
+                    strokeDasharray={940} strokeDashoffset={940 * (1 - strikeP)} />
+            </svg>
+          )}
+        </div>
+
+        {/* verdict carrier: drops from above, fully covers the old headline,
+            and carries the brand from second 2.35 on */}
+        <Strip put={verdict} x={84} y={296} w={912} h={100} pad="0 34px"
+               extra={{ justifyContent: 'space-between' }}>
           <div style={T800(52)}>{'ÜÇ PARA. TEK EV.'}</div>
+          <Wordmark w={118} style={{ opacity: 0.95, flexShrink: 0 }} />
         </Strip>
-        <Strip put={msg1} x={176} y={1192} w={300} h={62}>
-          <div style={T800(32)}>Konum?</div>
-        </Strip>
-        <Strip put={msg2} x={512} y={1232} w={356} h={62}>
-          <div style={T800(32)}>Son fiyat?</div>
-        </Strip>
-        {f >= F.strike && (
-          <svg width="1080" height="1920" viewBox="0 0 1080 1920" style={{ position: 'absolute', inset: 0 }}>
-            <line x1={72} y1={796} x2={1010} y2={846}
-                  stroke={COBALT} strokeWidth={18} strokeLinecap="round"
-                  strokeDasharray={940} strokeDashoffset={940 * (1 - strikeP)} />
-          </svg>
-        )}
-      </div>
 
-      {/* ═ THE STACK — stage + contents + final page; lifts as one at the end ═ */}
-      <div style={{ position: 'absolute', inset: 0, transform: `translateY(${stackY}px)` }}>
-
+        {/* cobalt stage */}
         {f >= F.page && (
           <div style={{ position: 'absolute', left: 0, top: pageY, width: 1080, height: 2400 }}>
             <svg width="1080" height="2400" viewBox="0 0 1080 2400"
                  style={{ position: 'absolute', inset: 0, filter: `drop-shadow(0 -12px 32px rgba(10,37,64,${0.12 + liftPre * 0.06}))` }}>
-              <path d="M56 44 C 240 8, 420 66, 620 34 C 800 6, 950 48, 1024 26 L1024 2400 L56 2400 Z" fill={COBALT} />
+              <path d={`M56 44 C 240 8, 420 ${66 + dip}, 620 ${34 + dip} C 800 ${6 + dip * 0.5}, 950 48, 1024 26 L1024 2400 L56 2400 Z`} fill={COBALT} />
             </svg>
 
-            {/* printed on the page; parks below the attention zone once risen */}
-            <div style={{ position: 'absolute', left: 120, top: 1478, ...T800(46, 'rgba(255,255,255,0.92)') }}>
+            {/* the problem line, printed mid-page: it rides the rise, then the
+                hero card lands on top of it — the solution covers the problem */}
+            <div style={{ position: 'absolute', left: 220, top: 560, ...T800(46, 'rgba(255,255,255,0.92)') }}>
               {'HER ŞEY AŞAĞI YUKARI.'}
             </div>
 
-            {/* manifesto — read as revealed by the 24px card lift */}
-            <div style={{ position: 'absolute', left: 164, top: 1286, ...T800(44, 'rgba(255,255,255,0.95)'), opacity: f >= F.align ? 1 : 0 }}>
+            {/* manifesto — exposed by the card's 56px alignment lift */}
+            <div style={{ position: 'absolute', left: 164, top: 1280, ...T800(48, 'rgba(255,255,255,0.95)'), opacity: f >= F.align ? 1 : 0 }}>
               {'GÜRÜLTÜ GİDER. EV KALIR.'}
             </div>
 
@@ -269,24 +295,53 @@ export const Film30 = () => {
               </Strip>
             </div>
 
-            {/* result cards behind hero */}
-            {[[-1, res1P, res1Off], [1, res2P, res2Off]].map(([s, pIn, pOut], i) => (
+            {/* result cards behind hero — wider fan, 8f apart */}
+            {[[-1, res1P, res1Off, -112, -2.4], [1, res2P, res2Off, 124, 1.8]].map(([s, pIn, pOut, dx, rot], i) => (
               <div key={i} style={{
                 position: 'absolute', left: 194, top: 314, width: 692, height: 948,
                 background: '#F2EFE8', borderRadius: 26,
-                transform: `translate(${s * 120 * pIn}px, ${-1600 * pOut}px) rotate(${s * -2 * pIn}deg) scale(0.94)`,
+                transform: `translate(${dx * pIn}px, ${-1600 * pOut}px) rotate(${rot * pIn}deg) scale(0.94)`,
                 opacity: pIn > 0 ? 1 : 0,
                 boxShadow: `0 ${8 + 14 * pOut}px 24px rgba(10,37,64,0.16)`,
               }} />
             ))}
 
-            {/* HERO CARD */}
+            {/* ACCESSORY RAY — snug on the card; overlap-stack with a 14px
+                left paper edge; collapses behind the card before the fermata */}
+            <div style={{ position: 'absolute', left: rayX, top: rayY, width: 640, transform: `rotate(${rayRot}deg)` }}>
+              <Strip put={search} x={0} y={0} w={560} h={88}>
+                <div style={T800(30)}>{'“Girne’de, denize yakın, 3+1”'}</div>
+              </Strip>
+              <Strip put={lang} x={14} y={0} w={560} h={88} edge>
+                <div>
+                  <div style={T800(30)}>{'BEŞ DİL. TEK ANLAM.'}</div>
+                  <div style={{ ...TMONO(22, 'rgba(10,37,64,0.6)'), marginTop: 2, position: 'relative' }}>
+                    {'TR EN RU DE AR'}
+                    <Lizard x={104} y={18} o={0.35} s={0.7} />
+                  </div>
+                </div>
+              </Strip>
+              <Strip put={priceS} x={28} y={0} w={560} h={88} edge>
+                <div style={{ width: '100%' }}>
+                  <div style={T800(28)}>{'FİYAT, BAĞLAMIYLA ANLAMLI.'}</div>
+                  <svg width="490" height="18" style={{ marginTop: 6, display: 'block' }}>
+                    <line x1="4" y1="9" x2="486" y2="9" stroke="rgba(10,37,64,0.25)" strokeWidth="3" />
+                    <rect x="130" y="4" width="220" height="10" rx="5" fill="rgba(47,92,255,0.28)" />
+                    <circle cx="256" cy="9" r="7" fill={NAVY} />
+                  </svg>
+                </div>
+              </Strip>
+            </div>
+
+            {/* HERO CARD — lands askew, aligned at the turn; notch top-right */}
             <div style={{
-              position: 'absolute', left: 164, top: 274, width: 752, height: 1030,
+              position: 'absolute', left: CARD.x, top: CARD.y, width: CARD.w, height: CARD.h,
               background: '#FFFFFF', borderRadius: 28, padding: 24,
               opacity: hero.vis ? 1 : 0,
-              transform: `${hero.style.transform} translateY(${heroLift}px) rotate(${heroRot}deg) scale(${takPulse(F.heroTak) * takPulse(F.alignTak)})`,
-              boxShadow: hero.style.boxShadow,
+              transform: `${hero.style.transform} translate(${heroMisX}px, ${heroLift}px) rotate(${heroRot}deg) scaleY(${1 - 0.02 * squash}) scale(${takPulse(F.heroTak) * takPulse(F.alignTak)})`,
+              boxShadow: squash > 0
+                ? `0 ${3 * (1 - squash * 0.3)}px ${6 * (1 - squash * 0.3)}px rgba(10,37,64,0.17)`
+                : hero.style.boxShadow,
             }}>
               <FlatPhoto w={704} h={520} />
               <Lizard x={662} y={476} o={0.3} s={0.9} />
@@ -295,14 +350,11 @@ export const Film30 = () => {
                 <div style={T800(34, 'rgba(10,37,64,0.55)')}>Girne</div>
               </div>
               <div style={{ ...TMONO(24, 'rgba(10,37,64,0.5)'), marginTop: 10 }}>{'3+1 · 145 m² · denize 400 m'}</div>
-              <svg viewBox={WORDMARK_VIEW_BOX} width={132} style={{ position: 'absolute', right: 28, bottom: 24, opacity: 0.9 }}>
-                {Object.values(WORDMARK_PATHS).map((d, i) => <path key={i} d={d} fill={NAVY} />)}
-              </svg>
-              {/* the missing piece: an empty die-cut tab slot */}
+              <Wordmark w={132} style={{ position: 'absolute', right: 28, bottom: 24, opacity: 0.9 }} />
+              {/* die-cut notch: the card arrives visibly incomplete */}
               <div style={{
-                position: 'absolute', right: 60, top: -27, width: 96, height: 54,
-                border: '2.5px dashed rgba(255,255,255,0.55)', borderRadius: '10px 10px 0 0',
-                background: 'rgba(255,255,255,0.06)',
+                position: 'absolute', right: NOTCH.right, top: -1, width: NOTCH.w, height: NOTCH.h,
+                background: COBALT, borderRadius: '0 0 14px 14px',
               }} />
             </div>
 
@@ -310,47 +362,26 @@ export const Film30 = () => {
               <div style={{ position: 'absolute', left: 168, top: 1330, ...TMONO(26, 'rgba(255,255,255,0.75)') }}>{'3 sonuç'}</div>
             )}
 
-            {/* ACCESSORY RAY */}
-            <div style={{ position: 'absolute', left: rayX, top: rayY, width: 640 }}>
-              <Strip put={search} x={0} y={0} w={560} h={72}>
-                <div style={T800(30)}>{'“Girne’de, denize yakın, 3+1”'}</div>
-              </Strip>
-              <Strip put={lang} x={8} y={-16} w={544} h={88} edge>
-                <div>
-                  <div style={T800(30)}>{'BEŞ DİL. TEK ANLAM.'}</div>
-                  <div style={{ ...TMONO(22, 'rgba(10,37,64,0.6)'), marginTop: 2, position: 'relative' }}>
-                    {'TR EN RU DE AR'}
-                    <Lizard x={104} y={18} o={0.35} s={0.7} />
-                  </div>
-                </div>
-              </Strip>
-              <Strip put={priceS} x={4} y={-32} w={552} h={94} edge>
-                <div style={{ width: '100%' }}>
-                  <div style={T800(28)}>{'FİYAT, BAĞLAMIYLA ANLAMLI.'}</div>
-                  <svg width="540" height="18" style={{ marginTop: 6, display: 'block' }}>
-                    <line x1="4" y1="9" x2="536" y2="9" stroke="rgba(10,37,64,0.25)" strokeWidth="3" />
-                    <rect x="150" y="4" width="240" height="10" rx="5" fill="rgba(47,92,255,0.28)" />
-                    <circle cx="286" cy="9" r="7" fill={NAVY} />
-                  </svg>
-                </div>
-              </Strip>
-            </div>
-
-            {/* GOLD "BU." — the only gold in the film */}
+            {/* GOLD "BU." — fills the notch; the film's only gold */}
             <div style={{
-              position: 'absolute', left: 164 + 752 - 60 - 96, top: 274 - 27 + heroLift, width: 96, height: 54,
-              background: GOLD, borderRadius: '10px 10px 0 0',
+              position: 'absolute',
+              left: CARD.x + CARD.w - NOTCH.right - NOTCH.w + (NOTCH.w - GOLDTAB.w) / 2,
+              top: CARD.y - 56 + 4,
+              width: GOLDTAB.w, height: GOLDTAB.h,
+              background: GOLD, borderRadius: '0 0 12px 12px',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               opacity: gold.vis ? 1 : 0,
               transform: `${gold.style.transform} scale(${takPulse(F.goldTak)})`,
               boxShadow: gold.style.boxShadow,
             }}>
-              <div style={T800(30)}>BU.</div>
+              <div style={T800(34)}>BU.</div>
             </div>
           </div>
         )}
+      </div>
 
-        {/* FINAL PAGE */}
+      {/* ═ FINAL PAGE — its own layer: leads the loop lift by 6 frames ═ */}
+      <div style={{ position: 'absolute', inset: 0, transform: `translateY(${-2780 * liftPagP}px)` }}>
         <div style={{
           position: 'absolute', left: 72, top: 118, width: 936, height: 1724,
           background: CREAM, borderRadius: 30,
@@ -366,18 +397,16 @@ export const Film30 = () => {
           </div>
           <svg width="936" height="80" style={{ position: 'absolute', left: 0, top: 722 }}>
             <line x1={28} y1={30} x2={592} y2={59}
-                  stroke={COBALT} strokeWidth={16} strokeLinecap="round"
+                  stroke={COBALT} strokeWidth={STROKE_W} strokeLinecap="round"
                   strokeDasharray={566} strokeDashoffset={566 * (1 - underP)} />
           </svg>
-          <div style={{ position: 'absolute', left: 28, top: 836, ...TMONO(34, 'rgba(10,37,64,0.65)') }}>evlek.app</div>
+          <div style={{ position: 'absolute', left: 28, top: 836, ...TMONO(34, 'rgba(10,37,64,0.7)') }}>evlek.app</div>
           <div style={{
             position: 'absolute', left: 24, top: 322,
             opacity: mark.vis ? 1 : 0,
             transform: `${mark.style.transform} scale(${takPulse(F.markTak)})`,
           }}>
-            <svg viewBox={WORDMARK_VIEW_BOX} width={470}>
-              {Object.values(WORDMARK_PATHS).map((d, i) => <path key={i} d={d} fill={NAVY} />)}
-            </svg>
+            <Wordmark w={470} />
           </div>
         </div>
       </div>
