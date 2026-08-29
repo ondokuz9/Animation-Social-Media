@@ -44,8 +44,8 @@ const prog = (frame, atSec, lenSec, easing = SETTLE) =>
   interpolate(frame, [f(atSec), f(atSec + lenSec)], [0, 1],
     { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing });
 
-const place = (frame, atSec, lenSec, { dx = 0, dy = 0, rot0 = 0 } = {}) => {
-  const p = prog(frame, atSec, lenSec);
+const place = (frame, atSec, lenSec, { dx = 0, dy = 0, rot0 = 0, easing = SETTLE } = {}) => {
+  const p = prog(frame, atSec, lenSec, easing);
   return {
     opacity: frame >= f(atSec) ? 1 : 0,
     transform: `translate(${(1 - p) * dx}px, ${(1 - p) * dy}px) rotate(${(1 - p) * rot0}deg)`,
@@ -68,17 +68,26 @@ const CastShadow = ({ frame, x, y, w, h, rot = 0, start, len, small = false, r =
   const announce = frame < f(start) - 3 ? 0
     : interpolate(frame, [f(start) - 3, f(start) - 1], [0.5, 1],
         { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
-  const blob = (dy, blur, a) => (
-    <div style={{ position: 'absolute', left: x, top: y + dy, width: w, height: h,
+  const blob = (dx, dy, blur, a) => (
+    <div style={{ position: 'absolute', left: x + dx, top: y + dy, width: w, height: h,
                   transform: `rotate(${rot}deg)`, borderRadius: r,
                   background: `rgba(10,37,64,${a})`, filter: `blur(${blur}px)`,
                   opacity: announce }} />
   );
-  if (!landed) return small ? blob(9, 15, 0.13) : blob(18, 30, 0.16);
+  /* two PHYSICAL layers (council): a displaced cast shadow that exists only
+     in flight and zeroes at contact, plus a contact shadow that hardens */
+  if (!landed) {
+    return (
+      <>
+        {small ? blob(5, 8, 13, 0.08) : blob(10, 16, 26, 0.09)}
+        {small ? blob(0, 2, 4, 0.09) : blob(0, 3, 7, 0.10)}
+      </>
+    );
+  }
   return (
     <>
-      {small ? blob(2, 5, 0.16) : blob(3, 8, 0.20)}
-      {small ? blob(1, 1.5, 0.10) : blob(1, 2, 0.12)}
+      {small ? blob(0, 2, 5, 0.16) : blob(0, 3, 7, 0.20)}
+      {small ? blob(0, 1, 1.5, 0.10) : blob(0, 1, 2, 0.12)}
     </>
   );
 };
@@ -99,16 +108,23 @@ const ApproachShadow = ({ frame, start }) => {
 
 /* ── master timeline (decimal seconds; negative = wraps across the loop) ── */
 const T = {
-  sheet: -0.05, tape: 0.62, head: 0.27, scribble: 1.97,
-  scrapA: 2.4, scrapB: 2.75, scrapC: 3.1, verdict: 3.55, strike: 4.55,
-  wallExit: 6.45, cobalt: 6.5, under: 7.4, hero: 7.85, strip: 8.6833,
-  chips: [9.267, 9.567, 9.867], chipLen: 0.42,
+  sheet: -0.05, tape: 0.62, head: 0.27, scribble: 0.567,
+  scrapA: 1.25, scrapB: 1.6, scrapC: 1.95, verdict: 3.55, strike: 4.55,
+  wallExit: 6.45, cobalt: 6.5, under: 7.4, hero: 7.85,
+  strip: 8.6833, stripLen: 0.3, // vertical drop-in: first pixel 08.41, contact 08.59
+  chips: [9.367, 9.667, 9.967], chipLen: 0.42, // +6f, lifted only 22px off the rail
   stripExit: 10.7, label: 10.78, lang: 11.05, langStep: 0.24,
   band: 13.05, marker: 13.75, price: 14.0, infoExit: 15.9,
   glide: 16.55, manifesto: 17.833,
-  gold: 19.9, goldLen: 0.28, page: 20.933, pageLen: 0.75,
-  slog1: 21.9, slog2: 22.15, url: 22.65, proof: 22.95, mark: 23.65, line: 24.1,
-  pageLift: 26.5, cobaltLift: 27.1, wallBack: 28.85,
+  gold: 19.917, goldLen: 0.267,           // first pixel 19.55, contact 20.11
+  goldLift: 20.883,                       // the hand takes the tab away…
+  goldBack: 21.6167, goldBackLen: 0.0667, // …and sets it down WITH the page
+  page: 20.9167, pageLen: 0.7667,         // edge 20.56, contact 21.41 (= gold)
+  slog1: 21.9, slog2: 22.15, url: 22.65,
+  proof: 22.95, proofLen: 0.45,           // contact 23.40, no overshoot plateau
+  mark: 23.65, line: 24.1,
+  pageLift: 26.5, cobaltLift: 27.1,
+  wallBack: 27.55, wallBackLen: 1.9,      // continuous reveal — no cream freeze
 };
 
 /* hero card: entry rest is deliberately OFF-GRID (−2°); the alignment
@@ -129,7 +145,8 @@ export const Film30v4 = () => {
 
   const wallY = t < 15
     ? -2150 * prog(frame, T.wallExit, 0.55, ease.drawer)
-    : -2150 * (1 - prog(frame, T.wallBack, 0.6, ease.drawer));
+    : -2150 * (1 - prog(frame, T.wallBack, T.wallBackLen, ease.drawer));
+  const wallReturning = t >= 15 && frame < f(T.wallBack + T.wallBackLen);
 
   const cobaltInY = 1920 * (1 - prog(frame, T.cobalt, 0.72));
   const cobaltOutY = -2250 * prog(frame, T.cobaltLift, 0.7, ease.inOut);
@@ -139,8 +156,14 @@ export const Film30v4 = () => {
   const glideY = (CARD_AL.y - CARD_IN.y) * g;
   const cardRot = CARD_IN.rot + (CARD_AL.rot - CARD_IN.rot) * g;
 
-  const pageInY = 2150 * (1 - prog(frame, T.page, T.pageLen));
+  const pageInY = 1860 * (1 - prog(frame, T.page, T.pageLen));
   const pageOutY = -2350 * prog(frame, T.pageLift, 0.7, ease.inOut);
+
+  /* gold hand-off: on the card until the page starts rising, lifted away
+     (y−18, +1.2°) and INVISIBLE in the hand while the page travels, then set
+     down again so tab and page make contact on the very same frame (21.41) */
+  const gLift = prog(frame, T.goldLift, 0.05, WIPE);
+  const goldHidden = frame >= f(T.goldLift + 0.05) && frame < f(T.goldBack);
 
   const showWallItems = tw < 12; // wrapped: also live during the final second
 
@@ -159,7 +182,8 @@ export const Film30v4 = () => {
       </div>
 
       {/* ════ WALL WORLD (A1) ════ */}
-      <div style={{ position: 'absolute', inset: 0, transform: `translateY(${wallY}px)` }}>
+      <div style={{ position: 'absolute', inset: 0, transform: `translateY(${wallY}px)`,
+                    filter: wallReturning ? 'drop-shadow(0 12px 24px rgba(10,37,64,0.18))' : 'none' }}>
         <div style={{ position: 'absolute', inset: 0, background: '#E9E2D2' }}>
           <Img src={TEX.wall} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%',
                                        objectFit: 'cover', opacity: 0.9 }} />
@@ -187,9 +211,9 @@ export const Film30v4 = () => {
               </Ink>
             </div>
             {/* the question, print-clear at phone size */}
-            <div style={{ position: 'absolute', left: 88, top: 496, transform: 'rotate(-1.2deg)',
-                          ...wipe(fw, T.scribble, 0.25) }}>
-              <div style={{ fontFamily: SANS, fontWeight: 500, fontSize: 38, color: NAVY }}>
+            <div style={{ position: 'absolute', left: 88, top: 492, transform: 'rotate(-1.2deg)',
+                          ...wipe(fw, T.scribble, 0.15) }}>
+              <div style={{ fontFamily: SANS, fontWeight: 500, fontSize: 45, color: NAVY }}>
                 Hâlâ satılık mı?
               </div>
             </div>
@@ -209,7 +233,7 @@ export const Film30v4 = () => {
                 </div>
                 <div style={{ position: 'absolute', left: 56, top: 596 }}>
                   <Ink problem style={{ fontFamily: SANS, fontWeight: 600, fontSize: 40, color: '#2A2E36', lineHeight: 1.3 }}>
-                    3+1 · Lapta · deniz yakın<br />ACİL !!
+                    3+1 · Lapta · denize yakın<br />ACİL !!
                   </Ink>
                 </div>
                 <div style={{ position: 'absolute', left: 56, top: 724 }}>
@@ -246,21 +270,31 @@ export const Film30v4 = () => {
               </Photocopy>
             </div>
 
-            {/* three price scraps on the diagonal the strike will hit */}
+            {/* three price scraps — three different MATERIALS from three
+                different channels, on the diagonal the strike will hit */}
+            {/* İLAN SİTESİ: continuous-form printout with tractor-feed holes */}
             <CastShadow frame={fw} x={19} y={1311} w={392} h={166} rot={2.1} start={T.scrapA} len={0.42} r={4} />
             <div style={place(fw, T.scrapA, 0.42, { dy: -220, rot0: -5 })}>
               <Photocopy x={19} y={1311} w={392} h={166} rot={2.1} seed={61} shadow={false}>
-                <div style={{ position: 'absolute', left: 30, top: 18 }}>
-                  <div style={{ fontFamily: MONO, fontWeight: 650, fontSize: 28, letterSpacing: '0.1em', color: 'rgba(32,36,43,0.85)' }}>İLAN SİTESİ A</div>
+                {Array.from({ length: 5 }, (_, i) => (
+                  <div key={i} style={{ position: 'absolute', left: 10, top: 16 + i * 32, width: 11, height: 11,
+                                        borderRadius: 99, background: '#E4DCC8',
+                                        boxShadow: 'inset 0 1px 2px rgba(10,37,64,0.28)' }} />
+                ))}
+                <div style={{ position: 'absolute', left: 40, top: 18 }}>
+                  <div style={{ fontFamily: MONO, fontWeight: 650, fontSize: 28, letterSpacing: '0.1em', color: 'rgba(32,36,43,0.85)' }}>İLAN SİTESİ</div>
                   <Ink problem style={{ fontFamily: SANS, fontWeight: 800, fontSize: 60, color: '#20242B', marginTop: 4 }}>
                     £175.000
                   </Ink>
                 </div>
               </Photocopy>
             </div>
+            {/* WHATSAPP: a thin slip with a speech-bubble tail */}
             <CastShadow frame={fw} x={338} y={1268} w={464} h={148} rot={-2.4} start={T.scrapB} len={0.42} r={4} />
             <div style={place(fw, T.scrapB, 0.42, { dy: -220, rot0: 5 })}>
               <Sheet x={338} y={1268} w={464} h={148} rot={-2.4} bg="#F6F2E7" seed={77} amp={5} n={5} fiber={false} shadow={false}>
+                <div style={{ position: 'absolute', left: -16, top: 26, width: 26, height: 26,
+                              background: '#F6F2E7', clipPath: 'polygon(100% 0, 100% 100%, 0 32%)' }} />
                 <div style={{ position: 'absolute', left: 28, top: 12 }}>
                   <div style={{ fontFamily: MONO, fontWeight: 650, fontSize: 28, letterSpacing: '0.1em', color: 'rgba(32,36,43,0.85)' }}>WHATSAPP GRUBU</div>
                   <Ink marker style={{ fontFamily: SANS, fontWeight: 800, fontSize: 58, color: '#23272E', marginTop: 2 }}>
@@ -280,7 +314,9 @@ export const Film30v4 = () => {
                     $250.000
                   </Ink>
                 </div>
-                <Tape x={140} y={-20} rot={-4} w={110} h={34} />
+                {/* window label: taped along the WHOLE top edge, heavier stock */}
+                <Tape x={20} y={-18} rot={-1.5} w={150} h={34} />
+                <Tape x={210} y={-20} rot={2} w={150} h={34} />
               </div>
             </div>
 
@@ -362,30 +398,42 @@ export const Film30v4 = () => {
             </div>
           </div>
 
-          {/* SEARCH RAIL — the natural-language query; chips PIN its words */}
+          {/* SEARCH RAIL — placed vertically INSIDE the frame so the natural
+              sentence reads in full even while it travels. Then the chips are
+              DIE-CUT out of the rail itself: each word's patch lifts 22px,
+              leaving a perforated void, and is pressed back as a white chip —
+              Evlek understood the sentence, no "AI" caption needed. */}
           {t < 11.4 && (
             <>
               <CastShadow frame={frame} x={-16} y={560} w={1112} h={96} rot={-0.5}
-                          start={T.strip} len={0.5} r={3} />
+                          start={T.strip} len={T.stripLen} r={3} />
               <div style={{ opacity: frame >= f(T.strip) && frame < f(T.stripExit + 0.4) ? 1 : 0,
-                            transform: `translateX(${
-                              (1 - prog(frame, T.strip, 0.5, WIPE)) * -1300 -
-                              prog(frame, T.stripExit, 0.4, ease.drawer) * 1400}px)` }}>
+                            transform: `translateY(${(1 - prog(frame, T.strip, T.stripLen)) * -84}px)
+                                        translateX(${-prog(frame, T.stripExit, 0.4, ease.drawer) * 1400}px)` }}>
                 <Sheet x={-16} y={560} w={1112} h={96} rot={-0.5} seed={88} amp={2.4} n={5} shadow={false}>
                   <div style={{ position: 'absolute', left: 78, top: 27, fontFamily: MONO, fontSize: 38,
-                                letterSpacing: '0.12em', color: 'rgba(10,37,64,0.68)' }}>ARAMA</div>
+                                letterSpacing: '0.1em', color: 'rgba(10,37,64,0.68)' }}>ARA:</div>
                   <div style={{ position: 'absolute', left: 296, top: 26, fontFamily: SANS, fontWeight: 600,
                                 fontSize: 40, color: NAVY, whiteSpace: 'nowrap' }}>
                     Girne’de, denize yakın, 3+1
                   </div>
-                  {/* shadows FIRST, chips on top — a shadow never veils its paper */}
+                  {/* the die-cut voids left behind once each patch lifts */}
+                  {[['vg', 292, 196], ['vd', 478, 330], ['vu', 796, 136]].map(([k, x, w], i) => (
+                    <div key={k} style={{ position: 'absolute', left: x, top: 13, width: w, height: 70,
+                                          opacity: frame >= f(T.chips[i]) ? 1 : 0,
+                                          background: '#EDE7D6', clipPath: cutEdge(w, 70, 53 + i * 7, 1.8, 4),
+                                          boxShadow: 'inset 0 2px 4px rgba(10,37,64,0.20)' }}>
+                      <div style={{ position: 'absolute', inset: 3, border: '1.5px dashed rgba(10,37,64,0.22)' }} />
+                    </div>
+                  ))}
+                  {/* shadows FIRST, chips on top */}
                   {[['g', 292, 196], ['d', 478, 330], ['u', 796, 136]].map(([k, x, w], i) => (
                     <CastShadow key={k} frame={frame} x={x} y={13} w={w} h={70} small
                                 start={T.chips[i]} len={T.chipLen} r={2} />
                   ))}
                   {[['GİRNE', 292, 196], ['DENİZE YAKIN', 478, 330], ['3+1', 796, 136]].map(([txt, x, w], i) => (
                     <div key={txt} style={{ position: 'absolute', left: x, top: 13, width: w, height: 70,
-                                            ...place(frame, T.chips[i], T.chipLen, { dy: -240, rot0: [-5, 4, -3.5][i] }) }}>
+                                            ...place(frame, T.chips[i], T.chipLen, { dy: -22, rot0: [-2, 1.6, -1.8][i] }) }}>
                       <div style={{ position: 'absolute', inset: 0, background: '#FFFFFF',
                                     clipPath: cutEdge(w, 70, 53 + i * 7, 1.8, 4),
                                     transform: `rotate(${[-0.4, 0.2, -0.25][i]}deg)`,
@@ -465,8 +513,8 @@ export const Film30v4 = () => {
                                 fontSize: 52, letterSpacing: '-0.01em', color: NAVY }}>
                     BU FİYAT NORMAL Mİ?
                   </div>
-                  <div style={{ position: 'absolute', left: 54, top: 114, fontFamily: MONO, fontSize: 26,
-                                letterSpacing: '0.1em', color: 'rgba(10,37,64,0.7)' }}>
+                  <div style={{ position: 'absolute', left: 54, top: 112, fontFamily: MONO, fontSize: 30,
+                                letterSpacing: '0.07em', color: 'rgba(10,37,64,0.78)' }}>
                     GİRNE · 3+1 DAİRE · 19 AKTİF İLAN
                   </div>
                   <svg width="800" height="150" style={{ position: 'absolute', left: 52, top: 172 }}>
@@ -489,7 +537,7 @@ export const Film30v4 = () => {
                   <div style={{ position: 'absolute', left: 240, top: 172, ...wipe(frame, T.price, 0.28) }}>
                     <div style={{ fontFamily: SANS, fontWeight: 800, fontSize: 36, color: COBALT }}>£175.000</div>
                     <div style={{ fontFamily: MONO, fontSize: 23, letterSpacing: '0.06em',
-                                  color: 'rgba(10,37,64,0.6)', marginTop: 6 }}>BU İLAN · £1.458/M²</div>
+                                  color: 'rgba(10,37,64,0.6)', marginTop: 6 }}>BU EV · £1.458/M²</div>
                   </div>
                   <div style={{ position: 'absolute', left: 52, bottom: 32, fontFamily: MONO, fontSize: 22,
                                 letterSpacing: '0.08em', color: 'rgba(10,37,64,0.58)' }}>
@@ -545,9 +593,14 @@ export const Film30v4 = () => {
               <div style={wipe(frame, T.slog1, 0.3)}>Kıbrıs’ta</div>
               <div style={wipe(frame, T.slog2, 0.3)}>doğru ev.</div>
             </div>
-            <div style={{ ...wipe(frame, T.line, 0.35), position: 'absolute', left: 0, top: 240, width: 470, height: 60 }}>
-              <HandLine x={4} y={22} w={446} seed={4} sw={16} />
-            </div>
+          </div>
+
+          {/* the approval line — the SAME diagonal gesture as the opening
+              redaction (−8.3°), scaled down: strike opens, approve closes */}
+          <div style={{ ...wipe(frame, T.line, 0.35), position: 'absolute', left: 156, top: 863,
+                        width: 470, height: 64, transform: 'rotate(-8.3deg)',
+                        transformOrigin: 'left center' }}>
+            <HandLine x={0} y={20} w={459} seed={31} sw={15} />
           </div>
 
           <div style={{ position: 'absolute', left: 88, top: 916, fontFamily: MONO, fontWeight: 500,
@@ -555,15 +608,19 @@ export const Film30v4 = () => {
             evlek.app
           </div>
 
-          <CastShadow frame={frame} x={84} y={1092} w={768} h={250} start={T.proof} len={0.5} r={8} />
-          <div style={place(frame, T.proof, 0.5, { dy: 150, rot0: 2.2 })}>
+          <CastShadow frame={frame} x={84} y={1092} w={768} h={250} start={T.proof} len={T.proofLen} r={8} />
+          <div style={place(frame, T.proof, T.proofLen,
+                            { dy: 150, rot0: 2.2, easing: Easing.bezier(0.32, 1.16, 0.66, 1) })}>
             <div style={{ position: 'absolute', left: 84, top: 1092, width: 768, height: 250,
                           background: '#F7F3EA', borderRadius: stockCorners(83) }}>
               <Img src={TEX.cardstock} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%',
                                                 objectFit: 'cover', opacity: 0.55, borderRadius: stockCorners(83),
                                                 objectPosition: '64% 38%' }} />
+              {/* the SAME exterior as the frame-0 photocopy flyer: when the
+                  layers lift at the loop, colour gives way to its own B&W
+                  photocopy — the loop closes on an idea, not just a seam */}
               <div style={{ position: 'absolute', left: 26, top: 26, width: 250, height: 198 }}>
-                <PhotoSlot w={250} h={198} mask="b" src={HOME.living} />
+                <PhotoSlot w={250} h={198} mask="b" src={HOME.ext} />
               </div>
               <div style={{ position: 'absolute', left: 306, top: 40 }}>
                 <div style={{ fontFamily: SANS, fontWeight: 800, fontSize: 46, color: NAVY }}>£175.000</div>
@@ -584,11 +641,29 @@ export const Film30v4 = () => {
         </div>
       </div>
 
-      {/* ════ THE GOLD TAB — right edge at x=936, into the card's die-cut slot ════ */}
+      {/* ════ THE GOLD TAB — the hand-off. It TAKs into the card's die-cut
+           slot; when the page starts rising the hand LIFTS it away (y−18,
+           +1.2°, then out of sight); page and tab touch down together on the
+           very same frame. The page never passes through the gold. ════ */}
       <div style={{ transform: `translateY(${pageOutY}px)` }}>
-        <CastShadow frame={frame} x={TAB.x} y={TAB.y} w={168} h={86} small
-                    start={T.gold} len={T.goldLen} r={3} />
-        <div style={place(frame, T.gold, T.goldLen, { dx: 320, rot0: 7.5 })}>
+        {/* first landing's shadow — gone the moment the hand takes the tab */}
+        {frame < f(T.goldLift) && (
+          <CastShadow frame={frame} x={TAB.x} y={TAB.y} w={168} h={86} small
+                      start={T.gold} len={T.goldLen} r={3} />
+        )}
+        {/* second landing's shadow, announcing on the risen page */}
+        {frame >= f(T.goldBack) - 3 && (
+          <CastShadow frame={frame} x={TAB.x} y={TAB.y} w={168} h={86} small
+                      start={T.goldBack} len={T.goldBackLen} r={3} />
+        )}
+        <div style={{
+          opacity: frame >= f(T.gold) && !goldHidden ? 1 : 0,
+          transform: frame < f(T.goldLift)
+            ? place(frame, T.gold, T.goldLen, { dx: 320, rot0: 7.5 }).transform
+            : frame < f(T.goldBack)
+              ? `translateY(${-18 * gLift}px) rotate(${1.2 * gLift}deg)`
+              : place(frame, T.goldBack, T.goldBackLen, { dy: -26, rot0: 2 }).transform,
+        }}>
           <div style={{ position: 'absolute', left: TAB.x, top: TAB.y, width: 168, height: 86,
                         transform: 'rotate(1.6deg)' }}>
             <div style={{ position: 'absolute', inset: 0, background: GOLD, clipPath: cutEdge(168, 86, 3, 2.2, 4) }} />
