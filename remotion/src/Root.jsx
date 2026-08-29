@@ -6,6 +6,7 @@ import './brand/nonlatin.css';
 import { FPS, WIDTH, HEIGHT, f } from './brand/tokens.js';
 
 import { Film, FILM_FRAMES } from './reels/emlakci/Film.jsx';
+import { StyleProof, STYLEPROOF_FRAMES } from './reels/brandfilm/StyleProof.jsx';
 import { Acilis, ACILIS_SECONDS } from './reels/emlakci/scenes/Acilis.jsx';
 import { Yayinla, YAYINLA_SECONDS } from './reels/emlakci/scenes/Yayinla.jsx';
 import { Diller, DILLER_SECONDS } from './reels/emlakci/scenes/Diller.jsx';
@@ -24,6 +25,9 @@ export const RemotionRoot = () => (
   <>
     {/* The deliverable. */}
     {comp('EmlakciReel', Film, FILM_FRAMES)}
+
+    {/* Brand film — style proof (paper / snap / line / light). */}
+    {comp('BrandProof', StyleProof, STYLEPROOF_FRAMES)}
 
     {/* Acts on their own, so one can be worked on without rendering twenty
         seconds to see three of them. */}
