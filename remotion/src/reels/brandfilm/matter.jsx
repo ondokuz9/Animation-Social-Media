@@ -160,7 +160,9 @@ export const CardStock = ({ x, y, w, h, rot = 0, seed = 11, lifted = false, chil
     padding: pad, ...style,
   }}>
     <Img src={TEX.cardstock} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%',
-                                      objectFit: 'cover', opacity: 0.8, borderRadius: stockCorners(seed) }} />
+                                      objectFit: 'cover', opacity: 0.8, borderRadius: stockCorners(seed),
+                                      /* seed-shifted crop so no two cards clone the same fibres */
+                                      objectPosition: `${(seed * 37) % 100}% ${(seed * 53) % 100}%` }} />
     <svg width="100%" height="100%" style={{ position: 'absolute', inset: 0, borderRadius: stockCorners(seed) }}>
       <rect width="100%" height="100%" filter="url(#mFiber)" opacity="0.5" />
     </svg>
@@ -183,9 +185,9 @@ export const CobaltSheet = ({ top = 126, children }) => {
           #2F5CFF while the squeegee texture comes from the print */}
       <div style={{ position: 'absolute', inset: 0, clipPath: `path('${d}')` }}>
         <Img src={TEX.cobalt} style={{ position: 'absolute', left: -140, top: -160, width: 1360, height: 2240,
-                                       objectFit: 'cover', mixBlendMode: 'luminosity', opacity: 0.4 }} />
+                                       objectFit: 'cover', mixBlendMode: 'luminosity', opacity: 0.28 }} />
         <svg width="1080" height="1920" style={{ position: 'absolute', inset: 0 }}>
-          <rect x={X} y={top} width={W} height={1920 - top} filter="url(#mCobaltLight)" opacity="0.6" />
+          <rect x={X} y={top} width={W} height={1920 - top} filter="url(#mCobaltLight)" opacity="0.4" />
         </svg>
       </div>
       <svg width="1080" height="1920" style={{ position: 'absolute', inset: 0 }}>

@@ -119,15 +119,8 @@ export const SF1 = () => (
     {/* wall: sun bleach + plaster blotches + a hairline crack */}
     <svg width="1080" height="1920" style={{ position: 'absolute', inset: 0 }}>
       <rect width="1080" height="1920" filter="url(#mTone)" opacity="0.45" />
-      {/* bleached patch where an older notice used to hang (top right) */}
-      <rect x="742" y="268" width="264" height="252" fill="#F2ECDD" opacity="0.45" transform="rotate(-1.4 874 394)" />
-      <rect x="742" y="268" width="264" height="252" fill="none" stroke="rgba(10,37,64,0.10)" strokeWidth="2" transform="rotate(-1.4 874 394)" />
-      {/* tape residue left behind */}
-      <rect x="760" y="256" width="92" height="30" fill="rgba(10,37,64,0.05)" transform="rotate(-8 806 271)" />
-      <rect x="920" y="262" width="92" height="30" fill="rgba(10,37,64,0.05)" transform="rotate(6 966 277)" />
-      {/* nail holes */}
-      <circle cx="884" cy="700" r="4" fill="rgba(10,37,64,0.22)" />
-      <circle cx="1016" cy="1120" r="4" fill="rgba(10,37,64,0.18)" />
+      {/* (council SF1-2/3: the ghost KİRALIK patch and the two wall dots are
+          gone — they read as digital decor at phone size) */}
       {/* crack */}
       <path d="M40 1560 L150 1500 L210 1520 L340 1440 L395 1452" fill="none" stroke="rgba(10,37,64,0.16)" strokeWidth="2.2" />
       <path d="M210 1520 L235 1560" fill="none" stroke="rgba(10,37,64,0.12)" strokeWidth="1.6" />
@@ -141,20 +134,11 @@ export const SF1 = () => (
       </defs>
     </svg>
 
-    {/* ghost of the older, ripped notice inside the bleached patch */}
-    <div style={{ position: 'absolute', left: 782, top: 306, width: 196, height: 168, transform: 'rotate(2deg)',
-                  background: '#EFE8D8', clipPath: 'polygon(0 0, 100% 4%, 96% 34%, 82% 38%, 88% 100%, 8% 94%, 0 58%)',
-                  filter: 'drop-shadow(0 3px 5px rgba(10,37,64,0.10))' }}>
-      <div style={{ fontFamily: MONO, fontSize: 23, color: 'rgba(10,37,64,0.32)', padding: '16px 18px', letterSpacing: '0.06em' }}>
-        KİRALIK<br />05•• •••
-      </div>
-    </div>
-
     {/* headline: stencilled straight on the wall, misregistered */}
     <div style={{ position: 'absolute', left: 84, top: 300 }}>
       <Ink problem style={{ fontFamily: SANS, fontWeight: 800, fontSize: 84, lineHeight: 1.04,
                             letterSpacing: '-0.015em', color: NAVY }}>
-        {trUpper("Kıbrıs'ta")}<br />{trUpper('ev aramak:')}
+        {trUpper("Kıbrıs’ta")}<br />{trUpper('ev aramak:')}
       </Ink>
     </div>
 
@@ -214,7 +198,7 @@ export const SF1 = () => (
 
     {/* THE THREE PRICES — same home, three sources, three papers */}
     {/* 1 · a corner ripped off someone's printout, tucked over the tabs */}
-    <div style={{ position: 'absolute', left: 648, top: 1352, width: 372, height: 156, transform: 'rotate(4.2deg)',
+    <div style={{ position: 'absolute', left: 648, top: 1272, width: 372, height: 156, transform: 'rotate(4.2deg)',
                   filter: 'drop-shadow(0 6px 10px rgba(10,37,64,0.15))' }}>
       <div style={{ position: 'absolute', inset: 0, background: '#F1ECDF',
                     clipPath: 'polygon(3% 8%, 96% 0, 100% 88%, 64% 100%, 30% 92%, 0 96%)' }} />
@@ -227,7 +211,7 @@ export const SF1 = () => (
       <Tape x={140} y={-20} rot={-4} w={110} h={34} />
     </div>
     {/* 2 · a photocopied scrap */}
-    <Photocopy x={64} y={1522} w={392} h={166} rot={2.1} seed={61}>
+    <Photocopy x={64} y={1442} w={392} h={166} rot={2.1} seed={61}>
       <div style={{ position: 'absolute', left: 30, top: 20 }}>
         <div style={{ fontFamily: MONO, fontSize: 23, letterSpacing: '0.12em', color: 'rgba(32,36,43,0.55)' }}>İLAN SİTESİ A</div>
         <Ink problem style={{ fontFamily: SANS, fontWeight: 800, fontSize: 62, color: '#20242B', marginTop: 4 }}>
@@ -236,7 +220,7 @@ export const SF1 = () => (
       </div>
     </Photocopy>
     {/* 3 · marker on a torn strip */}
-    <Sheet x={470} y={1548} w={464} h={148} rot={-2.4} bg="#F6F2E7" seed={77} amp={5} n={5} fiber={false}>
+    <Sheet x={470} y={1468} w={464} h={148} rot={-2.4} bg="#F6F2E7" seed={77} amp={5} n={5} fiber={false}>
       <div style={{ position: 'absolute', left: 28, top: 12 }}>
         <div style={{ fontFamily: MONO, fontSize: 23, letterSpacing: '0.12em', color: 'rgba(32,36,43,0.55)' }}>WHATSAPP GRUBU</div>
         <Ink marker style={{ fontFamily: SANS, fontWeight: 800, fontSize: 60, color: '#23272E', marginTop: 2 }}>
@@ -246,7 +230,7 @@ export const SF1 = () => (
     </Sheet>
 
     {/* verdict, stencilled on the wall over the chaos */}
-    <div style={{ position: 'absolute', left: 84, top: 1752 }}>
+    <div style={{ position: 'absolute', left: 84, top: 1632 }}>
       <Ink problem style={{ fontFamily: SANS, fontWeight: 800, fontSize: 66, letterSpacing: '-0.01em', color: NAVY }}>
         AYNI EV. ÜÇ AYRI FİYAT.
       </Ink>
@@ -268,7 +252,7 @@ export const SF2 = () => (
       <div style={{ position: 'absolute', left: 108, top: 250 }}>
         <div style={{ fontFamily: SANS, fontWeight: 800, fontSize: 76, lineHeight: 1.06,
                       letterSpacing: '-0.015em', color: '#FFFFFF' }}>
-          {trUpper("Evlek'te her şey")}<br />{trUpper('yerinde.')}
+          {trUpper("Evlek’te her şey")}<br />{trUpper('yerinde.')}
         </div>
         <HandLine x={2} y={186} w={340} color="#FFFFFF" sw={12} seed={9} opacity={0.9} />
       </div>
@@ -276,14 +260,15 @@ export const SF2 = () => (
       {/* the search strip — a punched paper band threaded ACROSS the stage,
           overhanging the cobalt sheet on both sides */}
       <Sheet x={-16} y={560} w={1112} h={118} rot={-0.5} seed={88} amp={2.4} n={5}>
-        <div style={{ position: 'absolute', left: 76, top: 44, fontFamily: MONO, fontSize: 26,
-                      letterSpacing: '0.14em', color: 'rgba(10,37,64,0.5)' }}>ARAMA</div>
-        {[['GİRNE', 282], ['3+1', 492], ['DENİZE YAKIN', 642]].map(([t, x], i) => (
-          <div key={t} style={{ position: 'absolute', left: x, top: 24, height: 70,
-                                background: '#FFFFFF', borderRadius: stockCorners(50 + i),
-                                boxShadow: `${SHADOW.contact}, inset 0 -1px 0 rgba(10,37,64,0.12)`,
-                                transform: `rotate(${[-1.2, 0.8, -0.6][i]}deg)`,
-                                display: 'flex', alignItems: 'center', padding: '0 26px 0 44px' }}>
+        <div style={{ position: 'absolute', left: 78, top: 38, fontFamily: MONO, fontSize: 38,
+                      letterSpacing: '0.14em', color: 'rgba(10,37,64,0.68)' }}>ARAMA</div>
+        {/* council SF2-1: hand-cut paper chips, not web filter buttons — 2px-max
+            corners via distinct cut-edge masks, no button shadow, tiny rotations */}
+        {[['GİRNE', 300, 196], ['3+1', 516, 136], ['DENİZE YAKIN', 672, 330]].map(([t, x, w], i) => (
+          <div key={t} style={{ position: 'absolute', left: x, top: 24, width: w, height: 70,
+                                background: '#FFFFFF', clipPath: cutEdge(w, 70, 53 + i * 7, 1.8, 4),
+                                transform: `rotate(${[-0.4, 0.2, -0.25][i]}deg)`,
+                                display: 'flex', alignItems: 'center', padding: '0 0 0 44px' }}>
             <Punch x={14} y={28} />
             <span style={{ fontFamily: SANS, fontWeight: 700, fontSize: 30, color: NAVY, letterSpacing: '0.02em' }}>{t}</span>
           </div>
@@ -307,7 +292,7 @@ export const SF2 = () => (
             £175.000
           </div>
           <div style={{ fontFamily: SANS, fontWeight: 600, fontSize: 42, color: NAVY, marginTop: 14 }}>
-            Girne'de denize yakın 3+1
+            Girne’de denize yakın 3+1
           </div>
           <div style={{ fontFamily: MONO, fontSize: 29, letterSpacing: '0.04em',
                         color: 'rgba(10,37,64,0.62)', marginTop: 18 }}>
@@ -346,12 +331,14 @@ export const SF2 = () => (
    marked in cobalt. Both are real Evlek data.
    ═══════════════════════════════════════════════════════════════════════ */
 
+/* council SF3-1: the price is the same VALUE everywhere but each locale
+   formats it its own way — that is what "five languages" actually means */
 const LANG_CARDS = [
-  { tag: 'TR', line: "Lapta, Girne'de 3+1 daire" },
-  { tag: 'EN', line: '3+1 apartment in Lapta, Kyrenia' },
-  { tag: 'RU', line: 'Квартира 3+1 в Лапте, Кирения' },
-  { tag: 'DE', line: '3+1-Wohnung in Lapta, Kyrenia' },
-  { tag: 'AR', line: 'شقة 3+1 في لابتا، كيرينيا', rtl: true },
+  { tag: 'TR', line: 'Lapta, Girne’de 3+1 daire', sub: '£175.000 · 120 M² · 3+1' },
+  { tag: 'EN', line: '3+1 apartment in Lapta, Kyrenia', sub: '£175,000 · 120 M² · 3+1' },
+  { tag: 'RU', line: 'Квартира 3+1 в Лапте, Кирения', sub: '£175 000 · 120 М² · 3+1' },
+  { tag: 'DE', line: '3+1-Wohnung in Lapta, Kyrenia', sub: '£175.000 · 120 M² · 3+1' },
+  { tag: 'AR', line: 'شقة 3+1 في لابتا، كيرينيا', sub: '£175,000 · 120 م² · 3+1', rtl: true },
 ];
 
 export const SF3 = () => (
@@ -386,9 +373,11 @@ export const SF3 = () => (
                           textAlign: c.rtl ? 'right' : 'left' }}>
               {c.line}
             </div>
-            <div style={{ position: 'absolute', left: 138, top: 92, fontFamily: MONO, fontSize: 26,
-                          letterSpacing: '0.05em', color: 'rgba(10,37,64,0.6)' }}>
-              £175.000 · 120 M² · 3+1
+            <div dir={c.rtl ? 'rtl' : 'ltr'}
+                 style={{ position: 'absolute', left: 138, right: 30, top: 92, fontFamily: MONO, fontSize: 26,
+                          letterSpacing: '0.05em', color: 'rgba(10,37,64,0.72)',
+                          textAlign: c.rtl ? 'right' : 'left' }}>
+              {c.sub}
             </div>
           </CardStock>
         );
@@ -401,7 +390,7 @@ export const SF3 = () => (
           FİYAT TEK BAŞINA YETMEZ.
         </div>
         <div style={{ position: 'absolute', left: 58, top: 130, fontFamily: MONO, fontSize: 26,
-                      letterSpacing: '0.1em', color: 'rgba(10,37,64,0.55)' }}>
+                      letterSpacing: '0.1em', color: 'rgba(10,37,64,0.7)' }}>
           GİRNE · 3+1 DAİRE · 19 AKTİF İLAN
         </div>
 
@@ -419,16 +408,16 @@ export const SF3 = () => (
           </g>
         </svg>
         <div style={{ position: 'absolute', left: 56, top: 340, fontFamily: MONO, fontSize: 27,
-                      color: 'rgba(10,37,64,0.75)' }}>£90.000</div>
+                      color: 'rgba(10,37,64,0.85)' }}>£90.000</div>
         <div style={{ position: 'absolute', right: 60, top: 340, fontFamily: MONO, fontSize: 27,
-                      color: 'rgba(10,37,64,0.75)' }}>£570.000</div>
+                      color: 'rgba(10,37,64,0.85)' }}>£570.000</div>
         <div style={{ position: 'absolute', left: 246, top: 208, fontFamily: SANS, fontWeight: 800,
                       fontSize: 40, color: COBALT }}>£175.000</div>
         <div style={{ position: 'absolute', left: 248, top: 262, fontFamily: MONO, fontSize: 24,
                       letterSpacing: '0.06em', color: 'rgba(10,37,64,0.6)' }}>BU İLAN · £1.458/M²</div>
 
         <div style={{ position: 'absolute', left: 56, bottom: 44, fontFamily: MONO, fontSize: 23,
-                      letterSpacing: '0.08em', color: 'rgba(10,37,64,0.45)' }}>
+                      letterSpacing: '0.08em', color: 'rgba(10,37,64,0.58)' }}>
           KAYNAK: EVLEK.APP CANLI İLAN VERİSİ
         </div>
       </Sheet>
@@ -466,12 +455,7 @@ export const SF4 = () => (
       </div>
       <CropMarks w={936} h={1728} />
 
-      {/* printer's colour bar + job line */}
-      <div style={{ position: 'absolute', left: 64, top: 58, display: 'flex', gap: 10 }}>
-        {[NAVY, COBALT, GOLD, '#B9B2A4'].map((c, i) => (
-          <div key={i} style={{ width: 30, height: 30, background: c, opacity: 0.92 }} />
-        ))}
-      </div>
+      {/* council SF4-1: no colour swatches — gold appears ONLY on the BU. tab */}
       <div style={{ position: 'absolute', right: 64, top: 64, fontFamily: MONO, fontSize: 22,
                     letterSpacing: '0.14em', color: 'rgba(10,37,64,0.4)' }}>
         EVLEK BASKI 01 · KKTC
@@ -491,7 +475,7 @@ export const SF4 = () => (
       <div style={{ position: 'absolute', left: 84, top: 496 }}>
         <div style={{ fontFamily: SANS, fontWeight: 800, fontSize: 108, lineHeight: 1.05,
                       letterSpacing: '-0.02em', color: NAVY }}>
-          Kıbrıs'ta<br />doğru ev.
+          Kıbrıs’ta<br />doğru ev.
         </div>
         <HandLine x={4} y={262} w={446} seed={4} sw={16} />
       </div>
@@ -504,15 +488,18 @@ export const SF4 = () => (
 
       {/* one quiet proof strip: the real listing, closed correctly */}
       <div style={{ position: 'absolute', left: 84, top: 1092, width: 768, height: 250,
-                    background: '#FFFFFF', borderRadius: stockCorners(83),
-                    boxShadow: `${SHADOW.contact}, inset 0 -1px 0 rgba(10,37,64,0.10)` }}>
+                    background: '#F7F3EA', borderRadius: stockCorners(83),
+                    boxShadow: '0 8px 14px rgba(10,37,64,0.13), inset 0 -1px 0 rgba(10,37,64,0.10)' }}>
+        <Img src={TEX.cardstock} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%',
+                                          objectFit: 'cover', opacity: 0.55, borderRadius: stockCorners(83),
+                                          objectPosition: '64% 38%' }} />
         <div style={{ position: 'absolute', left: 26, top: 26, width: 250, height: 198 }}>
           <PhotoSlot w={250} h={198} mask="b" src={HOME.living} />
         </div>
         <div style={{ position: 'absolute', left: 306, top: 40 }}>
           <div style={{ fontFamily: SANS, fontWeight: 800, fontSize: 46, color: NAVY }}>£175.000</div>
           <div style={{ fontFamily: SANS, fontWeight: 600, fontSize: 29, color: NAVY, marginTop: 8 }}>
-            Girne'de denize yakın 3+1
+            Girne’de denize yakın 3+1
           </div>
           <div style={{ fontFamily: MONO, fontSize: 22, letterSpacing: '0.04em', whiteSpace: 'nowrap',
                         color: 'rgba(10,37,64,0.6)', marginTop: 12 }}>
@@ -521,12 +508,9 @@ export const SF4 = () => (
         </div>
       </div>
 
-      {/* wordmark, printed navy, bottom third */}
-      <Wordmark w={430} color={NAVY} style={{ position: 'absolute', left: 84, top: 1462 }} />
-      <div style={{ position: 'absolute', left: 88, top: 1628, fontFamily: MONO, fontSize: 23,
-                    letterSpacing: '0.16em', color: 'rgba(10,37,64,0.5)' }}>
-        AKDENİZ'DE EV, DOĞRU ADRESTE
-      </div>
+      {/* wordmark, printed navy — council SF4-2: the locked slogan stands
+          alone; no second tagline under the mark */}
+      <Wordmark w={430} color={NAVY} style={{ position: 'absolute', left: 84, top: 1366 }} />
     </div>
   </Ground>
 );
