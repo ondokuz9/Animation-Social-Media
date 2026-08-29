@@ -7,6 +7,7 @@ import { FPS, WIDTH, HEIGHT, f } from './brand/tokens.js';
 
 import { Film, FILM_FRAMES } from './reels/emlakci/Film.jsx';
 import { StyleProof, STYLEPROOF_FRAMES } from './reels/brandfilm/StyleProof.jsx';
+import { Film30, FILM30_FRAMES } from './reels/brandfilm/Film30.jsx';
 import { Acilis, ACILIS_SECONDS } from './reels/emlakci/scenes/Acilis.jsx';
 import { Yayinla, YAYINLA_SECONDS } from './reels/emlakci/scenes/Yayinla.jsx';
 import { Diller, DILLER_SECONDS } from './reels/emlakci/scenes/Diller.jsx';
@@ -28,6 +29,9 @@ export const RemotionRoot = () => (
 
     {/* Brand film — style proof (paper / snap / line / light). */}
     {comp('BrandProof', StyleProof, STYLEPROOF_FRAMES)}
+
+    {/* Brand film — the locked 30s final cut ("Yerine Oturdu"). */}
+    {comp('BrandFilm30', Film30, FILM30_FRAMES)}
 
     {/* Acts on their own, so one can be worked on without rendering twenty
         seconds to see three of them. */}
