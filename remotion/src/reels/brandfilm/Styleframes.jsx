@@ -21,8 +21,9 @@
 import React from 'react';
 import { SANS, MONO, trUpper } from '../../brand/tokens.js';
 import { WORDMARK_PATHS } from './wordmark.js';
+import { Img } from 'remotion';
 import {
-  NAVY, COBALT, GOLD, CREAM, SHADOW,
+  NAVY, COBALT, GOLD, CREAM, SHADOW, TEX,
   cutEdge, stockCorners, MatterDefs, Ink,
   Photocopy, CardStock, CobaltSheet,
   Tape, Staple, Perforation, Punch, CropMarks, PhotoSlot,
@@ -50,9 +51,12 @@ const Sheet = ({ x, y, w, h, rot = 0, bg = '#FDFBF6', seed = 1, amp = 3, n = 7,
                   filter: lift ? 'drop-shadow(0 20px 34px rgba(10,37,64,0.18))'
                                : 'drop-shadow(0 6px 10px rgba(10,37,64,0.15))' }}>
       <div style={{ position: 'absolute', inset: 0, background: bg, clipPath: cutEdge(w, h, seed, amp, n) }}>
+        <Img src={fiber ? TEX.cardstock : TEX.press}
+             style={{ position: 'absolute', inset: 0, width: '100%', height: '100%',
+                      objectFit: 'cover', opacity: 0.75 }} />
         {fiber && (
           <svg width={w} height={h} style={{ position: 'absolute', inset: 0 }}>
-            <rect width={w} height={h} filter="url(#mFiber)" />
+            <rect width={w} height={h} filter="url(#mFiber)" opacity="0.5" />
           </svg>
         )}
       </div>
@@ -75,10 +79,15 @@ const Wordmark = ({ w = 320, color = NAVY, style = {} }) => (
   </svg>
 );
 
-/* cream ground with paper tooth — the base of every frame */
-const Ground = ({ tone = CREAM, children }) => (
+/* cream ground with paper tooth — the base of every frame; `img` swaps the
+   procedural ground for a real scan (SF1's plaster wall) */
+const Ground = ({ tone = CREAM, img = null, children }) => (
   <div style={{ position: 'absolute', inset: 0, background: tone, overflow: 'hidden' }}>
     <MatterDefs />
+    {img && (
+      <Img src={img} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%',
+                              objectFit: 'cover', opacity: 0.9 }} />
+    )}
     <svg width="1080" height="1920" style={{ position: 'absolute', inset: 0 }}>
       <rect width="1080" height="1920" filter="url(#mTooth)" />
     </svg>
@@ -95,11 +104,10 @@ const Ground = ({ tone = CREAM, children }) => (
    ═══════════════════════════════════════════════════════════════════════ */
 
 export const SF1 = () => (
-  <Ground tone="#E9E2D2">
+  <Ground tone="#E9E2D2" img={TEX.wall}>
     {/* wall: sun bleach + plaster blotches + a hairline crack */}
     <svg width="1080" height="1920" style={{ position: 'absolute', inset: 0 }}>
-      <rect width="1080" height="1920" filter="url(#mTone)" opacity="0.9" />
-      <rect width="1080" height="1920" filter="url(#mFiber)" opacity="0.7" />
+      <rect width="1080" height="1920" filter="url(#mTone)" opacity="0.45" />
       {/* bleached patch where an older notice used to hang (top right) */}
       <rect x="742" y="268" width="264" height="252" fill="#F2ECDD" opacity="0.45" transform="rotate(-1.4 874 394)" />
       <rect x="742" y="268" width="264" height="252" fill="none" stroke="rgba(10,37,64,0.10)" strokeWidth="2" transform="rotate(-1.4 874 394)" />
@@ -112,9 +120,14 @@ export const SF1 = () => (
       {/* crack */}
       <path d="M40 1560 L150 1500 L210 1520 L340 1440 L395 1452" fill="none" stroke="rgba(10,37,64,0.16)" strokeWidth="2.2" />
       <path d="M210 1520 L235 1560" fill="none" stroke="rgba(10,37,64,0.12)" strokeWidth="1.6" />
-      {/* top shade — the frame sits under an eave */}
-      <rect width="1080" height="220" fill="rgba(10,37,64,0.06)" />
-      <rect y="218" width="1080" height="3" fill="rgba(10,37,64,0.08)" />
+      {/* soft top shade — the frame sits under an eave (no hard seam) */}
+      <rect width="1080" height="360" fill="url(#sfEave)" />
+      <defs>
+        <linearGradient id="sfEave" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="rgba(10,37,64,0.10)" />
+          <stop offset="1" stopColor="rgba(10,37,64,0)" />
+        </linearGradient>
+      </defs>
     </svg>
 
     {/* ghost of the older, ripped notice inside the bleached patch */}
@@ -433,9 +446,10 @@ export const SF4 = () => (
       <div style={{ position: 'absolute', inset: 0, filter: 'drop-shadow(0 22px 38px rgba(10,37,64,0.18))' }}>
         <div style={{ position: 'absolute', inset: 0, background: '#FBF8F1',
                       clipPath: cutEdge(936, 1728, 7, 2.2, 10) }}>
+          <Img src={TEX.press} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%',
+                                        objectFit: 'cover', opacity: 0.8 }} />
           <svg width="936" height="1728" style={{ position: 'absolute', inset: 0 }}>
-            <rect width="936" height="1728" filter="url(#mFiber)" />
-            <rect width="936" height="1728" filter="url(#mTooth)" opacity="0.7" />
+            <rect width="936" height="1728" filter="url(#mTooth)" opacity="0.5" />
           </svg>
         </div>
       </div>

@@ -17,6 +17,20 @@
 // No cobalt-tinted button shadows, ever.
 
 import React from 'react';
+import { Img, staticFile } from 'remotion';
+
+/* Real scanned material (Flow-generated flat scans, public/brandfilm/tex/).
+   The SVG-filter textures below remain as a thin unifying layer on top; the
+   ground truth of every surface is now an actual photograph of paper. */
+export const TEX = {
+  wall: staticFile('brandfilm/tex/wall.jpg'),
+  photocopy: staticFile('brandfilm/tex/photocopy.jpg'),
+  cardstock: staticFile('brandfilm/tex/cardstock.jpg'),
+  press: staticFile('brandfilm/tex/press.jpg'),
+  cobalt: staticFile('brandfilm/tex/cobalt.jpg'),
+  tape: staticFile('brandfilm/tex/tape.jpg'),
+  torn: staticFile('brandfilm/tex/torn.jpg'),
+};
 
 export const NAVY = '#0A2540';
 export const COBALT = '#2F5CFF';
@@ -123,9 +137,11 @@ export const Photocopy = ({ x, y, w, h, rot = 0, seed = 5, children, style = {} 
         position: 'absolute', inset: 0, background: '#F3EFE5',
         clipPath: cutEdge(w, h, seed, 3.2),
       }}>
+        <Img src={TEX.photocopy} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%',
+                                          objectFit: 'cover', opacity: 0.85 }} />
         <svg width={w} height={h} style={{ position: 'absolute', inset: 0 }}>
-          <rect width={w} height={h} filter="url(#mTone)" />
-          <rect width={w} height={h} filter="url(#mToner)" opacity="0.55" />
+          <rect width={w} height={h} filter="url(#mTone)" opacity="0.6" />
+          <rect width={w} height={h} filter="url(#mToner)" opacity="0.4" />
         </svg>
       </div>
     </div>
@@ -143,8 +159,10 @@ export const CardStock = ({ x, y, w, h, rot = 0, seed = 11, lifted = false, chil
     boxShadow: `${lifted ? SHADOW.lift : SHADOW.contact}, inset 0 -1px 0 rgba(10,37,64,0.10)`,
     padding: pad, ...style,
   }}>
+    <Img src={TEX.cardstock} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%',
+                                      objectFit: 'cover', opacity: 0.8, borderRadius: stockCorners(seed) }} />
     <svg width="100%" height="100%" style={{ position: 'absolute', inset: 0, borderRadius: stockCorners(seed) }}>
-      <rect width="100%" height="100%" filter="url(#mFiber)" />
+      <rect width="100%" height="100%" filter="url(#mFiber)" opacity="0.5" />
     </svg>
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>{children}</div>
   </div>
@@ -153,34 +171,26 @@ export const CardStock = ({ x, y, w, h, rot = 0, seed = 11, lifted = false, chil
 /* ── P3: cobalt printed sheet (full-width stage) ── */
 export const CobaltSheet = ({ top = 126, children }) => {
   const W = 968, X = 56;
+  const spline = `M${X} ${top + 34} C ${X + 90} ${top + 22}, ${X + 200} ${top + 44}, ${X + 330} ${top + 30} C ${X + 430} ${top + 20}, ${X + 520} ${top + 48}, ${X + 640} ${top + 26} C ${X + 740} ${top + 8}, ${X + 830} ${top + 38}, ${X + 910} ${top + 24} C ${X + 940} ${top + 19}, ${X + 952} ${top + 26}, ${X + W} ${top + 18}`;
+  const d = `${spline} L${X + W} 1920 L${X} 1920 Z`;
   return (
     <div style={{ position: 'absolute', left: 0, top: 0, width: 1080, height: 1920 }}>
       <svg width="1080" height="1920" style={{ position: 'absolute', inset: 0, filter: 'drop-shadow(0 -10px 28px rgba(10,37,64,0.16))' }}>
         {/* hand-cut top spline: asymmetric anchors, then straight sides */}
-        <path d={`M${X} ${top + 34} C ${X + 90} ${top + 22}, ${X + 200} ${top + 44}, ${X + 330} ${top + 30}
-                  C ${X + 430} ${top + 20}, ${X + 520} ${top + 48}, ${X + 640} ${top + 26}
-                  C ${X + 740} ${top + 8}, ${X + 830} ${top + 38}, ${X + 910} ${top + 24}
-                  C ${X + 940} ${top + 19}, ${X + 952} ${top + 26}, ${X + W} ${top + 18}
-                  L${X + W} 1920 L${X} 1920 Z`} fill={COBALT} />
-        <g clipPath="url(#cobClip)">
-          <rect x={X} y={top} width={W} height={1920 - top} filter="url(#mCobaltTex)" />
-          <rect x={X} y={top} width={W} height={1920 - top} filter="url(#mCobaltLight)" />
-        </g>
-        <defs>
-          <clipPath id="cobClip">
-            <path d={`M${X} ${top + 34} C ${X + 90} ${top + 22}, ${X + 200} ${top + 44}, ${X + 330} ${top + 30}
-                      C ${X + 430} ${top + 20}, ${X + 520} ${top + 48}, ${X + 640} ${top + 26}
-                      C ${X + 740} ${top + 8}, ${X + 830} ${top + 38}, ${X + 910} ${top + 24}
-                      C ${X + 940} ${top + 19}, ${X + 952} ${top + 26}, ${X + W} ${top + 18}
-                      L${X + W} 1920 L${X} 1920 Z`} />
-          </clipPath>
-        </defs>
+        <path d={d} fill={COBALT} />
+      </svg>
+      {/* the real silkscreen scan, luminosity-blended so the brand hue stays
+          #2F5CFF while the squeegee texture comes from the print */}
+      <div style={{ position: 'absolute', inset: 0, clipPath: `path('${d}')` }}>
+        <Img src={TEX.cobalt} style={{ position: 'absolute', left: -140, top: -160, width: 1360, height: 2240,
+                                       objectFit: 'cover', mixBlendMode: 'luminosity', opacity: 0.4 }} />
+        <svg width="1080" height="1920" style={{ position: 'absolute', inset: 0 }}>
+          <rect x={X} y={top} width={W} height={1920 - top} filter="url(#mCobaltLight)" opacity="0.6" />
+        </svg>
+      </div>
+      <svg width="1080" height="1920" style={{ position: 'absolute', inset: 0 }}>
         {/* ink pools slightly at the cut — edge density difference */}
-        <path d={`M${X} ${top + 34} C ${X + 90} ${top + 22}, ${X + 200} ${top + 44}, ${X + 330} ${top + 30}
-                  C ${X + 430} ${top + 20}, ${X + 520} ${top + 48}, ${X + 640} ${top + 26}
-                  C ${X + 740} ${top + 8}, ${X + 830} ${top + 38}, ${X + 910} ${top + 24}
-                  C ${X + 940} ${top + 19}, ${X + 952} ${top + 26}, ${X + W} ${top + 18}`}
-              fill="none" stroke="#2247D6" strokeWidth="3" opacity="0.5" />
+        <path d={spline} fill="none" stroke="#2247D6" strokeWidth="3" opacity="0.5" />
       </svg>
       <div style={{ position: 'absolute', inset: 0 }}>{children}</div>
     </div>
