@@ -10,6 +10,7 @@ import { StyleProof, STYLEPROOF_FRAMES } from './reels/brandfilm/StyleProof.jsx'
 import { Film30, FILM30_FRAMES } from './reels/brandfilm/Film30.jsx';
 import { SF1, SF2, SF3, SF4, SF_FRAMES } from './reels/brandfilm/Styleframes.jsx';
 import { MotionTest1, MT1_FRAMES, MotionTest2, MT2_FRAMES } from './reels/brandfilm/MotionTests.jsx';
+import { Film30v4, FILM_V4_FRAMES } from './reels/brandfilm/Film30v4.jsx';
 import { Acilis, ACILIS_SECONDS } from './reels/emlakci/scenes/Acilis.jsx';
 import { Yayinla, YAYINLA_SECONDS } from './reels/emlakci/scenes/Yayinla.jsx';
 import { Diller, DILLER_SECONDS } from './reels/emlakci/scenes/Diller.jsx';
@@ -44,6 +45,9 @@ export const RemotionRoot = () => (
     {/* Brand film — the council's two motion tests (art direction locked). */}
     {comp('MT1-Cobalt', MotionTest1, MT1_FRAMES)}
     {comp('MT2-Final', MotionTest2, MT2_FRAMES)}
+
+    {/* Brand film — V4: the approved full 30s rebuild. */}
+    {comp('BrandFilmV4', Film30v4, FILM_V4_FRAMES)}
 
     {/* Acts on their own, so one can be worked on without rendering twenty
         seconds to see three of them. */}

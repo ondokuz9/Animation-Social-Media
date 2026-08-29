@@ -55,11 +55,12 @@ const wobblePts = (w, seed, amp = 2, n = 12) => {
    wrapper, the clip-path on the inner surface. (clip-path on the same element
    would clip the box-shadow away — SF round 1 shipped shadowless scraps.) */
 export const Sheet = ({ x, y, w, h, rot = 0, bg = '#FDFBF6', seed = 1, amp = 3, n = 7,
-                 lift = false, fiber = true, children, style = {} }) => (
+                 lift = false, fiber = true, shadow = true, children, style = {} }) => (
   <div style={{ position: 'absolute', left: x, top: y, width: w, height: h,
                 transform: `rotate(${rot}deg)`, ...style }}>
     <div style={{ position: 'absolute', inset: 0,
-                  filter: lift ? 'drop-shadow(0 20px 34px rgba(10,37,64,0.18))'
+                  filter: !shadow ? 'none'
+                        : lift ? 'drop-shadow(0 20px 34px rgba(10,37,64,0.18))'
                                : 'drop-shadow(0 6px 10px rgba(10,37,64,0.15))' }}>
       <div style={{ position: 'absolute', inset: 0, background: bg, clipPath: cutEdge(w, h, seed, amp, n) }}>
         <Img src={fiber ? TEX.cardstock : TEX.press}

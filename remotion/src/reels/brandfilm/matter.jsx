@@ -127,12 +127,12 @@ export const Ink = ({ children, style = {}, problem = false, marker = false }) =
 );
 
 /* ── P1: photocopy sheet ── */
-export const Photocopy = ({ x, y, w, h, rot = 0, seed = 5, children, style = {} }) => (
+export const Photocopy = ({ x, y, w, h, rot = 0, seed = 5, shadow = true, children, style = {} }) => (
   <div style={{
     position: 'absolute', left: x, top: y, width: w, height: h,
     transform: `rotate(${rot}deg)`, ...style,
   }}>
-    <div style={{ position: 'absolute', inset: 0, filter: 'drop-shadow(0 6px 10px rgba(10,37,64,0.16))' }}>
+    <div style={{ position: 'absolute', inset: 0, filter: shadow ? 'drop-shadow(0 6px 10px rgba(10,37,64,0.16))' : 'none' }}>
       <div style={{
         position: 'absolute', inset: 0, background: '#F3EFE5',
         clipPath: cutEdge(w, h, seed, 3.2),
@@ -171,13 +171,15 @@ export const CardStock = ({ x, y, w, h, rot = 0, seed = 11, lifted = false, chil
 );
 
 /* ── P3: cobalt printed sheet (full-width stage) ── */
-export const CobaltSheet = ({ top = 126, children }) => {
+export const CobaltSheet = ({ top = 126, landed = true, children }) => {
   const W = 968, X = 56;
   const spline = `M${X} ${top + 34} C ${X + 90} ${top + 22}, ${X + 200} ${top + 44}, ${X + 330} ${top + 30} C ${X + 430} ${top + 20}, ${X + 520} ${top + 48}, ${X + 640} ${top + 26} C ${X + 740} ${top + 8}, ${X + 830} ${top + 38}, ${X + 910} ${top + 24} C ${X + 940} ${top + 19}, ${X + 952} ${top + 26}, ${X + W} ${top + 18}`;
   const d = `${spline} L${X + W} 1920 L${X} 1920 Z`;
   return (
     <div style={{ position: 'absolute', left: 0, top: 0, width: 1080, height: 1920 }}>
-      <svg width="1080" height="1920" style={{ position: 'absolute', inset: 0, filter: 'drop-shadow(0 -10px 28px rgba(10,37,64,0.16))' }}>
+      <svg width="1080" height="1920" style={{ position: 'absolute', inset: 0,
+             filter: landed ? 'drop-shadow(0 -6px 12px rgba(10,37,64,0.15))'
+                            : 'drop-shadow(0 -16px 30px rgba(10,37,64,0.16))' }}>
         {/* hand-cut top spline: asymmetric anchors, then straight sides */}
         <path d={d} fill={COBALT} />
       </svg>
