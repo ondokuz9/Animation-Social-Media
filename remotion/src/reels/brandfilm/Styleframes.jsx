@@ -27,7 +27,7 @@ import { Img, staticFile } from 'remotion';
    generated (not the photos of a specific live listing), NO real listing
    number appears anywhere in the frames; the market band stays real because
    it is aggregate data. */
-const HOME = {
+export const HOME = {
   ext: staticFile('brandfilm/tex/home-ext.jpg'),
   living: staticFile('brandfilm/tex/home-living.jpg'),
   kitchen: staticFile('brandfilm/tex/home-kitchen.jpg'),
@@ -54,7 +54,7 @@ const wobblePts = (w, seed, amp = 2, n = 12) => {
 /* A cut sheet whose shadow survives the clip: drop-shadow lives on an outer
    wrapper, the clip-path on the inner surface. (clip-path on the same element
    would clip the box-shadow away — SF round 1 shipped shadowless scraps.) */
-const Sheet = ({ x, y, w, h, rot = 0, bg = '#FDFBF6', seed = 1, amp = 3, n = 7,
+export const Sheet = ({ x, y, w, h, rot = 0, bg = '#FDFBF6', seed = 1, amp = 3, n = 7,
                  lift = false, fiber = true, children, style = {} }) => (
   <div style={{ position: 'absolute', left: x, top: y, width: w, height: h,
                 transform: `rotate(${rot}deg)`, ...style }}>
@@ -76,7 +76,7 @@ const Sheet = ({ x, y, w, h, rot = 0, bg = '#FDFBF6', seed = 1, amp = 3, n = 7,
   </div>
 );
 
-const HandLine = ({ x, y, w, color = COBALT, sw = 16, seed = 4, opacity = 1 }) => (
+export const HandLine = ({ x, y, w, color = COBALT, sw = 16, seed = 4, opacity = 1 }) => (
   <svg width={w} height={16 + sw} style={{ position: 'absolute', left: x, top: y, overflow: 'visible', opacity }}>
     <polyline points={wobblePts(w, seed)} fill="none" stroke={color}
               strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round" />
@@ -84,7 +84,7 @@ const HandLine = ({ x, y, w, color = COBALT, sw = 16, seed = 4, opacity = 1 }) =
 );
 
 /* the frozen wordmark, navy or white */
-const Wordmark = ({ w = 320, color = NAVY, style = {} }) => (
+export const Wordmark = ({ w = 320, color = NAVY, style = {} }) => (
   <svg width={w} height={w * (185 / 550)} viewBox="1230 315 550 185" style={style}>
     {['E', 'v', 'l', 'e', 'k'].map((g) => <path key={g} d={WORDMARK_PATHS[g]} fill={color} />)}
   </svg>
@@ -92,7 +92,7 @@ const Wordmark = ({ w = 320, color = NAVY, style = {} }) => (
 
 /* cream ground with paper tooth — the base of every frame; `img` swaps the
    procedural ground for a real scan (SF1's plaster wall) */
-const Ground = ({ tone = CREAM, img = null, children }) => (
+export const Ground = ({ tone = CREAM, img = null, children }) => (
   <div style={{ position: 'absolute', inset: 0, background: tone, overflow: 'hidden' }}>
     <MatterDefs />
     {img && (
