@@ -8,6 +8,7 @@ import { FPS, WIDTH, HEIGHT, f } from './brand/tokens.js';
 import { Film, FILM_FRAMES } from './reels/emlakci/Film.jsx';
 import { StyleProof, STYLEPROOF_FRAMES } from './reels/brandfilm/StyleProof.jsx';
 import { Film30, FILM30_FRAMES } from './reels/brandfilm/Film30.jsx';
+import { SF1, SF2, SF3, SF4, SF_FRAMES } from './reels/brandfilm/Styleframes.jsx';
 import { Acilis, ACILIS_SECONDS } from './reels/emlakci/scenes/Acilis.jsx';
 import { Yayinla, YAYINLA_SECONDS } from './reels/emlakci/scenes/Yayinla.jsx';
 import { Diller, DILLER_SECONDS } from './reels/emlakci/scenes/Diller.jsx';
@@ -32,6 +33,12 @@ export const RemotionRoot = () => (
 
     {/* Brand film — the locked 30s final cut ("Yerine Oturdu"). */}
     {comp('BrandFilm30', Film30, FILM30_FRAMES)}
+
+    {/* Brand film — the council's four styleframes (static posters first). */}
+    {comp('SF1-Problem', SF1, SF_FRAMES)}
+    {comp('SF2-Evlek', SF2, SF_FRAMES)}
+    {comp('SF3-Info', SF3, SF_FRAMES)}
+    {comp('SF4-Final', SF4, SF_FRAMES)}
 
     {/* Acts on their own, so one can be worked on without rendering twenty
         seconds to see three of them. */}
