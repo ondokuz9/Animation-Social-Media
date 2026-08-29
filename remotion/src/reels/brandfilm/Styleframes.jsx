@@ -21,7 +21,18 @@
 import React from 'react';
 import { SANS, MONO, trUpper } from '../../brand/tokens.js';
 import { WORDMARK_PATHS } from './wordmark.js';
-import { Img } from 'remotion';
+import { Img, staticFile } from 'remotion';
+
+/* The film's home — one consistent Flow-generated property. Because these are
+   generated (not the photos of a specific live listing), NO real listing
+   number appears anywhere in the frames; the market band stays real because
+   it is aggregate data. */
+const HOME = {
+  ext: staticFile('brandfilm/tex/home-ext.jpg'),
+  living: staticFile('brandfilm/tex/home-living.jpg'),
+  kitchen: staticFile('brandfilm/tex/home-kitchen.jpg'),
+  bed: staticFile('brandfilm/tex/home-bed.jpg'),
+};
 import {
   NAVY, COBALT, GOLD, CREAM, SHADOW, TEX,
   cutEdge, stockCorners, MatterDefs, Ink,
@@ -151,7 +162,7 @@ export const SF1 = () => (
     <Photocopy x={172} y={560} w={700} h={950} rot={-1.7} seed={5}>
       {/* photocopied photo of the actual home */}
       <div style={{ position: 'absolute', left: 56, top: 172, width: 588, height: 400, filter: 'url(#mPhotocopyImg)' }}>
-        <PhotoSlot w={588} h={400} mask="b" label="FOTO 01 · DIŞ CEPHE" />
+        <PhotoSlot w={588} h={400} mask="b" src={HOME.ext} />
       </div>
       <div style={{ position: 'absolute', left: 56, top: 52 }}>
         <Ink problem style={{ fontFamily: SANS, fontWeight: 800, fontSize: 108, letterSpacing: '0.05em', color: '#20242B' }}>
@@ -289,7 +300,7 @@ export const SF2 = () => (
                         position: 'absolute', left: 18, top: 20 }}>EVLEK</div>
         </div>
         <div style={{ position: 'absolute', left: 36, top: 36, width: 740, height: 560 }}>
-          <PhotoSlot w={740} h={560} mask="a" label="FOTO 01 · DIŞ CEPHE — LAPTA" />
+          <PhotoSlot w={740} h={560} mask="a" src={HOME.ext} />
         </div>
         <div style={{ position: 'absolute', left: 44, top: 636 }}>
           <div style={{ fontFamily: SANS, fontWeight: 800, fontSize: 78, letterSpacing: '-0.01em', color: NAVY }}>
@@ -304,7 +315,7 @@ export const SF2 = () => (
           </div>
           <div style={{ fontFamily: MONO, fontSize: 24, letterSpacing: '0.1em',
                         color: 'rgba(10,37,64,0.45)', marginTop: 52 }}>
-            İLAN NO 100109 · EVLEK.APP
+            GİRNE · SATILIK · EVLEK.APP
           </div>
         </div>
       </CardStock>
@@ -312,14 +323,14 @@ export const SF2 = () => (
       {/* two smaller result cards, tucked behind at the edges */}
       <CardStock x={-58} y={860} w={220} h={300} rot={-6} seed={31}>
         <div style={{ position: 'absolute', left: 18, top: 18, width: 184, height: 190 }}>
-          <PhotoSlot w={184} h={190} mask="b" label="" />
+          <PhotoSlot w={184} h={190} mask="b" src={HOME.kitchen} />
         </div>
         <div style={{ fontFamily: MONO, fontSize: 22, color: 'rgba(10,37,64,0.6)',
                       position: 'absolute', left: 20, top: 226 }}>GİRNE · 3+1</div>
       </CardStock>
       <CardStock x={928} y={1020} w={220} h={300} rot={5} seed={37}>
         <div style={{ position: 'absolute', left: 18, top: 18, width: 184, height: 190 }}>
-          <PhotoSlot w={184} h={190} mask="a" label="" />
+          <PhotoSlot w={184} h={190} mask="a" src={HOME.bed} />
         </div>
         <div style={{ fontFamily: MONO, fontSize: 22, color: 'rgba(10,37,64,0.6)',
                       position: 'absolute', left: 20, top: 226 }}>GİRNE · 3+1</div>
@@ -496,7 +507,7 @@ export const SF4 = () => (
                     background: '#FFFFFF', borderRadius: stockCorners(83),
                     boxShadow: `${SHADOW.contact}, inset 0 -1px 0 rgba(10,37,64,0.10)` }}>
         <div style={{ position: 'absolute', left: 26, top: 26, width: 250, height: 198 }}>
-          <PhotoSlot w={250} h={198} mask="b" label="" />
+          <PhotoSlot w={250} h={198} mask="b" src={HOME.living} />
         </div>
         <div style={{ position: 'absolute', left: 306, top: 40 }}>
           <div style={{ fontFamily: SANS, fontWeight: 800, fontSize: 46, color: NAVY }}>£175.000</div>
@@ -505,7 +516,7 @@ export const SF4 = () => (
           </div>
           <div style={{ fontFamily: MONO, fontSize: 22, letterSpacing: '0.04em', whiteSpace: 'nowrap',
                         color: 'rgba(10,37,64,0.6)', marginTop: 12 }}>
-            LAPTA · 120 M² · İLAN 100109
+            LAPTA · 120 M² · SATILIK
           </div>
         </div>
       </div>
