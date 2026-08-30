@@ -52,9 +52,22 @@ const place = (frame, atSec, lenSec, { dx = 0, dy = 0, rot0 = 0, easing = SETTLE
   };
 };
 
-const wipe = (frame, atSec, lenSec = 0.32) => {
-  const p = prog(frame, atSec, lenSec, WIPE);
+const wipe = (frame, atSec, lenSec = 0.32, easing = WIPE) => {
+  const p = prog(frame, atSec, lenSec, easing);
   return { clipPath: `inset(0 ${(1 - p) * 100}% 0 0)`, opacity: frame >= f(atSec) ? 1 : 0 };
+};
+
+/* cutEdge with a bowable bottom edge — the press page's 2px material answer
+   on its contact frame (same seeded jitter algorithm as matter.cutEdge) */
+const cutEdgeBowed = (w, h, seed = 1, amp = 3, n = 7, bow = 0) => {
+  let s = seed >>> 0;
+  const r = () => { s = (s * 1664525 + 1013904223) >>> 0; return (s / 4294967296) * 2 - 1; };
+  const pts = [];
+  for (let i = 0; i <= n; i++) pts.push([(w * i) / n, r() * amp]);
+  for (let i = 1; i <= n; i++) pts.push([w + r() * amp, (h * i) / n]);
+  for (let i = 1; i <= n; i++) pts.push([w - (w * i) / n, h + r() * amp + bow * Math.sin(Math.PI * (i / n))]);
+  for (let i = 1; i < n; i++) pts.push([r() * amp, h - (h * i) / n]);
+  return `polygon(${pts.map(([x, y]) => `${x.toFixed(1)}px ${y.toFixed(1)}px`).join(',')})`;
 };
 
 /* shadow primitive: displaced cast (flight only) + hardening contact.
@@ -143,7 +156,6 @@ export const Film30v4 = () => {
   const wallReturning = t >= 15 && frame < f(T.wallBack + T.wallBackLen);
 
   const cobaltInY = 1920 * (1 - prog(frame, T.cobalt, 0.72));
-  const cobaltOutY = -2250 * prog(frame, T.cobaltLift, 0.7, ease.inOut);
 
   /* hero card beats (creative move: the card breathes between acts) */
   const b1 = prog(frame, 12.05, 0.5, ease.inOut);   // language beat: +48/+64
@@ -155,9 +167,13 @@ export const Film30v4 = () => {
   const cardY = CARD_IN.y + beatY + (CARD_AL.y - (CARD_IN.y - 52)) * g;
   const cardRot = CARD_IN.rot + (CARD_AL.rot - CARD_IN.rot) * g;
 
-  /* dossier cover: 120px pull, then lifted away */
-  const coverY = -120 * prog(frame, T.coverPull, 0.3, ease.drawer)
-                 - 1500 * prog(frame, T.coverOff, 0.45, ease.inOut);
+  /* dossier cover: 120px pull, then lifted away. The lifted corner leads the
+     body in the first frames — heavy card, not a rigid plate. */
+  const pPull = prog(frame, T.coverPull, 0.3, ease.drawer);
+  const coverY = -120 * pPull - 1500 * prog(frame, T.coverOff, 0.45, ease.inOut);
+  const coverLead = -0.45 * Math.min(1, pPull * 4)
+                    * (1 - prog(frame, T.coverPull + 0.1, 0.15, WIPE))
+                    - 0.3 * prog(frame, T.coverOff, 0.2, WIPE);
   const coverGone = frame >= f(T.coverOff + 0.45);
 
   /* deck gather: 108px spacing collapses to 48px — a tab stack */
@@ -167,7 +183,16 @@ export const Film30v4 = () => {
   const pPage = prog(frame, T.page, T.pageLen);
   const pageInY = 1860 * (1 - pPage);
   const cornerLag = -0.28 * (1 - prog(frame, T.page + 0.05, T.pageLen, WIPE));
-  const pageOutY = -2350 * prog(frame, T.pageLift, 0.7, ease.inOut);
+  /* material answer on the contact frame: the bottom edge bows 2px for one
+     frame, 1px the next, then dead flat — the paper answers the table */
+  const pageContactF = f(T.page + T.pageLen);
+  const pageBow = frame === pageContactF ? 2 : frame === pageContactF + 1 ? 1 : 0;
+  /* loop lifts: the trailing edge lags a beat — sheets, not rigid plates */
+  const pLift = prog(frame, T.pageLift, 0.7, ease.inOut);
+  const cLift = prog(frame, T.cobaltLift, 0.7, ease.inOut);
+  const pageOutY = -2350 * pLift;
+  const liftRotP = 0.35 * Math.sin(Math.PI * pLift);
+  const liftRotC = 0.3 * Math.sin(Math.PI * cLift);
 
   /* gold hover: up −18 (visible!), page passes beneath, down with ≤2px settle */
   const goldHoverY = -18 * prog(frame, T.goldUp, 0.083, WIPE)
@@ -182,6 +207,15 @@ export const Film30v4 = () => {
   return (
     <div style={{ position: 'absolute', inset: 0, background: '#D8D1C1', overflow: 'hidden' }}>
       <MatterDefs />
+      {/* serigraph erosion for printed cobalt lines: ~1px edge break-up */}
+      <svg width="0" height="0" style={{ position: 'absolute' }}>
+        <defs>
+          <filter id="v4Serig">
+            <feTurbulence type="fractalNoise" baseFrequency="0.16" numOctaves="2" seed="23" result="n" />
+            <feDisplacementMap in="SourceGraphic" in2="n" scale="1.6" />
+          </filter>
+        </defs>
+      </svg>
       {/* the cream press board — deckled edge, its own shadow */}
       <div style={{ position: 'absolute', inset: 0, filter: 'drop-shadow(0 6px 16px rgba(10,37,64,0.12))' }}>
         <div style={{ position: 'absolute', inset: 0, background: CREAM,
@@ -350,7 +384,8 @@ export const Film30v4 = () => {
 
       {/* ════ COBALT WORLD (A2–A4) ════ */}
       <div style={{ position: 'absolute', inset: 0, opacity: t >= T.cobalt - 0.05 ? 1 : 0,
-                    transform: `translateY(${cobaltInY + cobaltOutY}px)` }}>
+                    transform: `translateY(${cobaltInY - 2250 * cLift}px) rotate(${liftRotC}deg)`,
+                    transformOrigin: '30% 0%' }}>
         <CobaltSheet top={128} landed={frame >= f(T.cobalt + 0.72)}>
           {/* the ONE promise everything else must prove */}
           <div style={{ position: 'absolute', left: 108, top: 250 }}>
@@ -365,18 +400,38 @@ export const Film30v4 = () => {
 
           {/* SEARCH RAIL — rendered UNDER the dossier so it can slide out of
               it edge-first (12px at 08.41, fully out by 08.48, set at 08.59) */}
-          {t < 12.6 && (
+          {t < 12.6 && (() => {
+            const railEntryX = -1088 * (1 - prog(frame, T.rail, T.railLen, Easing.bezier(0.3, 1.05, 0.55, 1)))
+                               - prog(frame, T.railExit, 0.4, ease.drawer) * 1400;
+            const railLanded = frame >= f(T.rail + T.railLen);
+            return (
             <>
-              <CastShadow frame={frame} x={-16} y={560} w={1112} h={96} rot={-0.5}
-                          start={T.rail} len={T.railLen} r={3} />
-              {/* edge-first: 8px of leading edge on the flight's first frame,
-                  the body follows from behind the frame edge, ~2% overshoot */}
+              {/* the rail's shadow travels WITH the rail, 14px ahead of its
+                  leading edge — never a screen-wide fog. It appears at 08.38
+                  (3 frames early), the paper edge follows at 08.41, and it
+                  hardens on the 08.59 contact frame. */}
+              <div style={{ opacity: frame >= f(T.rail) - 3 && frame < f(T.railExit + 0.4) ? 1 : 0,
+                            transform: `translateX(${railEntryX + (railLanded ? 0 : 14)}px)` }}>
+                {railLanded ? (
+                  <>
+                    <div style={{ position: 'absolute', left: -16, top: 563, width: 1112, height: 96,
+                                  transform: 'rotate(-0.5deg)', borderRadius: 3,
+                                  background: 'rgba(10,37,64,0.20)', filter: 'blur(8px)' }} />
+                    <div style={{ position: 'absolute', left: -16, top: 561, width: 1112, height: 96,
+                                  transform: 'rotate(-0.5deg)', borderRadius: 3,
+                                  background: 'rgba(10,37,64,0.12)', filter: 'blur(2px)' }} />
+                  </>
+                ) : (
+                  <div style={{ position: 'absolute', left: -16, top: 570, width: 1112, height: 96,
+                                transform: 'rotate(-0.5deg)', borderRadius: 3,
+                                background: 'rgba(10,37,64,0.15)', filter: 'blur(20px)' }} />
+                )}
+              </div>
+              {/* edge-first: 8px of leading edge on the flight's first frame */}
               <div style={{ opacity: frame >= f(T.rail) && frame < f(T.railExit + 0.4) ? 1 : 0,
-                            transform: `translateX(${
-                              -1088 * (1 - prog(frame, T.rail, T.railLen, Easing.bezier(0.3, 1.05, 0.55, 1)))
-                              - prog(frame, T.railExit, 0.4, ease.drawer) * 1400}px)` }}>
+                            transform: `translateX(${railEntryX}px)` }}>
                 <Sheet x={-16} y={560} w={1112} h={96} rot={-0.5} seed={88} amp={2.4} n={5}
-                       bg="#F8F4E9" shadow={false}>
+                       bg="#F8F4E9" shadow={false} texOpacity={0.68}>
                   <div style={{ position: 'absolute', left: 78, top: 27, fontFamily: MONO, fontSize: 38,
                                 letterSpacing: '0.1em', color: 'rgba(10,37,64,0.68)' }}>ARA:</div>
                   <div style={{ position: 'absolute', left: 296, top: 26, fontFamily: SANS, fontWeight: 600,
@@ -415,8 +470,10 @@ export const Film30v4 = () => {
                              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%',
                                       objectFit: 'cover', opacity: 0.75,
                                       objectPosition: `${20 + i * 25}% 40%` }} />
+                        {/* dry-ink print: LINEAR mask over 6 frames — a press
+                            head, not a reveal (council P1: was 2 frames) */}
                         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center',
-                                      padding: '0 0 0 44px', ...wipe(frame, T.chips[i] + 0.05, 0.18) }}>
+                                      padding: '0 0 0 44px', ...wipe(frame, T.chips[i] + 0.05, 0.1, Easing.linear) }}>
                           <Punch x={14} y={28} />
                           <span style={{ fontFamily: SANS, fontWeight: 700, fontSize: 30, color: NAVY,
                                          letterSpacing: '0.02em' }}>{txt}</span>
@@ -427,7 +484,8 @@ export const Film30v4 = () => {
                 </Sheet>
               </div>
             </>
-          )}
+            );
+          })()}
 
           {/* THE EVLEK DOSSIER — arrives CLOSED; the search happens; then the
               cover pulls back 120px and lifts away: the matching home appears */}
@@ -476,7 +534,8 @@ export const Film30v4 = () => {
                 {/* THE COVER — a closed file until the search has run */}
                 {!coverGone && (
                   <div style={{ position: 'absolute', left: 0, top: -14, width: 812, height: 1024,
-                                transform: `translateY(${coverY}px)`,
+                                transform: `translateY(${coverY}px) rotate(${coverLead}deg)`,
+                                transformOrigin: '85% 20%',
                                 filter: frame >= f(T.coverPull)
                                   ? 'drop-shadow(0 18px 28px rgba(10,37,64,0.20))'
                                   : 'drop-shadow(0 2px 4px rgba(10,37,64,0.14))' }}>
@@ -494,6 +553,11 @@ export const Film30v4 = () => {
                                   letterSpacing: '0.12em', color: 'rgba(10,37,64,0.5)' }}>
                       GİRNE ARAMASI
                     </div>
+                    {/* the dark paper cross-section at the closed cover's foot */}
+                    {frame < f(T.coverOff) && (
+                      <div style={{ position: 'absolute', left: 6, right: 6, bottom: 0, height: 2,
+                                    background: 'rgba(10,37,64,0.28)' }} />
+                    )}
                   </div>
                 )}
               </CardStock>
@@ -536,7 +600,7 @@ export const Film30v4 = () => {
                                 small start={start} len={0.4} r={4} />
                     <div style={place(frame, start, 0.4, { dy: -200, rot0: [-4, 3.5, -3, 4, -3.5][i] })}>
                       <CardStock x={x} y={y} w={800} h={122} rot={[-1.4, 1, -0.8, 1.2, -1][i]}
-                                 seed={101 + i} style={{ boxShadow: 'none' }}>
+                                 seed={101 + i} fiberOpacity={0.58} style={{ boxShadow: 'none' }}>
                         <div style={{ position: 'absolute', left: 22, top: 12, width: 74, height: 36,
                                       background: c.tag === 'AR' ? COBALT : 'transparent',
                                       border: c.tag === 'AR' ? 'none' : '2.5px solid rgba(10,37,64,0.5)',
@@ -567,7 +631,8 @@ export const Film30v4 = () => {
               <CastShadow frame={frame} x={84} y={1218} w={912} h={470} rot={0.7}
                           start={T.band} len={0.6} r={4} />
               <div style={place(frame, T.band, 0.6, { dy: 320, rot0: -2.5 })}>
-                <Sheet x={84} y={1218} w={912} h={470} rot={0.7} seed={131} amp={3.4} n={8} shadow={false}>
+                <Sheet x={84} y={1218} w={912} h={470} rot={0.7} seed={131} amp={3.4} n={8} shadow={false}
+                       texOpacity={0.92}>
                   <div style={{ position: 'absolute', left: 52, top: 38, fontFamily: SANS, fontWeight: 800,
                                 fontSize: 52, letterSpacing: '-0.01em', color: NAVY }}>
                     BU FİYAT NORMAL Mİ?
@@ -583,7 +648,12 @@ export const Film30v4 = () => {
                             stroke={NAVY} strokeWidth={i % 4 === 0 ? 2.4 : 1.4} opacity={i % 4 === 0 ? 0.9 : 0.5} />
                     ))}
                     <g transform="translate(141.7 0)">
-                      <g style={place(frame, T.marker, 0.3, { dy: -90 })}>
+                      {/* the marker answers the ticket's touch: 2px sway,
+                          one return — a mechanical relationship, no pulse */}
+                      <g style={{ ...place(frame, T.marker, 0.3, { dy: -90 }),
+                                  transform: `${place(frame, T.marker, 0.3, { dy: -90 }).transform}
+                                              translateX(${2 * prog(frame, T.ticket + 0.45, 0.05, WIPE)
+                                                           * (1 - prog(frame, T.ticket + 0.5, 0.12))}px)` }}>
                         <path d="M0 74 L-16 38 L16 38 Z" fill={COBALT} />
                         <line x1="0" y1="74" x2="0" y2="110" stroke={COBALT} strokeWidth="4" />
                       </g>
@@ -644,7 +714,8 @@ export const Film30v4 = () => {
 
       {/* ════ PRESS WORLD (A5) — top-right corner lands 3 frames late ════ */}
       <div style={{ position: 'absolute', inset: 0, opacity: t >= T.page - 0.05 ? 1 : 0,
-                    transform: `translateY(${pageOutY}px)` }}>
+                    transform: `translateY(${pageOutY}px) rotate(${liftRotP}deg)`,
+                    transformOrigin: '25% 0%' }}>
         <div style={{ position: 'absolute', left: 72, top: 96, width: 936, height: 1728,
                       transform: `rotate(${-0.35 + cornerLag}deg) translateY(${pageInY}px)`,
                       transformOrigin: '20% 80%',
@@ -652,7 +723,7 @@ export const Film30v4 = () => {
                         ? 'drop-shadow(0 3px 8px rgba(10,37,64,0.20)) drop-shadow(0 1px 2px rgba(10,37,64,0.12))'
                         : 'drop-shadow(0 18px 30px rgba(10,37,64,0.16))' }}>
           <div style={{ position: 'absolute', inset: 0, background: '#FBF8F1',
-                        clipPath: cutEdge(936, 1728, 7, 2.2, 10) }}>
+                        clipPath: cutEdgeBowed(936, 1728, 7, 2.2, 10, pageBow) }}>
             <Img src={TEX.press} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%',
                                           objectFit: 'cover', opacity: 0.8 }} />
             <svg width="936" height="1728" style={{ position: 'absolute', inset: 0 }}>
@@ -673,10 +744,12 @@ export const Film30v4 = () => {
             </div>
           </div>
 
-          {/* the approval line — the opening redaction’s −8.3° gesture, scaled */}
+          {/* the approval line — the opening redaction’s −8.3° gesture, scaled;
+              serigraph erosion so the ink sits IN the press paper, drawn with
+              the line and dead still after */}
           <div style={{ ...wipe(frame, T.line, 0.35), position: 'absolute', left: 156, top: 863,
                         width: 470, height: 64, transform: 'rotate(-8.3deg)',
-                        transformOrigin: 'left center' }}>
+                        transformOrigin: 'left center', filter: 'url(#v4Serig)' }}>
             <HandLine x={0} y={20} w={459} seed={31} sw={15} />
           </div>
 
@@ -741,7 +814,14 @@ export const Film30v4 = () => {
         }}>
           <div style={{ position: 'absolute', left: TAB.x, top: TAB.y, width: 168, height: 86,
                         transform: 'rotate(1.6deg)' }}>
-            <div style={{ position: 'absolute', inset: 0, background: GOLD, clipPath: cutEdge(168, 86, 3, 2.2, 4) }} />
+            {/* gold STOCK, not a UI badge: object-locked low-frequency fibre
+                (~2-3%) + silkscreen break-up (~1%); mean stays #C9A157 */}
+            <div style={{ position: 'absolute', inset: 0, background: GOLD, clipPath: cutEdge(168, 86, 3, 2.2, 4) }}>
+              <svg width="168" height="86" style={{ position: 'absolute', inset: 0 }}>
+                <rect width="168" height="86" filter="url(#mFiber)" opacity="0.6" />
+                <rect width="168" height="86" filter="url(#mToner)" opacity="0.14" />
+              </svg>
+            </div>
             <div style={{ fontFamily: SANS, fontWeight: 800, fontSize: 44, color: NAVY,
                           position: 'absolute', left: 34, top: 16 }}>BU.</div>
           </div>

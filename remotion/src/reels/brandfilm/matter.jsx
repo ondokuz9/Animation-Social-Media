@@ -150,7 +150,8 @@ export const Photocopy = ({ x, y, w, h, rot = 0, seed = 5, shadow = true, childr
 );
 
 /* ── P2: evlek card stock ── */
-export const CardStock = ({ x, y, w, h, rot = 0, seed = 11, lifted = false, children, style = {}, pad = 0 }) => (
+export const CardStock = ({ x, y, w, h, rot = 0, seed = 11, lifted = false, children, style = {}, pad = 0,
+                            fiberOpacity = 0.8 }) => (
   <div style={{
     position: 'absolute', left: x, top: y, width: w, height: h,
     transform: `rotate(${rot}deg)`,
@@ -160,7 +161,7 @@ export const CardStock = ({ x, y, w, h, rot = 0, seed = 11, lifted = false, chil
     padding: pad, ...style,
   }}>
     <Img src={TEX.cardstock} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%',
-                                      objectFit: 'cover', opacity: 0.8, borderRadius: stockCorners(seed),
+                                      objectFit: 'cover', opacity: fiberOpacity, borderRadius: stockCorners(seed),
                                       /* seed-shifted crop so no two cards clone the same fibres */
                                       objectPosition: `${(seed * 37) % 100}% ${(seed * 53) % 100}%` }} />
     <svg width="100%" height="100%" style={{ position: 'absolute', inset: 0, borderRadius: stockCorners(seed) }}>
