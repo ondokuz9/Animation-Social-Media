@@ -59,13 +59,17 @@ const wipe = (frame, atSec, lenSec = 0.32, easing = WIPE) => {
 
 /* cutEdge with a bowable bottom edge — the press page's 2px material answer
    on its contact frame (same seeded jitter algorithm as matter.cutEdge) */
-const cutEdgeBowed = (w, h, seed = 1, amp = 3, n = 7, bow = 0) => {
+const cutEdgeBowed = (w, h, seed = 1, amp = 3, n = 7, bow = 0, cornerLift = 0) => {
   let s = seed >>> 0;
   const r = () => { s = (s * 1664525 + 1013904223) >>> 0; return (s / 4294967296) * 2 - 1; };
   const pts = [];
   for (let i = 0; i <= n; i++) pts.push([(w * i) / n, r() * amp]);
   for (let i = 1; i <= n; i++) pts.push([w + r() * amp, (h * i) / n]);
-  for (let i = 1; i <= n; i++) pts.push([w - (w * i) / n, h + r() * amp + bow * Math.sin(Math.PI * (i / n))]);
+  for (let i = 1; i <= n; i++) {
+    const q = i / n;
+    const corner = (q < 0.15 || q > 0.85) ? -cornerLift : 0;
+    pts.push([w - (w * i) / n, h + r() * amp + bow * Math.sin(Math.PI * q) + corner]);
+  }
   for (let i = 1; i < n; i++) pts.push([r() * amp, h - (h * i) / n]);
   return `polygon(${pts.map(([x, y]) => `${x.toFixed(1)}px ${y.toFixed(1)}px`).join(',')})`;
 };
@@ -150,10 +154,15 @@ export const Film30v4 = () => {
   const fw = frame >= f(28.5) ? frame - 1800 : frame;
   const tw = fw / 60;
 
+  const pWallBack = prog(frame, T.wallBack, T.wallBackLen, ease.drawer);
   const wallY = t < 15
     ? -2150 * prog(frame, T.wallExit, 0.55, ease.drawer)
-    : -2150 * (1 - prog(frame, T.wallBack, T.wallBackLen, ease.drawer));
+    : -2150 * (1 - pWallBack);
   const wallReturning = t >= 15 && frame < f(T.wallBack + T.wallBackLen);
+  /* the wall arrives as PAPER, not a stage wipe: the left corner leads
+     (~3 frames), the leading edge carries a 6px arc that dies at landing */
+  const wallRot = wallReturning ? 0.3 * (1 - pWallBack) : 0;
+  const wallBow = wallReturning ? 6 * Math.sin(Math.PI * pWallBack) : 0;
 
   const cobaltInY = 1920 * (1 - prog(frame, T.cobalt, 0.72));
 
@@ -170,10 +179,14 @@ export const Film30v4 = () => {
   /* dossier cover: 120px pull, then lifted away. The lifted corner leads the
      body in the first frames — heavy card, not a rigid plate. */
   const pPull = prog(frame, T.coverPull, 0.3, ease.drawer);
-  const coverY = -120 * pPull - 1500 * prog(frame, T.coverOff, 0.45, ease.inOut);
-  const coverLead = -0.45 * Math.min(1, pPull * 4)
+  const pOff = prog(frame, T.coverOff, 0.45, ease.inOut);
+  const coverY = -120 * pPull - 1500 * pOff;
+  const coverLead = -0.6 * Math.min(1, pPull * 4)
                     * (1 - prog(frame, T.coverPull + 0.1, 0.15, WIPE))
-                    - 0.3 * prog(frame, T.coverOff, 0.2, WIPE);
+                    - 0.35 * prog(frame, T.coverOff, 0.2, WIPE);
+  /* heavy card, not a plate: the bottom edge arcs 4-5px while in motion,
+     dead flat before and after (silhouette only, texture never warps) */
+  const coverBow = 2.5 * Math.sin(Math.PI * pPull) + 5 * Math.sin(Math.PI * pOff);
   const coverGone = frame >= f(T.coverOff + 0.45);
 
   /* deck gather: 108px spacing collapses to 48px — a tab stack */
@@ -183,10 +196,13 @@ export const Film30v4 = () => {
   const pPage = prog(frame, T.page, T.pageLen);
   const pageInY = 1860 * (1 - pPage);
   const cornerLag = -0.28 * (1 - prog(frame, T.page + 0.05, T.pageLen, WIPE));
-  /* material answer on the contact frame: the bottom edge bows 2px for one
-     frame, 1px the next, then dead flat — the paper answers the table */
+  /* material answer around the contact frame (council, frame-exact):
+     21.40 corners 1 frame behind · 21.41 centre bows 2px · 21.42 returns
+     0.7px · 21.43 dead flat. Silhouette only, never a scale. */
   const pageContactF = f(T.page + T.pageLen);
-  const pageBow = frame === pageContactF ? 2 : frame === pageContactF + 1 ? 1 : 0;
+  const pageBow = frame === pageContactF ? 2 : frame === pageContactF + 1 ? 0.7 : 0;
+  const pageCornerLift = frame === pageContactF - 1 ? 1.5 : 0;
+  const pageImpact = frame >= pageContactF && frame <= pageContactF + 1;
   /* loop lifts: the trailing edge lags a beat — sheets, not rigid plates */
   const pLift = prog(frame, T.pageLift, 0.7, ease.inOut);
   const cLift = prog(frame, T.cobaltLift, 0.7, ease.inOut);
@@ -212,7 +228,7 @@ export const Film30v4 = () => {
         <defs>
           <filter id="v4Serig">
             <feTurbulence type="fractalNoise" baseFrequency="0.16" numOctaves="2" seed="23" result="n" />
-            <feDisplacementMap in="SourceGraphic" in2="n" scale="1.6" />
+            <feDisplacementMap in="SourceGraphic" in2="n" scale="2.4" />
           </filter>
         </defs>
       </svg>
@@ -227,8 +243,16 @@ export const Film30v4 = () => {
       </div>
 
       {/* ════ WALL WORLD (A1) ════ */}
-      <div style={{ position: 'absolute', inset: 0, transform: `translateY(${wallY}px)`,
-                    filter: wallReturning ? 'drop-shadow(0 12px 24px rgba(10,37,64,0.18))' : 'none' }}>
+      <div style={{ position: 'absolute', inset: 0,
+                    transform: `translateY(${wallY}px) rotate(${wallRot}deg)`,
+                    transformOrigin: '100% 0%' }}>
+        {/* the shadow lives ONLY 14-20px under the moving edge */}
+        {wallReturning && (
+          <div style={{ position: 'absolute', left: 0, right: 0, top: '100%', height: 18,
+                        background: 'linear-gradient(to bottom, rgba(10,37,64,0.18), rgba(10,37,64,0))' }} />
+        )}
+        <div style={{ position: 'absolute', inset: 0,
+                      clipPath: wallReturning ? cutEdgeBowed(1080, 1926, 55, 0, 8, wallBow) : 'none' }}>
         <div style={{ position: 'absolute', inset: 0, background: '#E9E2D2' }}>
           <Img src={TEX.wall} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%',
                                        objectFit: 'cover', opacity: 0.9 }} />
@@ -378,6 +402,7 @@ export const Film30v4 = () => {
             </div>
           </>
         )}
+        </div>
       </div>
 
       {t < 7 && <ApproachShadow frame={frame} start={T.cobalt} />}
@@ -540,7 +565,7 @@ export const Film30v4 = () => {
                                   ? 'drop-shadow(0 18px 28px rgba(10,37,64,0.20))'
                                   : 'drop-shadow(0 2px 4px rgba(10,37,64,0.14))' }}>
                     <div style={{ position: 'absolute', inset: 0, background: '#FDFBF6',
-                                  clipPath: cutEdge(812, 1024, 141, 2.6, 8) }}>
+                                  clipPath: cutEdgeBowed(812, 1024, 141, 2.6, 8, coverBow) }}>
                       <Img src={TEX.cardstock} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%',
                                                         objectFit: 'cover', opacity: 0.85, objectPosition: '30% 70%' }} />
                     </div>
@@ -719,11 +744,13 @@ export const Film30v4 = () => {
         <div style={{ position: 'absolute', left: 72, top: 96, width: 936, height: 1728,
                       transform: `rotate(${-0.35 + cornerLag}deg) translateY(${pageInY}px)`,
                       transformOrigin: '20% 80%',
-                      filter: frame >= f(T.page + T.pageLen)
-                        ? 'drop-shadow(0 3px 8px rgba(10,37,64,0.20)) drop-shadow(0 1px 2px rgba(10,37,64,0.12))'
-                        : 'drop-shadow(0 18px 30px rgba(10,37,64,0.16))' }}>
+                      filter: pageImpact
+                        ? 'drop-shadow(0 3px 4px rgba(10,37,64,0.225)) drop-shadow(0 1px 2px rgba(10,37,64,0.12))'
+                        : frame >= pageContactF
+                          ? 'drop-shadow(0 3px 8px rgba(10,37,64,0.20)) drop-shadow(0 1px 2px rgba(10,37,64,0.12))'
+                          : 'drop-shadow(0 18px 30px rgba(10,37,64,0.16))' }}>
           <div style={{ position: 'absolute', inset: 0, background: '#FBF8F1',
-                        clipPath: cutEdgeBowed(936, 1728, 7, 2.2, 10, pageBow) }}>
+                        clipPath: cutEdgeBowed(936, 1728, 7, 2.2, 10, pageBow, pageCornerLift) }}>
             <Img src={TEX.press} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%',
                                           objectFit: 'cover', opacity: 0.8 }} />
             <svg width="936" height="1728" style={{ position: 'absolute', inset: 0 }}>
@@ -749,8 +776,25 @@ export const Film30v4 = () => {
               the line and dead still after */}
           <div style={{ ...wipe(frame, T.line, 0.35), position: 'absolute', left: 156, top: 863,
                         width: 470, height: 64, transform: 'rotate(-8.3deg)',
-                        transformOrigin: 'left center', filter: 'url(#v4Serig)' }}>
-            <HandLine x={0} y={20} w={459} seed={31} sw={15} />
+                        transformOrigin: 'left center' }}>
+            {/* pressed ink: multiply blend + ~1px edge erosion, and REAL ≥2px
+                paper gaps (seeded specks locked to the stroke — they open with
+                the wipe and never move; subpixel detail dies in H.264) */}
+            <div style={{ position: 'absolute', inset: 0, mixBlendMode: 'multiply', filter: 'url(#v4Serig)' }}>
+              <HandLine x={0} y={20} w={459} seed={31} sw={15} />
+            </div>
+            {(() => {
+              let s = 977;
+              const r = () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; };
+              return Array.from({ length: 15 }, (_, i) => (
+                <div key={i} style={{ position: 'absolute',
+                                      left: 14 + (459 / 15) * i + r() * 14,
+                                      top: 22 + r() * 9,
+                                      width: 2 + r() * 2.2, height: 2 + r() * 1.6,
+                                      transform: `rotate(${r() * 70}deg)`,
+                                      background: '#FBF8F1', opacity: 0.9 }} />
+              ));
+            })()}
           </div>
 
           <div style={{ position: 'absolute', left: 88, top: 912, fontFamily: MONO, fontWeight: 600,
