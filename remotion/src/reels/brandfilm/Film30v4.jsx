@@ -59,11 +59,24 @@ const wipe = (frame, atSec, lenSec = 0.32, easing = WIPE) => {
 
 /* cutEdge with a bowable bottom edge — the press page's 2px material answer
    on its contact frame (same seeded jitter algorithm as matter.cutEdge) */
-const cutEdgeBowed = (w, h, seed = 1, amp = 3, n = 7, bow = 0, cornerLift = 0) => {
+/* the council's 5-point leading-edge profile for a big travelling sheet */
+const EDGE_PROFILE = [0, 5, -2, 3, 0];
+const profileAt = (q) => {
+  const x = q * (EDGE_PROFILE.length - 1);
+  const i = Math.min(EDGE_PROFILE.length - 2, Math.floor(x));
+  return EDGE_PROFILE[i] + (EDGE_PROFILE[i + 1] - EDGE_PROFILE[i]) * (x - i);
+};
+
+const cutEdgeBowed = (w, h, seed = 1, amp = 3, n = 7, bow = 0, cornerLift = 0, topBow = 0, wob = 0) => {
   let s = seed >>> 0;
   const r = () => { s = (s * 1664525 + 1013904223) >>> 0; return (s / 4294967296) * 2 - 1; };
   const pts = [];
-  for (let i = 0; i <= n; i++) pts.push([(w * i) / n, r() * amp]);
+  for (let i = 0; i <= n; i++) {
+    const q = i / n;
+    /* `wob` rides the TOP edge — the LEADING edge of a sheet rising from
+       below (the press page). `topBow` is the cover's pull-flex. */
+    pts.push([(w * i) / n, r() * amp - topBow * Math.sin(Math.PI * q) + wob * profileAt(q)]);
+  }
   for (let i = 1; i <= n; i++) pts.push([w + r() * amp, (h * i) / n]);
   for (let i = 1; i <= n; i++) {
     const q = i / n;
@@ -72,6 +85,13 @@ const cutEdgeBowed = (w, h, seed = 1, amp = 3, n = 7, bow = 0, cornerLift = 0) =
   }
   for (let i = 1; i < n; i++) pts.push([r() * amp, h - (h * i) / n]);
   return `polygon(${pts.map(([x, y]) => `${x.toFixed(1)}px ${y.toFixed(1)}px`).join(',')})`;
+};
+
+/* single-mass PRESS print: a roller wipe top-to-bottom, linear, one object —
+   never a left-to-right letter reveal (the "type-on" killer) */
+const printPress = (frame, atSec, lenSec = 0.2) => {
+  const p = prog(frame, atSec, lenSec, Easing.linear);
+  return { clipPath: `inset(0 0 ${(1 - p) * 100}% 0)`, opacity: frame >= f(atSec) ? 1 : 0 };
 };
 
 /* shadow primitive: displaced cast (flight only) + hardening contact.
@@ -88,17 +108,16 @@ const CastShadow = ({ frame, x, y, w, h, rot = 0, start, len, small = false, r =
                   opacity: announce }} />
   );
   const grad = (a) => `linear-gradient(to bottom, rgba(10,37,64,${a * 0.08}), rgba(10,37,64,${a * 0.55}) 45%, rgba(10,37,64,${a}))`;
+  /* V4.7 (council): flight = ONE displaced soft ambient, no grey panel;
+     landed = key + tight contact pair */
   if (!landed) {
-    return (
-      <>
-        {small ? blob(5, 8, 13, 0.08) : blob(10, 16, 26, 0.09, graded ? grad(0.11) : null)}
-        {small ? blob(0, 2, 4, 0.09) : blob(0, 3, 7, 0.10, graded ? grad(0.12) : null)}
-      </>
-    );
+    return small
+      ? blob(4, 12, 24, 0.08)
+      : blob(8, 26, 52, 0.10, graded ? grad(0.12) : null);
   }
   return (
     <>
-      {small ? blob(0, 2, 5, 0.16) : blob(0, 3, 7, 0.20, graded ? grad(0.22) : null)}
+      {small ? blob(0, 2, 5, 0.15) : blob(0, 4, 9, 0.17, graded ? grad(0.19) : null)}
       {small ? blob(0, 1, 1.5, 0.10) : blob(0, 1, 2, 0.12, graded ? grad(0.13) : null)}
     </>
   );
@@ -125,24 +144,29 @@ const T = {
   tags: [1.3, 1.6, 1.9], tagLen: 0.2,  // £ / ₺ / $ — three short TAKs
   qband: 2.3, qbandLen: 0.5,           // ÜÇ FİYAT. HANGİSİ DOĞRU? (50f read)
   strike: 3.8,                          // the −8.3° cobalt redaction
-  wallExit: 5.1, cobalt: 5.15,          // audited anchors — untouched
-  hl1: 6.05, hl2: 6.3, under: 6.65,
-  hero: 7.85,                                   // the CLOSED dossier arrives
-  rail: 8.6833, railLen: 0.3,                   // slides out of the dossier
-  chips: [10.183, 10.483, 10.783], chipLen: 0.42, // after 84 clean frames
-  coverPull: 11.1, coverOff: 11.45,             // the reveal: search → result
-  railExit: 11.85,
-  label: 12.15, lang: 12.4, langStep: 0.2,
-  gather: 13.85,                                // deck → 5-tab stack
-  band: 14.0, marker: 14.7, ticket: 14.85, tline: 15.35,
+  /* V4.7 inversion: the WALL never moves again. The cream press BOARD is an
+     object — it slides down OVER the wall at 04.48 (covering the opening
+     chaos), is the stage base for every act after, and lifts at 28.00 to
+     reveal the untouched wall for the loop. */
+  boardIn: 4.8, boardInLen: 0.55,
+  cobalt: 4.85,
+  hl1: 5.75, under: 6.35,               // single-mass press print (no hl2)
+  hero: 7.55,                                   // the CLOSED dossier arrives
+  rail: 8.3833, railLen: 0.3,                   // slides out of the dossier
+  chips: [9.983, 10.283, 10.583], chipLen: 0.42, // after 84 clean frames
+  coverPull: 10.9, coverOff: 11.25,             // the reveal: search → result
+  railExit: 11.65,
+  label: 11.95, lang: 12.2, langStep: 0.2,
+  gather: 13.783,                               // deck → 5-tab stack
+  band: 13.933, marker: 14.633, ticket: 14.783, tline: 15.283,
   infoExit: 16.05,
   glide: 16.55, manifesto: 17.833,
   gold: 19.917, goldLen: 0.267,
   goldUp: 20.883, goldDown: 21.467, goldDownLen: 0.216, // hover, never hidden
   page: 20.9167, pageLen: 0.7667,
-  slog1: 21.9, slog2: 22.15, url: 22.65,
-  proof: 22.95, proofLen: 0.45, mark: 23.65, line: 24.1,
-  pageLift: 26.5, cobaltLift: 27.1, wallBack: 27.55, wallBackLen: 1.9,
+  slog1: 21.9, slog2: 22.1, url: 22.65,
+  proof: 22.95, proofLen: 0.45, mark: 23.667, markLen: 0.233,
+  pageLift: 26.5, cobaltLift: 27.1, boardLift: 28.0, boardLiftLen: 0.9,
 };
 
 const CARD_IN = { x: 134, y: 742, rot: -2 };
@@ -150,7 +174,7 @@ const CARD_AL = { x: 200, y: 632, rot: 0 };
 const TAB = { x: 768, y: 608 };
 const SLOT = { x: 576, y: 4, w: 152, h: 18 };
 /* chip x-positions centred on the sentence's word spans (26px word gaps) */
-const RAIL_CHIPS = [['GİRNE', 292, 196], ['DENİZE YAKIN', 475, 300], ['3+1', 742, 136]];
+const RAIL_CHIPS = [['GİRNE', 292, 210], ['DENİZE YAKIN', 486, 332], ['3+1', 810, 154]];
 
 export const Film30v4 = () => {
   const frame = useCurrentFrame();
@@ -158,21 +182,26 @@ export const Film30v4 = () => {
   const fw = frame >= f(28.5) ? frame - 1800 : frame;
   const tw = fw / 60;
 
-  const pWallBack = prog(frame, T.wallBack, T.wallBackLen, ease.drawer);
-  const wallY = t < 15
-    ? -2150 * prog(frame, T.wallExit, 0.55, ease.drawer)
-    : -2150 * (1 - pWallBack);
-  const wallReturning = t >= 15 && frame < f(T.wallBack + T.wallBackLen);
-  /* the wall arrives as PAPER, not a stage wipe: the left corner leads
-     (~3 frames), the leading edge carries a 6px arc that dies at landing */
-  const wallRot = wallReturning ? 0.3 * (1 - pWallBack) : 0;
-  const wallBow = wallReturning ? 6 * Math.sin(Math.PI * pWallBack) : 0;
+  /* THE BOARD (V4.7): a heavy cream press board slides down over the static
+     wall — drawer easing, leading-edge bow, edge-local shadow — rests as the
+     stage base, and lifts away at 28.00 to reveal the wall it never harmed. */
+  const pBoardIn = prog(frame, T.boardIn, T.boardInLen, ease.drawer);
+  const pBoardLift = prog(frame, T.boardLift, T.boardLiftLen, ease.inOut);
+  const boardMovingIn = frame >= f(T.boardIn) && frame < f(T.boardIn + T.boardInLen);
+  const boardLifting = frame >= f(T.boardLift) && frame < f(T.boardLift + T.boardLiftLen);
+  const boardY = -2000 * (1 - pBoardIn) - 2350 * pBoardLift;
+  const boardRot = boardMovingIn ? 0.3 * (1 - pBoardIn)
+    : boardLifting ? 0.35 * Math.sin(Math.PI * pBoardLift) : 0;
+  const boardBow = boardMovingIn ? 6 * Math.sin(Math.PI * pBoardIn)
+    : boardLifting ? 6 * Math.sin(Math.PI * pBoardLift) : 0;
+  const boardMoving = boardMovingIn || boardLifting;
 
   const cobaltInY = 1920 * (1 - prog(frame, T.cobalt, 0.72));
 
-  /* hero card beats (creative move: the card breathes between acts) */
-  const b1 = prog(frame, 12.05, 0.5, ease.inOut);   // language beat: +48/+64
-  const b2 = prog(frame, 13.7, 0.5, ease.inOut);    // price beat: → −36/−52
+  /* hero card beats (creative move: the card breathes between acts) —
+     anchored to the acts they answer, so the V4.7 retime carries them */
+  const b1 = prog(frame, T.lang - 0.35, 0.5, ease.inOut);  // language beat: +48/+64
+  const b2 = prog(frame, T.band - 0.3, 0.5, ease.inOut);   // price beat: → −36/−52
   const beatX = 48 * b1 - 84 * b2;
   const beatY = 64 * b1 - 116 * b2;
   const g = prog(frame, T.glide, 0.55);             // alignment (one overshoot)
@@ -189,8 +218,10 @@ export const Film30v4 = () => {
                     * (1 - prog(frame, T.coverPull + 0.1, 0.15, WIPE))
                     - 0.35 * prog(frame, T.coverOff, 0.2, WIPE);
   /* heavy card, not a plate: the bottom edge arcs 4-5px while in motion,
-     dead flat before and after (silhouette only, texture never warps) */
+     dead flat before and after (silhouette only, texture never warps).
+     V4.7: the TOP edge flexes too during the pull — 6px, dying by +12f */
   const coverBow = 2.5 * Math.sin(Math.PI * pPull) + 5 * Math.sin(Math.PI * pOff);
+  const coverTopBow = 6 * Math.sin(Math.PI * prog(frame, T.coverPull, 0.2, Easing.linear));
   const coverGone = frame >= f(T.coverOff + 0.45);
 
   /* deck gather: 108px spacing collapses to 48px — a tab stack */
@@ -206,6 +237,10 @@ export const Film30v4 = () => {
   const pageContactF = f(T.page + T.pageLen);
   const pageBow = frame === pageContactF ? 2 : frame === pageContactF + 1 ? 0.7 : 0;
   const pageCornerLift = frame === pageContactF - 1 ? 1.5 : 0;
+  /* V4.7 (council): the 1080px leading edge is not a perfect horizontal —
+     it carries the fixed 5-point profile [0,+5,−2,+3,0], amplitude dying to
+     zero over the flight's first 12 frames */
+  const pageWob = 1 - prog(frame, T.page, 0.2, Easing.linear);
   const pageImpact = frame >= pageContactF && frame <= pageContactF + 1;
   /* loop lifts: the trailing edge lags a beat — sheets, not rigid plates */
   const pLift = prog(frame, T.pageLift, 0.7, ease.inOut);
@@ -222,7 +257,11 @@ export const Film30v4 = () => {
   const goldLanded2 = frame >= f(T.goldDown + T.goldDownLen);
   const goldHovering = frame >= f(T.goldUp) && !goldLanded2;
 
-  const showWallItems = tw < 12;
+  /* opening items exist only until the board has fully covered them at
+     05.21 (unmounting at the council's 4.9 would pop them off in plain
+     sight mid-cover; 5.4 is the first invisible frame) — and they re-enter
+     across the loop wrap, where tw goes negative */
+  const showWallItems = tw < 5.4;
 
   return (
     <div style={{ position: 'absolute', inset: 0, background: '#D8D1C1', overflow: 'hidden' }}>
@@ -234,29 +273,16 @@ export const Film30v4 = () => {
             <feTurbulence type="fractalNoise" baseFrequency="0.16" numOctaves="2" seed="23" result="n" />
             <feDisplacementMap in="SourceGraphic" in2="n" scale="2.4" />
           </filter>
+          {/* the light pass: ±1px — for printed lines that must stay crisp */}
+          <filter id="v4SerigLight">
+            <feTurbulence type="fractalNoise" baseFrequency="0.14" numOctaves="2" seed="41" result="n" />
+            <feDisplacementMap in="SourceGraphic" in2="n" scale="1.2" />
+          </filter>
         </defs>
       </svg>
-      {/* the cream press board — deckled edge, its own shadow */}
-      <div style={{ position: 'absolute', inset: 0, filter: 'drop-shadow(0 6px 16px rgba(10,37,64,0.12))' }}>
-        <div style={{ position: 'absolute', inset: 0, background: CREAM,
-                      clipPath: cutEdge(1080, 1920, 777, 10, 16) }}>
-          <svg width="1080" height="1920" style={{ position: 'absolute', inset: 0 }}>
-            <rect width="1080" height="1920" filter="url(#mTooth)" />
-          </svg>
-        </div>
-      </div>
-
-      {/* ════ WALL WORLD (A1) ════ */}
-      <div style={{ position: 'absolute', inset: 0,
-                    transform: `translateY(${wallY}px) rotate(${wallRot}deg)`,
-                    transformOrigin: '100% 0%' }}>
-        {/* the shadow lives ONLY 14-20px under the moving edge */}
-        {wallReturning && (
-          <div style={{ position: 'absolute', left: 0, right: 0, top: '100%', height: 18,
-                        background: 'linear-gradient(to bottom, rgba(10,37,64,0.18), rgba(10,37,64,0))' }} />
-        )}
-        <div style={{ position: 'absolute', inset: 0,
-                      clipPath: wallReturning ? cutEdgeBowed(1080, 1926, 55, 0, 8, wallBow) : 'none' }}>
+      {/* ════ WALL WORLD (A1) — STATIC. It never moves again (V4.7). ════ */}
+      <div style={{ position: 'absolute', inset: 0 }}>
+        <div style={{ position: 'absolute', inset: 0 }}>
         <div style={{ position: 'absolute', inset: 0, background: '#E9E2D2' }}>
           <Img src={TEX.wall} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%',
                                        objectFit: 'cover', opacity: 0.9 }} />
@@ -274,16 +300,17 @@ export const Film30v4 = () => {
           </svg>
         </div>
 
+        {/* the standing wall print — part of the wall itself: it is there at
+            frame 0 and it is STILL there when the board lifts at 28.00 */}
+        <div style={{ position: 'absolute', left: 84, top: 264 }}>
+          <Ink problem style={{ fontFamily: SANS, fontWeight: 800, fontSize: 84, lineHeight: 1.12,
+                                letterSpacing: '-0.015em', color: NAVY }}>
+            AYNI EV.<br />ÜÇ AYRI İLAN.
+          </Ink>
+        </div>
+
         {showWallItems && (
           <>
-            {/* the standing wall print — already there at frame 0 (poster) */}
-            <div style={{ position: 'absolute', left: 84, top: 264 }}>
-              <Ink problem style={{ fontFamily: SANS, fontWeight: 800, fontSize: 84, lineHeight: 1.04,
-                                    letterSpacing: '-0.015em', color: NAVY }}>
-                AYNI EV.<br />TEKRAR TEKRAR.
-              </Ink>
-            </div>
-
             {/* THE PILE — one home, printed too many times. ~13 sheet edges
                 behind the top copies; the whole pile lands across the loop
                 boundary and is settled by 00.21. */}
@@ -329,6 +356,9 @@ export const Film30v4 = () => {
                 { key: 'R', fx: 550, fy: 900, frot: 4.5, srot: 1.2, sdx: -278, sdy: -396, start: T.cardR, kase: true },
               ].map((c) => {
                 const pC = prog(fw, c.start, 0.5);
+                /* material answer at the landing frame: 3px bottom bow, one
+                   frame, silhouette only (council V4.7) */
+                const cBow = fw === f(c.start + 0.5) ? 3 : 0;
                 return (
                   <React.Fragment key={c.key}>
                     {frame !== fw || fw >= f(c.start) - 3 ? (
@@ -338,7 +368,8 @@ export const Film30v4 = () => {
                     <div style={{ position: 'absolute', left: c.fx, top: c.fy, width: 520, height: 620,
                                   transform: `translate(${(1 - pC) * c.sdx}px, ${(1 - pC) * c.sdy}px)
                                               rotate(${c.frot + (1 - pC) * (c.srot - c.frot)}deg)`,
-                                  background: '#F5F1E6', clipPath: cutEdge(520, 620, 218 + (c.kase ? 3 : 0), 2.4, 6) }}>
+                                  background: '#F5F1E6',
+                                  clipPath: cutEdgeBowed(520, 620, 218 + (c.kase ? 3 : 0), 2.4, 6, cBow) }}>
                       <Img src={TEX.photocopy} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%',
                                                         objectFit: 'cover', opacity: 0.7 }} />
                       <div style={{ position: 'absolute', left: 24, top: 24, width: 472, height: 340, filter: 'url(#mPhotocopyImg)' }}>
@@ -374,8 +405,8 @@ export const Film30v4 = () => {
             <div style={place(fw, T.tags[0], T.tagLen, { dy: -140, rot0: -4 })}>
               <Photocopy x={380} y={1196} w={340} h={130} rot={2} seed={61} shadow={false}>
                 <div style={{ position: 'absolute', left: 22, top: 12 }}>
-                  <div style={{ fontFamily: MONO, fontWeight: 650, fontSize: 22, letterSpacing: '0.08em', color: 'rgba(32,36,43,0.8)' }}>İLAN SİTESİ</div>
-                  <Ink problem style={{ fontFamily: SANS, fontWeight: 800, fontSize: 50, color: '#20242B', marginTop: 2 }}>
+                  <div style={{ fontFamily: MONO, fontWeight: 650, fontSize: 26, letterSpacing: '0.08em', color: 'rgba(32,36,43,0.8)' }}>İLAN SİTESİ</div>
+                  <Ink problem style={{ fontFamily: SANS, fontWeight: 800, fontSize: 54, color: '#20242B', marginTop: 2 }}>
                     £175.000
                   </Ink>
                 </div>
@@ -387,8 +418,8 @@ export const Film30v4 = () => {
                 <div style={{ position: 'absolute', left: -14, top: 22, width: 24, height: 24,
                               background: '#F6F2E7', clipPath: 'polygon(100% 0, 100% 100%, 0 32%)' }} />
                 <div style={{ position: 'absolute', left: 22, top: 12 }}>
-                  <div style={{ fontFamily: MONO, fontWeight: 650, fontSize: 22, letterSpacing: '0.08em', color: 'rgba(32,36,43,0.8)' }}>WHATSAPP GRUBU</div>
-                  <Ink marker style={{ fontFamily: SANS, fontWeight: 800, fontSize: 48, color: '#23272E', marginTop: 2 }}>
+                  <div style={{ fontFamily: MONO, fontWeight: 650, fontSize: 26, letterSpacing: '0.08em', color: 'rgba(32,36,43,0.8)' }}>WHATSAPP GRUBU</div>
+                  <Ink marker style={{ fontFamily: SANS, fontWeight: 800, fontSize: 52, color: '#23272E', marginTop: 2 }}>
                     ₺11.900.000
                   </Ink>
                 </div>
@@ -400,8 +431,8 @@ export const Film30v4 = () => {
                 <div style={{ position: 'absolute', inset: 0, background: '#F1ECDF',
                               clipPath: 'polygon(3% 8%, 96% 0, 100% 88%, 64% 100%, 30% 92%, 0 96%)' }} />
                 <div style={{ position: 'absolute', left: 22, top: 12 }}>
-                  <div style={{ fontFamily: MONO, fontWeight: 650, fontSize: 22, letterSpacing: '0.08em', color: 'rgba(32,36,43,0.8)' }}>EMLAKÇI VİTRİNİ</div>
-                  <Ink problem style={{ fontFamily: SANS, fontWeight: 800, fontSize: 46, color: '#20242B', marginTop: 4 }}>
+                  <div style={{ fontFamily: MONO, fontWeight: 650, fontSize: 26, letterSpacing: '0.08em', color: 'rgba(32,36,43,0.8)' }}>EMLAKÇI VİTRİNİ</div>
+                  <Ink problem style={{ fontFamily: SANS, fontWeight: 800, fontSize: 50, color: '#20242B', marginTop: 4 }}>
                     $250.000
                   </Ink>
                 </div>
@@ -411,27 +442,60 @@ export const Film30v4 = () => {
 
             {/* the question, pressed OVER the statement: a photocopy band,
                 right edge touching first, ≥50 frames of clean read */}
-            <CastShadow frame={fw} x={40} y={304} w={1000} h={150} rot={-0.8}
+            <CastShadow frame={fw} x={60} y={352} w={960} h={150} rot={-0.8}
                         start={T.qband} len={T.qbandLen} r={4} />
             <div style={place(fw, T.qband, T.qbandLen, { dy: -56, rot0: 2.4 })}>
-              <Photocopy x={40} y={304} w={1000} h={150} rot={-0.8} seed={97} shadow={false}>
+              <Photocopy x={60} y={352} w={960} h={150} rot={-0.8} seed={97} shadow={false}>
                 <div style={{ position: 'absolute', left: 36, top: 34 }}>
                   <Ink problem style={{ fontFamily: SANS, fontWeight: 800, fontSize: 58,
                                         letterSpacing: '-0.01em', color: NAVY }}>
                     ÜÇ FİYAT. HANGİSİ DOĞRU?
                   </Ink>
                 </div>
+                {/* the question is ALREADY Evlek's: a cobalt tab on the band,
+                    riding with it — the film's author signs its own question */}
+                <div style={{ position: 'absolute', right: 36, top: -30, width: 120, height: 44,
+                              background: COBALT, clipPath: cutEdge(120, 44, 93, 2, 3) }}>
+                  <Wordmark w={71} color="#FFFFFF" style={{ position: 'absolute', left: 24, top: 10 }} />
+                </div>
               </Photocopy>
             </div>
 
-            {/* the film's FIRST cobalt: one −8.3° strike through all three */}
+            {/* the film's FIRST cobalt: one −8.3° strike through all three.
+                Pressed ink (serigraph erosion), clipped BUTT ends — a redaction
+                bar, not a marker doodle (council V4.7) */}
             <div style={{ position: 'absolute', left: 60, top: 1300, width: 1030, height: 60,
                           transform: 'rotate(-8.3deg)', transformOrigin: 'left center',
-                          ...wipe(fw, T.strike, 0.27) }}>
-              <HandLine x={0} y={10} w={1010} seed={31} sw={24} />
+                          filter: 'url(#v4Serig)', ...wipe(fw, T.strike, 0.27) }}>
+              <HandLine x={0} y={10} w={1010} seed={31} sw={24} cap="butt" />
             </div>
           </>
         )}
+        </div>
+      </div>
+
+      {/* ════ THE CREAM PRESS BOARD — an OBJECT, not a set change. It drops
+           over the wall at 04.48 (drawer, bowed leading edge, edge-local
+           shadow), is the stage base for A2–A5, and lifts at 28.00 with a
+           growing ambient to reveal the wall exactly as it was. ════ */}
+      <div style={{ position: 'absolute', inset: 0,
+                    transform: `translateY(${boardY}px) rotate(${boardRot}deg)`,
+                    transformOrigin: '100% 0%',
+                    filter: boardMoving
+                      ? `drop-shadow(0 ${18 + 14 * pBoardLift}px ${30 + 22 * pBoardLift}px rgba(10,37,64,${0.14 + 0.05 * pBoardLift}))`
+                      : 'drop-shadow(0 6px 16px rgba(10,37,64,0.12))' }}>
+        {/* the shadow lives ONLY 14-20px under the moving edge */}
+        {boardMoving && (
+          <div style={{ position: 'absolute', left: 0, right: 0, top: '100%', height: 18,
+                        background: 'linear-gradient(to bottom, rgba(10,37,64,0.18), rgba(10,37,64,0))' }} />
+        )}
+        <div style={{ position: 'absolute', inset: 0, background: CREAM,
+                      clipPath: boardMoving
+                        ? cutEdgeBowed(1080, 1920, 777, 10, 16, boardBow)
+                        : cutEdge(1080, 1920, 777, 10, 16) }}>
+          <svg width="1080" height="1920" style={{ position: 'absolute', inset: 0 }}>
+            <rect width="1080" height="1920" filter="url(#mTooth)" />
+          </svg>
         </div>
       </div>
 
@@ -444,18 +508,22 @@ export const Film30v4 = () => {
         <CobaltSheet top={128} landed={frame >= f(T.cobalt + 0.72)}>
           {/* the ONE promise everything else must prove */}
           <div style={{ position: 'absolute', left: 108, top: 250 }}>
+            {/* ONE press pass, top to bottom — both lines are a single printed
+                mass, 9 frames, linear (council V4.7: no more two-part wipe) */}
             <div style={{ fontFamily: SANS, fontWeight: 800, fontSize: 76, lineHeight: 1.06,
-                          letterSpacing: '-0.015em', color: '#FFFFFF', ...wipe(frame, T.hl1, 0.27) }}>
+                          letterSpacing: '-0.015em', color: '#FFFFFF', ...printPress(frame, T.hl1, 0.15) }}>
               {trUpper('Evlek ne aradığını')}<br />{trUpper('anlar.')}
             </div>
-            <div style={{ ...wipe(frame, T.under, 0.25), position: 'absolute', left: 0, top: 0, width: 360, height: 220 }}>
+            {/* the underline is printed too: ±1px serigraph deviation */}
+            <div style={{ ...wipe(frame, T.under, 0.25), position: 'absolute', left: 0, top: 0,
+                          width: 360, height: 220, filter: 'url(#v4SerigLight)' }}>
               <HandLine x={2} y={186} w={340} color="#FFFFFF" sw={12} seed={9} opacity={0.9} />
             </div>
           </div>
 
           {/* SEARCH RAIL — rendered UNDER the dossier so it can slide out of
               it edge-first (12px at 08.41, fully out by 08.48, set at 08.59) */}
-          {t < 12.6 && (() => {
+          {t < 12.4 && (() => {
             const railEntryX = -1088 * (1 - prog(frame, T.rail, T.railLen, Easing.bezier(0.3, 1.05, 0.55, 1)))
                                - prog(frame, T.railExit, 0.4, ease.drawer) * 1400;
             const railLanded = frame >= f(T.rail + T.railLen);
@@ -469,15 +537,15 @@ export const Film30v4 = () => {
                             transform: `translateX(${railEntryX + (railLanded ? 0 : 14)}px)` }}>
                 {railLanded ? (
                   <>
-                    <div style={{ position: 'absolute', left: -16, top: 563, width: 1112, height: 96,
+                    <div style={{ position: 'absolute', left: -16, top: 563, width: 1112, height: 102,
                                   transform: 'rotate(-0.5deg)', borderRadius: 3,
                                   background: 'rgba(10,37,64,0.20)', filter: 'blur(8px)' }} />
-                    <div style={{ position: 'absolute', left: -16, top: 561, width: 1112, height: 96,
+                    <div style={{ position: 'absolute', left: -16, top: 561, width: 1112, height: 102,
                                   transform: 'rotate(-0.5deg)', borderRadius: 3,
                                   background: 'rgba(10,37,64,0.12)', filter: 'blur(2px)' }} />
                   </>
                 ) : (
-                  <div style={{ position: 'absolute', left: -16, top: 570, width: 1112, height: 96,
+                  <div style={{ position: 'absolute', left: -16, top: 570, width: 1112, height: 102,
                                 transform: 'rotate(-0.5deg)', borderRadius: 3,
                                 background: 'rgba(10,37,64,0.15)', filter: 'blur(20px)' }} />
                 )}
@@ -485,18 +553,18 @@ export const Film30v4 = () => {
               {/* edge-first: 8px of leading edge on the flight's first frame */}
               <div style={{ opacity: frame >= f(T.rail) && frame < f(T.railExit + 0.4) ? 1 : 0,
                             transform: `translateX(${railEntryX}px)` }}>
-                <Sheet x={-16} y={560} w={1112} h={96} rot={-0.5} seed={88} amp={2.4} n={5}
+                <Sheet x={-16} y={560} w={1112} h={102} rot={-0.5} seed={88} amp={2.4} n={5}
                        bg="#F8F4E9" shadow={false} texOpacity={0.68}>
-                  <div style={{ position: 'absolute', left: 78, top: 27, fontFamily: MONO, fontSize: 38,
+                  <div style={{ position: 'absolute', left: 78, top: 29, fontFamily: MONO, fontSize: 38,
                                 letterSpacing: '0.1em', color: 'rgba(10,37,64,0.68)' }}>ARA:</div>
-                  <div style={{ position: 'absolute', left: 296, top: 26, fontFamily: SANS, fontWeight: 600,
-                                fontSize: 40, color: NAVY, whiteSpace: 'nowrap', display: 'flex', gap: 26 }}>
+                  <div style={{ position: 'absolute', left: 296, top: 27, fontFamily: SANS, fontWeight: 600,
+                                fontSize: 43, color: NAVY, whiteSpace: 'nowrap', display: 'flex', gap: 28 }}>
                     <span>Girne’de,</span><span>denize yakın,</span><span>3+1</span>
                   </div>
                   {/* REAL die-cut voids: holes through to the cobalt, with a
                       cut inner edge, perforation remnants and loose fibres */}
                   {RAIL_CHIPS.map(([k, x, w], i) => (
-                    <div key={`v${k}`} style={{ position: 'absolute', left: x, top: 13, width: w, height: 70,
+                    <div key={`v${k}`} style={{ position: 'absolute', left: x, top: 16, width: w, height: 70,
                                                 opacity: frame >= f(T.chips[i]) ? 1 : 0,
                                                 background: COBALT, clipPath: cutEdge(w, 70, 53 + i * 7, 1.8, 4),
                                                 boxShadow: 'inset 0 2px 3px rgba(0,10,40,0.45)' }}>
@@ -510,13 +578,13 @@ export const Film30v4 = () => {
                     </div>
                   ))}
                   {RAIL_CHIPS.map(([k, x, w], i) => (
-                    <CastShadow key={`s${k}`} frame={frame} x={x} y={13} w={w} h={70} small
+                    <CastShadow key={`s${k}`} frame={frame} x={x} y={16} w={w} h={70} small
                                 start={T.chips[i]} len={T.chipLen} r={2} />
                   ))}
                   {/* the pieces themselves: SAME rail material (not white UI),
                       the keyword prints onto them via wipe IN MID-AIR */}
                   {RAIL_CHIPS.map(([txt, x, w], i) => (
-                    <div key={txt} style={{ position: 'absolute', left: x, top: 13, width: w, height: 70,
+                    <div key={txt} style={{ position: 'absolute', left: x, top: 16, width: w, height: 70,
                                             ...place(frame, T.chips[i], T.chipLen, { dy: -22, rot0: [-2, 1.6, -1.8][i] }) }}>
                       <div style={{ position: 'absolute', inset: 0, background: '#F8F4E9',
                                     clipPath: cutEdge(w, 70, 53 + i * 7, 1.8, 4),
@@ -530,7 +598,7 @@ export const Film30v4 = () => {
                         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center',
                                       padding: '0 0 0 44px', ...wipe(frame, T.chips[i] + 0.05, 0.1, Easing.linear) }}>
                           <Punch x={14} y={28} />
-                          <span style={{ fontFamily: SANS, fontWeight: 700, fontSize: 30, color: NAVY,
+                          <span style={{ fontFamily: SANS, fontWeight: 700, fontSize: [30, 30, 33][i], color: NAVY,
                                          letterSpacing: '0.02em' }}>{txt}</span>
                         </div>
                       </div>
@@ -595,7 +663,7 @@ export const Film30v4 = () => {
                                   ? 'drop-shadow(0 18px 28px rgba(10,37,64,0.20))'
                                   : 'drop-shadow(0 2px 4px rgba(10,37,64,0.14))' }}>
                     <div style={{ position: 'absolute', inset: 0, background: '#FDFBF6',
-                                  clipPath: cutEdgeBowed(812, 1024, 141, 2.6, 8, coverBow) }}>
+                                  clipPath: cutEdgeBowed(812, 1024, 141, 2.6, 8, coverBow, 0, coverTopBow) }}>
                       <Img src={TEX.cardstock} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%',
                                                         objectFit: 'cover', opacity: 0.85, objectPosition: '30% 70%' }} />
                     </div>
@@ -634,6 +702,9 @@ export const Film30v4 = () => {
                   </Sheet>
                 </div>
               </div>
+              {/* V4.7: the gathered 5-tab stack yields the stage — the whole
+                  group rises 64px as the market band arrives beneath it */}
+              <div style={{ transform: `translateY(${-64 * prog(frame, T.band, 0.4, ease.inOut)}px)` }}>
               {[
                 { tag: 'TR', line: <>Lapta, Girne’de 3+1 daire</>, sub: <>£175.000 · 120 M² · 3+1</> },
                 { tag: 'EN', line: <>3+1 apartment in Lapta, Kyrenia</>, sub: <>£175,000 · 120 M² · 3+1</> },
@@ -681,6 +752,7 @@ export const Film30v4 = () => {
                   </div>
                 );
               })}
+              </div>
 
               {/* the market band — the ruler waits for the REAL ticket */}
               <CastShadow frame={frame} x={84} y={1218} w={912} h={470} rot={0.7}
@@ -735,7 +807,7 @@ export const Film30v4 = () => {
               {frame >= f(T.ticket) && (() => {
                 const p = prog(frame, T.ticket, 0.45);
                 const tx = 142 + (320 - 142) * p;
-                const ty = 1330 + (1386 - 1330) * p - Math.sin(Math.PI * Math.min(1, p)) * 90;
+                const ty = 1330 + (1386 - 1330) * p - Math.sin(Math.PI * Math.min(1, p)) * 72;
                 return (
                   <div style={{ position: 'absolute', left: tx, top: ty, width: 264, height: 74,
                                 transform: `rotate(${-0.6 + 1.3 * p}deg)`,
@@ -752,11 +824,11 @@ export const Film30v4 = () => {
           )}
 
           {/* MANIFESTO STRIP (A4) */}
-          <CastShadow frame={frame} x={56} y={244} w={968} h={226} rot={-0.4}
+          <CastShadow frame={frame} x={56} y={226} w={968} h={244} rot={-0.4}
                       start={T.manifesto} len={0.53} r={4} />
           <div style={place(frame, T.manifesto, 0.53, { dy: -260, rot0: 3 })}>
-            <Sheet x={56} y={244} w={968} h={226} rot={-0.4} seed={171} amp={3} n={8} fiber={false} shadow={false}>
-              <div style={{ position: 'absolute', left: 52, top: 64, fontFamily: SANS, fontWeight: 800,
+            <Sheet x={56} y={226} w={968} h={244} rot={-0.4} seed={171} amp={3} n={8} fiber={false} shadow={false}>
+              <div style={{ position: 'absolute', left: 52, top: 82, fontFamily: SANS, fontWeight: 800,
                             fontSize: 56, letterSpacing: '-0.015em', color: NAVY }}>
                 GERİYE SADECE EV KALIR.
               </div>
@@ -780,7 +852,7 @@ export const Film30v4 = () => {
                           ? 'drop-shadow(0 3px 8px rgba(10,37,64,0.20)) drop-shadow(0 1px 2px rgba(10,37,64,0.12))'
                           : 'drop-shadow(0 18px 30px rgba(10,37,64,0.16))' }}>
           <div style={{ position: 'absolute', inset: 0, background: '#FBF8F1',
-                        clipPath: cutEdgeBowed(936, 1728, 7, 2.2, 10, pageBow, pageCornerLift) }}>
+                        clipPath: cutEdgeBowed(936, 1728, 7, 2.2, 10, pageBow, pageCornerLift, 0, pageWob) }}>
             <Img src={TEX.press} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%',
                                           objectFit: 'cover', opacity: 0.8 }} />
             <svg width="936" height="1728" style={{ position: 'absolute', inset: 0 }}>
@@ -796,46 +868,26 @@ export const Film30v4 = () => {
           <div style={{ position: 'absolute', left: 84, top: 496 }}>
             <div style={{ fontFamily: SANS, fontWeight: 800, fontSize: 108, lineHeight: 1.05,
                           letterSpacing: '-0.02em', color: NAVY }}>
-              <div style={wipe(frame, T.slog1, 0.3)}>Kıbrıs’ta</div>
-              <div style={wipe(frame, T.slog2, 0.3)}>doğru ev.</div>
+              {/* two single-mass press passes, 8f each, 4f of silence between
+                  (council V4.7: never a left-to-right letter reveal) */}
+              <div style={printPress(frame, T.slog1, 0.133)}>Kıbrıs’ta</div>
+              <div style={printPress(frame, T.slog2, 0.133)}>doğru ev.</div>
             </div>
           </div>
 
-          {/* the approval line — the opening redaction’s −8.3° gesture, scaled;
-              serigraph erosion so the ink sits IN the press paper, drawn with
-              the line and dead still after */}
-          <div style={{ ...wipe(frame, T.line, 0.35), position: 'absolute', left: 156, top: 863,
-                        width: 470, height: 64, transform: 'rotate(-8.3deg)',
-                        transformOrigin: 'left center' }}>
-            {/* pressed ink: multiply blend + ~1px edge erosion, and REAL ≥2px
-                paper gaps (seeded specks locked to the stroke — they open with
-                the wipe and never move; subpixel detail dies in H.264) */}
-            <div style={{ position: 'absolute', inset: 0, mixBlendMode: 'multiply', filter: 'url(#v4Serig)' }}>
-              <HandLine x={0} y={20} w={459} seed={31} sw={15} />
-            </div>
-            {(() => {
-              let s = 977;
-              const r = () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; };
-              return Array.from({ length: 15 }, (_, i) => (
-                <div key={i} style={{ position: 'absolute',
-                                      left: 14 + (459 / 15) * i + r() * 14,
-                                      top: 22 + r() * 9,
-                                      width: 2 + r() * 2.2, height: 2 + r() * 1.6,
-                                      transform: `rotate(${r() * 70}deg)`,
-                                      background: '#FBF8F1', opacity: 0.9 }} />
-              ));
-            })()}
-          </div>
+          {/* V4.7: the approval line is GONE — the council ruled the final
+              page needs no second redaction gesture; the strike belongs to
+              the problem, not the answer. Nothing replaces it. */}
 
-          <div style={{ position: 'absolute', left: 88, top: 912, fontFamily: MONO, fontWeight: 600,
+          <div style={{ position: 'absolute', left: 88, top: 858, fontFamily: MONO, fontWeight: 600,
                         fontSize: 50, letterSpacing: '0.04em', color: NAVY, ...wipe(frame, T.url, 0.25) }}>
             evlek.app
           </div>
 
-          <CastShadow frame={frame} x={84} y={1092} w={768} h={250} start={T.proof} len={T.proofLen} r={8} />
+          <CastShadow frame={frame} x={84} y={1060} w={768} h={250} start={T.proof} len={T.proofLen} r={8} />
           <div style={place(frame, T.proof, T.proofLen,
                             { dy: 150, rot0: 2.2, easing: Easing.bezier(0.32, 1.16, 0.66, 1) })}>
-            <div style={{ position: 'absolute', left: 84, top: 1092, width: 768, height: 250,
+            <div style={{ position: 'absolute', left: 84, top: 1060, width: 768, height: 250,
                           background: '#F7F3EA', borderRadius: stockCorners(83) }}>
               <Img src={TEX.cardstock} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%',
                                                 objectFit: 'cover', opacity: 0.55, borderRadius: stockCorners(83),
@@ -856,7 +908,9 @@ export const Film30v4 = () => {
             </div>
           </div>
 
-          <div style={{ ...wipe(frame, T.mark, 0.35), position: 'absolute', left: 84, top: 1366, width: 460, height: 160 }}>
+          {/* the wordmark is PRESSED in one 14-frame roller pass — a single
+              SVG mass, then absolute stillness until the lift (council V4.7) */}
+          <div style={{ ...printPress(frame, T.mark, T.markLen), position: 'absolute', left: 70, top: 1350, width: 460, height: 160 }}>
             <Wordmark w={430} color={NAVY} style={{ position: 'absolute', left: 0, top: 0 }} />
           </div>
         </div>
@@ -889,8 +943,11 @@ export const Film30v4 = () => {
           <div style={{ position: 'absolute', left: TAB.x, top: TAB.y, width: 168, height: 86,
                         transform: 'rotate(1.6deg)' }}>
             {/* gold STOCK, not a UI badge: object-locked low-frequency fibre
-                (~2-3%) + silkscreen break-up (~1%); mean stays #C9A157 */}
-            <div style={{ position: 'absolute', inset: 0, background: GOLD, clipPath: cutEdge(168, 86, 3, 2.2, 4) }}>
+                (~2-3%) + silkscreen break-up (~1%); mean stays #C9A157.
+                V4.7: 2px pressure bow on the bottom edge, contact frame only */}
+            <div style={{ position: 'absolute', inset: 0, background: GOLD,
+                          clipPath: cutEdgeBowed(168, 86, 3, 2.2, 4,
+                            frame === f(T.gold + T.goldLen) ? 2 : 0) }}>
               <svg width="168" height="86" style={{ position: 'absolute', inset: 0 }}>
                 <rect width="168" height="86" filter="url(#mFiber)" opacity="0.6" />
                 <rect width="168" height="86" filter="url(#mToner)" opacity="0.14" />

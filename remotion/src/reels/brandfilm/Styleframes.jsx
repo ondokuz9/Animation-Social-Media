@@ -77,10 +77,10 @@ export const Sheet = ({ x, y, w, h, rot = 0, bg = '#FDFBF6', seed = 1, amp = 3, 
   </div>
 );
 
-export const HandLine = ({ x, y, w, color = COBALT, sw = 16, seed = 4, opacity = 1 }) => (
+export const HandLine = ({ x, y, w, color = COBALT, sw = 16, seed = 4, opacity = 1, cap = 'round' }) => (
   <svg width={w} height={16 + sw} style={{ position: 'absolute', left: x, top: y, overflow: 'visible', opacity }}>
     <polyline points={wobblePts(w, seed)} fill="none" stroke={color}
-              strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round" />
+              strokeWidth={sw} strokeLinecap={cap} strokeLinejoin="round" />
   </svg>
 );
 
