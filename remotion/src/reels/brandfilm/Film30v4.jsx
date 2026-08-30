@@ -32,6 +32,7 @@ import {
   NAVY, COBALT, GOLD, CREAM, TEX,
   cutEdge, stockCorners, MatterDefs, Ink,
   Photocopy, CardStock, CobaltSheet, Tape, Perforation, Punch, CropMarks, PhotoSlot,
+  PHOTO_MASKS,
 } from './matter.jsx';
 import { Sheet, HandLine, Wordmark, HOME } from './Styleframes.jsx';
 
@@ -278,33 +279,33 @@ export const Film30v4 = () => {
             <feTurbulence type="fractalNoise" baseFrequency="0.14" numOctaves="2" seed="41" result="n" />
             <feDisplacementMap in="SourceGraphic" in2="n" scale="1.2" />
           </filter>
+          {/* V4.8: the wall headline's toner break-up, −20% (3.5 → 2.8) —
+              one dominant flaw per frame; wall+photo+type must not all
+              shout grunge at once */}
+          <filter id="v4InkRough80">
+            <feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="2" seed="9" result="n" />
+            <feDisplacementMap in="SourceGraphic" in2="n" scale="2.8" />
+          </filter>
         </defs>
       </svg>
       {/* ════ WALL WORLD (A1) — STATIC. It never moves again (V4.7). ════ */}
       <div style={{ position: 'absolute', inset: 0 }}>
         <div style={{ position: 'absolute', inset: 0 }}>
-        <div style={{ position: 'absolute', inset: 0, background: '#E9E2D2' }}>
-          <Img src={TEX.wall} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%',
-                                       objectFit: 'cover', opacity: 0.9 }} />
-          <svg width="1080" height="1920" style={{ position: 'absolute', inset: 0 }}>
-            <rect width="1080" height="1920" filter="url(#mTone)" opacity="0.45" />
-            <path d="M40 1560 L150 1500 L210 1520 L340 1440 L395 1452" fill="none" stroke="rgba(10,37,64,0.16)" strokeWidth="2.2" />
-            <path d="M210 1520 L235 1560" fill="none" stroke="rgba(10,37,64,0.12)" strokeWidth="1.6" />
-            <rect width="1080" height="360" fill="url(#v4Eave)" />
-            <defs>
-              <linearGradient id="v4Eave" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stopColor="rgba(10,37,64,0.10)" />
-                <stop offset="1" stopColor="rgba(10,37,64,0)" />
-              </linearGradient>
-            </defs>
-          </svg>
+        {/* V4.8 (council): sun-bleached lime-plaster Mediterranean wall —
+            clean but lived-in. Synthetic static texture (mean #E9E2D7,
+            floor #D9D1C4, hairline cracks only, tape ghosts + pinholes
+            baked in). No vignette, no moving grain, no SVG overlay. */}
+        <div style={{ position: 'absolute', inset: 0, background: '#E9E2D7' }}>
+          <Img src={TEX.wallPlaster} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%',
+                                              objectFit: 'cover' }} />
         </div>
 
         {/* the standing wall print — part of the wall itself: it is there at
             frame 0 and it is STILL there when the board lifts at 28.00 */}
         <div style={{ position: 'absolute', left: 84, top: 264 }}>
-          <Ink problem style={{ fontFamily: SANS, fontWeight: 800, fontSize: 84, lineHeight: 1.12,
-                                letterSpacing: '-0.015em', color: NAVY }}>
+          <Ink problem roughUrl="url(#v4InkRough80)" ghostOpacity={0.176}
+               style={{ fontFamily: SANS, fontWeight: 800, fontSize: 84, lineHeight: 1.12,
+                        letterSpacing: '-0.015em', color: NAVY }}>
             AYNI EV.<br />ÜÇ AYRI İLAN.
           </Ink>
         </div>
@@ -333,8 +334,11 @@ export const Film30v4 = () => {
                             clipPath: cutEdge(560, 860, 208, 2.6, 7) }}>
                 <Img src={TEX.photocopy} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%',
                                                   objectFit: 'cover', opacity: 0.8 }} />
-                <div style={{ position: 'absolute', left: 30, top: 30, width: 500, height: 430, filter: 'url(#mPhotocopyImg)' }}>
-                  <PhotoSlot w={500} h={430} mask="b" src={HOME.ext} />
+                {/* V4.8: pre-baked navy-ink duotone PNG (fixed pixels — no
+                    CSS/SVG crush; shadow blocks survive H.264) */}
+                <div style={{ position: 'absolute', left: 30, top: 30, width: 500, height: 430,
+                              clipPath: PHOTO_MASKS.b }}>
+                  <Img src={TEX.homeDuoClean} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
                 <div style={{ position: 'absolute', left: 32, top: 486 }}>
                   <Ink problem style={{ fontFamily: SANS, fontWeight: 800, fontSize: 54, letterSpacing: '0.04em', color: '#20242B' }}>
@@ -372,8 +376,12 @@ export const Film30v4 = () => {
                                   clipPath: cutEdgeBowed(520, 620, 218 + (c.kase ? 3 : 0), 2.4, 6, cBow) }}>
                       <Img src={TEX.photocopy} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%',
                                                         objectFit: 'cover', opacity: 0.7 }} />
-                      <div style={{ position: 'absolute', left: 24, top: 24, width: 472, height: 340, filter: 'url(#mPhotocopyImg)' }}>
-                        <PhotoSlot w={472} h={340} mask="a" src={HOME.ext} />
+                      {/* same home, same framing — only copier-generation
+                          differences (soft = WhatsApp, flat = vitrin) */}
+                      <div style={{ position: 'absolute', left: 24, top: 24, width: 472, height: 340,
+                                    clipPath: PHOTO_MASKS.a }}>
+                        <Img src={c.kase ? TEX.homeDuoFlat : TEX.homeDuoSoft}
+                             style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                       </div>
                       <div style={{ position: 'absolute', left: 26, top: 384 }}>
                         <Ink problem style={{ fontFamily: SANS, fontWeight: 800, fontSize: 44, letterSpacing: '0.04em', color: '#20242B' }}>

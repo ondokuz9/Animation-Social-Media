@@ -30,6 +30,13 @@ export const TEX = {
   cobalt: staticFile('brandfilm/tex/cobalt.jpg'),
   tape: staticFile('brandfilm/tex/tape.jpg'),
   torn: staticFile('brandfilm/tex/torn.jpg'),
+  /* V4.8 (council): clean lime-plaster wall + pre-baked navy-ink duotone
+     photo trio (fixed PNGs — never a CSS filter, so shadow blocks survive
+     H.264). clean = ilan sitesi · soft = WhatsApp · flat = vitrin */
+  wallPlaster: staticFile('brandfilm/tex/wall-plaster.png'),
+  homeDuoClean: staticFile('brandfilm/tex/home-ext-duo-clean.png'),
+  homeDuoSoft: staticFile('brandfilm/tex/home-ext-duo-soft.png'),
+  homeDuoFlat: staticFile('brandfilm/tex/home-ext-duo-flat.png'),
 };
 
 export const NAVY = '#0A2540';
@@ -112,15 +119,16 @@ export const MatterDefs = () => (
 
 /* ── printed text: misregistration + broken toner for the problem world,
       clean press for the Evlek world ── */
-export const Ink = ({ children, style = {}, problem = false, marker = false }) => (
+export const Ink = ({ children, style = {}, problem = false, marker = false,
+                      roughUrl = 'url(#mInkRough)', ghostOpacity = 0.22 }) => (
   <div style={{ position: 'relative', ...style }}>
     {problem && (
       <div aria-hidden style={{
         position: 'absolute', inset: 0, transform: 'translate(1px, 0.6px)',
-        opacity: 0.22, filter: 'url(#mInkRough)', color: style.color || NAVY,
+        opacity: ghostOpacity, filter: roughUrl, color: style.color || NAVY,
       }}>{children}</div>
     )}
-    <div style={{ filter: marker ? 'url(#mInkMarker)' : problem ? 'url(#mInkRough)' : 'none' }}>
+    <div style={{ filter: marker ? 'url(#mInkMarker)' : problem ? roughUrl : 'none' }}>
       {children}
     </div>
   </div>
