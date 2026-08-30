@@ -1,0 +1,46 @@
+{
+  "name": "Evlek Brand Film — V4.8 master pair (açılış art-direction ameliyatı: duotone foto + kireç-sıva duvar)",
+  "note": "Large binaries stay out of git (working rule 12); they are pinned here by checksum. Both are rendered from the Remotion source at the commit named below — the master is NEVER produced by transcoding a lossy MP4. To reproduce: render BrandFilmV4 with --codec=prores --prores-profile=hq --muted, then derive the social file with the exact ffmpeg command below.",
+  "source": {
+    "repo_path": "remotion/",
+    "composition": "BrandFilmV4",
+    "frames": 1800,
+    "fps": 60,
+    "size": "1080x1920",
+    "branch": "claude/evlek-brand-film-math12",
+    "commit": "5da64bb16097630af353dfa4b517fed5d2b39ead"
+  },
+  "master": {
+    "file": "out/evlek_master_prores_v48.mov",
+    "sha256": "98d341428310a0b97b6a1ef0a4ec2307fbac2f0cfb7cdc453a21eef85e34d7cc",
+    "codec": "prores",
+    "profile": "HQ",
+    "pix_fmt": "yuv422p10le",
+    "fps": "60/1 CFR",
+    "nb_frames": 1800,
+    "duration": "30.000000",
+    "audio": "none"
+  },
+  "social": {
+    "file": "out/evlek_brandfilm_v48_1080x1920_60fps.mp4",
+    "sha256": "d41f5ff0d1e3c796c9df164f627029a47abd6ddd56823bd649834f5f7e4cedd6",
+    "codec": "h264 High L4.2",
+    "pix_fmt": "yuv420p",
+    "color": "tv range, BT.709 primaries/transfer/matrix (explicit)",
+    "crf": 14,
+    "tune": "grain",
+    "gop": "keyint=120:min-keyint=120:scenecut=0:open-gop=0",
+    "fps": "60/1 CFR",
+    "nb_frames": 1800,
+    "duration": "30.000000",
+    "bit_rate": 9728500,
+    "audio": "none",
+    "encode_command": "ffmpeg -i evlek_master_prores_v48.mov -c:v libx264 -preset slower -crf 14 -tune grain -profile:v high -level 4.2 -pix_fmt yuv420p -r 60 -fps_mode cfr -x264-params keyint=120:min-keyint=120:scenecut=0:open-gop=0 -color_primaries bt709 -color_trc bt709 -colorspace bt709 -color_range tv -movflags +faststart -an evlek_brandfilm_v48_1080x1920_60fps.mp4"
+  },
+  "izleme": {
+    "file": "out/evlek_brandfilm_v48_izleme_crf17.mp4",
+    "sha256": "d3eebeaacc0c698a58e0a0d860df99cb700c82349f958deefbfcb5693e367fbf",
+    "crf": 17,
+    "note": "chat-preview copy only; same chain, not a deliverable"
+  }
+}
