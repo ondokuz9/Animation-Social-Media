@@ -118,10 +118,14 @@ const ApproachShadow = ({ frame, start }) => {
 
 /* ── master timeline (decimal seconds; negative wraps the loop) ── */
 const T = {
-  sheet: -0.05, tape: 0.62, head: 0.27, scribble: 0.567,
-  scrapA: 1.25, scrapB: 1.6, scrapC: 1.95, verdict: 3.55, strike: 4.55,
-  /* A1 dead zone cut to 18 frames: strike done 4.82 → cobalt body 05.09 */
-  wallExit: 5.1, cobalt: 5.15,
+  /* NEW OPENING (director): the duplicate-pile hook. The pile lands across
+     the loop boundary; frame 0 already reads as a poster. */
+  stack: -0.35, stackLen: 0.55,        // lands 0.20, settled by 0.35
+  cardR: 0.48, cardL: 0.85,            // the top two copies dealt aside
+  tags: [1.3, 1.6, 1.9], tagLen: 0.2,  // £ / ₺ / $ — three short TAKs
+  qband: 2.3, qbandLen: 0.5,           // ÜÇ FİYAT. HANGİSİ DOĞRU? (50f read)
+  strike: 3.8,                          // the −8.3° cobalt redaction
+  wallExit: 5.1, cobalt: 5.15,          // audited anchors — untouched
   hl1: 6.05, hl2: 6.3, under: 6.65,
   hero: 7.85,                                   // the CLOSED dossier arrives
   rail: 8.6833, railLen: 0.3,                   // slides out of the dossier
@@ -272,133 +276,159 @@ export const Film30v4 = () => {
 
         {showWallItems && (
           <>
-            <div style={{ position: 'absolute', left: 84, top: 300, ...wipe(fw, T.head, 0.267) }}>
+            {/* the standing wall print — already there at frame 0 (poster) */}
+            <div style={{ position: 'absolute', left: 84, top: 264 }}>
               <Ink problem style={{ fontFamily: SANS, fontWeight: 800, fontSize: 84, lineHeight: 1.04,
                                     letterSpacing: '-0.015em', color: NAVY }}>
-                {trUpper('Kıbrıs’ta')}<br />{trUpper('ev aramak:')}
+                AYNI EV.<br />TEKRAR TEKRAR.
               </Ink>
             </div>
-            <div style={{ position: 'absolute', left: 88, top: 492, transform: 'rotate(-1.2deg)',
-                          ...wipe(fw, T.scribble, 0.15) }}>
-              <div style={{ fontFamily: SANS, fontWeight: 500, fontSize: 45, color: NAVY }}>
-                Hâlâ satılık mı?
-              </div>
-            </div>
 
-            {/* SATILIK — enters edge-first across the loop; taped at the top,
-                so its cast shadow is GRADED: none up top, 18–24px at the foot */}
-            <CastShadow frame={fw} x={172} y={560} w={700} h={950} rot={-1.7}
-                        start={T.sheet} len={0.5} r={4} graded />
-            <div style={place(fw, T.sheet, 0.5, { dy: -1490, rot0: -3 })}>
-              <Photocopy x={172} y={560} w={700} h={950} rot={-1.7} seed={5} shadow={false}>
-                <div style={{ position: 'absolute', left: 56, top: 172, width: 588, height: 400, filter: 'url(#mPhotocopyImg)' }}>
-                  <PhotoSlot w={588} h={400} mask="b" src={HOME.ext} />
+            {/* THE PILE — one home, printed too many times. ~13 sheet edges
+                behind the top copies; the whole pile lands across the loop
+                boundary and is settled by 00.21. */}
+            <CastShadow frame={fw} x={260} y={470} w={580} h={870} rot={-1}
+                        start={T.stack} len={T.stackLen} r={4} />
+            <div style={place(fw, T.stack, T.stackLen, { dy: -400, rot0: -2 })}>
+              {/* stray edges of the other copies */}
+              {(() => { let s7=311; const r=()=>{s7=(s7*1664525+1013904223)>>>0;return s7/4294967296*2-1;};
+                return Array.from({ length: 13 }, (_, i) => (
+                  <div key={i} style={{ position: 'absolute',
+                                        left: 250 + r() * 26, top: 464 + i * 5 + r() * 3,
+                                        width: 596 + r() * 18, height: 16,
+                                        transform: `rotate(${r() * 1.6}deg)`,
+                                        background: i % 2 ? '#F1EBDC' : '#EDE7D6',
+                                        boxShadow: '0 1px 2px rgba(10,37,64,0.10)' }} />
+                )); })()}
+              {/* base copy (the third visible one) */}
+              <div style={{ position: 'absolute', left: 270, top: 470, width: 560, height: 860,
+                            transform: 'rotate(-0.6deg)', background: '#F3EFE5',
+                            clipPath: cutEdge(560, 860, 208, 2.6, 7) }}>
+                <Img src={TEX.photocopy} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%',
+                                                  objectFit: 'cover', opacity: 0.8 }} />
+                <div style={{ position: 'absolute', left: 30, top: 30, width: 500, height: 430, filter: 'url(#mPhotocopyImg)' }}>
+                  <PhotoSlot w={500} h={430} mask="b" src={HOME.ext} />
                 </div>
-                <div style={{ position: 'absolute', left: 56, top: 52 }}>
-                  <Ink problem style={{ fontFamily: SANS, fontWeight: 800, fontSize: 108, letterSpacing: '0.05em', color: '#20242B' }}>
+                <div style={{ position: 'absolute', left: 32, top: 486 }}>
+                  <Ink problem style={{ fontFamily: SANS, fontWeight: 800, fontSize: 54, letterSpacing: '0.04em', color: '#20242B' }}>
                     SATILIK
                   </Ink>
-                </div>
-                <div style={{ position: 'absolute', left: 56, top: 596 }}>
-                  <Ink problem style={{ fontFamily: SANS, fontWeight: 600, fontSize: 40, color: '#2A2E36', lineHeight: 1.3 }}>
-                    3+1 · Lapta · denize yakın<br />ACİL !!
+                  <Ink problem style={{ fontFamily: MONO, fontWeight: 500, fontSize: 27, color: '#2A2E36', marginTop: 10 }}>
+                    3+1 · Lapta · denize yakın
                   </Ink>
-                </div>
-                <div style={{ position: 'absolute', left: 56, top: 724 }}>
-                  <Ink problem marker style={{ fontFamily: MONO, fontWeight: 500, fontSize: 46, letterSpacing: '0.06em', color: '#20242B' }}>
+                  <Ink problem marker style={{ fontFamily: MONO, fontSize: 30, letterSpacing: '0.05em', color: '#20242B', marginTop: 10 }}>
                     0533 8•• •• ••
                   </Ink>
                 </div>
-                <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: 118 }}>
-                  <Perforation x={18} y={0} w={664} torn />
-                  {Array.from({ length: 7 }, (_, i) => {
-                    const gone = i === 1 || i === 4;
-                    return gone ? (
-                      <div key={i} style={{ position: 'absolute', left: 24 + i * 94, top: 4, width: 84, height: 26,
-                                            background: '#E2DCCB',
-                                            clipPath: 'polygon(0 0, 100% 0, 92% 100%, 55% 62%, 8% 88%)' }} />
-                    ) : (
-                      <div key={i} style={{ position: 'absolute', left: 24 + i * 94, top: 2, width: 84, height: 112,
-                                            background: '#F3EFE5', transform: `rotate(${[0.8, 0, -1.4, 0.5, 0, 1.8, -0.7][i]}deg)`,
-                                            transformOrigin: 'top center',
-                                            boxShadow: '0 3px 5px rgba(10,37,64,0.10)',
-                                            clipPath: cutEdge(84, 112, 40 + i, 2, 3) }}>
-                        <div style={{ fontFamily: MONO, fontSize: 21, color: 'rgba(32,36,43,0.72)', letterSpacing: '0.04em',
-                                      transform: 'rotate(90deg) translate(24px, -28px)', transformOrigin: 'top left', whiteSpace: 'nowrap' }}>
-                          0533 8•• ••
-                        </div>
+              </div>
+
+              {/* the top two copies, dealt aside — SAME balcony, SAME tree,
+                  SAME framing: the viewer SEES it is one home */}
+              {[
+                { key: 'L', fx: 10, fy: 940, frot: -4.5, srot: -0.9, sdx: 266, sdy: -434, start: T.cardL, kase: false },
+                { key: 'R', fx: 550, fy: 900, frot: 4.5, srot: 1.2, sdx: -278, sdy: -396, start: T.cardR, kase: true },
+              ].map((c) => {
+                const pC = prog(fw, c.start, 0.5);
+                return (
+                  <React.Fragment key={c.key}>
+                    {frame !== fw || fw >= f(c.start) - 3 ? (
+                      <CastShadow frame={fw} x={c.fx} y={c.fy} w={520} h={620} rot={c.frot}
+                                  start={c.start} len={0.5} r={4} />
+                    ) : null}
+                    <div style={{ position: 'absolute', left: c.fx, top: c.fy, width: 520, height: 620,
+                                  transform: `translate(${(1 - pC) * c.sdx}px, ${(1 - pC) * c.sdy}px)
+                                              rotate(${c.frot + (1 - pC) * (c.srot - c.frot)}deg)`,
+                                  background: '#F5F1E6', clipPath: cutEdge(520, 620, 218 + (c.kase ? 3 : 0), 2.4, 6) }}>
+                      <Img src={TEX.photocopy} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%',
+                                                        objectFit: 'cover', opacity: 0.7 }} />
+                      <div style={{ position: 'absolute', left: 24, top: 24, width: 472, height: 340, filter: 'url(#mPhotocopyImg)' }}>
+                        <PhotoSlot w={472} h={340} mask="a" src={HOME.ext} />
                       </div>
-                    );
-                  })}
-                </div>
-                <div style={{ position: 'absolute', inset: 0, ...wipe(fw, T.tape, 0.1) }}><Tape x={-34} y={-16} rot={-12} /></div>
-                <div style={{ position: 'absolute', inset: 0, ...wipe(fw, T.tape + 0.08, 0.1) }}><Tape x={580} y={-14} rot={9} /></div>
-                <div style={{ position: 'absolute', right: -2, bottom: 116, width: 60, height: 60,
-                              background: 'linear-gradient(315deg, rgba(10,37,64,0.10), transparent 60%)' }} />
-              </Photocopy>
+                      <div style={{ position: 'absolute', left: 26, top: 384 }}>
+                        <Ink problem style={{ fontFamily: SANS, fontWeight: 800, fontSize: 44, letterSpacing: '0.04em', color: '#20242B' }}>
+                          SATILIK
+                        </Ink>
+                        <Ink problem style={{ fontFamily: MONO, fontWeight: 500, fontSize: 24, color: '#2A2E36', marginTop: 8 }}>
+                          3+1 · Lapta{c.kase ? ' · deniz yakın' : ' · denize yakın'}
+                        </Ink>
+                        <Ink problem marker style={{ fontFamily: MONO, fontSize: 26, letterSpacing: '0.05em', color: '#20242B', marginTop: 8 }}>
+                          {c.kase ? '0542 3•• •• ••' : '0533 8•• •• ••'}
+                        </Ink>
+                      </div>
+                      {c.kase && (
+                        <div style={{ position: 'absolute', right: 18, top: 14, transform: 'rotate(-8deg)',
+                                      border: '2.5px solid rgba(10,37,64,0.5)', padding: '4px 10px' }}>
+                          <span style={{ fontFamily: MONO, fontSize: 20, letterSpacing: '0.08em',
+                                         color: 'rgba(10,37,64,0.62)' }}>HÂLÂ SATILIK MI?</span>
+                        </div>
+                      )}
+                    </div>
+                  </React.Fragment>
+                );
+              })}
             </div>
 
-            {/* three prices, three materials, one diagonal */}
-            <CastShadow frame={fw} x={19} y={1311} w={392} h={166} rot={2.1} start={T.scrapA} len={0.42} r={4} />
-            <div style={place(fw, T.scrapA, 0.42, { dy: -220, rot0: -5 })}>
-              <Photocopy x={19} y={1311} w={392} h={166} rot={2.1} seed={61} shadow={false}>
-                {Array.from({ length: 5 }, (_, i) => (
-                  <div key={i} style={{ position: 'absolute', left: 10, top: 16 + i * 32, width: 11, height: 11,
-                                        borderRadius: 99, background: '#E4DCC8',
-                                        boxShadow: 'inset 0 1px 2px rgba(10,37,64,0.28)' }} />
-                ))}
-                <div style={{ position: 'absolute', left: 40, top: 18 }}>
-                  <div style={{ fontFamily: MONO, fontWeight: 650, fontSize: 28, letterSpacing: '0.1em', color: 'rgba(32,36,43,0.85)' }}>İLAN SİTESİ</div>
-                  <Ink problem style={{ fontFamily: SANS, fontWeight: 800, fontSize: 60, color: '#20242B', marginTop: 4 }}>
+            {/* three price tags, three sources, ON the three copies —
+                their centres sit on the −8.3° diagonal the strike will hit */}
+            <CastShadow frame={fw} x={380} y={1196} w={340} h={130} rot={2} small start={T.tags[0]} len={T.tagLen} r={3} />
+            <div style={place(fw, T.tags[0], T.tagLen, { dy: -140, rot0: -4 })}>
+              <Photocopy x={380} y={1196} w={340} h={130} rot={2} seed={61} shadow={false}>
+                <div style={{ position: 'absolute', left: 22, top: 12 }}>
+                  <div style={{ fontFamily: MONO, fontWeight: 650, fontSize: 22, letterSpacing: '0.08em', color: 'rgba(32,36,43,0.8)' }}>İLAN SİTESİ</div>
+                  <Ink problem style={{ fontFamily: SANS, fontWeight: 800, fontSize: 50, color: '#20242B', marginTop: 2 }}>
                     £175.000
                   </Ink>
                 </div>
               </Photocopy>
             </div>
-            <CastShadow frame={fw} x={338} y={1268} w={464} h={148} rot={-2.4} start={T.scrapB} len={0.42} r={4} />
-            <div style={place(fw, T.scrapB, 0.42, { dy: -220, rot0: 5 })}>
-              <Sheet x={338} y={1268} w={464} h={148} rot={-2.4} bg="#F6F2E7" seed={77} amp={5} n={5} fiber={false} shadow={false}>
-                <div style={{ position: 'absolute', left: -16, top: 26, width: 26, height: 26,
+            <CastShadow frame={fw} x={30} y={1240} w={340} h={130} rot={-2.4} small start={T.tags[1]} len={T.tagLen} r={3} />
+            <div style={place(fw, T.tags[1], T.tagLen, { dy: -140, rot0: 4 })}>
+              <Sheet x={30} y={1240} w={340} h={130} rot={-2.4} bg="#F6F2E7" seed={77} amp={4} n={4} fiber={false} shadow={false}>
+                <div style={{ position: 'absolute', left: -14, top: 22, width: 24, height: 24,
                               background: '#F6F2E7', clipPath: 'polygon(100% 0, 100% 100%, 0 32%)' }} />
-                <div style={{ position: 'absolute', left: 28, top: 12 }}>
-                  <div style={{ fontFamily: MONO, fontWeight: 650, fontSize: 28, letterSpacing: '0.1em', color: 'rgba(32,36,43,0.85)' }}>WHATSAPP GRUBU</div>
-                  <Ink marker style={{ fontFamily: SANS, fontWeight: 800, fontSize: 58, color: '#23272E', marginTop: 2 }}>
+                <div style={{ position: 'absolute', left: 22, top: 12 }}>
+                  <div style={{ fontFamily: MONO, fontWeight: 650, fontSize: 22, letterSpacing: '0.08em', color: 'rgba(32,36,43,0.8)' }}>WHATSAPP GRUBU</div>
+                  <Ink marker style={{ fontFamily: SANS, fontWeight: 800, fontSize: 48, color: '#23272E', marginTop: 2 }}>
                     ₺11.900.000
                   </Ink>
                 </div>
               </Sheet>
             </div>
-            <CastShadow frame={fw} x={659} y={1212} w={372} h={156} rot={4.2} start={T.scrapC} len={0.42} r={4} />
-            <div style={place(fw, T.scrapC, 0.42, { dy: -220, rot0: 6 })}>
-              <div style={{ position: 'absolute', left: 659, top: 1212, width: 372, height: 156, transform: 'rotate(4.2deg)' }}>
+            <CastShadow frame={fw} x={630} y={1152} w={340} h={130} rot={3.4} small start={T.tags[2]} len={T.tagLen} r={3} />
+            <div style={place(fw, T.tags[2], T.tagLen, { dy: -140, rot0: 5 })}>
+              <div style={{ position: 'absolute', left: 630, top: 1152, width: 340, height: 130, transform: 'rotate(3.4deg)' }}>
                 <div style={{ position: 'absolute', inset: 0, background: '#F1ECDF',
                               clipPath: 'polygon(3% 8%, 96% 0, 100% 88%, 64% 100%, 30% 92%, 0 96%)' }} />
-                <div style={{ position: 'absolute', left: 26, top: 14 }}>
-                  <div style={{ fontFamily: MONO, fontWeight: 650, fontSize: 28, letterSpacing: '0.1em', color: 'rgba(32,36,43,0.85)' }}>EMLAKÇI VİTRİNİ</div>
-                  <Ink problem style={{ fontFamily: SANS, fontWeight: 800, fontSize: 56, color: '#20242B', marginTop: 4 }}>
+                <div style={{ position: 'absolute', left: 22, top: 12 }}>
+                  <div style={{ fontFamily: MONO, fontWeight: 650, fontSize: 22, letterSpacing: '0.08em', color: 'rgba(32,36,43,0.8)' }}>EMLAKÇI VİTRİNİ</div>
+                  <Ink problem style={{ fontFamily: SANS, fontWeight: 800, fontSize: 46, color: '#20242B', marginTop: 4 }}>
                     $250.000
                   </Ink>
                 </div>
-                <Tape x={20} y={-18} rot={-1.5} w={150} h={34} />
-                <Tape x={210} y={-20} rot={2} w={150} h={34} />
+                <Tape x={110} y={-18} rot={-3} w={120} h={30} />
               </div>
             </div>
 
-            {/* verdict — optically aligned with the headline (x≈88) */}
-            <CastShadow frame={fw} x={56} y={478} w={968} h={132} rot={-0.5} start={T.verdict} len={0.45} r={4} />
-            <div style={place(fw, T.verdict, 0.45, { dx: 70, dy: -170, rot0: 3 })}>
-              <Sheet x={56} y={478} w={968} h={132} rot={-0.5} seed={191} amp={3} n={7} fiber={false} shadow={false}>
-                <div style={{ position: 'absolute', left: 29, top: 30, fontFamily: SANS, fontWeight: 800,
-                              fontSize: 56, letterSpacing: '-0.01em', color: NAVY }}>
-                  AYNI EV. ÜÇ FİYAT.
+            {/* the question, pressed OVER the statement: a photocopy band,
+                right edge touching first, ≥50 frames of clean read */}
+            <CastShadow frame={fw} x={40} y={304} w={1000} h={150} rot={-0.8}
+                        start={T.qband} len={T.qbandLen} r={4} />
+            <div style={place(fw, T.qband, T.qbandLen, { dy: -56, rot0: 2.4 })}>
+              <Photocopy x={40} y={304} w={1000} h={150} rot={-0.8} seed={97} shadow={false}>
+                <div style={{ position: 'absolute', left: 36, top: 34 }}>
+                  <Ink problem style={{ fontFamily: SANS, fontWeight: 800, fontSize: 58,
+                                        letterSpacing: '-0.01em', color: NAVY }}>
+                    ÜÇ FİYAT. HANGİSİ DOĞRU?
+                  </Ink>
                 </div>
-              </Sheet>
+              </Photocopy>
             </div>
 
-            <div style={{ position: 'absolute', left: 32, top: 1398, width: 1030, height: 60,
-                          transform: 'rotate(-8.4deg)', transformOrigin: 'left center',
+            {/* the film's FIRST cobalt: one −8.3° strike through all three */}
+            <div style={{ position: 'absolute', left: 60, top: 1300, width: 1030, height: 60,
+                          transform: 'rotate(-8.3deg)', transformOrigin: 'left center',
                           ...wipe(fw, T.strike, 0.27) }}>
-              <HandLine x={0} y={10} w={1027} seed={31} sw={24} />
+              <HandLine x={0} y={10} w={1010} seed={31} sw={24} />
             </div>
           </>
         )}
