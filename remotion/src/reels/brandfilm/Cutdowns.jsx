@@ -362,6 +362,38 @@ const GoldTab = ({ frame, T, pageOutY }) => {
   );
 };
 
+
+/* ── the FINAL wordmark: one frozen object, physically set down from below.
+   Its cast shadow is letter-shaped (the wordmark itself, blurred), announces
+   exactly 3 frames before the move, hardens on contact. No opacity fade,
+   no wipe, no clip-path, no per-letter reveal, scale locked at 1. ── */
+const PlacedWordmark = ({ frame, T, x, y }) => {
+  const landed = frame >= f(T.mark + T.markLen);
+  const announce = frame < f(T.mark) - 3 ? 0
+    : interpolate(frame, [f(T.mark) - 3, f(T.mark) - 1], [0.5, 1],
+        { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+  const cast = (dx, dy, blur, op) => (
+    <div style={{ position: 'absolute', left: x + dx, top: y + dy,
+                  filter: `blur(${blur}px)`, opacity: op * announce }}>
+      <Wordmark w={430} color="rgba(10,37,64,1)" />
+    </div>
+  );
+  return (
+    <>
+      {landed ? (
+        <>
+          {cast(0, 4, 5, 0.30)}
+          {cast(0, 1, 1.5, 0.22)}
+        </>
+      ) : cast(8, 18, 16, 0.26)}
+      <div style={{ position: 'absolute', left: x, top: y,
+                    ...place(frame, T.mark, T.markLen, { dy: 190, rot0: -1.4 }) }}>
+        <Wordmark w={430} color={NAVY} />
+      </div>
+    </>
+  );
+};
+
 /* ════════════════════════ 15 SECOND CUTDOWN ════════════════════════ */
 const T15 = {
   stack: -0.30, stackLen: 0.5,
@@ -384,8 +416,11 @@ const T15 = {
   goldUp: 10.18, goldDown: 10.75, goldDownLen: 0.216,
   page: 10.20, pageLen: 0.7667,
   slog1: 11.30, slog2: 11.50, url: 11.90,
-  proof: 12.10, proofLen: 0.45, mark: 12.60, markLen: 0.233,
-  pageLift: 13.42, cobaltLift: 13.72, boardLift: 14.0, boardLiftLen: 0.65,
+  proof: 12.10, proofLen: 0.45,
+  /* council R2 (frame-exact): shadow 12.36, object 12.39, settle end 12.57,
+     hold >=39f, lift chain from 13.37 */
+  mark: 12.65, markLen: 0.30,
+  pageLift: 13.6167, cobaltLift: 13.85, boardLift: 14.1, boardLiftLen: 0.55,
 };
 
 export const Film15 = () => {
@@ -743,9 +778,7 @@ export const Film15 = () => {
               </div>
             </div>
           </div>
-          <div style={{ ...printPress(frame, T.mark, T.markLen), position: 'absolute', left: 70, top: 1350, width: 460, height: 160 }}>
-            <Wordmark w={430} color={NAVY} style={{ position: 'absolute', left: 0, top: 0 }} />
-          </div>
+          <PlacedWordmark frame={frame} T={T} x={70} y={1350} />
         </div>
       </div>
 
@@ -767,17 +800,19 @@ const T6 = {
   cobalt: 1.90,
   hero: 2.15,
   gold: 2.65, goldLen: 0.267,
-  goldUp: 3.13, goldDown: 3.63, goldDownLen: 0.216,
-  page: 3.15, pageLen: 0.7,
-  slog1: 4.0, slog2: 4.2, url: 4.55,
-  mark: 4.85, markLen: 0.233,
-  pageLift: 5.0, cobaltLift: 5.15, boardLift: 5.30, boardLiftLen: 0.4,
+  /* council R2: page pulled 12f earlier so the full-logo hold is never cut */
+  goldUp: 2.93, goldDown: 3.43, goldDownLen: 0.216,
+  page: 2.95, pageLen: 0.7,
+  slog1: 3.80, slog2: 4.00, url: 4.25,
+  /* shadow 04.24, object 04.27, settle end 04.45, hold >=33f, lifts 05.19 */
+  mark: 4.45, markLen: 0.30,
+  pageLift: 5.3167, cobaltLift: 5.45, boardLift: 5.5667, boardLiftLen: 0.3,
 };
 
 export const Film06 = () => {
   const frame = useCurrentFrame();
   const t = frame / 60;
-  const fw = frame >= f(5.6333) ? frame - 360 : frame;
+  const fw = frame >= f(5.6833) ? frame - 360 : frame;
   const tw = fw / 60;
   const T = T6;
 
@@ -877,9 +912,7 @@ export const Film06 = () => {
                         fontSize: 50, letterSpacing: '0.04em', color: NAVY, ...wipe(frame, T.url, 0.25) }}>
             evlek.app
           </div>
-          <div style={{ ...printPress(frame, T.mark, T.markLen), position: 'absolute', left: 70, top: 1290, width: 460, height: 160 }}>
-            <Wordmark w={430} color={NAVY} style={{ position: 'absolute', left: 0, top: 0 }} />
-          </div>
+          <PlacedWordmark frame={frame} T={T} x={70} y={1290} />
         </div>
       </div>
 
