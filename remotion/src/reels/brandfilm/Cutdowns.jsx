@@ -432,8 +432,11 @@ export const Film15 = () => {
 
   const cobaltInY = 1920 * (1 - prog(frame, T.cobalt, 0.6));
   const g = prog(frame, T.glide, 0.55);
-  const cardX = CARD_IN.x + (200 - (CARD_IN.x - 36)) * g;
-  const cardY = CARD_IN.y + (632 - (CARD_IN.y - 52)) * g;
+  /* no breathing beats in the 15s, so the glide targets CARD_AL directly —
+     the 30s formula compensated for beatX/beatY and would overshoot 36/52px,
+     poking the card's edge out past the press page (caught in R2 QC) */
+  const cardX = CARD_IN.x + (200 - CARD_IN.x) * g;
+  const cardY = CARD_IN.y + (632 - CARD_IN.y) * g;
   const cardRot = CARD_IN.rot + (0 - CARD_IN.rot) * g;
 
   const pPull = prog(frame, T.coverPull, 0.3, ease.drawer);
