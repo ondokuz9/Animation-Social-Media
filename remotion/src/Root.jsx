@@ -11,6 +11,8 @@ import { Film30, FILM30_FRAMES } from './reels/brandfilm/Film30.jsx';
 import { SF1, SF2, SF3, SF4, SF_FRAMES } from './reels/brandfilm/Styleframes.jsx';
 import { MotionTest1, MT1_FRAMES, MotionTest2, MT2_FRAMES } from './reels/brandfilm/MotionTests.jsx';
 import { Film30v4, FILM_V4_FRAMES } from './reels/brandfilm/Film30v4.jsx';
+import { Film15, FILM15_FRAMES, Film06, FILM06_FRAMES } from './reels/brandfilm/Cutdowns.jsx';
+import { CoverProblem1920, CoverProblem1350, CoverFinal1920, Still03Info, POSTER_FRAMES } from './reels/brandfilm/DeliveryPosters.jsx';
 import { Acilis, ACILIS_SECONDS } from './reels/emlakci/scenes/Acilis.jsx';
 import { Yayinla, YAYINLA_SECONDS } from './reels/emlakci/scenes/Yayinla.jsx';
 import { Diller, DILLER_SECONDS } from './reels/emlakci/scenes/Diller.jsx';
@@ -48,6 +50,17 @@ export const RemotionRoot = () => (
 
     {/* Brand film — V4: the approved full 30s rebuild. */}
     {comp('BrandFilmV4', Film30v4, FILM_V4_FRAMES)}
+
+    {/* Brand film — delivery cutdowns (re-timed remixes, master untouched). */}
+    {comp('EvlekBrandFilm15', Film15, FILM15_FRAMES)}
+    {comp('EvlekBrandFilm06', Film06, FILM06_FRAMES)}
+
+    {/* Brand film — delivery covers & re-composed stills (single frame). */}
+    {comp('CoverProblem1920', CoverProblem1920, POSTER_FRAMES)}
+    <Composition id="CoverProblem1350" component={CoverProblem1350} durationInFrames={POSTER_FRAMES}
+                 fps={FPS} width={1080} height={1350} />
+    {comp('CoverFinal1920', CoverFinal1920, POSTER_FRAMES)}
+    {comp('Still03Info', Still03Info, POSTER_FRAMES)}
 
     {/* Acts on their own, so one can be worked on without rendering twenty
         seconds to see three of them. */}
