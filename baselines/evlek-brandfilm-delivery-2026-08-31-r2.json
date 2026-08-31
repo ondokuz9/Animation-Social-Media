@@ -1,0 +1,10 @@
+{
+  "name": "Evlek Brand Film — teslim paketi R2 ZIP",
+  "date": "2026-08-31",
+  "commit": "1ba2957dd6b9199b8e1d38df5df6580a65553264",
+  "zip": {
+    "file": "out/EVLEK_BRANDFILM_DELIVERY_2026-08-31_R2.zip",
+    "sha256": "c57f2ae4ae2e2aecadfd00ece79e5ea6bc9ae53fb5e2dd6f7c6a0a082a455de2"
+  },
+  "note": "R2: yalnız 02_CUTDOWNS v2 (wordmark fiziksel yerleşim). v1 ZIP'e dokunulmadı; master/kapak/still v1 ile byte-for-byte aynı. Künyeler ZIP içi render-manifest-r2.json + SHA256SUMS.txt."
+}
