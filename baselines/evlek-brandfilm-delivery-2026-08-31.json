@@ -1,0 +1,10 @@
+{
+  "name": "Evlek Brand Film — sosyal medya teslim paketi ZIP",
+  "date": "2026-08-31",
+  "commit": "98cfeccb3ae7e53de3e3ecd778c5875a96e56cfd",
+  "zip": {
+    "file": "out/EVLEK_BRANDFILM_DELIVERY_2026-08-31.zip",
+    "sha256": "0eeb56be43628d92e00ec8db0c57488f55ed076d483a9580740863a98380cedc"
+  },
+  "note": "İçerik künyeleri ZIP içindeki 05_SOURCE_MANIFEST/render-manifest.json ve SHA256SUMS.txt dosyalarında. 30s master onaylı dosyanın byte-for-byte kopyası (sha256 b6964d96d35ff85c88c4f6b3b67d297cfd9acae986b722bb7a08df345d4fa21c)."
+}
