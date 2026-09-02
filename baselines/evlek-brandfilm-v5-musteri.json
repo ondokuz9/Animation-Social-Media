@@ -1,0 +1,33 @@
+{
+  "name": "Evlek Brand Film — V5 MÜŞTERİ KESİMİ (kilitli V4.8 master'a dokunulmadan türetilen müşteri-odaklı varyant)",
+  "date": "2026-09-02",
+  "commit": "613b739927a0949d9bc930202ee8df31b37a0c95",
+  "composition": "BrandFilmV5",
+  "source": "remotion/src/reels/brandfilm/Film30v5.jsx",
+  "status": "ÖNERİ — Onur/kurul değerlendirmesinde; V4.8 master ve v1/R2 teslim paketleri değişmedi",
+  "master": {
+    "file": "out/evlek_master_prores_v5.mov",
+    "sha256": "5c4b2ea203ee0714af31c304d4c5515d34fb81f55eb87159d833e24800a0003d",
+    "codec": "ProRes 422 HQ yuv422p10le 60 CFR 1800f, ses yok"
+  },
+  "social_crf15": {
+    "file": "out/Evlek_BrandFilm_TR_30s_9x16_60fps_MUSTERI_v5.mp4",
+    "sha256": "7936b6c2346cc631638be1d6062af472b87cabfc412f668bf80b20e2a69d731f",
+    "crf": 15,
+    "preset": "slow"
+  },
+  "tekparca_crf15_3": {
+    "file": "out/Evlek_BrandFilm_TR_30s_9x16_60fps_MUSTERI_v5_tekparca.mp4",
+    "sha256": "4a3b8ef8865b697645139f198707ed996881ec57634ff6e60c5be80336c3f5c9",
+    "crf": 15.3,
+    "preset": "slower",
+    "note": "30 MiB sohbet limiti için; V4.8 onaylı masterla aynı spec"
+  },
+  "changes": [
+    "5–11s boş kobalt sahnesi 6.4s→3.6s; ev 09.09'da açılıyor (önce 11.70)",
+    "final sayfa hold ≈8s (marka + CTA)",
+    "güven satırı: ONAYLI EMLAKÇI · GERÇEK İLAN · 5 DİL",
+    "emlakçı CTA: Emlakçı mısın? evlek.app/emlakci-ol",
+    "üçüncü kanal etiketi EMLAKÇI VİTRİNİ → SOSYAL MEDYA"
+  ]
+}
