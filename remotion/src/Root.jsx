@@ -12,6 +12,7 @@ import { SF1, SF2, SF3, SF4, SF_FRAMES } from './reels/brandfilm/Styleframes.jsx
 import { MotionTest1, MT1_FRAMES, MotionTest2, MT2_FRAMES } from './reels/brandfilm/MotionTests.jsx';
 import { Film30v4, FILM_V4_FRAMES } from './reels/brandfilm/Film30v4.jsx';
 import { Film15, FILM15_FRAMES, Film06, FILM06_FRAMES } from './reels/brandfilm/Cutdowns.jsx';
+import { Film30v5, FILM_V5_FRAMES } from './reels/brandfilm/Film30v5.jsx';
 import { CoverProblem1920, CoverProblem1350, CoverFinal1920, Still03Info, POSTER_FRAMES } from './reels/brandfilm/DeliveryPosters.jsx';
 import { Acilis, ACILIS_SECONDS } from './reels/emlakci/scenes/Acilis.jsx';
 import { Yayinla, YAYINLA_SECONDS } from './reels/emlakci/scenes/Yayinla.jsx';
@@ -50,6 +51,9 @@ export const RemotionRoot = () => (
 
     {/* Brand film — V4: the approved full 30s rebuild. */}
     {comp('BrandFilmV4', Film30v4, FILM_V4_FRAMES)}
+
+    {/* Brand film — V5 customer cut (derived from the locked V4.8; master untouched). */}
+    {comp('BrandFilmV5', Film30v5, FILM_V5_FRAMES)}
 
     {/* Brand film — delivery cutdowns (re-timed remixes, master untouched). */}
     {comp('EvlekBrandFilm15', Film15, FILM15_FRAMES)}
