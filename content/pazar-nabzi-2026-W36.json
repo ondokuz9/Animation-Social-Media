@@ -1,0 +1,24 @@
+{
+  "week": "2026-W36",
+  "dateLabel": "3 EYLÜL 2026",
+  "city": "Girne",
+  "cityUpper": "GİRNE",
+  "total": 228,
+  "districts": [
+    { "name": "Alsancak", "count": 65 },
+    { "name": "Esentepe", "count": 45 },
+    { "name": "Girne Merkez", "count": 33 },
+    { "name": "Lapta", "count": 24 },
+    { "name": "Çatalköy", "count": 12 }
+  ],
+  "cities": [
+    { "name": "Girne", "count": 228 },
+    { "name": "İskele", "count": 33 },
+    { "name": "Lefkoşa", "count": 23 },
+    { "name": "Gazimağusa", "count": 14 }
+  ],
+  "statement": "Her 4 satılık ilandan 3’ü Girne’de.",
+  "ctaHead": "Bu fiyat normal mi?",
+  "ctaSub": "Ev bakmadan önce pazarı gör.",
+  "source": "KAYNAK: EVLEK.APP CANLI İLAN VERİSİ"
+}

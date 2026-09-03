@@ -13,6 +13,8 @@ import { MotionTest1, MT1_FRAMES, MotionTest2, MT2_FRAMES } from './reels/brandf
 import { Film30v4, FILM_V4_FRAMES } from './reels/brandfilm/Film30v4.jsx';
 import { Film15, FILM15_FRAMES, Film06, FILM06_FRAMES } from './reels/brandfilm/Cutdowns.jsx';
 import { Film30v5, FILM_V5_FRAMES } from './reels/brandfilm/Film30v5.jsx';
+import { PazarNabzi, PAZAR_NABZI_FRAMES } from './formats/PazarNabzi.jsx';
+import pazarNabziDefault from '../../content/pazar-nabzi-2026-W36.json';
 import { CoverProblem1920, CoverProblem1350, CoverFinal1920, Still03Info, POSTER_FRAMES } from './reels/brandfilm/DeliveryPosters.jsx';
 import { Acilis, ACILIS_SECONDS } from './reels/emlakci/scenes/Acilis.jsx';
 import { Yayinla, YAYINLA_SECONDS } from './reels/emlakci/scenes/Yayinla.jsx';
@@ -54,6 +56,10 @@ export const RemotionRoot = () => (
 
     {/* Brand film — V5 customer cut (derived from the locked V4.8; master untouched). */}
     {comp('BrandFilmV5', Film30v5, FILM_V5_FRAMES)}
+
+    {/* WEEKLY FORMATS — data-driven; render with --props=content/<file>.json */}
+    <Composition id="PazarNabzi" component={PazarNabzi} durationInFrames={PAZAR_NABZI_FRAMES}
+                 fps={FPS} width={WIDTH} height={HEIGHT} defaultProps={pazarNabziDefault} />
 
     {/* Brand film — delivery cutdowns (re-timed remixes, master untouched). */}
     {comp('EvlekBrandFilm15', Film15, FILM15_FRAMES)}
