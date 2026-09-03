@@ -1,0 +1,14 @@
+{
+  "name": "Pazar Nabzı — 2026-W36 (haftalık format, ilk yayın)",
+  "date": "2026-09-03",
+  "composition": "PazarNabzi",
+  "props": "content/pazar-nabzi-2026-W36.json",
+  "data_source": "Evlek MCP get_price_index/compare_cities @ 2026-09-03T00:20Z (medians withheld by source → counts only)",
+  "social": {
+    "file": "out/Evlek_PazarNabzi_2026-W36_9x16_60fps.mp4",
+    "sha256": "30676e6d2c8f8e0d0689741c24a8d4cd10d540620097e826bb4a1d7c3e326a7b",
+    "frames": 900,
+    "fps": "60 CFR",
+    "codec": "H.264 High@4.2 CRF15 slow, yuv420p, BT.709 tv, GOP120, silent"
+  }
+}
