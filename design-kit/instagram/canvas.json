@@ -1,0 +1,88 @@
+{
+ "artboards": [
+  {
+   "file": "Main.dc.html",
+   "x": 0,
+   "y": 0,
+   "w": 1440,
+   "h": 1960,
+   "title": "Kit · Renk, tipografi, elemanlar, ritim"
+  },
+  {
+   "file": "Post_Hook.dc.html",
+   "x": 0,
+   "y": 2100,
+   "w": 1080,
+   "h": 1350,
+   "title": "01 Hook · 4:5"
+  },
+  {
+   "file": "Post_Product.dc.html",
+   "x": 1160,
+   "y": 2100,
+   "w": 1080,
+   "h": 1350,
+   "title": "02 Ürün · 4:5"
+  },
+  {
+   "file": "Post_Data.dc.html",
+   "x": 2320,
+   "y": 2100,
+   "w": 1080,
+   "h": 1350,
+   "title": "03 Veri · 4:5"
+  },
+  {
+   "file": "Post_Trust.dc.html",
+   "x": 3480,
+   "y": 2100,
+   "w": 1080,
+   "h": 1350,
+   "title": "04 Güven · 4:5"
+  },
+  {
+   "file": "Post_Listing.dc.html",
+   "x": 0,
+   "y": 3580,
+   "w": 1080,
+   "h": 1350,
+   "title": "05 İlan · 4:5"
+  },
+  {
+   "file": "Post_Guide.dc.html",
+   "x": 1160,
+   "y": 3580,
+   "w": 1080,
+   "h": 1350,
+   "title": "06 Rehber · 4:5"
+  },
+  {
+   "file": "Post_Agent.dc.html",
+   "x": 2320,
+   "y": 3580,
+   "w": 1080,
+   "h": 1350,
+   "title": "07 Emlakçı · 4:5"
+  },
+  {
+   "file": "Reel_Cover.dc.html",
+   "x": 3480,
+   "y": 3580,
+   "w": 1080,
+   "h": 1920,
+   "title": "Reel kapağı · 9:16"
+  }
+ ],
+ "annotations": [
+  {
+   "id": "kit-note",
+   "x": 1540,
+   "y": 40,
+   "w": 300,
+   "text": "Instagram paleti: krem #F4F1EB · kobalt #2F5CFF · lacivert #0A2540 · gold yalnız emlakçı postunda.\nKöşeli parantezli metinler gerçek veriyle değiştirilecek."
+  }
+ ],
+ "launch": {
+  "view": "canvas"
+ }
+}
