@@ -1,0 +1,503 @@
+{
+  "name": "Evlek içerik bankası — dört sütun",
+  "why": "Haftalık üretimin darboğazı render değil, KONU. Bu banka konuyu bitmez kılar: her sütun bir izleyici sorusunu yanıtlar ve kendi yakıtı vardır (6 şehir, 15+ semt, 12 süreç sorusu, sınırsız ilan).",
+  "pillars": {
+    "PAZAR": "Ne oluyor? — canlı veri, otomatik, her hafta yeniden üretilebilir.",
+    "YER": "Nerede yaşarım? — 15+ semt, 6 şehir; kalıcı kütüphane.",
+    "YOL": "Nasıl yaparım? — ürün ve süreç gerçeği; en yüksek dönüşüm.",
+    "KANIT": "Gerçek mi? — gerçek ilan, gerçek emlakçı; güvenin kanıtı."
+  },
+  "rotation": "Hafta 1 PAZAR · Hafta 2 YOL · Hafta 3 YER · Hafta 4 KANIT → başa dön. Aynı sütun art arda iki hafta gelmez; aynı dünya (renk) art arda iki hafta kullanılmaz.",
+  "rules": [
+    "Konu bankadan seçilir, icat edilmez.",
+    "'needs' alanı dolu bir konu, o girdi gelmeden çekime alınmaz.",
+    "Veri kaynağı olmayan iddia videoya girmez.",
+    "Her video kaynak satırı + tarih taşır."
+  ],
+  "topics": [
+    {
+      "id": "P001",
+      "pillar": "PAZAR",
+      "format": "Pazar Raporu",
+      "audience": "alıcı+emlakçı",
+      "title": "Girne: bu haftanın satılık tablosu",
+      "dataSource": "MCP get_price_index(city, sale)",
+      "needs": [],
+      "note": null
+    },
+    {
+      "id": "P002",
+      "pillar": "PAZAR",
+      "format": "Pazar Raporu",
+      "audience": "alıcı+emlakçı",
+      "title": "İskele: bu haftanın satılık tablosu",
+      "dataSource": "MCP get_price_index(city, sale)",
+      "needs": [],
+      "note": null
+    },
+    {
+      "id": "P003",
+      "pillar": "PAZAR",
+      "format": "Pazar Raporu",
+      "audience": "alıcı+emlakçı",
+      "title": "Lefkoşa: bu haftanın satılık tablosu",
+      "dataSource": "MCP get_price_index(city, sale)",
+      "needs": [],
+      "note": null
+    },
+    {
+      "id": "P004",
+      "pillar": "PAZAR",
+      "format": "Pazar Raporu",
+      "audience": "alıcı+emlakçı",
+      "title": "Gazimağusa: bu haftanın satılık tablosu",
+      "dataSource": "MCP get_price_index(city, sale)",
+      "needs": [],
+      "note": null
+    },
+    {
+      "id": "P005",
+      "pillar": "PAZAR",
+      "format": "Pazar Raporu",
+      "audience": "alıcı+emlakçı",
+      "title": "Güzelyurt: bu haftanın satılık tablosu",
+      "dataSource": "MCP get_price_index(city, sale)",
+      "needs": [],
+      "note": null
+    },
+    {
+      "id": "P006",
+      "pillar": "PAZAR",
+      "format": "Pazar Raporu",
+      "audience": "alıcı+emlakçı",
+      "title": "Lefke: bu haftanın satılık tablosu",
+      "dataSource": "MCP get_price_index(city, sale)",
+      "needs": [],
+      "note": null
+    },
+    {
+      "id": "P007",
+      "pillar": "PAZAR",
+      "format": "Pazar Raporu",
+      "audience": "alıcı+emlakçı",
+      "title": "KKTC dört şehir karşılaştırması",
+      "dataSource": "MCP compare_cities",
+      "needs": [],
+      "note": null
+    },
+    {
+      "id": "P008",
+      "pillar": "PAZAR",
+      "format": "Pazar Nabzı",
+      "audience": "alıcı",
+      "title": "Kiralık kesiti — üniversite sezonu",
+      "dataSource": "MCP get_price_index(rent)",
+      "needs": [],
+      "note": null
+    },
+    {
+      "id": "P009",
+      "pillar": "PAZAR",
+      "format": "Pazar Raporu",
+      "audience": "alıcı+emlakçı",
+      "title": "Bu hafta ne değişti? (delta)",
+      "dataSource": "snapshot delta ≥6 gün",
+      "needs": [],
+      "note": "W40'tan itibaren; delta motoru 6 günden kısa aralığı reddeder"
+    },
+    {
+      "id": "P010",
+      "pillar": "PAZAR",
+      "format": "Pazar Nabzı",
+      "audience": "yatırımcı",
+      "title": "İlanlar nerede yoğunlaşıyor?",
+      "dataSource": "MCP list_locations + counts",
+      "needs": [],
+      "note": null
+    },
+    {
+      "id": "P011",
+      "pillar": "PAZAR",
+      "format": "Pazar Raporu",
+      "audience": "emlakçı",
+      "title": "Hangi semtte ilan az, talep var?",
+      "dataSource": "MCP + Evlek arama logu",
+      "needs": [
+        "arama logu erişimi"
+      ],
+      "note": "Talep iddiası ancak gerçek arama verisiyle kurulabilir"
+    },
+    {
+      "id": "Y012",
+      "pillar": "YER",
+      "format": "Semt Rehberi",
+      "audience": "alıcı+yatırımcı",
+      "title": "Alsancak: kimin için doğru semt?",
+      "dataSource": "Evlek repo semt içeriği + MCP sayım",
+      "needs": [
+        "3-5 gerçek semt fotoğrafı"
+      ],
+      "note": null
+    },
+    {
+      "id": "Y013",
+      "pillar": "YER",
+      "format": "Semt Rehberi",
+      "audience": "alıcı+yatırımcı",
+      "title": "Esentepe: kimin için doğru semt?",
+      "dataSource": "Evlek repo semt içeriği + MCP sayım",
+      "needs": [
+        "3-5 gerçek semt fotoğrafı"
+      ],
+      "note": null
+    },
+    {
+      "id": "Y014",
+      "pillar": "YER",
+      "format": "Semt Rehberi",
+      "audience": "alıcı+yatırımcı",
+      "title": "Girne Merkez: kimin için doğru semt?",
+      "dataSource": "Evlek repo semt içeriği + MCP sayım",
+      "needs": [
+        "3-5 gerçek semt fotoğrafı"
+      ],
+      "note": null
+    },
+    {
+      "id": "Y015",
+      "pillar": "YER",
+      "format": "Semt Rehberi",
+      "audience": "alıcı+yatırımcı",
+      "title": "Lapta: kimin için doğru semt?",
+      "dataSource": "Evlek repo semt içeriği + MCP sayım",
+      "needs": [
+        "3-5 gerçek semt fotoğrafı"
+      ],
+      "note": null
+    },
+    {
+      "id": "Y016",
+      "pillar": "YER",
+      "format": "Semt Rehberi",
+      "audience": "alıcı+yatırımcı",
+      "title": "Çatalköy: kimin için doğru semt?",
+      "dataSource": "Evlek repo semt içeriği + MCP sayım",
+      "needs": [
+        "3-5 gerçek semt fotoğrafı"
+      ],
+      "note": null
+    },
+    {
+      "id": "Y017",
+      "pillar": "YER",
+      "format": "Semt Rehberi",
+      "audience": "alıcı+yatırımcı",
+      "title": "Karşıyaka: kimin için doğru semt?",
+      "dataSource": "Evlek repo semt içeriği + MCP sayım",
+      "needs": [
+        "3-5 gerçek semt fotoğrafı"
+      ],
+      "note": null
+    },
+    {
+      "id": "Y018",
+      "pillar": "YER",
+      "format": "Semt Rehberi",
+      "audience": "alıcı+yatırımcı",
+      "title": "Karaoğlanoğlu: kimin için doğru semt?",
+      "dataSource": "Evlek repo semt içeriği + MCP sayım",
+      "needs": [
+        "3-5 gerçek semt fotoğrafı"
+      ],
+      "note": null
+    },
+    {
+      "id": "Y019",
+      "pillar": "YER",
+      "format": "Semt Rehberi",
+      "audience": "alıcı+yatırımcı",
+      "title": "Edremit: kimin için doğru semt?",
+      "dataSource": "Evlek repo semt içeriği + MCP sayım",
+      "needs": [
+        "3-5 gerçek semt fotoğrafı"
+      ],
+      "note": null
+    },
+    {
+      "id": "Y020",
+      "pillar": "YER",
+      "format": "Semt Rehberi",
+      "audience": "alıcı+yatırımcı",
+      "title": "Doğanköy: kimin için doğru semt?",
+      "dataSource": "Evlek repo semt içeriği + MCP sayım",
+      "needs": [
+        "3-5 gerçek semt fotoğrafı"
+      ],
+      "note": null
+    },
+    {
+      "id": "Y021",
+      "pillar": "YER",
+      "format": "Semt Rehberi",
+      "audience": "alıcı+yatırımcı",
+      "title": "Ozanköy: kimin için doğru semt?",
+      "dataSource": "Evlek repo semt içeriği + MCP sayım",
+      "needs": [
+        "3-5 gerçek semt fotoğrafı"
+      ],
+      "note": null
+    },
+    {
+      "id": "Y022",
+      "pillar": "YER",
+      "format": "Semt Rehberi",
+      "audience": "alıcı+yatırımcı",
+      "title": "Bellapais: kimin için doğru semt?",
+      "dataSource": "Evlek repo semt içeriği + MCP sayım",
+      "needs": [
+        "3-5 gerçek semt fotoğrafı"
+      ],
+      "note": null
+    },
+    {
+      "id": "Y023",
+      "pillar": "YER",
+      "format": "Semt Rehberi",
+      "audience": "alıcı+yatırımcı",
+      "title": "Zeytinlik: kimin için doğru semt?",
+      "dataSource": "Evlek repo semt içeriği + MCP sayım",
+      "needs": [
+        "3-5 gerçek semt fotoğrafı"
+      ],
+      "note": null
+    },
+    {
+      "id": "Y024",
+      "pillar": "YER",
+      "format": "Semt Rehberi",
+      "audience": "yatırımcı",
+      "title": "İskele Merkez: İskele'nin ikinci pazarı",
+      "dataSource": "Evlek repo + MCP",
+      "needs": [
+        "3-5 gerçek semt fotoğrafı"
+      ],
+      "note": null
+    },
+    {
+      "id": "Y025",
+      "pillar": "YER",
+      "format": "Semt Rehberi",
+      "audience": "yatırımcı",
+      "title": "Long Beach: İskele'nin ikinci pazarı",
+      "dataSource": "Evlek repo + MCP",
+      "needs": [
+        "3-5 gerçek semt fotoğrafı"
+      ],
+      "note": null
+    },
+    {
+      "id": "Y026",
+      "pillar": "YER",
+      "format": "Semt Rehberi",
+      "audience": "yatırımcı",
+      "title": "Bahçeler: İskele'nin ikinci pazarı",
+      "dataSource": "Evlek repo + MCP",
+      "needs": [
+        "3-5 gerçek semt fotoğrafı"
+      ],
+      "note": null
+    },
+    {
+      "id": "Y027",
+      "pillar": "YER",
+      "format": "Semt Rehberi",
+      "audience": "alıcı",
+      "title": "Denize yürüme mesafesi olan semtler",
+      "dataSource": "Evlek repo semt verisi",
+      "needs": [
+        "semt fotoğrafları"
+      ],
+      "note": null
+    },
+    {
+      "id": "Y028",
+      "pillar": "YER",
+      "format": "Semt Rehberi",
+      "audience": "öğrenci",
+      "title": "Üniversiteye yakın oturulacak yerler",
+      "dataSource": "src/data/universities.ts + MCP",
+      "needs": [],
+      "note": null
+    },
+    {
+      "id": "Y029",
+      "pillar": "YOL",
+      "format": "Evlek Nasıl Çalışır",
+      "audience": "alıcı",
+      "title": "Doğal dille ara: 'Girne'de denize yakın 3+1'",
+      "dataSource": "gerçek UI",
+      "needs": [
+        "ekran kaydı"
+      ],
+      "note": null
+    },
+    {
+      "id": "Y030",
+      "pillar": "YOL",
+      "format": "Evlek Nasıl Çalışır",
+      "audience": "alıcı",
+      "title": "İlanı 5 dilde görmek ne demek?",
+      "dataSource": "ürün gerçeği",
+      "needs": [],
+      "note": null
+    },
+    {
+      "id": "Y031",
+      "pillar": "YOL",
+      "format": "Evlek Nasıl Çalışır",
+      "audience": "alıcı",
+      "title": "Fiyat bandı nasıl okunur?",
+      "dataSource": "MCP price index",
+      "needs": [],
+      "note": null
+    },
+    {
+      "id": "Y032",
+      "pillar": "YOL",
+      "format": "Emlakçı İçin",
+      "audience": "emlakçı",
+      "title": "Onaylı Emlakçı olmanın adımları",
+      "dataSource": "publish gate kodu",
+      "needs": [],
+      "note": null
+    },
+    {
+      "id": "Y033",
+      "pillar": "YOL",
+      "format": "Emlakçı İçin",
+      "audience": "emlakçı",
+      "title": "İlanın yapay zekâ aramasında nasıl bulunur?",
+      "dataSource": "MCP sunucu gerçeği",
+      "needs": [],
+      "note": null
+    },
+    {
+      "id": "Y034",
+      "pillar": "YOL",
+      "format": "Emlakçı İçin",
+      "audience": "emlakçı",
+      "title": "Büro hesabı: koltuk ve yetki nasıl işler?",
+      "dataSource": "agency kodu",
+      "needs": [],
+      "note": null
+    },
+    {
+      "id": "Y035",
+      "pillar": "YOL",
+      "format": "Emlakçı İçin",
+      "audience": "emlakçı",
+      "title": "İlan fotoğrafı: neyi yanlış yapıyoruz?",
+      "dataSource": "foto-AI kalite skoru",
+      "needs": [],
+      "note": null
+    },
+    {
+      "id": "Y036",
+      "pillar": "YOL",
+      "format": "Yol Haritası",
+      "audience": "alıcı",
+      "title": "İlk kez ev alacaklara 5 adım",
+      "dataSource": "Evlek blog içeriği",
+      "needs": [],
+      "note": null
+    },
+    {
+      "id": "Y037",
+      "pillar": "YOL",
+      "format": "Yol Haritası",
+      "audience": "alıcı",
+      "title": "Ev bakmadan önce sorulacak 7 soru",
+      "dataSource": "Evlek blog içeriği",
+      "needs": [],
+      "note": null
+    },
+    {
+      "id": "Y038",
+      "pillar": "YOL",
+      "format": "Yol Haritası",
+      "audience": "yatırımcı",
+      "title": "Kira getirisi nasıl hesaplanır?",
+      "dataSource": "MCP get_yield_estimate",
+      "needs": [],
+      "note": null
+    },
+    {
+      "id": "Y039",
+      "pillar": "YOL",
+      "format": "Yol Haritası",
+      "audience": "yatırımcı",
+      "title": "Proje ödeme planı nasıl okunur?",
+      "dataSource": "MCP payment_plan",
+      "needs": [
+        "proje verisi"
+      ],
+      "note": null
+    },
+    {
+      "id": "Y040",
+      "pillar": "YOL",
+      "format": "Yol Haritası",
+      "audience": "alıcı",
+      "title": "Sahte ilanı nasıl anlarsın?",
+      "dataSource": "güven sistemi gerçeği",
+      "needs": [],
+      "note": null
+    },
+    {
+      "id": "K041",
+      "pillar": "KANIT",
+      "format": "İlan Vitrini",
+      "audience": "alıcı",
+      "title": "Haftanın ilanı",
+      "dataSource": "gerçek ilan",
+      "needs": [
+        "ilan sahibi izni",
+        "gerçek fotoğraflar"
+      ],
+      "note": null
+    },
+    {
+      "id": "K042",
+      "pillar": "KANIT",
+      "format": "Emlakçı Portresi",
+      "audience": "emlakçı+alıcı",
+      "title": "Onaylı emlakçı tanıtımı",
+      "dataSource": "gerçek emlakçı",
+      "needs": [
+        "portre",
+        "izin"
+      ],
+      "note": null
+    },
+    {
+      "id": "K043",
+      "pillar": "KANIT",
+      "format": "Aynı Ev",
+      "audience": "alıcı",
+      "title": "Üç fiyat problemi (kanıtlanmış hook)",
+      "dataSource": "sabit",
+      "needs": [],
+      "note": null
+    },
+    {
+      "id": "K044",
+      "pillar": "KANIT",
+      "format": "Aynı Ev (6s)",
+      "audience": "retargeting",
+      "title": "Tek argüman bumper",
+      "dataSource": "sabit",
+      "needs": [],
+      "note": null
+    }
+  ]
+}
