@@ -1,0 +1,15 @@
+{
+  "name": "Pazar Raporu — 2026-W36 (amiral haftalık format, ilk yayın)",
+  "composition": "PazarRaporu",
+  "props": "content/pazar-raporu-2026-W36.json",
+  "generatedAt": "2026-09-03T16:08:56.740Z",
+  "dataSource": "Evlek MCP get_price_index + compare_cities — live_active_listings; medyanlar kaynak tarafından saklandı (düşük örneklem), yalnız sayımlar gösterildi",
+  "social": {
+    "file": "out/Evlek_PazarRaporu_2026-W36_9x16_60fps.mp4",
+    "sha256": "e457e1f4fb093bbec6e12cded5862efcd7ff3f411027d51ff86998b0a7110616",
+    "frames": 1500,
+    "duration": "25.000000",
+    "fps": "60 CFR",
+    "codec": "H.264 High@4.2 CRF15 slow · yuv420p · BT.709 tv · GOP120 · sessiz · faststart"
+  }
+}
