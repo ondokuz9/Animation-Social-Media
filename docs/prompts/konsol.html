@@ -1,0 +1,581 @@
+<title>Evlek Prompt Konsolu</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+:root {
+  --ground:#F4F1EB; --panel:#FBF9F4; --ink:#0A2540; --ink-2:#41586F; --ink-3:#7A8AA0;
+  --line:rgba(10,37,64,.13); --line-2:rgba(10,37,64,.07);
+  --accent:#2F5CFF; --accent-soft:rgba(47,92,255,.10); --gold:#B8913F;
+  --sans:'Hanken Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+}
+:root:not([data-theme="light"]) { }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground:#0C1620; --panel:#132234; --ink:#E9EEF5; --ink-2:#A9BACD; --ink-3:#748AA3;
+    --line:rgba(233,238,245,.16); --line-2:rgba(233,238,245,.08);
+    --accent:#7C9BFF; --accent-soft:rgba(124,155,255,.14); --gold:#D9B463;
+  }
+}
+:root[data-theme="dark"] {
+  --ground:#0C1620; --panel:#132234; --ink:#E9EEF5; --ink-2:#A9BACD; --ink-3:#748AA3;
+  --line:rgba(233,238,245,.16); --line-2:rgba(233,238,245,.08);
+  --accent:#7C9BFF; --accent-soft:rgba(124,155,255,.14); --gold:#D9B463;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);
+  font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:56px 28px 96px;display:flex;flex-direction:column;gap:56px}
+header.top{display:flex;flex-direction:column;gap:14px;border-bottom:2px solid var(--ink);padding-bottom:26px}
+.eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.14em;color:var(--accent);text-transform:uppercase}
+h1{margin:0;font-size:clamp(34px,5.2vw,52px);font-weight:800;letter-spacing:-.03em;line-height:1.04;text-wrap:balance}
+.lede{margin:0;max-width:62ch;color:var(--ink-2);font-size:19px}
+h2{margin:0 0 4px;font-size:13px;font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:500}
+section{display:flex;flex-direction:column;gap:20px}
+.cards{display:flex;flex-direction:column;gap:18px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:22px 24px;
+  display:flex;flex-direction:column;gap:12px}
+.card header{display:flex;align-items:flex-start;gap:16px}
+.num{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--accent);
+  background:var(--accent-soft);padding:6px 9px;border-radius:5px;flex:none;letter-spacing:.06em}
+.ct{flex:1;min-width:0}
+.ct h3{margin:0;font-size:23px;font-weight:700;letter-spacing:-.015em}
+.when{margin:2px 0 0;font-family:var(--mono);font-size:12.5px;color:var(--ink-3);letter-spacing:.05em}
+button{font-family:var(--sans);cursor:pointer;border-radius:6px;transition:background .15s,color .15s,border-color .15s}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.copy{flex:none;background:var(--accent);color:#fff;border:none;font-weight:600;font-size:14.5px;padding:10px 18px}
+.copy:hover{filter:brightness(1.08)}
+.copy.done{background:var(--gold);color:#0A2540}
+.out{margin:0;font-size:15.5px;color:var(--ink-2)}
+.lbl{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);
+  border:1px solid var(--line);border-radius:4px;padding:2px 6px;margin-right:8px}
+.note{margin:0;font-size:14.5px;color:var(--ink-3);max-width:70ch}
+.toggle{align-self:flex-start;background:none;border:1px solid var(--line);color:var(--ink-2);
+  font-size:13.5px;font-weight:500;padding:7px 13px}
+.toggle:hover{border-color:var(--accent);color:var(--accent)}
+pre.body{margin:0;font-family:var(--mono);font-size:12.5px;line-height:1.72;color:var(--ink-2);
+  white-space:pre-wrap;word-break:break-word;max-height:440px;overflow:auto;
+  background:var(--ground);border:1px solid var(--line-2);border-radius:8px;padding:18px}
+ol.flow{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.step{display:flex;gap:18px;padding:14px 0;border-top:1px solid var(--line-2)}
+.step:first-child{border-top:none}
+.day{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--accent);width:44px;flex:none;padding-top:3px}
+.step h4{margin:0;font-size:17px;font-weight:700}
+.step p{margin:2px 0 0;font-size:15px;color:var(--ink-2);max-width:66ch}
+.step code{font-family:var(--mono);font-size:13px;background:var(--accent-soft);padding:1px 5px;border-radius:4px}
+.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,235px),1fr));gap:14px}
+.pillar{border-left:3px solid var(--accent);padding:4px 0 4px 16px;display:flex;flex-direction:column;gap:5px}
+.pillar-head{display:flex;align-items:baseline;gap:10px}
+.pillar h3{margin:0;font-family:var(--mono);font-size:15px;font-weight:600;letter-spacing:.08em}
+.count{font-family:var(--mono);font-size:12px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.q{margin:0;font-size:16.5px;font-weight:600}
+.d{margin:0;font-size:14.5px;color:var(--ink-2)}
+.rules{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:22px 24px}
+.rules ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:9px}
+.rules li{font-size:15.5px;color:var(--ink-2)}
+.rules b{color:var(--ink)}
+footer{border-top:1px solid var(--line);padding-top:20px;font-family:var(--mono);font-size:12.5px;
+  color:var(--ink-3);display:flex;flex-wrap:wrap;gap:8px 20px}
+@media (prefers-reduced-motion:reduce){*{transition-duration:0s!important}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <span class="eyebrow">Evlek · haftalık video üretimi</span>
+    <h1>Prompt Konsolu</h1>
+    <p class="lede">Haftalık üretimin darboğazı render değil, konu. Bu üç prompt ChatGPT'yi
+      sisteme bağlar: fikri üretir, eksik görseli ister, çıkan videoyu kare kare denetler.
+      Marka gerçekleri, hareket fiziği ve dürüstlük kuralları promptların içine gömülü.</p>
+  </header>
+
+  <section>
+    <h2>Üç prompt</h2>
+    <div class="cards">
+      <article class="card" id="card-p1">
+        <header>
+          <span class="num">01</span>
+          <div class="ct"><h3>Fikir Beyni</h3><p class="when">Her Pazartesi</p></div>
+          <button class="copy" data-target="p1">Kopyala</button>
+        </header>
+        <p class="out"><span class="lbl">Çıktı</span> Üç konsept + seçim gerekçesi + yayın paketi</p>
+        <p class="note">Marka gerçekleri, hareket fiziği ve dürüstlük kuralları promptun içinde. ChatGPT tasarım değil, doğrudan içerik JSON'una çevrilebilir konsept üretir.</p>
+        <button class="toggle" data-target="p1" aria-expanded="false">Promptu göster</button>
+        <pre class="body" id="body-p1" hidden></pre>
+      </article>
+      <article class="card" id="card-p2">
+        <header>
+          <span class="num">02</span>
+          <div class="ct"><h3>Görsel Varlık Brifingi</h3><p class="when">Bir kez, sonra eksik oldukça</p></div>
+          <button class="copy" data-target="p2">Kopyala</button>
+        </header>
+        <p class="out"><span class="lbl">Çıktı</span> 6 paket: ikon, yapı silueti, KKTC haritası, kâğıt dokuları, damga, fotoğraf</p>
+        <p class="note">Teknik şartname kesin: şeffaf zemin, gömülü gölge yok, 2px çizgi, seamless doku, dosya adlandırma. Harita için doğruluk beyanı istiyor.</p>
+        <button class="toggle" data-target="p2" aria-expanded="false">Promptu göster</button>
+        <pre class="body" id="body-p2" hidden></pre>
+      </article>
+      <article class="card" id="card-p3">
+        <header>
+          <span class="num">03</span>
+          <div class="ct"><h3>Video Denetimi</h3><p class="when">Her render sonrası</p></div>
+          <button class="copy" data-target="p3">Kopyala</button>
+        </header>
+        <p class="out"><span class="lbl">Çıktı</span> Kare hassasiyetinde P0/P1/P2 bulgu tablosu + puan</p>
+        <p class="note">Videonun amacı ve zanaat kuralları prompta gömülü. Üç ayrı izleme geçişi ister: izleyici gözü, kare kare, telefon simülasyonu.</p>
+        <button class="toggle" data-target="p3" aria-expanded="false">Promptu göster</button>
+        <pre class="body" id="body-p3" hidden></pre>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Haftalık akış</h2>
+    <ol class="flow">
+      <li class="step">
+        <span class="day">Pzt</span>
+        <div><h4>Veriyi çek, konseptle</h4><p>Canlı Evlek verisini çek, içerik bankasından sıradaki sütunun konusunu seç, <b>Prompt 1</b>'i doldurup ChatGPT'ye ver.</p></div>
+      </li>
+      <li class="step">
+        <span class="day">Sal</span>
+        <div><h4>İçerik JSON'una çevir</h4><p>Seçilen konsepti <code>content/&lt;format&gt;-&lt;hafta&gt;.json</code> dosyasına yaz. Tasarım yok — sadece metin ve sayılar.</p></div>
+      </li>
+      <li class="step">
+        <span class="day">Çar</span>
+        <div><h4>Render + kapı</h4><p><code>node scripts/hafta.mjs &lt;Format&gt; &lt;içerik.json&gt;</code> — ProRes, sosyal encode, ffprobe kapısı, kontak sayfası, sha256, pin.</p></div>
+      </li>
+      <li class="step">
+        <span class="day">Per</span>
+        <div><h4>Denetle</h4><p>Videoyu ve kontak sayfasını <b>Prompt 3</b> ile ChatGPT'ye denetlet. P0'ları düzelt, yeniden render et.</p></div>
+      </li>
+      <li class="step">
+        <span class="day">Cum</span>
+        <div><h4>Yayınla</h4><p>Özel kapak, ilk 125 karakterde kanca taşıyan caption, 5 hashtag, konum Girne, link ilk yorumda.</p></div>
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>İçerik bankası — dört sütun, 44 konu</h2>
+    <div class="pillars">
+      <article class="pillar">
+        <div class="pillar-head"><h3>PAZAR</h3><span class="count">11 konu</span></div>
+        <p class="q">Ne oluyor?</p>
+        <p class="d">Canlı ilan verisi. Her şehir, her hafta yeniden üretilebilir — bitmeyen yakıt.</p>
+      </article>
+      <article class="pillar">
+        <div class="pillar-head"><h3>YER</h3><span class="count">17 konu</span></div>
+        <p class="q">Nerede yaşarım?</p>
+        <p class="d">15+ semt, 6 şehir. Bir kez çekilen fotoğraf yıllarca kütüphanede kalır.</p>
+      </article>
+      <article class="pillar">
+        <div class="pillar-head"><h3>YOL</h3><span class="count">12 konu</span></div>
+        <p class="q">Nasıl yaparım?</p>
+        <p class="d">Ürün ve süreç gerçeği. Dönüşümü en yüksek sütun.</p>
+      </article>
+      <article class="pillar">
+        <div class="pillar-head"><h3>KANIT</h3><span class="count">4 konu</span></div>
+        <p class="q">Gerçek mi?</p>
+        <p class="d">Gerçek ilan, gerçek emlakçı. Güvenin tek kanıtı.</p>
+      </article>
+    </div>
+    <p class="note">Konu bankadan seçilir, icat edilmez. 21 konu dış girdi bekliyor
+      (fotoğraf, ekran kaydı, emlakçı izni, proje verisi) ve bankada işaretli — girdi gelmeden
+      çekime alınmaz. Aynı sütun ve aynı renk dünyası art arda iki hafta kullanılmaz.</p>
+  </section>
+
+  <section>
+    <h2>Değişmeyen kurallar</h2>
+    <div class="rules">
+      <ul>
+        <li><b>Sayı uydurulmaz.</b> Canlı kaynak medyan vermiyorsa medyan gösterilmez, sayım gösterilir.</li>
+        <li>Her veri karesinde <b>kaynak satırı ve tarih</b> bulunur.</li>
+        <li>Yapay zekâ ile üretilmiş ev görseli, <b>gerçek bir ilan numarasıyla</b> yan yana gelmez.</li>
+        <li>İngilizce metinde <b>"real estate"</b> geçmez (ödeme sağlayıcı flag'liyor) → "property".</li>
+        <li>Koçan, tapu ve hukuk tavsiyesi verilmez; "komisyonsuz" iddiası kullanılmaz.</li>
+        <li>Talep iddiası ancak <b>gerçek arama verisi</b> varsa kurulur.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <span>docs/prompts/</span><span>content/icerik-bankasi.json</span>
+    <span>scripts/hafta.mjs</span><span>Kıbrıs'ta doğru ev.</span>
+  </footer>
+</div>
+
+<script type="text/plain" id="src-p1"># PROMPT 1 — EVLEK FİKİR BEYNİ (haftalık konsept üretimi)
+
+> ChatGPT'ye yapıştır. Her hafta aynı promptu kullan, sadece en alttaki
+> "BU HAFTANIN GİRDİSİ" bölümünü güncelle.
+
+---
+
+Sen Evlek'in haftalık video içerik beynisin. Görevin fikir üretmek değil,
+**üretilebilir, doğrulanabilir ve markaya oturan konsept teslim etmek.**
+Aşağıdaki gerçekleri değiştiremezsin; bunlar üretim sisteminin kendisi.
+
+## 1. EVLEK NEDİR (gerçek)
+
+- KKTC (Kuzey Kıbrıs) için yapay zekâ destekli emlak platformu: `evlek.app`
+- Slogan: "Kıbrıs'ta doğru ev."
+- Web + iOS + Android canlı. 5 dil: TR (ana), EN, RU, DE, AR.
+- İki müşteri: **ev arayan** (öğrenci, aile, yabancı yatırımcı) ve **ödeyen
+  müşteri: emlakçı/büro** (tek gelir kanalı).
+- Ayrıştırıcı: her ilanın arkasında SMS ile doğrulanmış telefon, kayıtlı
+  WhatsApp ve **insan onayından geçmiş "Onaylı Emlakçı"** var. Sahte ilana
+  sıfır tolerans. Doğal dille arama ("Girne'de denize yakın 3+1") ve canlı
+  pazar verisi ürünün merkezinde.
+- Rakip: 101evler.com — eski teknoloji, tek dil, AI yok.
+
+## 2. GÖRSEL DÜNYA (dokunulamaz)
+
+Marka dili: **fiziksel kâğıt tiyatrosu.** Her şey masaya konan gerçek bir
+nesne gibi davranır. Renkler: krem zemin `#F4F1EB`, kobalt `#2F5CFF`,
+lacivert `#0A2540`, altın `#C9A157` (yalnız emlakçıya konuşan koyu dünyada,
+tek elemanda). Coral `#B84E3B` web'e ait, sosyalde kullanılmaz.
+Tipografi: Hanken Grotesk (başlık/gövde) + JetBrains Mono (meta/etiket).
+
+**Hareket kuralları (fizik):** nesneler tek %5 aşım + tek dönüşle yerine
+oturur (bounce yok, scale yok). Gölge hareketten 3 kare önce belirir, temas
+karesinde sertleşir. Metin tek kütle halinde merdaneyle basılır — harf harf
+yazılmaz, fade yapmaz. Dokular nesnenin çocuğudur, ekranda kaymaz. Kesme,
+dissolve, hız rampası yok. Video fiziksel olarak loop olur.
+
+## 3. ÜRETİM SİSTEMİ (senin yazacağın şey buna girecek)
+
+Videolar Remotion'da, veri-güdümlü şablonlarla üretiliyor. Yani senin çıktın
+bir **içerik JSON'u** olacak, tasarım değil. Mevcut formatlar:
+
+| Format | Süre | Kime | Dünya |
+|---|---|---|---|
+| Pazar Raporu | 25s | alıcı+emlakçı | krem kâğıt + kobalt mürekkep |
+| Pazar Nabzı | 15s | alıcı | krem |
+| Semt Rehberi | 15s | alıcı+yatırımcı | duotone fotoğraf + krem |
+| Emlakçı İçin | 15s | emlakçı | koyu lacivert + altın |
+| Evlek Nasıl Çalışır | 10-15s | alıcı | kobalt + beyaz kart |
+| Aynı Ev | 15s / 6s | alıcı | kolaj |
+
+**Dört içerik sütunu** (her hafta biri, sırayla — aynı sütun art arda gelmez):
+- **PAZAR** — "Ne oluyor?" canlı ilan verisi
+- **YER** — "Nerede yaşarım?" semt/şehir rehberi
+- **YOL** — "Nasıl yaparım?" süreç ve ürün
+- **KANIT** — "Gerçek mi?" gerçek ilan, gerçek emlakçı
+
+## 4. DÜRÜSTLÜK KURALLARI (ihlali konsepti geçersiz kılar)
+
+1. **Sayı uydurma.** Elimde yoksa yok. Veri kaynağı canlı Evlek verisi;
+   kaynak medyan vermiyorsa medyan gösterilmez, sayım gösterilir.
+2. Her veri karesinde kaynak satırı ve tarih olur.
+3. **"komisyonsuz"** iddiası, "ilk üç ilan bedava" gibi vaatler yok.
+4. Koçan/tapu/hukuk tavsiyesi verilmez (bağımsız hukuki denetimden geçmedi).
+5. İngilizce metinde **"real estate"** ifadesi yasak (ödeme sağlayıcı flag'liyor)
+   → "property", "listings".
+6. Yapay zekâ ile üretilmiş ev görseli, gerçek bir ilan numarasıyla yan yana
+   gelmez.
+7. Talep/ilgi iddiası ancak gerçek arama verisi varsa kurulabilir.
+
+## 5. SENDEN İSTEDİĞİM ÇIKTI
+
+Sana vereceğim haftalık girdiden **tam olarak şu üç şeyi** üret:
+
+### A) ÜÇ KONSEPT (farklı sütunlardan, farklı dünyalardan)
+Her biri için:
+- **Sütun / Format / Dünya / Hedef kitle**
+- **Kanca (ilk 2 saniyede ekranda olan tek cümle veya sayı)** — 6 kelimeyi geçme
+- **Perde perde kurgu** (saniye aralıklarıyla, her perdede tek fikir)
+- **Ekranda geçen tüm metin** (Türkçe, son hâli — taslak değil)
+- **Hangi veriyle kanıtlanıyor** (elimdeki hangi sayı/kaynak)
+- **Neden bu hafta bu?** (mevsim, sezon, kullanıcı sorusu — gerekçe)
+- **Riski/zayıf noktası** (dürüstçe)
+
+### B) SEÇİM VE GEREKÇE
+Üçünden hangisini bu hafta yapmalıyız ve neden. Diğer ikisi hangi haftaya
+uygun.
+
+### C) YAYIN PAKETİ (seçilen konsept için)
+- Instagram caption: **ilk 125 karakter kancayı taşımalı** (kesilmeden önce
+  görünen kısım), toplam 3-5 cümle
+- **En fazla 5 hashtag** (Aralık 2025'ten beri sınır 5)
+- Kapak karesi önerisi (hangi an, neden)
+- İlk yoruma gidecek link metni
+
+## 6. REDDET
+
+Şunları yaparsan çıktın kullanılamaz — üretmeden önce kendini denetle:
+- Elimde olmayan bir sayı, yüzde veya "araştırmalara göre" ifadesi
+- Stok-video estetiği gerektiren fikir (drone çekimi, insan oyuncu, konuşan
+  kafa) — bizim sistemimiz kâğıt tiyatrosu, çekim yapmıyoruz
+- Aynı anda ikiden fazla mesaj taşıyan perde
+- Emoji (marka dilinde yok)
+- 45 saniyeyi geçen süre veya 15 saniyenin altında kalan ana video
+
+## BU HAFTANIN GİRDİSİ
+
+**Hafta:** [2026-W__]
+**Sıradaki sütun:** [PAZAR / YOL / YER / KANIT]
+**Elimdeki canlı veri:** [buraya MCP'den gelen sayıları yapıştır]
+**Geçen hafta yayınlanan:** [format + dünya — aynısı tekrar etmesin]
+**Elimde olan görsel varlık:** [fotoğraf/ekran kaydı var mı]
+**Not:** [sezon, kampanya, özel durum]
+</script>
+<script type="text/plain" id="src-p2"># PROMPT 2 — GÖRSEL VARLIK BRİFİNGİ (SVG / PNG / doku talebi)
+
+> ChatGPT'ye (görsel üretimi açık olan sürüme) yapıştır. Üretilen dosyaları
+> `remotion/public/brandfilm/tex/` ve `remotion/public/kit/` altına koyacağız.
+
+---
+
+Evlek adlı KKTC emlak platformu için, kod içinde kullanılacak **üretim
+varlıkları** hazırlamanı istiyorum. Bunlar dekoratif değil; bir video
+render hattına girecek, o yüzden teknik şartname kesindir.
+
+## MARKA VE STİL
+
+- Renkler: lacivert `#0A2540` (ana çizgi), kobalt `#2F5CFF` (vurgu),
+  krem `#F4F1EB` (zemin), altın `#C9A157` (nadir vurgu).
+- Estetik: **editoryal baskı / kâğıt tiyatrosu.** Matbaa nişanları, kesik
+  kâğıt kenarları, mürekkep dokusu. Akdeniz, sıcak, sakin, pahalı.
+- **Yasak:** gradyan, neon, 3D render, drop-shadow gömülü görsel, emoji,
+  stok-ikon görüntüsü, yuvarlak köşeli "app ikonu" hissi.
+- Çizgi kalınlığı tek: 2px (24px ızgarada). Uçlar yuvarlak.
+
+## TESLİM ŞARTNAMESİ (hepsi için geçerli)
+
+- SVG'ler: tek renk `currentColor` ya da `#0A2540`, **gömülü gölge yok**,
+  viewBox temiz, gereksiz grup yok, `<title>` etiketli.
+- PNG'ler: **şeffaf zemin**, 2160px uzun kenar, gölge/vinyet gömülü değil.
+- Dokular: **kenar geçişi tekrarlanabilir (seamless)**, nötr gri-krem,
+  ortalama parlaklık 0.5 civarı — üstüne renk vereceğiz.
+- Dosya adları: `kategori-isim.svg` (küçük harf, tire). Örnek: `ikon-yatak.svg`.
+- Her paketi tek zip olarak ver, içinde `MANIFEST.txt` (dosya adı + ne olduğu).
+
+---
+
+## PAKET A — İKON SETİ (SVG, 24×24 ızgara, 2px çizgi)
+
+Emlak ilan kartlarında ve rehber videolarında kullanılacak:
+
+`yatak, banyo, metrekare, oda-sayisi, deniz-manzara, havuz, otopark,
+asansor, esyali, bahce, teras, klima, jenerator, su-deposu, guvenlik,
+okul, universite, market, hastane, otobus, plaj, restoran`
+
+Her biri tanınabilir ve **KKTC bağlamına uygun** olsun (ör. su-deposu =
+çatıdaki silindirik depo, jeneratör = kompakt kutu + egzoz).
+
+## PAKET B — YAPI SİLUETLERİ (SVG, çizgi, cepheden)
+
+KKTC yapı tipolojisi — abartısız, gerçekçi oranlarda:
+
+1. `yapi-tas-villa` — iki katlı, taş kaplama cephe, geniş teras, düz çatı
+2. `yapi-apartman-3kat` — 3 katlı, balkonlu apartman, çatıda su depoları
+3. `yapi-sitedaire` — site içi bloklar, havuz, palmiye
+4. `yapi-mustakil-eski` — geleneksel tek katlı Kıbrıs evi, kemerli sundurma
+5. `yapi-proje-insaat` — vinç + iskele, "yapım aşamasında" bloklar
+6. `yapi-stüdyo` — küçük öğrenci dairesi kesiti
+
+Hepsi aynı çizgi kalınlığında, aynı perspektifte (düz cephe, izometrik değil).
+
+## PAKET C — KKTC HARİTASI (SVG)
+
+1. `harita-kktc-outline` — Kuzey Kıbrıs'ın **coğrafi olarak doğru** sınır
+   çizgisi (tüm ada silueti içinde kuzey vurgulu). Tek path, dolgu yok.
+2. `harita-kktc-sehirler` — aynı outline + 6 şehir noktası
+   (Girne, İskele, Lefkoşa, Gazimağusa, Güzelyurt, Lefke), her nokta ayrı
+   `<g id="girne">` gibi kimlikli olsun ki kodda ayrı ayrı boyayabileyim.
+3. `harita-girne-semtler` — Girne bölgesi, semt noktaları kimlikli:
+   Alsancak, Esentepe, Girne Merkez, Lapta, Çatalköy, Karşıyaka,
+   Karaoğlanoğlu, Edremit, Doğanköy, Ozanköy, Bellapais, Zeytinlik.
+
+**Doğruluk kritik:** yanlış bir harita güveni bitirir. Emin olmadığın
+noktayı koyma, hangi noktalardan emin olmadığını yaz.
+
+## PAKET D — KÂĞIT VE MALZEME DOKULARI (PNG, 2160px, seamless)
+
+`doku-kraft-kagit, doku-eskiz-kagidi, doku-gazete-kagidi,
+doku-mavi-kopya-izgara, doku-keten-bez, doku-beton-siva,
+doku-karton-kenar, doku-el-yapimi-kagit, doku-toner-lekesi,
+doku-mürekkep-tarama`
+
+Her biri **düz aydınlatmada taranmış gibi** olsun — yapay ışık, vinyet,
+gölge yok. Bunlar nesnelerin içine gireceği için düz ve nötr olmalı.
+
+## PAKET E — DAMGA VE İŞARETLER (SVG)
+
+1. `damga-onayli-emlakci` — dairesel mühür, ortada onay işareti, çevresinde
+   "EVLEK ONAYLI EMLAKÇI" yazısı. Mürekkep basılmış hissi (kesintili kenar).
+2. `damga-kktc` — KKTC ibareli küçük dikdörtgen damga
+3. `damga-tarih` — içi boş tarih kutusu (kodda tarih basacağım)
+4. `isaret-ok-elle` — elle çizilmiş ok (3 varyant: sağ, sol, aşağı)
+5. `isaret-daire` — elle çizilmiş vurgulama dairesi (oval, kapanmamış)
+6. `isaret-alti-cizili` — elle çizilmiş alt çizgi (3 varyant)
+7. `isaret-parantez` — köşeli parantez çifti, elle çizilmiş
+8. `isaret-onay` — elle çizilmiş tik
+9. `ofis-atas, ofis-zimba, ofis-toplu-igne, ofis-bant-parcasi` (4 varyant bant)
+
+## PAKET F — FOTOĞRAF YÖNÜ (üretilecek görseller)
+
+Bunları görsel üretimiyle yapacaksan şu yönde üret; **fotogerçekçi, sıcak
+Akdeniz gün ışığı, geniş açı yok, insan yok, marka/logo yok:**
+
+1. `ev-tas-villa-dis` — taş kaplama villa dış cephe, zeytin ağacı, öğleden
+   sonra ışığı
+2. `ev-daire-balkon` — deniz gören balkon, sade mobilya
+3. `ev-salon` — ferah salon, doğal ışık, nötr renkler
+4. `ev-mutfak` — sade modern mutfak
+5. `ev-yatak-odasi` — sakin yatak odası
+6. `sokak-alsancak` — Akdeniz sokak dokusu, bougainvillea, taş duvar
+7. `sahil-girne` — kayalık sahil, sabah ışığı
+8. `insaat-etap` — yapım aşamasında site, vinç, temiz şantiye
+
+Hepsi **3:2 yatay ve 4:5 dikey** iki versiyonda, en az 2160px.
+
+---
+
+## ÖNCE ŞUNU YAP
+
+Üretime başlamadan önce bana şunu ver:
+1. Bu listeden **hangilerini gerçekten yapabileceğini** (SVG üretimi, doku
+   üretimi, fotoğraf üretimi ayrı yetenekler)
+2. Hangi paketten başlamamı önerdiğini (en çok işe yarayacak olan)
+3. Harita için hangi kaynaktan çalışacağını ve doğruluk konusunda ne kadar
+   emin olduğunu
+
+Sonra paket paket ilerleyelim; her paketi bitirince zip + MANIFEST ver.
+</script>
+<script type="text/plain" id="src-p3"># PROMPT 3 — VİDEO DENETİMİ (kare kare üst kurul incelemesi)
+
+> ChatGPT'ye videoyu yükle ve bu promptu yapıştır. Kontak sayfası PNG'sini de
+> yüklersen kare kare inceleme çok daha isabetli olur.
+
+---
+
+Sana Evlek'in haftalık video içeriklerinden birini yüklüyorum. Senden
+**acımasız, kare hassasiyetinde bir üst kurul denetimi** istiyorum. Övgü
+istemiyorum; ne çalışmıyorsa onu istiyorum.
+
+## 1. BU VİDEONUN AMACI (denetim ölçütü budur)
+
+Video **başarılı sayılır** ancak şunları yaparsa:
+
+1. **İlk 2 saniyede** izleyiciyi durdurur — ekranda tek, anlaşılır bir sayı
+   ya da iddia vardır. (2026 verisi: düşüşün büyük kısmı ilk saniyelerde olur.)
+2. **Ses kapalıyken** tam anlaşılır — altyazıya, sese, dış bağlama ihtiyaç yok.
+3. **Telefon ekranında** (yaklaşık 6 cm genişlik) her rakam ve her kelime
+   okunur.
+4. İzleyiciye **kullanabileceği bir bilgi** verir (hiper-yerel pazar gerçeği),
+   sadece marka göstermez.
+5. Sonunda **tek bir eylem** bırakır: evlek.app.
+6. **Kesintisiz loop olur** — son kareden ilk kareye geçişte flaş, boşluk ya
+   da sıçrama yoktur.
+7. **Güven verir:** her veri karesinde kaynak ve tarih vardır; abartı,
+   uydurma sayı, sahte aciliyet yoktur.
+
+Hedef kitle: KKTC'de ev arayan kişi (öğrenci, aile, yabancı yatırımcı) ve
+**ödeyen müşteri olan emlakçı.** Marka tonu: sakin, kanıtlı, pahalı.
+Asla: bağıran satıcı, sahte aciliyet, emoji, stok video estetiği.
+
+## 2. ZANAAT KURALLARI (ihlalleri işaretle)
+
+Bu videolar bir "fiziksel kâğıt tiyatrosu" dilinde üretiliyor. Kurallar:
+
+- **Tek yerleşme:** nesne tek ~%5 aşım + tek dönüşle oturur. Bounce, ikinci
+  salınım, pulse = hata.
+- **Scale animasyonu yok.** Nesne büyüyerek gelmez; taşınarak gelir.
+- **Gölge fiziği:** gölge hareketten ~3 kare önce belirir, uçuş sırasında tek
+  geniş yumuşak gölgedir, temas karesinde sertleşir. Gölgenin gri bir kutu
+  gibi görünmesi = hata.
+- **Metin tek kütle basılır:** yukarıdan aşağı merdane maskesi. Harf harf
+  yazılma, soldan sağa açılma, fade = hata.
+- **Fade / dissolve / hız rampası / optik akış yok.**
+- **Doku kaymaz:** kâğıt dokusu nesneyle birlikte hareket eder; sabit
+  yüzeylerde piksel kaynaması (crawling) = hata.
+- **Aynı anda en fazla iki hareket eden eleman.**
+- Renk: krem `#F4F1EB`, kobalt `#2F5CFF`, lacivert `#0A2540`, altın
+  `#C9A157` (yalnız tek elemanda). Coral `#B84E3B` sosyalde kullanılmaz.
+
+## 3. NASIL İNCELE
+
+Videoyu **en az üç kez** izle, her seferinde farklı bir şeye bakarak:
+
+- **1. geçiş — izleyici olarak:** ilk 2 saniyede durdum mu? Ne anladım? Sonunda
+  ne yapmak istedim? Sıkıldığım an neresi?
+- **2. geçiş — kare kare:** her perdenin giriş/çıkış karelerine bak. Ölü kare
+  (hiçbir şeyin olmadığı 10+ kare) var mı? Bir eleman yerine oturmadan diğeri
+  geliyor mu? Kadrajın yarısı boş kalıyor mu?
+- **3. geçiş — telefon simülasyonu:** görüntüyü küçült ve gözlerini kıs. Hangi
+  rakam okunmuyor? Hangi metin kayboluyor? Hangi kontrast yetersiz?
+
+Ayrıca kontrol et:
+- İlk kare ile son kare loop için uyumlu mu?
+- Kaynak satırı her veri karesinde var mı ve okunur mu?
+- Ekranda aynı anda kaç fikir var? (ikiden fazlaysa hata)
+- Marka adı ve evlek.app kaç saniye net görünüyor? (en az 2 sn olmalı)
+
+## 4. ÇIKTI FORMATI (buna birebir uy)
+
+### A) TEK CÜMLELİK HÜKÜM
+Bu video yayına hazır mı? Evet/hayır ve tek cümlelik gerekçe.
+
+### B) BULGU TABLOSU
+Her satır şu sütunlarla, **en kritikten başlayarak**:
+
+| Öncelik | Zaman (SS.KK) | Ne görüyorum | Neden sorun | Somut düzeltme |
+|---|---|---|---|---|
+
+- Öncelik: **P0** (yayını engeller) / **P1** (kalite kaybı) / **P2** (cila)
+- Zaman: saniye.kare biçiminde, kare 0–59 arası (60 fps)
+- "Somut düzeltme": uygulanabilir olsun — "daha iyi olsun" değil,
+  "bu kartı 12 kare erken getir" gibi.
+
+### C) TUTULACAKLAR
+Neyin **kesinlikle değişmemesi** gerektiği (3-5 madde). Bu önemli: yanlışlıkla
+iyi olanı bozmayalım.
+
+### D) PUAN
+| Ölçüt | Puan /100 |
+|---|---|
+| İlk 2 saniye (durdurma gücü) | |
+| Ses kapalı anlaşılırlık | |
+| Telefonda okunabilirlik | |
+| Bilgi değeri (izleyici ne kazandı) | |
+| Zanaat / hareket fiziği | |
+| Marka ve güven | |
+| Loop bütünlüğü | |
+| **Genel** | |
+
+### E) TEK BİR ŞEY
+Sadece bir şey değiştirebilseydim, hangisi olurdu ve neden?
+
+## 5. SANA BİLGİ
+
+- Süre ve teknik: [__ saniye, 1080×1920, 60 fps, sessiz]
+- Format: [Pazar Raporu / Semt Rehberi / Emlakçı İçin / ...]
+- Kullanılan veri: [videodaki sayıların kaynağı ve tarihi]
+- Bu videonun hedefi: [ör. emlakçıyı kayda yönlendirmek]
+</script>
+<script>
+const text = (id) => document.getElementById('src-' + id).textContent.trim();
+document.querySelectorAll('.toggle').forEach((b) => {
+  b.addEventListener('click', () => {
+    const id = b.dataset.target, pre = document.getElementById('body-' + id);
+    const open = !pre.hidden;
+    if (!pre.textContent) pre.textContent = text(id);
+    pre.hidden = open;
+    b.setAttribute('aria-expanded', String(!open));
+    b.textContent = open ? 'Promptu göster' : 'Promptu gizle';
+  });
+});
+document.querySelectorAll('.copy').forEach((b) => {
+  b.addEventListener('click', async () => {
+    const t = text(b.dataset.target);
+    try { await navigator.clipboard.writeText(t); }
+    catch (e) {
+      const ta = document.createElement('textarea');
+      ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); } catch (e2) { }
+      ta.remove();
+    }
+    b.textContent = 'Kopyalandı'; b.classList.add('done');
+    setTimeout(() => { b.textContent = 'Kopyala'; b.classList.remove('done'); }, 1800);
+  });
+});
+</script>
