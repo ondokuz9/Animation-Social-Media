@@ -1,0 +1,204 @@
+{
+  "name": "Evlek içerik takvimi — 12 hafta",
+  "cadence": "haftada 3 gönderi (1 video + 2 statik) — 2026 Eylül kıyaslaması: 3 Reels/hafta, 90 günlük istikrar tek haftalık hacimden önemli",
+  "rules": [
+    "Yan yana iki hafta aynı dünya kullanılmaz.",
+    "Her video kaynak satırı taşır.",
+    "Kaynak medyanı saklıyorsa medyan gösterilmez.",
+    "Video uzunluğu 15–30s; ilk 2 saniyede sayı ya da iddia ekranda."
+  ],
+  "weeks": [
+    {
+      "week": "2026-W36",
+      "date": "3 Eyl",
+      "video": {
+        "format": "Pazar Raporu",
+        "world": "krem",
+        "audience": "alıcı+emlakçı",
+        "topic": "Girne satılık pazar raporu — 4 şehir, 5 semt, ikinci pazar",
+        "dataSource": "MCP get_price_index + compare_cities"
+      },
+      "static": [
+        "Hook",
+        "Ürün"
+      ],
+      "status": "ÜRETİLDİ"
+    },
+    {
+      "week": "2026-W37",
+      "date": "10 Eyl",
+      "video": {
+        "format": "Emlakçı İçin",
+        "world": "koyu+gold",
+        "audience": "emlakçı",
+        "topic": "İlanın 5 dilde yayında — AI aramada bulunmak",
+        "dataSource": "ürün gerçeği"
+      },
+      "static": [
+        "Veri",
+        "Güven"
+      ],
+      "status": "PLANLI"
+    },
+    {
+      "week": "2026-W38",
+      "date": "17 Eyl",
+      "video": {
+        "format": "Pazar Nabzı",
+        "world": "krem",
+        "audience": "alıcı",
+        "topic": "Kiralık kesiti — üniversite sezonu",
+        "dataSource": "MCP rent index"
+      },
+      "static": [
+        "İlan",
+        "Rehber"
+      ],
+      "status": "PLANLI"
+    },
+    {
+      "week": "2026-W39",
+      "date": "24 Eyl",
+      "video": {
+        "format": "Semt Rehberi",
+        "world": "duotone",
+        "audience": "alıcı+yatırımcı",
+        "topic": "Alsancak: neden en çok ilan burada?",
+        "dataSource": "MCP semt + gerçek foto"
+      },
+      "static": [
+        "Emlakçı",
+        "Hook"
+      ],
+      "status": "FOTO GEREK"
+    },
+    {
+      "week": "2026-W40",
+      "date": "1 Eki",
+      "video": {
+        "format": "Pazar Raporu",
+        "world": "krem",
+        "audience": "alıcı+emlakçı",
+        "topic": "Aylık rapor + ilk gerçek haftalık delta",
+        "dataSource": "MCP + snapshot delta"
+      },
+      "static": [
+        "Ürün",
+        "Veri"
+      ],
+      "status": "DELTA AÇILIR"
+    },
+    {
+      "week": "2026-W41",
+      "date": "8 Eki",
+      "video": {
+        "format": "Aynı Ev (15s)",
+        "world": "kolaj",
+        "audience": "alıcı",
+        "topic": "Üç fiyat problemi — kanıtlanmış hook",
+        "dataSource": "sabit"
+      },
+      "static": [
+        "Güven",
+        "İlan"
+      ],
+      "status": "HAZIR"
+    },
+    {
+      "week": "2026-W42",
+      "date": "15 Eki",
+      "video": {
+        "format": "Evlek Nasıl Çalışır",
+        "world": "kobalt",
+        "audience": "alıcı",
+        "topic": "Doğal dille ara, sonucu gör",
+        "dataSource": "gerçek UI"
+      },
+      "static": [
+        "Rehber",
+        "Emlakçı"
+      ],
+      "status": "EKRAN KAYDI GEREK"
+    },
+    {
+      "week": "2026-W43",
+      "date": "22 Eki",
+      "video": {
+        "format": "Pazar Raporu",
+        "world": "krem",
+        "audience": "alıcı+emlakçı",
+        "topic": "İskele/Long Beach mercek",
+        "dataSource": "MCP iskele"
+      },
+      "static": [
+        "Hook",
+        "Ürün"
+      ],
+      "status": "PLANLI"
+    },
+    {
+      "week": "2026-W44",
+      "date": "29 Eki",
+      "video": {
+        "format": "Proje / İnşaat",
+        "world": "krem+gold",
+        "audience": "yatırımcı",
+        "topic": "Etap, teslim, ödeme planı nasıl okunur",
+        "dataSource": "MCP payment_plan + geliştirici"
+      },
+      "static": [
+        "Veri",
+        "Güven"
+      ],
+      "status": "PROJE VERİSİ GEREK"
+    },
+    {
+      "week": "2026-W45",
+      "date": "5 Kas",
+      "video": {
+        "format": "Emlakçı İçin",
+        "world": "koyu+gold",
+        "audience": "emlakçı",
+        "topic": "Onaylı Emlakçı rozeti ne işe yarar",
+        "dataSource": "ürün + gerçek emlakçı"
+      },
+      "static": [
+        "İlan",
+        "Rehber"
+      ],
+      "status": "EMLAKÇI GEREK"
+    },
+    {
+      "week": "2026-W46",
+      "date": "12 Kas",
+      "video": {
+        "format": "Pazar Raporu",
+        "world": "krem",
+        "audience": "alıcı+emlakçı",
+        "topic": "Sonbahar pazarı — 10 haftalık eğri",
+        "dataSource": "snapshot arşivi"
+      },
+      "static": [
+        "Emlakçı",
+        "Hook"
+      ],
+      "status": "EĞRİ AÇILIR"
+    },
+    {
+      "week": "2026-W47",
+      "date": "19 Kas",
+      "video": {
+        "format": "Aynı Ev (6s bumper)",
+        "world": "kolaj",
+        "audience": "retargeting",
+        "topic": "Tek argüman bumper",
+        "dataSource": "sabit"
+      },
+      "static": [
+        "Ürün",
+        "Veri"
+      ],
+      "status": "HAZIR"
+    }
+  ]
+}

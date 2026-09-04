@@ -1,0 +1,71 @@
+{
+  "week": "2026-W36",
+  "dateLabel": "3 EYLÜL 2026",
+  "generatedAt": "2026-09-03T16:08:56.740Z",
+  "kicker": "KKTC · SATILIK · PAZAR RAPORU · 3 EYLÜL 2026",
+  "total": 359,
+  "totalLabel": "aktif satılık ilan",
+  "citiesLabel": "ŞEHİRLERE GÖRE",
+  "cities": [
+    {
+      "name": "Girne",
+      "count": 284
+    },
+    {
+      "name": "İskele",
+      "count": 35
+    },
+    {
+      "name": "Lefkoşa",
+      "count": 24
+    },
+    {
+      "name": "Gazimağusa",
+      "count": 16
+    }
+  ],
+  "districtsLabel": "GİRNE İÇİNDE — İLK 5 SEMT",
+  "districts": [
+    {
+      "name": "Alsancak",
+      "count": 75
+    },
+    {
+      "name": "Esentepe",
+      "count": 56
+    },
+    {
+      "name": "Girne Merkez",
+      "count": 52
+    },
+    {
+      "name": "Lapta",
+      "count": 26
+    },
+    {
+      "name": "Çatalköy",
+      "count": 17
+    }
+  ],
+  "districtsNote": "GİRNE'DEKİ HER 4 İLANDAN 3'Ü BU BEŞ SEMTTE.",
+  "spotlight": {
+    "kicker": "İKİNCİ PAZAR",
+    "title": "İskele'de ilanlar iki noktada toplanıyor.",
+    "rows": [
+      {
+        "name": "İskele Merkez",
+        "count": 20
+      },
+      {
+        "name": "Long Beach",
+        "count": 8
+      }
+    ],
+    "note": "İskele'deki 35 ilanın 28'i bu iki bölgede. Kalanı 24 farklı köye dağılmış durumda."
+  },
+  "statement": "Kıbrıs'ta pazar tek değil.\nDört şehir, dört ayrı hikâye.",
+  "ctaHead": "Ev bakmadan\nönce pazarı gör.",
+  "ctaSub": "Girne'den Karpaz'a, canlı ilan verisi tek yerde.",
+  "source": "KAYNAK: EVLEK.APP CANLI İLAN VERİSİ",
+  "citiesNote": "AKTİF SATILIK İLANLARIN %79'U GİRNE'DE."
+}

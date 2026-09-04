@@ -74,3 +74,66 @@ ffmpeg -i ../out/pazar-nabzi-<hafta>.mov -c:v libx264 -preset slow -crf 15 -tune
 
 Yeni format eklemek: `remotion/src/formats/<Ad>.jsx` + `content/<ad>-ornek.json`
 + `Root.jsx`'te `defaultProps` ile kayıt. Marka filmi ve onaylı master'lara dokunulmaz.
+
+---
+
+# v2 — DERİNLİK, TREND VE SÜRDÜRÜLEBİLİRLİK KATMANI (3 Eylül 2026)
+
+## 1. Zanaat tek yerde: `remotion/src/formats/kit.jsx`
+
+Kalite artık her formatta yeniden çözülmüyor; miras alınıyor. Kit şunları taşır:
+
+- **Fizik:** `place` (tek %5 aşım, tek dönüş, asla scale), `press` (tek kütle
+  merdane baskısı — harf harf yazma yok, fade yok), `drawLine` (yalnız çizgiler
+  için), `CastShadow` (niyet 3 kare önce, uçuşta TEK geniş ambient, temas
+  karesinde sert çift).
+- **Malzeme:** `PaperGround` (kireç sıva + tooth), `StockCard` (kesik kenar +
+  fiber + kendi dokusu), `InkBar` (içinde gerçek kobalt tarama olan mürekkep
+  şeridi — düz dolgu değil), `CobaltBoard` (kapanış dünyası, fiziksel iniş/kalkış).
+- **Tipografi ve yerleşim:** `Kicker`, `Headline`, `SourceLine`, `Lockup`,
+  `Registration` (pres nişanları), 84px kenar, 1:1 güvenli bant.
+
+Yeni format açmak artık **senaryo yazmak**, tasarım sistemi kurmak değil.
+
+## 2. Amiral format: `PazarRaporu` (25s / 1500 kare)
+
+Beş perdede argüman kurar: haftanın sayısı → ülke kırılımı (4 şehir) →
+kazananın içi (Girne'nin "proven" semtleri) → ikinci pazar (İskele/Long Beach)
+→ okuma cümlesi → kobalt kapanış + fiziksel loop.
+
+Eylül 2026 kısa video araştırması formatı belirledi: 20–45 sn aralığı uzun
+formatlardan iyi performans veriyor, ilk iki saniye izlenmeyi belirliyor ve
+**hiper-yerel pazar güncellemeleri** en çok paylaşılan tür. Bu yüzden sayı
+00.45'te ekranda, film 25 saniye, her ekran tek fikir.
+
+## 3. Trend girdisi — ne kullanıldı, ne kullanılmadı
+
+| Kaynak | Durum | Kullanım |
+|---|---|---|
+| Evlek MCP (`get_price_index`, `compare_cities`, `list_locations`) | ✅ canlı | Her videonun sayıları |
+| Kısa video format araştırması (Eylül 2026) | ✅ | Süre, ilk 2 sn, haftada 3 gönderi kadansı |
+| SE Ranking anahtar kelime veritabanı | ❌ KKTC terimlerini kapsamıyor (0 satır) | Kullanılmadı — hacim uydurulmadı |
+| Evlek repo SEO çalışması | ✅ | Konu seçimi (semt/şehir sayfaları) |
+
+## 4. Delta motoru — haftadan haftaya gerçek değişim
+
+Her çekim `content/snapshots/` altına yazılır. `scripts/delta.mjs` iki snapshot
+arasındaki farkı üretir ve **6 günden kısa aralığı haftalık delta saymayı
+reddeder**. W40'tan itibaren videolarda gerçek "bu hafta +N" çipi açılır.
+
+## 5. Tek komut: `scripts/hafta.mjs`
+
+```bash
+node scripts/hafta.mjs PazarRaporu content/pazar-raporu-2026-W37.json
+```
+
+Sırayla: içerik kontrolü (kaynak satırı zorunlu) → ProRes render → H.264 sosyal
+encode → **ffprobe kapısı** (tam kare sayısı, 60 CFR, tek stream, BT.709) →
+kontak sayfası → sha256 → `baselines/` pini. Kapıyı geçemeyen dosya teslim
+edilmez; haftalık tempo kaliteyi düşürmenin mazereti olamaz.
+
+## 6. Takvim: `content/takvim-12-hafta.json`
+
+12 hafta × haftada 3 gönderi (1 video + 2 statik), format ve dünya rotasyonlu,
+her hafta veri kaynağı ve eksik girdi ("FOTO GEREK", "EKRAN KAYDI GEREK")
+işaretli. Yan yana iki hafta aynı dünyayı kullanmaz.

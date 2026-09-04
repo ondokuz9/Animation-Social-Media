@@ -1,0 +1,6 @@
+{ "generatedAt": "2026-09-03T16:08:56.740Z", "type": "sale",
+  "cities": { "Girne": 284, "İskele": 35, "Lefkoşa": 24, "Gazimağusa": 16 },
+  "girneDistricts": { "Alsancak": 75, "Esentepe": 56, "Girne Merkez": 52, "Lapta": 26, "Çatalköy": 17,
+                      "Karşıyaka": 12, "Karaoğlanoğlu": 10, "Edremit": 6, "Boğaz": 5, "Doğanköy": 5,
+                      "Ozanköy": 5, "Arapköy": 4, "Bellapais": 3, "Zeytinlik": 3, "Karakum": 1 },
+  "iskeleDistricts": { "İskele Merkez": 20, "Long Beach": 8, "Bahçeler": 1 } }
