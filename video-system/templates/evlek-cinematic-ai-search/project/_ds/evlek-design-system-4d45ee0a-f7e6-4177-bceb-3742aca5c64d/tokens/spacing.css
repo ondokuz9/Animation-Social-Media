@@ -1,0 +1,37 @@
+:root{
+  /* ---- Spacing scale ---- */
+  --sp-1:4px;
+  --sp-2:8px;
+  --sp-3:12px;
+  --sp-4:16px;
+  --sp-5:24px;
+  --sp-6:32px;
+  --sp-7:44px;
+  --sp-8:64px;
+  --sp-9:88px;
+  --sp-10:120px;
+
+  /* ---- Carousel frame ---- */
+  --carousel-w:1080px;
+  --carousel-h:1350px;
+  --carousel-margin:76px;   /* generous side margins, signature negative space */
+
+  /* ---- Radii ---- */
+  --radius-pill:999px;       /* CTA + evlek.app pill + badges */
+  --radius-card:28px;        /* koçan cards */
+  --radius-sm:12px;
+
+  /* ---- Signature marks ---- */
+  --eyebrow-line-w:52px;     /* short blue line before mono label */
+  --eyebrow-line-h:3px;
+
+  /* ---- Elevation (used sparingly; cards on cream) ---- */
+  --shadow-card:0 18px 48px rgba(20,33,61,0.08);
+  --shadow-pill:0 8px 20px rgba(47,92,255,0.24);
+
+  /* ---- Motion ---- */
+  --ease-editorial:cubic-bezier(0.22,1,0.36,1); /* @kind other */
+  --dur-fast:180ms; /* @kind other */
+  --dur-reveal:640ms; /* @kind other */
+  --dur-draw:900ms; /* @kind other */
+}

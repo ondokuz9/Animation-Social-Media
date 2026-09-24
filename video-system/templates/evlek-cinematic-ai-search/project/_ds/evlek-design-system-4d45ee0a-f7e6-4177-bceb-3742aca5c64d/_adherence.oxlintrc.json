@@ -1,0 +1,304 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "components/brand/**",
+              "components/core/**",
+              "components/patterns/**",
+              "ui_kits/carousel/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Fraunces|Hanken Grotesk|JetBrains Mono))/i]",
+        "message": "Font not provided by the design system. Available: Fraunces, Hanken Grotesk, JetBrains Mono."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Badge'] > JSXAttribute > JSXIdentifier[name!=/^(?:tone|key|ref|className|style|children)$/]",
+        "message": "<Badge> doesn't accept that prop. Declared props: tone."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Badge'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:cobalt|navy|outline)$/]",
+        "message": "<Badge> tone must be one of 'cobalt' | 'navy' | 'outline'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='BrandLockup'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|domain|logoSrc|logoHeight|showPill|key|ref|className|style|children)$/]",
+        "message": "<BrandLockup> doesn't accept that prop. Declared props: variant, domain, logoSrc, logoHeight, showPill."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='BrandLockup'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:dark|light)$/]",
+        "message": "<BrandLockup> variant must be one of 'dark' | 'light'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|size|arrow|onDark|key|ref|className|style|children)$/]",
+        "message": "<Button> doesn't accept that prop. Declared props: variant, size, arrow, onDark."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:primary|outline|ghost)$/]",
+        "message": "<Button> variant must be one of 'primary' | 'outline' | 'ghost'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md|lg)$/]",
+        "message": "<Button> size must be one of 'sm' | 'md' | 'lg'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Card'] > JSXAttribute > JSXIdentifier[name!=/^(?:hairline|padding|key|ref|className|style|children)$/]",
+        "message": "<Card> doesn't accept that prop. Declared props: hairline, padding."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Eyebrow'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|tone|showLine|key|ref|className|style|children)$/]",
+        "message": "<Eyebrow> doesn't accept that prop. Declared props: label, tone, showLine."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Eyebrow'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:cobalt|navy|light)$/]",
+        "message": "<Eyebrow> tone must be one of 'cobalt' | 'navy' | 'light'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='FloorPlan'] > JSXAttribute > JSXIdentifier[name!=/^(?:width|furniture|stroke|detail|key|ref|className|style|children)$/]",
+        "message": "<FloorPlan> doesn't accept that prop. Declared props: width, furniture, stroke, detail."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='PageNumber'] > JSXAttribute > JSXIdentifier[name!=/^(?:current|total|tone|key|ref|className|style|children)$/]",
+        "message": "<PageNumber> doesn't accept that prop. Declared props: current, total, tone."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='PageNumber'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:navy|cobalt|light)$/]",
+        "message": "<PageNumber> tone must be one of 'navy' | 'cobalt' | 'light'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Wave'] > JSXAttribute > JSXIdentifier[name!=/^(?:height|layered|color|under|key|ref|className|style|children)$/]",
+        "message": "<Wave> doesn't accept that prop. Declared props: height, layered, color, under."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {
+      "Badge": {
+        "replaces": []
+      },
+      "BrandLockup": {
+        "replaces": []
+      },
+      "Button": {
+        "replaces": []
+      },
+      "Card": {
+        "replaces": []
+      },
+      "Eyebrow": {
+        "replaces": []
+      },
+      "FloorPlan": {
+        "replaces": []
+      },
+      "PageNumber": {
+        "replaces": []
+      },
+      "Wave": {
+        "replaces": []
+      }
+    },
+    "tokens": [
+      "--accent",
+      "--accent-press",
+      "--accent-soft",
+      "--bg-page",
+      "--bg-photo-ink",
+      "--border-hairline",
+      "--border-soft",
+      "--carousel-h",
+      "--carousel-margin",
+      "--carousel-w",
+      "--dur-draw",
+      "--dur-fast",
+      "--dur-reveal",
+      "--ease-editorial",
+      "--evlek-blue-light",
+      "--evlek-cobalt",
+      "--evlek-cobalt-press",
+      "--evlek-cream",
+      "--evlek-cream-deep",
+      "--evlek-lavender",
+      "--evlek-navy",
+      "--evlek-navy-08",
+      "--evlek-navy-16",
+      "--evlek-navy-48",
+      "--evlek-navy-64",
+      "--evlek-navy-80",
+      "--evlek-white",
+      "--eyebrow-line-h",
+      "--eyebrow-line-w",
+      "--font-display",
+      "--font-mono",
+      "--font-sans",
+      "--fs-body",
+      "--fs-body-sm",
+      "--fs-caption",
+      "--fs-eyebrow",
+      "--fs-h1",
+      "--fs-h2",
+      "--fs-hero",
+      "--fs-lead",
+      "--fs-page-num",
+      "--fw-body",
+      "--fw-display",
+      "--fw-headline",
+      "--fw-medium",
+      "--lh-body",
+      "--lh-head",
+      "--lh-hero",
+      "--lh-tight",
+      "--plan-detail",
+      "--plan-wall",
+      "--radius-card",
+      "--radius-pill",
+      "--radius-sm",
+      "--shadow-card",
+      "--shadow-pill",
+      "--sp-1",
+      "--sp-10",
+      "--sp-2",
+      "--sp-3",
+      "--sp-4",
+      "--sp-5",
+      "--sp-6",
+      "--sp-7",
+      "--sp-8",
+      "--sp-9",
+      "--surface-card",
+      "--surface-dark",
+      "--surface-well",
+      "--text-body",
+      "--text-eyebrow",
+      "--text-eyebrow-on-dark",
+      "--text-muted",
+      "--text-on-dark",
+      "--text-strong",
+      "--tracking-display",
+      "--tracking-head",
+      "--tracking-mono"
+    ],
+    "tokenKinds": {
+      "--evlek-cream": "color",
+      "--evlek-cream-deep": "color",
+      "--evlek-navy": "color",
+      "--evlek-cobalt": "color",
+      "--evlek-cobalt-press": "color",
+      "--evlek-blue-light": "color",
+      "--evlek-lavender": "color",
+      "--evlek-white": "color",
+      "--evlek-navy-80": "color",
+      "--evlek-navy-64": "color",
+      "--evlek-navy-48": "color",
+      "--evlek-navy-16": "color",
+      "--evlek-navy-08": "color",
+      "--bg-page": "color",
+      "--bg-photo-ink": "color",
+      "--surface-card": "color",
+      "--surface-well": "color",
+      "--surface-dark": "color",
+      "--text-strong": "font",
+      "--text-body": "font",
+      "--text-muted": "font",
+      "--text-on-dark": "font",
+      "--text-eyebrow": "font",
+      "--text-eyebrow-on-dark": "font",
+      "--accent": "color",
+      "--accent-press": "color",
+      "--accent-soft": "color",
+      "--border-hairline": "color",
+      "--border-soft": "color",
+      "--plan-wall": "color",
+      "--plan-detail": "color",
+      "--font-display": "font",
+      "--font-sans": "font",
+      "--font-mono": "font",
+      "--fw-body": "other",
+      "--fw-medium": "other",
+      "--fw-headline": "other",
+      "--fw-display": "other",
+      "--fs-hero": "spacing",
+      "--fs-h1": "spacing",
+      "--fs-h2": "spacing",
+      "--fs-lead": "spacing",
+      "--fs-body": "spacing",
+      "--fs-body-sm": "spacing",
+      "--fs-eyebrow": "spacing",
+      "--fs-page-num": "spacing",
+      "--fs-caption": "spacing",
+      "--lh-hero": "other",
+      "--lh-head": "other",
+      "--lh-body": "other",
+      "--lh-tight": "other",
+      "--tracking-mono": "other",
+      "--tracking-head": "other",
+      "--tracking-display": "other",
+      "--sp-1": "spacing",
+      "--sp-2": "spacing",
+      "--sp-3": "spacing",
+      "--sp-4": "spacing",
+      "--sp-5": "spacing",
+      "--sp-6": "spacing",
+      "--sp-7": "spacing",
+      "--sp-8": "spacing",
+      "--sp-9": "spacing",
+      "--sp-10": "spacing",
+      "--carousel-w": "spacing",
+      "--carousel-h": "spacing",
+      "--carousel-margin": "spacing",
+      "--radius-pill": "radius",
+      "--radius-card": "radius",
+      "--radius-sm": "radius",
+      "--eyebrow-line-w": "spacing",
+      "--eyebrow-line-h": "spacing",
+      "--shadow-card": "shadow",
+      "--shadow-pill": "shadow",
+      "--ease-editorial": "other",
+      "--dur-fast": "other",
+      "--dur-reveal": "other",
+      "--dur-draw": "other"
+    },
+    "fontFamilies": [
+      "Fraunces",
+      "Hanken Grotesk",
+      "JetBrains Mono"
+    ]
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "project_id": "evlek-cinematic-ai-search",
+  "language": "tr",
+  "duration_seconds": 21.55,
+  "listing": {
+    "price": "£165.000",
+    "location": "Girne · Zeytinlik",
+    "type": "2+1",
+    "title_type": "Türk Koçanı"
+  },
+  "copy": {
+    "hook_1": "Aklındaki evi…",
+    "hook_2": "…sen tarif et.",
+    "ai_search": "Evlek anlar.",
+    "ai_search_accent": "anlar.",
+    "ai_badge": "AI arama",
+    "search_query": "Girne'de deniz gören, Türk koçanlı 2+1",
+    "search_price_clause": "≤ £180K",
+    "search_button": "Ara",
+    "criteria": ["Girne", "Deniz manzarası", "Türk Koçanı", "2+1", "≤ £180K"],
+    "results": "Evlek bulur.",
+    "analysis": "Sadece bulmaz.\nAçıklar.",
+    "detail_title_label": "KOÇAN BİLGİSİ",
+    "staging_before": "Bugünkü hâli.",
+    "staging_after": "Olabileceği hâli.",
+    "staging_disclosure": "AI ile görselleştirildi · Temsilî",
+    "market": "Piyasayı gör.\nGetiriyi hesapla.",
+    "tagline": "Kıbrıs'ta doğru ev.",
+    "cta": "Evlek.app'te ara",
+    "platforms": "Web · iOS · Android · 5 dil"
+  },
+  "assets": {
+    "hook_image": "img/hook-girne-liman.jpg",
+    "living_room_image": "img/niyet-salon.jpg",
+    "listing_main_image": "img/room-01-akdeniz.jpg",
+    "listing_stack": [
+      "img/peek-balkon.jpg",
+      "img/kiyi.jpg",
+      "img/room-02-minimal.jpg"
+    ],
+    "staging_before": "img/room-00-bos.jpg",
+    "staging_after": "img/room-01-akdeniz.jpg",
+    "wordmark": "img/wordmark.png"
+  }
+}
