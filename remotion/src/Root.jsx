@@ -14,6 +14,7 @@ import { Match, MATCH_SECONDS } from './reels/emlakci/scenes/Match.jsx';
 import { Arama, ARAMA_SECONDS } from './reels/emlakci/scenes/Arama.jsx';
 import { Asistan, ASISTAN_SECONDS } from './reels/emlakci/scenes/Asistan.jsx';
 import { Kapanis, KAPANIS_SECONDS } from './reels/emlakci/scenes/Kapanis.jsx';
+import { DogruCizgi, DOGRU_FRAMES } from './reels/dogru-cizgi/Film.jsx';
 
 const comp = (id, component, frames) => (
   <Composition id={id} component={component} durationInFrames={frames}
@@ -35,5 +36,8 @@ export const RemotionRoot = () => (
     {comp('a6-arama', Arama, f(ARAMA_SECONDS))}
     {comp('a7-asistan', Asistan, f(ASISTAN_SECONDS))}
     {comp('a8-kapanis', Kapanis, f(KAPANIS_SECONDS))}
+
+    {/* Brand film: one line, one take, 15 seconds. */}
+    {comp('DogruCizgi', DogruCizgi, DOGRU_FRAMES)}
   </>
 );
