@@ -723,12 +723,13 @@ export const stateAt = (frame) => {
       s.lines.push({ shape: { p: hr.p, a: hr.a.map((v, i) => (hr.u[i] <= hp ? v * 0.3 * vol : 0)) }, space: 'world', width: 1.1, nearFade: 1.2, core: false });
     }
     // someone is home: the windows are lit
-    const lit = seg(he, 0.72, 1, ease.inOut) * sceneOut * (inside ? 0 : 1) * (1 - 0.5 * recede);
+    const lit = seg(he, 0.72, 1, ease.inOut) * sceneOut * (inside ? 0 : 1) * (1 - 0.5 * recede) * ease.inOut(clamp((rel[2] - G.z1 - 0.8) / 3.0));
     if (lit > 0) for (const w of WINDOWS) if (faceVisible(w, cam)) s.faces.push({ p: w.q, col: INK_WARM, a: 0.36 * lit, a2: 0.1 * lit, grad: [v3.lerp(w.q[0], w.q[1], 0.5), v3.lerp(w.q[2], w.q[3], 0.5)] });
     const pool = seg(he, 0.85, 1, ease.inOut) * sceneOut;
     if (pool > 0 && faceVisible(POOL, cam)) s.faces.push({ p: POOL.q, col: [80, 200, 182], a: 0.1 * pool, a2: 0.02 * pool, grad: [v3.lerp(POOL.q[0], POOL.q[1], 0.5), v3.lerp(POOL.q[2], POOL.q[3], 0.5)] });
     // the door opens and the light comes out to meet you
-    const spill = seg(f, T.doorOpen[0], T.doorOpen[1] + 6, ease.inOut) * sceneOut;
+    // …and eases away as we walk through it, so it never fills the lens
+    const spill = seg(f, T.doorOpen[0], T.doorOpen[1] + 6, ease.inOut) * sceneOut * ease.inOut(clamp((rel[2] - G.z1 - 0.8) / 3.0));
     if (spill > 0 && !inside) {
       if (faceVisible(DOORWAY, cam)) s.faces.push({ p: DOORWAY.q, col: INK_WARM, a: 0.34 * spill, a2: 0.16 * spill, grad: [v3.lerp(DOORWAY.q[0], DOORWAY.q[1], 0.5), v3.lerp(DOORWAY.q[2], DOORWAY.q[3], 0.5)] });
       s.faces.push({ p: SPILL.q, col: INK_WARM, a: 0.2 * spill, grad: [v3.lerp(SPILL.q[0], SPILL.q[1], 0.5), v3.lerp(SPILL.q[2], SPILL.q[3], 0.5)] });
