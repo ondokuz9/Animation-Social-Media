@@ -170,7 +170,7 @@ const Hud = ({ h }) => {
     <path key={i} d={`M ${x} ${y + sy * arm} L ${x} ${y} L ${x + sx * arm} ${y}`} fill="none" stroke={INKT(0.55)} strokeWidth={1.6}
           strokeDasharray={per} strokeDashoffset={per * (1 - h.draw)} />
   );
-  const RX0 = 78, RX1 = W - 78, RY = 214;
+  const RX0 = TEXT_X, RX1 = W - TEXT_X, RY = 214;
   const px = (f) => RX0 + (RX1 - RX0) * Math.min(1, f / HUD_END);
   const cur = CHAPTERS[h.ci], prev = CHAPTERS[Math.max(0, h.ci - 1)];
   const chap = (c, dy, a) => (
@@ -196,13 +196,8 @@ const Hud = ({ h }) => {
         {h.ci > 0 && h.ct < 1 && chap(prev, -30 * h.ct, 1 - h.ct)}
         {chap(cur, 30 * (1 - h.ct), h.ci > 0 ? h.ct : 1)}
       </div>
-      <div style={{ position: 'absolute', right: W - RX1, top: 146, textAlign: 'right', ...mono, fontSize: 23, letterSpacing: '0.34em', color: INKT(0.82), marginRight: -8 }}>EVLEK</div>
-      <div style={{ position: 'absolute', right: W - RX1, top: 176, textAlign: 'right', ...mono, fontSize: 14, letterSpacing: '0.3em', color: INKT(0.4), marginRight: -4 }}>DOĞRU ÇİZGİ</div>
+      <div style={{ position: 'absolute', right: W - RX1, top: 146, textAlign: 'right', ...mono, fontSize: 23, letterSpacing: '0.34em', color: INKT(0.82), marginRight: -8, opacity: 0.7 }}>EVLEK</div>
 
-      <div style={{ position: 'absolute', left: RX0, top: 1686, ...mono, fontSize: 14, letterSpacing: '0.3em', color: INKT(0.42) }}>KONUM</div>
-      <div style={{ position: 'absolute', left: RX0, top: 1708, ...mono, fontSize: 27, letterSpacing: '0.04em', color: INKT(0.85), whiteSpace: 'pre' }}>
-        {`${h.lat.toFixed(4)}° K  ${h.lon.toFixed(4)}° D`}
-      </div>
       {h.n != null && (
         <>
           <div style={{ position: 'absolute', right: W - RX1, top: 1672, textAlign: 'right', ...mono, fontSize: 14, letterSpacing: '0.3em', color: INKT(0.42), opacity: h.countA }}>{h.label}</div>
@@ -273,14 +268,14 @@ export const DogruCizgi = () => {
       {s.pill && <Pill p={s.pill} />}
       {s.copy.map((c) => (
         <React.Fragment key={c.t}>
-          <Kicker text={c.kicker} k={c.kick} y={HERO_Y - COPY_SIZE * 1.3 - 44} />
+          {c.kicker && <Kicker text={c.kicker} k={c.kick} y={HERO_Y - COPY_SIZE * 1.3 - 44} />}
           <Rising parts={[{ t: c.t }]} rise={c.rise} sink={c.sink} size={COPY_SIZE} weight={600} tracking="-0.015em" y={HERO_Y} stagger={0.9} left={TEXT_X - 4} />
         </React.Fragment>
       ))}
       {s.pun && <Pun p={s.pun} />}
       {s.heroes.map((h) => (
         <React.Fragment key={h.t}>
-          <Kicker text={h.kicker} k={h.kick} y={HERO_Y - HERO_SIZE * 1.3 - 46} gold={h.ok} />
+          {h.kicker && <Kicker text={h.kicker} k={h.kick} y={HERO_Y - HERO_SIZE * 1.3 - 46} gold={h.ok} />}
           <Rising parts={h.gold ? [{ t: h.gold, gold: true }, { t: h.t.slice(h.gold.length) }] : [{ t: h.t }]} rise={h.rise} sink={h.sink} size={HERO_SIZE} weight={700} tracking="-0.025em" y={HERO_Y} stagger={1.6} left={TEXT_X - 6} />
         </React.Fragment>
       ))}

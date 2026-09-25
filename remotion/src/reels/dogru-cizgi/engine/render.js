@@ -112,7 +112,7 @@ const drawLines = (layers, s, weight, pick = () => true, range = null) => {
       b.path.moveTo(A[0], A[1]);
       b.path.lineTo(B[0], B[1]);
     }
-    const base = l.hue === 'gold' ? INK.champagne : l.hue === 'warm' ? INK.person : l.warm ? mix(INK.core, [255, 232, 200], l.warm) : INK.core;
+    const base = l.hue === 'gold' ? INK.champagne : l.hue === 'ok' ? INK.ok : l.hue === 'warm' ? INK.person : l.warm ? mix(INK.core, [255, 232, 200], l.warm) : INK.core;
     const clipQuads = l.clip ? l.clip.map((q) => q.map((c) => s.project(c))).filter((q) => q.every(Boolean)) : null;
     for (const b of buckets.values()) {
       const ctx = layers[b.layer].getContext('2d');

@@ -52,10 +52,10 @@ export const T = {
    the pun: every big line in the film says "doğru". Editorial set: a mono
    kicker above, the line flush left, standing on its rule. */
 export const HEROES = [
-  { kicker: 'GİRNE · DENİZ MANZARALI', t: 'Doğru ilan.', gold: 'Doğru', rise: [606, 630], out: [672, 690] },
-  { kicker: 'EVLEK ONAYLI EMLAKÇI', ok: true, t: 'Doğru emlakçı.', gold: 'Doğru', rise: [852, 874], out: [904, 920] },
+  { t: 'Doğru ilan.', gold: 'Doğru', rise: [606, 630], out: [672, 690] },
+  { t: 'Doğru emlakçı.', gold: 'Doğru', rise: [852, 874], out: [904, 920] },
 ];
-export const COPY = [{ kicker: 'AYNI EV · FARKLI FİYAT', t: "Kıbrıs'ta yüzlerce ilan.", rise: [34, 54], out: [100, 114] }];
+export const COPY = [{ t: "Kıbrıs'ta yüzlerce ilan.", rise: [34, 54], out: [100, 114] }];
 export const TEXT_X = 96;
 export const HERO_SIZE = 108, COPY_SIZE = 70;
 /* Approximate advance widths for Hanken Grotesk (em). */
@@ -184,23 +184,25 @@ const AGENT = [
   { // at the door, on its right: turns to it, ushers you in, steps aside
     span: [840, 936], path: [[-1.25, 6.0], [-0.9, 6.35]], walkFrom: 906, walkTo: 924, drawIn: [840, 864], drawOut: [920, 936],
     face: [[840, 0], [852, -0.25], [880, -0.2], [900, -0.1]], yaw: [[840, 0], [852, 0], [858, -0.8], [872, -0.8], [878, 0]],
-    usher: [852, 884],
+    usher: [852, 884], shows: ROOM.door,
   },
   { // living room: discovered by the sofa, looking out; turns to us; shows the sea
     span: [944, 1034], path: [[-2.6, -0.2]], drawIn: [944, 962], drawOut: [1020, 1034],
     face: [[944, -0.35], [962, -0.35], [974, 0]], yaw: [[944, -0.9], [964, -0.9], [972, 0], [978, 0], [982, -0.7], [1004, -0.7], [1010, 0]],
-    present: [980, 1014],
+    present: [980, 1014], shows: 'reach',
+    tilt: [[1010, 0], [1014, 0.12], [1020, 0]],
   },
   { // kitchen: walks to the end of the island, shows it
     span: [1036, 1110], path: [[4.4, 1.1], [3.8, 0.6]], walkFrom: 1036, walkTo: 1068, drawIn: [1036, 1052], drawOut: [1098, 1110],
     face: [[1036, 0], [1068, 0], [1076, -0.1]], yaw: [[1036, 0], [1072, 0], [1076, -0.7], [1098, -0.7]],
-    present: [1076, 1102],
+    present: [1076, 1102], shows: 'reach',
+    tilt: [[1098, 0], [1102, 0.12], [1108, 0]],
   },
   { // terrace: walks along the rail, turns to the sea and the sun, then to us, and offers a hand
     span: [1110, 1262], path: [[2.1, -9.5], [2.9, -9.6]], walkFrom: 1110, walkTo: 1142, drawIn: [1110, 1126],
     face: [[1142, 1], [1150, 0.88], [1162, 0.88], [1174, 0.74]], yaw: [[1110, 0], [1146, 0.6], [1158, 0.6], [1166, -0.2], [1250, -0.2]],
     tilt: [[1166, 0], [1174, 0.1], [1182, 0.06]],
-    present: [1140, 1166], offer: [1170, 1250],
+    present: [1140, 1166], offer: [1170, 1250], shows: L(9, 1.5, -24),
   },
 ];
 const track = (keys, f, def = 0) => {
@@ -256,6 +258,7 @@ export const agentAt = (f, cam) => {
     }
   }
   const offer = k.offer ? gest(f, k.offer, true) : 0;
+  const showW = k.present || k.usher;
   return {
     pos,
     drawIn: k.drawIn ? seg(f, ...k.drawIn, ease.inOut) : 1,
@@ -266,6 +269,7 @@ export const agentAt = (f, cam) => {
       yaw: track(k.yaw, f, 0), tilt: track(k.tilt, f, 0) + (k.offer ? 0.03 * Math.sin(Math.PI * seg(f, k.offer[0] + 14, k.offer[0] + 24)) : 0),
       breath: Math.sin(f * 0.026), weight: 1,
     },
+    shows: k.shows, showK: showW ? gest(f, showW) : 0, showT: showW ? seg(f, showW[0] + 4, showW[0] + 20, ease.inOut) : 0,
   };
 };
 
@@ -474,7 +478,30 @@ export const stateAt = (frame) => {
       s.lines.push({ id: 'agent', hue: 'warm', occlude: true, parts, tone: 0.045, shape: { p, a }, wv, space: 'world', width: 2.8, nearFade: 0.6, depthFree: true, spark });
       // the Evlek pin on the lapel catches the light when the agent is named
       const pinK = Math.min(ag.drawIn, 1 - ag.drawOut) * (0.35 + 0.65 * pulse(f, 872, 8, 40));
-      if (pinK > 0.02) s.nodes.push({ p: agentStrokes.badge, k: 0.55 * pinK });
+      if (pinK > 0.02) s.nodes.push({ p: agentStrokes.badge, k: 0.45 * pinK, col: [120, 230, 170] });
+      // the mark that verified the listing is the one the agent wears
+      {
+        const rh = v3.norm([cam.r[0], 0, cam.r[2]]), b = agentStrokes.badge;
+        const at = (x, y) => v3.add(b, [rh[0] * x, y, rh[2] * x]);
+        const ck = [at(-0.035, 0.0), at(-0.012, -0.024), at(0.04, 0.03)];
+        const pts = [], al = [];
+        const draw = f < 900 ? seg(f, 866, 880, ease.inOut) : 1;
+        for (let i = 0; i <= 12; i++) { const t = i / 12, q = t < 0.4 ? v3.lerp(ck[0], ck[1], t / 0.4) : v3.lerp(ck[1], ck[2], (t - 0.4) / 0.6); pts.push(q); al.push(t <= draw ? Math.min(ag.drawIn, 1 - ag.drawOut) : 0); }
+        s.lines.push({ hue: 'ok', shape: { p: pts, a: al }, space: 'world', width: 2.2, depthFree: true, nearFade: 0.6 });
+      }
+      // what the agent shows is drawn to by the same line: hand → the thing itself
+      if (ag.shows && ag.showK > 0.02) {
+        const A = agentStrokes.hand;
+        // 'reach': the line carries on from the hand, the way the gesture points
+        let B = ag.shows;
+        if (B === 'reach') { const c = v3.add(ag.pos, [0, 1.35, 0]); const d = v3.norm(v3.sub(A, c)); B = v3.add(A, v3.add(v3.mul(d, 1.7), [0, -0.35, 0])); }
+        const pts = [], al = [];
+        const d = v3.len(v3.sub(B, A));
+        for (let i = 0; i <= 40; i++) { const t = i / 40; const q = v3.lerp(A, B, t); q[1] += Math.sin(Math.PI * t) * Math.min(0.5, d * 0.08); pts.push(q); al.push(t <= ag.showT ? Math.min(1, ag.showK) * (0.5 + 0.5 * t) : 0); }
+        const head = pts[Math.min(40, Math.floor(ag.showT * 40))];
+        s.lines.push({ hue: 'gold', shape: { p: pts, a: al }, space: 'world', width: 2.2, depthFree: true, nearFade: 0.4, spark: ag.showT < 1 ? head : null, sparkK: 0.4 });
+        if (ag.showT >= 1) s.nodes.push({ p: B, k: 0.35 * Math.min(1, ag.showK), col: [255, 222, 160] });
+      }
       // "Doğru emlakçı.": the figure is measured, the way Vitruvius measured one —
       // a circle from the navel, a square of the height, a scale of eight heads
       const mIn = seg(f, 852, 880, ease.inOut), mOut = seg(f, 900, 918, ease.inOut);
@@ -701,7 +728,7 @@ export const stateAt = (frame) => {
         for (let i = 0; i <= n; i++) { p.push(v3.lerp(A, B, i / n)); a.push((k === 0 ? (i / n <= dd ? 1 : 0) : dd > 0.6 ? 1 : 0) * dOut * 0.8); }
       }));
       s.lines.push({ shape: { p, a }, space: 'world', width: 1.5, core: false });
-      if (na > 0) { const r = project(dims[0].mid); if (r) s.note = { x: r[0], y: r[1], a: na, text: 'ARSA' }; }
+      if (na > 0) { const r = project(dims[0].mid); if (r && false) s.note = { x: r[0], y: r[1], a: na, text: 'ARSA' }; }
     }
   }
 
@@ -827,9 +854,6 @@ export const stateAt = (frame) => {
       }
     }
     const tag = (name, p, a0, a1) => { const a = seg(f, a0, a0 + 16, ease.settle) * (1 - seg(f, a1 - 14, a1, ease.inOut)); if (a > 0) s.tags.push({ name, p, a }); };
-    tag('SALON', L(-4.7, 0.02, -3.0), 984, 1018);
-    tag('MUTFAK', L(3.3, 0.95, -1.6), 1080, 1104);
-    tag('TERAS', L(4.6, 0.02, -9.6), 1150, 1180);
 
   }
   s.sun = L(244, EYE + 60, -2600);
@@ -970,7 +994,7 @@ export const stateAt = (frame) => {
       ci, ct: seg(f, CHAPTERS[ci][0], CHAPTERS[ci][0] + 16, ease.settle),
       prog: clamp(f / HUD_END),
       lat, lon,
-      n, one: n === 1, label: f < CHAPTERS[2][0] ? 'İLAN' : 'SONUÇ', countA: f >= 52 ? seg(f, 52, 64, ease.inOut) : 0,
+      n, one: n === 1, label: f < CHAPTERS[2][0] ? 'İLAN' : 'SONUÇ', countA: f >= 52 ? seg(f, 52, 64, ease.inOut) * (1 - seg(f, 700, 724, ease.inOut)) : 0,
     };
   }
   return s;
