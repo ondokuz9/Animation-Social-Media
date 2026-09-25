@@ -888,7 +888,7 @@ export const stateAt = (frame) => {
       const p = [], a = [];
       body.forEach((st) => {
         if (p.length) { p.push(p[p.length - 1], st.pts[0]); a.push(0, 0); }
-        st.pts.forEach((q) => { const r = toScreen(q); const d = Math.min(1, Math.hypot(r[0] - hs[0], r[1] - hs[1]) / 700); p.push(q); a.push(st.w * (1 - seg(f, T.handLock[0] + d * 20, T.handLock[0] + 8 + d * 24, ease.inOut))); });
+        st.pts.forEach((q) => { const r = toScreen(q); const d = Math.min(1, Math.hypot(r[0] - hs[0], r[1] - hs[1]) / 700); p.push(q); a.push(st.w * (1 - seg(f, T.handLock[0] + d * 8, T.handLock[0] + 6 + d * 10, ease.inOut))); });
       });
       s.lines.push({ id: 'agentBody', hue: 'warm', occlude: true, shape: { p, a }, space: 'world', width: 2.8, depthFree: true });
     } else {
