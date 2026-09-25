@@ -140,7 +140,7 @@ const drawPins = (ctx, s) => {
   for (const m of s.markers) {
     const r = s.project(m.p);
     if (!r) continue;
-    const sc = 0.9 * m.pop * m.grow;
+    const sc = 1.15 * m.pop * m.grow;
     if (sc <= 0.01) continue;
     const col = m.chosen ? mix(INK.core, INK.goldHot, 0.35) : INK.core;
     glyph(ctx, G.body, r[0], r[1], sc, col, m.a, m.chosen ? 2.4 : 1.8);
@@ -150,9 +150,9 @@ const drawPins = (ctx, s) => {
     } else glyph(ctx, G.dot, r[0], r[1], sc, col, m.a, 1.4);
   }
   for (const ring of s.rings) {
-    for (const [k, al] of [[1, 1], [0.965, 0.45], [0.93, 0.2]]) {
-      ctx.strokeStyle = rgba(INK.glow, ring.a * al);
-      ctx.lineWidth = 2;
+    for (const [k, al, lw] of [[1, 1, 3], [0.975, 0.55, 2], [0.95, 0.32, 2], [0.92, 0.18, 2], [0.88, 0.1, 2]]) {
+      ctx.strokeStyle = rgba(al === 1 ? INK.core : INK.glow, ring.a * al);
+      ctx.lineWidth = lw;
       ctx.beginPath();
       let st = false;
       for (let i = 0; i <= 120; i++) {
@@ -283,9 +283,9 @@ export const drawFrame = (ctx, stateAt, frame, still = false, pre = null, fast =
 
   ctx.globalCompositeOperation = 'lighter';
   ctx.filter = 'blur(28px)';
-  ctx.globalAlpha = Math.min(1, 0.9 + s.flash * 1.4);
+  ctx.globalAlpha = 0.9;
   ctx.drawImage(glow, 0, 0, W, H);
-  if (s.flash > 0.3) ctx.drawImage(glow, 0, 0, W, H);
+  if (s.flash > 0.02) { ctx.globalAlpha = Math.min(1, s.flash); ctx.drawImage(glow, 0, 0, W, H); }
   ctx.filter = 'blur(7px)';
   ctx.globalAlpha = 0.75;
   ctx.drawImage(glow, 0, 0, W, H);
@@ -337,7 +337,7 @@ export const drawFrame = (ctx, stateAt, frame, still = false, pre = null, fast =
   }
 
   if (s.flash > 0) {
-    ctx.fillStyle = rgba(mix(INK.glow, [255, 255, 255], 0.4), 0.1 * s.flash);
+    ctx.fillStyle = rgba(mix(INK.glow, [255, 255, 255], 0.4), 0.07 * s.flash);
     ctx.fillRect(0, 0, W, H);
   }
   ctx.globalCompositeOperation = 'source-over';

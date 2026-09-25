@@ -41,7 +41,9 @@ const exteriorStrokes = () => {
   s.push(rectZY(-3.5, 0.9, 1.5, 2.4, G.x1 + 0.01));
   // canopy over the door
   s.push(S([[-3.6, 2.6, G.z1], [-3.6, 2.6, G.z1 + 1.4], [-1.4, 2.6, G.z1 + 1.4], [-1.4, 2.6, G.z1]], null, 'canopy'));
-  return loc(s).map((st, i) => ({ ...st, order: i }));
+  // the mass first — the house reads at once — then the garden wall and path
+  const firstMass = s.filter((st) => st.tag === 'mass'), rest = s.filter((st) => st.tag !== 'mass');
+  return loc([...firstMass, ...rest]).map((st, i) => ({ ...st, order: i }));
 };
 
 /* The sea side: glazing, pergola, pool, rail. Drawn with the exterior and

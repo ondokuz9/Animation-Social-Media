@@ -30,15 +30,15 @@ export const T = {
   cardsForm: [96, 128], collapse: [200, 224],
   tilt: [224, 290], toCoast: [228, 296], graticule: [244, 286], divider: [292, 312],
   pins: 294, pinGap: 6, girneLift: [344, 364],
-  dive: [362, 436], mapOut: [428, 452],
-  townCoast: [398, 452], townRoads: [410, 468], townBlocks: [420, 476],
+  dive: [362, 436], mapOut: [404, 432],
+  townCoast: [384, 440], townRoads: [398, 460], townBlocks: [408, 470],
   pill: [448, 566], typing: [464, 508],
   markers: 470, markerGap: 3, sweep: [516, 552], check: [552, 570], popover: [572, 650],
   houseDive: [640, 716], pinToParcel: [690, 716], parcelNote: [714, 780],
   exterior: [716, 800], riseCam: [720, 800],
   settle: [792, 842], agentIn: [800, 826], wave: [826, 852], doorOpen: [848, 876],
   tour: [842, 1440],
-  shell: [900, 940], living: [912, 964], lampOn: [950, 972], kitchen: [1000, 1040], terrace: [1066, 1100],
+  shell: [878, 918], living: [892, 950], lampOn: [950, 972], kitchen: [1000, 1040], terrace: [1066, 1100],
   sunset: [1084, 1128],
   toHands: [1162, 1204], sceneOut: [1160, 1188], keyGlint: [1214, 1240],
   toKey: [1252, 1280], handsOut: [1252, 1272], turn: [1282, 1300], click: 1300,
@@ -63,6 +63,9 @@ export const CORNER = { x: 84, y: 268 };
 
 /* ── Camera ──────────────────────────────────────────────────────────────── */
 const logLerp = (a, b, t) => Math.exp(lerp(Math.log(a), Math.log(b), t));
+/* A flash that builds for a few frames and decays — never a one-frame step,
+   which reads as a strobe. */
+const pulse = (f, at, rise, decay) => (f < at - rise ? 0 : f < at ? ((f - at + rise) / rise) ** 2 : Math.exp(-((f - at) / decay) * 2.3));
 const PIT = Math.PI / 2 - 0.0015;
 
 const orbit = (target, dist, yaw, pitch) => {
@@ -88,8 +91,8 @@ const orbitAt = (f) => {
   dist = lerp(dist, dist * 0.8, t);
   yaw = lerp(yaw, -0.06, t);
   pitch = lerp(pitch, 1.1, t);
-  // BUL: the frame leans toward the one listing
-  target = v3.lerp(target, HOUSE_O, 0.55 * seg(f, 540, 640, ease.inOut));
+  // BUL: the frame leans toward the one listing, so it sits in the middle
+  target = v3.lerp(target, HOUSE_O, 0.62 * seg(f, 520, 600, ease.inOut));
   // onto the chosen pin: it stays exactly at the centre of the frame
   const h = seg(f, ...T.houseDive, ease.inOut);
   target = v3.lerp(target, HOUSE_O, ease.settle(clamp(h * 1.3)));
@@ -129,7 +132,9 @@ const tour = () => {
     [1160, L(3.3, 1.58, -6.4), L(4.35, 1.15, -9.2)],
     [1440, L(3.35, 1.58, -6.5), L(4.35, 1.15, -9.2)],
   ];
-  _tour = { knots, pos: knots.map((k) => k[1]), tgt: knots.map((k) => k[2]) };
+  // look directions, not target points: knots whose targets sit at very
+  // different distances made the spline swing behind the camera
+  _tour = { knots, pos: knots.map((k) => k[1]), dir: knots.map((k) => v3.norm(v3.sub(k[2], k[1]))) };
   return _tour;
 };
 const tourS = (f) => {
@@ -150,7 +155,8 @@ export const cameraAt = (f) => {
   else {
     const tr = tour();
     const s = tourS(f);
-    const pos = catmull3(tr.pos, s), target = catmull3(tr.tgt, s);
+    const pos = catmull3(tr.pos, s);
+    const target = v3.add(pos, v3.mul(v3.norm(catmull3(tr.dir, s)), 6));
     const d = v3.len(v3.sub(target, pos));
     const drift = [noise1(f / 38, 1) * 0.01 * d, noise1(f / 45, 2) * 0.007 * d, 0];
     c = { pos: v3.add(pos, [0, noise1(f / 22, 3) * 0.01, 0]), target: v3.add(target, drift), upHint: [0, 1, 0] };
@@ -302,7 +308,6 @@ export const stateAt = (frame) => {
       while (p.length < N) { p.push(screenToA(line.p[p.length])); a.push(line.a[a.length]); }
       s.lines.push({ shape: { p, a }, space: 'world', width: 2.6 });
     }
-    s.flash = f >= T.collapse[1] ? Math.max(0, 1 - (f - T.collapse[1]) / 16) : 0;
   }
 
   /* C — the horizon lies down onto the island; six cities */
@@ -310,7 +315,6 @@ export const stateAt = (frame) => {
     const shape = morph(aPlane(horizonScreen()), coastWorld(), seg(f, ...T.toCoast, ease.glide), 0.8, ease.inOut);
     const out = 1 - seg(f, ...T.mapOut, ease.inOut);
     s.lines.push({ shape: { p: shape.p, a: shape.a.map((a) => a * out) }, space: 'world', width: 3 });
-    s.flash = Math.max(s.flash, Math.max(0, 1 - (f - T.collapse[1]) / 16));
   }
   s.graticule = seg(f, ...T.graticule, ease.inOut) * (1 - seg(f, T.dive[0], T.dive[0] + 30, ease.inOut));
   s.divider = seg(f, ...T.divider, ease.inOut) * (1 - seg(f, T.dive[0], T.dive[0] + 30, ease.inOut));
@@ -404,7 +408,7 @@ export const stateAt = (frame) => {
     const hx = v3.lerp(hn, edge, 0.86);
     const dp = [hn, edge, up(edge, DOOR.h), up(hn, DOOR.h), hn, hn, up(hx, 0.95), up(hx, 1.1)];
     const da = [1, 1, 1, 1, 1, 0, 0, 1];
-    s.lines.push({ shape: { p: dp.flatMap((q, i) => (i === 0 ? [q] : [0.25, 0.5, 0.75, 1].map((t) => v3.lerp(dp[i - 1], q, t)))), a: da.flatMap((v, i) => (i === 0 ? [v] : [v, v, v, v])).map((v) => v * doorA) }, space: 'world', width: 2.2, nearFade: 0.9 });
+    s.lines.push({ door: true, shape: { p: dp.flatMap((q, i) => (i === 0 ? [q] : [0.25, 0.5, 0.75, 1].map((t) => v3.lerp(dp[i - 1], q, t)))), a: da.flatMap((v, i) => (i === 0 ? [v] : [v, v, v, v])).map((v) => v * doorA) }, space: 'world', width: 2.2, nearFade: 2.2 });
 
     const sun = seg(f, ...T.sunset, ease.inOut);
     const lampOn = seg(f, ...T.lampOn, ease.settle);
@@ -427,11 +431,15 @@ export const stateAt = (frame) => {
       const far = -2600;
       const hzW = [];
       for (let x = -4000; x <= 4000; x += 40) hzW.push(L(x, EYE, far));
-      const clip = onTerrace ? null : [
+      const glass = [
         [L(-6.6, 0.1, G.z0), L(0.4, 0.1, G.z0), L(0.4, 2.9, G.z0), L(-6.6, 2.9, G.z0)],
         [L(1.5, 0, G.z0), L(6.5, 0, G.z0), L(6.5, 2.7, G.z0), L(1.5, 2.7, G.z0)],
       ];
-      s.lines.push({ shape: { p: hzW, a: hzW.map(() => seaA) }, space: 'world', width: 2.6, clip, depthFree: true, warm: sun });
+      // passing through the glass: the framed view opens out over ~1 m
+      const open = clamp((G.z0 + 0.4 - rel[2]) / 1.0);
+      const clip = open >= 1 ? null : glass;
+      s.lines.push({ shape: { p: hzW, a: hzW.map(() => seaA * (clip ? 1 - open : 1)) }, space: 'world', width: 2.6, clip, depthFree: true, warm: sun });
+      if (clip && open > 0) s.lines.push({ shape: { p: hzW, a: hzW.map(() => seaA * open) }, space: 'world', width: 2.6, depthFree: true, warm: sun });
       for (const [zf, al] of [[-420, 0.35], [-190, 0.28], [-90, 0.22]]) {
         const pts = [];
         for (let x = -1400; x <= 1400; x += 40) pts.push(L(x, -32, zf));
@@ -500,9 +508,9 @@ export const stateAt = (frame) => {
     s.lines.push({ shape, space: 'screen', width: 3, gold: shape.p.map(() => 1), goldAmount: 1 - seg(f, ...T.keyToLine, ease.inOut) });
     const c = f - T.click;
     s.click = c >= 0 && c < 36 ? { t: c / 36, x: KEY_CENTER[0], y: KEY_CENTER[1] - 84 * sc } : null;
-    s.flash = Math.max(s.flash, c >= 0 ? Math.max(0, 1 - c / 20) * 0.7 : 0);
-    s.warm = Math.max(s.warm, c >= 0 ? Math.max(0, 1 - c / 40) : 0);
   }
+  s.flash = Math.max(pulse(f, T.collapse[1], 5, 22) * 0.75, pulse(f, T.click, 4, 26) * 0.45);
+  s.warm = Math.max(s.warm, pulse(f, T.click, 4, 50) * 0.8);
   if (lockup) { s.lines = s.lines.filter((l) => l.brand); s.flash = 0; s.warm = 0; s.sky = 0; }
 
   /* Typography: words rise out of lines; lines carry them to the corner */

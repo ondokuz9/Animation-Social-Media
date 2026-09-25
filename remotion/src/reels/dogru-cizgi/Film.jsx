@@ -32,7 +32,7 @@ const Lockup = ({ rise, slogan, url }) => {
       }}>Kıbrıs'ta doğru ev.</div>
       <div style={{
         position: 'absolute', left: 0, width: W, top: LINE_Y + 116 + (1 - url) * 10, textAlign: 'center',
-        fontFamily: MONO, fontWeight: 500, fontSize: 28, letterSpacing: '0.24em', color: GOLD(url * 0.95),
+        fontFamily: MONO, fontWeight: 500, fontSize: 34, letterSpacing: '0.2em', color: GOLD(url),
       }}>EVLEK.APP</div>
     </>
   );
@@ -135,7 +135,7 @@ export const DogruCizgi = () => {
       {pinLabels.map((p) => (
         <div key={p.name} style={{
           position: 'absolute', left: p.x, top: p.y + (p.isG ? -112 - 30 * p.lift : LABEL_DY[p.name] ?? 22), transform: 'translateX(-50%)',
-          fontFamily: MONO, fontWeight: 500, fontSize: p.isG ? 30 : 23, letterSpacing: '0.16em',
+          fontFamily: MONO, fontWeight: 500, fontSize: p.isG ? 34 : 27, letterSpacing: '0.14em',
           color: p.isG ? GOLD(p.label) : INKT(p.label * 0.8), whiteSpace: 'nowrap',
         }}>{p.name}</div>
       ))}
