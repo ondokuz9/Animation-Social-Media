@@ -56,7 +56,7 @@ const ik2 = (hip, ank, l1 = THIGH, l2 = SHIN) => {
 
 /* ── Arms ───────────────────────────────────────────────────────────────── */
 // front view: [abduction from hanging, forearm direction]; + is outward
-const FRONT = { rest: [0.12, 0.04], present: [1.25, 1.45], usher: [0.8, 1.15], offer: [0.62, 1.2], tablet: [0.2, -1.32] };
+const FRONT = { rest: [0.12, 0.04], present: [1.25, 1.45], usher: [0.8, 1.15], offer: [0.22, 0.45], tablet: [0.2, -1.32] };
 // profile: [shoulder angle, elbow bend]; + is forward
 const PROF = { rest: [0, 0.22], present: [1.35, 0.15], usher: [0.9, 0.2], offer: [1.1, 0.3], tablet: [-0.08, 1.5] };
 
@@ -155,7 +155,7 @@ export const agentDrawing = ({ facing = 0, phase = 0, walk = 0, present = 0, ush
   const w = { present, usher, offer };
   const [fa1, fa2] = pose(FRONT, w);
   const [pa1, pa2] = pose(PROF, w);
-  const foreK = lerp(1, 0.85, clamp(offer));           // an offered hand comes at the lens: foreshortened
+  const foreK = lerp(1, 0.6, clamp(offer));           // an offered hand comes at the lens: foreshortened
   const fArmR = frontArm(-1, fa1, fa2, foreK), fArmL = frontArm(1, ...FRONT.tablet);
   const pArmR = profArm(pa1 + swingR, pa2 + Math.max(0, -swingR) * 0.5), pArmL = profArm(...PROF.tablet);
   const armR = { sh: J(fArmR.sh, pArmR.sh), el: J(fArmR.el, pArmR.el), wr: J(fArmR.wr, pArmR.wr) };
