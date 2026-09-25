@@ -104,7 +104,7 @@ const orbitAt = (f) => {
   yaw = lerp(yaw, 0.6, r);
   // come down to the front door, where the agent waits
   const s = seg(f, ...T.settle, ease.inOut);
-  target = v3.lerp(target, L(-3.0, 1.25, 6.0), s);
+  target = v3.lerp(target, L(-3.0, 0.75, 6.0), s);
   dist = lerp(dist, 10.5, s);
   pitch = lerp(pitch, 0.1, s);
   yaw = lerp(yaw, 0.06, s);
@@ -126,8 +126,8 @@ const tour = () => {
     [1086, L(3.0, EYE, -3.6), L(4.0, 1.35, -20)],
     [1112, L(3.0, EYE, -6.2), L(8, EYE, -60)],
     [1136, L(3.1, EYE, -6.5), L(8, EYE, -60)],
-    [1160, L(3.3, 1.58, -6.5), L(3.95, 1.2, -9.2)],
-    [1440, L(3.35, 1.58, -6.6), L(3.95, 1.2, -9.2)],
+    [1160, L(3.3, 1.58, -6.4), L(4.35, 1.15, -9.2)],
+    [1440, L(3.35, 1.58, -6.5), L(4.35, 1.15, -9.2)],
   ];
   _tour = { knots, pos: knots.map((k) => k[1]), tgt: knots.map((k) => k[2]) };
   return _tour;
@@ -166,10 +166,10 @@ export const cameraAt = (f) => {
    set, already waiting in the next one. */
 const AGENT = [
   { span: [800, 862], path: [[-3.8, 6.3]], wave: [826, 852], side: 1 },
-  { span: [862, 926], path: [[-3.8, 6.3], [-2.5, 5.5], [-2.6, 4.1], [-4.2, 3.1]], out: [904, 918] },
+  { span: [862, 926], path: [[-3.8, 6.3], [-4.5, 6.7]], walkTo: 886, wave: [884, 918], side: 1, out: [898, 912] },
   { span: [926, 998], path: [[0.3, -2.6], [-0.7, -3.1]], walkTo: 962, in: [926, 936], present: [968, 996], side: -1 },
   { span: [998, 1064], path: [[5.9, 2.2], [5.3, 1.5]], walkTo: 1030, in: [998, 1008], present: [1034, 1062], side: -1 },
-  { span: [1066, 1210], path: [[4.5, -8.2], [4.0, -9.2]], walkTo: 1100, in: [1066, 1076], present: [1106, 1130], side: -1, offer: [1134, 1158] },
+  { span: [1066, 1210], path: [[4.5, -8.2], [4.0, -9.2]], walkTo: 1100, in: [1066, 1076], present: [1106, 1130], side: -1, offer: [1134, 1158], turn: 0.3 },
 ];
 const pathAt = (path, t) => {
   if (path.length === 1) return [path[0][0], path[0][1], 0];
@@ -194,7 +194,7 @@ export const agentAt = (f, cam) => {
   const q = pathAt(k.path, walkCurve(wt));
   const q2 = pathAt(k.path, walkCurve(clamp(wt + 0.03)));
   const pos = L(q[0], 0, q[1]);
-  let facing = 0;
+  let facing = (k.turn ?? 0) * (k.offer ? seg(f, k.offer[0], k.offer[0] + 16, ease.settle) : 0);
   if (moving && walkEnv > 0) {
     const dir = [q2[0] - q[0], 0, q2[1] - q[1]];
     const side = v3.dot(dir, cam.r), depth = v3.dot(dir, cam.f);
@@ -331,7 +331,7 @@ export const stateAt = (frame) => {
 
   /* D — ARA · BUL: Girne draws itself; a search; one listing is the one */
   if (f >= T.townCoast[0] && f < T.exterior[1]) {
-    const out = 1 - seg(f, T.houseDive[0] + 10, T.houseDive[0] + 44, ease.inOut);
+    const out = 1 - seg(f, T.houseDive[0] + 28, T.houseDive[0] + 72, ease.inOut);
     const hc = seg(f, ...T.townCoast, ease.inOut);
     s.lines.push({ shape: { p: TW.coast.p, a: TW.coast.a.map((v, i) => (TW.coast.u[i] <= hc ? heat(v, TW.coast.u[i], hc) * out : 0)) }, space: 'world', width: 2.4, tilt: true });
     const hr = seg(f, ...T.townRoads, ease.inOut);

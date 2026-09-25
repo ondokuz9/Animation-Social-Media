@@ -66,8 +66,8 @@ const frontJoints = ({ phase, walk, present, offer, wave, hold, side = 1 }) => {
       el = L2(el, [sx * 42, 118], wave);
       wr = L2(wr, [sx * 64, 104], wave);
       // offer: forward, toward the lens — foreshortened, so shorter and lower
-      el = L2(el, [sx * 22, 116], offer);
-      wr = L2(wr, [sx * 16, 104], offer);
+      el = L2(el, [sx * 32, 120], offer);
+      wr = L2(wr, [sx * 46, 113], offer);
     } else {
       el = L2(el, [sx * 20, 116], hold);
       wr = L2(wr, [sx * 6, 118], hold);

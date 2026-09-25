@@ -54,7 +54,7 @@ const blocks = () => {
     const x = (rnd() - 0.5) * 3600, z = -560 + rnd() * 1400;
     if (z < coastZ(x) + 70) continue;
     const c = at(x, z);
-    if (Math.hypot(x - HOUSE_LOCAL[0], z - HOUSE_LOCAL[1]) < 70) continue;
+    if (Math.hypot(x - HOUSE_LOCAL[0], z - HOUSE_LOCAL[1]) < 30) continue;
     let near = false;
     for (let i = 0; i < roadPts.length; i += 2) {
       if (Math.hypot(roadPts[i][0] - c[0], roadPts[i][2] - c[2]) < 30) { near = true; break; }
@@ -64,6 +64,13 @@ const blocks = () => {
     const ca = Math.cos(ang), sa = Math.sin(ang);
     const corner = (u, v) => [c[0] + u * ca - v * sa, 0, c[2] + u * sa + v * ca];
     out.push(S([corner(-w / 2, -d / 2), corner(w / 2, -d / 2), corner(w / 2, d / 2), corner(-w / 2, d / 2), corner(-w / 2, -d / 2)], null, 'block'));
+  }
+  const near = mulberry(99);
+  for (let i = 0; i < 26; i++) {
+    const ang = (i / 26) * Math.PI * 2 + near() * 0.2, rr = 34 + near() * 60;
+    const x = HOUSE_LOCAL[0] + Math.cos(ang) * rr, z = HOUSE_LOCAL[1] + Math.sin(ang) * rr;
+    const c = at(x, z), w = 14 + near() * 12, d = 12 + near() * 10;
+    out.push(S([[c[0] - w / 2, 0, c[2] - d / 2], [c[0] + w / 2, 0, c[2] - d / 2], [c[0] + w / 2, 0, c[2] + d / 2], [c[0] - w / 2, 0, c[2] + d / 2], [c[0] - w / 2, 0, c[2] - d / 2]], null, 'block'));
   }
   return out;
 };

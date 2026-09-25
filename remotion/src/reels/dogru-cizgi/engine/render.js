@@ -8,6 +8,7 @@
 import { clamp, lerp, mulberry } from './math.js';
 import { W, H, geo } from './shapes.js';
 import { pinGlyph } from './graphics.js';
+import { FRAMES } from './timeline.js';
 
 export const INK = {
   ground: [10, 37, 64],      // Akdeniz Navy #0A2540
@@ -348,7 +349,7 @@ export const drawFrame = (ctx, stateAt, frame, still = false, pre = null, fast =
   ctx.fillStyle = vg;
   ctx.fillRect(0, 0, W, H);
   // the last frame is the first frame (the reel loops), grain included
-  const gf = Math.floor(frame) % 1199;
+  const gf = Math.floor(frame) % (FRAMES - 1);
   const tile = grain[gf % 4];
   const r = mulberry(gf * 31 + 7);
   const ox = Math.floor(r() * 256), oy = Math.floor(r() * 256);
