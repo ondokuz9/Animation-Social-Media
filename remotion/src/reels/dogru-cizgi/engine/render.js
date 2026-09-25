@@ -73,7 +73,7 @@ const drawLines = (layers, s, weight, pick = () => true, range = null) => {
   for (const l of s.lines) {
     if (!pick(l)) continue;
     const { p, a } = l.shape;
-    const i0 = range ? range[0] : 0, i1 = range ? range[1] : p.length - 1;
+    const i0 = range ? Math.max(0, range[0]) : 0, i1 = range ? Math.min(p.length - 1, range[1]) : p.length - 1;
     const pts = new Array(p.length);
     for (let i = i0; i <= i1; i++) {
       const near = a[i] > 0.004 || (i > 0 && a[i - 1] > 0.004) || (i < p.length - 1 && a[i + 1] > 0.004);
@@ -462,14 +462,16 @@ const drawOccluders = (layers, s, subs) => {
     const pts = l.shape.p.map((q, i) => (l.shape.a[i] > 0.05 ? (l.space === 'world' ? s.project(q) : q) : null));
     const parts = l.parts || [{ i0: 0, i1: l.shape.p.length - 1, fill: true }];
     const tone = l.tone ? rgba(INK.person, l.tone) : null;
-    for (const part of parts) {
+    parts.forEach((part, pi) => {
       if (part.fill !== false) cutPoly(layers, pts, part.i0, part.i1, tone);
-      if (!l.id) { drawLines(layers, s, 1, (m) => m === l, [part.i0, part.i1]); continue; }
+      if (!l.id) { drawLines(layers, s, 1, (m) => m === l, [part.i0, part.i1]); return; }
       subs.forEach((st) => {
+        // each sub-frame uses its own ranges: a stroke may appear between them
         const same = st.lines.find((m) => m.id === l.id);
-        if (same) drawLines(layers, st, 1 / subs.length, (m) => m === same, [part.i0, part.i1]);
+        const sp = same && (same.parts ? same.parts[pi] : part);
+        if (sp) drawLines(layers, st, 1 / subs.length, (m) => m === same, [sp.i0, sp.i1]);
       });
-    }
+    });
   }
 };
 

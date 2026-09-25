@@ -197,7 +197,8 @@ export const agentDrawing = ({ facing = 0, phase = 0, walk = 0, present = 0, ush
   const side = look < 0 ? -1 : 1;
   const hair = HAIR_F.map((p, i) => { const q = L2(p, [HAIR_P[i][0] * side, HAIR_P[i][1]], hairW); return R([hc0[0] + q[0] * lerp(1, 0.95, k), hc0[1] + q[1]]); });
   push([...hair, hair[0]], 0.9, 'hair');
-  if (Math.abs(look) > 0.12) push([[hc0[0] + look * 8.6, hc0[1] + 1.5], [hc0[0] + look * 11.2, hc0[1] - 2.2], [hc0[0] + look * 8.8, hc0[1] - 3.8]].map(R), 0.85, 'nose', false);
+  // always present (stroke counts stay constant across sub-frames), seen only when turned
+  push([[hc0[0] + look * 8.6, hc0[1] + 1.5], [hc0[0] + look * 11.2, hc0[1] - 2.2], [hc0[0] + look * 8.8, hc0[1] - 3.8]].map(R), Math.abs(look) > 0.12 ? 0.85 : 0, 'nose', false);
 
   /* body */
   const torso = TORSO_F.map((p, i) => breathe(J(p, TORSO_P[i])));

@@ -913,7 +913,7 @@ export const stateAt = (frame) => {
     if (k > 0.004) s.rays.push({ x, y, a: a * k, grow: seg(f, at - rise, at + 16, ease.settle), r0: 4, r1, n, rot: 0.02 * (f - at) / 60, seed, col });
   };
   if (!lockup) {
-    burst(W / 2, HERO_Y, T.collapse[1], { r1: 820, n: 110, a: 0.7, seed: 11 });
+    burst(W / 2, HERO_Y, T.collapse[1], { r1: 820, n: 110, a: 0.6, rise: 6, seed: 11 });
     const hp = project(HOUSE_O);
     if (hp && f > T.check[0] - 10 && f < T.check[1] + 60) burst(hp[0], hp[1] - 60, T.check[0] + 10, { r1: 380, n: 64, a: 0.75, rise: 8, decay: 40, seed: 5 });
     if (f > T.click - 10) burst(KEY_CENTER[0], KEY_CENTER[1] - 84 * 2.3, T.click, { r1: 900, n: 120, a: 0.8, decay: 24, seed: 9 });
@@ -922,7 +922,7 @@ export const stateAt = (frame) => {
   s.chroma = lockup ? 0 : Math.max(
     3.2 * Math.sin(Math.PI * seg(f, 364, 420, ease.inOut)),
     2.8 * Math.sin(Math.PI * seg(f, 700, 760, ease.inOut)),
-    3.5 * pulse(f, T.collapse[1], 3, 12),
+    3.5 * pulse(f, T.collapse[1], 5, 12),
     2.5 * pulse(f, T.click, 2, 10),
   );
 
