@@ -42,13 +42,13 @@ export const PRICE_AT = [-61, 50];
 /* The noise, composed: two cards side by side in the middle — the same house
    at two prices — and the rest wound round them on a golden-angle spiral,
    turning slowly, nearer in the middle and falling away in depth outward. */
-export const CARD_CENTER = [540, 720];
+export const CARD_CENTER = [540, 690];
 const PRICES = ['£96.000', '£1.200/ay', '£310.000', '£750/ay', '£142.000', '£2.100/ay', '£205.000', '£88.000', '£167.000', '£950/ay', '£275.000', '£1.450/ay', '£128.000', '£199.000', '£620/ay', '£350.000'];
 export const CARDS = (() => {
   const r = mulberry(777);
   const out = [
-    { x: 372, y: 700, rot: -0.07, s: 1.08, z: 3.2e4, hero: true, b: 0, price: '£185.000', seed: 11 },
-    { x: 708, y: 712, rot: 0.06, s: 1.08, z: 3.0e4, hero: true, b: 0, price: '£240.000', seed: 23 },
+    { x: 372, y: 670, rot: -0.07, s: 1.08, z: 3.2e4, hero: true, b: 0, price: '£185.000', seed: 11 },
+    { x: 708, y: 682, rot: 0.06, s: 1.08, z: 3.0e4, hero: true, b: 0, price: '£240.000', seed: 23 },
   ];
   const GA = Math.PI * (3 - Math.sqrt(5));
   for (let i = 0; i < CARD_COUNT - 2; i++) {

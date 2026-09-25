@@ -33,7 +33,7 @@ export const T = {
   wordRide: [224, 252], wordSink: [252, 264],
   tilt: [258, 318], toCoast: [262, 324], graticule: [278, 314], divider: [318, 334],
   pins: 318, pinGap: 3, girneLift: [338, 356],
-  dive: [356, 424], coastToTown: [382, 428], islandOut: [360, 392],
+  dive: [356, 424], coastToTown: [382, 428], islandOut: [352, 376],
   townRoads: [404, 456], townBlocks: [410, 462],
   pill: [436, 568], typing: [446, 510],
   markers: 506, markerGap: 2, sweep: [526, 556], check: [556, 572], popover: [572, 692],
@@ -43,8 +43,8 @@ export const T = {
   tour: [884, 1440],
   shell: [926, 958], living: [934, 980], lampOn: [976, 996], kitchen: [1034, 1066], terrace: [1110, 1136],
   sunset: [1112, 1150],
-  handLock: [1188, 1200], toHands: [1192, 1222], buyerIn: [1202, 1224], grip: [1222, 1234], sceneOut: [1188, 1214], keyGlint: [1234, 1248],
-  toKey: [1250, 1268], handsOut: [1250, 1264], turn: [1270, 1286], click: 1286,
+  handLock: [1188, 1200], toHands: [1192, 1222], buyerIn: [1202, 1224], grip: [1222, 1234], sceneOut: [1188, 1214], keyGlint: [1232, 1244],
+  toKey: [1250, 1268], handsOut: [1242, 1254], turn: [1270, 1286], click: 1286,
   keyToLine: [1290, 1310], rise: [1306, 1324], sloganIn: [1314, 1328], doğruGlint: [1340, 1362], urlIn: [1318, 1330], linePulse: [1372, 1424],
 };
 
@@ -298,7 +298,7 @@ const pluckOffset = (f, u) => {
    hero cards, which only breathe. Returns a local → screen mapper. */
 const cardXform = (i, f) => {
   const c = CARDS[i];
-  const sw = c.hero ? 0 : 0.2 * seg(f, 30, 230, ease.inOut);
+  const sw = c.hero ? 0 : 0.5 * seg(f, 30, 214, (x) => x * (0.6 + 0.4 * x));
   const cx = CARD_CENTER[0] + (c.x - CARD_CENTER[0]) * Math.cos(sw) - (c.y - CARD_CENTER[1]) * Math.sin(sw);
   const cy = CARD_CENTER[1] + (c.x - CARD_CENTER[0]) * Math.sin(sw) + (c.y - CARD_CENTER[1]) * Math.cos(sw);
   const k = c.hero ? 0.35 : 1;
@@ -932,7 +932,7 @@ export const stateAt = (frame) => {
   }
   for (const c of COPY) {
     if (f < c.rise[0] - 4 || f > c.out[1] + 2) continue;
-    const draw = seg(f, c.rise[0] - 4, c.rise[0] + 12, ease.settle);
+    const draw = seg(f, c.rise[0] + 2, c.rise[0] + 16, ease.settle);
     const close = seg(f, c.out[1] - 8, c.out[1] + 2, ease.inOut);
     const len = textWidth(c.t, COPY_SIZE, 600) + 24;
     wordLine(TEXT_X + len * close, TEXT_X + len * draw, HERO_Y, 0.85, undefined, 2.4);
