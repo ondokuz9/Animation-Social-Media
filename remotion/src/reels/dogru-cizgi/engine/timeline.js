@@ -65,7 +65,7 @@ export const HERO_Y = 1290;
 /* ── Camera ──────────────────────────────────────────────────────────────── */
 const logLerp = (a, b, t) => Math.exp(lerp(Math.log(a), Math.log(b), t));
 /* A flash that builds for a few frames and decays — never a one-frame step. */
-const pulse = (f, at, rise, decay) => (f < at - rise ? 0 : f < at ? ((f - at + rise) / rise) ** 2 : Math.exp(-((f - at) / decay) * 2.3));
+const pulse = (f, at, rise, decay) => { if (f < at - rise) return 0; if (f < at) { const t = (f - at + rise) / rise; return t * t * (3 - 2 * t); } return Math.exp(-((f - at) / decay) * 2.3); };
 const PIT = Math.PI / 2 - 0.0015;
 
 const orbit = (target, dist, yaw, pitch) => {
@@ -723,7 +723,7 @@ export const stateAt = (frame) => {
       s.lines.push({ shape: { p: hr.p, a: hr.a.map((v, i) => (hr.u[i] <= hp ? v * 0.3 * vol : 0)) }, space: 'world', width: 1.1, nearFade: 1.2, core: false });
     }
     // someone is home: the windows are lit
-    const lit = seg(he, 0.72, 1, ease.inOut) * sceneOut * (inside ? 0 : 1) * (1 - 0.5 * recede) * ease.inOut(clamp((rel[2] - G.z1 - 0.8) / 3.0));
+    const lit = seg(he, 0.72, 1, ease.inOut) * sceneOut * (inside ? 0 : 1) * (1 - 0.8 * recede) * ease.inOut(clamp((rel[2] - G.z1 - 0.8) / 3.0));
     if (lit > 0) for (const w of WINDOWS) if (faceVisible(w, cam)) s.faces.push({ p: w.q, col: INK_WARM, a: 0.36 * lit, a2: 0.1 * lit, grad: [v3.lerp(w.q[0], w.q[1], 0.5), v3.lerp(w.q[2], w.q[3], 0.5)] });
     const pool = seg(he, 0.85, 1, ease.inOut) * sceneOut;
     if (pool > 0 && faceVisible(POOL, cam)) s.faces.push({ p: POOL.q, col: [80, 200, 182], a: 0.1 * pool, a2: 0.02 * pool, grad: [v3.lerp(POOL.q[0], POOL.q[1], 0.5), v3.lerp(POOL.q[2], POOL.q[3], 0.5)] });
@@ -882,10 +882,11 @@ export const stateAt = (frame) => {
     }
     s.lines.push({ hue: 'gold', shape, space: 'screen', width: 3.4 });
     const c = f - T.click;
-    s.click = c >= 0 && c < 36 ? { t: c / 36, x: KEY_CENTER[0], y: KEY_CENTER[1] - 84 * sc } : null;
+    // the click builds over four frames rather than arriving in one
+    s.click = c >= -4 && c < 36 ? { t: Math.max(0, c) / 36, on: ease.inOut(clamp((c + 4) / 5)), x: KEY_CENTER[0], y: KEY_CENTER[1] - 84 * sc } : null;
   }
   s.flash = Math.max(pulse(f, T.collapse[1], 5, 22) * 0.55, pulse(f, T.click, 3, 22) * 0.3);
-  s.warm = Math.max(s.warm, pulse(f, T.click, 4, 50) * 0.6);
+  s.warm = Math.max(s.warm, pulse(f, T.click, 6, 50) * 0.6);
   if (lockup) { s.lines = s.lines.filter((l) => l.brand); s.flash = 0; s.warm = 0; s.sky = 0; }
 
   /* Typography: words rise out of lines — flush left, on a gold rule */
@@ -917,14 +918,14 @@ export const stateAt = (frame) => {
     burst(W / 2, HERO_Y, T.collapse[1], { r1: 820, n: 110, a: 0.6, rise: 6, seed: 11 });
     const hp = project(HOUSE_O);
     if (hp && f > T.check[0] - 10 && f < T.check[1] + 60) burst(hp[0], hp[1] - 60, T.check[0] + 10, { r1: 380, n: 64, a: 0.75, rise: 8, decay: 40, seed: 5 });
-    if (f > T.click - 10) burst(KEY_CENTER[0], KEY_CENTER[1] - 84 * 2.3, T.click, { r1: 900, n: 120, a: 0.8, decay: 24, seed: 9 });
+    if (f > T.click - 10) burst(KEY_CENTER[0], KEY_CENTER[1] - 84 * 2.3, T.click, { r1: 900, n: 120, a: 0.62, rise: 5, decay: 24, seed: 9 });
   }
   /* The hardest moves split the light a little, like a lens under stress. */
   s.chroma = lockup ? 0 : Math.max(
     3.2 * Math.sin(Math.PI * seg(f, 364, 420, ease.inOut)),
     2.8 * Math.sin(Math.PI * seg(f, 700, 760, ease.inOut)),
     3.5 * pulse(f, T.collapse[1], 5, 12),
-    2.5 * pulse(f, T.click, 2, 10),
+    2.5 * pulse(f, T.click, 4, 10),
   );
 
   /* Ground: a compass behind the first act and the last card. It spins off

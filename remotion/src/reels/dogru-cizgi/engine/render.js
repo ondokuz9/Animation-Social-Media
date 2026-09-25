@@ -594,8 +594,8 @@ export const drawFrame = (ctx, stateAt, frame, still = false, pre = null, fast =
 
   /* The click: a ring and eight short ticks, like light off a turning lock. */
   if (s.click) {
-    const { t, x, y } = s.click;
-    ctx.strokeStyle = rgba(INK.goldHot, (1 - t) * 0.9);
+    const { t, x, y, on = 1 } = s.click;
+    ctx.strokeStyle = rgba(INK.goldHot, (1 - t) * 0.9 * on);
     ctx.lineWidth = 2.2;
     ctx.beginPath(); ctx.arc(x, y, 24 + t * 240, 0, Math.PI * 2); ctx.stroke();
     for (let i = 0; i < 8; i++) {
@@ -603,7 +603,7 @@ export const drawFrame = (ctx, stateAt, frame, still = false, pre = null, fast =
       const r0 = 40 + t * 120, r1 = r0 + 26 * (1 - t);
       ctx.beginPath(); ctx.moveTo(x + Math.cos(a) * r0, y + Math.sin(a) * r0); ctx.lineTo(x + Math.cos(a) * r1, y + Math.sin(a) * r1); ctx.stroke();
     }
-    spark(ctx, x, y, 1.4 * (1 - t), INK.gold);
+    spark(ctx, x, y, 1.4 * (1 - t) * on, INK.gold);
   }
 
   if (s.flash > 0) {
