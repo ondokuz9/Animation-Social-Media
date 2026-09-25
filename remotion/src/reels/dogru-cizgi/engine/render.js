@@ -293,7 +293,7 @@ const drawGroundLayer = (ctx, s, frame) => {
     for (let d = 0; d < 360; d += 2) {
       const t = (d * Math.PI) / 180, long = d % 10 === 0, card = d % 90 === 0;
       const r0 = r * (card ? 0.86 : long ? 0.93 : 0.96), r1 = r * (card ? 1.06 : 1);
-      ctx.strokeStyle = rgba(card ? INK.champagne : col, (card ? 0.42 : long ? 0.24 : 0.13) * bg.ring);
+      ctx.strokeStyle = rgba(col, (card ? 0.42 : long ? 0.24 : 0.13) * bg.ring);
       ctx.lineWidth = card ? 1.6 : 1;
       ctx.beginPath(); ctx.moveTo(Math.sin(t) * r0, -Math.cos(t) * r0); ctx.lineTo(Math.sin(t) * r1, -Math.cos(t) * r1); ctx.stroke();
     }
@@ -306,7 +306,7 @@ const drawGroundLayer = (ctx, s, frame) => {
     }
     ctx.setLineDash([]);
     // north: a small champagne needle
-    ctx.fillStyle = rgba(INK.champagne, 0.5 * bg.ring);
+    ctx.fillStyle = rgba(INK.core, 0.45 * bg.ring);
     ctx.beginPath(); ctx.moveTo(0, -r * 1.13); ctx.lineTo(7, -r * 1.07); ctx.lineTo(0, -r * 1.09); ctx.lineTo(-7, -r * 1.07); ctx.closePath(); ctx.fill();
     ctx.restore();
   }

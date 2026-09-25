@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useMemo, useRef } from 'react';
 import { AbsoluteFill, useCurrentFrame } from 'remotion';
 import { SANS, MONO } from '../../brand/tokens.js';
 import { W, H, LOCKUP, lockupScale, WORDMARK_PATHS, WORDMARK_VIEWBOX, LINE_Y } from './engine/shapes.js';
-import { stateAt, FRAMES, T, HERO_Y, TEXT_X, HERO_SIZE, COPY_SIZE, CHAPTERS, HUD_END, textWidth } from './engine/timeline.js';
+import { stateAt, FRAMES, T, HERO_Y, PILL_Y, TEXT_X, HERO_SIZE, COPY_SIZE, CHAPTERS, HUD_END, textWidth } from './engine/timeline.js';
 import { drawFrame } from './engine/render.js';
 import { ease, clamp, lerp } from './engine/math.js';
 
@@ -10,6 +10,7 @@ export const DOGRU_FRAMES = FRAMES;
 
 const INKT = (a) => `rgba(236,244,252,${a})`;
 const GOLD = (a) => `rgba(226,194,132,${a})`;   // Champagne #C9A157, lifted for type on navy
+const OK = (a) => `rgba(96,206,150,${a})`;      // Success #2D8B5C, lifted: the verified mark
 
 
 /* ── The lockup: the name stands on its gold line. ─────────────────────────── */
@@ -90,7 +91,7 @@ const Pun = ({ p }) => {
 /* The search field. The brand sits in it where a lens would be. */
 const QUERY = 'Girne · deniz manzarası';
 const Pill = ({ p }) => {
-  const pw = 820, ph = 104, x = (W - pw) / 2, y = 1236;
+  const pw = 820, ph = 104, x = (W - pw) / 2, y = PILL_Y;
   const per = 2 * (pw + ph);
   const n = Math.round(QUERY.length * p.typed);
   const lw = 104, lh = (WORDMARK_VIEWBOX[3] / WORDMARK_VIEWBOX[2]) * lw;
@@ -106,7 +107,7 @@ const Pill = ({ p }) => {
       </svg>
       <div style={{ position: 'absolute', left: 196, top: 0, height: ph, display: 'flex', alignItems: 'center', fontFamily: SANS, fontWeight: 500, fontSize: 42, color: INKT(0.97), whiteSpace: 'pre' }}>
         {QUERY.slice(0, n)}
-        <span style={{ display: 'inline-block', width: 3, height: 46, marginLeft: 4, background: p.caret ? GOLD(1) : 'transparent' }} />
+        <span style={{ display: 'inline-block', width: 3, height: 46, marginLeft: 4, background: p.caret ? INKT(0.95) : 'transparent' }} />
       </div>
     </div>
   );
@@ -114,7 +115,7 @@ const Pill = ({ p }) => {
 
 /* The chosen listing, named, with the mark that makes it the right one. */
 const Popover = ({ p }) => {
-  const cw = 760, ch = 196, x = p.x - cw / 2, y = p.y - 150 - ch;
+  const cw = 880, ch = 232, x = Math.max(60, Math.min(W - 60 - cw, p.x - cw / 2)), y = p.y - 150 - ch;
   const sweepX = lerp(-200, cw + 200, p.sweep);
   return (
     <div style={{ position: 'absolute', left: x, top: y + (1 - p.a) * 20, width: cw, height: ch, opacity: p.a }}>
@@ -127,16 +128,16 @@ const Popover = ({ p }) => {
           </linearGradient>
           <clipPath id="card"><rect x={0} y={0} width={cw} height={ch} rx={22} /></clipPath>
         </defs>
-        <path d={`M 22 1.5 H ${cw - 22} A 20.5 20.5 0 0 1 ${cw - 1.5} 22 V ${ch - 22} A 20.5 20.5 0 0 1 ${cw - 22} ${ch - 1.5} H ${cw / 2 + 18} L ${cw / 2} ${ch + 18} L ${cw / 2 - 18} ${ch - 1.5} H 22 A 20.5 20.5 0 0 1 1.5 ${ch - 22} V 22 A 20.5 20.5 0 0 1 22 1.5 Z`}
+        <path d={`M 22 1.5 H ${cw - 22} A 20.5 20.5 0 0 1 ${cw - 1.5} 22 V ${ch - 22} A 20.5 20.5 0 0 1 ${cw - 22} ${ch - 1.5} H ${p.x - x + 18} L ${p.x - x} ${ch + 18} L ${p.x - x - 18} ${ch - 1.5} H 22 A 20.5 20.5 0 0 1 1.5 ${ch - 22} V 22 A 20.5 20.5 0 0 1 22 1.5 Z`}
               fill="rgba(6,20,38,0.86)" stroke={INKT(0.92)} strokeWidth={2.4} />
         <g clipPath="url(#card)"><rect x={sweepX - 120} y={0} width={240} height={ch} fill="url(#sw)" /></g>
         <rect x={22} y={22} width={150} height={ch - 44} rx={12} fill="none" stroke={INKT(0.55)} strokeWidth={2} />
         <path d={`M 56 ${ch - 50} V ${ch / 2 + 4} L 97 ${ch / 2 - 30} L 138 ${ch / 2 + 4} V ${ch - 50} Z M 86 ${ch - 50} V ${ch / 2 + 22} H 108 V ${ch - 50}`} fill="none" stroke={INKT(0.9)} strokeWidth={2.4} strokeLinejoin="round" />
       </svg>
-      <div style={{ position: 'absolute', left: 200, top: 34, fontFamily: SANS, fontWeight: 600, fontSize: 44, color: INKT(0.98), whiteSpace: 'nowrap' }}>Deniz manzaralı villa</div>
-      <div style={{ position: 'absolute', left: 200, top: 112, display: 'flex', alignItems: 'center', gap: 12, fontFamily: MONO, fontWeight: 500, fontSize: 28, letterSpacing: '0.08em', color: GOLD(1), whiteSpace: 'nowrap' }}>
-        <svg width={30} height={30}><path d="M 4 16 L 12 24 L 26 7" fill="none" stroke={GOLD(1)} strokeWidth={3.4} strokeLinecap="round" strokeLinejoin="round" /></svg>
-        EVLEK ONAYLI EMLAKÇI
+      <div style={{ position: 'absolute', left: 200, top: 34, fontFamily: SANS, fontWeight: 600, fontSize: 48, color: INKT(0.98), whiteSpace: 'nowrap' }}>Deniz manzaralı villa</div>
+      <div style={{ position: 'absolute', left: 200, top: 126, display: 'flex', alignItems: 'center', gap: 14, fontFamily: SANS, fontWeight: 600, fontSize: 40, color: OK(1), whiteSpace: 'nowrap' }}>
+        <svg width={44} height={44}><circle cx={22} cy={22} r={20} fill={OK(0.18)} stroke={OK(1)} strokeWidth={2.4} /><path d="M 12 23 L 19 30 L 32 15" fill="none" stroke={OK(1)} strokeWidth={3.6} strokeLinecap="round" strokeLinejoin="round" /></svg>
+        Evlek Onaylı Emlakçı
       </div>
     </div>
   );
@@ -145,13 +146,13 @@ const Popover = ({ p }) => {
 
 /* ── Kicker: a mono line above the headline, revealed left to right ──────── */
 const Kicker = ({ text, k, y, gold }) => (
-  <div style={{ position: 'absolute', left: TEXT_X, top: y, height: 40, width: W - TEXT_X * 2, overflow: 'hidden' }}>
+  <div style={{ position: 'absolute', left: TEXT_X, top: y - 8, height: 48, width: W - TEXT_X * 2, overflow: 'hidden' }}>
     <div style={{
       display: 'inline-flex', alignItems: 'center', gap: 16, whiteSpace: 'nowrap',
       clipPath: `inset(0 ${100 - 100 * k}% 0 0)`, transform: `translateX(${(1 - k) * -12}px)`,
-      fontFamily: MONO, fontWeight: 500, fontSize: 25, letterSpacing: '0.22em', color: gold ? GOLD(0.95) : INKT(0.62),
+      fontFamily: MONO, fontWeight: 500, fontSize: 32, letterSpacing: '0.16em', color: gold ? OK(0.95) : INKT(0.8),
     }}>
-      <span style={{ display: 'inline-block', width: 26, height: 2, background: gold ? GOLD(0.95) : INKT(0.5) }} />
+      <span style={{ display: 'inline-block', width: 26, height: 2, background: gold ? OK(0.95) : INKT(0.55) }} />
       {text}
     </div>
   </div>
@@ -174,7 +175,7 @@ const Hud = ({ h }) => {
   const cur = CHAPTERS[h.ci], prev = CHAPTERS[Math.max(0, h.ci - 1)];
   const chap = (c, dy, a) => (
     <div style={{ position: 'absolute', left: 0, top: 0, transform: `translateY(${dy}px)`, opacity: a, whiteSpace: 'nowrap' }}>
-      <span style={{ color: GOLD(0.95) }}>{c[1]}</span><span style={{ color: INKT(0.4) }}> · </span>{c[2]}
+      <span style={{ color: INKT(0.95) }}>{c[1]}</span><span style={{ color: INKT(0.4) }}> · </span>{c[2]}
     </div>
   );
   const mono = { fontFamily: MONO, fontWeight: 500, fontVariantNumeric: 'tabular-nums' };
@@ -183,13 +184,13 @@ const Hud = ({ h }) => {
       <svg width={W} height={H} style={{ position: 'absolute', inset: 0 }}>
         {corner(X0, Y0, 1, 1, 0)}{corner(X1, Y0, -1, 1, 1)}{corner(X0, Y1, 1, -1, 2)}{corner(X1, Y1, -1, -1, 3)}
         <line x1={RX0} y1={RY} x2={RX0 + (RX1 - RX0) * h.draw} y2={RY} stroke={INKT(0.22)} strokeWidth={1.2} />
-        {CHAPTERS.map(([at], i) => <line key={i} x1={px(at)} y1={RY - 6} x2={px(at)} y2={RY + 6} stroke={i <= h.ci ? GOLD(0.9) : INKT(0.35)} strokeWidth={1.4} />)}
+        {CHAPTERS.map(([at], i) => <line key={i} x1={px(at)} y1={RY - 6} x2={px(at)} y2={RY + 6} stroke={i <= h.ci ? INKT(0.8) : INKT(0.35)} strokeWidth={1.4} />)}
         {Array.from({ length: 41 }, (_, i) => <line key={`t${i}`} x1={RX0 + ((RX1 - RX0) * i) / 40} y1={RY} x2={RX0 + ((RX1 - RX0) * i) / 40} y2={RY + 3} stroke={INKT(0.2 * h.draw)} strokeWidth={1} />)}
-        <line x1={RX0} y1={RY} x2={RX0 + (RX1 - RX0) * h.prog} y2={RY} stroke={GOLD(0.95)} strokeWidth={2.4} />
-        <path d={`M ${RX0 + (RX1 - RX0) * h.prog - 7} ${RY - 16} L ${RX0 + (RX1 - RX0) * h.prog + 7} ${RY - 16} L ${RX0 + (RX1 - RX0) * h.prog} ${RY - 7} Z`} fill={GOLD(0.95)} />
+        <line x1={RX0} y1={RY} x2={RX0 + (RX1 - RX0) * h.prog} y2={RY} stroke={INKT(0.85)} strokeWidth={2.4} />
+        <path d={`M ${RX0 + (RX1 - RX0) * h.prog - 7} ${RY - 16} L ${RX0 + (RX1 - RX0) * h.prog + 7} ${RY - 16} L ${RX0 + (RX1 - RX0) * h.prog} ${RY - 7} Z`} fill={INKT(0.9)} />
       </svg>
       {CHAPTERS.map(([at, no], i) => (
-        <div key={no} style={{ position: 'absolute', left: px(at), top: RY + 12, transform: 'translateX(-50%)', ...mono, fontSize: 15, letterSpacing: '0.1em', color: i <= h.ci ? GOLD(0.8) : INKT(0.35) }}>{no}</div>
+        <div key={no} style={{ position: 'absolute', left: px(at), top: RY + 12, transform: 'translateX(-50%)', ...mono, fontSize: 15, letterSpacing: '0.1em', color: i <= h.ci ? INKT(0.75) : INKT(0.35) }}>{no}</div>
       ))}
       <div style={{ position: 'absolute', left: RX0, top: 146, height: 30, width: 520, overflow: 'hidden', ...mono, fontSize: 23, letterSpacing: '0.26em', color: INKT(0.82) }}>
         {h.ci > 0 && h.ct < 1 && chap(prev, -30 * h.ct, 1 - h.ct)}
@@ -204,8 +205,8 @@ const Hud = ({ h }) => {
       </div>
       {h.n != null && (
         <>
-          <div style={{ position: 'absolute', right: W - RX1, top: 1672, textAlign: 'right', ...mono, fontSize: 14, letterSpacing: '0.3em', color: h.one ? GOLD(0.9) : INKT(0.42), opacity: h.countA }}>{h.one ? 'DOĞRU İLAN' : 'İLAN'}</div>
-          <div style={{ position: 'absolute', right: W - RX1, top: 1692, textAlign: 'right', ...mono, fontSize: 46, letterSpacing: '0.02em', color: h.one ? GOLD(1) : INKT(0.9), opacity: h.countA, whiteSpace: 'pre' }}>{pad(h.n)}</div>
+          <div style={{ position: 'absolute', right: W - RX1, top: 1672, textAlign: 'right', ...mono, fontSize: 14, letterSpacing: '0.3em', color: INKT(0.42), opacity: h.countA }}>{h.label}</div>
+          <div style={{ position: 'absolute', right: W - RX1, top: 1692, textAlign: 'right', ...mono, fontSize: 46, letterSpacing: '0.02em', color: INKT(0.9), opacity: h.countA, whiteSpace: 'pre' }}>{pad(h.n)}</div>
         </>
       )}
     </div>
@@ -253,17 +254,20 @@ export const DogruCizgi = () => {
       {tags.map((t) => (
         <div key={t.name} style={{ position: 'absolute', left: t.x, top: t.y, transform: 'translate(-50%, -100%)', opacity: t.a, textAlign: 'center' }}>
           <div style={{ fontFamily: MONO, fontWeight: 500, fontSize: 28, letterSpacing: '0.2em', color: INKT(0.94), whiteSpace: 'nowrap' }}>
-            <span style={{ color: GOLD(0.95), marginRight: 14 }}>{TAG_NO[t.name]}</span>{t.name}
+            <span style={{ color: INKT(0.55), marginRight: 14 }}>{TAG_NO[t.name]}</span>{t.name}
           </div>
           <div style={{ width: 1.5, height: 36 * t.a, margin: '8px auto 0', background: INKT(0.5) }} />
-          <div style={{ width: 13, height: 13, borderRadius: 7, margin: '0 auto', border: `1.6px solid ${GOLD(0.9)}`, boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ width: 4, height: 4, borderRadius: 2, background: GOLD(1) }} />
+          <div style={{ width: 13, height: 13, borderRadius: 7, margin: '0 auto', border: `1.6px solid ${INKT(0.8)}`, boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ width: 4, height: 4, borderRadius: 2, background: INKT(1) }} />
           </div>
         </div>
       ))}
       {s.note && (
-        <div style={{ position: 'absolute', left: s.note.x, top: s.note.y + 26, transform: 'translateX(-50%)', opacity: s.note.a, fontFamily: MONO, fontWeight: 500, fontSize: 30, letterSpacing: '0.24em', color: GOLD(0.95), whiteSpace: 'nowrap' }}>{s.note.text}</div>
+        <div style={{ position: 'absolute', left: s.note.x, top: s.note.y + 26, transform: 'translateX(-50%)', opacity: s.note.a, fontFamily: MONO, fontWeight: 500, fontSize: 30, letterSpacing: '0.24em', color: INKT(0.85), whiteSpace: 'nowrap' }}>{s.note.text}</div>
       )}
+      {s.prices.map((p) => (
+        <div key={p.text} style={{ position: 'absolute', left: p.x, top: p.y, transform: `translate(-50%, -100%) translateY(${(1 - p.a) * 10}px)`, opacity: p.a, fontFamily: SANS, fontWeight: 700, fontSize: 40, letterSpacing: '-0.01em', color: INKT(0.98), whiteSpace: 'nowrap', textShadow: '0 2px 14px rgba(3,12,24,0.9)' }}>{p.text}</div>
+      ))}
       <Hud h={s.hud} />
       {s.popover && <Popover p={s.popover} />}
       {s.pill && <Pill p={s.pill} />}
@@ -276,7 +280,7 @@ export const DogruCizgi = () => {
       {s.pun && <Pun p={s.pun} />}
       {s.heroes.map((h) => (
         <React.Fragment key={h.t}>
-          <Kicker text={h.kicker} k={h.kick} y={HERO_Y - HERO_SIZE * 1.3 - 46} gold />
+          <Kicker text={h.kicker} k={h.kick} y={HERO_Y - HERO_SIZE * 1.3 - 46} gold={h.ok} />
           <Rising parts={h.gold ? [{ t: h.gold, gold: true }, { t: h.t.slice(h.gold.length) }] : [{ t: h.t }]} rise={h.rise} sink={h.sink} size={HERO_SIZE} weight={700} tracking="-0.025em" y={HERO_Y} stagger={1.6} left={TEXT_X - 6} />
         </React.Fragment>
       ))}

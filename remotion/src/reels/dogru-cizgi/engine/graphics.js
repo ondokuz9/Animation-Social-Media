@@ -34,7 +34,7 @@ export const CARDS = (() => {
     const col = i % 6, row = Math.floor(i / 6);
     out.push({
       x: 125 + col * 166 + (r() - 0.5) * 60,
-      y: 560 + row * 232 + (r() - 0.5) * 60,
+      y: 470 + row * 226 + (r() - 0.5) * 60,
       rot: (r() - 0.5) * 0.5,
       s: 0.6 + r() * 0.36,
       z: (r() - 0.5) * 1.3e5,           // metres of depth in the A plane, for parallax
