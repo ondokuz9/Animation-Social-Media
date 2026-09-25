@@ -33,7 +33,7 @@ export const T = {
   wordRide: [224, 252], wordSink: [252, 264],
   tilt: [258, 318], toCoast: [262, 324], graticule: [278, 314], divider: [318, 334],
   pins: 318, pinGap: 3, girneLift: [338, 356],
-  dive: [356, 424], coastToTown: [382, 428], islandOut: [392, 420],
+  dive: [356, 424], coastToTown: [382, 428], islandOut: [360, 392],
   townRoads: [404, 456], townBlocks: [410, 462],
   pill: [436, 568], typing: [446, 510],
   markers: 506, markerGap: 2, sweep: [526, 556], check: [556, 572], popover: [572, 692],
@@ -53,7 +53,7 @@ export const T = {
    kicker above, the line flush left, standing on its rule. */
 export const HEROES = [
   { t: 'Doğru ilan.', gold: 'Doğru', rise: [606, 630], out: [672, 690] },
-  { t: 'Doğru emlakçı.', gold: 'Doğru', rise: [852, 874], out: [904, 920] },
+  { t: 'Doğru emlakçı.', gold: 'Doğru', rise: [866, 884], out: [910, 924] },
 ];
 export const COPY = [{ t: "Kıbrıs'ta yüzlerce ilan.", rise: [34, 54], out: [100, 114] }];
 export const TEXT_X = 96;
@@ -126,9 +126,9 @@ const tour = () => {
   const k0 = orbitAt(T.tour[0]);
   const knots = [
     [T.tour[0], k0.pos, k0.target],
-    [906, k0.pos, k0.target],
-    [930, L(-2.7, EYE, 10.0), L(-2.6, 1.3, 3)],
-    [954, L(-2.5, EYE, 5.6), L(-2.3, 1.2, -4)],
+    [914, k0.pos, k0.target],
+    [936, L(-2.7, EYE, 10.0), L(-2.6, 1.3, 3)],
+    [958, L(-2.5, EYE, 5.6), L(-2.3, 1.2, -4)],
     [972, L(-3.1, 1.8, 4.7), L(-2.3, 0.95, -4)],
     [1016, L(-3.05, 1.8, 4.5), L(-2.25, 0.95, -4)],
     [1048, L(-0.6, 1.75, 1.2), L(5.6, 1.0, -0.2)],
@@ -182,7 +182,7 @@ export const cameraAt = (f) => {
    a breathing hold. */
 const AGENT = [
   { // at the door, on its right: turns to it, ushers you in, steps aside
-    span: [840, 936], path: [[-1.25, 6.0], [-0.9, 6.35]], walkFrom: 906, walkTo: 924, drawIn: [840, 864], drawOut: [920, 936],
+    span: [840, 944], path: [[-1.25, 6.0], [-0.9, 6.35]], walkFrom: 914, walkTo: 932, drawIn: [840, 864], drawOut: [928, 944],
     face: [[840, 0], [852, -0.25], [880, -0.2], [900, -0.1]], yaw: [[840, 0], [852, 0], [858, -0.8], [872, -0.8], [878, 0]],
     usher: [852, 884], shows: ROOM.door,
   },
@@ -200,7 +200,7 @@ const AGENT = [
   },
   { // terrace: walks along the rail, turns to the sea and the sun, then to us, and offers a hand
     span: [1110, 1262], path: [[2.1, -9.5], [2.9, -9.6]], walkFrom: 1110, walkTo: 1142, drawIn: [1110, 1126],
-    face: [[1142, 1], [1150, 0.88], [1162, 0.88], [1174, 0.74]], yaw: [[1110, 0], [1146, 0.6], [1158, 0.6], [1166, -0.2], [1250, -0.2]],
+    face: [[1142, 1], [1150, 0.88], [1162, 0.88], [1178, 0.8]], yaw: [[1110, 0], [1146, 0.6], [1158, 0.6], [1166, -0.2], [1250, -0.2]],
     tilt: [[1166, 0], [1174, 0.1], [1182, 0.06]],
     present: [1140, 1166], offer: [1170, 1250], shows: L(9, 1.5, -24),
   },
@@ -504,7 +504,7 @@ export const stateAt = (frame) => {
       }
       // "Doğru emlakçı.": the figure is measured, the way Vitruvius measured one —
       // a circle from the navel, a square of the height, a scale of eight heads
-      const mIn = seg(f, 852, 880, ease.inOut), mOut = seg(f, 900, 918, ease.inOut);
+      const mIn = seg(f, 866, 892, ease.inOut), mOut = seg(f, 906, 922, ease.inOut);
       if (mIn > 0 && mOut < 1) {
         const rh = v3.norm([cam.r[0], 0, cam.r[2]]);
         const Hh = 1.745, at = (x, y) => v3.add(ag.pos, [rh[0] * x, y, rh[2] * x]);
@@ -771,16 +771,16 @@ export const stateAt = (frame) => {
       s.lines.push({ shape: { p: hr.p, a: hr.a.map((v, i) => (hr.u[i] <= hp ? v * 0.3 * vol : 0)) }, space: 'world', width: 1.1, nearFade: 1.2, core: false });
     }
     // someone is home: the windows are lit
-    const lit = seg(he, 0.72, 1, ease.inOut) * sceneOut * (inside ? 0 : 1) * (1 - 0.8 * recede) * ease.inOut(clamp((rel[2] - G.z1 - 0.8) / 3.0));
+    const lit = seg(he, 0.72, 1, ease.inOut) * sceneOut * (inside ? 0 : 1) * (1 - recede) * ease.inOut(clamp((rel[2] - G.z1 - 0.8) / 3.0));
     if (lit > 0) for (const w of WINDOWS) if (faceVisible(w, cam)) s.faces.push({ p: w.q, col: INK_WARM, a: 0.36 * lit, a2: 0.1 * lit, grad: [v3.lerp(w.q[0], w.q[1], 0.5), v3.lerp(w.q[2], w.q[3], 0.5)] });
     const pool = seg(he, 0.85, 1, ease.inOut) * sceneOut;
     if (pool > 0 && faceVisible(POOL, cam)) s.faces.push({ p: POOL.q, col: [80, 200, 182], a: 0.1 * pool, a2: 0.02 * pool, grad: [v3.lerp(POOL.q[0], POOL.q[1], 0.5), v3.lerp(POOL.q[2], POOL.q[3], 0.5)] });
     // the door opens and the light comes out to meet you
     // …and eases away as we walk through it, so it never fills the lens
-    const spill = seg(f, T.doorOpen[0], T.doorOpen[1] + 6, ease.inOut) * sceneOut * ease.inOut(clamp((rel[2] - G.z1 - 0.8) / 3.0));
+    const spill = seg(f, T.doorOpen[0], T.doorOpen[1] + 6, ease.inOut) * sceneOut * ease.inOut(clamp((rel[2] - G.z1 - 3.0) / 3.5));
     if (spill > 0 && !inside) {
-      if (faceVisible(DOORWAY, cam)) s.faces.push({ p: DOORWAY.q, col: INK_WARM, a: 0.34 * spill, a2: 0.16 * spill, grad: [v3.lerp(DOORWAY.q[0], DOORWAY.q[1], 0.5), v3.lerp(DOORWAY.q[2], DOORWAY.q[3], 0.5)] });
-      s.faces.push({ p: SPILL.q, col: INK_WARM, a: 0.2 * spill, grad: [v3.lerp(SPILL.q[0], SPILL.q[1], 0.5), v3.lerp(SPILL.q[2], SPILL.q[3], 0.5)] });
+      if (faceVisible(DOORWAY, cam)) s.faces.push({ p: DOORWAY.q, col: INK_WARM, a: 0.14 * spill, a2: 0.03 * spill, grad: [v3.lerp(DOORWAY.q[0], DOORWAY.q[1], 0.5), v3.lerp(DOORWAY.q[2], DOORWAY.q[3], 0.5)] });
+      s.faces.push({ p: SPILL.q, col: INK_WARM, a: 0.11 * spill, grad: [v3.lerp(SPILL.q[0], SPILL.q[1], 0.5), v3.lerp(SPILL.q[2], SPILL.q[3], 0.5)] });
     }
     // the door, on its hinge
     const th = seg(f, ...T.doorOpen, ease.settle) * 1.5;

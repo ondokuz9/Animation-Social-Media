@@ -56,9 +56,9 @@ const ik2 = (hip, ank, l1 = THIGH, l2 = SHIN) => {
 
 /* ── Arms ───────────────────────────────────────────────────────────────── */
 // front view: [abduction from hanging, forearm direction]; + is outward
-const FRONT = { rest: [0.12, 0.04], present: [1.25, 1.45], usher: [0.8, 1.15], offer: [0.22, 0.45], tablet: [0.2, -1.32] };
+const FRONT = { rest: [0.12, 0.04], present: [1.25, 1.45], usher: [0.8, 1.15], offer: [0.72, 1.05], tablet: [0.2, -1.32] };
 // profile: [shoulder angle, elbow bend]; + is forward
-const PROF = { rest: [0, 0.22], present: [1.35, 0.15], usher: [0.9, 0.2], offer: [1.1, 0.3], tablet: [-0.08, 1.5] };
+const PROF = { rest: [0, 0.22], present: [1.35, 0.15], usher: [0.9, 0.2], offer: [1.42, 0.08], tablet: [-0.08, 1.5] };
 
 const pose = (table, w) => {
   // weighted blend away from rest; negative weights (anticipation) pull in
@@ -123,7 +123,8 @@ const rot = (p, c, a) => { const dx = p[0] - c[0], dy = p[1] - c[1]; return [c[0
 /* Hair as a shape, not a line: a cap with volume at the crown and a
    hairline across the forehead (front), or over the back of the head (profile). */
 const HAIR_F = [[-9.9, 0.5], [-10.4, 5], [-9.4, 10], [-6.4, 13.9], [-1.6, 15.6], [3.4, 15.2], [7.6, 12.8], [10.1, 8.6], [10.5, 3.6], [9.9, 0.5], [8.2, 5.2], [4.2, 7.9], [0.6, 7.3], [-3.6, 6.6], [-7.2, 5.0], [-9.2, 2.6]];
-const HAIR_P = [[5.8, 7.4], [8.8, 9.2], [7.2, 12.4], [2.4, 14.4], [-2.8, 14.4], [-7.2, 12.6], [-10.2, 9], [-10.9, 3.4], [-10.2, -2.4], [-8.2, -5.6], [-6.2, -3.4], [-4.8, 0.6], [-3, 4.4], [-0.4, 6.4], [2.4, 7.2], [4.6, 7.4]];
+// same order as HAIR_F: outer edge back → crown → forehead, then the inner edge home
+const HAIR_P = [[-8.2, -5.6], [-10.2, -2.4], [-10.9, 3.4], [-10.2, 9], [-7.2, 12.6], [-2.8, 14.4], [2.4, 14.4], [7.2, 12.4], [8.8, 9.2], [5.8, 7.4], [2.4, 7.2], [-0.4, 6.4], [-3, 4.4], [-4.8, 0.6], [-6.2, -3.4], [-7.4, -5.2]];
 
 /* Torso outlines with matching point counts, so front ↔ profile blends. */
 const TORSO_F = [[-6, 150], [-22, 144], [-23, 128], [-18, 106], [-19, 78], [-6, 77], [6, 77], [19, 78], [18, 106], [23, 128], [22, 144], [6, 150]];
@@ -171,7 +172,7 @@ export const agentDrawing = ({ facing = 0, phase = 0, walk = 0, present = 0, ush
   const w = { present, usher, offer };
   const [fa1, fa2] = pose(FRONT, w);
   const [pa1, pa2] = pose(PROF, w);
-  const foreK = lerp(1, 0.6, clamp(offer));           // an offered hand comes at the lens: foreshortened
+  const foreK = lerp(1, 0.88, clamp(offer));           // an offered hand comes at the lens: foreshortened
   const fArmR = frontArm(-1, fa1, fa2, foreK), fArmL = frontArm(1, ...FRONT.tablet);
   const pArmR = profArm(pa1 + swingR, pa2 + Math.max(0, -swingR) * 0.5), pArmL = profArm(...PROF.tablet);
   const armR = { sh: J(fArmR.sh, pArmR.sh), el: J(fArmR.el, pArmR.el), wr: J(fArmR.wr, pArmR.wr) };
