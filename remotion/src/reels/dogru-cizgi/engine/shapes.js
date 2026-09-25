@@ -130,37 +130,38 @@ export const dividerWorld = () => cyprus.divider.map((l) => l.map((q) => geo(q[0
 // Anatomy, side view: the near hand (right) shows its back; the far hand's
 // thumb lies over it, and the far hand's four fingers wrap round its lower
 // edge onto the near side — which is what a real handshake shows the camera.
-const finger = (x, by, ty, w = 34, tilt = 7) =>
-  `M ${x} ${by} L ${x + tilt} ${ty + w / 2} A ${w / 2} ${w / 2} 0 0 1 ${x + w + tilt} ${ty + w / 2} L ${x + w} ${by - 2}`;
+// Drawn as a clean side view. The agent's arm (suit sleeve, shirt cuff)
+// comes from the left; the thumb lies over the buyer's hand. The buyer's arm
+// comes from the right; their fingers curl round under the agent's palm, and
+// the agent's fingertips show below the buyer's hand — the grip.
 const HANDS_SVG = [
-  // far (left) sleeve and cuff
-  'M -60 350 L 236 300',
-  'M -60 494 L 248 446',
-  'M 236 300 L 248 446',
-  'M 254 298 L 266 444',
-  // far hand: wrist rising into the thumb, which lies over the near hand
-  'M 266 298 C 300 290 330 276 356 262 C 392 244 440 232 486 232 C 514 232 530 246 522 260 C 514 274 492 276 468 278 C 446 280 432 284 420 292',
-  // far hand: heel of the palm, running under
-  'M 266 444 C 310 452 352 458 396 458',
-  // near (right) sleeve and cuff
-  'M 1060 250 L 776 270',
-  'M 1060 396 L 788 418',
-  'M 776 270 L 788 418',
-  'M 758 270 L 770 418',
-  // near hand: back of the hand, knuckles, closing round under
-  'M 758 272 C 690 266 620 266 556 274 C 500 282 452 298 422 320 C 398 338 388 362 394 390 C 400 416 420 432 446 440',
-  'M 770 418 C 700 430 620 440 540 450 C 500 454 470 450 446 440',
-  // the far hand's four fingers, wrapping onto the back of the near hand
-  finger(462, 452, 372),
-  finger(502, 452, 358),
-  finger(542, 448, 362),
-  finger(582, 444, 378, 30),
+  // 0–5 · agent: sleeve (two edges and a cuff seam), shirt cuff, hand with thumb over, palm
+  'M -80 452 C 60 430 190 402 296 386',
+  'M -80 604 C 70 584 200 552 300 530',
+  'M 296 386 C 292 430 294 486 300 530  M 232 398 C 230 436 232 492 238 544',
+  'M 296 386 L 324 382 C 322 428 324 480 328 522 L 300 530',
+  'M 324 384 C 356 372 394 352 432 338 C 470 326 514 320 548 326 C 572 331 578 350 560 358 C 536 368 500 366 470 372 C 452 376 440 382 430 388',
+  'M 328 520 C 364 526 402 526 438 518',
+  // 6–11 · buyer: sleeve, cuff seam, back of the hand, knuckles, the underside
+  'M 1080 292 C 960 298 840 310 728 322',
+  'M 1080 452 C 960 456 840 462 722 470',
+  'M 728 322 C 724 372 722 424 722 470  M 792 316 C 788 366 786 418 786 464',
+  'M 728 324 C 670 324 612 332 562 346',
+  'M 722 470 C 660 484 590 490 530 486',
+  'M 562 346 C 556 352 552 356 548 358  M 640 330 C 646 342 648 356 646 368  M 600 336 C 606 348 608 362 606 374',
+  // 12–15 · the grip: the buyer's curled fingers, and the agent's fingertips below
+  'M 470 372 C 452 392 444 424 452 452 C 462 480 492 492 530 486',
+  'M 500 366 C 484 392 480 420 488 446  M 532 364 C 518 390 516 416 522 440',
+  'M 438 518 C 452 530 474 534 492 528 C 502 524 504 514 498 506',
+  'M 492 528 C 510 540 534 542 552 534 C 562 528 562 518 556 512  M 552 534 C 570 544 592 544 606 536 C 614 530 612 522 606 518',
 ];
-// the key hangs from the clasp: ring, shaft, bit
+// the key hangs from the clasp: a house for a bow (with its door), a collar,
+// a two-line shaft and a stepped bit
 export const KEY_SVG = [
-  'M 560 486 A 30 30 0 1 1 560 546 A 30 30 0 1 1 560 486',
-  'M 560 546 L 560 700',
-  'M 560 650 L 588 650 L 588 664 L 574 664 L 574 678 L 588 678 L 588 692 L 560 692',
+  'M 560 598 L 606 636 L 606 690 L 514 690 L 514 636 Z',
+  'M 548 690 L 548 668 A 12 12 0 0 1 572 668 L 572 690',
+  'M 540 690 L 580 690 L 580 700 L 540 700 Z',
+  'M 552 700 L 552 846 L 568 846 L 568 834 L 598 834 L 598 820 L 584 820 L 584 808 L 600 808 L 600 794 L 568 794 L 568 700',
 ];
 export const HANDS_BOX = { x: 40, y: 430, s: 1 };
 export const handsToScreen = ([x, y]) => [HANDS_BOX.x + x * HANDS_BOX.s, HANDS_BOX.y + y * HANDS_BOX.s, 0];
@@ -170,14 +171,15 @@ export const handsToScreen = ([x, y]) => [HANDS_BOX.x + x * HANDS_BOX.s, HANDS_B
 let _parts = null;
 export const handsParts = () => {
   if (_parts) return _parts;
-  const toS = (d) => withAlpha(sampleStrokes(d, 3)[0].map(handsToScreen));
+  // every sub-path of a stroke, joined with pen lifts
+  const toS = (d) => concat(...sampleStrokes(d, 3).map((st) => withAlpha(st.map(handsToScreen))));
   // the agent's hand comes from the left (thumb over); the buyer's from the right;
   // the agent's fingers close over the buyer's hand last — the grip
   const agent = [0, 1, 2, 3, 4, 5].map((i) => toS(HANDS_SVG[i]));
   const buyer = [6, 7, 8, 9, 10, 11].map((i) => toS(HANDS_SVG[i]));
   const fingers = [12, 13, 14, 15].map((i) => toS(HANDS_SVG[i]));
   const key = KEY_SVG.flatMap((d) => sampleStrokes(d, 3).map((st) => withAlpha(st.map(handsToScreen))));
-  _parts = { agent: resample(concat(...agent), N), buyer: resample(concat(...buyer), N), fingers: resample(concat(...fingers), 240), key: resample(concat(...key), 300), grip: handsToScreen([430, 300]) };
+  _parts = { agent: resample(concat(...agent), N), buyer: resample(concat(...buyer), N), fingers: resample(concat(...fingers), 240), key: resample(concat(...key), 300), grip: handsToScreen([400, 452]) };
   return _parts;
 };
 

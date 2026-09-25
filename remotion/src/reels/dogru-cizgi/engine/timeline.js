@@ -21,7 +21,7 @@ import {
 import { town, MARKERS, HOUSE_O } from './town.js';
 import { villa, G, U, DOOR, EYE, ROOM, local as L } from './villa.js';
 import { strokeVisibility, S, joinStrokes } from './build.js';
-import { cardLocal, CARDS, CARD_PTS, CARD_COUNT, keyLocal, KEY_CENTER, pinGlyph } from './graphics.js';
+import { cardLocal, cardDetail, CARDS, CARD_PTS, CARD_COUNT, CARD_CENTER, PRICE_AT, keyLocal, KEY_CENTER, pinGlyph } from './graphics.js';
 import { agentDrawing } from './agent.js';
 
 export const FRAMES = 1440;
@@ -184,25 +184,25 @@ const AGENT = [
   { // at the door, on its right: turns to it, ushers you in, steps aside
     span: [840, 944], path: [[-1.25, 6.0], [-0.9, 6.35]], walkFrom: 914, walkTo: 932, drawIn: [840, 864], drawOut: [928, 944],
     face: [[840, 0], [852, -0.25], [880, -0.2], [900, -0.1]], yaw: [[840, 0], [852, 0], [858, -0.8], [872, -0.8], [878, 0]],
-    usher: [852, 884], shows: ROOM.door,
+    usher: [852, 884], shows: 'door',
   },
   { // living room: discovered by the sofa, looking out; turns to us; shows the sea
     span: [944, 1034], path: [[-2.6, -0.2]], drawIn: [944, 962], drawOut: [1020, 1034],
     face: [[944, -0.35], [962, -0.35], [974, 0]], yaw: [[944, -0.9], [964, -0.9], [972, 0], [978, 0], [982, -0.7], [1004, -0.7], [1010, 0]],
-    present: [980, 1014], shows: 'reach',
+    present: [980, 1014], shows: 'glass',
     tilt: [[1010, 0], [1014, 0.12], [1020, 0]],
   },
   { // kitchen: walks to the end of the island, shows it
     span: [1036, 1110], path: [[4.4, 1.1], [3.8, 0.6]], walkFrom: 1036, walkTo: 1068, drawIn: [1036, 1052], drawOut: [1098, 1110],
     face: [[1036, 0], [1068, 0], [1076, -0.1]], yaw: [[1036, 0], [1072, 0], [1076, -0.7], [1098, -0.7]],
-    present: [1076, 1102], shows: 'reach',
+    present: [1076, 1102], shows: 'island',
     tilt: [[1098, 0], [1102, 0.12], [1108, 0]],
   },
   { // terrace: walks along the rail, turns to the sea and the sun, then to us, and offers a hand
     span: [1110, 1262], path: [[2.1, -9.5], [2.9, -9.6]], walkFrom: 1110, walkTo: 1142, drawIn: [1110, 1126],
     face: [[1142, 1], [1150, 0.88], [1162, 0.88], [1178, 0.8]], yaw: [[1110, 0], [1146, 0.6], [1158, 0.6], [1166, -0.2], [1250, -0.2]],
     tilt: [[1166, 0], [1174, 0.1], [1182, 0.06]],
-    present: [1140, 1166], offer: [1170, 1250], shows: L(9, 1.5, -24),
+    present: [1140, 1166], offer: [1170, 1250], shows: 'sun',
   },
 ];
 const track = (keys, f, def = 0) => {
@@ -269,7 +269,7 @@ export const agentAt = (f, cam) => {
       yaw: track(k.yaw, f, 0), tilt: track(k.tilt, f, 0) + (k.offer ? 0.03 * Math.sin(Math.PI * seg(f, k.offer[0] + 14, k.offer[0] + 24)) : 0),
       breath: Math.sin(f * 0.026), weight: 1,
     },
-    shows: k.shows, showK: showW ? gest(f, showW) : 0, showT: showW ? seg(f, showW[0] + 4, showW[0] + 20, ease.inOut) : 0,
+    shows: k.shows, showK: showW ? gest(f, showW) : 0, showT: showW ? seg(f, showW[0] + 2, showW[0] + 20, (x) => x) : 0,
   };
 };
 
@@ -294,17 +294,30 @@ const pluckOffset = (f, u) => {
   const att = clamp((f - T.pluck[0]) / 3);
   return (Math.sin(Math.PI * u) * Math.cos(t * 2 * Math.PI * 5.2) + 0.3 * Math.sin(2 * Math.PI * u) * Math.cos(t * 2 * Math.PI * 9)) * 46 * att * Math.exp(-t * 4.2);
 };
-const cardShape = (i, f, dx = 0) => {
+/* A card's placement at frame f: the spiral turns slowly about the two
+   hero cards, which only breathe. Returns a local → screen mapper. */
+const cardXform = (i, f) => {
   const c = CARDS[i];
-  const drift = [noise1(f / 50 + c.seed, 1) * 18, noise1(f / 60 + c.seed, 2) * 22];
-  const rot = c.rot + noise1(f / 80 + c.seed, 3) * 0.08;
+  const sw = c.hero ? 0 : 0.2 * seg(f, 30, 230, ease.inOut);
+  const cx = CARD_CENTER[0] + (c.x - CARD_CENTER[0]) * Math.cos(sw) - (c.y - CARD_CENTER[1]) * Math.sin(sw);
+  const cy = CARD_CENTER[1] + (c.x - CARD_CENTER[0]) * Math.sin(sw) + (c.y - CARD_CENTER[1]) * Math.cos(sw);
+  const k = c.hero ? 0.35 : 1;
+  const drift = [noise1(f / 60 + c.seed, 1) * 12 * k, noise1(f / 70 + c.seed, 2) * 14 * k];
+  const rot = c.rot + sw + noise1(f / 90 + c.seed, 3) * 0.05 * k;
   const cr = Math.cos(rot), sr = Math.sin(rot);
-  return cardLocal().p.map(([x, y]) => [c.x + dx + drift[0] + (x * cr - y * sr) * c.s, c.y + drift[1] + (x * sr + y * cr) * c.s, 0]);
+  return ([x, y]) => [cx + drift[0] + (x * cr - y * sr) * c.s, cy + drift[1] + (x * sr + y * cr) * c.s, 0];
 };
+const cardShape = (i, f) => { const m = cardXform(i, f); return cardLocal().p.map(m); };
 const liftCard = (pts, i) => pts.map((q) => v3.add(screenToA(q), [0, 0, CARDS[i].z]));
 const hline = (x0, x1, y, n = 60) => { const p = []; for (let i = 0; i < n; i++) p.push([lerp(x0, x1, i / (n - 1)), y, 0]); return p; };
-const HERO_CARDS = [7, 10];
-const HERO_PRICES = ['£185.000', '£240.000'];
+/* What the agent shows, as world paths the line can draw along. */
+const FEATURES = {
+  door: () => [L(DOOR.x0, 0.02, G.z1 + 0.04), L(DOOR.x0, DOOR.h, G.z1 + 0.04), L(DOOR.x1, DOOR.h, G.z1 + 0.04), L(DOOR.x1, 0.02, G.z1 + 0.04)],
+  // the two middle panes of the glass wall — the ones in frame, with the sea behind
+  glass: () => [L(-4.85, 0.1, G.z0 + 0.02), L(-4.85, 2.9, G.z0 + 0.02), L(-1.35, 2.9, G.z0 + 0.02), L(-1.35, 0.1, G.z0 + 0.02), L(-4.85, 0.1, G.z0 + 0.02)],
+  island: () => [L(3.25, 0.98, -3.02), L(3.25, 0.98, 0.22), L(3.25, 0.9, 0.22)],
+  sun: () => Array.from({ length: 17 }, (_, i) => { const t = Math.PI * (i / 16); return L(244 + Math.cos(t) * 230, EYE + Math.sin(t) * 225, -2600); }),
+};
 const collapseLine = () => { const p = hline(90, W - 90, HERO_Y, N); return { p, a: p.map(() => 1) }; };
 
 /* The plot the pin lands on. */
@@ -489,37 +502,19 @@ export const stateAt = (frame) => {
         for (let i = 0; i <= 12; i++) { const t = i / 12, q = t < 0.4 ? v3.lerp(ck[0], ck[1], t / 0.4) : v3.lerp(ck[1], ck[2], (t - 0.4) / 0.6); pts.push(q); al.push(t <= draw ? Math.min(ag.drawIn, 1 - ag.drawOut) : 0); }
         s.lines.push({ hue: 'ok', shape: { p: pts, a: al }, space: 'world', width: 2.2, depthFree: true, nearFade: 0.6 });
       }
-      // what the agent shows is drawn to by the same line: hand → the thing itself
+      // what the agent shows, the line draws: out of the hand, onto the thing
+      // itself — the window with the sea, the island, the sun, the door
       if (ag.shows && ag.showK > 0.02) {
-        const A = agentStrokes.hand;
-        // 'reach': the line carries on from the hand, the way the gesture points
-        let B = ag.shows;
-        if (B === 'reach') { const c = v3.add(ag.pos, [0, 1.35, 0]); const d = v3.norm(v3.sub(A, c)); B = v3.add(A, v3.add(v3.mul(d, 1.7), [0, -0.35, 0])); }
-        const pts = [], al = [];
-        const d = v3.len(v3.sub(B, A));
-        for (let i = 0; i <= 40; i++) { const t = i / 40; const q = v3.lerp(A, B, t); q[1] += Math.sin(Math.PI * t) * Math.min(0.5, d * 0.08); pts.push(q); al.push(t <= ag.showT ? Math.min(1, ag.showK) * (0.5 + 0.5 * t) : 0); }
-        const head = pts[Math.min(40, Math.floor(ag.showT * 40))];
-        s.lines.push({ hue: 'gold', shape: { p: pts, a: al }, space: 'world', width: 2.2, depthFree: true, nearFade: 0.4, spark: ag.showT < 1 ? head : null, sparkK: 0.4 });
-        if (ag.showT >= 1) s.nodes.push({ p: B, k: 0.35 * Math.min(1, ag.showK), col: [255, 222, 160] });
-      }
-      // "Doğru emlakçı.": the figure is measured, the way Vitruvius measured one —
-      // a circle from the navel, a square of the height, a scale of eight heads
-      const mIn = seg(f, 866, 892, ease.inOut), mOut = seg(f, 906, 922, ease.inOut);
-      if (mIn > 0 && mOut < 1) {
-        const rh = v3.norm([cam.r[0], 0, cam.r[2]]);
-        const Hh = 1.745, at = (x, y) => v3.add(ag.pos, [rh[0] * x, y, rh[2] * x]);
-        const p = [], a = [];
-        const run = (pts, from, to) => {
-          if (p.length) { p.push(p[p.length - 1], pts[0]); a.push(0, 0); }
-          pts.forEach((q, i) => { p.push(q); a.push(i / (pts.length - 1) <= seg(f, from, to, ease.inOut) ? (1 - mOut) : 0); });
-        };
-        const R = 0.62 * Hh, cy = 0.61 * Hh;
-        run(Array.from({ length: 97 }, (_, i) => { const t = -Math.PI / 2 + (i / 96) * Math.PI * 2; return at(Math.cos(t) * R, cy + Math.sin(t) * R); }), 856, 884);
-        run([at(-Hh / 2, 0), at(Hh / 2, 0), at(Hh / 2, Hh), at(-Hh / 2, Hh), at(-Hh / 2, 0)], 862, 886);
-        const sx = R + 0.14;
-        run([at(sx, 0), at(sx, Hh)], 866, 880);
-        for (let k = 0; k <= 8; k++) run([at(sx - (k % 4 === 0 ? 0.09 : 0.05), (k / 8) * Hh), at(sx + (k % 4 === 0 ? 0.09 : 0.05), (k / 8) * Hh)], 868 + k * 1.5, 874 + k * 1.5);
-        s.lines.push({ shape: { p, a: a.map((v) => v * 0.32) }, space: 'world', width: 1.2, core: false, depthFree: true });
+        const feat = FEATURES[ag.shows]();
+        const path = [agentStrokes.hand, ...feat];
+        const pts = [], seglen = [];
+        for (let i = 1; i < path.length; i++) {
+          const n = i === 1 ? 24 : 14;
+          for (let k = i === 1 ? 0 : 1; k <= n; k++) { const q = v3.lerp(path[i - 1], path[i], k / n); if (i === 1) q[1] += Math.sin((Math.PI * k) / n) * 0.18; pts.push(q); }
+        }
+        const head = ease.inOut(ag.showT) * (pts.length - 1);
+        const al = pts.map((_, i) => (i <= head ? Math.min(1, ag.showK * 1.25) * (i < 25 ? 0.7 : 1) : 0));
+        s.lines.push({ hue: 'gold', shape: { p: pts, a: al }, space: 'world', width: 2.8, depthFree: true, nearFade: 0.4, spark: ag.showT < 1 ? pts[Math.floor(head)] : null, sparkK: 0.5 });
       }
     }
   }
@@ -550,49 +545,38 @@ export const stateAt = (frame) => {
     const target = collapseLine();
     if (f < T.cardsForm[0]) s.lines.push({ hue: 'gold', shape: aPlane(line), space: 'world', width: 3.4 });
     else if (f < T.collapse[1]) {
-      const p = [], a = [];
+      const p = [], a = [], dp = [], da = [];
       for (let i = 0; i < CARD_COUNT; i++) {
         const slice = { p: line.p.slice(i * CARD_PTS, (i + 1) * CARD_PTS).map(screenToA), a: line.a.slice(i * CARD_PTS, (i + 1) * CARD_PTS) };
         const to = { p: target.p.slice(i * CARD_PTS, (i + 1) * CARD_PTS).map(screenToA), a: target.a.slice(i * CARD_PTS, (i + 1) * CARD_PTS) };
         const mi = ease.settle(clamp(form * 1.45 - hash(i + 3) * 0.45));
         const bi = ease.snap(clamp(back * 1.25 - hash(i + 9) * 0.25));
         // anticipation: the field breathes out before it snaps in
-        const cs = cardShape(i, f).map(([x, y]) => [540 + (x - 540) * (1 + 0.04 * antic), 960 + (y - 960) * (1 + 0.04 * antic), 0]);
-        const card = { p: liftCard(cs, i), a: cardLocal().a };
+        const breatheOut = ([x, y]) => [540 + (x - 540) * (1 + 0.04 * antic), 960 + (y - 960) * (1 + 0.04 * antic), 0];
+        const m = cardXform(i, f);
+        const card = { p: liftCard(cardLocal().p.map((q) => breatheOut(m(q))), i), a: cardLocal().a };
         const final = morph(morph(slice, card, mi, 0, (x) => x), to, bi, 0, (x) => x);
         final.a[0] *= Math.max(1 - mi, bi);
-        // two cards carry the problem: the same house at two prices; the rest recede
-        const hero = HERO_CARDS.includes(i);
-        const recede = lerp(1, hero ? 1 : 0.5, seg(f, 58, 80, ease.inOut) * (1 - bi));
-        for (let k = 0; k < final.a.length; k++) final.a[k] *= recede;
+        // the fakes short out before the snap: they flicker and dim
+        const c = CARDS[i];
+        const short = c.fake ? seg(f, ...T.shortOut, (x) => x) * (1 - bi) : 0;
+        const flick = short > 0 ? (Math.floor(f / 2 + i) % 3 === 0 ? 0.15 : 1) * (1 - 0.55 * short) : 1;
+        const lvl = (c.hero ? 1 : 0.62) * flick;
+        for (let k = 0; k < final.a.length; k++) final.a[k] *= lerp(1, lvl, seg(f, 58, 80, ease.inOut) * (1 - bi));
         p.push(...final.p); a.push(...final.a);
-        // the same house again, a little to the side, at another price —
-        // and when the line snaps, these copies short out and fall away
-        const live = Math.min(mi, 1 - seg(f, ...T.shortOut));
-        const fall = seg(f, T.shortOut[0], T.shortOut[1], ease.launch);
-        if (CARDS[i].dup && mi > 0.3 && fall < 1) {
-          const dx = (i % 2 ? -1 : 1) * 96 * CARDS[i].s;
-          const dup = cardShape(i, f - 4, dx).map((q) => [q[0], q[1] + fall * 120, 0]);
-          const dash = (k) => (fall > 0 ? (Math.floor(k / 3 + f / 2) % 2 ? 0 : 1) : 1);
-          s.lines.push({ shape: { p: liftCard(dup, i), a: cardLocal().a.map((v, k) => v * 0.55 * live * dash(k) * (1 - fall)) }, space: 'world', width: 1.8 });
-        }
-        // price bars: gold, and never the same twice
-        if (mi > 0.5 && bi < 0.5) {
-          const c = CARDS[i];
-          const pb = (dx, len, al) => { const y = c.y + 73 * c.s; const x0 = c.x + dx - 61 * c.s; const pts = hline(x0, x0 + len * c.s, y, 12).map((q) => v3.add(screenToA(q), [0, 0, c.z])); s.lines.push({ hue: 'gold', shape: { p: pts, a: pts.map(() => al) }, space: 'world', width: 2.8 }); };
-          const vis = clamp((mi - 0.5) * 3) * (1 - clamp(bi * 2));
-          pb(0, 40 + hash(i * 3.1) * 50, vis);
-          if (c.dup) pb((i % 2 ? -1 : 1) * 96 * c.s, 40 + hash(i * 7.7) * 50, vis * (1 - seg(f, ...T.shortOut)) * 0.8);
+        // what is printed on it: the building, the price — gone before the snap
+        const dv = clamp((mi - 0.8) * 5) * (1 - seg(f, T.collapse[0] - 8, T.collapse[0] + 2, ease.inOut)) * lvl;
+        if (dv > 0.01) {
+          if (dp.length) { dp.push(dp[dp.length - 1]); da.push(0); }
+          const D = cardDetail(c.b);
+          D.p.forEach((q, k) => { dp.push(v3.add(screenToA(breatheOut(m(q))), [0, 0, c.z])); da.push(k === 0 ? 0 : D.a[k] * dv); });
+          const P0 = project(v3.add(screenToA(breatheOut(m(PRICE_AT))), [0, 0, c.z]));
+          const P1 = project(v3.add(screenToA(breatheOut(m([PRICE_AT[0] + 40, PRICE_AT[1]]))), [0, 0, c.z]));
+          if (P0 && P1) s.prices.push({ x: P0[0], y: P0[1], ang: Math.atan2(P1[1] - P0[1], P1[0] - P0[0]), sc: Math.hypot(P1[0] - P0[0], P1[1] - P0[1]) / 40, a: dv, text: c.price, hero: c.hero });
         }
       }
       s.lines.push({ hue: back > 0.5 ? 'gold' : undefined, shape: { p, a }, space: 'world', width: 2.6 });
-      // their prices, readable: same drawing, different number
-      const pa = seg(f, 60, 76, ease.settle) * (1 - seg(f, T.shortOut[0] - 10, T.shortOut[0] + 4, ease.inOut));
-      if (pa > 0) HERO_CARDS.forEach((i, k) => {
-        const c = CARDS[i];
-        const top = project(v3.add(screenToA([c.x, c.y - 95 * c.s - 14]), [0, 0, c.z]));
-        if (top) s.prices.push({ x: top[0], y: top[1], a: pa, text: HERO_PRICES[k] });
-      });
+      if (dp.length) s.lines.push({ shape: { p: dp, a: da }, space: 'world', width: 1.6, core: false });
     } else {
       // the one line, gold, carrying "doğru" up to the horizon
       const ride = seg(f, ...T.wordRide, ease.glide);
@@ -909,7 +893,8 @@ export const stateAt = (frame) => {
   /* G — the key comes forward, turns, clicks, then lies down as the line */
   if (f >= T.toKey[0] && f < T.keyToLine[1]) {
     const key = keyLocal();
-    const th = seg(f, ...T.turn, (x) => ease.settle(x) + Math.sin(x * Math.PI) * 0.06) * (Math.PI / 2) * 0.9;
+    // a half turn in the lock: edge-on at the middle, face-on again at the click
+    const th = seg(f, ...T.turn, (x) => ease.settle(x) + Math.sin(x * Math.PI) * 0.04) * Math.PI;
     const sc = 2.3;
     let place = key.p.map(([x, y]) => [KEY_CENTER[0] + x * Math.cos(th) * sc, KEY_CENTER[1] + y * sc, 0]);
     const k = 1.025;
@@ -922,13 +907,13 @@ export const stateAt = (frame) => {
       const len = lerp(sc, 600 / 214, clamp(t * 1.4));
       const cx = lerp(KEY_CENTER[0], W / 2, clamp(t * 1.4)), cy = lerp(KEY_CENTER[1], LINE_Y, clamp(t * 1.4));
       const rotated = key.p.map(([x, y]) => { const X = x * Math.cos(th) * (1 - t), Y = y + 7; return [cx + (X * Math.cos(rot) - Y * Math.sin(rot)) * len, cy + (X * Math.sin(rot) + Y * Math.cos(rot)) * len, 0]; });
-      const ringFade = key.p.map(([, y], i) => (y < -52 ? 1 - clamp(t * 2) : 1) * key.a[i]);
+      const ringFade = key.p.map(([, y], i) => (y < -30 ? 1 - clamp(t * 2) : 1) * key.a[i]);
       shape = morph({ p: rotated, a: ringFade }, brandLineScreen(key.p.length), clamp((t - 0.55) / 0.45), 0.2, ease.inOut);
     }
     s.lines.push({ hue: 'gold', shape, space: 'screen', width: 3.4 });
     const c = f - T.click;
     // the click builds over four frames rather than arriving in one
-    s.click = c >= -4 && c < 36 ? { t: Math.max(0, c) / 36, on: ease.inOut(clamp((c + 4) / 5)), x: KEY_CENTER[0], y: KEY_CENTER[1] - 84 * sc } : null;
+    s.click = c >= -4 && c < 36 ? { t: Math.max(0, c) / 36, on: ease.inOut(clamp((c + 4) / 5)), x: KEY_CENTER[0], y: KEY_CENTER[1] - 78 * sc } : null;
   }
   s.flash = Math.max(pulse(f, T.collapse[1], 5, 22) * 0.55, pulse(f, T.click, 3, 22) * 0.3);
   s.warm = Math.max(s.warm, pulse(f, T.click, 6, 50) * 0.6);
@@ -963,7 +948,7 @@ export const stateAt = (frame) => {
     burst(W / 2, HERO_Y, T.collapse[1], { r1: 820, n: 110, a: 0.6, rise: 6, seed: 11 });
     const hp = project(HOUSE_O);
     if (hp && f > T.check[0] - 10 && f < T.check[1] + 60) burst(hp[0], hp[1] - 60, T.check[0] + 10, { r1: 380, n: 64, a: 0.75, rise: 8, decay: 40, seed: 5 });
-    if (f > T.click - 10) burst(KEY_CENTER[0], KEY_CENTER[1] - 84 * 2.3, T.click, { r1: 900, n: 120, a: 0.62, rise: 5, decay: 24, seed: 9 });
+    if (f > T.click - 10) burst(KEY_CENTER[0], KEY_CENTER[1] - 78 * 2.3, T.click, { r1: 900, n: 120, a: 0.62, rise: 5, decay: 24, seed: 9 });
   }
   /* The hardest moves split the light a little, like a lens under stress. */
   s.chroma = lockup ? 0 : Math.max(

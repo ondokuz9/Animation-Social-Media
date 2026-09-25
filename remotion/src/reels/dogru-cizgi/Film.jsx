@@ -260,8 +260,13 @@ export const DogruCizgi = () => {
       {s.note && (
         <div style={{ position: 'absolute', left: s.note.x, top: s.note.y + 26, transform: 'translateX(-50%)', opacity: s.note.a, fontFamily: MONO, fontWeight: 500, fontSize: 30, letterSpacing: '0.24em', color: INKT(0.85), whiteSpace: 'nowrap' }}>{s.note.text}</div>
       )}
-      {s.prices.map((p) => (
-        <div key={p.text} style={{ position: 'absolute', left: p.x, top: p.y, transform: `translate(-50%, -100%) translateY(${(1 - p.a) * 10}px)`, opacity: p.a, fontFamily: SANS, fontWeight: 700, fontSize: 40, letterSpacing: '-0.01em', color: INKT(0.98), whiteSpace: 'nowrap', textShadow: '0 2px 14px rgba(3,12,24,0.9)' }}>{p.text}</div>
+      {s.prices.map((p, i) => (
+        <div key={i} style={{
+          position: 'absolute', left: p.x, top: p.y, transformOrigin: '0 50%',
+          transform: `translate(0, -50%) rotate(${p.ang}rad) scale(${p.sc})`, opacity: p.a,
+          fontFamily: SANS, fontWeight: 700, fontSize: 30, letterSpacing: '-0.01em', lineHeight: 1,
+          color: INKT(p.hero ? 1 : 0.8), whiteSpace: 'nowrap',
+        }}>{p.text}</div>
       ))}
       <Hud h={s.hud} />
       {s.popover && <Popover p={s.popover} />}
