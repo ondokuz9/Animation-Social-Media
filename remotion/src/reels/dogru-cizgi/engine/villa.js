@@ -113,7 +113,7 @@ const livingStrokes = () => {
   s.push(...flat([
     'M -20 0 L 20 0', 'M 0 0 L 0 -150 C 0 -212 44 -234 96 -226',
     'M 76 -224 C 78 -250 114 -250 116 -224 Z',
-  ], [-1.3, 0, -1.9], X));
+  ], [-5.35, 0, -1.25], X));
   // a tall plant in the corner by the glass
   s.push(...flat([
     'M 8 0 L 0 -48 L 60 -48 L 52 0 Z',
@@ -205,7 +205,7 @@ export const ROOM = {
   salon: L(-3.2, 0.02, -3.0),
   mutfak: L(5.0, 0.02, 1.2),
   teras: L(2.9, 0.02, -8.9),
-  lamp: L(-1.3 + 0.96, 2.2, -1.9),
+  lamp: L(-5.35 + 0.96, 2.2, -1.25),
   door: L((DOOR.x0 + DOOR.x1) / 2, 1.2, G.z1),
   hinge: L(DOOR.x0, 0, G.z1),
 };

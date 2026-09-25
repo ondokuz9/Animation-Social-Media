@@ -2,7 +2,7 @@
 // drawing of a coastal town — sea to the north, a harbour, roads that follow
 // the coast — not a survey. Street geometry is stylised on purpose.
 
-import { mulberry, v3 } from './math.js';
+import { mulberry, v3, resample, withAlpha } from './math.js';
 import { GIRNE } from './shapes.js';
 import { S, joinStrokes } from './build.js';
 
@@ -78,10 +78,16 @@ const blocks = () => {
 let _town = null;
 export const town = () => {
   if (_town) return _town;
+  const cs = coastStrokes();
+  const bl = blocks();
   _town = {
-    coast: joinStrokes(coastStrokes(), 8),
+    coast: joinStrokes(cs, 8),
+    // the main shoreline, west → east, as one line (it continues the island's coast)
+    coastMain: resample(withAlpha(cs[0].pts), 400),
+    harbour: joinStrokes(cs.slice(1), 6),
+    blocksNearFrom: bl.length - 26,
     roads: joinStrokes(ROADS.map((p) => S(p, null, 'road')), 10),
-    blocks: joinStrokes(blocks(), 6),
+    blocks: joinStrokes(bl, 6),
   };
   return _town;
 };

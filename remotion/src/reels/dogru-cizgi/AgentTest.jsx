@@ -5,8 +5,8 @@ import { agentDrawing } from './engine/agent.js';
 // Pose sheet for reviewing the agent rig. Not part of the film.
 const POSES = [
   ...[0, 1, 2, 3, 4, 5, 6, 7].map((i) => ({ facing: 1, walk: 1, phase: (i / 8) * Math.PI * 2 })),
-  { facing: 0 }, { facing: 0, present: 1 }, { facing: 0, wave: 1 }, { facing: 0, offer: 1, hold: 1 },
-  { facing: 0.5, walk: 0.6, phase: 1 }, { facing: -1, walk: 1, phase: 2 }, { facing: 1, present: 1 }, { facing: 0, walk: 1, phase: 1.3 },
+  { facing: 0 }, { facing: 0, present: 1, yaw: -0.7 }, { facing: 0.35, usher: 1, yaw: 0.8 }, { facing: 0.35, offer: 1, yaw: 0, tilt: 0.1 },
+  { facing: 0.5, present: 1, yaw: 0.7 }, { facing: -1, walk: 1, phase: 2 }, { facing: 1, offer: 1 }, { facing: 0, present: -0.12 },
 ];
 export const AgentTest = () => (
   <AbsoluteFill style={{ background: '#0A2540' }}>

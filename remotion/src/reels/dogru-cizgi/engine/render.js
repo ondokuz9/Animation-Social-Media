@@ -19,6 +19,8 @@ export const INK = {
   goldHot: [255, 222, 160],
   warm: [255, 190, 118],
   ok: [96, 206, 150],        // Success #2D8B5C, lifted to read as light
+  champagne: [226, 180, 104], // the brand line: Champagne, lifted to read as light
+  person: [242, 206, 150],   // people are warm
 };
 const rgba = (c, a) => `rgba(${c[0] | 0},${c[1] | 0},${c[2] | 0},${a})`;
 const mix = (a, b, t) => [lerp(a[0], b[0], t), lerp(a[1], b[1], t), lerp(a[2], b[2], t)];
@@ -45,9 +47,10 @@ const canvases = () => {
 
 /* ── Lines into layers ─────────────────────────────────────────────────── */
 const LEVELS = 10;
-const drawLines = (layers, s, weight) => {
+const drawLines = (layers, s, weight, pick = () => true) => {
   const focus = s.cam.dist;
   for (const l of s.lines) {
+    if (!pick(l)) continue;
     const { p, a } = l.shape;
     const pts = new Array(p.length);
     for (let i = 0; i < p.length; i++) {
@@ -71,7 +74,8 @@ const drawLines = (layers, s, weight) => {
       } else if (l.space === 'world' && !l.depthFree) {
         const coc = Math.abs(1 - focus / z);
         layer = coc < 0.45 ? 0 : coc < 0.85 ? 1 : 2;
-        wz = clamp(Math.sqrt(focus / z), 0.55, 1.7);
+        // near-constant screen weight: lines must not swell into tubes in close-ups
+        wz = clamp(Math.sqrt(focus / z), 0.8, 1.2);
       }
       // lines about to pass through the lens dissolve instead of smearing
       if (l.nearFade && l.space === 'world') fade = clamp((Math.min(A[2], B[2]) - l.nearFade) / l.nearFade);
@@ -84,7 +88,7 @@ const drawLines = (layers, s, weight) => {
       b.path.moveTo(A[0], A[1]);
       b.path.lineTo(B[0], B[1]);
     }
-    const base = l.warm ? mix(INK.core, [255, 232, 200], l.warm) : INK.core;
+    const base = l.hue === 'gold' ? INK.champagne : l.hue === 'warm' ? INK.person : l.warm ? mix(INK.core, [255, 232, 200], l.warm) : INK.core;
     const clipQuads = l.clip ? l.clip.map((q) => q.map((c) => s.project(c))).filter((q) => q.every(Boolean)) : null;
     for (const b of buckets.values()) {
       const ctx = layers[b.layer].getContext('2d');
@@ -146,7 +150,7 @@ const drawPins = (ctx, s) => {
     glyph(ctx, G.body, r[0], r[1], sc, col, m.a, m.chosen ? 2.4 : 1.8);
     if (m.chosen && m.check > 0) {
       const n = Math.max(2, Math.round(G.check.length * m.check));
-      glyph(ctx, G.check.slice(0, n), r[0], r[1], sc, INK.ok, m.a, 2.6);
+      glyph(ctx, G.check.slice(0, n), r[0], r[1], sc, INK.champagne, m.a, 2.8);
     } else glyph(ctx, G.dot, r[0], r[1], sc, col, m.a, 1.4);
   }
   for (const ring of s.rings) {
@@ -219,17 +223,58 @@ const spark = (ctx, x, y, k = 1, color = INK.glow) => {
 };
 
 /* ── Frame ─────────────────────────────────────────────────────────────── */
-export const SHUTTER = [-0.25, -0.083, 0.083, 0.25];
-export const SHUTTER_FAST = Array.from({ length: 12 }, (_, i) => -0.25 + (0.5 * i) / 11);
+/* Motion blur without visible copies: measure how far lines travel on
+   screen across the 180° shutter, and take enough samples that consecutive
+   copies sit under ~1.5 px apart (4 … 32 samples). */
+const screenTravel = (a, b) => {
+  let d = 0;
+  const n = Math.min(a.lines.length, b.lines.length);
+  for (let li = 0; li < n; li++) {
+    const la = a.lines[li], lb = b.lines[li];
+    if (la.shape.p.length !== lb.shape.p.length) continue;
+    const step = Math.max(1, Math.floor(la.shape.p.length / 24));
+    for (let i = 0; i < la.shape.p.length; i += step) {
+      if (la.shape.a[i] < 0.05) continue;
+      const pa = la.space === 'screen' ? la.shape.p[i] : a.project(la.shape.p[i]);
+      const pb = lb.space === 'screen' ? lb.shape.p[i] : b.project(lb.shape.p[i]);
+      if (!pa || !pb) continue;
+      const dd = Math.hypot(pa[0] - pb[0], pa[1] - pb[1]);
+      if (dd < 400) d = Math.max(d, dd);
+    }
+  }
+  return d;
+};
 
 export const drawFrame = (ctx, stateAt, frame, still = false, pre = null, fast = false) => {
   const { layers, glow, grain } = canvases();
   const s = pre || stateAt(frame);
-  const subs = still ? [s] : (fast ? SHUTTER_FAST : SHUTTER).map((o) => stateAt(frame + o));
+  let subs = [s];
+  if (!still) {
+    const a = stateAt(frame - 0.25), b = stateAt(frame + 0.25);
+    const n = Math.max(4, Math.min(32, Math.ceil(screenTravel(a, b) / 1.5) + 1));
+    subs = Array.from({ length: n }, (_, i) => (i === 0 ? a : i === n - 1 ? b : stateAt(frame - 0.25 + (0.5 * i) / (n - 1))));
+  }
 
   for (const L of layers) { const c = L.getContext('2d'); c.globalCompositeOperation = 'source-over'; c.clearRect(0, 0, W, H); }
-  subs.forEach((st) => drawLines(layers, st, 1 / subs.length));
+  subs.forEach((st) => drawLines(layers, st, 1 / subs.length, (l) => !l.occlude));
   drawPins(layers[0].getContext('2d'), s);
+  // people are solid: what is behind them is hidden, as in a drawing
+  for (const l of s.lines) {
+    if (!l.occlude) continue;
+    const pts = l.shape.p.map((q, i) => (l.shape.a[i] > 0.05 ? (l.space === 'world' ? s.project(q) : q) : null));
+    for (const L of layers) {
+      const c = L.getContext('2d');
+      c.save();
+      c.globalCompositeOperation = 'destination-out';
+      c.fillStyle = 'rgba(0,0,0,1)';
+      c.beginPath();
+      let open = false;
+      for (const q of pts) { if (!q) { if (open) { c.closePath(); open = false; } continue; } if (!open) { c.moveTo(q[0], q[1]); open = true; } else c.lineTo(q[0], q[1]); }
+      c.fill('nonzero');
+      c.restore();
+    }
+  }
+  subs.forEach((st) => drawLines(layers, st, 1 / subs.length, (l) => l.occlude));
 
   /* Ground. */
   ctx.globalCompositeOperation = 'source-over';
@@ -248,23 +293,24 @@ export const drawFrame = (ctx, stateAt, frame, still = false, pre = null, fast =
     const sy = sp ? sp[1] : H / 2, sx = sp ? sp[0] : W * 0.7;
     ctx.globalCompositeOperation = 'lighter';
     const band = ctx.createLinearGradient(0, sy - 760, 0, sy + 420);
-    band.addColorStop(0, rgba(INK.warm, 0));
-    band.addColorStop(0.62, rgba(INK.warm, 0.2 * s.sky));
-    band.addColorStop(0.66, rgba(INK.gold, 0.1 * s.sky));
+    band.addColorStop(0, rgba(INK.gold, 0));
+    band.addColorStop(0.6, rgba(INK.gold, 0.08 * s.sky));
+    band.addColorStop(0.66, rgba(INK.gold, 0.05 * s.sky));
     band.addColorStop(1, rgba(INK.gold, 0));
     ctx.fillStyle = band;
     ctx.fillRect(0, 0, W, H);
-    const sg = ctx.createRadialGradient(sx, sy, 0, sx, sy, 620);
-    sg.addColorStop(0, rgba(INK.warm, 0.34 * s.sky));
-    sg.addColorStop(1, rgba(INK.warm, 0));
+    const sg = ctx.createRadialGradient(sx, sy, 0, sx, sy, 760);
+    sg.addColorStop(0, rgba(INK.gold, 0.34 * s.sky));
+    sg.addColorStop(0.45, rgba(INK.gold, 0.12 * s.sky));
+    sg.addColorStop(1, rgba(INK.gold, 0));
     ctx.fillStyle = sg;
     ctx.fillRect(0, 0, W, H);
     ctx.globalCompositeOperation = 'source-over';
   }
   if (s.warm > 0) {
     ctx.globalCompositeOperation = 'lighter';
-    const wg = ctx.createRadialGradient(W / 2, H * 0.44, 0, W / 2, H * 0.44, 900);
-    wg.addColorStop(0, rgba(INK.warm, 0.3 * s.warm));
+    const wg = ctx.createRadialGradient(W / 2, H * 0.39, 0, W / 2, H * 0.39, 700);
+    wg.addColorStop(0, rgba(INK.gold, 0.22 * s.warm));
     wg.addColorStop(1, rgba(INK.warm, 0));
     ctx.fillStyle = wg;
     ctx.fillRect(0, 0, W, H);
@@ -303,10 +349,10 @@ export const drawFrame = (ctx, stateAt, frame, still = false, pre = null, fast =
   for (const l of s.lines) {
     if (!l.spark) continue;
     const r = l.space === 'world' ? s.project(l.spark) : l.spark;
-    if (r) spark(ctx, r[0], r[1], 1, l.warm ? INK.warm : INK.glow);
+    if (r) spark(ctx, r[0], r[1], l.sparkK ?? 1, l.hue === 'gold' || l.hue === 'warm' || l.warm ? INK.warm : INK.glow);
   }
   for (const p of s.pins) if (p.isG && p.lift > 0) { const r = s.project(p.p); if (r) spark(ctx, r[0], r[1] - 40, 0.6 * p.lift * p.a, INK.gold); }
-  for (const m of s.markers) if (m.chosen && m.check > 0) { const r = s.project(m.p); if (r) spark(ctx, r[0], r[1] - 40 * m.grow, 0.8 * m.check * m.a, INK.ok); }
+  for (const m of s.markers) if (m.chosen && m.check > 0) { const r = s.project(m.p); if (r) spark(ctx, r[0], r[1] - 40 * m.grow, 0.8 * m.check * m.a, INK.gold); }
   if (s.glint > 0) spark(ctx, 600, 920, 1.2 * s.glint, INK.gold);
   if (s.lamp && s.lamp.a > 0) {
     const r = s.project(s.lamp.p);

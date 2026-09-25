@@ -163,6 +163,22 @@ export const KEY_SVG = [
 export const HANDS_BOX = { x: 40, y: 430, s: 1 };
 export const handsToScreen = ([x, y]) => [HANDS_BOX.x + x * HANDS_BOX.s, HANDS_BOX.y + y * HANDS_BOX.s, 0];
 
+/* The handshake in two people: the agent's hand (from the right) and the
+   buyer's (from the left, thumb over, fingers wrapping). */
+let _parts = null;
+export const handsParts = () => {
+  if (_parts) return _parts;
+  const toS = (d) => withAlpha(sampleStrokes(d, 3)[0].map(handsToScreen));
+  // the agent's hand comes from the left (thumb over); the buyer's from the right;
+  // the agent's fingers close over the buyer's hand last — the grip
+  const agent = [0, 1, 2, 3, 4, 5].map((i) => toS(HANDS_SVG[i]));
+  const buyer = [6, 7, 8, 9, 10, 11].map((i) => toS(HANDS_SVG[i]));
+  const fingers = [12, 13, 14, 15].map((i) => toS(HANDS_SVG[i]));
+  const key = KEY_SVG.flatMap((d) => sampleStrokes(d, 3).map((st) => withAlpha(st.map(handsToScreen))));
+  _parts = { agent: resample(concat(...agent), N), buyer: resample(concat(...buyer), N), fingers: resample(concat(...fingers), 240), key: resample(concat(...key), 300), grip: handsToScreen([430, 300]) };
+  return _parts;
+};
+
 let _hands = null;
 export const handsScreen = () => {
   if (_hands) return _hands;

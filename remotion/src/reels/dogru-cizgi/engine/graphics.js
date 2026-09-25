@@ -11,8 +11,9 @@ import { W, KEY_SVG } from './shapes.js';
 const CARD_SVG = [
   'M 14 0 L 136 0 A 14 14 0 0 1 150 14 L 150 176 A 14 14 0 0 1 136 190 L 14 190 A 14 14 0 0 1 0 176 L 0 14 A 14 14 0 0 1 14 0 Z',
   'M 10 10 L 140 10 L 140 102 L 10 102 Z',
-  'M 22 84 L 52 58 L 74 76 L 96 50 L 128 84',
-  'M 14 122 L 122 122', 'M 14 142 L 96 142', 'M 14 168 L 66 168',
+  // a house in the photo well: roof, walls, door — it is a listing, at a glance
+  'M 44 88 L 44 58 L 75 34 L 106 58 L 106 88 Z', 'M 68 88 L 68 70 L 82 70 L 82 88',
+  'M 14 122 L 122 122', 'M 14 142 L 96 142',
 ];
 export const CARD_PTS = 50;
 export const CARD_COUNT = 18;
@@ -33,11 +34,11 @@ export const CARDS = (() => {
     const col = i % 6, row = Math.floor(i / 6);
     out.push({
       x: 125 + col * 166 + (r() - 0.5) * 60,
-      y: 700 + row * 240 + (r() - 0.5) * 80,
+      y: 560 + row * 232 + (r() - 0.5) * 60,
       rot: (r() - 0.5) * 0.5,
       s: 0.6 + r() * 0.36,
       z: (r() - 0.5) * 1.3e5,           // metres of depth in the A plane, for parallax
-      dup: r() < 0.38,                   // a duplicate listing ghosts behind it
+      dup: r() < 0.38,                   // the same house, listed again at another price
       seed: r() * 1000,
     });
   }
@@ -71,4 +72,4 @@ export const keyLocal = () => {
   _key = resample(concat(...strokes), 300);
   return _key;
 };
-export const KEY_CENTER = [W / 2, 820];
+export const KEY_CENTER = [W / 2, 750];   // the bit ends on the brand line, in its keyhole
