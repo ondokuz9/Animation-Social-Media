@@ -347,8 +347,10 @@ export const drawFrame = (ctx, stateAt, frame, still = false, pre = null, fast =
   vg.addColorStop(1, 'rgba(1,6,14,0.55)');
   ctx.fillStyle = vg;
   ctx.fillRect(0, 0, W, H);
-  const tile = grain[Math.floor(frame) % 4];
-  const r = mulberry(Math.floor(frame) * 31 + 7);
+  // the last frame is the first frame (the reel loops), grain included
+  const gf = Math.floor(frame) % 1199;
+  const tile = grain[gf % 4];
+  const r = mulberry(gf * 31 + 7);
   const ox = Math.floor(r() * 256), oy = Math.floor(r() * 256);
   ctx.globalCompositeOperation = 'overlay';
   ctx.globalAlpha = 0.07;
