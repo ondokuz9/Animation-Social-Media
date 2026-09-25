@@ -49,7 +49,15 @@ export const WORDMARK_PATHS = {
 export const WORDMARK_VIEWBOX = [1230, 315, 550, 185];
 
 /* Lockup geometry, in screen pixels. Frame 0 and frame 899 both show it. */
-export const LOCKUP = { width: 600, cx: W / 2, cy: 846 };
+export const LOCKUP = { width: 600, cx: W / 2, cy: 822 };
+/* The brand line: it sits under the name, and the whole film is made of it. */
+export const LINE_Y = 962;
+export const BRAND_LINE = [W / 2 - 300, W / 2 + 300];
+export const brandLineScreen = (n = 900) => {
+  const p = [];
+  for (let i = 0; i < n; i++) p.push([BRAND_LINE[0] + ((BRAND_LINE[1] - BRAND_LINE[0]) * i) / (n - 1), LINE_Y, 0]);
+  return { p, a: p.map(() => 1) };
+};
 export const lockupScale = LOCKUP.width / WORDMARK_VIEWBOX[2];
 const wmToScreen = ([x, y]) => [
   LOCKUP.cx + (x - (WORDMARK_VIEWBOX[0] + WORDMARK_VIEWBOX[2] / 2)) * lockupScale,
@@ -152,7 +160,7 @@ export const KEY_SVG = [
   'M 560 546 L 560 700',
   'M 560 650 L 588 650 L 588 664 L 574 664 L 574 678 L 588 678 L 588 692 L 560 692',
 ];
-export const HANDS_BOX = { x: 40, y: 600, s: 1 };
+export const HANDS_BOX = { x: 40, y: 430, s: 1 };
 export const handsToScreen = ([x, y]) => [HANDS_BOX.x + x * HANDS_BOX.s, HANDS_BOX.y + y * HANDS_BOX.s, 0];
 
 let _hands = null;

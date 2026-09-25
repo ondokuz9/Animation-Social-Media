@@ -15,6 +15,7 @@ import { Arama, ARAMA_SECONDS } from './reels/emlakci/scenes/Arama.jsx';
 import { Asistan, ASISTAN_SECONDS } from './reels/emlakci/scenes/Asistan.jsx';
 import { Kapanis, KAPANIS_SECONDS } from './reels/emlakci/scenes/Kapanis.jsx';
 import { DogruCizgi, DOGRU_FRAMES } from './reels/dogru-cizgi/Film.jsx';
+import { AgentTest } from './reels/dogru-cizgi/AgentTest.jsx';
 
 const comp = (id, component, frames) => (
   <Composition id={id} component={component} durationInFrames={frames}
@@ -39,5 +40,6 @@ export const RemotionRoot = () => (
 
     {/* Brand film: one line, one take, 15 seconds. */}
     {comp('DogruCizgi', DogruCizgi, DOGRU_FRAMES)}
+    {comp('dc-agent-test', AgentTest, 1)}
   </>
 );

@@ -66,7 +66,7 @@ const seaSideStrokes = () => {
   s.push(rectXZ(-6.6, -9.4, -1.8, -6.0, 0.001), rectXZ(-6.35, -9.15, -2.05, -6.25, -0.05));
   for (const z of [-8.4, -7.6, -6.9]) s.push(S([[-5.8, -0.05, z], [-4.6, -0.05, z + 0.08], [-3.4, -0.05, z - 0.05], [-2.4, -0.05, z + 0.04]], null, 'water'));
   // two loungers on the terrace
-  for (const x of [1.2, 3.2]) {
+  for (const x of [-99]) {
     const prof = [[0, 0.3, -6.1], [0, 0.35, -7.4], [0, 0.85, -8.0]];
     s.push(S(prof.map(([, y, z]) => [x, y, z])), S(prof.map(([, y, z]) => [x + 0.75, y, z])));
     s.push(seg3([x, 0.3, -6.1], [x + 0.75, 0.3, -6.1]), seg3([x, 0.85, -8.0], [x + 0.75, 0.85, -8.0]));
@@ -157,7 +157,7 @@ const terraceStrokes = () => {
   const s = [];
   const N = [0, 0, -1];
   // two loungers, in profile, facing the sea
-  for (const x of [1.6, 4.1]) s.push(...flat(['M 0 -78 L 44 -34 L 196 -34', 'M 6 -84 L 48 -40 L 196 -40', 'M 30 -34 L 30 0', 'M 180 -34 L 180 0'], [x, 0, -5.9], N));
+  for (const x of [0.2, 1.8]) s.push(...flat(['M 0 -78 L 44 -34 L 196 -34', 'M 6 -84 L 48 -40 L 196 -40', 'M 30 -34 L 30 0', 'M 180 -34 L 180 0'], [x, 0, -5.9], N));
   // an olive tree in a planter at the rail
   s.push(...flat([
     'M 0 0 L 0 -50 L 90 -50 L 90 0 Z',

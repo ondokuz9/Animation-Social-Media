@@ -306,7 +306,7 @@ export const drawFrame = (ctx, stateAt, frame, still = false, pre = null, fast =
   }
   for (const p of s.pins) if (p.isG && p.lift > 0) { const r = s.project(p.p); if (r) spark(ctx, r[0], r[1] - 40, 0.6 * p.lift * p.a, INK.gold); }
   for (const m of s.markers) if (m.chosen && m.check > 0) { const r = s.project(m.p); if (r) spark(ctx, r[0], r[1] - 40 * m.grow, 0.8 * m.check * m.a, INK.ok); }
-  if (s.glint > 0) spark(ctx, 600, 1090, 1.2 * s.glint, INK.gold);
+  if (s.glint > 0) spark(ctx, 600, 920, 1.2 * s.glint, INK.gold);
   if (s.lamp && s.lamp.a > 0) {
     const r = s.project(s.lamp.p);
     if (r) {
