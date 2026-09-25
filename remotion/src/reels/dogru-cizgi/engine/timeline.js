@@ -465,16 +465,16 @@ export const stateAt = (frame) => {
       agentStrokes.forEach((st, j) => {
         if (p.length) { p.push(p[p.length - 1], st.pts[0]); a.push(0, 0); wv.push(1, 1); }
         const i0 = p.length;
-        st.pts.forEach((q, qi) => {
-          const u = (j + qi / st.pts.length) / n;
-          // the pen draws the agent in (head first) and takes them out the same way
-          const vis = u <= ag.drawIn && u >= ag.drawOut ? 1 : 0;
+        st.pts.forEach((q) => {
+          // the agent rises out of the floor line and goes back into it
+          const h = (q[1] - ag.pos[1]) / 1.8;
+          const vis = h <= Math.min(ag.drawIn, 1 - ag.drawOut) * 1.08 - 0.04 ? 1 : 0;
           p.push(q); a.push(Math.min(1, st.w) * vis);
           wv.push(st.w < 0.7 ? 0.55 : 1);
         });
         parts.push({ i0, i1: p.length - 1, fill: st.fill });
       });
-      const spark = ag.drawIn < 1 ? agentStrokes[Math.min(n - 1, Math.floor(ag.drawIn * n))].pts[0] : ag.drawOut > 0 && ag.drawOut < 1 ? agentStrokes[Math.min(n - 1, Math.floor(ag.drawOut * n))].pts[0] : null;
+      const spark = null;
       s.lines.push({ id: 'agent', hue: 'warm', occlude: true, parts, tone: 0.045, shape: { p, a }, wv, space: 'world', width: 2.8, nearFade: 0.6, depthFree: true, spark });
       // the Evlek pin on the lapel catches the light when the agent is named
       const pinK = Math.min(ag.drawIn, 1 - ag.drawOut) * (0.35 + 0.65 * pulse(f, 872, 8, 40));
