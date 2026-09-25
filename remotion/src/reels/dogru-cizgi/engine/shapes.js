@@ -114,120 +114,6 @@ export const coastWorld = () => {
 
 export const dividerWorld = () => cyprus.divider.map((l) => l.map((q) => geo(q[0], q[1])));
 
-/* ── Parcel + house (metres, around Girne) ──────────────────────────────── */
-const at = (x, y, z) => [GIRNE[0] + x, y, GIRNE[2] + z];
-
-// An irregular plot, the way a real cadastral parcel is never a rectangle.
-export const PARCEL = [at(-11, 0, 8.5), at(13, 0, 11.5), at(12, 0, -9), at(-7.5, 0, -13.5)];
-
-const HW = 5, HD = 4, EAVE = 5.6, SLAB = 2.8, RIDGE = 8.2;
-const P1 = at(-HW, 0, HD), P2 = at(HW, 0, HD), P3 = at(HW, 0, -HD), P4 = at(-HW, 0, -HD);
-const up = (p, h) => [p[0], h, p[2]];
-const Rf = at(0, RIDGE, HD), Rb = at(0, RIDGE, -HD);
-const line = (...pts) => ({ p: pts, a: pts.map(() => 1) });
-const rect = (x0, y0, x1, y1, z) => line(at(x0, y0, z), at(x1, y0, z), at(x1, y1, z), at(x0, y1, z), at(x0, y0, z));
-
-/** Densify so every shape has enough vertices to bend under the camera. */
-const dense = (s, step = 0.25) => {
-  const p = [], a = [];
-  for (let i = 0; i < s.p.length - 1; i++) {
-    const A = s.p[i], B = s.p[i + 1];
-    const n = Math.max(1, Math.ceil(Math.hypot(B[0] - A[0], B[1] - A[1], B[2] - A[2]) / step));
-    for (let k = 0; k < n; k++) {
-      const t = k / n;
-      p.push([A[0] + (B[0] - A[0]) * t, A[1] + (B[1] - A[1]) * t, A[2] + (B[2] - A[2]) * t]);
-      a.push(s.a[i]);
-    }
-  }
-  p.push(s.p[s.p.length - 1]); a.push(s.a[s.a.length - 1]);
-  return { p, a };
-};
-
-export const parcelWorld = () => dense(line(...PARCEL, PARCEL[0]), 0.4);
-
-/* The order the pen builds the house in. Each entry is a stroke; between
-   strokes the pen lifts. The X-brace is a real structural bay on the east
-   wall — the same X that is cut through the E and the k of the wordmark. */
-export const HOUSE_STROKES = {
-  footprint: line(P1, P2, P3, P4, P1),
-  frame: line(P1, up(P1, EAVE), up(P2, EAVE), P2),
-  side: line(up(P2, EAVE), up(P3, EAVE), P3),
-  back: line(P4, up(P4, EAVE), up(P3, EAVE)),
-  left: line(up(P4, EAVE), up(P1, EAVE)),
-  gable: line(up(P1, EAVE), Rf, up(P2, EAVE)),
-  ridge: line(Rf, Rb, up(P3, EAVE)),
-  gableBack: line(Rb, up(P4, EAVE)),
-  slab: line(at(-HW, SLAB, HD), at(HW, SLAB, HD), at(HW, SLAB, -HD)),
-  brace1: line(at(HW, 0, HD), at(HW, SLAB, 0)),
-  brace2: line(at(HW, SLAB, HD), at(HW, 0, 0)),
-  win1: rect(-3.6, 3.5, -1.6, 4.8, HD),
-  win2: rect(1.6, 3.5, 3.6, 4.8, HD),
-  win3: rect(-3.6, 0.9, -1.6, 2.0, HD),
-  door: line(at(-0.6, 0, HD), at(-0.6, 2.2, HD), at(0.6, 2.2, HD), at(0.6, 0, HD)),
-};
-export const HOUSE_ORDER = ['footprint', 'frame', 'side', 'back', 'left', 'gable', 'ridge', 'gableBack', 'slab', 'brace1', 'brace2', 'win1', 'win2', 'win3', 'door'];
-
-let _house = null;
-export const houseWorld = () => {
-  if (_house) return _house;
-  const strokes = HOUSE_ORDER.map((k) => dense(HOUSE_STROKES[k], 0.12));
-  // where each stroke starts, in points of the joined line — used to time the brace flash
-  const joined = concat(...strokes);
-  _house = { shape: joined, marks: {} };
-  let idx = 0;
-  HOUSE_ORDER.forEach((k, i) => {
-    _house.marks[k] = [idx, idx + strokes[i].p.length];
-    idx += strokes[i].p.length + 2;
-  });
-  _house.len = joined.p.length;
-  return _house;
-};
-export const HOUSE = { HW, HD, EAVE, SLAB, RIDGE, at };
-
-/* ── Interior (drawn on the back wall, metres) ──────────────────────────── */
-// Designed in a 1000 × 1070 box: y down, floor at 1070, ceiling at 0.
-const INTERIOR_SVG = [
-  // floor line, left to right
-  'M -300 1070 L 1300 1070',
-  // sofa: arms, seat, back, legs
-  'M 60 1045 L 60 905 Q 60 880 85 880 L 110 880 Q 135 880 135 905 L 135 965 L 395 965 L 395 905 Q 395 880 420 880 L 445 880 Q 470 880 470 905 L 470 1045 L 60 1045',
-  'M 110 880 L 110 800 Q 110 772 138 772 L 417 772 Q 445 772 445 800 L 445 880',
-  'M 135 1005 L 395 1005',
-  'M 265 965 L 265 1005',
-  'M 85 1045 L 85 1070',
-  'M 445 1045 L 445 1070',
-  // a frame on the wall with a hill line — the story on the wall
-  'M 180 520 L 380 520 L 380 680 L 180 680 Z',
-  'M 190 650 C 240 590 280 600 320 630 C 340 612 360 610 372 620',
-  // floor lamp
-  'M 520 1070 L 600 1070',
-  'M 560 1070 L 560 630',
-  'M 510 630 L 610 630 L 588 550 L 532 550 Z',
-  // window, mullion, the sea horizon, a sun on it
-  'M 640 280 L 940 280 L 940 700 L 640 700 Z',
-  'M 790 280 L 790 700',
-  'M 640 565 L 940 565',
-  'M 836 565 A 29 29 0 0 1 894 565',
-  // plant
-  'M 812 1070 L 798 975 L 902 975 L 888 1070',
-  'M 850 975 C 828 905 790 868 742 858 C 776 884 812 922 850 975',
-  'M 850 975 C 858 892 884 846 934 826 C 912 874 880 922 850 975',
-  'M 850 975 C 834 900 842 836 856 792 C 872 842 872 912 850 975',
-];
-export const INTERIOR_WALL_Z = -HD + 0.02;
-export const INTERIOR_M_PER_UNIT = 2.8 / 1000;
-const interiorToWorld = ([x, y]) => at((x - 500) * INTERIOR_M_PER_UNIT, (1070 - y) * INTERIOR_M_PER_UNIT, INTERIOR_WALL_Z);
-
-let _interior = null;
-export const interiorWorld = () => {
-  if (_interior) return _interior;
-  const strokes = INTERIOR_SVG.map((d) => withAlpha(sampleStrokes(d, 3)[0].map(interiorToWorld)));
-  _interior = resample(concat(...strokes), 2 * N);
-  // lamp shade: the index range lights up warm
-  return _interior;
-};
-export const LAMP_WORLD = interiorToWorld([560, 600]);
-
 /* ── Handshake (screen px) ──────────────────────────────────────────────── */
 // A 1000 × 700 design box mapped onto the frame. Two sleeves meet; the upper
 // hand's fingers wrap the lower; the lower thumb lies over the top.
@@ -261,13 +147,13 @@ const HANDS_SVG = [
   finger(582, 444, 378, 30),
 ];
 // the key hangs from the clasp: ring, shaft, bit
-const KEY_SVG = [
+export const KEY_SVG = [
   'M 560 486 A 30 30 0 1 1 560 546 A 30 30 0 1 1 560 486',
   'M 560 546 L 560 700',
   'M 560 650 L 588 650 L 588 664 L 574 664 L 574 678 L 588 678 L 588 692 L 560 692',
 ];
 export const HANDS_BOX = { x: 40, y: 600, s: 1 };
-const handsToScreen = ([x, y]) => [HANDS_BOX.x + x * HANDS_BOX.s, HANDS_BOX.y + y * HANDS_BOX.s, 0];
+export const handsToScreen = ([x, y]) => [HANDS_BOX.x + x * HANDS_BOX.s, HANDS_BOX.y + y * HANDS_BOX.s, 0];
 
 let _hands = null;
 export const handsScreen = () => {
@@ -280,23 +166,3 @@ export const handsScreen = () => {
   return _hands;
 };
 
-/* ── Title deed (screen px) ─────────────────────────────────────────────── */
-// A document, text as rules, a seal, and a signature whose last stroke runs
-// straight out of the page and becomes the horizon again.
-const DEED_SVG = [
-  'M 270 520 L 810 520 L 810 1260 L 270 1260 Z',
-  'M 320 590 L 760 590',
-  'M 320 606 L 760 606',
-  'M 320 680 L 700 680', 'M 320 720 L 740 720', 'M 320 760 L 660 760', 'M 320 800 L 720 800',
-  'M 320 860 L 740 860', 'M 320 900 L 610 900', 'M 320 940 L 700 940',
-  'M 390 1110 A 52 52 0 1 1 390 1111',
-  'M 390 1086 L 390 1134 M 366 1110 L 414 1110',
-  'M 520 1140 C 540 1080 566 1060 574 1090 C 582 1122 556 1160 548 1132 C 540 1104 600 1070 616 1100 C 626 1120 606 1150 626 1142 C 646 1134 660 1100 672 1112 C 684 1124 676 1146 700 1136 L 1200 1136',
-];
-let _deed = null;
-export const deedScreen = () => {
-  if (_deed) return _deed;
-  const strokes = DEED_SVG.flatMap((d) => sampleStrokes(d, 3).map((s) => withAlpha(s.map((q) => [q[0], q[1], 0]))));
-  _deed = resample(concat(...strokes), 2 * N);
-  return _deed;
-};

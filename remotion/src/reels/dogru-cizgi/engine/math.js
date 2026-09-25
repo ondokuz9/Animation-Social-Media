@@ -166,3 +166,30 @@ export const makeProjector = (cam, W, H) => {
     return [W / 2 + (v3.dot(d, cam.r) / z) * focal, H / 2 - (v3.dot(d, cam.u) / z) * focal, z];
   };
 };
+
+/* ── Look-at camera (tour) ─────────────────────────────────────────────────
+   upHint lets the same camera go from a level view to straight down without
+   flipping: blend it from +y to −z as the camera tips over. */
+export const lookCamera = ({ pos, target, upHint = [0, 1, 0], fov }) => {
+  const f = v3.norm(v3.sub(target, pos));
+  const r = v3.norm(v3.cross(f, upHint));
+  const u = v3.cross(r, f);
+  return { pos, f, r, u, fov, dist: v3.len(v3.sub(target, pos)) };
+};
+
+/** Uniform Catmull-Rom through vec3 knots, s in [0, knots.length-1]. */
+export const catmull3 = (K, s) => {
+  const n = K.length - 1;
+  const i = Math.min(n - 1, Math.max(0, Math.floor(s)));
+  const t = clamp(s - i);
+  const p0 = K[Math.max(0, i - 1)], p1 = K[i], p2 = K[i + 1], p3 = K[Math.min(n, i + 2)];
+  const t2 = t * t, t3 = t2 * t;
+  return [0, 1, 2].map((k) => 0.5 * (2 * p1[k] + (-p0[k] + p2[k]) * t + (2 * p0[k] - 5 * p1[k] + 4 * p2[k] - p3[k]) * t2 + (-p0[k] + 3 * p1[k] - 3 * p2[k] + p3[k]) * t3));
+};
+
+/** Smooth value noise in 1D, deterministic. */
+export const noise1 = (x, seed = 0) => {
+  const i = Math.floor(x), t = x - i;
+  const a = hash(i + seed * 101.3), b = hash(i + 1 + seed * 101.3);
+  return lerp(a, b, smooth(t)) * 2 - 1;
+};
