@@ -18,6 +18,8 @@ const ORIGIN = [33.25, 35.13]; // lon, lat — roughly the island's middle
 const KX = Math.cos((35.13 * Math.PI) / 180) * 111320;
 const KY = 110950;
 export const geo = (lon, lat) => [(lon - ORIGIN[0]) * KX, 0, -(lat - ORIGIN[1]) * KY];
+/** World ground point → [lat, lon], for the coordinate readout. */
+export const ungeo = ([x, , z]) => [-z / KY + ORIGIN[1], x / KX + ORIGIN[0]];
 
 /* Evlek's six cities, [lon, lat] — the same centres the product geocodes to
    (Evlak-Emlak src/lib/district-centers.ts CITY_CENTERS). */

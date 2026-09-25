@@ -16,11 +16,11 @@ import {
 } from './math.js';
 import {
   W, H, FOV, MAP_DIST, GIRNE, CITIES, screenToA, horizonScreen, coastWorld,
-  dividerWorld, handsParts, N, brandLineScreen, LINE_Y,
+  dividerWorld, handsParts, N, brandLineScreen, LINE_Y, ungeo,
 } from './shapes.js';
 import { town, MARKERS, HOUSE_O } from './town.js';
-import { villa, G, DOOR, EYE, ROOM, local as L } from './villa.js';
-import { strokeVisibility } from './build.js';
+import { villa, G, U, DOOR, EYE, ROOM, local as L } from './villa.js';
+import { strokeVisibility, S, joinStrokes } from './build.js';
 import { cardLocal, CARDS, CARD_PTS, CARD_COUNT, keyLocal, KEY_CENTER, pinGlyph } from './graphics.js';
 import { agentDrawing } from './agent.js';
 
@@ -49,12 +49,17 @@ export const T = {
 };
 
 /* Words rise out of a line, letter by letter. The two chapter lines carry
-   the pun: every big line in the film says "doğru". */
+   the pun: every big line in the film says "doğru". Editorial set: a mono
+   kicker above, the line flush left, standing on its rule. */
 export const HEROES = [
-  { t: 'Doğru ilan.', gold: 'Doğru', rise: [606, 630], out: [672, 690] },
-  { t: 'Doğru emlakçı.', gold: 'Doğru', rise: [858, 882], out: [920, 938] },
+  { kicker: 'GİRNE · DENİZ MANZARALI', t: 'Doğru ilan.', gold: 'Doğru', rise: [606, 630], out: [672, 690] },
+  { kicker: 'EVLEK ONAYLI EMLAKÇI', t: 'Doğru emlakçı.', gold: 'Doğru', rise: [858, 882], out: [920, 938] },
 ];
-export const COPY = [{ t: "Kıbrıs'ta yüzlerce ilan.", rise: [58, 78], out: [120, 132] }];
+export const COPY = [{ kicker: 'AYNI EV · FARKLI FİYAT', t: "Kıbrıs'ta yüzlerce ilan.", rise: [58, 78], out: [120, 132] }];
+export const TEXT_X = 96;
+export const HERO_SIZE = 108, COPY_SIZE = 70;
+/* Approximate advance widths for Hanken Grotesk (em). */
+export const textWidth = (t, size, weight = 500) => [...t].reduce((w, ch) => w + (ch === ' ' ? 0.26 : /[ilıİ.'?]/.test(ch) ? 0.27 : /[mwMW]/.test(ch) ? 0.82 : /[A-ZĞŞÜÖÇ]/.test(ch) ? 0.64 : 0.55), 0) * size * (weight >= 600 ? 1.03 : 1);
 export const HERO_Y = 1290;
 
 /* ── Camera ──────────────────────────────────────────────────────────────── */
@@ -104,9 +109,9 @@ const orbitAt = (f) => {
   yaw = lerp(yaw, 0.58, r);
   // come down to the front door, where the agent waits
   const s = seg(f, ...T.settle, ease.inOut);
-  target = v3.lerp(target, L(-3.0, 0.7, 6.0), s);
-  dist = lerp(dist, 10.5, s);
-  pitch = lerp(pitch, 0.1, s);
+  target = v3.lerp(target, L(-2.4, 0.66, 6.0), s);
+  dist = lerp(dist, 9.6, s);
+  pitch = lerp(pitch, 0.12, s);
   yaw = lerp(yaw, 0.08, s);
   return orbit(target, dist, yaw, pitch);
 };
@@ -264,8 +269,9 @@ const agentWorld = (ag, cam) => {
   const rh = v3.norm([cam.r[0], 0, cam.r[2]]);
   const toW = ([x, y]) => v3.add(ag.pos, [rh[0] * x * 0.0098, y * 0.0098, rh[2] * x * 0.0098]);
   const d = agentDrawing(ag.pose);
-  const out = d.map((st) => ({ pts: st.pts.map(toW), w: st.w, part: st.part }));
+  const out = d.map((st) => ({ pts: st.pts.map(toW), w: st.w, part: st.part, fill: st.fill }));
   out.hand = toW(d.hand);
+  out.badge = toW(d.badge);
   return out;
 };
 
@@ -311,6 +317,116 @@ const localCoast = () => {
   return _local;
 };
 
+/* ── Volume: planes, hatching, lit windows ────────────────────────────────
+   The line drawing gets what an architect's drawing has: planes that take a
+   little light by their orientation, roofs hatched, windows lit from inside. */
+const LIGHT = v3.norm([0.55, 0.8, 0.25]);
+const INK_WARM = [255, 172, 92];
+const quad = (pts, n) => ({ q: pts.map(([x, y, z]) => L(x, y, z)), n, c: L(...[0, 1, 2].map((k) => pts.reduce((m, p) => m + p[k], 0) / pts.length)) });
+const MASS_FACES = [
+  // ground floor: roof (two parts, around the upper floor), four walls
+  quad([[U.x1, G.h, G.z0], [G.x1, G.h, G.z0], [G.x1, G.h, G.z1], [U.x1, G.h, G.z1]], [0, 1, 0]),
+  quad([[G.x0, G.h, G.z0], [U.x1, G.h, G.z0], [U.x1, G.h, U.z0], [G.x0, G.h, U.z0]], [0, 1, 0]),
+  quad([[G.x0, 0, G.z1], [G.x1, 0, G.z1], [G.x1, G.h, G.z1], [G.x0, G.h, G.z1]], [0, 0, 1]),
+  quad([[G.x0, 0, G.z0], [G.x1, 0, G.z0], [G.x1, G.h, G.z0], [G.x0, G.h, G.z0]], [0, 0, -1]),
+  quad([[G.x1, 0, G.z0], [G.x1, 0, G.z1], [G.x1, G.h, G.z1], [G.x1, G.h, G.z0]], [1, 0, 0]),
+  quad([[G.x0, 0, G.z0], [G.x0, 0, G.z1], [G.x0, G.h, G.z1], [G.x0, G.h, G.z0]], [-1, 0, 0]),
+  // upper floor
+  quad([[U.x0, G.h + U.h, U.z0], [U.x1, G.h + U.h, U.z0], [U.x1, G.h + U.h, U.z1], [U.x0, G.h + U.h, U.z1]], [0, 1, 0]),
+  quad([[U.x0, G.h, U.z1], [U.x1, G.h, U.z1], [U.x1, G.h + U.h, U.z1], [U.x0, G.h + U.h, U.z1]], [0, 0, 1]),
+  quad([[U.x0, G.h, U.z0], [U.x1, G.h, U.z0], [U.x1, G.h + U.h, U.z0], [U.x0, G.h + U.h, U.z0]], [0, 0, -1]),
+  quad([[U.x1, G.h, U.z0], [U.x1, G.h, U.z1], [U.x1, G.h + U.h, U.z1], [U.x1, G.h + U.h, U.z0]], [1, 0, 0]),
+  quad([[U.x0, G.h, U.z0], [U.x0, G.h, U.z1], [U.x0, G.h + U.h, U.z1], [U.x0, G.h + U.h, U.z0]], [-1, 0, 0]),
+];
+const zS = G.z1 + 0.02;
+const WINDOWS = [
+  quad([[2.4, 0.9, zS], [6.2, 0.9, zS], [6.2, 2.4, zS], [2.4, 2.4, zS]], [0, 0, 1]),
+  quad([[-6.2, 0.9, zS], [-4.4, 0.9, zS], [-4.4, 2.4, zS], [-6.2, 2.4, zS]], [0, 0, 1]),
+  quad([[-6.2, G.h + 0.9, zS], [0.8, G.h + 0.9, zS], [0.8, G.h + 2.2, zS], [-6.2, G.h + 2.2, zS]], [0, 0, 1]),
+  quad([[G.x1 + 0.02, 0.9, -3.5], [G.x1 + 0.02, 0.9, 1.5], [G.x1 + 0.02, 2.4, 1.5], [G.x1 + 0.02, 2.4, -3.5]], [1, 0, 0]),
+];
+const DOORWAY = quad([[DOOR.x0, 0, zS], [DOOR.x1, 0, zS], [DOOR.x1, DOOR.h, zS], [DOOR.x0, DOOR.h, zS]], [0, 0, 1]);
+const SPILL = quad([[DOOR.x0, 0.004, G.z1], [DOOR.x1, 0.004, G.z1], [DOOR.x1 + 0.9, 0.004, G.z1 + 3.8], [DOOR.x0 - 0.9, 0.004, G.z1 + 3.8]], [0, 1, 0]);
+const POOL = quad([[-6.35, -0.04, -6.25], [-2.05, -0.04, -6.25], [-2.05, -0.04, -9.15], [-6.35, -0.04, -9.15]], [0, 1, 0]);
+const GLAZING = [
+  quad([[-6.6, 0.1, G.z0], [0.4, 0.1, G.z0], [0.4, 2.9, G.z0], [-6.6, 2.9, G.z0]], [0, 0, 1]),
+  quad([[1.5, 0, G.z0], [6.5, 0, G.z0], [6.5, 2.7, G.z0], [1.5, 2.7, G.z0]], [0, 0, 1]),
+];
+const faceVisible = (fc, cam) => v3.dot(fc.n, v3.sub(cam.pos, fc.c)) > 0;
+
+/* Diagonal hatching across a rectangle on a level plane (metres, local). */
+const hatchRect = (x0, x1, z0, z1, y, gap) => {
+  const out = [];
+  for (let c = z0 - x1; c <= z1 - x0; c += gap) {
+    // points on x − z = −c … i.e. z = x + c
+    const xa = Math.max(x0, z0 - c), xb = Math.min(x1, z1 - c);
+    if (xb - xa > 0.05) out.push(S([L(xa, y, xa + c), L(xb, y, xb + c)], null, 'hatch'));
+  }
+  return out;
+};
+let _hatch = null;
+const hatches = () => {
+  if (_hatch) return _hatch;
+  _hatch = {
+    roofs: joinStrokes([
+      ...hatchRect(U.x1, G.x1, G.z0, G.z1, G.h + 0.01, 0.42),
+      ...hatchRect(U.x0, U.x1, U.z0, U.z1, G.h + U.h + 0.01, 0.42),
+      ...hatchRect(G.x0, U.x1, G.z0, U.z0, G.h + 0.01, 0.42),
+    ], 0.6),
+    // terrace decking, boards running along the house
+    deck: joinStrokes(Array.from({ length: 15 }, (_, i) => S([L(-7.4, 0.003, G.z0 - 0.3 - i * 0.32), L(7.9, 0.003, G.z0 - 0.3 - i * 0.32)], null, 'deck')), 0.5),
+  };
+  return _hatch;
+};
+/* Line weights by what a stroke is: the mass is drawn heaviest. */
+const TAG_W = { mass: 1.3, parapet: 0.8, wall: 0.85, path: 0.7, canopy: 0.9, water: 0.55 };
+let _near = null;
+const nearDoor = (ex) => {
+  if (_near) return _near;
+  const dc = L((DOOR.x0 + DOOR.x1) / 2, 0, G.z1);
+  _near = ex.strokes.map((st) => {
+    const c = st.pts.reduce((m, q) => v3.add(m, v3.mul(q, 1 / st.pts.length)), [0, 0, 0]);
+    return Math.abs(c[0] - dc[0]) < 1.6 && Math.abs(c[2] - dc[2]) < 1.6 && c[1] < 2.9;
+  });
+  return _near;
+};
+let _exW = null;
+const exteriorWeights = (ex) => {
+  if (_exW) return _exW;
+  _exW = ex.sid.map((sid) => (sid < 0 ? 1 : TAG_W[ex.strokes[sid].tag] ?? 0.72));
+  return _exW;
+};
+
+/* Dimension lines, the way a surveyor draws a plot: offset from the edge,
+   with extension lines and slashed ends. */
+const dimLine = (A, B, centre, off = 1.9) => {
+  const d = v3.norm(v3.sub(B, A));
+  let n = [-d[2], 0, d[0]];
+  const mid = v3.lerp(A, B, 0.5);
+  if (v3.dot(n, v3.sub(mid, centre)) < 0) n = v3.mul(n, -1);
+  const at = (P, k) => v3.add(P, v3.mul(n, k));
+  const A1 = at(A, off), B1 = at(B, off);
+  const sl = v3.mul(v3.norm(v3.add(d, n)), 0.4);
+  const strokes = [
+    [A1, B1],
+    [at(A, 0.5), at(A, off + 0.4)], [at(B, 0.5), at(B, off + 0.4)],
+    [v3.sub(A1, sl), v3.add(A1, sl)], [v3.sub(B1, sl), v3.add(B1, sl)],
+  ];
+  return { strokes, mid: v3.lerp(A1, B1, 0.5) };
+};
+
+/* HUD: chapters, and a result count that narrows from many to one. */
+export const CHAPTERS = [[0, '01', 'İLAN'], [258, '02', 'HARİTA'], [436, '03', 'ARAMA'], [690, '04', 'EV'], [1206, '05', 'ANAHTAR']];
+export const HUD_END = 1300;
+const countAt = (f) => {
+  let n = 348 * seg(f, 52, 104, ease.inOut);
+  n = lerp(n, 216, seg(f, 176, 206, ease.inOut));      // the duplicates fall away
+  n = lerp(n, 58, seg(f, 456, 472, ease.inOut));       // "Girne"
+  n = lerp(n, 9, seg(f, 488, 512, ease.inOut));        // "deniz manzarası"
+  n = lerp(n, 1, seg(f, 556, 574, ease.inOut));        // the one
+  return Math.round(n);
+};
+
 /* ── Frame state ─────────────────────────────────────────────────────────── */
 export const stateAt = (frame) => {
   const f = frame;
@@ -318,7 +434,7 @@ export const stateAt = (frame) => {
   const project = makeProjector(cam, W, H);
   const s = {
     frame: f, cam, project, lines: [], pins: [], markers: [], rings: [], tags: [],
-    heroes: [], copy: [], pun: null, pill: null, popover: null, note: null,
+    heroes: [], copy: [], pun: null, pill: null, popover: null, note: null, faces: [], rays: [], nodes: [], chroma: 0, dims: [],
     wordRise: 0, slogan: 0, url: 0, glint: 0, flash: 0, warm: 0, sky: 0, graticule: 0, divider: 0, scrims: [],
   };
   const V = villa();
@@ -331,18 +447,43 @@ export const stateAt = (frame) => {
     agentStrokes = agentWorld(ag, cam);
     if (f < T.handLock[0]) {
       const n = agentStrokes.length;
-      const p = [], a = [];
+      const p = [], a = [], wv = [], parts = [];
       agentStrokes.forEach((st, j) => {
-        if (p.length) { p.push(p[p.length - 1], st.pts[0]); a.push(0, 0); }
+        if (p.length) { p.push(p[p.length - 1], st.pts[0]); a.push(0, 0); wv.push(1, 1); }
+        const i0 = p.length;
         st.pts.forEach((q, qi) => {
           const u = (j + qi / st.pts.length) / n;
           // the pen draws the agent in (head first) and takes them out the same way
           const vis = u <= ag.drawIn && u >= ag.drawOut ? 1 : 0;
-          p.push(q); a.push(st.w * vis);
+          p.push(q); a.push(Math.min(1, st.w) * vis);
+          wv.push(st.w < 0.7 ? 0.55 : 1);
         });
+        parts.push({ i0, i1: p.length - 1, fill: st.fill });
       });
       const spark = ag.drawIn < 1 ? agentStrokes[Math.min(n - 1, Math.floor(ag.drawIn * n))].pts[0] : ag.drawOut > 0 && ag.drawOut < 1 ? agentStrokes[Math.min(n - 1, Math.floor(ag.drawOut * n))].pts[0] : null;
-      s.lines.push({ hue: 'warm', occlude: true, shape: { p, a }, space: 'world', width: 2.8, nearFade: 0.6, depthFree: true, spark });
+      s.lines.push({ id: 'agent', hue: 'warm', occlude: true, parts, tone: 0.045, shape: { p, a }, wv, space: 'world', width: 2.8, nearFade: 0.6, depthFree: true, spark });
+      // the Evlek pin on the lapel catches the light when the agent is named
+      const pinK = Math.min(ag.drawIn, 1 - ag.drawOut) * (0.35 + 0.65 * pulse(f, 872, 8, 40));
+      if (pinK > 0.02) s.nodes.push({ p: agentStrokes.badge, k: 0.55 * pinK });
+      // "Doğru emlakçı.": the figure is measured, the way Vitruvius measured one —
+      // a circle from the navel, a square of the height, a scale of eight heads
+      const mIn = seg(f, 856, 884, ease.inOut), mOut = seg(f, 912, 934, ease.inOut);
+      if (mIn > 0 && mOut < 1) {
+        const rh = v3.norm([cam.r[0], 0, cam.r[2]]);
+        const Hh = 1.745, at = (x, y) => v3.add(ag.pos, [rh[0] * x, y, rh[2] * x]);
+        const p = [], a = [];
+        const run = (pts, from, to) => {
+          if (p.length) { p.push(p[p.length - 1], pts[0]); a.push(0, 0); }
+          pts.forEach((q, i) => { p.push(q); a.push(i / (pts.length - 1) <= seg(f, from, to, ease.inOut) ? (1 - mOut) : 0); });
+        };
+        const R = 0.62 * Hh, cy = 0.61 * Hh;
+        run(Array.from({ length: 97 }, (_, i) => { const t = -Math.PI / 2 + (i / 96) * Math.PI * 2; return at(Math.cos(t) * R, cy + Math.sin(t) * R); }), 856, 884);
+        run([at(-Hh / 2, 0), at(Hh / 2, 0), at(Hh / 2, Hh), at(-Hh / 2, Hh), at(-Hh / 2, 0)], 862, 886);
+        const sx = R + 0.14;
+        run([at(sx, 0), at(sx, Hh)], 866, 880);
+        for (let k = 0; k <= 8; k++) run([at(sx - (k % 4 === 0 ? 0.09 : 0.05), (k / 8) * Hh), at(sx + (k % 4 === 0 ? 0.09 : 0.05), (k / 8) * Hh)], 868 + k * 1.5, 874 + k * 1.5);
+        s.lines.push({ hue: 'gold', shape: { p, a: a.map((v) => v * 0.6) }, space: 'world', width: 1.4, core: false, depthFree: true });
+      }
     }
   }
 
@@ -475,6 +616,12 @@ export const stateAt = (frame) => {
     // neighbours stay a little longer than the town, so the landing has a street
     const outN = 1 - seg(f, T.pinUnfold[1], T.pinUnfold[1] + 30, ease.inOut);
     s.lines.push({ shape: { p: TW.blocks.p, a: TW.blocks.a.map((v, i) => { const sid = TW.blocks.sid[i]; if (sid < 0) return 0; const near = sid >= TW.blocksNearFrom; return v * (near ? 0.4 * outN : 0.3 * out) * clamp((hb - hash(sid) * 0.7) / 0.3); }) }, space: 'world', width: 1, tilt: true });
+    // the buildings take a little tone, so the town reads as built, not outlined
+    TW.blocks.strokes.forEach((st, k) => {
+      const near = k >= TW.blocksNearFrom;
+      const aa = clamp((hb - hash(k) * 0.7) / 0.3) * (near ? 0.07 * outN : 0.05 * out) * (1 - seg(f, T.houseDive[0] + 4, T.houseDive[0] + 34, ease.inOut));
+      if (aa > 0.003) s.faces.push({ p: st.pts.slice(0, 4), col: [150, 190, 255], a: aa });
+    });
     const sweepR = 2300 * seg(f, ...T.sweep, ease.inOut);
     MARKERS.forEach((m, i) => {
       const t0 = T.markers + i * T.markerGap;
@@ -508,7 +655,7 @@ export const stateAt = (frame) => {
 
   /* E — the pin unfolds into its plot; the house is drawn on it */
   if (f >= T.pinUnfold[0] && f < T.sceneOut[1]) {
-    const fade = 1 - seg(f, 920, 948, ease.inOut);
+    const fade = 1 - seg(f, 826, 856, ease.inOut);
     const m = seg(f, ...T.pinUnfold, ease.inOut);
     if (m < 1) {
       const c = project(HOUSE_O);
@@ -520,7 +667,21 @@ export const stateAt = (frame) => {
       s.lines.push({ hue: 'gold', shape: { p: PARCEL_PTS, a: PARCEL_PTS.map(() => fade * lerp(1, 0.6, seg(f, T.exterior[0], T.exterior[0] + 40))) }, space: 'world', width: 2.8, nearFade: 1 });
     }
     const na = seg(f, T.parcelNote[0], T.parcelNote[0] + 14, ease.settle) * (1 - seg(f, T.parcelNote[1] - 12, T.parcelNote[1], ease.inOut));
-    if (na > 0) { const r = project(v3.lerp(PARCEL[0], PARCEL[1], 0.5)); if (r) s.note = { x: r[0], y: r[1], a: na, text: 'ARSA' }; }
+    // surveyor's dimension lines along two sides of the plot
+    const dd = seg(f, T.parcelNote[0] - 6, T.parcelNote[0] + 20, ease.inOut);
+    const dOut = 1 - seg(f, T.parcelNote[1] - 6, T.parcelNote[1] + 14, ease.inOut);
+    if (dd > 0 && dOut > 0) {
+      const centre = L(0, 0, 0);
+      const dims = [dimLine(PARCEL[0], PARCEL[1], centre), dimLine(PARCEL[1], PARCEL[2], centre)];
+      const p = [], a = [];
+      dims.forEach((dm) => dm.strokes.forEach(([A, B], k) => {
+        if (p.length) { p.push(p[p.length - 1], A); a.push(0, 0); }
+        const n = 16;
+        for (let i = 0; i <= n; i++) { p.push(v3.lerp(A, B, i / n)); a.push((k === 0 ? (i / n <= dd ? 1 : 0) : dd > 0.6 ? 1 : 0) * dOut * 0.8); }
+      }));
+      s.lines.push({ hue: 'gold', shape: { p, a }, space: 'world', width: 1.5, core: false });
+      if (na > 0) { const r = project(dims[0].mid); if (r) s.note = { x: r[0], y: r[1], a: na, text: 'ARSA' }; }
+    }
   }
 
   if (f >= T.exterior[0] && f < T.sceneOut[1]) {
@@ -530,10 +691,48 @@ export const stateAt = (frame) => {
     const he = seg(f, ...T.exterior, (x) => ease.inOut(x) * 0.3 + x * 0.7);
     const sceneOut = 1 - seg(f, ...T.sceneOut, ease.inOut);
     const ex = V.exterior;
+    // construction first, the way a drawing is set out: long guides along the
+    // walls of the plan and up from the corners, then the mass is drawn on them
+    const gIn = seg(f, T.exterior[0] - 6, T.exterior[0] + 18, ease.inOut), gOut = seg(f, T.exterior[0] + 44, T.exterior[1] - 4, ease.inOut);
+    if (gIn > 0 && gOut < 1) {
+      const p = [], a = [];
+      const guide = (A, B, d0) => {
+        if (p.length) { p.push(p[p.length - 1], A); a.push(0, 0); }
+        const t = seg(f, T.exterior[0] - 6 + d0, T.exterior[0] + 14 + d0, ease.inOut);
+        for (let i = 0; i <= 24; i++) { p.push(v3.lerp(A, B, i / 24)); a.push(Math.abs(i / 24 - 0.5) * 2 <= t ? 0.34 * (1 - gOut) : 0); }
+      };
+      guide(L(G.x0, 0, -15), L(G.x0, 0, 15), 0); guide(L(G.x1, 0, -15), L(G.x1, 0, 15), 3);
+      guide(L(-15, 0, G.z0), L(15, 0, G.z0), 2); guide(L(-15, 0, G.z1), L(15, 0, G.z1), 5);
+      guide(L(U.x1, 0, -15), L(U.x1, 0, 15), 6);
+      [[G.x0, G.z1], [G.x1, G.z1], [G.x1, G.z0]].forEach(([x, z], k) => guide(L(x, -0.5, z), L(x, 8.5, z), 8 + k * 2));
+      s.lines.push({ hue: 'gold', shape: { p, a }, space: 'world', width: 1.2, core: false, nearFade: 1.2 });
+    }
+    // at the door the drawing pulls focus: the façade recedes, the doorway stays
+    const recede = seg(f, 846, 874, ease.inOut) * (1 - seg(f, 912, 940, ease.inOut));
+    const nd = nearDoor(ex);
     s.lines.push({
-      shape: { p: ex.p, a: ex.a.map((v, i) => (ex.u[i] <= he && ex.sid[i] >= 0 ? heat(v, ex.u[i], he) * vis[ex.sid[i]] * sceneOut : 0)) },
-      space: 'world', width: 2.6, spark: he > 0 && he < 1 ? ex.p[firstAtOrAfter(ex.u, he)] : null, nearFade: 1.2,
+      shape: { p: ex.p, a: ex.a.map((v, i) => (ex.u[i] <= he && ex.sid[i] >= 0 ? heat(v, ex.u[i], he) * vis[ex.sid[i]] * sceneOut * (nd[ex.sid[i]] ? 1 : 1 - 0.68 * recede) : 0)) },
+      wv: exteriorWeights(ex), space: 'world', width: 2.4, spark: he > 0 && he < 1 ? ex.p[firstAtOrAfter(ex.u, he)] : null, nearFade: 1.2,
     });
+    // volume: planes take light by orientation once their edges are down
+    const vol = seg(he, 0.18, 0.55, ease.inOut) * sceneOut * (inside ? 0 : 1) * (1 - seg(f, 840, 866, ease.inOut));
+    if (vol > 0) {
+      for (const fc of MASS_FACES) if (faceVisible(fc, cam)) s.faces.push({ p: fc.q, col: [150, 190, 255], a: vol * (0.012 + 0.05 * Math.max(0, v3.dot(fc.n, LIGHT))) });
+      const hr = hatches().roofs;
+      const hp = seg(he, 0.35, 0.95, (x) => x);
+      s.lines.push({ shape: { p: hr.p, a: hr.a.map((v, i) => (hr.u[i] <= hp ? v * 0.3 * vol : 0)) }, space: 'world', width: 1.1, nearFade: 1.2, core: false });
+    }
+    // someone is home: the windows are lit
+    const lit = seg(he, 0.72, 1, ease.inOut) * sceneOut * (inside ? 0 : 1) * (1 - 0.5 * recede);
+    if (lit > 0) for (const w of WINDOWS) if (faceVisible(w, cam)) s.faces.push({ p: w.q, col: INK_WARM, a: 0.36 * lit, a2: 0.1 * lit, grad: [v3.lerp(w.q[0], w.q[1], 0.5), v3.lerp(w.q[2], w.q[3], 0.5)] });
+    const pool = seg(he, 0.85, 1, ease.inOut) * sceneOut;
+    if (pool > 0 && faceVisible(POOL, cam)) s.faces.push({ p: POOL.q, col: [80, 200, 182], a: 0.1 * pool, a2: 0.02 * pool, grad: [v3.lerp(POOL.q[0], POOL.q[1], 0.5), v3.lerp(POOL.q[2], POOL.q[3], 0.5)] });
+    // the door opens and the light comes out to meet you
+    const spill = seg(f, T.doorOpen[0], T.doorOpen[1] + 6, ease.inOut) * sceneOut;
+    if (spill > 0 && !inside) {
+      if (faceVisible(DOORWAY, cam)) s.faces.push({ p: DOORWAY.q, col: INK_WARM, a: 0.34 * spill, a2: 0.16 * spill, grad: [v3.lerp(DOORWAY.q[0], DOORWAY.q[1], 0.5), v3.lerp(DOORWAY.q[2], DOORWAY.q[3], 0.5)] });
+      s.faces.push({ p: SPILL.q, col: INK_WARM, a: 0.2 * spill, grad: [v3.lerp(SPILL.q[0], SPILL.q[1], 0.5), v3.lerp(SPILL.q[2], SPILL.q[3], 0.5)] });
+    }
     // the door, on its hinge
     const th = seg(f, ...T.doorOpen, ease.settle) * 1.5;
     const hn = ROOM.hinge, wd = DOOR.x1 - DOOR.x0;
@@ -559,6 +758,14 @@ export const stateAt = (frame) => {
       });
     }
     if (lampOn > 0) s.lamp = { p: ROOM.lamp, a: lampOn * sceneOut * (1 - seg(f, 1040, 1070, ease.inOut)) };
+    // the terrace boards: long lines that give the last room its depth
+    const dk = seg(f, T.terrace[0] - 6, T.terrace[1] + 6, ease.inOut);
+    if (dk > 0) {
+      const D = hatches().deck;
+      s.lines.push({ shape: { p: D.p, a: D.a.map((v, i) => (D.u[i] <= dk ? v * 0.26 * sceneOut : 0)) }, space: 'world', width: 1.2, warm: sun * 0.6, nearFade: 0.5, core: false });
+    }
+    // glass: a faint reflection, until we pass through it
+    if (inside) for (const g of GLAZING) if (faceVisible(g, cam)) s.faces.push({ p: g.q, col: [150, 190, 255], a: 0.045 * seg(f, 930, 960, ease.inOut) * sceneOut * clamp((rel[2] - G.z0 - 0.3) / 1.2), grad: [v3.lerp(g.q[2], g.q[3], 0.5), v3.lerp(g.q[0], g.q[1], 0.5)] });
 
     // the sea: framed by the glass, opening out as we step through it
     const seaA = seg(f, 930, 970, ease.inOut) * sceneOut;
@@ -598,7 +805,7 @@ export const stateAt = (frame) => {
       }
     }
     const tag = (name, p, a0, a1) => { const a = seg(f, a0, a0 + 16, ease.settle) * (1 - seg(f, a1 - 14, a1, ease.inOut)); if (a > 0) s.tags.push({ name, p, a }); };
-    tag('SALON', L(-3.9, 0.02, -2.6), 984, 1018);
+    tag('SALON', L(-4.7, 0.02, -3.0), 984, 1018);
     tag('MUTFAK', L(3.3, 0.95, -1.6), 1080, 1104);
     tag('TERAS', L(4.6, 0.02, -9.6), 1150, 1180);
 
@@ -637,7 +844,7 @@ export const stateAt = (frame) => {
         if (p.length) { p.push(p[p.length - 1], st.pts[0]); a.push(0, 0); }
         st.pts.forEach((q) => { const r = toScreen(q); const d = Math.min(1, Math.hypot(r[0] - hs[0], r[1] - hs[1]) / 700); p.push(q); a.push(st.w * (1 - seg(f, T.handLock[0] + d * 20, T.handLock[0] + 8 + d * 24, ease.inOut))); });
       });
-      s.lines.push({ hue: 'warm', occlude: true, shape: { p, a }, space: 'world', width: 2.8, depthFree: true });
+      s.lines.push({ id: 'agentBody', hue: 'warm', occlude: true, shape: { p, a }, space: 'world', width: 2.8, depthFree: true });
     } else {
       s.lines.push({ hue: 'warm', shape: { p: HP.agent.p.map(place), a: HP.agent.a.map((v) => v * handsOut) }, space: 'screen', width: 2.8 });
       if (f < T.toKey[0]) s.lines.push({ hue: 'gold', shape: { p: HP.key.p.map(place), a: HP.key.a }, space: 'screen', width: 3.0 });
@@ -680,24 +887,68 @@ export const stateAt = (frame) => {
   s.warm = Math.max(s.warm, pulse(f, T.click, 4, 50) * 0.6);
   if (lockup) { s.lines = s.lines.filter((l) => l.brand); s.flash = 0; s.warm = 0; s.sky = 0; }
 
-  /* Typography: words rise out of lines */
-  const wordLine = (x0, x1, y, a) => { const p = hline(x0, x1, y); s.lines.push({ hue: 'gold', shape: { p, a: p.map(() => a) }, space: 'screen', width: 3.0 }); };
+  /* Typography: words rise out of lines — flush left, on a gold rule */
+  const wordLine = (x0, x1, y, a, hue = 'gold', width = 3.0) => { const p = hline(x0, x1, y); s.lines.push({ hue, shape: { p, a: p.map(() => a) }, space: 'screen', width }); };
   for (const h of HEROES) {
     if (f < h.rise[0] - 4 || f > h.out[1] + 2) continue;
     const draw = seg(f, h.rise[0] - 4, h.rise[0] + 12, ease.settle);
     const close = seg(f, h.out[1] - 10, h.out[1] + 2, ease.inOut);
-    const half = 360;
-    wordLine(W / 2 - half * draw * (1 - close), W / 2 + half * draw * (1 - close), HERO_Y, 1);
-    s.heroes.push({ t: h.t, gold: h.gold, rise: seg(f, ...h.rise, ease.settle), sink: seg(f, ...h.out, ease.launch) });
-    s.scrims.push({ y: HERO_Y - 70, h: 200, a: draw * (1 - close) * 0.75 });
+    const len = textWidth(h.t, HERO_SIZE, 700) + 28;
+    wordLine(TEXT_X + len * close, TEXT_X + len * draw, HERO_Y, 1);
+    s.heroes.push({ ...h, rise: seg(f, ...h.rise, ease.settle), sink: seg(f, ...h.out, ease.launch), kick: seg(f, h.rise[0] + 6, h.rise[0] + 22, ease.settle) * (1 - seg(f, h.out[0] - 6, h.out[0] + 6, ease.inOut)) });
+    s.scrims.push({ y: HERO_Y - 80, h: 240, a: draw * (1 - close) * 0.75 });
   }
   for (const c of COPY) {
     if (f < c.rise[0] - 4 || f > c.out[1] + 2) continue;
     const draw = seg(f, c.rise[0] - 4, c.rise[0] + 12, ease.settle);
     const close = seg(f, c.out[1] - 8, c.out[1] + 2, ease.inOut);
-    const p = hline(W / 2 - 300 * draw * (1 - close), W / 2 + 300 * draw * (1 - close), HERO_Y);
-    s.lines.push({ shape: { p, a: p.map(() => 0.85) }, space: 'screen', width: 2.4 });
-    s.copy.push({ t: c.t, rise: seg(f, ...c.rise, ease.settle), sink: seg(f, ...c.out, ease.launch) });
+    const len = textWidth(c.t, COPY_SIZE, 600) + 24;
+    wordLine(TEXT_X + len * close, TEXT_X + len * draw, HERO_Y, 0.85, undefined, 2.4);
+    s.copy.push({ ...c, rise: seg(f, ...c.rise, ease.settle), sink: seg(f, ...c.out, ease.launch), kick: seg(f, c.rise[0] + 4, c.rise[0] + 18, ease.settle) * (1 - seg(f, c.out[0] - 8, c.out[0] + 4, ease.inOut)) });
+  }
+
+  /* Moments are marked with light: a burst of thin rays. */
+  const burst = (x, y, at, { r1 = 700, n = 90, a = 0.8, rise = 3, decay = 34, seed = 1, col } = {}) => {
+    const k = pulse(f, at, rise, decay);
+    if (k > 0.004) s.rays.push({ x, y, a: a * k, grow: seg(f, at - rise, at + 16, ease.settle), r0: 4, r1, n, rot: 0.02 * (f - at) / 60, seed, col });
+  };
+  if (!lockup) {
+    burst(W / 2, HERO_Y, T.collapse[1], { r1: 820, n: 110, a: 0.7, seed: 11 });
+    const hp = project(HOUSE_O);
+    if (hp && f > T.check[0] - 10 && f < T.check[1] + 60) burst(hp[0], hp[1] - 60, T.check[0] + 10, { r1: 380, n: 64, a: 0.75, rise: 8, decay: 40, seed: 5 });
+    if (f > T.click - 10) burst(KEY_CENTER[0], KEY_CENTER[1] - 84 * 2.3, T.click, { r1: 900, n: 120, a: 0.8, decay: 24, seed: 9 });
+  }
+  /* The hardest moves split the light a little, like a lens under stress. */
+  s.chroma = lockup ? 0 : Math.max(
+    3.2 * Math.sin(Math.PI * seg(f, 364, 420, ease.inOut)),
+    2.8 * Math.sin(Math.PI * seg(f, 700, 760, ease.inOut)),
+    3.5 * pulse(f, T.collapse[1], 3, 12),
+    2.5 * pulse(f, T.click, 2, 10),
+  );
+
+  /* Ground: a compass behind the first act and the last card. It spins off
+     true north as the noise arrives, and snaps back on "doğru". */
+  const ringA = f < 320 ? 1 - seg(f, T.tilt[0], T.tilt[0] + 40, ease.inOut) : seg(f, 1334, 1392, ease.inOut);
+  s.bg = {
+    mottle: 1, dust: 0.9, ring: ringA, x: W / 2, y: LINE_Y, r: 430,
+    rot: lockup ? 0 : 0.3 * seg(f, 40, 118, ease.inOut) * (1 - seg(f, T.collapse[1] - 8, T.collapse[1] + 6, ease.snap)),
+  };
+
+  /* HUD: chapter, progress, where we are, how many are left. */
+  if (!lockup && f > 20 && f < HUD_END + 26) {
+    let ci = 0;
+    CHAPTERS.forEach(([at], i) => { if (f >= at) ci = i; });
+    const tgt = f < T.tour[0] ? orbitAt(f).target : cam.pos;
+    const [lat, lon] = ungeo(tgt);
+    const n = f >= 52 ? countAt(f) : null;
+    s.hud = {
+      a: seg(f, 22, 46, ease.inOut) * (1 - seg(f, HUD_END, HUD_END + 22, ease.inOut)),
+      draw: seg(f, 22, 62, ease.inOut),
+      ci, ct: seg(f, CHAPTERS[ci][0], CHAPTERS[ci][0] + 16, ease.settle),
+      prog: clamp(f / HUD_END),
+      lat, lon,
+      n, one: n === 1, countA: f >= 52 ? seg(f, 52, 64, ease.inOut) : 0,
+    };
   }
   return s;
 };

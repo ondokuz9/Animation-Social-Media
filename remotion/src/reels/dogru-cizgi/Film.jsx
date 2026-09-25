@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useMemo, useRef } from 'react';
 import { AbsoluteFill, useCurrentFrame } from 'remotion';
 import { SANS, MONO } from '../../brand/tokens.js';
 import { W, H, LOCKUP, lockupScale, WORDMARK_PATHS, WORDMARK_VIEWBOX, LINE_Y } from './engine/shapes.js';
-import { stateAt, FRAMES, T, HERO_Y } from './engine/timeline.js';
+import { stateAt, FRAMES, T, HERO_Y, TEXT_X, HERO_SIZE, COPY_SIZE, CHAPTERS, HUD_END, textWidth } from './engine/timeline.js';
 import { drawFrame } from './engine/render.js';
 import { ease, clamp, lerp } from './engine/math.js';
 
@@ -11,8 +11,6 @@ export const DOGRU_FRAMES = FRAMES;
 const INKT = (a) => `rgba(236,244,252,${a})`;
 const GOLD = (a) => `rgba(226,194,132,${a})`;   // Champagne #C9A157, lifted for type on navy
 
-/* Approximate advance widths for Hanken Grotesk, to lay out the pun. */
-const textWidth = (t, size, weight = 500) => [...t].reduce((w, ch) => w + (ch === ' ' ? 0.26 : /[ilıİ.'?]/.test(ch) ? 0.27 : /[mwMW]/.test(ch) ? 0.82 : /[A-ZĞŞÜÖÇ]/.test(ch) ? 0.64 : 0.55), 0) * size * (weight >= 600 ? 1.03 : 1);
 
 /* ── The lockup: the name stands on its gold line. ─────────────────────────── */
 const Lockup = ({ rise, slogan, url, glint }) => {
@@ -42,11 +40,11 @@ const Lockup = ({ rise, slogan, url, glint }) => {
 };
 
 /* Words standing on a line and rising out of it, one letter at a time. */
-const Rising = ({ parts, rise, sink, size, weight, tracking, y, stagger = 2.2 }) => {
+const Rising = ({ parts, rise, sink, size, weight, tracking, y, stagger = 2.2, left = null }) => {
   const chars = parts.flatMap(({ t, gold }) => [...t].map((ch) => ({ ch, gold })));
   const n = chars.length;
   return (
-    <div style={{ position: 'absolute', left: 0, width: W, top: y - size * 1.3, height: size * 1.3 - 12, overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'flex-end' }}>
+    <div style={{ position: 'absolute', left: left ?? 0, width: left != null ? W - left : W, top: y - size * 1.3, height: size * 1.3 - 12, overflow: 'hidden', display: 'flex', justifyContent: left != null ? 'flex-start' : 'center', alignItems: 'flex-end' }}>
       {chars.map(({ ch, gold }, i) => {
         const k = stagger / 22;
         const pi = ease.settle(clamp(rise * (1 + (n - 1) * k) - i * k));
@@ -144,6 +142,78 @@ const Popover = ({ p }) => {
   );
 };
 
+
+/* ── Kicker: a mono line above the headline, revealed left to right ──────── */
+const Kicker = ({ text, k, y, gold }) => (
+  <div style={{ position: 'absolute', left: TEXT_X, top: y, height: 40, width: W - TEXT_X * 2, overflow: 'hidden' }}>
+    <div style={{
+      display: 'inline-flex', alignItems: 'center', gap: 16, whiteSpace: 'nowrap',
+      clipPath: `inset(0 ${100 - 100 * k}% 0 0)`, transform: `translateX(${(1 - k) * -12}px)`,
+      fontFamily: MONO, fontWeight: 500, fontSize: 25, letterSpacing: '0.22em', color: gold ? GOLD(0.95) : INKT(0.62),
+    }}>
+      <span style={{ display: 'inline-block', width: 26, height: 2, background: gold ? GOLD(0.95) : INKT(0.5) }} />
+      {text}
+    </div>
+  </div>
+);
+
+/* ── HUD: the page this film is printed on ───────────────────────────────
+   Corner marks, the chapter, a progress rule, where we are, and how many
+   listings are left — from hundreds to one. */
+const pad = (n) => String(n).padStart(3, ' ');
+const Hud = ({ h }) => {
+  if (!h || h.a <= 0.001) return null;
+  const X0 = 58, X1 = W - 58, Y0 = 118, Y1 = 1790, arm = 34;
+  const per = arm * 2;
+  const corner = (x, y, sx, sy, i) => (
+    <path key={i} d={`M ${x} ${y + sy * arm} L ${x} ${y} L ${x + sx * arm} ${y}`} fill="none" stroke={INKT(0.55)} strokeWidth={1.6}
+          strokeDasharray={per} strokeDashoffset={per * (1 - h.draw)} />
+  );
+  const RX0 = 78, RX1 = W - 78, RY = 214;
+  const px = (f) => RX0 + (RX1 - RX0) * Math.min(1, f / HUD_END);
+  const cur = CHAPTERS[h.ci], prev = CHAPTERS[Math.max(0, h.ci - 1)];
+  const chap = (c, dy, a) => (
+    <div style={{ position: 'absolute', left: 0, top: 0, transform: `translateY(${dy}px)`, opacity: a, whiteSpace: 'nowrap' }}>
+      <span style={{ color: GOLD(0.95) }}>{c[1]}</span><span style={{ color: INKT(0.4) }}> · </span>{c[2]}
+    </div>
+  );
+  const mono = { fontFamily: MONO, fontWeight: 500, fontVariantNumeric: 'tabular-nums' };
+  return (
+    <div style={{ position: 'absolute', inset: 0, opacity: h.a }}>
+      <svg width={W} height={H} style={{ position: 'absolute', inset: 0 }}>
+        {corner(X0, Y0, 1, 1, 0)}{corner(X1, Y0, -1, 1, 1)}{corner(X0, Y1, 1, -1, 2)}{corner(X1, Y1, -1, -1, 3)}
+        <line x1={RX0} y1={RY} x2={RX0 + (RX1 - RX0) * h.draw} y2={RY} stroke={INKT(0.22)} strokeWidth={1.2} />
+        {CHAPTERS.map(([at], i) => <line key={i} x1={px(at)} y1={RY - 6} x2={px(at)} y2={RY + 6} stroke={i <= h.ci ? GOLD(0.9) : INKT(0.35)} strokeWidth={1.4} />)}
+        {Array.from({ length: 41 }, (_, i) => <line key={`t${i}`} x1={RX0 + ((RX1 - RX0) * i) / 40} y1={RY} x2={RX0 + ((RX1 - RX0) * i) / 40} y2={RY + 3} stroke={INKT(0.2 * h.draw)} strokeWidth={1} />)}
+        <line x1={RX0} y1={RY} x2={RX0 + (RX1 - RX0) * h.prog} y2={RY} stroke={GOLD(0.95)} strokeWidth={2.4} />
+        <path d={`M ${RX0 + (RX1 - RX0) * h.prog - 7} ${RY - 16} L ${RX0 + (RX1 - RX0) * h.prog + 7} ${RY - 16} L ${RX0 + (RX1 - RX0) * h.prog} ${RY - 7} Z`} fill={GOLD(0.95)} />
+      </svg>
+      {CHAPTERS.map(([at, no], i) => (
+        <div key={no} style={{ position: 'absolute', left: px(at), top: RY + 12, transform: 'translateX(-50%)', ...mono, fontSize: 15, letterSpacing: '0.1em', color: i <= h.ci ? GOLD(0.8) : INKT(0.35) }}>{no}</div>
+      ))}
+      <div style={{ position: 'absolute', left: RX0, top: 146, height: 30, width: 520, overflow: 'hidden', ...mono, fontSize: 23, letterSpacing: '0.26em', color: INKT(0.82) }}>
+        {h.ci > 0 && h.ct < 1 && chap(prev, -30 * h.ct, 1 - h.ct)}
+        {chap(cur, 30 * (1 - h.ct), h.ci > 0 ? h.ct : 1)}
+      </div>
+      <div style={{ position: 'absolute', right: W - RX1, top: 146, textAlign: 'right', ...mono, fontSize: 23, letterSpacing: '0.34em', color: INKT(0.82), marginRight: -8 }}>EVLEK</div>
+      <div style={{ position: 'absolute', right: W - RX1, top: 176, textAlign: 'right', ...mono, fontSize: 14, letterSpacing: '0.3em', color: INKT(0.4), marginRight: -4 }}>DOĞRU ÇİZGİ</div>
+
+      <div style={{ position: 'absolute', left: RX0, top: 1686, ...mono, fontSize: 14, letterSpacing: '0.3em', color: INKT(0.42) }}>KONUM</div>
+      <div style={{ position: 'absolute', left: RX0, top: 1708, ...mono, fontSize: 27, letterSpacing: '0.04em', color: INKT(0.85), whiteSpace: 'pre' }}>
+        {`${h.lat.toFixed(4)}° K  ${h.lon.toFixed(4)}° D`}
+      </div>
+      {h.n != null && (
+        <>
+          <div style={{ position: 'absolute', right: W - RX1, top: 1672, textAlign: 'right', ...mono, fontSize: 14, letterSpacing: '0.3em', color: h.one ? GOLD(0.9) : INKT(0.42), opacity: h.countA }}>{h.one ? 'DOĞRU İLAN' : 'İLAN'}</div>
+          <div style={{ position: 'absolute', right: W - RX1, top: 1692, textAlign: 'right', ...mono, fontSize: 46, letterSpacing: '0.02em', color: h.one ? GOLD(1) : INKT(0.9), opacity: h.countA, whiteSpace: 'pre' }}>{pad(h.n)}</div>
+        </>
+      )}
+    </div>
+  );
+};
+
+const TAG_NO = { SALON: '01', MUTFAK: '02', TERAS: '03' };
+
 /* City labels sit beside their pins, never under them. [dx, dy, anchor] */
 const CITY_LABEL = {
   'GÜZELYURT': [-18, -58, 'right'], LEFKE: [-14, 16, 'right'], 'LEFKOŞA': [0, 18, 'center'],
@@ -182,20 +252,33 @@ export const DogruCizgi = () => {
       })}
       {tags.map((t) => (
         <div key={t.name} style={{ position: 'absolute', left: t.x, top: t.y, transform: 'translate(-50%, -100%)', opacity: t.a, textAlign: 'center' }}>
-          <div style={{ fontFamily: MONO, fontWeight: 500, fontSize: 28, letterSpacing: '0.2em', color: INKT(0.94) }}>{t.name}</div>
-          <div style={{ width: 1.5, height: 30, margin: '8px auto 0', background: INKT(0.5) }} />
-          <div style={{ width: 7, height: 7, borderRadius: 4, margin: '0 auto', background: INKT(0.8) }} />
+          <div style={{ fontFamily: MONO, fontWeight: 500, fontSize: 28, letterSpacing: '0.2em', color: INKT(0.94), whiteSpace: 'nowrap' }}>
+            <span style={{ color: GOLD(0.95), marginRight: 14 }}>{TAG_NO[t.name]}</span>{t.name}
+          </div>
+          <div style={{ width: 1.5, height: 36 * t.a, margin: '8px auto 0', background: INKT(0.5) }} />
+          <div style={{ width: 13, height: 13, borderRadius: 7, margin: '0 auto', border: `1.6px solid ${GOLD(0.9)}`, boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ width: 4, height: 4, borderRadius: 2, background: GOLD(1) }} />
+          </div>
         </div>
       ))}
       {s.note && (
         <div style={{ position: 'absolute', left: s.note.x, top: s.note.y + 26, transform: 'translateX(-50%)', opacity: s.note.a, fontFamily: MONO, fontWeight: 500, fontSize: 30, letterSpacing: '0.24em', color: GOLD(0.95), whiteSpace: 'nowrap' }}>{s.note.text}</div>
       )}
+      <Hud h={s.hud} />
       {s.popover && <Popover p={s.popover} />}
       {s.pill && <Pill p={s.pill} />}
-      {s.copy.map((c) => <Rising key={c.t} parts={[{ t: c.t }]} rise={c.rise} sink={c.sink} size={72} weight={500} tracking="-0.01em" y={HERO_Y} stagger={0.9} />)}
+      {s.copy.map((c) => (
+        <React.Fragment key={c.t}>
+          <Kicker text={c.kicker} k={c.kick} y={HERO_Y - COPY_SIZE * 1.3 - 44} />
+          <Rising parts={[{ t: c.t }]} rise={c.rise} sink={c.sink} size={COPY_SIZE} weight={600} tracking="-0.015em" y={HERO_Y} stagger={0.9} left={TEXT_X - 4} />
+        </React.Fragment>
+      ))}
       {s.pun && <Pun p={s.pun} />}
       {s.heroes.map((h) => (
-        <Rising key={h.t} parts={h.gold ? [{ t: h.gold, gold: true }, { t: h.t.slice(h.gold.length) }] : [{ t: h.t }]} rise={h.rise} sink={h.sink} size={112} weight={600} tracking="-0.01em" y={HERO_Y} stagger={1.6} />
+        <React.Fragment key={h.t}>
+          <Kicker text={h.kicker} k={h.kick} y={HERO_Y - HERO_SIZE * 1.3 - 46} gold />
+          <Rising parts={h.gold ? [{ t: h.gold, gold: true }, { t: h.t.slice(h.gold.length) }] : [{ t: h.t }]} rise={h.rise} sink={h.sink} size={HERO_SIZE} weight={700} tracking="-0.025em" y={HERO_Y} stagger={1.6} left={TEXT_X - 6} />
+        </React.Fragment>
       ))}
       <Lockup rise={s.wordRise} slogan={s.slogan} url={s.url} glint={s.sloganGlint} />
     </AbsoluteFill>

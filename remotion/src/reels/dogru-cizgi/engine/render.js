@@ -29,7 +29,28 @@ let buf = null;
 const mk = (w, h) => { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; };
 const canvases = () => {
   if (buf) return buf;
-  buf = { layers: [mk(W, H), mk(W, H), mk(W, H)], glow: mk(W / 2, H / 2), grain: [] };
+  buf = { layers: [mk(W, H), mk(W, H), mk(W, H)], glow: mk(W / 2, H / 2), grain: [], ch: [mk(W, H), mk(W, H), mk(W, H)] };
+  // mottled ground: low-frequency value noise, the way paper or sky is never flat
+  {
+    const lw = 54, lh = 96, low = mk(lw, lh), lx = low.getContext('2d');
+    const img = lx.createImageData(lw, lh);
+    const r = mulberry(4711);
+    for (let i = 0; i < img.data.length; i += 4) {
+      const v = r();
+      img.data[i] = 150; img.data[i + 1] = 190; img.data[i + 2] = 255; img.data[i + 3] = Math.floor(v * v * 255);
+    }
+    lx.putImageData(img, 0, 0);
+    const m = mk(W, H), mx = m.getContext('2d');
+    mx.imageSmoothingEnabled = true; mx.imageSmoothingQuality = 'high';
+    mx.filter = 'blur(26px)';
+    mx.drawImage(low, -40, -40, W + 80, H + 80);
+    buf.mottle = m;
+  }
+  // dust: fixed motes, drifting on loops that close with the film
+  {
+    const r = mulberry(1234);
+    buf.dust = Array.from({ length: 150 }, () => ({ x: r() * W, y: r() * H, s: 0.6 + r() * 1.6, a: 0.25 + r() * 0.75, ph: r() * Math.PI * 2, k: 1 + Math.floor(r() * 5), dx: (r() - 0.5) * 40, dy: (r() - 0.5) * 60 }));
+  }
   for (let g = 0; g < 4; g++) {
     const c = mk(256, 256);
     const x = c.getContext('2d');
@@ -47,20 +68,21 @@ const canvases = () => {
 
 /* ── Lines into layers ─────────────────────────────────────────────────── */
 const LEVELS = 10;
-const drawLines = (layers, s, weight, pick = () => true) => {
+const drawLines = (layers, s, weight, pick = () => true, range = null) => {
   const focus = s.cam.dist;
   for (const l of s.lines) {
     if (!pick(l)) continue;
     const { p, a } = l.shape;
+    const i0 = range ? range[0] : 0, i1 = range ? range[1] : p.length - 1;
     const pts = new Array(p.length);
-    for (let i = 0; i < p.length; i++) {
+    for (let i = i0; i <= i1; i++) {
       const near = a[i] > 0.004 || (i > 0 && a[i - 1] > 0.004) || (i < p.length - 1 && a[i + 1] > 0.004);
       if (!near) { pts[i] = null; continue; }
       pts[i] = l.space === 'screen' ? [p[i][0], p[i][1], focus] : s.project(p[i]);
     }
     // buckets: layer × alpha level × width level × colour class
     const buckets = new Map();
-    for (let i = 1; i < pts.length; i++) {
+    for (let i = i0 + 1; i <= i1; i++) {
       const A = pts[i - 1], B = pts[i];
       if (!A || !B) continue;
       let al = Math.min(a[i - 1], a[i]);
@@ -82,9 +104,11 @@ const drawLines = (layers, s, weight, pick = () => true) => {
       al *= fade;
       if (al < 0.01) continue;
       const gold = l.gold && (l.gold[i] > 0.5 || l.gold[i - 1] > 0.5) ? 1 : 0;
-      const key = `${layer}|${Math.round(al * LEVELS)}|${Math.round(wz * 5)}|${gold}`;
+      // weight hierarchy: silhouettes heavy, details light, hatching hairline
+      if (l.wv) wz *= Math.min(l.wv[i], l.wv[i - 1]);
+      const key = `${layer}|${Math.round(al * LEVELS)}|${Math.round(wz * 6)}|${gold}`;
       let b = buckets.get(key);
-      if (!b) { b = { layer, al: Math.round(al * LEVELS) / LEVELS, wz: Math.round(wz * 5) / 5, gold, path: new Path2D() }; buckets.set(key, b); }
+      if (!b) { b = { layer, al: Math.round(al * LEVELS) / LEVELS, wz: Math.round(wz * 6) / 6, gold, path: new Path2D() }; buckets.set(key, b); }
       b.path.moveTo(A[0], A[1]);
       b.path.lineTo(B[0], B[1]);
     }
@@ -104,6 +128,12 @@ const drawLines = (layers, s, weight, pick = () => true) => {
       ctx.strokeStyle = rgba(col, b.al * weight);
       ctx.lineWidth = l.width * 0.8 * b.wz;
       ctx.stroke(b.path);
+      // a filament: warm and gold lines carry a hotter, thinner core
+      if (l.core !== false && (l.hue === 'gold' || l.hue === 'warm' || l.core) && b.wz >= 0.7) {
+        ctx.strokeStyle = rgba(mix(col, [255, 250, 238], 0.6), b.al * weight * 0.85);
+        ctx.lineWidth = Math.max(0.7, l.width * 0.3 * b.wz);
+        ctx.stroke(b.path);
+      }
       ctx.restore();
     }
   }
@@ -222,6 +252,171 @@ const spark = (ctx, x, y, k = 1, color = INK.glow) => {
   ctx.fillRect(x - 150 * k, y - 0.75, 300 * k, 1.5);
 };
 
+/* A node: a small bright joint, like a rivet of light. */
+const node = (ctx, x, y, k = 1, col = INK.goldHot) => {
+  if (k <= 0.01) return;
+  ctx.save();
+  ctx.globalCompositeOperation = 'lighter';
+  const g = ctx.createRadialGradient(x, y, 0, x, y, 26 * k);
+  g.addColorStop(0, rgba([255, 255, 255], 0.9 * Math.min(1, k)));
+  g.addColorStop(0.18, rgba(col, 0.55 * Math.min(1, k)));
+  g.addColorStop(1, rgba(col, 0));
+  ctx.fillStyle = g;
+  ctx.fillRect(x - 26 * k, y - 26 * k, 52 * k, 52 * k);
+  ctx.restore();
+};
+
+/* ── Background: a compass that is never quite seen, and dust in the air ── */
+const drawGroundLayer = (ctx, s, frame) => {
+  const b = canvases();
+  const bg = s.bg || {};
+  if (bg.mottle > 0) {
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.globalAlpha = 0.11 * bg.mottle;
+    ctx.drawImage(b.mottle, 0, 0);
+    ctx.globalAlpha = 1;
+  }
+  if (bg.ring > 0) {
+    const { x, y, r, rot } = bg;
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.translate(x, y);
+    ctx.rotate(rot);
+    const col = INK.glow;
+    ctx.lineCap = 'round';
+    // two rings, a degree scale between them
+    ctx.strokeStyle = rgba(col, 0.2 * bg.ring); ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.stroke();
+    ctx.strokeStyle = rgba(col, 0.12 * bg.ring); ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.arc(0, 0, r * 0.9, 0, Math.PI * 2); ctx.stroke();
+    ctx.beginPath(); ctx.arc(0, 0, r * 0.52, 0, Math.PI * 2); ctx.stroke();
+    for (let d = 0; d < 360; d += 2) {
+      const t = (d * Math.PI) / 180, long = d % 10 === 0, card = d % 90 === 0;
+      const r0 = r * (card ? 0.86 : long ? 0.93 : 0.96), r1 = r * (card ? 1.06 : 1);
+      ctx.strokeStyle = rgba(card ? INK.champagne : col, (card ? 0.42 : long ? 0.24 : 0.13) * bg.ring);
+      ctx.lineWidth = card ? 1.6 : 1;
+      ctx.beginPath(); ctx.moveTo(Math.sin(t) * r0, -Math.cos(t) * r0); ctx.lineTo(Math.sin(t) * r1, -Math.cos(t) * r1); ctx.stroke();
+    }
+    // construction: a cross through the centre and the two diagonals, dashed
+    ctx.setLineDash([2, 10]);
+    ctx.strokeStyle = rgba(col, 0.1 * bg.ring);
+    for (let k = 0; k < 4; k++) {
+      const t = (k * Math.PI) / 4;
+      ctx.beginPath(); ctx.moveTo(Math.sin(t) * r * 1.25, -Math.cos(t) * r * 1.25); ctx.lineTo(-Math.sin(t) * r * 1.25, Math.cos(t) * r * 1.25); ctx.stroke();
+    }
+    ctx.setLineDash([]);
+    // north: a small champagne needle
+    ctx.fillStyle = rgba(INK.champagne, 0.5 * bg.ring);
+    ctx.beginPath(); ctx.moveTo(0, -r * 1.13); ctx.lineTo(7, -r * 1.07); ctx.lineTo(0, -r * 1.09); ctx.lineTo(-7, -r * 1.07); ctx.closePath(); ctx.fill();
+    ctx.restore();
+  }
+  if (bg.dust > 0) {
+    ctx.globalCompositeOperation = 'lighter';
+    // loops that close with the film: every motion is a whole number of cycles
+    const L = FRAMES - 1, ph = (2 * Math.PI * (frame % L)) / L;
+    for (const d of b.dust) {
+      const x = d.x + d.dx * Math.sin(ph + d.ph), y = d.y + d.dy * Math.sin(ph * 2 + d.ph);
+      const tw = 0.55 + 0.45 * Math.sin(ph * d.k * 3 + d.ph);
+      ctx.fillStyle = rgba([200, 220, 255], 0.2 * d.a * tw * bg.dust);
+      ctx.beginPath(); ctx.arc(x, y, d.s, 0, Math.PI * 2); ctx.fill();
+    }
+  }
+  ctx.globalCompositeOperation = 'source-over';
+};
+
+/* ── Faces: planes take a little light, shadows take it away ─────────────── */
+const drawFaces = (ctx, s) => {
+  if (!s.faces || !s.faces.length) return;
+  for (const f of s.faces) {
+    if (f.a <= 0.002) continue;
+    const q = f.p.map((c) => (f.space === 'screen' ? c : s.project(c)));
+    if (q.some((v) => !v)) continue;
+    ctx.save();
+    ctx.beginPath();
+    q.forEach((v, i) => (i ? ctx.lineTo(v[0], v[1]) : ctx.moveTo(v[0], v[1])));
+    ctx.closePath();
+    if (f.mode === 'shade') {
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = rgba(INK.deep, f.a);
+      ctx.fill();
+    } else if (f.grad) {
+      // glass: light gathers at the top edge and falls away
+      const [g0, g1] = f.grad.map((c) => s.project(c));
+      if (g0 && g1) {
+        const g = ctx.createLinearGradient(g0[0], g0[1], g1[0], g1[1]);
+        g.addColorStop(0, rgba(f.col, f.a));
+        g.addColorStop(1, rgba(f.col, f.a2 ?? 0));
+        ctx.globalCompositeOperation = 'lighter';
+        ctx.fillStyle = g;
+        ctx.fill();
+      }
+    } else {
+      ctx.globalCompositeOperation = 'lighter';
+      ctx.fillStyle = rgba(f.col || INK.core, f.a);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+};
+
+/* ── Rays: a burst of thin light, the way a moment is marked ─────────────── */
+const drawRays = (ctx, s) => {
+  if (!s.rays) return;
+  ctx.save();
+  ctx.globalCompositeOperation = 'lighter';
+  ctx.lineCap = 'round';
+  for (const R of s.rays) {
+    if (R.a <= 0.003) continue;
+    const r = mulberry(R.seed || 7);
+    const col = R.col || INK.goldHot;
+    for (let i = 0; i < R.n; i++) {
+      const t = (i / R.n) * Math.PI * 2 + R.rot + (r() - 0.5) * 0.05;
+      const len = R.r1 * (0.35 + 0.65 * r() ** 2);
+      const a0 = R.r0, a1 = R.r0 + (len - R.r0) * R.grow;
+      if (a1 <= a0) continue;
+      const x0 = R.x + Math.cos(t) * a0, y0 = R.y + Math.sin(t) * a0, x1 = R.x + Math.cos(t) * a1, y1 = R.y + Math.sin(t) * a1;
+      const g = ctx.createLinearGradient(x0, y0, x1, y1);
+      const al = R.a * (0.25 + 0.75 * r());
+      g.addColorStop(0, rgba(col, al));
+      g.addColorStop(1, rgba(col, 0));
+      ctx.strokeStyle = g;
+      ctx.lineWidth = 0.8 + r() * 1.4;
+      ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke();
+    }
+    const g = ctx.createRadialGradient(R.x, R.y, 0, R.x, R.y, R.r1 * 0.6);
+    g.addColorStop(0, rgba(col, 0.16 * R.a));
+    g.addColorStop(1, rgba(col, 0));
+    ctx.fillStyle = g;
+    ctx.fillRect(R.x - R.r1, R.y - R.r1, R.r1 * 2, R.r1 * 2);
+  }
+  ctx.restore();
+};
+
+/* ── Chromatic split: red and blue part a little on the hardest moves ───── */
+const chroma = (ctx, k) => {
+  const { ch } = canvases();
+  const cols = ['rgb(255,0,0)', 'rgb(0,255,0)', 'rgb(0,0,255)'];
+  ch.forEach((c, i) => {
+    const x = c.getContext('2d');
+    x.globalCompositeOperation = 'copy';
+    x.drawImage(ctx.canvas, 0, 0);
+    x.globalCompositeOperation = 'multiply';
+    x.fillStyle = cols[i];
+    x.fillRect(0, 0, W, H);
+  });
+  // radial, like a lens: red scaled out, blue scaled in, about the centre
+  const sc = [1 + k / 540, 1, 1 - k / 540];
+  ctx.save();
+  ctx.globalCompositeOperation = 'copy';
+  ctx.drawImage(ch[1], 0, 0);
+  ctx.globalCompositeOperation = 'lighter';
+  for (const i of [0, 2]) {
+    const w = W * sc[i], h = H * sc[i];
+    ctx.drawImage(ch[i], (W - w) / 2, (H - h) / 2, w, h);
+  }
+  ctx.restore();
+};
+
 /* ── Frame ─────────────────────────────────────────────────────────────── */
 /* Motion blur without visible copies: measure how far lines travel on
    screen across the 180° shutter, and take enough samples that consecutive
@@ -245,6 +440,39 @@ const screenTravel = (a, b) => {
   return d;
 };
 
+/* Solid figures: each part hides what is behind it, then is drawn — far
+   parts first — so a near arm crosses the body instead of showing through. */
+const cutPoly = (layers, pts, i0, i1, tone) => {
+  for (let li = 0; li < layers.length; li++) {
+    const c = layers[li].getContext('2d');
+    c.save();
+    c.globalCompositeOperation = 'destination-out';
+    c.fillStyle = 'rgba(0,0,0,1)';
+    c.beginPath();
+    let open = false;
+    for (let i = i0; i <= i1; i++) { const q = pts[i]; if (!q) { if (open) { c.closePath(); open = false; } continue; } if (!open) { c.moveTo(q[0], q[1]); open = true; } else c.lineTo(q[0], q[1]); }
+    c.fill('nonzero');
+    if (tone && li === 0) { c.globalCompositeOperation = 'lighter'; c.fillStyle = tone; c.fill('nonzero'); }
+    c.restore();
+  }
+};
+const drawOccluders = (layers, s, subs) => {
+  for (const l of s.lines) {
+    if (!l.occlude) continue;
+    const pts = l.shape.p.map((q, i) => (l.shape.a[i] > 0.05 ? (l.space === 'world' ? s.project(q) : q) : null));
+    const parts = l.parts || [{ i0: 0, i1: l.shape.p.length - 1, fill: true }];
+    const tone = l.tone ? rgba(INK.person, l.tone) : null;
+    for (const part of parts) {
+      if (part.fill !== false) cutPoly(layers, pts, part.i0, part.i1, tone);
+      if (!l.id) { drawLines(layers, s, 1, (m) => m === l, [part.i0, part.i1]); continue; }
+      subs.forEach((st) => {
+        const same = st.lines.find((m) => m.id === l.id);
+        if (same) drawLines(layers, st, 1 / subs.length, (m) => m === same, [part.i0, part.i1]);
+      });
+    }
+  }
+};
+
 export const drawFrame = (ctx, stateAt, frame, still = false, pre = null, fast = false) => {
   const { layers, glow, grain } = canvases();
   const s = pre || stateAt(frame);
@@ -258,23 +486,7 @@ export const drawFrame = (ctx, stateAt, frame, still = false, pre = null, fast =
   for (const L of layers) { const c = L.getContext('2d'); c.globalCompositeOperation = 'source-over'; c.clearRect(0, 0, W, H); }
   subs.forEach((st) => drawLines(layers, st, 1 / subs.length, (l) => !l.occlude));
   drawPins(layers[0].getContext('2d'), s);
-  // people are solid: what is behind them is hidden, as in a drawing
-  for (const l of s.lines) {
-    if (!l.occlude) continue;
-    const pts = l.shape.p.map((q, i) => (l.shape.a[i] > 0.05 ? (l.space === 'world' ? s.project(q) : q) : null));
-    for (const L of layers) {
-      const c = L.getContext('2d');
-      c.save();
-      c.globalCompositeOperation = 'destination-out';
-      c.fillStyle = 'rgba(0,0,0,1)';
-      c.beginPath();
-      let open = false;
-      for (const q of pts) { if (!q) { if (open) { c.closePath(); open = false; } continue; } if (!open) { c.moveTo(q[0], q[1]); open = true; } else c.lineTo(q[0], q[1]); }
-      c.fill('nonzero');
-      c.restore();
-    }
-  }
-  subs.forEach((st) => drawLines(layers, st, 1 / subs.length, (l) => l.occlude));
+  drawOccluders(layers, s, subs);
 
   /* Ground. */
   ctx.globalCompositeOperation = 'source-over';
@@ -286,6 +498,7 @@ export const drawFrame = (ctx, stateAt, frame, still = false, pre = null, fast =
   bg.addColorStop(1, rgba(INK.deep, 1));
   ctx.fillStyle = bg;
   ctx.fillRect(0, 0, W, H);
+  drawGroundLayer(ctx, s, frame);
 
   /* Sunset: the only time the ground itself takes colour. */
   if (s.sky > 0 && s.sun) {
@@ -318,8 +531,10 @@ export const drawFrame = (ctx, stateAt, frame, still = false, pre = null, fast =
   }
 
   cartography(ctx, s);
+  drawFaces(ctx, s);
+  drawRays(ctx, s);
 
-  /* Bloom from all the light. */
+  /* Bloom from all the light — tight rather than hazy: lines stay drawn. */
   const gx = glow.getContext('2d');
   gx.globalCompositeOperation = 'source-over';
   gx.filter = 'none';
@@ -328,12 +543,15 @@ export const drawFrame = (ctx, stateAt, frame, still = false, pre = null, fast =
   for (const L of layers) gx.drawImage(L, 0, 0, glow.width, glow.height);
 
   ctx.globalCompositeOperation = 'lighter';
-  ctx.filter = 'blur(28px)';
-  ctx.globalAlpha = 0.9;
+  ctx.filter = 'blur(30px)';
+  ctx.globalAlpha = 0.55;
   ctx.drawImage(glow, 0, 0, W, H);
   if (s.flash > 0.02) { ctx.globalAlpha = Math.min(1, s.flash); ctx.drawImage(glow, 0, 0, W, H); }
-  ctx.filter = 'blur(7px)';
-  ctx.globalAlpha = 0.75;
+  ctx.filter = 'blur(6px)';
+  ctx.globalAlpha = 0.6;
+  ctx.drawImage(glow, 0, 0, W, H);
+  ctx.filter = 'blur(2px)';
+  ctx.globalAlpha = 0.35;
   ctx.drawImage(glow, 0, 0, W, H);
 
   /* Depth of field, far to near. */
@@ -350,6 +568,10 @@ export const drawFrame = (ctx, stateAt, frame, still = false, pre = null, fast =
     if (!l.spark) continue;
     const r = l.space === 'world' ? s.project(l.spark) : l.spark;
     if (r) spark(ctx, r[0], r[1], l.sparkK ?? 1, l.hue === 'gold' || l.hue === 'warm' || l.warm ? INK.warm : INK.glow);
+  }
+  for (const n of s.nodes || []) {
+    const r = n.space === 'screen' ? n.p : s.project(n.p);
+    if (r) node(ctx, r[0], r[1], n.k, n.col || INK.goldHot);
   }
   for (const p of s.pins) if (p.isG && p.lift > 0) { const r = s.project(p.p); if (r) spark(ctx, r[0], r[1] - 40, 0.6 * p.lift * p.a, INK.gold); }
   for (const m of s.markers) if (m.chosen && m.check > 0) { const r = s.project(m.p); if (r) spark(ctx, r[0], r[1] - 40 * m.grow, 0.8 * m.check * m.a, INK.gold); }
@@ -387,6 +609,7 @@ export const drawFrame = (ctx, stateAt, frame, still = false, pre = null, fast =
     ctx.fillRect(0, 0, W, H);
   }
   ctx.globalCompositeOperation = 'source-over';
+  if (s.chroma > 0.25) chroma(ctx, s.chroma);
 
   /* Vignette and grain. */
   const vg = ctx.createRadialGradient(W / 2, H / 2, H * 0.28, W / 2, H / 2, H * 0.72);
