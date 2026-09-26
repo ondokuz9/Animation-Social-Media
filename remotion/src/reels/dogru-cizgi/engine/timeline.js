@@ -917,6 +917,16 @@ export const stateAt = (frame) => {
         warm: name === 'living' ? lampOn * 0.55 : sun * 0.5, nearFade: 0.5,
       });
     }
+    // colour, once each room is drawn: only while we are in it
+    {
+      const FL = V.fills;
+      const win = (a0, a1, b0, b1) => seg(f, a0, a1, ease.inOut) * (1 - seg(f, b0, b1, ease.inOut));
+      const put = (list, k) => { if (k > 0.004) for (const fc of list) s.faces.push({ p: fc.p, col: fc.col, a: fc.a * k, a2: 0, grad: fc.grad }); };
+      put(FL.living, win(958, 984, 1024, 1044) * sceneOut);
+      put(FL.kitchen, win(1052, 1076, 1104, 1124) * sceneOut);
+      put(FL.garden, win(1120, 1146, T.sceneOut[0], T.sceneOut[1] - 4) * seg(f, ...T.sunset, ease.inOut));
+      put(FL.grounds, (win(812, 836, 860, 884) + win(1124, 1146, T.sceneOut[0], T.sceneOut[1] - 4)) * seg(HB, 6.0, 6.4, ease.inOut));
+    }
     if (lampOn > 0) s.lamp = { p: ROOM.lamp, a: lampOn * sceneOut * (1 - seg(f, 1040, 1070, ease.inOut)) };
     // the terrace boards: long lines that give the last room its depth
     const dk = seg(f, T.terrace[0] - 6, T.terrace[1] + 6, ease.inOut);

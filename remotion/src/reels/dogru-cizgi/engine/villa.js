@@ -107,6 +107,9 @@ const livingStrokes = () => {
     'M 20 -70 L 20 -88 Q 20 -98 32 -98 L 248 -98 Q 260 -98 260 -88 L 260 -70',
     'M 36 -98 Q 86 -112 138 -100', 'M 142 -100 Q 196 -112 246 -98',
     'M 0 -6 L 280 -6', 'M 14 -6 L 14 0', 'M 266 -6 L 266 0',
+    // two cushions leaning on the back
+    'M 42 -98 C 40 -124 70 -128 90 -124 C 116 -128 136 -122 132 -98',
+    'M 150 -98 C 148 -122 176 -128 196 -124 C 222 -128 240 -122 238 -98',
   ], [-4.6, 0, -0.35], X));
   // arc floor lamp
   s.push(...flat([
@@ -144,7 +147,12 @@ const kitchenStrokes = () => {
     'M 0 0 L 0 -90 M 300 -90 L 300 0 M 0 0 L 300 0',
     'M -12 -90 L 312 -90 L 312 -98 L -12 -98 Z',
     'M 100 -8 L 100 -84', 'M 200 -8 L 200 -84',
+    // a bowl of lemons on the island
+    'M 196 -98 C 202 -80 248 -80 254 -98 Z',
+    'M 206 -99 C 206 -110 222 -110 222 -99', 'M 220 -99 C 220 -113 238 -113 238 -99', 'M 232 -99 C 233 -108 246 -108 246 -99',
   ], [3.25, 0, -2.9], Z));
+  // basil in a pot on the worktop
+  s.push(...flat(['M 0 -95 L 4 -120 L 30 -120 L 34 -95 Z', 'M 17 -120 C 6 -140 -8 -146 -12 -156 C 4 -154 14 -140 17 -120', 'M 17 -120 C 20 -144 34 -154 44 -160 C 42 -146 30 -134 17 -120', 'M 17 -120 C 14 -146 18 -160 22 -168 C 28 -156 24 -138 17 -120'], [6.94, 0, 1.3], Z));
   // three stools in front of it
   const stool = (x) => [`M ${x - 20} -72 L ${x + 20} -72`, `M ${x - 18} -72 Q ${x} -62 ${x + 18} -72`, `M ${x - 14} -70 L ${x - 22} 0`, `M ${x + 14} -70 L ${x + 22} 0`, `M ${x - 18} -26 L ${x + 18} -26`];
   s.push(...flat([...stool(60), ...stool(150), ...stool(240)], [2.75, 0, -2.9], Z));
@@ -221,6 +229,75 @@ const FIGURE = {
 export const FIGURE_H = 1.78;
 export const FIGURE_AT = L(-4.4, 0, 6.3);
 
+/* ── Colour ───────────────────────────────────────────────────────────────
+   A light touch of colour where it tells you what a thing is: fabric, leaves,
+   water, stone, wood, sand, lamplight. Additive, low, from the brand palette. */
+export const TINT = {
+  fabric: [214, 188, 150], firuze: [63, 167, 150], leaf: [104, 168, 112], wood: [196, 142, 96],
+  stone: [226, 232, 242], sand: [226, 194, 132], warm: [255, 176, 96], champagne: [201, 161, 87],
+};
+const W3 = (q) => v3.add(q, O);
+const polyFlat = (d, origin, u) => sampleStrokes(d, 3)[0].map(([x, y]) => W3(v3.add(origin, [u[0] * x * 0.01, -y * 0.01, u[2] * x * 0.01])));
+const polyXZ = (x0, z0, x1, z1, y = 0.004) => [[x0, z0], [x1, z0], [x1, z1], [x0, z1]].map(([x, z]) => W3([x, y, z]));
+const fill = (p, col, a, grad) => ({ p, col, a, grad });
+const palmFills = (h, lean, fs, origin) => {
+  const d = palm(h, lean, fs), out = [];
+  const t0 = sampleStrokes(d[0], 4)[0], t1 = sampleStrokes(d[1], 4)[0];
+  out.push(fill([...t0, ...t1.reverse()].map(([x, y]) => W3(v3.add(origin, [x * 0.01, -y * 0.01, 0]))), TINT.wood, 0.12));
+  d.filter((x) => (x.match(/Q/g) || []).length === 2).forEach((x) => out.push(fill(polyFlat(x, origin, [1, 0, 0]), TINT.leaf, 0.3)));
+  return out;
+};
+const buildFills = () => {
+  const X = [1, 0, 0], Z = [0, 0, 1];
+  const living = [
+    fill(polyFlat('M 0 -6 L 0 -58 Q 0 -70 12 -70 L 20 -70 L 20 -88 Q 20 -98 32 -98 L 248 -98 Q 260 -98 260 -88 L 260 -70 L 268 -70 Q 280 -70 280 -58 L 280 -6 Z', [-4.6, 0, -0.35], X), TINT.fabric, 0.1),
+    fill(polyFlat('M 42 -98 C 40 -124 70 -128 90 -124 C 116 -128 136 -122 132 -98 Z', [-4.6, 0, -0.35], X), TINT.firuze, 0.2),
+    fill(polyFlat('M 150 -98 C 148 -122 176 -128 196 -124 C 222 -128 240 -122 238 -98 Z', [-4.6, 0, -0.35], X), TINT.firuze, 0.2),
+    fill(polyXZ(-5.4, -3.4, -1.2, -0.6, 0.012), TINT.champagne, 0.1),
+    fill(polyFlat('M 8 0 L 0 -48 L 60 -48 L 52 0 Z', [-6.5, 0, -4.4], X), TINT.wood, 0.1),
+    ...['M 30 -48 C 18 -100 -6 -126 -34 -134 C -14 -112 8 -88 30 -48', 'M 30 -48 C 36 -104 56 -136 90 -150 C 74 -118 54 -90 30 -48', 'M 30 -48 C 22 -110 28 -150 38 -176 C 50 -146 48 -100 30 -48'].map((d) => fill(polyFlat(d, [-6.5, 0, -4.4], X), TINT.leaf, 0.2)),
+    fill(polyFlat('M 76 -224 C 78 -250 114 -250 116 -224 Z', [-5.35, 0, -1.25], X), TINT.warm, 0.3),
+    fill(polyFlat('M 14 -52 C 10 -66 14 -76 22 -80 C 30 -76 34 -66 30 -52 Z', [-5.2, 0, -0.3], X), TINT.firuze, 0.22),
+    // through the glass: the sea below the horizon, dusk above it
+    fill([[-6.6, 0.1], [0.4, 0.1], [0.4, EYE], [-6.6, EYE]].map(([x, y]) => W3([x, y, G.z0 - 0.02])), TINT.firuze, 0.1, [W3([-3, EYE, G.z0]), W3([-3, 0.1, G.z0])]),
+    fill([[-6.6, EYE], [0.4, EYE], [0.4, 2.9], [-6.6, 2.9]].map(([x, y]) => W3([x, y, G.z0 - 0.02])), TINT.warm, 0.07, [W3([-3, EYE, G.z0]), W3([-3, 2.9, G.z0])]),
+  ];
+  const kitchen = [
+    fill(polyFlat('M 0 0 L 0 -88 L 620 -88 L 620 0 Z', [6.94, 0, -3.8], Z), TINT.wood, 0.1),
+    fill(polyFlat('M -4 -88 L 624 -88 L 624 -95 L -4 -95 Z', [6.94, 0, -3.8], Z), TINT.stone, 0.18),
+    fill(polyFlat('M 0 -150 L 250 -150 L 250 -232 L 0 -232 Z', [6.94, 0, -3.8], Z), TINT.wood, 0.1),
+    fill(polyFlat('M 370 -150 L 620 -150 L 620 -232 L 370 -232 Z', [6.94, 0, -3.8], Z), TINT.wood, 0.1),
+    fill(polyFlat('M 280 -232 L 340 -232 L 340 -178 L 368 -152 L 252 -152 L 280 -178 Z', [6.94, 0, -3.8], Z), TINT.stone, 0.06),
+    fill(polyFlat('M 0 0 L 0 -90 L 300 -90 L 300 0 Z', [3.25, 0, -2.9], Z), TINT.wood, 0.09),
+    fill(polyFlat('M -12 -90 L 312 -90 L 312 -98 L -12 -98 Z', [3.25, 0, -2.9], Z), TINT.stone, 0.22),
+    fill(polyFlat('M 196 -98 C 202 -80 248 -80 254 -98 Z', [3.25, 0, -2.9], Z), TINT.stone, 0.16),
+    ...['M 206 -99 C 206 -110 222 -110 222 -99 Z', 'M 220 -99 C 220 -113 238 -113 238 -99 Z', 'M 232 -99 C 233 -108 246 -108 246 -99 Z'].map((d) => fill(polyFlat(d, [3.25, 0, -2.9], Z), [240, 214, 96], 0.32)),
+    fill(polyFlat('M 0 -95 L 4 -120 L 30 -120 L 34 -95 Z', [6.94, 0, 1.3], Z), TINT.wood, 0.12),
+    ...['M 17 -120 C 6 -140 -8 -146 -12 -156 C 4 -154 14 -140 17 -120', 'M 17 -120 C 20 -144 34 -154 44 -160 C 42 -146 30 -134 17 -120', 'M 17 -120 C 14 -146 18 -160 22 -168 C 28 -156 24 -138 17 -120'].map((d) => fill(polyFlat(d, [6.94, 0, 1.3], Z), TINT.leaf, 0.24)),
+    // the pendants glow, and each throws a cone of light onto the island
+    ...[60, 150, 240].flatMap((x) => [
+      fill(polyFlat(`M ${x - 22} -210 Q ${x - 22} -234 ${x} -234 Q ${x + 22} -234 ${x + 22} -210 Z`, [3.7, 0, -2.9], Z), TINT.warm, 0.34),
+      fill(polyFlat(`M ${x - 20} -210 L ${x + 20} -210 L ${x + 52} -98 L ${x - 52} -98 Z`, [3.5, 0, -2.9], Z), TINT.warm, 0.1, [W3([3.5, 2.1, -2.9 + x * 0.01]), W3([3.5, 0.98, -2.9 + x * 0.01])]),
+    ]),
+  ];
+  const SEA = -32;
+  const garden = [
+    ...palmFills(360, 70, 0.72, [0.75, 0, -14.2]),
+    ...palmFills(320, -60, 0.66, [6.15, 0, -12.6]),
+    ...[[1.15, -10.45, 0.9], [4.75, -10.45, 0.8]].map(([x, z, w]) => fill(polyFlat(`M 0 0 C 0 -36 ${w * 22} -58 ${w * 46} -48 C ${w * 60} -76 ${w * 100} -70 ${w * 108} -40 C ${w * 132} -48 ${w * 150} -20 ${w * 142} 0 Z`, [x, 0.42, z], X), TINT.leaf, 0.26)),
+    fill(polyXZ(-9, -18.4, 10, -10.4), TINT.leaf, 0.04),
+    // the cove: a band of sand, then water that deepens away from the shore
+    fill([[-420, -236], [420, -236], [420, -252], [-420, -252]].map(([x, z]) => W3([x, SEA, z])), TINT.sand, 0.12),
+    fill([[-3000, -254], [3000, -254], [3000, -2600], [-3000, -2600]].map(([x, z]) => W3([x, SEA, z])), TINT.firuze, 0.08, [W3([0, SEA, -260]), W3([0, SEA, -1400])]),
+  ];
+  // the grounds, seen from above and from the terrace: lawn, deck, the front garden
+  const grounds = [
+    fill(polyXZ(-9, 5.2, -3.5, 8.9), TINT.leaf, 0.12), fill(polyXZ(-1.5, 5.2, 9, 8.9), TINT.leaf, 0.12),
+    fill(polyXZ(-7.5, -10, 8, -5.05, 0.003), TINT.wood, 0.06),
+  ];
+  return { living, kitchen, garden, grounds };
+};
+
 let _v = null;
 export const villa = () => {
   if (_v) return _v;
@@ -236,6 +313,7 @@ export const villa = () => {
       terrace: joinStrokes(gardenStrokes(), 0.06),
     },
     figure: { down: fig('armDown'), open: fig('armOpen') },
+    fills: buildFills(),
   };
   return _v;
 };
