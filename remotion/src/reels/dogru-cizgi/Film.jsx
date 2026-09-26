@@ -188,7 +188,7 @@ const Popover = ({ p }) => {
         <ListingThumb x={22} y={22} w={190} h={ch - 44} sweep={p.sweep} />
       </svg>
       <div style={{ position: 'absolute', left: 240, top: 34, fontFamily: SANS, fontWeight: 600, fontSize: 48, color: INKT(0.98), whiteSpace: 'nowrap' }}>Deniz manzaralı villa</div>
-      <div style={{ position: 'absolute', left: 240, top: 126, display: 'flex', alignItems: 'center', gap: 14, fontFamily: SANS, fontWeight: 600, fontSize: 40, color: OK(1), whiteSpace: 'nowrap' }}>
+      <div style={{ position: 'absolute', left: 240, top: 126, display: 'flex', alignItems: 'center', gap: 14, fontFamily: SANS, fontWeight: 600, fontSize: 44, color: OK(1), whiteSpace: 'nowrap' }}>
         <svg width={44} height={44}><circle cx={22} cy={22} r={20} fill={OK(0.18)} stroke={OK(1)} strokeWidth={2.4} /><path d="M 12 23 L 19 30 L 32 15" fill="none" stroke={OK(1)} strokeWidth={3.6} strokeLinecap="round" strokeLinejoin="round" /></svg>
         Evlek Onaylı Emlakçı
       </div>

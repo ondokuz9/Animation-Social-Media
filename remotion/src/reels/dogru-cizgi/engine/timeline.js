@@ -70,7 +70,7 @@ export const T = {
   sunset: [1112, 1150],
   gripAt: 1198, handLock: [1208, 1220], toHands: [1210, 1232], sceneOut: [1206, 1226], keyDrop: 1230, keyGlint: [1236, 1248],
   toKey: [1249, 1270], handsOut: [1244, 1254], turn: [1270, 1286], click: 1286,
-  keyToLine: [1290, 1310], rise: [1306, 1324], sloganIn: [1314, 1328], doğruGlint: [1340, 1362], urlIn: [1318, 1330], linePulse: [1372, 1424],
+  keyToLine: [1290, 1310], rise: [1302, 1318], sloganIn: [1308, 1320], doğruGlint: [1340, 1362], urlIn: [1310, 1322], linePulse: [1372, 1424],
 };
 
 /* Words rise out of a line, letter by letter. The two chapter lines carry
@@ -207,7 +207,7 @@ export const cameraAt = (f) => {
    a breathing hold. */
 const AGENT = [
   { // at the door, on its right: turns to it, ushers you in, steps aside
-    span: [840, 944], path: [[-1.25, 6.0], [-0.9, 6.35]], walkFrom: 914, walkTo: 932, drawIn: [840, 864], drawOut: [928, 944],
+    span: [840, 944], path: [[-1.25, 6.0], [-0.9, 6.35]], walkFrom: 920, walkTo: 936, drawIn: [840, 864], drawOut: [932, 944],
     face: [[840, 0], [852, -0.25], [880, -0.2], [900, -0.1]], yaw: [[840, 0], [852, 0], [858, -0.8], [872, -0.8], [878, 0]],
     usher: [852, 884], shows: 'door',
   },
