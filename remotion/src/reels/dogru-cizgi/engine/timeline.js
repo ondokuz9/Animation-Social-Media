@@ -208,7 +208,7 @@ const AGENT = [
   },
   { // living room: discovered by the sofa, looking out; turns to us; shows the sea
     // …then turns and leads the way out towards the kitchen: the camera follows him
-    span: [944, 1036], path: [[-2.6, -0.2], [-0.9, -0.05]], walkFrom: 1014, walkTo: 1036, drawIn: [944, 962], drawOut: [1026, 1036],
+    span: [944, 1036], path: [[-2.6, -0.2], [1.9, 0.1]], walkFrom: 1014, walkTo: 1036, drawIn: [944, 962], drawOut: [1026, 1036],
     face: [[944, -0.35], [962, -0.35], [974, 0], [1008, 0], [1018, 1]], yaw: [[944, -0.9], [964, -0.9], [972, 0], [978, 0], [982, -0.7], [1004, -0.7], [1010, 0]],
     present: [980, 1012], shows: 'glass',
     tilt: [[1004, 0], [1008, 0.1], [1014, 0]],
