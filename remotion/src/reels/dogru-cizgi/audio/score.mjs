@@ -342,6 +342,8 @@ cloth(F(1204), F(22), 0.8, 0.35);
 boom(F(1228), 0.45, 60, 40, 1.6);
 piano(F(1228), A2, 0.7, 0, 3);
 bell(F(1236), E5 + 12, 0.35, 0.1, 3, 2.0);
+// the key drops from the clasp on its ring: a small metal jingle that follows its swing
+[[0, 1], [3, 0.7], [15, 0.45], [30, 0.25], [45, 0.12]].forEach(([d, v], i) => [4150, 5870, 7930].forEach((fq, j) => tick(F(1228 + d) + j * 0.004, fq * (1 + 0.013 * i), v * (0.9 - j * 0.2), 0.12, 0.018 + 0.01 * j)));
 /* the key comes forward, turns (ratchet), and clicks — the largest moment */
 whoosh(F(1248), F(22), { f0: 500, f1: 4000, vel: 0.5, shape: 'rise', pan0: 0, pan1: 0 });
 for (let i = 0; i < 4; i++) click(F(1270 + i * 4), 0.35 + i * 0.08, 0.05, 2600 + i * 200);

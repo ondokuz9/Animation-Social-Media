@@ -16,13 +16,33 @@ import {
 } from './math.js';
 import {
   W, H, FOV, MAP_DIST, GIRNE, CITIES, screenToA, horizonScreen, coastWorld,
-  dividerWorld, handsParts, N, brandLineScreen, LINE_Y, ungeo,
+  dividerWorld, handsParts, handsToScreen, N, brandLineScreen, LINE_Y, ungeo,
 } from './shapes.js';
 import { town, MARKERS, HOUSE_O } from './town.js';
 import { villa, G, U, DOOR, EYE, ROOM, local as L } from './villa.js';
 import { strokeVisibility, S, joinStrokes } from './build.js';
 import { cardLocal, cardDetail, CARDS, CARD_PTS, CARD_COUNT, CARD_CENTER, PRICE_AT, keyLocal, KEY_CENTER, pinGlyph } from './graphics.js';
 import { agentDrawing } from './agent.js';
+
+/* The key on its ring, hanging from the clasp: it drops as the grip closes and
+   swings to rest about the ring's top (hands-box coordinates). */
+const RING = { c: [560, 569], r: 26, top: [560, 543] };
+const keyHang = (f, HP) => {
+  const t0 = T.grip[0] + 6;
+  const appear = seg(f, t0 - 4, t0 + 6, ease.inOut);
+  if (appear <= 0) return null;
+  const pv = handsToScreen(RING.top);
+  const th = f < t0 ? 0.2 : 0.2 * Math.exp(-(f - t0) / 15) * Math.cos((2 * Math.PI * (f - t0)) / 30);
+  const dy = -26 * (1 - ease.settle(clamp((f - (t0 - 4)) / 12)));
+  const c = Math.cos(th), sn = Math.sin(th);
+  const rot = (q) => { const x = q[0] - pv[0], y = q[1] - pv[1]; return [pv[0] + x * c - y * sn, pv[1] + x * sn + y * c + dy, 0]; };
+  const ringPts = [];
+  for (let i = 0; i <= 48; i++) { const t = -Math.PI / 2 + (i / 48) * Math.PI * 2; ringPts.push(handsToScreen([RING.c[0] + Math.cos(t) * RING.r * 0.78, RING.c[1] + Math.sin(t) * RING.r])); }
+  return {
+    key: { p: HP.key.p.map(rot), a: HP.key.a.map((v) => v * appear) },
+    ring: { p: ringPts.map(rot), a: ringPts.map(() => appear) },
+  };
+};
 
 export const FRAMES = 1440;
 
@@ -187,10 +207,11 @@ const AGENT = [
     usher: [852, 884], shows: 'door',
   },
   { // living room: discovered by the sofa, looking out; turns to us; shows the sea
-    span: [944, 1034], path: [[-2.6, -0.2]], drawIn: [944, 962], drawOut: [1020, 1034],
-    face: [[944, -0.35], [962, -0.35], [974, 0]], yaw: [[944, -0.9], [964, -0.9], [972, 0], [978, 0], [982, -0.7], [1004, -0.7], [1010, 0]],
-    present: [980, 1014], shows: 'glass',
-    tilt: [[1010, 0], [1014, 0.12], [1020, 0]],
+    // …then turns and leads the way out towards the kitchen: the camera follows him
+    span: [944, 1036], path: [[-2.6, -0.2], [-0.9, -0.05]], walkFrom: 1014, walkTo: 1036, drawIn: [944, 962], drawOut: [1026, 1036],
+    face: [[944, -0.35], [962, -0.35], [974, 0], [1008, 0], [1018, 1]], yaw: [[944, -0.9], [964, -0.9], [972, 0], [978, 0], [982, -0.7], [1004, -0.7], [1010, 0]],
+    present: [980, 1012], shows: 'glass',
+    tilt: [[1004, 0], [1008, 0.1], [1014, 0]],
   },
   { // kitchen: walks to the end of the island, shows it
     span: [1036, 1110], path: [[4.4, 1.1], [3.8, 0.6]], walkFrom: 1036, walkTo: 1068, drawIn: [1036, 1052], drawOut: [1098, 1110],
@@ -848,37 +869,56 @@ export const stateAt = (frame) => {
   const HP = handsParts();
   if (f >= T.handLock[0] && f < T.toKey[1] + 1) {
     const toScreen = (q) => { const r = project(q); return r ? [r[0], r[1], 0] : [W / 2, H / 2, 0]; };
-    // the handshake is first drawn where the agent's hand is, then drifts home
-    let off = [0, 0];
-    if (agHand) { const r = project(agHand); if (r) off = [r[0] - HP.grip[0], r[1] - HP.grip[1]]; }
-    const home = seg(f, T.toHands[1] - 8, T.grip[1] + 16, ease.inOut);
+    /* A push-in, not a morph: the handshake drawing is the agent's own offered
+       arm seen closer. It starts at the size, angle and place of that arm on the
+       terrace and the camera closes in on it, so no line ever scrambles. */
+    const armInfo = (() => {
+      if (!agAll) return null;
+      const sts = agentWorld(agAll, cam);
+      const hs = toScreen(sts.hand);
+      let far = hs, fd = 0;
+      sts.filter((st) => st.part === 'armR').forEach((st) => st.pts.forEach((q) => { const r = toScreen(q); const d = Math.hypot(r[0] - hs[0], r[1] - hs[1]); if (d > fd) { fd = d; far = r; } }));
+      return { hs, len: fd, ang: Math.atan2(hs[1] - far[1], hs[0] - far[0]) };
+    })();
+    const B0 = HP.agent.p[0], big = { len: Math.hypot(HP.grip[0] - B0[0], HP.grip[1] - B0[1]), ang: Math.atan2(HP.grip[1] - B0[1], HP.grip[0] - B0[0]) };
+    const zz = seg(f, ...T.toHands, ease.inOut);
+    const s0 = armInfo ? armInfo.len / big.len : 1;
+    const zs = s0 * Math.pow(1 / s0, zz);                      // a dolly: scale grows geometrically
+    const a0 = armInfo ? armInfo.hs : HP.grip;
+    const an = armInfo ? (armInfo.ang - big.ang) * (1 - zz) : 0;
+    // a true zoom about a fixed point P: the hand lands on the clasp exactly when the scale reaches 1
+    let ax, ay;
+    if (Math.abs(s0 - 1) > 0.05) {
+      const P = [(HP.grip[0] * s0 - a0[0]) / (s0 - 1), (HP.grip[1] * s0 - a0[1]) / (s0 - 1)], g = zs / s0;
+      ax = P[0] + (a0[0] - P[0]) * g; ay = P[1] + (a0[1] - P[1]) * g;
+    } else { ax = lerp(a0[0], HP.grip[0], zz); ay = lerp(a0[1], HP.grip[1], zz); }
     const k = 1 + 0.025 * seg(f, T.grip[1], T.toKey[0], ease.inOut);
-    const place = (q) => [W / 2 + (q[0] + off[0] * (1 - home) - W / 2) * k, 830 + (q[1] + off[1] * (1 - home) - 830) * k, 0];
+    const ca = Math.cos(an), sa = Math.sin(an);
+    const place = (q) => {
+      const dx = (q[0] - HP.grip[0]) * zs, dy = (q[1] - HP.grip[1]) * zs;
+      const X = ax + dx * ca - dy * sa, Y = ay + dx * sa + dy * ca;
+      return [W / 2 + (X - W / 2) * k, 830 + (Y - 830) * k, 0];
+    };
     const handsOut = 1 - seg(f, ...T.handsOut, ease.inOut);
-    const m = seg(f, ...T.toHands, ease.inOut);
-    if (agentStrokes && f < T.toHands[1]) {
-      const pick = (parts) => agentStrokes.filter((st) => parts.includes(st.part));
-      const toW = (sts) => concat(...sts.map((st) => withAlpha(st.pts.map(toScreen))));
-      // the arm and hand → the agent's half; the tablet → the key
-      const arm = resample(toW(pick(['armR', 'handR'])), HP.agent.p.length);
-      const agentSide = morph({ p: arm.p.map((q) => [q[0] - off[0], q[1] - off[1], 0]), a: arm.a }, HP.agent, m, 0.3, ease.glide);
-      s.lines.push({ hue: 'warm', shape: { p: agentSide.p.map(place), a: agentSide.a }, space: 'screen', width: 2.8 });
-      const tab = resample(toW(pick(['tablet'])), HP.key.p.length);
-      const keyM = morph({ p: tab.p.map((q) => [q[0] - off[0], q[1] - off[1], 0]), a: tab.a }, HP.key, m, 0.2, ease.glide);
-      s.lines.push({ hue: 'gold', shape: { p: keyM.p.map(place), a: keyM.a }, space: 'screen', width: 3.0 });
-      // the rest of the figure dissolves, from the hand outward
-      const hs = toScreen(agentStrokes.hand);
-      const body = agentStrokes.filter((st) => !['armR', 'handR', 'tablet'].includes(st.part));
+    const bigIn = seg(f, T.handLock[0] + 2, T.handLock[0] + 12, ease.inOut);
+    if (ag && f < T.toHands[1]) {
+      const sts = agentWorld(ag, cam);
+      const hs = toScreen(sts.hand);
+      const armOut = 1 - bigIn;
       const p = [], a = [];
-      body.forEach((st) => {
+      sts.forEach((st) => {
         if (p.length) { p.push(p[p.length - 1], st.pts[0]); a.push(0, 0); }
-        st.pts.forEach((q) => { const r = toScreen(q); const d = Math.min(1, Math.hypot(r[0] - hs[0], r[1] - hs[1]) / 700); p.push(q); a.push(st.w * (1 - seg(f, T.handLock[0] + d * 8, T.handLock[0] + 6 + d * 10, ease.inOut))); });
+        const isArm = st.part === 'armR' || st.part === 'handR';
+        st.pts.forEach((q) => {
+          const r = toScreen(q); const d = Math.min(1, Math.hypot(r[0] - hs[0], r[1] - hs[1]) / 700);
+          p.push(q);
+          // the offered arm hands over to its close-up; the rest dissolves from the hand outward
+          a.push(st.w * (isArm ? armOut : 1 - seg(f, T.handLock[0] + 4 + d * 8, T.handLock[0] + 10 + d * 10, ease.inOut)));
+        });
       });
       s.lines.push({ id: 'agentBody', hue: 'warm', occlude: true, shape: { p, a }, space: 'world', width: 2.8, depthFree: true });
-    } else {
-      s.lines.push({ hue: 'warm', shape: { p: HP.agent.p.map(place), a: HP.agent.a.map((v) => v * handsOut) }, space: 'screen', width: 2.8 });
-      if (f < T.toKey[0]) s.lines.push({ hue: 'gold', shape: { p: HP.key.p.map(place), a: HP.key.a }, space: 'screen', width: 3.0 });
     }
+    s.lines.push({ hue: 'warm', shape: { p: HP.agent.p.map(place), a: HP.agent.a.map((v) => v * handsOut * bigIn) }, space: 'screen', width: 2.8 * Math.min(1, 0.55 + 0.45 * zz) });
     // the buyer's hand draws in from the right and meets it; then the fingers close
     const bi = seg(f, ...T.buyerIn, ease.inOut);
     if (bi > 0) s.lines.push({ hue: 'warm', shape: { p: HP.buyer.p.map(place), a: HP.buyer.a.map((v, i) => (i / (HP.buyer.p.length - 1) <= bi ? v * handsOut : 0)) }, space: 'screen', width: 2.8, spark: bi < 1 ? place(HP.buyer.p[Math.floor(bi * (HP.buyer.p.length - 1))]) : null });
@@ -886,6 +926,14 @@ export const stateAt = (frame) => {
     if (gi > 0) {
       const sq = 1 + 0.03 * Math.sin(Math.PI * seg(f, T.grip[1] - 4, T.grip[1] + 8));
       s.lines.push({ hue: 'warm', shape: { p: HP.fingers.p.map((q) => { const r = place(q); return [540 + (r[0] - 540) * sq, 830 + (r[1] - 830) * sq, 0]; }), a: HP.fingers.a.map((v, i) => (i / (HP.fingers.p.length - 1) <= gi ? v * handsOut : 0)) }, space: 'screen', width: 2.8 });
+    }
+    // the key drops from the clasp on its ring as the grip closes, and swings to rest
+    if (f < T.toKey[0]) {
+      const kh = keyHang(f, HP);
+      if (kh) {
+        s.lines.push({ hue: 'gold', shape: { p: kh.key.p.map(place), a: kh.key.a }, space: 'screen', width: 3.0 });
+        s.lines.push({ hue: 'gold', shape: { p: kh.ring.p.map(place), a: kh.ring.a }, space: 'screen', width: 2.4 });
+      }
     }
     s.glint = seg(f, ...T.keyGlint, ease.settle) * (1 - seg(f, T.keyGlint[1], T.toKey[0], ease.inOut));
   }
@@ -898,7 +946,10 @@ export const stateAt = (frame) => {
     const sc = 2.3;
     let place = key.p.map(([x, y]) => [KEY_CENTER[0] + x * Math.cos(th) * sc, KEY_CENTER[1] + y * sc, 0]);
     const k = 1.025;
-    const kSrc = { p: HP.key.p.map((q) => [W / 2 + (q[0] - W / 2) * k, 830 + (q[1] - 830) * k, 0]), a: HP.key.a };
+    const kh = keyHang(T.toKey[0] - 1, HP);
+    const kSrc = { p: kh.key.p.map((q) => [W / 2 + (q[0] - W / 2) * k, 830 + (q[1] - 830) * k, 0]), a: HP.key.a };
+    const ringA = 1 - seg(f, T.toKey[0], T.toKey[0] + 8, ease.inOut);
+    if (ringA > 0) s.lines.push({ hue: 'gold', shape: { p: kh.ring.p.map((q) => [W / 2 + (q[0] - W / 2) * k, 830 + (q[1] - 830) * k, 0]), a: kh.ring.a.map((v) => v * ringA) }, space: 'screen', width: 2.4 });
     let shape = morph(kSrc, { p: place, a: key.a }, seg(f, ...T.toKey, ease.inOut), 0.2, ease.glide);
     if (f >= T.keyToLine[0]) {
       // the key lies down: a quarter turn onto the line, the bow fading, then it is the line
