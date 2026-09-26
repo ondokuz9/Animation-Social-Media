@@ -481,7 +481,7 @@ export const drawFrame = (ctx, stateAt, frame, still = false, pre = null, fast =
   let subs = [s];
   if (!still) {
     const a = stateAt(frame - 0.25), b = stateAt(frame + 0.25);
-    const n = Math.max(4, Math.min(32, Math.ceil(screenTravel(a, b) / 1.5) + 1));
+    const n = Math.max(4, Math.min(48, Math.ceil(screenTravel(a, b) / 1.5) + 1));
     subs = Array.from({ length: n }, (_, i) => (i === 0 ? a : i === n - 1 ? b : stateAt(frame - 0.25 + (0.5 * i) / (n - 1))));
   }
 

@@ -69,7 +69,7 @@ export const T = {
   shell: [926, 958], living: [934, 980], lampOn: [976, 996], kitchen: [1034, 1066], terrace: [1110, 1136],
   sunset: [1112, 1150],
   gripAt: 1198, handLock: [1208, 1220], toHands: [1210, 1232], sceneOut: [1206, 1226], keyDrop: 1230, keyGlint: [1236, 1248],
-  toKey: [1252, 1268], handsOut: [1244, 1254], turn: [1270, 1286], click: 1286,
+  toKey: [1249, 1270], handsOut: [1244, 1254], turn: [1270, 1286], click: 1286,
   keyToLine: [1290, 1310], rise: [1306, 1324], sloganIn: [1314, 1328], doğruGlint: [1340, 1362], urlIn: [1318, 1330], linePulse: [1372, 1424],
 };
 
@@ -593,7 +593,7 @@ export const stateAt = (frame) => {
   if (agAll && f > T.gripAt - 20) {
     const hw = agentWorld(agAll, cam).hand, r = project(hw);
     if (r) gripScreen = [r[0], r[1]];
-    const k = pulse(f, T.gripAt, 3, 34) * (1 - seg(f, T.handLock[0], T.toHands[1], ease.inOut));
+    const k = pulse(f, T.gripAt, 6, 34) * (1 - seg(f, T.handLock[0], T.toHands[1], ease.inOut));
     if (k > 0.01) s.nodes.push({ p: hw, k: 1.3 * k, col: [255, 226, 170] });
   }
 
@@ -1066,7 +1066,7 @@ export const stateAt = (frame) => {
     const kSrc = { p: kh.key.p.map((q) => [W / 2 + (q[0] - W / 2) * k, 830 + (q[1] - 830) * k, 0]), a: HP.key.a };
     const ringA = 1 - seg(f, T.toKey[0], T.toKey[0] + 8, ease.inOut);
     if (ringA > 0) s.lines.push({ hue: 'gold', shape: { p: kh.ring.p.map((q) => [W / 2 + (q[0] - W / 2) * k, 830 + (q[1] - 830) * k, 0]), a: kh.ring.a.map((v) => v * ringA) }, space: 'screen', width: 2.4 });
-    let shape = morph(kSrc, { p: place, a: key.a }, seg(f, ...T.toKey, ease.inOut), 0.2, ease.glide);
+    let shape = morph(kSrc, { p: place, a: key.a }, seg(f, ...T.toKey, ease.inOut), 0.04, (x) => x);
     if (f >= T.keyToLine[0]) {
       // the key lies down: a quarter turn onto the line, the bow fading, then it is the line
       const t = seg(f, ...T.keyToLine, ease.inOut);
@@ -1082,8 +1082,8 @@ export const stateAt = (frame) => {
     // the click builds over four frames rather than arriving in one
     s.click = c >= -4 && c < 36 ? { t: Math.max(0, c) / 36, on: ease.inOut(clamp((c + 4) / 5)), x: KEY_CENTER[0], y: KEY_CENTER[1] - 78 * sc } : null;
   }
-  s.flash = Math.max(pulse(f, T.collapse[1], 5, 22) * 0.55, pulse(f, T.click, 3, 22) * 0.3, pulse(f, T.gripAt, 3, 26) * 0.42);
-  s.warm = Math.max(s.warm, pulse(f, T.click, 6, 50) * 0.6, pulse(f, T.gripAt, 5, 70) * 0.85);
+  s.flash = Math.max(pulse(f, T.collapse[1], 5, 22) * 0.55, pulse(f, T.click, 3, 22) * 0.3, pulse(f, T.gripAt, 6, 26) * 0.36);
+  s.warm = Math.max(s.warm, pulse(f, T.click, 6, 50) * 0.6, pulse(f, T.gripAt, 7, 70) * 0.85);
   if (lockup) { s.lines = s.lines.filter((l) => l.brand); s.flash = 0; s.warm = 0; s.sky = 0; }
 
   /* Typography: words rise out of lines — flush left, on a gold rule */
@@ -1118,8 +1118,8 @@ export const stateAt = (frame) => {
     if (f > T.click - 10) burst(KEY_CENTER[0], KEY_CENTER[1] - 78 * 2.3, T.click, { r1: 900, n: 120, a: 0.62, rise: 5, decay: 24, seed: 9 });
     // the handshake: the biggest light in the film, from the clasp, in front of the sun
     if (gripScreen && f > T.gripAt - 8 && f < T.gripAt + 80) {
-      burst(gripScreen[0], gripScreen[1], T.gripAt, { r1: 1500, n: 170, a: 0.95, rise: 4, decay: 46, seed: 21 });
-      burst(gripScreen[0], gripScreen[1], T.gripAt + 3, { r1: 700, n: 60, a: 0.5, rise: 3, decay: 22, seed: 23 });
+      burst(gripScreen[0], gripScreen[1], T.gripAt, { r1: 1500, n: 170, a: 0.95, rise: 7, decay: 46, seed: 21 });
+      burst(gripScreen[0], gripScreen[1], T.gripAt + 3, { r1: 700, n: 60, a: 0.5, rise: 6, decay: 22, seed: 23 });
     }
   }
   /* The hardest moves split the light a little, like a lens under stress. */
@@ -1128,7 +1128,7 @@ export const stateAt = (frame) => {
     2.8 * Math.sin(Math.PI * seg(f, 700, 760, ease.inOut)),
     3.5 * pulse(f, T.collapse[1], 5, 12),
     2.5 * pulse(f, T.click, 4, 10),
-    3.2 * pulse(f, T.gripAt, 3, 12),
+    3.2 * pulse(f, T.gripAt, 5, 12),
   );
 
   /* Ground: a compass behind the first act and the last card. It spins off
