@@ -26,9 +26,9 @@ import { agentDrawing } from './agent.js';
 
 /* The key on its ring, hanging from the clasp: it drops as the grip closes and
    swings to rest about the ring's top (hands-box coordinates). */
-const RING = { c: [560, 569], r: 26, top: [560, 543] };
+const RING = { c: [560, 587], r: 34, top: [560, 553] };
 const keyHang = (f, HP) => {
-  const t0 = T.grip[0] + 6;
+  const t0 = T.keyDrop;
   const appear = seg(f, t0 - 4, t0 + 6, ease.inOut);
   if (appear <= 0) return null;
   const pv = handsToScreen(RING.top);
@@ -46,6 +46,11 @@ const keyHang = (f, HP) => {
 
 export const FRAMES = 1440;
 
+/* The garden: the handshake happens on the horizon, in front of the sun. */
+const MEET_X = 3.42, MEET_Z = -9.35, HAND_Y = 1.155;
+const SUN_X = MEET_X;
+
+
 /* ── Beats ───────────────────────────────────────────────────────────────── */
 export const T = {
   hold: 6, sink: [6, 22], sloganOut: [6, 18], stretch: [6, 26], pluck: [24, 58],
@@ -53,7 +58,7 @@ export const T = {
   wordRide: [224, 252], wordSink: [252, 264],
   tilt: [258, 318], toCoast: [262, 324], graticule: [278, 314], divider: [318, 334],
   pins: 318, pinGap: 3, girneLift: [338, 356],
-  dive: [356, 424], coastToTown: [382, 428], islandOut: [352, 376],
+  dive: [356, 424], coastToTown: [382, 428], islandOut: [368, 398],
   townRoads: [404, 456], townBlocks: [410, 462],
   pill: [436, 568], typing: [446, 510],
   markers: 506, markerGap: 2, sweep: [526, 556], check: [556, 572], popover: [572, 692],
@@ -63,8 +68,8 @@ export const T = {
   tour: [884, 1440],
   shell: [926, 958], living: [934, 980], lampOn: [976, 996], kitchen: [1034, 1066], terrace: [1110, 1136],
   sunset: [1112, 1150],
-  handLock: [1188, 1200], toHands: [1192, 1222], buyerIn: [1202, 1224], grip: [1222, 1234], sceneOut: [1188, 1214], keyGlint: [1232, 1244],
-  toKey: [1250, 1268], handsOut: [1242, 1254], turn: [1270, 1286], click: 1286,
+  gripAt: 1198, handLock: [1208, 1220], toHands: [1210, 1232], sceneOut: [1206, 1226], keyDrop: 1230, keyGlint: [1236, 1248],
+  toKey: [1252, 1268], handsOut: [1244, 1254], turn: [1270, 1286], click: 1286,
   keyToLine: [1290, 1310], rise: [1306, 1324], sloganIn: [1314, 1328], doğruGlint: [1340, 1362], urlIn: [1318, 1330], linePulse: [1372, 1424],
 };
 
@@ -153,9 +158,9 @@ const tour = () => {
     [1016, L(-3.05, 1.8, 4.5), L(-2.25, 0.95, -4)],
     [1048, L(-0.6, 1.75, 1.2), L(5.6, 1.0, -0.2)],
     [1100, L(-0.5, 1.75, 1.15), L(5.6, 1.0, -0.25)],
-    [1124, L(2.9, 1.3, -3.4), L(5, 1.3, -30)],
-    [1140, L(3.1, 1.25, -5.3), L(8, 1.25, -60)],
-    [1440, L(3.1, 1.25, -5.3), L(8, 1.25, -60)],
+    [1124, L(3.2, 1.3, -3.4), L(3.8, 1.25, -30)],
+    [1142, L(MEET_X, HAND_Y, -5.15), L(MEET_X, HAND_Y, -60)],
+    [1440, L(MEET_X, HAND_Y, -5.15), L(MEET_X, HAND_Y, -60)],
   ];
   // look directions, not target points: targets at very different distances
   // make a spline of points swing behind the camera
@@ -219,12 +224,18 @@ const AGENT = [
     present: [1076, 1102], shows: 'island',
     tilt: [[1098, 0], [1102, 0.12], [1108, 0]],
   },
-  { // terrace: walks along the rail, turns to the sea and the sun, then to us, and offers a hand
-    span: [1110, 1262], path: [[2.1, -9.5], [2.9, -9.6]], walkFrom: 1110, walkTo: 1142, drawIn: [1110, 1126],
-    face: [[1142, 1], [1150, 0.88], [1162, 0.88], [1178, 0.8]], yaw: [[1110, 0], [1146, 0.6], [1158, 0.6], [1166, -0.2], [1250, -0.2]],
-    tilt: [[1166, 0], [1174, 0.1], [1182, 0.06]],
-    present: [1140, 1166], offer: [1170, 1250], shows: 'sun',
+  { // the garden: walks out ahead, shows the sea and the sun, then turns to the buyer and offers a hand
+    span: [1110, 1236], path: [[2.1, -9.5], [MEET_X - 0.52, MEET_Z]], walkFrom: 1110, walkTo: 1142, drawIn: [1110, 1126],
+    face: [[1142, 1], [1150, 0.62], [1166, 0.62], [1178, 1]], yaw: [[1110, 0], [1144, 0], [1150, -0.4], [1166, -0.4], [1174, 0]],
+    tilt: [[1178, 0], [1186, 0.08], [1194, 0.03]],
+    present: [1144, 1168], offer: [1182, 1236], shows: 'sun',
   },
+];
+/* The buyer: walks in from the kitchen side, stops facing the agent, takes the hand. */
+const BUYER = [
+  { buyer: true, span: [1146, 1236], path: [[MEET_X + 1.8, MEET_Z + 0.25], [MEET_X + 0.52, MEET_Z]], walkFrom: 1150, walkTo: 1180, drawIn: [1146, 1147],
+    face: [[1146, -1]], yaw: [[1146, 0], [1176, 0], [1182, 0.25], [1190, 0]], tilt: [[1182, 0], [1190, -0.06], [1196, 0]],
+    offer: [1183, 1236] },
 ];
 const track = (keys, f, def = 0) => {
   if (!keys) return def;
@@ -254,8 +265,8 @@ const pathAt = (path, t) => {
   }
   return [path[path.length - 1][0], path[path.length - 1][1], tot];
 };
-export const agentAt = (f, cam) => {
-  const k = AGENT.find((a) => f >= a.span[0] && f < a.span[1]);
+const figureAt = (LIST) => (f, cam) => {
+  const k = LIST.find((a) => f >= a.span[0] && f < a.span[1]);
   if (!k) return null;
   const moving = k.path.length > 1;
   const start = k.walkFrom ?? k.span[0], end = k.walkTo ?? k.span[1];
@@ -288,11 +299,14 @@ export const agentAt = (f, cam) => {
       facing, phase: Math.PI * steps * wt, walk: walkEnv,
       present: gest(f, k.present), usher: gest(f, k.usher), offer,
       yaw: track(k.yaw, f, 0), tilt: track(k.tilt, f, 0) + (k.offer ? 0.03 * Math.sin(Math.PI * seg(f, k.offer[0] + 14, k.offer[0] + 24)) : 0),
-      breath: Math.sin(f * 0.026), weight: 1,
+      breath: Math.sin(f * 0.026 + (k.buyer ? 1.7 : 0)), weight: 1, buyer: !!k.buyer,
     },
     shows: k.shows, showK: showW ? gest(f, showW) : 0, showT: showW ? seg(f, showW[0] + 2, showW[0] + 20, (x) => x) : 0,
   };
 };
+
+export const agentAt = figureAt(AGENT);
+const buyerAt = figureAt(BUYER);
 
 const agentWorld = (ag, cam) => {
   const rh = v3.norm([cam.r[0], 0, cam.r[2]]);
@@ -319,12 +333,12 @@ const pluckOffset = (f, u) => {
    hero cards, which only breathe. Returns a local → screen mapper. */
 const cardXform = (i, f) => {
   const c = CARDS[i];
-  const sw = c.hero ? 0 : 0.5 * seg(f, 30, 214, (x) => x * (0.6 + 0.4 * x));
+  const sw = c.hero ? 0 : 0.85 * seg(f, 30, 214, (x) => x * (0.6 + 0.4 * x));
   const cx = CARD_CENTER[0] + (c.x - CARD_CENTER[0]) * Math.cos(sw) - (c.y - CARD_CENTER[1]) * Math.sin(sw);
   const cy = CARD_CENTER[1] + (c.x - CARD_CENTER[0]) * Math.sin(sw) + (c.y - CARD_CENTER[1]) * Math.cos(sw);
   const k = c.hero ? 0.35 : 1;
-  const drift = [noise1(f / 60 + c.seed, 1) * 12 * k, noise1(f / 70 + c.seed, 2) * 14 * k];
-  const rot = c.rot + sw + noise1(f / 90 + c.seed, 3) * 0.05 * k;
+  const drift = [noise1(f / 44 + c.seed, 1) * 22 * k, noise1(f / 52 + c.seed, 2) * 26 * k];
+  const rot = c.rot + sw + noise1(f / 60 + c.seed, 3) * 0.09 * k;
   const cr = Math.cos(rot), sr = Math.sin(rot);
   return ([x, y]) => [cx + drift[0] + (x * cr - y * sr) * c.s, cy + drift[1] + (x * sr + y * cr) * c.s, 0];
 };
@@ -337,7 +351,7 @@ const FEATURES = {
   // the two middle panes of the glass wall — the ones in frame, with the sea behind
   glass: () => [L(-4.85, 0.1, G.z0 + 0.02), L(-4.85, 2.9, G.z0 + 0.02), L(-1.35, 2.9, G.z0 + 0.02), L(-1.35, 0.1, G.z0 + 0.02), L(-4.85, 0.1, G.z0 + 0.02)],
   island: () => [L(3.25, 0.98, -3.02), L(3.25, 0.98, 0.22), L(3.25, 0.9, 0.22)],
-  sun: () => Array.from({ length: 17 }, (_, i) => { const t = Math.PI * (i / 16); return L(244 + Math.cos(t) * 230, EYE + Math.sin(t) * 225, -2600); }),
+  sun: () => Array.from({ length: 17 }, (_, i) => { const t = Math.PI * (i / 16); return L(SUN_X + Math.cos(t) * 230, EYE + Math.sin(t) * 225, -2600); }),
 };
 const collapseLine = () => { const p = hline(90, W - 90, HERO_Y, N); return { p, a: p.map(() => 1) }; };
 
@@ -349,6 +363,35 @@ const PARCEL_PTS = (() => {
   out.push(PARCEL[0]);
   return out;
 })();
+
+/* The site plan around the plot, the way a landscape architect draws it:
+   palms as stars, trees as scalloped rounds, contours, the street, the shore.
+   Each point carries its distance from the house, so it can be revealed outward. */
+let _site = null;
+const site = () => {
+  if (_site) return _site;
+  const st = [];
+  const ring = (cx, cz, r, n, fn) => { const p = []; for (let i = 0; i <= n; i++) { const u = (i / n) * Math.PI * 2; const k = fn ? fn(u) : 1; p.push([cx + Math.cos(u) * r * k, cz + Math.sin(u) * r * k]); } return p; };
+  // palms: nine curved fronds from a crown
+  for (const [x, z, r] of [[-8.6, 7.8, 1.7], [8.9, 8.4, 1.5], [-8.8, -8.6, 1.8], [8.4, -9.4, 1.6], [2.6, -11.0, 1.4], [-3.4, -10.8, 1.5]]) {
+    for (let k = 0; k < 9; k++) { const u = (k / 9) * Math.PI * 2 + x; st.push([[x, z], [x + Math.cos(u + 0.25) * r * 0.55, z + Math.sin(u + 0.25) * r * 0.55], [x + Math.cos(u) * r, z + Math.sin(u) * r]]); }
+    st.push(ring(x, z, 0.18, 8));
+  }
+  // trees outside the plot: scalloped crowns
+  for (const [x, z, r] of [[-13.4, 3.2, 1.6], [13.6, -3.8, 1.8], [-13.2, -6.4, 1.3], [13.2, 6.4, 1.4], [-5, 14.5, 1.3], [6.5, 15, 1.5]]) {
+    st.push(ring(x, z, r, 48, (u) => 1 + 0.09 * Math.cos(u * 7)));
+    st.push(ring(x, z, 0.15, 6));
+  }
+  // contours up the hill to the south, and the street
+  for (const [z0, amp] of [[17.5, 1.2], [21, 1.6], [25, 2.0], [30, 2.4]]) st.push(Array.from({ length: 41 }, (_, i) => { const x = -34 + i * 1.7; return [x, z0 + amp * Math.sin(x / 7 + z0)]; }));
+  st.push([[-34, 12.6], [34, 13.4]], [[-34, 15.4], [34, 16.2]]);
+  // the shore to the north, with two lines of surf
+  for (const [z0, am] of [[-23, 1], [-25.2, 0.8], [-27.4, 0.6]]) st.push(Array.from({ length: 41 }, (_, i) => { const x = -34 + i * 1.7; return [x, z0 + am * Math.sin(x / 5 + z0) - 2 * Math.exp(-(((x - 2) / 9) ** 2))]; }));
+  const p = [], a = [], d = [];
+  st.forEach((pts) => pts.forEach(([x, z], i) => { const q = L(x, 0.02, z); p.push(q); a.push(i === 0 ? 0 : 1); d.push(Math.hypot(x, z)); }));
+  _site = { p, a, d };
+  return _site;
+};
 
 /* The stretch of island coast around Girne — it becomes the town's coast. */
 let _local = null;
@@ -435,6 +478,13 @@ const nearDoor = (ex) => {
   return _near;
 };
 let _exW = null;
+const _minY = new Map();
+const strokeMinY = (g) => {
+  if (_minY.has(g)) return _minY.get(g);
+  const m = g.strokes.map((st) => Math.min(...st.pts.map((q) => q[1] - HOUSE_O[1])));
+  _minY.set(g, m);
+  return m;
+};
 const exteriorWeights = (ex) => {
   if (_exW) return _exW;
   _exW = ex.sid.map((sid) => (sid < 0 ? 1 : TAG_W[ex.strokes[sid].tag] ?? 0.72));
@@ -485,31 +535,31 @@ export const stateAt = (frame) => {
   const TW = town();
 
   let agentStrokes = null;
-  /* the agent (drawn here; its hand-off comes later) */
-  // the agent is still computed after the hand-off: the handshake drifts home
-  // from where the agent's hand was, so that position must stay continuous
-  const agAll = f >= 840 && f < T.grip[1] + 18 ? agentAt(f, cam) : null;
+  /* The agent (and, in the garden, the buyer). Both are still computed during
+     the push-in: the close-up starts from where their hands are. */
+  const agAll = f >= 840 && f < T.toHands[1] + 2 ? agentAt(f, cam) : null;
+  const byAll = f >= 1140 && f < T.toHands[1] + 2 ? buyerAt(f, cam) : null;
   const ag = f < T.toHands[1] ? agAll : null;
-  const agHand = agAll ? agentWorld(agAll, cam).hand : null;
+  const figureLine = (fig, sts, id) => {
+    const p = [], a = [], wv = [], parts = [];
+    sts.forEach((st) => {
+      if (p.length) { p.push(p[p.length - 1], st.pts[0]); a.push(0, 0); wv.push(1, 1); }
+      const i0 = p.length;
+      st.pts.forEach((q) => {
+        // a figure rises out of the floor line and goes back into it
+        const h = (q[1] - fig.pos[1]) / 1.8;
+        const vis = h <= Math.min(fig.drawIn, 1 - fig.drawOut) * 1.08 - 0.04 ? 1 : 0;
+        p.push(q); a.push(Math.min(1, st.w) * vis);
+        wv.push(st.w < 0.7 ? 0.55 : 1);
+      });
+      parts.push({ i0, i1: p.length - 1, fill: st.fill });
+    });
+    return { id, hue: 'warm', occlude: true, parts, tone: 0.045, shape: { p, a }, wv, space: 'world', width: 2.8, nearFade: 0.6, depthFree: true };
+  };
   if (ag) {
     agentStrokes = agentWorld(ag, cam);
     if (f < T.handLock[0]) {
-      const n = agentStrokes.length;
-      const p = [], a = [], wv = [], parts = [];
-      agentStrokes.forEach((st, j) => {
-        if (p.length) { p.push(p[p.length - 1], st.pts[0]); a.push(0, 0); wv.push(1, 1); }
-        const i0 = p.length;
-        st.pts.forEach((q) => {
-          // the agent rises out of the floor line and goes back into it
-          const h = (q[1] - ag.pos[1]) / 1.8;
-          const vis = h <= Math.min(ag.drawIn, 1 - ag.drawOut) * 1.08 - 0.04 ? 1 : 0;
-          p.push(q); a.push(Math.min(1, st.w) * vis);
-          wv.push(st.w < 0.7 ? 0.55 : 1);
-        });
-        parts.push({ i0, i1: p.length - 1, fill: st.fill });
-      });
-      const spark = null;
-      s.lines.push({ id: 'agent', hue: 'warm', occlude: true, parts, tone: 0.045, shape: { p, a }, wv, space: 'world', width: 2.8, nearFade: 0.6, depthFree: true, spark });
+      s.lines.push(figureLine(ag, agentStrokes, 'agent'));
       // the Evlek pin on the lapel catches the light when the agent is named
       const pinK = Math.min(ag.drawIn, 1 - ag.drawOut) * (0.35 + 0.65 * pulse(f, 872, 8, 40));
       if (pinK > 0.02) s.nodes.push({ p: agentStrokes.badge, k: 0.45 * pinK, col: [120, 230, 170] });
@@ -523,23 +573,29 @@ export const stateAt = (frame) => {
         for (let i = 0; i <= 12; i++) { const t = i / 12, q = t < 0.4 ? v3.lerp(ck[0], ck[1], t / 0.4) : v3.lerp(ck[1], ck[2], (t - 0.4) / 0.6); pts.push(q); al.push(t <= draw ? Math.min(ag.drawIn, 1 - ag.drawOut) : 0); }
         s.lines.push({ hue: 'ok', shape: { p: pts, a: al }, space: 'world', width: 2.2, depthFree: true, nearFade: 0.6 });
       }
-      // what the agent shows, the line draws: out of the hand, onto the thing
-      // itself — the window with the sea, the island, the sun, the door
+      // what the agent shows answers the gesture: the thing itself lights up,
+      // its own outline traced in gold — no line is thrown across the room
       if (ag.shows && ag.showK > 0.02) {
         const feat = FEATURES[ag.shows]();
-        const path = [agentStrokes.hand, ...feat];
-        const pts = [], seglen = [];
-        for (let i = 1; i < path.length; i++) {
-          const n = i === 1 ? 24 : 14;
-          for (let k = i === 1 ? 0 : 1; k <= n; k++) { const q = v3.lerp(path[i - 1], path[i], k / n); if (i === 1) q[1] += Math.sin((Math.PI * k) / n) * 0.18; pts.push(q); }
-        }
+        const pts = [];
+        for (let i = 1; i < feat.length; i++) for (let k = i === 1 ? 0 : 1; k <= 14; k++) pts.push(v3.lerp(feat[i - 1], feat[i], k / 14));
         const head = ease.inOut(ag.showT) * (pts.length - 1);
-        const al = pts.map((_, i) => (i <= head ? Math.min(1, ag.showK * 1.25) * (i < 25 ? 0.7 : 1) : 0));
-        s.lines.push({ hue: 'gold', shape: { p: pts, a: al }, space: 'world', width: 2.8, depthFree: true, nearFade: 0.4, spark: ag.showT < 1 ? pts[Math.floor(head)] : null, sparkK: 0.5 });
+        const glow = Math.min(1, ag.showK * 1.25);
+        const al = pts.map((_, i) => (i <= head ? glow * (0.55 + 0.45 * Math.exp(-(head - i) / 18)) : 0));
+        s.lines.push({ hue: 'gold', shape: { p: pts, a: al }, space: 'world', width: 2.6, depthFree: true, nearFade: 0.4, spark: ag.showT < 1 ? pts[Math.floor(head)] : null, sparkK: 0.45 });
+        // and a little light gathers in the open hand
+        s.nodes.push({ p: agentStrokes.hand, k: 0.3 * glow, col: [255, 214, 150] });
       }
     }
   }
-
+  if (byAll && f < T.handLock[0]) s.lines.push(figureLine(byAll, agentWorld(byAll, cam), 'buyer'));
+  let gripScreen = null;
+  if (agAll && f > T.gripAt - 20) {
+    const hw = agentWorld(agAll, cam).hand, r = project(hw);
+    if (r) gripScreen = [r[0], r[1]];
+    const k = pulse(f, T.gripAt, 3, 34) * (1 - seg(f, T.handLock[0], T.toHands[1], ease.inOut));
+    if (k > 0.01) s.nodes.push({ p: hw, k: 1.3 * k, col: [255, 226, 170] });
+  }
 
   /* The lockup: the name above its gold line. Frame 0 is the last frame. */
   const lockup = f < T.hold || f >= FRAMES - 1;
@@ -616,6 +672,8 @@ export const stateAt = (frame) => {
       gold: seg(f, T.collapse[1] - 4, T.collapse[1] + 4, ease.inOut),
       y: lerp(HERO_Y, 960, seg(f, ...T.wordRide, ease.glide)),
       sink: seg(f, ...T.wordSink, ease.launch),
+      // the name hangs under the line the word stands on
+      brand: seg(f, T.collapse[1] + 8, T.collapse[1] + 28, ease.settle),
     };
     if (f < T.collapse[0]) {
       const draw = seg(f, PUN_IN - 4, PUN_IN + 12, ease.settle);
@@ -706,20 +764,52 @@ export const stateAt = (frame) => {
     }
   }
 
-  /* E — the pin unfolds into its plot; the house is drawn on it */
-  if (f >= T.pinUnfold[0] && f < T.sceneOut[1]) {
+  /* E — the pin comes down and plants itself; the plot opens out of that point,
+     the site is drawn around it, and the house rises out of its footprint. */
+  const LAND = T.pinUnfold[0] + 12;
+  if (f >= T.pinUnfold[0] - 10 && f < T.sceneOut[1]) {
     const fade = 1 - seg(f, 826, 856, ease.inOut);
-    const m = seg(f, ...T.pinUnfold, ease.inOut);
-    if (m < 1) {
+    // the pin drops onto its tip
+    if (f >= T.pinUnfold[0] && f < LAND + 3) {
       const c = project(HOUSE_O);
-      const sc = 1.15 * 1.5 * 2.6;
-      const pin = resample(withAlpha(pinGlyph().body.map(([x, y]) => [c[0] + x * sc, c[1] + y * sc, 0])), PARCEL_PTS.length);
-      const proj = { p: PARCEL_PTS.map((q) => { const r = project(q); return r ? [r[0], r[1], 0] : [c[0], c[1], 0]; }), a: PARCEL_PTS.map(() => 1) };
-      s.lines.push({ hue: 'gold', shape: morph(pin, proj, m, 0.25, ease.inOut), space: 'screen', width: 3.0 });
-    } else {
-      s.lines.push({ hue: 'gold', shape: { p: PARCEL_PTS, a: PARCEL_PTS.map(() => fade * lerp(1, 0.6, seg(f, T.exterior[0], T.exterior[0] + 40))) }, space: 'world', width: 2.8, nearFade: 1 });
+      if (c) {
+        const dr = seg(f, T.pinUnfold[0] - 6, LAND, (x) => x * x * x);
+        const sc = 1.15 * 1.5 * 2.6 * (1 - 0.9 * dr);
+        const al = 1 - seg(f, LAND - 1, LAND + 3, ease.inOut);
+        const G = pinGlyph();
+        const put = (pts, alpha) => { const p = pts.map(([x, y]) => [c[0] + x * sc, c[1] + y * sc, 0]); return { p, a: p.map(() => alpha) }; };
+        s.lines.push({ hue: 'gold', shape: put(G.body, al), space: 'screen', width: 3.0 });
+        s.lines.push({ hue: 'ok', shape: put(G.check, al), space: 'screen', width: 3.0 });
+      }
     }
-    const na = seg(f, T.parcelNote[0], T.parcelNote[0] + 14, ease.settle) * (1 - seg(f, T.parcelNote[1] - 12, T.parcelNote[1], ease.inOut));
+    // impact: rings go out over the ground
+    for (let k = 0; k < 3; k++) {
+      const t = (f - LAND - k * 5) / 28;
+      if (t <= 0 || t >= 1) continue;
+      const r = 1.2 + 17 * (1 - (1 - t) ** 3), p = [];
+      for (let i = 0; i <= 72; i++) { const u = (i / 72) * Math.PI * 2; p.push(L(Math.cos(u) * r, 0.02, Math.sin(u) * r)); }
+      s.lines.push({ hue: 'gold', shape: { p, a: p.map(() => 0.75 * (1 - t) ** 1.6 * (k === 0 ? 1 : 0.55)) }, space: 'world', width: 2.0, core: false });
+    }
+    // the plot opens from the point, overshoots a little, settles; its corners are pegged
+    const g = seg(f, LAND, LAND + 18, ease.settle);
+    if (g > 0) {
+      const pp = PARCEL_PTS.map((q) => v3.add(HOUSE_O, v3.mul(v3.sub(q, HOUSE_O), g)));
+      s.lines.push({ hue: 'gold', shape: { p: pp, a: pp.map(() => fade * lerp(1, 0.6, seg(f, T.exterior[0], T.exterior[0] + 40))) }, space: 'world', width: 2.8, nearFade: 1 });
+      s.faces.push({ p: PARCEL.map((q) => v3.add(HOUSE_O, v3.mul(v3.sub(q, HOUSE_O), g))), col: INK_WARM, a: 0.045 * g * fade });
+      PARCEL.forEach((q, k) => {
+        const pk = seg(f, LAND + 14 + k * 2, LAND + 20 + k * 2, ease.settle) * fade;
+        if (pk <= 0) return;
+        const d = 0.7 * pk, pts = [v3.add(q, [-d, 0.02, 0]), v3.add(q, [d, 0.02, 0]), q, v3.add(q, [0, 0.02, -d]), v3.add(q, [0, 0.02, d]), q, v3.add(q, [0, 1.1 * pk, 0])];
+        s.lines.push({ hue: 'gold', shape: { p: pts, a: [pk, pk, 0, pk, pk, 0, pk] }, space: 'world', width: 2.0 });
+      });
+    }
+    // the site, drawn outward from where the pin landed: trees, palms, contours, the street, the shore
+    const reach = (f - LAND) * 1.4;
+    if (reach > 0) {
+      const sa = 0.34 * fade;
+      const SITE = site();
+      s.lines.push({ shape: { p: SITE.p, a: SITE.a.map((v, i) => v * sa * clamp((reach - SITE.d[i]) / 3)) }, space: 'world', width: 1.4, core: false, nearFade: 1 });
+    }
     // surveyor's dimension lines along two sides of the plot
     const dd = seg(f, T.parcelNote[0] - 6, T.parcelNote[0] + 20, ease.inOut);
     const dOut = 1 - seg(f, T.parcelNote[1] - 6, T.parcelNote[1] + 14, ease.inOut);
@@ -733,7 +823,6 @@ export const stateAt = (frame) => {
         for (let i = 0; i <= n; i++) { p.push(v3.lerp(A, B, i / n)); a.push((k === 0 ? (i / n <= dd ? 1 : 0) : dd > 0.6 ? 1 : 0) * dOut * 0.8); }
       }));
       s.lines.push({ shape: { p, a }, space: 'world', width: 1.5, core: false });
-      if (na > 0) { const r = project(dims[0].mid); if (r && false) s.note = { x: r[0], y: r[1], a: na, text: 'ARSA' }; }
     }
   }
 
@@ -741,7 +830,10 @@ export const stateAt = (frame) => {
     const rel = v3.sub(cam.pos, HOUSE_O);
     const inside = rel[2] < G.z1 && rel[2] > G.z0 && rel[1] < G.h && Math.abs(rel[0]) < G.x1;
     const vis = strokeVisibility(V.exterior.strokes, cam.pos, 0.08).map((v) => (inside ? 0.3 : v));
-    const he = seg(f, ...T.exterior, (x) => ease.inOut(x) * 0.3 + x * 0.7);
+    const he = seg(f, T.exterior[0], T.exterior[1] - 30, (x) => ease.inOut(x) * 0.3 + x * 0.7);
+    // the house rises out of its footprint behind a glowing section plane
+    const HB = 6.4 * seg(f, T.exterior[0] + 8, T.exterior[0] + 54, ease.inOut);
+    const building = HB > 0 && HB < 6.39;
     const sceneOut = 1 - seg(f, ...T.sceneOut, ease.inOut);
     const ex = V.exterior;
     // construction first, the way a drawing is set out: long guides along the
@@ -763,12 +855,26 @@ export const stateAt = (frame) => {
     // at the door the drawing pulls focus: the façade recedes, the doorway stays
     const recede = seg(f, 846, 874, ease.inOut) * (1 - seg(f, 912, 940, ease.inOut));
     const nd = nearDoor(ex);
+    const minY = strokeMinY(ex);
+    const oy = HOUSE_O[1];
     s.lines.push({
-      shape: { p: ex.p, a: ex.a.map((v, i) => (ex.u[i] <= he && ex.sid[i] >= 0 ? heat(v, ex.u[i], he) * vis[ex.sid[i]] * sceneOut * (nd[ex.sid[i]] ? 1 : 1 - 0.68 * recede) : 0)) },
+      shape: {
+        p: building ? ex.p.map((q) => (q[1] - oy > HB ? [q[0], oy + HB, q[2]] : q)) : ex.p,
+        a: ex.a.map((v, i) => (ex.u[i] <= he && ex.sid[i] >= 0 && (!building || minY[ex.sid[i]] <= HB + 0.01) ? heat(v, ex.u[i], he) * vis[ex.sid[i]] * sceneOut * (nd[ex.sid[i]] ? 1 : 1 - 0.68 * recede) : 0)),
+      },
       wv: exteriorWeights(ex), space: 'world', width: 2.4, spark: he > 0 && he < 1 ? ex.p[firstAtOrAfter(ex.u, he)] : null, nearFade: 1.2,
     });
+    // the section plane: the footprint at the height the house has reached, in gold
+    if (building) {
+      const fp = HB <= G.h ? [[G.x0, G.z0], [G.x1, G.z0], [G.x1, G.z1], [G.x0, G.z1], [G.x0, G.z0]] : [[U.x0, U.z0], [U.x1, U.z0], [U.x1, U.z1], [U.x0, U.z1], [U.x0, U.z0]];
+      const pts = [];
+      fp.forEach(([x, z], i) => { if (i) for (let k = 1; k <= 12; k++) pts.push(L(lerp(fp[i - 1][0], x, k / 12), HB, lerp(fp[i - 1][1], z, k / 12))); else pts.push(L(x, HB, z)); });
+      const sk = Math.sin(Math.PI * clamp(HB / 6.4)) * 0.6 + 0.4;
+      s.lines.push({ hue: 'gold', shape: { p: pts, a: pts.map(() => sk) }, space: 'world', width: 2.6, nearFade: 1.2 });
+      s.faces.push({ p: fp.slice(0, 4).map(([x, z]) => L(x, HB, z)), col: INK_WARM, a: 0.08 * sk });
+    }
     // volume: planes take light by orientation once their edges are down
-    const vol = seg(he, 0.18, 0.55, ease.inOut) * sceneOut * (inside ? 0 : 1) * (1 - seg(f, 840, 866, ease.inOut));
+    const vol = seg(HB, 5.6, 6.4, ease.inOut) * seg(he, 0.18, 0.55, ease.inOut) * sceneOut * (inside ? 0 : 1) * (1 - seg(f, 840, 866, ease.inOut));
     if (vol > 0) {
       for (const fc of MASS_FACES) if (faceVisible(fc, cam)) s.faces.push({ p: fc.q, col: [150, 190, 255], a: vol * (0.012 + 0.05 * Math.max(0, v3.dot(fc.n, LIGHT))) });
       const hr = hatches().roofs;
@@ -776,9 +882,9 @@ export const stateAt = (frame) => {
       s.lines.push({ shape: { p: hr.p, a: hr.a.map((v, i) => (hr.u[i] <= hp ? v * 0.3 * vol : 0)) }, space: 'world', width: 1.1, nearFade: 1.2, core: false });
     }
     // someone is home: the windows are lit
-    const lit = seg(he, 0.72, 1, ease.inOut) * sceneOut * (inside ? 0 : 1) * (1 - recede) * ease.inOut(clamp((rel[2] - G.z1 - 0.8) / 3.0));
+    const lit = seg(HB, 6.0, 6.4, ease.inOut) * seg(he, 0.72, 1, ease.inOut) * sceneOut * (inside ? 0 : 1) * (1 - recede) * ease.inOut(clamp((rel[2] - G.z1 - 0.8) / 3.0));
     if (lit > 0) for (const w of WINDOWS) if (faceVisible(w, cam)) s.faces.push({ p: w.q, col: INK_WARM, a: 0.36 * lit, a2: 0.1 * lit, grad: [v3.lerp(w.q[0], w.q[1], 0.5), v3.lerp(w.q[2], w.q[3], 0.5)] });
-    const pool = seg(he, 0.85, 1, ease.inOut) * sceneOut;
+    const pool = seg(HB, 6.0, 6.4, ease.inOut) * seg(he, 0.85, 1, ease.inOut) * sceneOut;
     if (pool > 0 && faceVisible(POOL, cam)) s.faces.push({ p: POOL.q, col: [80, 200, 182], a: 0.1 * pool, a2: 0.02 * pool, grad: [v3.lerp(POOL.q[0], POOL.q[1], 0.5), v3.lerp(POOL.q[2], POOL.q[3], 0.5)] });
     // the door opens and the light comes out to meet you
     // …and eases away as we walk through it, so it never fills the lens
@@ -839,19 +945,19 @@ export const stateAt = (frame) => {
       };
       // the horizon is part of the one gold line
       both({ p: hzW, a: hzW.map(() => seaA) }, { space: 'world', width: 3.0, depthFree: true, hue: 'gold' });
-      for (const [zf, al] of [[-420, 0.35], [-190, 0.28], [-90, 0.22]]) {
+      for (const [zf, al] of [[-1500, 0.3], [-800, 0.28], [-480, 0.24], [-340, 0.2]]) {
         const pts = [];
         for (let x = -1400; x <= 1400; x += 40) pts.push(L(x, -32, zf));
         both({ p: pts, a: pts.map(() => al * seaA) }, { space: 'world', width: 1.3, depthFree: true, warm: sun });
       }
       if (sun * seaA > 0) {
         // a big low sun and its path on the water, in the direction the agent points
-        const SX = 244, R = 230;
+        const SX = SUN_X, R = 230;
         const disc = [];
         for (let i = 0; i <= 64; i++) { const t = Math.PI * (i / 64); disc.push(L(SX + Math.cos(t) * R, EYE + Math.sin(t) * R * 0.98, far)); }
         both({ p: disc, a: disc.map(() => sun * seaA) }, { space: 'world', width: 2.6, depthFree: true, hue: 'gold' });
         for (let k = 0; k < 9; k++) {
-          const zf = -120 - k * 230, w = 18 + k * 22, y = -30;
+          const zf = -330 - k * 260, w = 18 + k * 22, y = -31.9;
           const cx = 3.3 + (SX - 3.3) * ((-zf) / 2600);
           const pts = [L(cx - w, y, zf), L(cx + w, y, zf)];
           both({ p: pts, a: pts.map(() => sun * seaA * (0.25 + 0.5 * hash(k + Math.floor(f / 7)))) }, { space: 'world', width: 1.6, depthFree: true, hue: 'gold' });
@@ -861,17 +967,28 @@ export const stateAt = (frame) => {
     const tag = (name, p, a0, a1) => { const a = seg(f, a0, a0 + 16, ease.settle) * (1 - seg(f, a1 - 14, a1, ease.inOut)); if (a > 0) s.tags.push({ name, p, a }); };
 
   }
-  s.sun = L(244, EYE + 60, -2600);
+  /* Gulls over the cove: three, slow, wings beating out of step. */
+  if (f > 1116 && f < T.sceneOut[1]) {
+    const ga = seg(f, 1116, 1140, ease.inOut) * (1 - seg(f, T.sceneOut[0], T.sceneOut[1] - 6, ease.inOut)) * seg(f, ...T.sunset, ease.inOut);
+    for (const [x0, y0, sp, sz, ph] of [[180, 520, 0.9, 1, 0], [700, 430, -0.6, 0.8, 2.1], [860, 600, -0.8, 0.65, 4.2]]) {
+      const x = x0 + sp * (f - 1116), y = y0 + 6 * Math.sin((f - 1116) / 23 + ph);
+      const fl = Math.sin((f - 1116) / 4.2 + ph), w = 22 * sz;
+      const p = [];
+      for (let i = 0; i <= 12; i++) { const t = i / 12 * 2 - 1, u = Math.abs(t); p.push([x + t * w, y - fl * 9 * sz * u + Math.sin(u * Math.PI) * 5 * sz * (1 - 0.6 * fl) - (u < 0.2 ? 0 : 0), 0]); }
+      s.lines.push({ shape: { p, a: p.map(() => 0.55 * ga) }, space: 'screen', width: 1.6, core: false });
+    }
+  }
+  s.sun = L(SUN_X, EYE + 60, -2600);
   s.sky = seg(f, ...T.sunset, ease.inOut) * (1 - seg(f, T.toKey[0], T.keyToLine[1], ease.inOut));
 
-  /* F — the agent's offered hand stays where it is and becomes their half of
-     the handshake; the tablet becomes the key; a second hand takes it. */
+  /* F — the two hands met on the horizon; the camera pushes in on them until
+     they are the close-up handshake, and the key drops from the clasp. */
   const HP = handsParts();
   if (f >= T.handLock[0] && f < T.toKey[1] + 1) {
     const toScreen = (q) => { const r = project(q); return r ? [r[0], r[1], 0] : [W / 2, H / 2, 0]; };
     /* A push-in, not a morph: the handshake drawing is the agent's own offered
-       arm seen closer. It starts at the size, angle and place of that arm on the
-       terrace and the camera closes in on it, so no line ever scrambles. */
+       arm seen closer. It starts at the size, angle and place of that arm in the
+       garden and the camera closes in on it, so no line ever scrambles. */
     const armInfo = (() => {
       if (!agAll) return null;
       const sts = agentWorld(agAll, cam);
@@ -892,7 +1009,7 @@ export const stateAt = (frame) => {
       const P = [(HP.grip[0] * s0 - a0[0]) / (s0 - 1), (HP.grip[1] * s0 - a0[1]) / (s0 - 1)], g = zs / s0;
       ax = P[0] + (a0[0] - P[0]) * g; ay = P[1] + (a0[1] - P[1]) * g;
     } else { ax = lerp(a0[0], HP.grip[0], zz); ay = lerp(a0[1], HP.grip[1], zz); }
-    const k = 1 + 0.025 * seg(f, T.grip[1], T.toKey[0], ease.inOut);
+    const k = 1 + 0.025 * seg(f, T.toHands[1], T.toKey[0], ease.inOut);
     const ca = Math.cos(an), sa = Math.sin(an);
     const place = (q) => {
       const dx = (q[0] - HP.grip[0]) * zs, dy = (q[1] - HP.grip[1]) * zs;
@@ -901,10 +1018,11 @@ export const stateAt = (frame) => {
     };
     const handsOut = 1 - seg(f, ...T.handsOut, ease.inOut);
     const bigIn = seg(f, T.handLock[0] + 2, T.handLock[0] + 12, ease.inOut);
-    if (ag && f < T.toHands[1]) {
-      const sts = agentWorld(ag, cam);
+    // both figures dissolve from the clasp outward; their offered arms hand over to the close-up
+    const armOut = 1 - bigIn;
+    const dissolve = (fig, id) => {
+      const sts = agentWorld(fig, cam);
       const hs = toScreen(sts.hand);
-      const armOut = 1 - bigIn;
       const p = [], a = [];
       sts.forEach((st) => {
         if (p.length) { p.push(p[p.length - 1], st.pts[0]); a.push(0, 0); }
@@ -912,21 +1030,19 @@ export const stateAt = (frame) => {
         st.pts.forEach((q) => {
           const r = toScreen(q); const d = Math.min(1, Math.hypot(r[0] - hs[0], r[1] - hs[1]) / 700);
           p.push(q);
-          // the offered arm hands over to its close-up; the rest dissolves from the hand outward
-          a.push(st.w * (isArm ? armOut : 1 - seg(f, T.handLock[0] + 4 + d * 8, T.handLock[0] + 10 + d * 10, ease.inOut)));
+          a.push(st.w * (isArm ? armOut : 1 - seg(f, T.handLock[0] + 2 + d * 8, T.handLock[0] + 8 + d * 10, ease.inOut)));
         });
       });
-      s.lines.push({ id: 'agentBody', hue: 'warm', occlude: true, shape: { p, a }, space: 'world', width: 2.8, depthFree: true });
-    }
-    s.lines.push({ hue: 'warm', shape: { p: HP.agent.p.map(place), a: HP.agent.a.map((v) => v * handsOut * bigIn) }, space: 'screen', width: 2.8 * Math.min(1, 0.55 + 0.45 * zz) });
-    // the buyer's hand draws in from the right and meets it; then the fingers close
-    const bi = seg(f, ...T.buyerIn, ease.inOut);
-    if (bi > 0) s.lines.push({ hue: 'warm', shape: { p: HP.buyer.p.map(place), a: HP.buyer.a.map((v, i) => (i / (HP.buyer.p.length - 1) <= bi ? v * handsOut : 0)) }, space: 'screen', width: 2.8, spark: bi < 1 ? place(HP.buyer.p[Math.floor(bi * (HP.buyer.p.length - 1))]) : null });
-    const gi = seg(f, ...T.grip, ease.inOut);
-    if (gi > 0) {
-      const sq = 1 + 0.03 * Math.sin(Math.PI * seg(f, T.grip[1] - 4, T.grip[1] + 8));
-      s.lines.push({ hue: 'warm', shape: { p: HP.fingers.p.map((q) => { const r = place(q); return [540 + (r[0] - 540) * sq, 830 + (r[1] - 830) * sq, 0]; }), a: HP.fingers.a.map((v, i) => (i / (HP.fingers.p.length - 1) <= gi ? v * handsOut : 0)) }, space: 'screen', width: 2.8 });
-    }
+      s.lines.push({ id, hue: 'warm', occlude: true, shape: { p, a }, space: 'world', width: 2.8, depthFree: true });
+    };
+    if (f < T.toHands[1]) { if (agAll) dissolve(agAll, 'agentBody'); if (byAll) dissolve(byAll, 'buyerBody'); }
+    const wid = 2.8 * Math.min(1, 0.55 + 0.45 * zz);
+    const hv = handsOut * bigIn;
+    s.lines.push({ hue: 'warm', shape: { p: HP.agent.p.map(place), a: HP.agent.a.map((v) => v * hv) }, space: 'screen', width: wid });
+    s.lines.push({ hue: 'warm', shape: { p: HP.buyer.p.map(place), a: HP.buyer.a.map((v) => v * hv) }, space: 'screen', width: wid });
+    // the grip tightens once as the close-up lands
+    const sq = 1 + 0.03 * Math.sin(Math.PI * seg(f, T.toHands[1] - 4, T.toHands[1] + 8));
+    s.lines.push({ hue: 'warm', shape: { p: HP.fingers.p.map((q) => { const r = place(q); return [540 + (r[0] - 540) * sq, 830 + (r[1] - 830) * sq, 0]; }), a: HP.fingers.a.map((v) => v * hv) }, space: 'screen', width: wid });
     // the key drops from the clasp on its ring as the grip closes, and swings to rest
     if (f < T.toKey[0]) {
       const kh = keyHang(f, HP);
@@ -966,8 +1082,8 @@ export const stateAt = (frame) => {
     // the click builds over four frames rather than arriving in one
     s.click = c >= -4 && c < 36 ? { t: Math.max(0, c) / 36, on: ease.inOut(clamp((c + 4) / 5)), x: KEY_CENTER[0], y: KEY_CENTER[1] - 78 * sc } : null;
   }
-  s.flash = Math.max(pulse(f, T.collapse[1], 5, 22) * 0.55, pulse(f, T.click, 3, 22) * 0.3);
-  s.warm = Math.max(s.warm, pulse(f, T.click, 6, 50) * 0.6);
+  s.flash = Math.max(pulse(f, T.collapse[1], 5, 22) * 0.55, pulse(f, T.click, 3, 22) * 0.3, pulse(f, T.gripAt, 3, 26) * 0.42);
+  s.warm = Math.max(s.warm, pulse(f, T.click, 6, 50) * 0.6, pulse(f, T.gripAt, 5, 70) * 0.85);
   if (lockup) { s.lines = s.lines.filter((l) => l.brand); s.flash = 0; s.warm = 0; s.sky = 0; }
 
   /* Typography: words rise out of lines — flush left, on a gold rule */
@@ -1000,6 +1116,11 @@ export const stateAt = (frame) => {
     const hp = project(HOUSE_O);
     if (hp && f > T.check[0] - 10 && f < T.check[1] + 60) burst(hp[0], hp[1] - 60, T.check[0] + 10, { r1: 380, n: 64, a: 0.75, rise: 8, decay: 40, seed: 5 });
     if (f > T.click - 10) burst(KEY_CENTER[0], KEY_CENTER[1] - 78 * 2.3, T.click, { r1: 900, n: 120, a: 0.62, rise: 5, decay: 24, seed: 9 });
+    // the handshake: the biggest light in the film, from the clasp, in front of the sun
+    if (gripScreen && f > T.gripAt - 8 && f < T.gripAt + 80) {
+      burst(gripScreen[0], gripScreen[1], T.gripAt, { r1: 1500, n: 170, a: 0.95, rise: 4, decay: 46, seed: 21 });
+      burst(gripScreen[0], gripScreen[1], T.gripAt + 3, { r1: 700, n: 60, a: 0.5, rise: 3, decay: 22, seed: 23 });
+    }
   }
   /* The hardest moves split the light a little, like a lens under stress. */
   s.chroma = lockup ? 0 : Math.max(
@@ -1007,6 +1128,7 @@ export const stateAt = (frame) => {
     2.8 * Math.sin(Math.PI * seg(f, 700, 760, ease.inOut)),
     3.5 * pulse(f, T.collapse[1], 5, 12),
     2.5 * pulse(f, T.click, 4, 10),
+    3.2 * pulse(f, T.gripAt, 3, 12),
   );
 
   /* Ground: a compass behind the first act and the last card. It spins off

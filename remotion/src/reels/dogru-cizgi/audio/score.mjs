@@ -16,10 +16,14 @@ import { SR, mulberry, mtof, clamp, smooth, db, makeBus, write, env, ramp, Biqua
 const FPS = 60, DUR = 24, TAIL = 7;
 const N = (DUR + TAIL) * SR;
 const F = (n) => n / FPS;
+/* The grid: 117 bpm, so that the snap (214) and the handshake (1198) both fall
+   on a downbeat, 32 beats apart. Beat k sits at frame 214 + 30.75·k. */
+const BEAT = F(30.75);
+const beatT = (k) => F(214) + k * BEAT;
 const rnd = mulberry(20260925);
 const TAU = Math.PI * 2;
 
-const music = makeBus(N), sfx = makeBus(N), send = makeBus(N), long = makeBus(N), sub = makeBus(N);
+const music = makeBus(N), sfx = makeBus(N), send = makeBus(N), long = makeBus(N), sub = makeBus(N), drums = makeBus(N);
 /* sidechain: the music dips under the big moments */
 const duck = new Float32Array(N).fill(1);
 const duckAt = (t, depth, att = 0.01, rel = 0.6) => {
@@ -242,7 +246,8 @@ for (let f = 52; f < 104; f += 2 + (f - 52) / 18) tick(F(f), 3400 + rnd() * 600,
 pad(F(30), F(212), [D2, D3, 51, A3], { vel: 0.8, cut0: 300, cut1: 1400, att: 1.4, rel: 0.05, bright: 10 });
 {
   const pat = [D3, 51, A3, D4, 51, A3, 58, A3];
-  for (let s = 0, t = F(40); t < F(206); s++, t += 0.125) {
+  const s16 = BEAT / 4, k0 = Math.ceil((F(40) - F(214)) / s16);
+  for (let s = 0, t = F(214) + k0 * s16; t < F(206); s++, t += s16) {
     const build = smooth((t - F(40)) / (F(206) - F(40)));
     mute(t, pat[s % 8] + (s % 16 >= 8 ? 12 : 0), 0.45 + 0.7 * build, s % 2 ? 0.45 : -0.45);
   }
@@ -279,7 +284,7 @@ pad(F(512), F(560), [G3 - 12, D3, Fs3, B3], { vel: 0.85, cut0: 900, cut1: 2200, 
 pad(F(560), F(610), [A2, E3, A3, Cs5 - 12], { vel: 0.85, cut0: 1100, cut1: 2400, att: 0.3, rel: 0.6 });
 pad(F(610), F(700), [D3, A3, D4, Fs4], { vel: 0.95, cut0: 1200, cut1: 2800, att: 0.3, rel: 1.2 });
 {
-  const arp = (t0, t1, notes) => { for (let t = t0, k = 0; t < t1; t += 0.2, k++) piano(t, notes[k % notes.length], 0.32 + 0.1 * (k % 4 === 0), k % 2 ? 0.35 : -0.35, 1.2, music, 0.3); };
+  const arp = (t0, t1, notes) => { const e8 = BEAT / 2; for (let t = F(214) + Math.ceil((t0 - F(214)) / e8) * e8, k = 0; t < t1; t += e8, k++) piano(t, notes[k % notes.length], 0.32 + 0.1 * (k % 4 === 0), k % 2 ? 0.35 : -0.35, 1.2, music, 0.3); };
   arp(F(446), F(512), [B3, D4, Fs4, D4]);
   arp(F(512), F(560), [B3, D4, G4, D4]);
   arp(F(560), F(606), [A3, Cs5 - 12, E4, A4]);
@@ -330,20 +335,24 @@ room(F(1036), F(74), 600, 0.8);
 shimmer(F(1078), F(18), A4, Fs5, 0.9, 0.3);
 whoosh(F(1098), F(28), { f0: 600, f1: 2200, vel: 0.45, shape: 'arc', pan0: -0.5, pan1: 0.5 });
 /* the terrace: the sea, the sun, strings open */
-sea(F(1104), F(1200) - F(1104));
-pad(F(1110), F(1188), [G3 - 12, D3, G3, B3, D4], { vel: 1.1, cut0: 1300, cut1: 3600, att: 0.6, rel: 0.5, bright: 14 });
-pad(F(1150), F(1188), [D5, Fs5], { vel: 0.5, cut0: 3000, cut1: 5000, att: 0.8, rel: 0.4, detune: 0.05 });
+sea(F(1104), F(1226) - F(1104), 1.3);
+pad(F(1110), F(1197), [G3 - 12, D3, G3, B3, D4], { vel: 1.1, cut0: 1300, cut1: 3600, att: 0.6, rel: 0.5, bright: 14 });
+pad(F(1150), F(1197), [D5, Fs5], { vel: 0.5, cut0: 3000, cut1: 5000, att: 0.8, rel: 0.4, detune: 0.05 });
 shimmer(F(1142), F(18), D5, A5, 1, 0.4);
 
 /* 8 — the handshake */
-pad(F(1188), F(1286), [A2, E3, A3, Cs5 - 12, E4], { vel: 1, cut0: 1200, cut1: 3200, att: 0.4, rel: 0.2 });
-cloth(F(1198), F(26), 0.9, -0.3);
-cloth(F(1204), F(22), 0.8, 0.35);
-boom(F(1228), 0.45, 60, 40, 1.6);
-piano(F(1228), A2, 0.7, 0, 3);
-bell(F(1236), E5 + 12, 0.35, 0.1, 3, 2.0);
+pad(F(1198), F(1286), [A2, E3, A3, Cs5 - 12, E4], { vel: 1, cut0: 1600, cut1: 3200, att: 0.05, rel: 0.2, bright: 16 });
+cloth(F(1186), F(14), 0.8, -0.3);
+cloth(F(1190), F(12), 0.7, 0.35);
+/* the grip, on the horizon, in front of the sun: the film's biggest hit */
+suck(F(1198), 0.6, 1.2);
+duckAt(F(1196), 0.9, 0.02, 1.0);
+boom(F(1198), 1.25, 76, 30, 3.2);
+[A2, E3, A3, Cs5 - 12, E4, A4, Cs5, E5].forEach((m, k) => bell(F(1198) + k * 0.005, m, 0.75 - k * 0.05, (k - 3.5) * 0.24, 6, 3.5, music, 0.8));
+piano(F(1198), A2, 0.9, 0, 4);
+bell(F(1240), E5 + 12, 0.35, 0.1, 3, 2.0);
 // the key drops from the clasp on its ring: a small metal jingle that follows its swing
-[[0, 1], [3, 0.7], [15, 0.45], [30, 0.25], [45, 0.12]].forEach(([d, v], i) => [4150, 5870, 7930].forEach((fq, j) => tick(F(1228 + d) + j * 0.004, fq * (1 + 0.013 * i), v * (0.9 - j * 0.2), 0.12, 0.018 + 0.01 * j)));
+[[0, 1], [3, 0.7], [15, 0.45], [30, 0.25], [45, 0.12]].forEach(([d, v], i) => [4150, 5870, 7930].forEach((fq, j) => tick(F(1230 + d) + j * 0.004, fq * (1 + 0.013 * i), v * (0.9 - j * 0.2), 0.12, 0.018 + 0.01 * j)));
 /* the key comes forward, turns (ratchet), and clicks — the largest moment */
 whoosh(F(1248), F(22), { f0: 500, f1: 4000, vel: 0.5, shape: 'rise', pan0: 0, pan1: 0 });
 for (let i = 0; i < 4; i++) click(F(1270 + i * 4), 0.35 + i * 0.08, 0.05, 2600 + i * 200);
@@ -368,29 +377,110 @@ const bass = (t0, t1, m, vel = 1) => {
   write(sub, t0, d + 0.4, 0, 0.32 * vel, (t) => (Math.sin(TAU * f * t) + 0.35 * Math.sin(TAU * 2 * f * t) + 0.12 * Math.sin(TAU * 3 * f * t)) * smooth(t / 0.18) * (t > d ? Math.max(0, 1 - (t - d) / 0.4) : 1));
 };
 [[F(30), F(206), 26, 0.3], [F(262), F(436), 38, 0.5], [F(436), F(512), 35, 0.8], [F(512), F(560), 31, 0.8], [F(560), F(606), 33, 0.8], [F(606), F(700), 38, 0.85],
- [F(700), F(840), 35, 0.8], [F(840), F(866), 31, 0.8], [F(866), F(930), 33, 0.85], [F(930), F(1030), 38, 0.85], [F(1030), F(1110), 35, 0.8], [F(1110), F(1188), 31, 0.85],
- [F(1188), F(1280), 33, 0.9], [F(1288), F(1440) + 3, 26, 0.9]].forEach(([a, b, m, v]) => bass(a, b, m, v));
-/* a felt pulse through the tour: the walk of someone showing you round */
-for (let t = F(930); t < F(1186); t += 60 / 84) {
-  write(sub, t, 0.3, 0, 0.35, (x) => Math.sin(TAU * (48 + 30 * Math.exp(-x / 0.03)) * x) * Math.exp(-x / 0.09));
-}
-/* crescendo into the snap: the pulse gains a low beat */
-for (let t = F(120); t < F(206); t += 0.25) {
-  const b = (t - F(120)) / (F(206) - F(120));
-  write(sub, t, 0.3, 0, 0.3 + 0.5 * b, (x) => Math.sin(TAU * (50 + 40 * Math.exp(-x / 0.02)) * x) * Math.exp(-x / 0.08));
-}
+ [F(700), F(840), 35, 0.8], [F(840), F(866), 31, 0.8], [F(866), F(930), 33, 0.85], [F(930), F(1030), 38, 0.85], [F(1030), F(1110), 35, 0.8], [F(1110), F(1197), 31, 0.85],
+ [F(1198), F(1280), 33, 0.9], [F(1288), F(1440) + 3, 26, 0.9]].forEach(([a, b, m, v]) => bass(a, b, m, v));
 /* air: a high shimmer that opens at the snap and at the name */
 const air = (t0, dur, vel = 1) => { const hp = new Biquad().set('hp', 7000, 0.7), hp2 = new Biquad().set('hp', 7000, 0.7); write(long, t0, dur, -0.6, 0.12 * vel, (t) => hp.run(noise()) * Math.exp(-t / (dur * 0.35)) * Math.min(1, t / 0.01)); write(long, t0, dur, 0.6, 0.12 * vel, (t) => hp2.run(noise()) * Math.exp(-t / (dur * 0.35)) * Math.min(1, t / 0.01)); };
 air(F(214), 3, 1); air(F(566), 2, 0.6); air(F(1286), 4, 1.2); air(F(1310), 3, 0.6);
 
+/* ── The groove ────────────────────────────────────────────────────────────
+   Drums and a moving bass on the grid, so the film has a pulse you ride on:
+   a heartbeat and a snare roll into the snap, a light groove over the map,
+   the full one for the search and the house, half time for the tour, a roll
+   into the handshake, a stop for the key, and a soft groove under the name. */
+const pump = (t0, depth) => duckAt(t0, depth, 0.004, 0.16);
+const kick = (t0, vel = 1) => {
+  let ph = 0;
+  write(drums, t0, 0.5, 0, 0.9 * vel, (t) => { const f = 45 + 105 * Math.exp(-t / 0.028); ph += (TAU * f) / SR; return Math.sin(ph) * Math.exp(-t / 0.24) * Math.min(1, t / 0.0008); });
+  const bp = new Biquad().set('bp', 3200, 0.9);
+  write(drums, t0, 0.02, 0, 0.25 * vel, (t) => bp.run(noise()) * Math.exp(-t / 0.003));
+  pump(t0, 0.32 * vel);
+};
+const clap = (t0, vel = 1, pan = 0) => {
+  const bp = new Biquad().set('bp', 1350, 1.0);
+  put(drums, t0, 0.4, pan, 0.5 * vel, (t) => { const b = t < 0.006 || (t > 0.011 && t < 0.017) || (t > 0.022 && t < 0.03) ? 1 : 0; return bp.run(noise()) * (b ? 1 : t > 0.03 ? Math.exp(-(t - 0.03) / 0.1) : 0.2); }, 0.3);
+};
+const hat = (t0, vel = 1, open = false, pan = 0.25) => {
+  const hp = new Biquad().set('hp', 7600, 0.8);
+  write(drums, t0, open ? 0.35 : 0.08, pan, 0.2 * vel, (t) => hp.run(noise()) * Math.exp(-t / (open ? 0.1 : 0.017)));
+};
+const snare = (t0, vel = 1) => {
+  const bp = new Biquad().set('bp', 1900, 0.8);
+  put(drums, t0, 0.25, 0, 0.3 * vel, (t) => bp.run(noise()) * Math.exp(-t / 0.07) + 0.5 * Math.sin(TAU * 190 * t) * Math.exp(-t / 0.045), 0.25);
+};
+const crash = (t0, vel = 1) => {
+  const a = new Biquad().set('hp', 4800, 0.7), b = new Biquad().set('hp', 5200, 0.7);
+  put(drums, t0, 3.2, -0.35, 0.17 * vel, (t) => a.run(noise()) * Math.exp(-t / 0.8) * (1 + 0.25 * Math.sin(t * 41)), 0.5);
+  put(drums, t0, 3.2, 0.35, 0.17 * vel, (t) => b.run(noise()) * Math.exp(-t / 0.85) * (1 + 0.25 * Math.sin(t * 47)), 0.5);
+};
+const bassNote = (t0, m, len, vel = 1) => {
+  const f = mtof(m), lp = new Biquad(); let c = 0;
+  put(music, t0, len + 0.06, 0, 0.19 * vel, (t) => {
+    if ((c++ & 15) === 0) lp.set('lp', 170 + 1500 * Math.exp(-t / 0.06), 1.2);
+    let v = 0; for (let h = 1; h <= 14; h++) v += Math.sin(TAU * f * h * t) / h;
+    return lp.run(v) * Math.min(1, t / 0.003) * (t > len ? Math.max(0, 1 - (t - len) / 0.06) : 1);
+  }, 0);
+};
+/* the root under each frame (the same chords as the pads) */
+const ROOTS = [[214, 38], [262, 38], [436, 35], [512, 31], [560, 33], [606, 38], [700, 35], [840, 31], [866, 33], [930, 38], [1030, 35], [1110, 31], [1198, 33]];
+const rootAt = (fr) => { let m = 38; for (const [f0, r] of ROOTS) if (fr >= f0) m = r; return m; };
+/* what plays in each stretch */
+const SECTIONS = [
+  // [first beat, last beat (exclusive), style]
+  [-7, 0, 'heart'], [0, 2, 'drop'], [2, 7, 'light'], [7, 16, 'full'], [16, 21, 'full'],
+  [21, 29, 'half'], [29, 32, 'build'], [32, 34, 'full'], [36, 40, 'outro'],
+];
+for (const [k0, k1, st] of SECTIONS) {
+  for (let k = k0; k < k1; k++) {
+    const t = beatT(k), fr = 214 + k * 30.75, bb = ((k % 4) + 4) % 4, root = rootAt(fr + 1);
+    const into = (k - k0) / Math.max(1, k1 - k0);
+    if (st === 'heart') {
+      kick(t, 0.35 + 0.45 * into);
+      if (k >= -3) for (let s = 0; s < 4; s++) snare(t + (s * BEAT) / 4, 0.15 + 0.5 * into * (s / 4 + into));
+      if (k === -1) for (let s = 0; s < 8; s++) snare(t + (s * BEAT) / 8, 0.5 + 0.06 * s);
+      continue;
+    }
+    if (st === 'build') {
+      kick(t, 0.8);
+      const div = k === 31 ? 8 : k === 30 ? 4 : 2;
+      for (let s = 0; s < div; s++) snare(t + (s * BEAT) / div, 0.25 + 0.6 * into + 0.05 * s);
+      for (let s = 0; s < 4; s++) hat(t + (s * BEAT) / 4, 0.5 + 0.4 * into, false, s % 2 ? 0.3 : -0.3);
+      bassNote(t, root, BEAT * 0.45, 0.8); bassNote(t + BEAT / 2, root + 12, BEAT * 0.3, 0.6);
+      continue;
+    }
+    const lvl = st === 'outro' ? 0.55 * (1 - into * 0.6) : st === 'light' ? 0.7 : 1;
+    // kick
+    if (st === 'half') { if (bb === 0) kick(t, 0.85); if (bb === 2) kick(t + BEAT / 2, 0.6); }
+    else if (st === 'light' || st === 'outro') { if (bb === 0 || bb === 2) kick(t, 0.8 * lvl); }
+    else { kick(t, bb === 0 ? 1 : 0.85); if (bb === 1) kick(t + (BEAT * 3) / 4, 0.55); }
+    // clap
+    if ((st === 'full' || st === 'drop') && (bb === 1 || bb === 3)) clap(t, 0.9, 0.05);
+    if (st === 'half' && bb === 2) clap(t, 0.85, 0.05);
+    // hats: eighths, with sixteenth ghosts in the full groove and an open hat on the and-of-4
+    if (st !== 'drop' || k > 0) for (let s = 0; s < 4; s++) {
+      const on8 = s % 2 === 0;
+      if (st === 'full') hat(t + (s * BEAT) / 4, on8 ? 0.7 : 0.35, bb === 3 && s === 2, s % 2 ? 0.3 : -0.2);
+      else if (on8 || st === 'half') hat(t + (s * BEAT) / 4, (on8 ? 0.55 : 0.25) * lvl, false, s % 2 ? 0.3 : -0.2);
+    }
+    // bass: eighths, root and octave, the offbeat lighter
+    if (st !== 'outro' || into < 0.7) {
+      bassNote(t, root, BEAT * 0.42, 0.9 * lvl);
+      bassNote(t + BEAT / 2, bb === 3 ? root + 7 : root + 12, BEAT * 0.3, 0.55 * lvl);
+    }
+  }
+}
+crash(F(214), 1.0); crash(F(1198), 1.4); crash(F(436), 0.4); crash(F(690), 0.35);
+/* a kick under the pin landing and under the click */
+kick(F(750), 0.7); kick(F(1286), 1.1);
+
 /* ── Mix ─────────────────────────────────────────────────────────────────── */
 /* a beat of silence before each big hit: everything already sounding is cut */
 const gate = new Float32Array(N).fill(1);
-for (const [hit, len] of [[F(214), 0.13], [F(1286), 0.11]]) {
+for (const [hit, len] of [[F(214), 0.13], [F(1198), 0.1], [F(1286), 0.11]]) {
   const a = Math.round((hit - len - 0.05) * SR), b = Math.round(hit * SR);
   for (let i = a; i < b; i++) gate[i] = Math.min(gate[i], i < a + 0.05 * SR ? 1 - (i - a) / (0.05 * SR) : 0.03);
 }
-for (const bus of [music, sfx, long, send, sub]) for (let i = 0; i < N; i++) { bus.L[i] *= gate[i]; bus.R[i] *= gate[i]; }
+for (const bus of [music, sfx, long, send, sub, drums]) for (let i = 0; i < N; i++) { bus.L[i] *= gate[i]; bus.R[i] *= gate[i]; }
 const hall = reverb(send, { room: 0.9, damp: 0.2, width: 1, pre: 0.025 });
 // the echo only carries the highs: no bass repeats
 const sendHi = makeBus(N);
@@ -398,26 +488,26 @@ const sendHi = makeBus(N);
 const echo = delay(sendHi, 0.375, 0.28, 0.16, 3200);
 const out = makeBus(N);
 /* the level the music rides at: tense and building, open, intimate in the house, full at the end */
-const ride = (t) => db(ramp(t, [[0, -8], [0.6, -7], [3.3, 0], [3.7, 0], [4.8, -6], [7.3, -5], [9.3, -3], [10.3, -2], [11.7, -6], [14.3, -4], [15.6, -6], [19.2, -5], [20.4, -3], [21.35, -2], [21.45, 0], [23.3, -1.5], [24, -8]]));
+const ride = (t) => db(ramp(t, [[0, -8], [0.6, -7], [3.3, 0], [3.7, 0], [4.8, -6], [7.3, -5], [9.3, -3], [10.3, -2], [11.7, -6], [14.3, -4], [15.6, -6], [18.5, -5], [19.9, -1], [20.0, 0], [20.6, -2], [21.35, -2], [21.45, 0], [23.3, -1.5], [24, -8]]));
 const subLp = new Biquad().set('lp', 140, 0.7), hiL = new Biquad().set('hp', 28), hiR = new Biquad().set('hp', 28);
 const shL = new Biquad().set('shelf', 4200, 0.7, 6.5), shR = new Biquad().set('shelf', 4200, 0.7, 6.5);
 for (let i = 0; i < N; i++) {
   const rd = ride((i % (DUR * SR)) / SR), d = duck[i] * rd;
   const s = subLp.run(sub.L[i] + sub.R[i]) * 0.5;
-  let l = music.L[i] * db(-1) * d + sfx.L[i] * db(-3) * rd + long.L[i] * db(-8) * (0.5 + 0.5 * d) + hall.L[i] * db(-4) * rd + echo.L[i] * db(-12) + s * rd;
-  let r = music.R[i] * db(-1) * d + sfx.R[i] * db(-3) * rd + long.R[i] * db(-8) * (0.5 + 0.5 * d) + hall.R[i] * db(-4) * rd + echo.R[i] * db(-12) + s * rd;
+  let l = music.L[i] * db(-1) * d + drums.L[i] * db(-2) * rd + sfx.L[i] * db(-3) * rd + long.L[i] * db(-8) * (0.5 + 0.5 * d) + hall.L[i] * db(-4) * rd + echo.L[i] * db(-12) + s * rd;
+  let r = music.R[i] * db(-1) * d + drums.R[i] * db(-2) * rd + sfx.R[i] * db(-3) * rd + long.R[i] * db(-8) * (0.5 + 0.5 * d) + hall.R[i] * db(-4) * rd + echo.R[i] * db(-12) + s * rd;
   out.L[i] = shL.run(hiL.run(l)); out.R[i] = shR.run(hiR.run(r));
 }
 /* the loop: what rings past the last frame lands on the first */
 const L = DUR * SR;
 for (let i = 0; i < TAIL * SR; i++) { out.L[i] += out.L[L + i]; out.R[i] += out.R[L + i]; }
 /* gentle glue: soft saturation; then make-up gain (argv[3], dB) into a
-   look-ahead limiter with a -1.5 dBFS ceiling, so loudness can be set to the
+   look-ahead limiter with a -2.6 dBFS sample ceiling (about -1 dBTP), so loudness can be set to the
    platform target without clipping */
 const makeup = db(Number(process.argv[3] || 0));
 for (let i = 0; i < L; i++) { out.L[i] = (Math.tanh(out.L[i] * 1.2) / 1.2) * makeup; out.R[i] = (Math.tanh(out.R[i] * 1.2) / 1.2) * makeup; }
 {
-  const ceil = db(-1.5), look = Math.round(0.005 * SR), relK = Math.exp(-1 / (0.12 * SR));
+  const ceil = db(-2.6), look = Math.round(0.005 * SR), relK = Math.exp(-1 / (0.12 * SR));
   const need = new Float32Array(L);
   for (let i = 0; i < L; i++) { const p = Math.max(Math.abs(out.L[i]), Math.abs(out.R[i])); need[i] = p > ceil ? ceil / p : 1; }
   // minimum over the look-ahead window, then smooth release

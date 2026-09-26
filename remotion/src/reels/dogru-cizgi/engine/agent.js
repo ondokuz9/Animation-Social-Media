@@ -58,7 +58,7 @@ const ik2 = (hip, ank, l1 = THIGH, l2 = SHIN) => {
 // front view: [abduction from hanging, forearm direction]; + is outward
 const FRONT = { rest: [0.12, 0.04], present: [1.25, 1.45], usher: [0.8, 1.15], offer: [0.72, 1.05], tablet: [0.2, -1.32] };
 // profile: [shoulder angle, elbow bend]; + is forward
-const PROF = { rest: [0, 0.22], present: [1.35, 0.15], usher: [0.9, 0.2], offer: [1.42, 0.08], tablet: [-0.08, 1.5] };
+const PROF = { rest: [0, 0.22], present: [1.35, 0.15], usher: [0.9, 0.2], offer: [0.72, 0.84], tablet: [-0.08, 1.5] };
 
 const pose = (table, w) => {
   // weighted blend away from rest; negative weights (anticipation) pull in
@@ -141,7 +141,7 @@ const SHOE_F = [[-6, 2], [-8, -6], [-2, -7], [4, -7], [8, -6], [6, 2]];
  *   yaw −1…1 head turn, tilt (rad), breath −1…1, weight −1…1 (which leg bears it).
  * Returns strokes [{ pts, w, part }] with .hand (right hand centre).
  */
-export const agentDrawing = ({ facing = 0, phase = 0, walk = 0, present = 0, usher = 0, offer = 0, yaw = 0, tilt = 0, breath = 0, weight = 1 } = {}) => {
+export const agentDrawing = ({ facing = 0, phase = 0, walk = 0, present = 0, usher = 0, offer = 0, yaw = 0, tilt = 0, breath = 0, weight = 1, buyer = false } = {}) => {
   const k = smooth(clamp(Math.abs(facing)));
   const sg = facing < 0 ? -1 : 1;
   const mir = (p) => [p[0] * sg, p[1]];
@@ -173,8 +173,8 @@ export const agentDrawing = ({ facing = 0, phase = 0, walk = 0, present = 0, ush
   const [fa1, fa2] = pose(FRONT, w);
   const [pa1, pa2] = pose(PROF, w);
   const foreK = lerp(1, 0.88, clamp(offer));           // an offered hand comes at the lens: foreshortened
-  const fArmR = frontArm(-1, fa1, fa2, foreK), fArmL = frontArm(1, ...FRONT.tablet);
-  const pArmR = profArm(pa1 + swingR, pa2 + Math.max(0, -swingR) * 0.5), pArmL = profArm(...PROF.tablet);
+  const fArmR = frontArm(-1, fa1, fa2, foreK), fArmL = frontArm(1, ...(buyer ? FRONT.rest : FRONT.tablet));
+  const pArmR = profArm(pa1 + swingR, pa2 + Math.max(0, -swingR) * 0.5), pArmL = profArm(...(buyer ? [0.1, 0.3] : PROF.tablet));
   const armR = { sh: J(fArmR.sh, pArmR.sh), el: J(fArmR.el, pArmR.el), wr: J(fArmR.wr, pArmR.wr) };
   const armL = { sh: J(fArmL.sh, pArmL.sh), el: J(fArmL.el, pArmL.el), wr: J(fArmL.wr, pArmL.wr) };
 
@@ -196,7 +196,7 @@ export const agentDrawing = ({ facing = 0, phase = 0, walk = 0, present = 0, ush
   push(ellipse(hc0, lerp(9.5, 9, k), 11.5, 30).map(R), 1, 'head');
   const hairW = Math.max(k, 0.5 * Math.abs(yaw));
   const side = look < 0 ? -1 : 1;
-  const hair = HAIR_F.map((p, i) => { const q = L2([p[0] * side, p[1]], [HAIR_P[i][0] * side, HAIR_P[i][1]], hairW); return R([hc0[0] + q[0] * lerp(1, 0.95, k), hc0[1] + q[1]]); });
+  const hair = HAIR_F.map((p, i) => { const hp = buyer ? [HAIR_P[i][0] - (HAIR_P[i][1] < 2 ? 1.6 : 0.4), HAIR_P[i][1] < 2 ? HAIR_P[i][1] - 7 : HAIR_P[i][1] + 1] : HAIR_P[i]; const fp = buyer ? [p[0] * 1.08, p[1] < 3 ? p[1] - 6 : p[1] + 1] : p; const q = L2([fp[0] * side, fp[1]], [hp[0] * side, hp[1]], hairW); return R([hc0[0] + q[0] * lerp(1, 0.95, k), hc0[1] + q[1]]); });
   push([...hair, hair[0]], 0.9, 'hair');
   // always present (stroke counts stay constant across sub-frames), seen only when turned
   push([[hc0[0] + look * 8.6, hc0[1] + 1.5], [hc0[0] + look * 11.2, hc0[1] - 2.2], [hc0[0] + look * 8.8, hc0[1] - 3.8]].map(R), 0.85 * smooth(clamp((Math.abs(look) - 0.3) / 0.45)), 'nose', false);
@@ -242,6 +242,7 @@ export const agentDrawing = ({ facing = 0, phase = 0, walk = 0, present = 0, ush
     push([shoe[1], shoe[2], shoe[3], shoe[4]].map((p) => [p[0], p[1] + 1.2]), wgt * 0.5, 'detail', false);
   };
   const tabletStroke = (hand, wgt) => {
+    if (buyer) return;
     const c = hand.c;
     const fr = [[-11, 3.5], [11, 3.5], [9, -3.5], [-13, -3.5]];
     const pr = [[-3 * sg, 2], [12 * sg, 2.5], [12 * sg, 0.5], [-3 * sg, 0]];
@@ -250,6 +251,12 @@ export const agentDrawing = ({ facing = 0, phase = 0, walk = 0, present = 0, ush
   };
   const body = () => {
     push([...smoothChain([...torso, torso[0]], 3)], 1, 'torso');
+    if (buyer) {
+      // an open-collared shirt: a placket and a small collar, no jacket
+      push([J([0, 142], [8, 142]), J([0, 116], [10, 116]), J([0, 86], [11.5, 86])].map(breathe), 0.5, 'detail', false);
+      push([J([-6, 149], [4, 149]), J([-2.5, 141], [7.5, 141]), J([0, 143], [8, 143]), J([2.5, 141], [7.5, 141]), J([6, 149], [4, 149])].map(breathe), 0.7, 'detail', false);
+      return;
+    }
     push(LAPEL_F.map((p, i) => breathe(J(p, LAPEL_P[i]))), 0.8, 'lapel', false);
     // the jacket's front edge, from the button to the hem, and an open collar
     push([J([0, 110], [9, 110]), J([0.8, 94], [10.5, 94]), J([2.4, 78], [12, 79])].map(breathe), 0.55, 'detail', false);

@@ -155,13 +155,17 @@ const HANDS_SVG = [
   'M 438 518 C 452 530 474 534 492 528 C 502 524 504 514 498 506',
   'M 492 528 C 510 540 534 542 552 534 C 562 528 562 518 556 512  M 552 534 C 570 544 592 544 606 536 C 614 530 612 522 606 518',
 ];
-// the key hangs from the clasp: a house for a bow (with its door), a collar,
-// a two-line shaft and a stepped bit
+// the key hangs from the clasp: a real cylinder key. The bow is a house (with
+// a bevel, a small door and a hole for the ring), then a collar and a blade
+// with a milled groove and cut bitting, ending in a pointed tip.
 export const KEY_SVG = [
-  'M 560 598 L 606 636 L 606 690 L 514 690 L 514 636 Z',
-  'M 548 690 L 548 668 A 12 12 0 0 1 572 668 L 572 690',
-  'M 540 690 L 580 690 L 580 700 L 540 700 Z',
-  'M 552 700 L 552 846 L 568 846 L 568 834 L 598 834 L 598 820 L 584 820 L 584 808 L 600 808 L 600 794 L 568 794 L 568 700',
+  'M 560 588 L 615 633 L 615 686 Q 615 693 608 693 L 512 693 Q 505 693 505 686 L 505 633 Z',
+  'M 560 601 L 603 636 L 603 682 L 517 682 L 517 636 Z',
+  'M 553 620 A 7 7 0 0 0 567 620 A 7 7 0 0 0 553 620',
+  'M 551 682 L 551 664 A 9 9 0 0 1 569 664 L 569 682',
+  'M 538 693 L 582 693 L 582 704 L 538 704 Z',
+  'M 546 704 L 546 834 L 558 848 L 566 848 L 575 834 L 575 822 L 567 812 L 575 802 L 575 790 L 568 780 L 575 770 L 575 758 L 566 748 L 575 738 L 575 726 L 569 718 L 575 710 L 575 704',
+  'M 553 712 L 553 830',
 ];
 export const HANDS_BOX = { x: 40, y: 430, s: 1 };
 export const handsToScreen = ([x, y]) => [HANDS_BOX.x + x * HANDS_BOX.s, HANDS_BOX.y + y * HANDS_BOX.s, 0];
@@ -179,7 +183,7 @@ export const handsParts = () => {
   const buyer = [6, 7, 8, 9, 10, 11].map((i) => toS(HANDS_SVG[i]));
   const fingers = [12, 13, 14, 15].map((i) => toS(HANDS_SVG[i]));
   const key = KEY_SVG.flatMap((d) => sampleStrokes(d, 3).map((st) => withAlpha(st.map(handsToScreen))));
-  _parts = { agent: resample(concat(...agent), N), buyer: resample(concat(...buyer), N), fingers: resample(concat(...fingers), 240), key: resample(concat(...key), 300), grip: handsToScreen([400, 452]) };
+  _parts = { agent: resample(concat(...agent), N), buyer: resample(concat(...buyer), N), fingers: resample(concat(...fingers), 240), key: resample(concat(...key), 520), grip: handsToScreen([400, 452]) };
   return _parts;
 };
 

@@ -84,7 +84,24 @@ const Pun = ({ p }) => {
       {piece('Hangisi', dLeft - wH, p.rise, p.drop, INKT(0.98))}
       {piece('doğru', dLeft, p.rise, p.sink, `rgba(${Math.round(lerp(236, 236, p.gold))},${Math.round(lerp(244, 204, p.gold))},${Math.round(lerp(252, 142, p.gold))},1)`)}
       {piece('?', dLeft + wD - 2, p.rise, p.drop, INKT(0.98))}
+      <PunBrand y={p.y} show={p.brand} hide={p.sink} />
     </>
+  );
+};
+
+/* Under the line "doğru" stands on, the name hangs: it comes down out of the
+   line as the word goes up, and goes back into it when the word sinks. */
+const PunBrand = ({ y, show, hide }) => {
+  const lw = 236, lh = (WORDMARK_VIEWBOX[3] / WORDMARK_VIEWBOX[2]) * lw;
+  const v = ease.settle(clamp(show)) * (1 - ease.launch(clamp(hide * 1.3)));
+  if (v <= 0.001) return null;
+  return (
+    <div style={{ position: 'absolute', left: W / 2 - lw / 2 - 10, top: y + 16, width: lw + 20, height: lh + 18, overflow: 'hidden' }}>
+      <svg viewBox={WORDMARK_VIEWBOX.join(' ')} width={lw} height={lh}
+           style={{ position: 'absolute', left: 10, top: 6, transform: `translateY(${-(1 - v) * (lh + 16)}px)`, opacity: 0.92 }}>
+        {Object.values(WORDMARK_PATHS).map((d, i) => <path key={i} d={d} fill="#FFFFFF" />)}
+      </svg>
+    </div>
   );
 };
 
@@ -114,6 +131,43 @@ const Pill = ({ p }) => {
 };
 
 /* The chosen listing, named, with the mark that makes it the right one. */
+/* The listing's picture, drawn in the film's own line: the villa we are about
+   to dive into, at dusk, lights on, the sun on the sea behind it. */
+const WARM = (a) => `rgba(255,192,122,${a})`;
+const ListingThumb = ({ x, y, w, h, sweep }) => {
+  const L = { fill: 'none', stroke: INKT(0.92), strokeWidth: 2, strokeLinejoin: 'round', strokeLinecap: 'round' };
+  const lit = 0.55 + 0.35 * clamp(sweep * 2);
+  return (
+    <g transform={`translate(${x},${y})`}>
+      <defs>
+        <clipPath id="thumb"><rect x={0} y={0} width={w} height={h} rx={12} /></clipPath>
+        <linearGradient id="dusk" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0" stopColor="rgb(12,32,60)" />
+          <stop offset="0.45" stopColor="rgb(44,58,90)" />
+          <stop offset="0.6" stopColor="rgb(170,112,86)" />
+        </linearGradient>
+        <radialGradient id="sunG"><stop offset="0" stopColor={WARM(0.95)} /><stop offset="1" stopColor={WARM(0)} /></radialGradient>
+      </defs>
+      <g clipPath="url(#thumb)">
+        <rect x={0} y={0} width={w} height={110} fill="url(#dusk)" />
+        <circle cx={120} cy={110} r={60} fill="url(#sunG)" opacity={0.55} />
+        <circle cx={120} cy={110} r={22} fill={WARM(0.9)} />
+        <rect x={0} y={110} width={w} height={h - 110} fill="rgb(8,24,44)" />
+        <path d="M 0 110 H 190" stroke={GOLD(0.95)} strokeWidth={2} />
+        {[[122, 18], [133, 13], [146, 9]].map(([yy, hw], i) => <path key={i} d={`M ${120 - hw} ${yy} H ${120 + hw}`} stroke={GOLD(0.7)} strokeWidth={1.6} />)}
+        <path d="M 0 176 H 190" stroke={INKT(0.5)} strokeWidth={1.4} />
+        <rect x={26} y={152} width={28} height={14} fill={WARM(0.8 * lit)} />
+        <rect x={66} y={152} width={34} height={14} fill={WARM(0.8 * lit)} />
+        <rect x={34} y={122} width={42} height={10} fill={WARM(0.7 * lit)} />
+        <path d="M 122 146 L 138 141 V 155 L 122 160 Z" fill={WARM(0.45 * lit)} />
+        <path d="M 16 176 V 142 H 112 V 176 M 112 142 L 146 132 V 166 L 112 176 M 16 142 L 50 132 H 146 M 26 142 V 116 H 84 V 142 M 84 116 L 104 110 V 136 M 26 116 L 46 110 H 104" {...L} />
+        <path d="M 166 178 Q 160 140 170 100 M 170 100 Q 150 90 138 106 M 170 100 Q 188 88 200 102 M 170 100 Q 160 80 146 80 M 170 100 Q 178 78 192 74 M 170 100 Q 174 112 166 124" {...L} strokeWidth={1.8} />
+      </g>
+      <rect x={0} y={0} width={w} height={h} rx={12} fill="none" stroke={INKT(0.55)} strokeWidth={2} />
+    </g>
+  );
+};
+
 const Popover = ({ p }) => {
   const cw = 880, ch = 232, x = Math.max(60, Math.min(W - 60 - cw, p.x - cw / 2)), y = p.y - 150 - ch;
   const sweepX = lerp(-200, cw + 200, p.sweep);
@@ -131,11 +185,10 @@ const Popover = ({ p }) => {
         <path d={`M 22 1.5 H ${cw - 22} A 20.5 20.5 0 0 1 ${cw - 1.5} 22 V ${ch - 22} A 20.5 20.5 0 0 1 ${cw - 22} ${ch - 1.5} H ${p.x - x + 18} L ${p.x - x} ${ch + 18} L ${p.x - x - 18} ${ch - 1.5} H 22 A 20.5 20.5 0 0 1 1.5 ${ch - 22} V 22 A 20.5 20.5 0 0 1 22 1.5 Z`}
               fill="rgba(6,20,38,0.86)" stroke={INKT(0.92)} strokeWidth={2.4} />
         <g clipPath="url(#card)"><rect x={sweepX - 120} y={0} width={240} height={ch} fill="url(#sw)" /></g>
-        <rect x={22} y={22} width={150} height={ch - 44} rx={12} fill="none" stroke={INKT(0.55)} strokeWidth={2} />
-        <path d={`M 56 ${ch - 50} V ${ch / 2 + 4} L 97 ${ch / 2 - 30} L 138 ${ch / 2 + 4} V ${ch - 50} Z M 86 ${ch - 50} V ${ch / 2 + 22} H 108 V ${ch - 50}`} fill="none" stroke={INKT(0.9)} strokeWidth={2.4} strokeLinejoin="round" />
+        <ListingThumb x={22} y={22} w={190} h={ch - 44} sweep={p.sweep} />
       </svg>
-      <div style={{ position: 'absolute', left: 200, top: 34, fontFamily: SANS, fontWeight: 600, fontSize: 48, color: INKT(0.98), whiteSpace: 'nowrap' }}>Deniz manzaralı villa</div>
-      <div style={{ position: 'absolute', left: 200, top: 126, display: 'flex', alignItems: 'center', gap: 14, fontFamily: SANS, fontWeight: 600, fontSize: 40, color: OK(1), whiteSpace: 'nowrap' }}>
+      <div style={{ position: 'absolute', left: 240, top: 34, fontFamily: SANS, fontWeight: 600, fontSize: 48, color: INKT(0.98), whiteSpace: 'nowrap' }}>Deniz manzaralı villa</div>
+      <div style={{ position: 'absolute', left: 240, top: 126, display: 'flex', alignItems: 'center', gap: 14, fontFamily: SANS, fontWeight: 600, fontSize: 40, color: OK(1), whiteSpace: 'nowrap' }}>
         <svg width={44} height={44}><circle cx={22} cy={22} r={20} fill={OK(0.18)} stroke={OK(1)} strokeWidth={2.4} /><path d="M 12 23 L 19 30 L 32 15" fill="none" stroke={OK(1)} strokeWidth={3.6} strokeLinecap="round" strokeLinejoin="round" /></svg>
         Evlek Onaylı Emlakçı
       </div>
@@ -212,8 +265,8 @@ const TAG_NO = { SALON: '01', MUTFAK: '02', TERAS: '03' };
 
 /* City labels sit beside their pins, never under them. [dx, dy, anchor] */
 const CITY_LABEL = {
-  'GÜZELYURT': [-18, -58, 'right'], LEFKE: [-14, 16, 'right'], 'LEFKOŞA': [0, 18, 'center'],
-  'GAZİMAĞUSA': [22, -18, 'left'], 'İSKELE': [22, -58, 'left'], 'GİRNE': [0, -128, 'center'],
+  'GÜZELYURT': [-44, -50, 'right'], LEFKE: [-14, 16, 'right'], 'LEFKOŞA': [0, 18, 'center'],
+  'GAZİMAĞUSA': [0, 30, 'center'], 'İSKELE': [30, 4, 'left'], 'GİRNE': [0, -128, 'center'],
 };
 
 export const DogruCizgi = () => {

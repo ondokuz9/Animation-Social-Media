@@ -94,7 +94,7 @@ export const keyLocal = () => {
   // KEY_SVG is laid out on the hands; recentre it on the shaft (x = 560)
   const strokes = KEY_SVG.flatMap((d) => sampleStrokes(d, 1.5).map((s) => withAlpha(s.map(([x, y]) => [x - 560, y - 722, 0]))));
   // (KEY_SVG is authored in the hands' box; the key's own frame is centred on its shaft)
-  _key = resample(concat(...strokes), 300);
+  _key = resample(concat(...strokes), 520);
   return _key;
 };
 export const KEY_CENTER = [W / 2, 750];   // the bit ends on the brand line, in its keyhole

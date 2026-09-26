@@ -61,9 +61,8 @@ const seaSideStrokes = () => {
   for (const [x, z] of [[-0.8, pz0], [6.8, pz0]]) s.push(seg3([x, 0, z], [x, 2.9, z]));
   s.push(seg3([-0.8, 2.9, pz0], [6.8, 2.9, pz0]), seg3([-0.8, 2.9, pz0], [-0.8, 2.9, pz1]), seg3([6.8, 2.9, pz0], [6.8, 2.9, pz1]));
   for (let x = -0.4; x < 6.8; x += 0.55) s.push(seg3([x, 3.0, pz0 - 0.15], [x, 3.0, pz1]));
-  // terrace edge and glass rail
-  s.push(S([[-7.5, 0, -10], [8, 0, -10]]), S([[-7.5, 1.0, -10], [8, 1.0, -10]]));
-  for (let x = -7.5; x <= 8; x += 2.2) s.push(seg3([x, 0, -10], [x, 1.0, -10]));
+  // terrace edge: a low stone wall onto the garden (no rail across the view)
+  s.push(S([[-7.5, 0, -10], [8, 0, -10]]), S([[-7.5, 0.42, -10], [8, 0.42, -10]]), S([[-7.5, 0.42, -10.35], [8, 0.42, -10.35]]));
   // pool: coping and water, with three lines of reflected light
   s.push(rectXZ(-6.6, -9.4, -1.8, -6.0, 0.001), rectXZ(-6.35, -9.15, -2.05, -6.25, -0.05));
   for (const z of [-8.4, -7.6, -6.9]) s.push(S([[-5.8, -0.05, z], [-4.6, -0.05, z + 0.08], [-3.4, -0.05, z - 0.05], [-2.4, -0.05, z + 0.04]], null, 'water'));
@@ -155,18 +154,59 @@ const kitchenStrokes = () => {
   return loc(s);
 };
 
-const terraceStrokes = () => {
+/* The garden, the cove and the headland: what the agent walks the buyer out to.
+   Elevations on planes facing the house, like a landscape architect's drawing. */
+const frond = (b, t, c, w) => {
+  // a palm frond as a narrow leaf: out along one curve, back along the other
+  const [bx, by] = b, [tx, ty] = t, [cx, cy] = c;
+  const nx = -(ty - by), ny = tx - bx, l = Math.hypot(nx, ny) || 1;
+  const ox = (nx / l) * w, oy = (ny / l) * w;
+  return `M ${bx} ${by} Q ${cx + ox} ${cy + oy} ${tx} ${ty} Q ${cx - ox} ${cy - oy} ${bx} ${by}`;
+};
+const palm = (h, lean, fs = 1) => {
+  const top = [lean, -h];
+  const d = [`M -15 0 C -12 ${-h * 0.35} ${lean * 0.4 - 8} ${-h * 0.7} ${top[0] - 8} ${top[1]}`, `M 15 0 C 17 ${-h * 0.35} ${lean * 0.4 + 10} ${-h * 0.7} ${top[0] + 8} ${top[1]}`];
+  // the ringed trunk
+  for (let k = 1; k < 13; k++) {
+    const t = k / 13, y = -h * t, x = lean * t * t * 0.9, w = 15 - 7 * t;
+    d.push(`M ${x - w} ${y + 3} Q ${x} ${y - 4} ${x + w} ${y + 3}`);
+  }
+  const [X, Y] = top;
+  const F = [[-230, 40, -120, -70], [-190, -70, -90, -110], [-60, -170, -40, -120], [70, -175, 30, -130], [210, -80, 110, -110], [250, 50, 140, -60], [-110, 150, -60, 20], [120, 150, 70, 10]];
+  const Fs = F.map((v) => v.map((q) => q * fs));
+  for (const [dx, dy, cx, cy] of Fs) d.push(frond([X, Y], [X + dx, Y + dy], [X + cx, Y + cy], 13 * fs));
+  // a few fronds carry a midrib
+  for (const [dx, dy, cx, cy] of [Fs[0], Fs[4], Fs[5]]) d.push(`M ${X} ${Y} Q ${X + cx} ${Y + cy} ${X + dx} ${Y + dy}`);
+  return d;
+};
+const gardenStrokes = () => {
   const s = [];
-  const N = [0, 0, -1];
-  // two loungers, in profile, facing the sea
-  for (const x of [0.2, 1.8]) s.push(...flat(['M 0 -78 L 44 -34 L 196 -34', 'M 6 -84 L 48 -40 L 196 -40', 'M 30 -34 L 30 0', 'M 180 -34 L 180 0'], [x, 0, -5.9], N));
-  // an olive tree in a planter at the rail
-  s.push(...flat([
-    'M 0 0 L 0 -50 L 90 -50 L 90 0 Z',
-    'M 44 -50 C 38 -92 52 -120 44 -152',
-    'M 44 -152 C 2 -160 -10 -200 20 -216 C 28 -244 72 -246 82 -216 C 114 -204 104 -162 62 -152 Z',
-    'M 30 -186 C 44 -176 56 -182 66 -196',
-  ], [5.6, 0, -9.7], [1, 0, 0]));
+  const Xu = [1, 0, 0];
+  // palms frame the view to the sea: one each side, a smaller one further out
+  s.push(...flat(palm(360, 70, 0.72), [0.75, 0, -14.2], Xu));
+  s.push(...flat(palm(320, -60, 0.66), [6.15, 0, -12.6], Xu));
+  // shrubs on the wall at the edges of the view
+  for (const [x, z, w] of [[1.15, -10.45, 0.9], [4.75, -10.45, 0.8]]) {
+    s.push(...flat([`M 0 0 C 0 -36 ${w * 22} -58 ${w * 46} -48 C ${w * 60} -76 ${w * 100} -70 ${w * 108} -40 C ${w * 132} -48 ${w * 150} -20 ${w * 142} 0`], [x, 0.42, z], Xu));
+  }
+  // the lawn's edge, where the garden falls away to the cove
+  s.push(S([[-9, 0, -18], [-3, 0, -18.6], [3, 0, -18.3], [10, 0, -17.6]]));
+  // the cove below: shoreline, two lines of surf, a scatter of sand
+  const SEA = -32;
+  const shore = [], surf1 = [], surf2 = [];
+  for (let x = -420; x <= 420; x += 20) {
+    const bay = 30 * Math.exp(-(((x - 20) / 160) ** 2));
+    shore.push([x, SEA, -250 + bay + 5 * Math.sin(x / 37)]);
+    surf1.push([x, SEA, -266 + bay * 0.9 + 4 * Math.sin(x / 23 + 1)]);
+    surf2.push([x, SEA, -284 + bay * 0.8 + 5 * Math.sin(x / 29 + 2)]);
+  }
+  s.push(S(shore, null, 'shore'), S(surf1, null, 'surf'), S(surf2, null, 'surf'));
+  for (let i = 0; i < 70; i++) {
+    const x = -300 + ((i * 97) % 600), z = -240 + ((i * 53) % 9) * 1.2 + 26 * Math.exp(-(((x - 20) / 160) ** 2));
+    s.push(S([[x, SEA, z], [x + 2.2, SEA, z]], null, 'sand'));
+  }
+  // a headland to the west, going blue with distance
+  s.push(S([[-900, SEA, -600], [-760, SEA + 14, -640], [-620, SEA + 40, -700], [-470, SEA + 52, -760], [-360, SEA + 38, -800], [-250, SEA + 10, -850], [-170, SEA, -880]], null, 'headland'));
   return loc(s);
 };
 
@@ -193,7 +233,7 @@ export const villa = () => {
       shell: joinStrokes(shellStrokes(), 0.15),
       living: joinStrokes(livingStrokes(), 0.06),
       kitchen: joinStrokes(kitchenStrokes(), 0.06),
-      terrace: joinStrokes(terraceStrokes(), 0.06),
+      terrace: joinStrokes(gardenStrokes(), 0.06),
     },
     figure: { down: fig('armDown'), open: fig('armOpen') },
   };
