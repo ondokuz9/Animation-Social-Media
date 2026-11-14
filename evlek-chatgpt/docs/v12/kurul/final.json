@@ -1,0 +1,1075 @@
+{
+ "yonetici_karari": "Mevcut seviye: yaklaşık 5,5/10. v11 doğru veriyle çalışıyor ve sessiz izlenince anlaşılıyor, ama bir ürün demosu olarak kalıyor; arzu uyandıran bir reklam değil. Çalışan çekirdek 10,5–17,0 sn arasında: kart, köşeleri eşleşen portalla gerçek eve açılıyor ve telefon aynı ilanla geri dönüyor.\n\nEn büyük üç sorun:\n(1) Film 2,5 sn boş, koyu bir sohbet ekranıyla açılıyor. Son 9,5 sn'de hiç ev yok ve boş bir telefonla kapanıyor; döngü de bu boşluğa bağlanıyor.\n(2) Güven zayıf. Yeniden çizilen widget gerçekte olmayan bileşenler gösteriyor: 'Ucuzdan pahalıya' çipi ve karşılaştırma widget'ı. £105.000 kartında insanlar görünüyor; görsel bir CGI render ve kırpım bunu çözmüyor. Gerçek evlek.app sayfası filmde yok.\n(3) İşçilik: 8 dış cümle, logo ile metnin çakışması, 3 kare süren 'Eklentiyi kur' geri dönüşü, portalda kalıntı, hayalet çapraz geçiş ve iPhone'a fazla benzeyen bir cihaz.\n\nKırmızı takım ve mühendis, toplantı planındaki üç uydurmayı ve 'gerçek widget yakalanamaz' öncülünü çürüttü; ikisinde de haklılar. Üç uydurma şunlardı: kartta galeri kaydırması, detayda 'Evlek'te aç' düğmesi ve kaydırılmış haliyle açılan karusel.\n\nSeçilen yön: 'Önce ev'. Film gerçek havuz karesi ve 'Evlek artık ChatGPT'de.' ile açılıyor. Fotoğraf ters portalla ChatGPT tam ekranındaki gerçek Evlek detayına iniyor. Sonrasında her ekran durumu gerçek bir eylemle geliyor: soru → sonuç → kart kaydırma → dokunuş → galeride 'sonraki' → iç mekân → 'Evlek'te tüm ayrıntılar ↗' → evlek.app. Eklentiler yolu 3,5 sn sürüyor; ardından 'Bağlı' ve 1,5 sn'lik Girne sonucu geliyor. Film aynı havuz karesinde CTA ile kapanıyor ve ilk kareye dikişsiz bağlanıyor.\n\nEsas değişiklikler: Evlek widget'ı yeniden çizilmiyor, gerçek HTML'den 1179 px genişlikte yakalanıyor. Karşılaştırma çıkarılıyor, üç ana mesaj kalıyor, cihaz markasızlaştırılıyor, render PNG kare ve bt709 ile yapılıyor. Yayın, Onur'un widget ve kanca için yazılı onayına bağlı.",
+ "teshis": [
+  {
+   "uzman": "Tümü",
+   "saniye": "0,0–2,5",
+   "gozlem": "0–2,0 sn karelerinde (blok6_0) kadrajın yarıdan fazlası boş, koyu bir ChatGPT ekranı. Havuz fotoğrafı bulanık ve lacivert multiply altında; havuz tanınmıyor. Tek hareket telefonun ~40 px yükselmesi. İlk ev pikseli 5,5 sn'de küçük bir kartta, ilk tam ekran ev 10,85 sn'de geliyor.",
+   "etki": "Kanca yalnız 'ChatGPT' haberini zaten tanıyan izleyicide çalışıyor. Geniş kitle için ilk saniyede arzu yok. Bu bir yorum; performans verisi yok.",
+   "duzeltme": "0,0'da keskin, tam ekran EVL-100102_00, logo ve 'artık ChatGPT'de.'. 1,5–2,5'te ters portal fotoğrafı ChatGPT tam ekranındaki gerçek Evlek detayına indirsin (plan 2).",
+   "oncelik": "P0"
+  },
+  {
+   "uzman": "Yönetmen, sosyal, sanat yön.",
+   "saniye": "25,8–30,0",
+   "gozlem": "25,8'de yazım kutusunda yalnız 'Evlek |' var, sonra ekran boşalıyor. 26,0–30,0'da bulanık zemin üstünde boş bir telefon ve açılış kartının tekrarı görünüyor (blok6_25). CTA küçük ve ~2,1 sn tam opak. Döngü yine boş ekrana bağlanıyor.",
+   "etki": "Harekete geçme anında akılda kalan görüntü ev değil, boş arayüz. İkinci kez izlemek için bir neden yok.",
+   "duzeltme": "Kapanış keskin havuz karesinde olsun. Telefon kurulumdan sonraki gerçek Girne sonucunu göstersin. CTA 5,0 sn ve dipnot ≥4,6 sn tam opak kalsın. Son karenin piksel değerleri 0. kareyle aynı olsun (plan 7).",
+   "oncelik": "P0"
+  },
+  {
+   "uzman": "Baş kreatif direktör, mühendis",
+   "saniye": "5,5–9,8 (t_7,8)",
+   "gozlem": "£105.000 (EVL-100336) kartında havuzda bir çocuk ve bir kadın, kapıda bir kadın ve sağda atlayan bir figür var. Görsel 1600×899 bir CGI render. 540×400 kartta cover ölçeğiyle dikeyde taşma olmadığı için '50% 8%' kırpımı hiçbir şeyi değiştirmiyor. '50% 0%' + scale 1,35 de figürleri kadrajdan çıkarmıyor.",
+   "etki": "'İnsan görüntüsü yok' kuralının doğrudan ihlali. Filmde görülen ilk ilan görseli bu.",
+   "duzeltme": "Bu kart hiçbir v12 varlığında bulunmasın. Kart şeridi yalnız 3–7. dizinler kırpılarak yakalansın. Gerçek açılış durumu kadraj dışında kalsın ve kaydırma şeridin kadraja girdiği karede sürüyor olsun (plan 1 ve 3).",
+   "oncelik": "P0"
+  },
+  {
+   "uzman": "UI, strateji, kırmızı takım",
+   "saniye": "5,5–20,5",
+   "gozlem": "Widget elle yeniden çizilmiş ve bileşen envanteri gerçek değil. 'Ucuzdan pahalıya' çipi yok; gerçekte yalnız tam ekran listede 'Sırala: Fiyat ↑' var. Karşılaştırma widget'ı yok. Detayda gerçek düğmeler görünmüyor ('Evlek'te tüm ayrıntılar ↗', 'Emlakçıya sor ↗', '‹ ›', 'Sonuçlara dön'). Oysa gerçek widget HTML'i (live/listing-cards-v3-14.html) ve 1179 px yakalama düzeneği (cap/harness.mjs, s52_inline.png) repoda.",
+   "etki": "'Arayüz temsilidir' dipnotu uydurma işlevi örtmez; güven riski doğuyor. Yeniden çizimin gerekçesi olan 'gerçek widget yakalanamaz' öncülü yanlış.",
+   "duzeltme": "Evlek widget yüzeyleri gerçek HTML'den, gerçek veriyle, koyu temada ve DPR 3'te yakalanan piksellerle kullanılsın. Dış reklam katmanları (ışık, derinlik, portal, kadraj) korunsun (plan 1).",
+   "oncelik": "P0"
+  },
+  {
+   "uzman": "UI, strateji, yönetmen",
+   "saniye": "17,0–20,5",
+   "gozlem": "Karşılaştırma bir widget kartı olarak çizilmiş. Gerçek oturumda (ref 07) ChatGPT bir metin tablosu veriyor ve £127.000'lik ilanı öneriyor. 'Arada £12.000 fark.' dördüncü ana mesaj olmuş.",
+   "etki": "Ürünün sahip olmadığı bir bileşen gösteriliyor. Kahraman ilan 'pahalı olan' konumuna düşüyor ve mesaj sınırı aşılıyor.",
+   "duzeltme": "Karşılaştırma tüm sürümlerden çıkarılsın. Kazanılan süre iç mekâna ve evlek.app sayfasına verilsin (plan 9).",
+   "oncelik": "P1"
+  },
+  {
+   "uzman": "Marka/tipografi, algı",
+   "saniye": "2,9–29,75",
+   "gozlem": "8 dış cümle, 7 punto ve 4 ağırlık var. Aynı eylem için 3 fiil kullanılıyor ('bul', 'kur', 'ekle'). İstem yankısı telefondaki istemle aynı anda akıyor. 25,0'da 'Eklentiyi kur.' yazısı telefonla neredeyse çakışıyor.",
+   "etki": "İzleyici tek bir ses yerine altyazı akışı okuyor ve 'nasıl başlarım' cevabı bulanıklaşıyor.",
+   "duzeltme": "Yalnız üç ana mesaj kalsın; künye ve fiilsiz bir yol şeridi ayrıca sade tutulsun. Yankı, adım başlıkları ve fark yazısı kaldırılsın (plan 8).",
+   "oncelik": "P1"
+  },
+  {
+   "uzman": "UI, mühendis",
+   "saniye": "9,8–17,0",
+   "gozlem": "'Haritada tümü' ve 'Evlek'te aç' kodda var, ama ekranda y 2308–2412'de duruyor; yazım kutusu (üst kenar 2310) ve alt degrade (2256'dan başlıyor) bunları örtüyor. Gerçek ilan sayfasına geçiş gösterilmiyor. page_view.png hiç kullanılmamış.",
+   "etki": "'Gerçek ilan sayfasına geçebilirsin' vaadi ve gerçekliğin piksel kanıtı izleyiciye ulaşmıyor.",
+   "duzeltme": "Tam ekran detayda gerçek dv__out 'Evlek'te tüm ayrıntılar ↗' düğmesine dokunulsun. Bu düğme openLink ile ilanın kendi adresini açıyor. Ardından evlek.app sayfası uygulama içi tarayıcıda açılsın (plan 5).",
+   "oncelik": "P1"
+  },
+  {
+   "uzman": "Hareket, mühendis",
+   "saniye": "2,02–2,13; 24,45–24,50; 26,3–26,47",
+   "gozlem": "titleOut [2,0–2,25] ile logoDrop [2,0–2,5] üst üste biniyor; logo sönen başlığın içinden geçiyor (blok6_0, 2,0). Kapanışta yükselen logo yine başlığın içinden geçiyor (blok6_25, 1,33). Bekleme göstergesi 24,45'te bitiyor ama 'Bağlı' 24,5'te geliyor; arada 3 kare boyunca düğme yeniden 'Eklentiyi kur' yazıyor.",
+   "etki": "İmza hareketi iki uçta da kirli bir kare üretiyor. Kurulumdaki geri dönüş güveni zayıflatıyor.",
+   "duzeltme": "Başlık 1,5'te tamamen sönmüş olsun; logo uçuşu 2,95'te başlasın. Kapanışta logo yerinde belirsin. Bekleme göstergesinin bittiği kare ile 'Bağlı' karesi aynı olsun (spin[1] === bound = 19,7).",
+   "oncelik": "P1"
+  },
+  {
+   "uzman": "Hareket, mühendis, fotoğraf",
+   "saniye": "10,6–11,2; 15,37–15,67; 17,30–17,45",
+   "gozlem": "Portalda h ile ph farklı hızda büyüyor. 10,95'te koyu bir şerit ve telefon kalıntısı görünüyor. Interior, Pool üstünde 0,3 sn ve 0,6 sn'lik opaklıkla açılıp kapanıyor; bu çift pozlama yaratıyor.",
+   "etki": "En güçlü an, telefonun önünden kayan bir dikdörtgen gibi okunuyor. Dissolve ucuz görünüyor.",
+   "duzeltme": "ph=h ve bilgi alanı yok. Görüntü dikdörtgeni iki uçta analitik olarak hesaplansın. Fotoğraf değişimi yalnız portalla, kesmeyle ya da ≥16 px bulanıklık altında yapılsın (plan 4 ve 11).",
+   "oncelik": "P1"
+  },
+  {
+   "uzman": "Fotoğraf, mühendis",
+   "saniye": "11,1–14,5",
+   "gozlem": "Havuz fotoğrafı 1,60× ve üstüne 1,04 ölçekle yaklaşık 1,66×'e büyütülmüş; palmiyeler yağlı boya gibi görünüyor. Kareler JPEG q80 olarak yakalanmış. İç mekân beyazları camgöbeği tonunda.",
+   "etki": "Arzu anı olduğundan sıradan görünüyor.",
+   "duzeltme": "Fotoğraflar Lanczos ile önceden ölçeklenip PNG olarak kaydedilsin; ek zoom olmasın. Dış çekim 1,60×, iç çekim 1,32× sabit kalsın. Kareler PNG yakalansın. GRADE_INT uygulanarak duvarda R≥B hedeflensin (plan 11 ve 12).",
+   "oncelik": "P1"
+  },
+  {
+   "uzman": "UI, sosyal",
+   "saniye": "20,5–26,0",
+   "gozlem": "Menüye ya da 'Eklentiler' satırına dokunuş yok. Arama listesi iskelet satırlarla boş duruyor. 'Bağlı' mobilde ~7 px. Kurulumdan sonra açılan sohbet boş kalıyor (25,8).",
+   "etki": "İzleyici Eklentiler'in yerini öğrenmiyor ve kurulumun sonucunu görmüyor.",
+   "duzeltme": "≡ › Eklentiler › 'evlek' › Evlek › Eklentiyi kur › Bağlı adımları 3,5 sn'de gösterilsin. Ardından 'Sohbette dene' ile gerçek Girne sonucu (52 ilan) 1,5 sn ekranda kalsın (plan 6).",
+   "oncelik": "P1"
+  },
+  {
+   "uzman": "Hareket, CD",
+   "saniye": "0,0–30,0",
+   "gozlem": "Telefonda hap biçimli kamera adası, '9:41', iOS ikonları, sol yan tuşlar ve iki tonlu titanyum benzeri çerçeve var. 15,2–17,0'da telefon kırpılıyor ve gölgesi fotoğrafa oturmuyor.",
+   "etki": "'Birebir iPhone kopyası yok' kuralı için risk taşıyor (yorum, hukuki değerlendirme değil). Telefon fotoğraf üstünde çıkartma gibi duruyor.",
+   "duzeltme": "src/v12/Phone.tsx kopyasında markasız gövde, delik kamera, '10:24', tek tonlu çerçeve ve temas gölgesi olsun (plan 10).",
+   "oncelik": "P1"
+  },
+  {
+   "uzman": "Algı, UI",
+   "saniye": "5,5–25,0",
+   "gozlem": "Yeniden çizilen arayüzdeki ikincil metin tasarımda 30–44 px; s 0,55'te çıktıda ~17–24 px, 360 px önizlemede 6–8 px'e iniyor. Eklenti sayfasındaki İngilizce örnek istemler okunmuyor.",
+   "etki": "Anlatıyı taşıyan metin doku olarak kalıyor ve dış yazı bunu yankıyla telafi ediyor.",
+   "duzeltme": "Anlam taşıyan her metin için çıktıda ≥28 px olacak yakın plan pozu kullanılsın. Gerçek widget DPR 3'te gövde metnini ~42–48 tasarım px'te verdiği için PD s 0,70 yeterli. Okunmayan metin doku sayılsın ve anlatı yükü taşımasın.",
+   "oncelik": "P1"
+  },
+  {
+   "uzman": "Mühendis",
+   "saniye": "2,0–2,5 (imza)",
+   "gozlem": "screenToOut rx, ry ve rz'yi yok sayıyor. rz=−1° tek başına çipte ~11 px yanlış iniş yaratıyor.",
+   "etki": "Logo çipin yanına iniyor ve imza kirli görünüyor.",
+   "duzeltme": "v12/Phone.tsx'e saf bir projectOut(pose, sx, sy) fonksiyonu eklensin (Rx·Ry·Rz·S, perspektif 3200). DOM ölçümüyle ±1,5 px içinde doğrulansın.",
+   "oncelik": "P2"
+  },
+  {
+   "uzman": "Yönetmen, fotoğraf",
+   "saniye": "15,25–17,0",
+   "gozlem": "İç mekân toplam 1,6 sn ekranda ve yarısını telefon örtüyor. Tilt tavana doğru gidiyor.",
+   "etki": "Çift yükseklikli cam ve kapıdaki deniz neredeyse görünmüyor.",
+   "duzeltme": "İç mekân 2,0 sn telefonsuz ve tam ekran gösterilsin (9,65–11,65). Tilt pencereden kapıdaki denize insin.",
+   "oncelik": "P2"
+  },
+  {
+   "uzman": "Mühendis",
+   "saniye": "tüm film",
+   "gozlem": "ffprobe sonucu: yuvj420p, color_range=pc, bt470bg, primaries ve transfer belirsiz. Remotion varsayılanlarıyla (JPEG q80 kare) render edilmiş.",
+   "etki": "Platform yeniden kodlarken ton kayması ve siyahlarda ezilme riski var; metinde halka oluşuyor.",
+   "duzeltme": "--image-format=png --pixel-format=yuv420p --color-space=bt709 --crf=16 --x264-preset=slow --muted ile render edilsin (plan 12).",
+   "oncelik": "P2"
+  },
+  {
+   "uzman": "CD, yönetmen, hareket, fotoğraf",
+   "saniye": "10,5–14,2",
+   "gozlem": "Kart, köşeleri eşleşerek telefonun 3B düzleminden kalkıyor ve tam ekran gerçek fotoğrafa açılıyor; opaklık hilesi yok. Telefon aynı ilanla dönüyor. Veriler kayıtla tutuyor (EVL-100102, 14 foto, 107 m², tür eklenmemiş).",
+   "etki": "Filmin tek gerçek arzu anı bu. 'ChatGPT'deki cevap gerçek bir eve açılıyor' fikrini sözsüz anlatıyor.",
+   "duzeltme": "Korunsun: portal hem kancaya (ters yönde) hem iç mekân açılışına taşınsın. Dikiş ve hayalet temizliği uygulansın.",
+   "oncelik": "Koru"
+  }
+ ],
+ "anlasmazliklar": [
+  {
+   "konu": "Gerçek widget pikseli mi, yeniden tasarım mı",
+   "gorusler": "Toplantı planı karma modeli savundu: ChatGPT içindeki widget temsilî kalacak ama envanteri gerçeğe kilitlenecekti. Kırmızı takım ve mühendis şunları gösterdi: gerçek widget HTML'i, canlı veri ve cap/harness düzeneği repoda; 1179 px genişlikte gerçek render mümkün (s52_inline.png, detail_inline.png). Yeni brif ve docs/KURALLAR.md 'içerikleri yeniden çizilmez' diyor. HANDOFF karar 2 (Onur) ise 'daha seksi bir yeniden tasarım' istiyor.",
+   "secenekler": "(a) Yeniden tasarım (v11): cilalı, ama planın kendisi bile üç uydurma bileşen üretti; envanter kilidi pratikte tutmuyor. (b) Gerçek widget pikselleri ve dış reklam katmanları: uydurma riski kalkar, brif ve KURALLAR'a uyar. Bedeli: yakalama hattı (~1,5 gün) ve stil özgürlüğünün kaybı. (c) Karma: iki yolun riskini birlikte taşır.",
+   "karar": "(b). Evlek'in kendi yüzeyleri (Lapta ve Girne satır içi sonuçları, tam ekran detay, evlek.app sayfası) gerçek piksel olarak kullanılır. ChatGPT kabuğu ve Eklentiler ekranları temsilî kalır. Onur'un 'zayıf görünüm' itirazına cevap kadraj, ışık, derinlik ve portal katmanlarıyla verilir. Render öncesinde Onur'a aynı karelerde A/B still sunulur.",
+   "gerekce": "Bu filmin bütün güven sorunları yeniden çizimden doğdu. Gerçek piksel, 'kart, detay ve sayfa doğru kayda bağlı' kuralını kendiliğinden sağlar. Yeniden tasarımın tek gerekçesi olan 'kayıt yok, büyütünce bulanıklaşır' öncülü yanlış çıktı: düzenek 393 pt × DPR 3 = 1179 px ile ekranla birebir çiziyor. HANDOFF karar 2 bağlayıcı olduğu için sapma yazılı onaya gidiyor."
+  },
+  {
+   "konu": "Kancanın indiği ekran durumu ve neden-sonuç sırası",
+   "gorusler": "Toplantı planı ters portalı £139.000'e kaydırılmış karusele indiriyordu. Kırmızı takım bunun gerçek bir açılış durumu olmadığını gösterdi: gerçek karusel £105.000 ile açılıyor. Ayrıca sonuç sorudan önce okunuyordu. Mühendis, kahraman kartın ve çipin portal sırasında çift görüneceğini belirtti.",
+   "secenekler": "(a) Kaydırılmış karusel: hızlı, ama gerçek dışı bir durum. (b) Karuseli dizin 0'da göstermek: dürüst, ama insan görüntüsü ve CGI içeren kart kadraja girer. (c) Ters portal ChatGPT tam ekranındaki gerçek Evlek detayına (1/14 = aynı havuz fotoğrafı) iner. Ardından sert kesmeyle soru balonuna geçilir ve film doğrusal ilerler; detaya götüren gerçek dokunuş 7,3'te filmin içinde gösterilir.",
+   "karar": "(c).",
+   "gerekce": "Tam ekran detay gerçek bir durum: kart dokunuşu ChatGPT'de goFull('detail') çağırıyor. Kahraman görsel kancadaki fotoğrafın ta kendisi, bu yüzden portal dikişsiz kapanıyor. 0–2,95 bilinçli bir ileri sıçrama: kancanın işi arzu ve haber. 2,95'ten sonra her durum görünür bir eylemle geliyor ve 7,7'de aynı detay yeniden gelerek kafiye kuruyor."
+  },
+  {
+   "konu": "Kahraman karta nasıl ulaşılır (£105.000 kartı sorunu)",
+   "gorusler": "Kırmızı takım görünür bir kaydırma ya da kartların ilk durumda gösterilmesini önerdi. Mühendis, £105.000 kartının hiçbir karede görünmemesi gerektiğini söyledi; görsel CGI ve kırpım figürleri çıkarmıyor.",
+   "secenekler": "(a) Görünür tam kaydırma (0→5): £105.000 kartı kadraja girer. (b) Yeni bir sıralama ya da istem: kaydı alınmamış bir sonuç, yani uydurma riski. (c) Şerit yakın plana kesmeyle girilir; kaydırma o karede zaten sürüyordur (dizin ≈3,6→5) ve parmak halkası görünür. Kaydırmanın başı kadraj dışında kalır. Varlık yalnız 3–7. dizinleri içerir.",
+   "karar": "(c).",
+   "gerekce": "Gerçek bir eylem (yatay kaydırma) gerçek bir duruma götürüyor ve kesme serbest. £105.000, £110.000 ve £120.000 (CGI) kartlarının pikselleri hiçbir v12 varlığında yok; ihlal fiziksel olarak imkânsız. Kadrajda kalan 100185, 101433, 100102 ve 100970 gerçek fotoğraflar; elle kontrol edildi."
+  },
+  {
+   "konu": "Karşılaştırma bölümü",
+   "gorusler": "Yönetmen ve CD çıkarılmasını, strateji ve algı kısaltılmasını, UI gerçek tablo olarak çizilmesini önerdi. Kırmızı takım çıkarılmasını doğru buldu.",
+   "secenekler": "(a) Kısa kanıt planı: 'akıllı' yanı gösterir, ama ana hikâyeyi böler. (b) Gerçek tablo: dürüst, ama gerçek cevap £127.000'lik ilanı öneriyor. (c) Çıkarmak: süre ve sade mesaj kazanılır.",
+   "karar": "(c). 30, 15 ve 6 sn sürümlerinde karşılaştırma yok.",
+   "gerekce": "HANDOFF karar 3'e göre karşılaştırma 'gerekirse olabilir, amaç değil'. Gerçek oturum diğer ilanı tercih ediyor. Kazanılan süre telefonsuz 2,0 sn iç mekâna, gerçek evlek.app sayfasına ve karar 5'teki Girne sonucuna gidiyor."
+  },
+  {
+   "konu": "CTA metni, yol şeridi ve 52 px alt sınırı",
+   "gorusler": "Toplantı planı 'Eklentiler'den Evlek'i ekle.' ile 44/48 px'lik bir yol şeridini birlikte kullanıyordu. Kırmızı takım, HANDOFF karar 4'teki metnin kısaltıldığını ve 52 px alt sınırının çiğnendiğini gösterdi.",
+   "secenekler": "(a) Kısa CTA ve kapanışta şerit: iki metin aynı bilgiyi tekrarlıyor ve bağlayıcı metin değişiyor. (b) HANDOFF CTA'sı birebir, şerit yalnız kurulum bölümünde 52/600: tek ses, karar 4'e uyumlu. (c) Kapanışta yalnız şerit: eylem fiili kayboluyor.",
+   "karar": "(b). CTA 'ChatGPT'de Eklentiler'den Evlek'i ekleyin.' (üç satır, 72/800). Yol şeridi 'ChatGPT › Eklentiler › Evlek › Ekle' yalnız 16,2–21,15 arasında, 52/600. Dipnot 30 px (istisna).",
+   "gerekce": "CTA zaten yolu içeriyor; kapanışta şerit tekrar olur. Şerit, adımların ekranda gerçekten gösterildiği anda öğretici. HANDOFF'taki 52 px kuralı korunuyor."
+  },
+  {
+   "konu": "Telefonsuz tam ekran planlar",
+   "gorusler": "UI ve HANDOFF ('telefon her an telefon olmalı') telefonun hiç kadraj dışına çıkmamasını istedi. Diğer uzmanlar tam ekran ev anının telefonsuz kalmasını başarı saydı.",
+   "secenekler": "(a) Telefon hep kadrajda: ürün bağı sürer, ama ev ile telefon aynı anda odak olur. (b) Sınırlı telefonsuz plan: tek odak, en yüksek arzu.",
+   "karar": "(b). Yalnız iki plan var: 0,0–1,5 (kanca) ve 9,65–11,65 (iç mekân). Toplam 3,5 sn. Her ikisinde telefon bağı portalla bir saniye içinde kuruluyor.",
+   "gerekce": "Kural, telefonun göründüğü yerde telefon olarak tanınmasını istiyor. 'Fotoğraf, telefon ve metin aynı anda odak olmasın' ilkesi de telefonsuz bir arzu anı gerektiriyor. HANDOFF cümlesiyle olan gerilim Onur'a soruluyor."
+  },
+  {
+   "konu": "Girne sonucu 1,5 sn (HANDOFF karar 5)",
+   "gorusler": "Toplantı planı bu kararı atlamıştı. Kırmızı takım bunu bağlayıcı bir kararın ihlali olarak işaretledi.",
+   "secenekler": "(a) Atlamak: karar ihlali. (b) Ayrı bir Girne bölümü: +1,5 sn ve hikâye bölünür. (c) Kurulumdan sonraki 'Sohbette dene' sonucu gerçek Girne araması olur (w_search52.json, 52 ilan, gerçek ilk durum): ilk kullanımın kanıtı ve karar 5 aynı planda karşılanır.",
+   "karar": "(c). 21,95–23,45 arası 1,5 sn. Kapanıştaki telefon da bu sonucu gösterir.",
+   "gerekce": "Kurulumdan sonra boş sohbet kalmıyor. Gösterilen karusel ilk durumunda ve ilk kart (EVL-101212) gerçek bir iç mekân fotoğrafı. Lapta tekrarlanmıyor."
+  },
+  {
+   "konu": "Köşede sürekli Evlek imi",
+   "gorusler": "CD ve marka direktörü HANDOFF'a göre 3–25 sn arasında köşe imi istedi.",
+   "secenekler": "(a) 48 px im: hatırlanırlık artar, ama başlık ve şerit yuvasıyla (y 110–210) çakışır ve ikinci bir odak doğar. (b) İm yok: marka logo, çip, gerçek detay ve evlek.app başlığıyla görünür.",
+   "karar": "(b).",
+   "gerekce": "Evlek her 6 sn'de en az bir kez ≥40 px görünüyor: logo (0–2,95), balon çipi (3,45), gerçek widget başlıkları, evlek.app logosu (14,2–15,15), Eklentiler'de Evlek sayfası ve kapanış. Onur'a bildirilir."
+  }
+ ],
+ "yonler": [
+  {
+   "ad": "A · Önce ev (ters portal döngüsü)",
+   "fikir": "ChatGPT'deki tek bir Evlek cevabı gerçek bir eve açılan kapıdır: film evle başlar, sohbetin içinden geçer ve aynı evde kapanır.",
+   "ilk_kare": "EVL-100102_00 keskin ve tam ekran (1,60×, pan 22 px/sn). Lacivert üst degrade üstünde krem Evlek logosu (h150, merkez y 220) ve 'artık ChatGPT'de.' (92/700, top 330). Telefon yok.",
+   "kanit_ani": "1,5–2,5'te fotoğraf ChatGPT tam ekranındaki gerçek Evlek detayının kahraman alanına iner (1/14, £139.000). Ardından soru balonu, gerçek Lapta sonucu (8 ilan), kart kaydırma ve dokunuş gelir; galeride 'sonraki' ile 2/14 iç mekâna geçilir. Portal iç mekâna açılır. Telefon geri döner ve 'Evlek'te tüm ayrıntılar ↗' ile gerçek evlek.app sayfası açılır.",
+   "kapanis": "≡ › Eklentiler › evlek › Evlek › Eklentiyi kur › Bağlı (3,5 sn). 'Sohbette dene' ile gerçek Girne sonucu 1,5 sn gösterilir. Aynı havuz karesinde logo, 'ChatGPT'de Eklentiler'den Evlek'i ekleyin.' ve dipnot gelir. Son kare ilk kareyle aynıdır.",
+   "puanlar": {
+    "dikkat": 7,
+    "ilan_arzusu": 8,
+    "urun_anlasilmasi": 8,
+    "marka": 7,
+    "uretilebilirlik": 6
+   },
+   "degerlendirme": "Puanlar ölçüm değil, kurul yargısı. Bu yön arzu, haber ve ürün kanıtını aynı akışta veren tek yön; her ekran durumu gerçek bir eylemle geliyor. Mevcut filmin kanıtlanmış portal hareketi iki kez ve tutarlı kullanılıyor. Üretilebilirlik puanı düşürüldü: gerçek widget yakalama hattı, analitik portal geometrisi ve projectOut gerekiyor (~9 gün). Keskin ve büyük ev süresi ≈11 sn (0–2,5; 9,65–11,65; 24,15–29,5), küçük ev görüntüleriyle ≈16 sn."
+  },
+  {
+   "ad": "B · Bir soru, bir ev (ürün önce)",
+   "fikir": "Tek cümle sor, gerçek ev ekranda açılsın: film ilk kareden itibaren telefonun içindeki sorudan sonuca giden en kısa yoldur.",
+   "ilk_kare": "Telefon s 0,62 ile merkezde; gönderilmiş soru balonunun altında gerçek Lapta widget'ının haritası yükleniyor. Zemin bulanık lacivert.",
+   "kanit_ani": "Kart kaydırma, dokunuş, tam ekran detay, portal ve evlek.app sayfası; hepsi gerçek piksel.",
+   "kapanis": "Eklentiler yolu, 'Bağlı' ve Girne sonucu gösterilir; CTA telefonun yanında kalır.",
+   "puanlar": {
+    "dikkat": 5,
+    "ilan_arzusu": 5,
+    "urun_anlasilmasi": 8,
+    "marka": 6,
+    "uretilebilirlik": 8
+   },
+   "degerlendirme": "Ürün en hızlı bu yönde anlaşılıyor ve en kolay bu yön üretiliyor. Ama ilk kare arayüz ağırlıklı ve arzu küçük bir kartta kalıyor; ev aramayan geniş kitleyi durdurmuyor. HANDOFF karar 1 karşılanmıyor."
+  },
+  {
+   "ad": "C · Bir sabahın böyle başlasa? (yaşam önce)",
+   "fikir": "Denize bakan bir sabahın arzusunu sat; Evlek'i o arzuya giden yol olarak göster.",
+   "ilk_kare": "EVL-100102_01 iç mekân tam ekran: çift yükseklikli cam ve kapıda deniz. Üstte 'Bir sabahın böyle başlasa?'.",
+   "kanit_ani": "6 sn'den sonra telefon girer: 'ChatGPT'de Evlek'e sor.', soru, sonuç ve kart. Kart aynı mekâna geri açılır.",
+   "kapanis": "Mekân üstünde CTA.",
+   "puanlar": {
+    "dikkat": 7,
+    "ilan_arzusu": 8,
+    "urun_anlasilmasi": 4,
+    "marka": 5,
+    "uretilebilirlik": 6
+   },
+   "degerlendirme": "HANDOFF karar 1'in cümlesini birebir kullanıyor ve arzu yüksek. Ama 'artık ChatGPT'de' haberi ve ürün kanıtı 6 sn'ye kadar gecikiyor; üç mesaj bütçesi yaşam cümlesine gidiyor. Elde tek ilanın yalnız 2–3 güçlü fotoğrafı var, bu yüzden 6 sn'lik bir yaşam montajı tekrar riski taşıyor."
+  }
+ ],
+ "secilen_yon": "A · Önce ev (ters portal döngüsü). Gerekçe: haber ('Evlek artık ChatGPT'de.'), arzu (gerçek ev ilk ve son karede) ve ürün kanıtı (soru → gerçek sonuç → kart → gerçek detay → gerçek evlek.app sayfası → Eklentiler yolu) aynı akışta bir araya geliyor. Filmin kanıtlanmış en güçlü hareketi olan köşe eşleşmeli portal tersine çevriliyor; yeni bir şey icat edilmiyor. Kırmızı takımın bulduğu üç uydurma şöyle kapatıldı: kanca gerçek bir duruma (tam ekran detay, 1/14) iniyor; iç mekâna gerçek galeri düğmesiyle (dv__next) geçiliyor; sayfaya gerçek düğmeyle (dv__out, openLink(d.url)) gidiliyor. Bu yönün bedeli, gerçek widget yakalama hattı ve yaklaşık 9 günlük iş. HANDOFF karar 1'deki kanca cümlesi kullanılmıyor, karar 2'den de sapılıyor; ikisi de Onur'un yazılı onayına bağlı.",
+ "ana_mesajlar": [
+  "Evlek artık ChatGPT'de.",
+  "Sor. Evlek göstersin.",
+  "ChatGPT'de Eklentiler'den Evlek'i ekleyin."
+ ],
+ "plan": [
+  {
+   "no": 1,
+   "kaynak_saniye": "5,5–26,0 (tüm widget ekranları)",
+   "yeni_saniye": "1,5–16,2 ve 21,6–30,0",
+   "oge": "Evlek yüzeyleri gerçek pikselle: Lapta satır içi sonucu, tam ekran detay (1/14, 2/14, kaydırılmış hali), Girne sonucu ve evlek.app sayfası",
+   "yarar": "Uydurma bileşen ve davranış sınıfı tümden kalkar. Kart, detay ve sayfa gerçek kayıttan gelir. Brif ve KURALLAR'a uyulur; gerçeklik kanıtı ekrandaki her Evlek pikselinde olur.",
+   "teknik": "Yeni dosya cap/capture-v12.mjs (cap/ altındaki mevcut dosyalara dokunulmaz; harness.mjs'in shim'i kopyalanır). Playwright viewport 393×900, deviceScaleFactor 3, tema dark, mod inline/fullscreen. Fixture: live/w_lapta.json, live/w_search52.json; get_listing stub'ı live/w_detail_100102.json döndürür (officeName ve office null: yalnız ofis satırı temizlenir, başka veri değişmez). Harita karoları için networkidle ve harita hazır olayı beklenir, sonra donmuş PNG alınır. Çıktılar public/v12/w/ altına: wLaptaTop.png (harita, başlık, çipler; kart şeridinin üst kenarında kırpılır), wLaptaRow.png (track overflow visible; yalnız 3–7. dizin, x kırpımı 100185 kartının sol kenarından), wGirne.png (satır içi, dizin 0), dFull_1.png ve dFull_2.png (tam ekran detay; dv__next tıklamasından sonra), dFull_info.png (dv__out görünene kadar kaydırılmış). manifest.json'da sha256 ile DOM ölçüleri tutulur: HERO_D (kahraman dikdörtgeni), DV_OUT (düğme), CARD5 (100102 kartı), ROW_TOP. Screen.tsx (v12) bu PNG'leri <Img> ile filtresiz, 1:1 tasarım ölçüsünde yerleştirir; ChatGPT kabuğu (balon, yazım kutusu, tam ekran başlığı ✕) temsilî çizilir.",
+   "bagimlilik": "Ağ erişimi (evlek.app harita varlıkları, görseller). Render öncesi Onur'a A/B still (açık soru 1).",
+   "emek": "Orta-yüksek (1,5 gün)",
+   "kabul": "Her PNG aynı fixture'dan iki kez üretildiğinde sha256 eşit. Hiçbir varlıkta '[ofis]', kişi ya da ofis adı yok. EVL-100336, 100837 ve 100932 kapaklarının pikselleri hiçbir varlıkta yok (pHash taraması). Ekrandaki her Evlek etiketi listing-cards-v3-14.html i18n sözlüğünde geçiyor. dFull_2 kahramanı ile public/v4/EVL-100102_01 pHash farkı ≤6; değilse _01'in gerçek dizinine '›' ile gidilir ve 2/14 etiketi gerçek dizinle değişir."
+  },
+  {
+   "no": 2,
+   "kaynak_saniye": "0,0–5,5",
+   "yeni_saniye": "0,0–3,45",
+   "oge": "Kanca: keskin havuz + logo + 'artık ChatGPT'de.' → ters portal ile tam ekran Evlek detayına (1/14) iniş → 2,95'te soru balonuna kesme → logo balondaki 'Ev Evlek' çipine iner",
+   "yarar": "İlk karede gerçek ev ve haber birlikte görünür. 2,5 sn'de 'bu ev ChatGPT'deki bir Evlek sonucu' bilgisi metinsiz verilir. İnilen durum gerçek. Boş ekran yok.",
+   "teknik": "V12.tsx: Photo bileşeni (kanca ve kapanış aynı bileşeni kullanır; props {xPct, blur, dim}). Kaynak public/v12/EVL-100102_00_l2560.png (2560×1920), left = −(xPct/100)·1480, xPct = 24 + 1,5·t. ReversePortal: k = FLY(lin(t,1,5,2,5)). Görüntü dikdörtgeni başlangıçta (−388,5; 0; 2560×1920), bitişte projectOut(PH, HERO_D) ile hesaplanan dikdörtgen (4:3, cover). Kırpım çerçevesi (0,0,1080,1920)'den projeksiyonlu HERO_D'ye aynı k ile karışır. Screen state 'detailFull1' {heroHidden: t<2,5}. Telefon PH (540;1110;0,55;2;−4;−1), üst kenar 367,5; logo alt kenarı 295; pay 72 px. Zemin: Photo blur 24 + lacivert .6 (aynalı dolgu, plan 11). Başlık opaklığı 1−lin(t,1,25,1,5). 2,95'te Screen 'qBubble' {chipHidden: t<3,45}. Signature FLY [2,95–3,45]; hedef BUBBLE_CHIP still'de DOM ile ölçülüp projectOut(PH) ile çıktıya dönüştürülür.",
+   "bagimlilik": "No 1 (dFull_1, HERO_D), no 10 (projectOut), no 11 (dosya)",
+   "emek": "Orta-yüksek (1,5 gün)",
+   "kabul": "0. kare: kadrajın %100'ü keskin fotoğraf, düz siyah alan %0. 360×640'ta logo ve başlık okunuyor. 2,5'te portal görüntüsü ile kahraman pikselleri arasındaki fark ≤2 px. 1,5–2,5'te çift kahraman yok. Logo çipe ≤2 px hatayla iniyor. 0–3,45'te logo ile metin kutuları ve logo ile telefon gövdesi kesişmiyor."
+  },
+  {
+   "no": 3,
+   "kaynak_saniye": "2,9–10,4",
+   "yeni_saniye": "3,45–8,65",
+   "oge": "Soru balonu yakın planı + slogan → gerçek Lapta sonucu → kesmeyle kart şeridi (kaydırma sürüyor) → £139.000 kartı → dokunuş → tam ekran detay → '›' ile 2/14",
+   "yarar": "Sohbetten eve giden yol, her durum gerçek bir eylemle gelerek sessiz okunuyor. £105.000 kartı hiçbir karede yok.",
+   "teknik": "KEYS: K(3,45, PH) → K(4,15, PB', SOFT) → K(6,25, PB', L_) → kesme K(6,25, PC) → K(7,7, PC, L_) → K(8,2, PDH, SOFT). PB' = (x, y; 0,85; 2; −4; −1). x = 540 − 0,85·(60 + bx − 649,5) (bx: balon merkezi). y, kart şeridi üst kenarı kadrajın ≥40 px altında kalacak şekilde: y ≥ 1920 − 0,85·(72 + ROW_TOP − 1350) + 40 (nominal (432; 1700)). PC = (540 − 0,8·(60+cx−649,5); 960 − 0,8·(72+cy−1350); 0,80; 2; −4; −1); cx, cy = CARD5 merkezi (nominal (669; 606)). PDH (540;1180;0,62;2;−4;−1). Ekran içi: harita belirişi 4,5–4,9, başlık ve çipler 4,95–5,2 (kamera sabit). Şerit: translateX bezier(.2,.7,.2,1) 6,25–6,6, dizin 3,6→5, parmak halkası (r 110, beyaz %35) aynı yolda. Dokunuş 7,3 + kick. Tam ekran açılışı 7,35–7,7 (temsilî ölçek, CARD5 → ekran). dv__next dokunuşu 8,3, kahraman 8,35'te 2/14 olur (anlık; gerçek show(i)). Slogan 72/700, top 128, giriş 4,15–4,4, çıkış 6,0–6,25.",
+   "bagimlilik": "No 1, no 8",
+   "emek": "Orta (1,5 gün)",
+   "kabul": "Durum fonksiyonu testi: her ekran durumu ≥18 kare. 'Sor. Evlek göstersin.' ≥96 kare tam opak. 6,25 öncesinde kart şeridi kadrajda değil (projectOut testi). Balon metni çıktıda ≥28 px. Kart fiyatı çıktıda ≥36 px."
+  },
+  {
+   "no": 4,
+   "kaynak_saniye": "10,0–17,0",
+   "yeni_saniye": "8,65–11,65",
+   "oge": "Detay kahramanından (2/14) iç mekâna portal; 2,0 sn telefonsuz tam ekran tilt; lacivert degrade üstünde künye",
+   "yarar": "İlanın ikinci güçlü vaadi (çift yükseklik, kapıda deniz) tam ekran ve tek odakla görünüyor. Kalıntı ya da hayalet yok.",
+   "teknik": "Portal (v12, parametrik): kaynak dikdörtgen projectOut(PDH, HERO_D). Görüntü başlangıçta kahraman içinde cover (1200×1600, genişlik = kahraman genişliği, objectPosition 50% 50%); bitişte (−150; 0; 1584×2112) (public/v12/EVL-100102_01_l1584.png). Görüntü ve kırpım dikdörtgeni aynı k ile interpolasyon; ph=h, bilgi alanı yok. FLY 8,65–9,65. Telefon portal sırasında hareketsiz; görüntü onu örtüyor. showPhone=false 9,65–11,65. Kartın seçim halkası portal kartında çizilmez. Interior top = Math.round(−120·E(lin(t,9,65,11,65))), E = bezier(.33,0,.2,1). Künye: '£139.000' 96/800 tabular top 210, giriş 9,75–10,0; 'Lapta · 2+1 · 107 m²' 52/600 top 322, giriş 9,85–10,1; çıkış 11,4–11,6. Üst degrade rgba(10,37,64,.6)→0, 0–560 px.",
+   "bagimlilik": "No 1 (dFull_2, eşleşme kontrolü), no 11",
+   "emek": "Orta (1 gün)",
+   "kabul": "60 fps tarama 8,65–9,65: koyu şerit yok, telefon kalıntısı yok. 9,65'te Interior'a geçiş sıçramasız (ardışık kare farkı ≤ medyanın 2 katı). Tam ekran katmanda iki farklı fotoğrafın çapraz geçişi = 0. Künye kontrastı ≥4,5:1. Alan türü yazılmıyor."
+  },
+  {
+   "no": 5,
+   "kaynak_saniye": "14,5–17,0",
+   "yeni_saniye": "11,65–16,2",
+   "oge": "Telefon tam ekran detayla (2/14) döner → bilgiye itme → kaydırma → 'Evlek'te tüm ayrıntılar ↗' (dv__out) → uygulama içi tarayıcıda gerçek evlek.app sayfası",
+   "yarar": "Gerçek düğme gerçek ilan adresini açıyor (openLink(d.url) → .../lapta-da-deniz-manzarali-2-1-daire-evl-100102). Fiyat, kod ve sayfa aynı kayıt. Filmin gerçeklik kanıtı bu.",
+   "teknik": "KEYS: K(11,65, (900;2500;0,42;3;−8;0), cut) → K(12,3, P_IN (740;1300;0,42;3;−8;0), ENTER) → K(12,85, PD (560;1000;0,70;2;−5;−1), SOFT) → K(14,55, PD, L_) → K(15,15, PP (540;650;0,78;2;−4;−1), SOFT) → K(16,2, PP, L_). Zemin brightness 1→.85 [11,65–12,05]; blur 0→24 + lacivert .6 [13,8–14,4]. Ekran: dFull_2 → kaydırma [13,35–13,6] → dFull_info. Dokunuş 13,7 (DV_OUT merkezi). WebPage, iOS modal olarak aşağıdan gelir [13,8–14,2]. Düzen: durum çubuğu 0–140; açık tarayıcı başlığı 140–270 (✕, kilit, 'evlek.app' 40/600, zemin #F7F7F7); page_view.png içeriği (kaynak y 0–1765) 270–2035; sayfa zemin rengiyle düz dolgu 2035–2131 (renk page_view (600,1740)'tan örneklenir); yapışkan alt çubuk (kaynak y 1765–1941) 2131–2307; markasız tarayıcı araç çubuğu 2307–2556. Filtre yok, yeniden ölçek yok.",
+   "bagimlilik": "No 1 (dFull_info, DV_OUT)",
+   "emek": "Orta (1 gün)",
+   "kabul": "Ofis kartı ('BÜRO SAHİBİ', kişi adı) hiçbir karede yok. PP'de '£139.000', 'Lapta'da Deniz Manzaralı 2+1 Daire' ve '107 m² Kapalı' çıktıda ≥28 px (beklenen ≈34) ve ≥1,0 sn. P_IN'de gövde köşeleri (projectOut) kadraj kenarına ≥40 px. Dokunulan düğme etiketi 'Evlek'te tüm ayrıntılar ↗'."
+  },
+  {
+   "no": 6,
+   "kaynak_saniye": "20,5–26,0",
+   "yeni_saniye": "16,2–23,45",
+   "oge": "Eklentiler yolu 3,5 sn: ≡ › Eklentiler › 'evlek' › Evlek › Eklentiyi kur › Bağlı ✓; ardından 'Sohbette dene' ve gerçek Girne sonucu 1,5 sn",
+   "yarar": "İzleyici Eklentiler'in yerini ve yolun tamamını görür. Kurulumun ilk sonucu boş kalmaz. HANDOFF karar 5 (Girne 1,5 sn) karşılanır.",
+   "teknik": "Kesme 16,2: CHAT (540;1050;0,55;2;−4;−1), Lapta sohbeti. ≡ 16,45 → Sidebar [16,5–16,75] (Yeni sohbet, Zamanlananlar, Kitaplık, Eklentiler, Keşfet; sabitlenenler ve hesap yok) → 'Eklentiler' 17,05 → PluginsHome push [17,1–17,4] → arama 17,7 → 'evlek' [17,75–17,95] (klavye görünmez) → tek sonuç satırı 18,0 (iskelet yok) → satır 18,3 → EvlekPage push [18,35–18,65] → KEYS K(18,7, CHAT) → K(19,3, PBTN (540;1070;0,60;2;−4;−1), SOFT) → 'Eklentiyi kur' 19,35 → spin [19,35; 19,7) → bound t ≥ 19,7 (spin[1] === bound) → '✓ Bağlı' + 'Sohbette dene'. Tut 19,7–20,9. 'Sohbette dene' 20,9 → NewChat push [20,95–21,25] (yazım kutusunda 'Ev Evlek' çipi + gerçek Girne istemi; ref 02/03'ten birebir) → gönder 21,55 → balon 21,6 → wGirne girişi [21,7–21,95] → tut 21,95–23,45. Chat parametrik {sendAt, resultAt}; harita uçuşu yok, son durum doğrudan çizilir.",
+   "bagimlilik": "No 1 (wGirne), no 8 (PathStrip), açık soru 6 (iOS yolu)",
+   "emek": "Orta-yüksek (2 gün)",
+   "kabul": "16,2–19,7 = 3,5 sn. Her ekran durumu ≥18 kare. Spin bitişi ile bound aynı kare; geri dönen durum yok. 'Bağlı' çıktıda ≥33 px, 360×640'ta ≥11 px ve ≥1,2 sn. Girne sonucu ≥90 kare. PBTN'de gövde üst kenarı ile şerit alt çizgisi arası ≥48 px (projectOut)."
+  },
+  {
+   "no": 7,
+   "kaynak_saniye": "26,0–30,0",
+   "yeni_saniye": "23,45–30,0",
+   "oge": "Kapanış evde: keskin havuz, Girne sonucunu gösteren telefon, logo, CTA, dipnot; dikişsiz döngü",
+   "yarar": "Son görüntü ev ve gerçek sonuç oluyor. CTA 5 sn sabit kalıyor (HANDOFF). Döngü eve bağlanıyor.",
+   "teknik": "KEYS: K(23,45, PBTN) → K(24,15, CLOSE (540;1330;0,40;3;−6;−1), SOFT) → K(29,45, CLOSE, L_) → K(29,95, EXIT (540;2650;0,40;3;−6;−1), FLY); showPhone=false t ≥ 29,95. Photo: blur 24→0 ve lacivert .6→0 [23,45–24,15], tek görüntü ve aynalı dolgu; xPct = 24 − 1,5·(30 − t) (t=30'da 24, 0. kareyle aynı). Logo (540;220) h150, giriş 24,15–24,4. CTA 'ChatGPT'de / Eklentiler'den / Evlek'i ekleyin.' 72/800, satır aralığı 79, top 330, giriş 24,25–24,5. Dipnot 30/500, satır aralığı 40, sol ve sağ 90, top 610, krem %85, giriş 24,6–24,85. CTA ve dipnot çıkışı 29,5–29,65. Başlık 'artık ChatGPT'de.' giriş 29,7–29,95. Kanca ile aynı degrade ve vinyet. Signature kalkışı yok.",
+   "bagimlilik": "No 6, no 11",
+   "emek": "Orta (0,5 gün)",
+   "kabul": "CTA tam opak ≥300 kare. Dipnot ≥276 kare, ≤2 satır, alt kenarı ile telefon üst kenarı (790) arası ≥48 px. 1799. ve 0. kare SSIM ≥0,99. Döngüde 1795–1799 ile 0–4 arası kare farkı ≤ film medyanının 2 katı. EXIT'te gölge dahil 1920'nin altında piksel yok."
+  },
+  {
+   "no": 8,
+   "kaynak_saniye": "2,9–29,75 (tüm dış metin)",
+   "yeni_saniye": "tüm film",
+   "oge": "Dış metin sistemi: 3 ana mesaj + tek künye + kurulumda yol şeridi + dipnot; yankı, adım başlıkları ve fark yazısı kaldırılır",
+   "yarar": "Tek tipografik ses ve tek fiil ('ekleyin'). Aynı anda okunacak tek dış metin.",
+   "teknik": "V12.tsx: qWords yankısı, step1, step2 ve diff Txt silinir. Txt tek başlık yuvası (top 128). Yeni PathStrip({active, done}): 'ChatGPT › Eklentiler › Evlek › Ekle' 52/600, letter-spacing −0,03em, top 128. Pasif öğeler krem %55; aktif öğe %100 + mercan alt çizgi 4 px (y +8); done ise '✓'. Görünürlük 16,2–21,15 (giriş 16,2–16,45, çıkış 20,9–21,15). Aktif adımlar: ChatGPT 16,2, Eklentiler 17,05, Evlek 18,3, Ekle ✓ 19,7. Ölçülen genişlik >928 px ise harf aralığı −0,04em yapılır; yine sığmazsa 'ChatGPT ›' düşer (ChatGPT kabuğu zaten ekranda).",
+   "bagimlilik": "No 2, no 6, no 7",
+   "emek": "Düşük (0,5 gün)",
+   "kabul": "Farklı ana cümle sayısı = 3. Hiçbir karede iki dış metin aynı anda tam opak değil (logo hariç). Dış metin ≥52 px (dipnot 30). Metin ile telefon arası ≥48 px. Metin üstte ≥110 px, yanlarda ≥76 px ve alt 280 px'e girmiyor."
+  },
+  {
+   "no": 9,
+   "kaynak_saniye": "5,5–20,5",
+   "yeni_saniye": "— (çıkarıldı)",
+   "oge": "Karşılaştırma, 'Arada £12.000 fark.' ve v11'in yeniden çizilmiş widget dalları kaldırılır",
+   "yarar": "Kahraman ilanı küçülten sahne ve tüm uydurma bileşenler ('Ucuzdan pahalıya', karşılaştırma kartı) çıkar.",
+   "teknik": "Önce kullanımlar kaldırılır: scrollAt (TL.scrollC) → 0; Background (TL.back); Screen içindeki TL.iosBack, q3Type, send3; kick listesi. Ardından v12/tl.ts'ten back, iosBack, q3Type, send3, bubble3, scrollC, cmp, cmpPush ve diff anahtarları silinir. Screen.tsx'te Compare, Q3, çizilmiş ListingCard, Chips, MapWidget ve Detail dalları no 1'in PNG yerleşimiyle değiştirilir. src/v10 ve src/v11'e dokunulmaz.",
+   "bagimlilik": "No 1",
+   "emek": "Düşük (0,5 gün)",
+   "kabul": "npx tsc --noEmit temiz. Hiçbir karede '£12.000', 'karşılaştır' ya da 'Ucuzdan pahalıya' yok. git diff src/v10 src/v11 boş."
+  },
+  {
+   "no": 10,
+   "kaynak_saniye": "0,0–30,0",
+   "yeni_saniye": "0,0–30,0",
+   "oge": "Markasız cihaz, fotoğraf üstünde temas gölgesi ve doğru 3B izdüşüm (projectOut)",
+   "yarar": "'Birebir iPhone kopyası yok' kuralı karşılanır. Telefon fotoğraf planlarında sahneye oturur. İmza ve geometri testleri doğru hesaplanır.",
+   "teknik": "src/v12/Phone.tsx (v10'un kopyası); V12.tsx ve Screen.tsx'teki import './Phone'. Değişiklikler: Ø44 delik kamera (589,5; 50); BR 157→128; ekran yarıçapı 117→96; tek tonlu grafit çerçeve linear-gradient(125deg,#3C4D59,#2B3B47 30%,#16232D 70%,#2B3B47); sol yan tuşlar (BX−9, y 492/672) kaldırılır; sağda güç (y 640, h 140). Screen StatusBar saati '10:24'. onPhoto gölgesi: (−40,60)·s, blur 80·s, α .35 ve (0,140)·s, blur 220·s, α .22. projectOut(pose, sx, sy): M = T(x,y)·P(3200)·Rx·Ry·Rz·S(s), ekran noktası (60+sx−649,5; 72+sy−1350; 75·s).",
+   "bagimlilik": "Yok",
+   "emek": "Düşük-orta (1 gün)",
+   "kabul": "Hap ada yok, '9:41' yok. projectOut ile DOM getBoundingClientRect farkı ≤1,5 px (CHAT, PB', PC). P_IN, PD ve CLOSE'da gövde ≥40 px payla kadraj içinde (yakın planlar bilinçli kırpım)."
+  },
+  {
+   "no": 11,
+   "kaynak_saniye": "10,8–17,0 ve 0,0–5,5 (fotoğraflar)",
+   "yeni_saniye": "0,0–2,5 · 8,65–14,4 · 23,45–30,0 ve bulanık zeminler",
+   "oge": "Fotoğraf hattı: Lanczos ile ölçeklenmiş PNG, ek zoom yok, tek Photo bileşeni, aynalı dolgulu blur, sıcak-nötr derecelendirme",
+   "yarar": "Arzu anlarında yumuşama azalır. Bulanıklık rampasında kenar bandı olmaz. Döngü dikişi tek bileşenle güvenceye alınır.",
+   "teknik": "Yeni dosyalar (append-only): ffmpeg -i public/v4/EVL-100102_00.jpg -vf scale=2560:1920:flags=lanczos public/v12/EVL-100102_00_l2560.png ve scale=1584:2112:flags=lanczos ile EVL-100102_01_l1584.png. Keskinleştirme yok. GRADE_EXT 'brightness(1.0) contrast(1.05) sepia(.06) hue-rotate(-3deg)'; GRADE_INT 'brightness(.98) contrast(1.03) sepia(.08)'. Pool'daki 1,04 ve 1,1 ölçekleri kaldırılır. Blur katmanı: 1224×2064 sarmalayıcı, içinde görüntü ile üst ve alt 72 px scaleY(−1) ayna şeritleri; filtre sarmalayıcıya, kırpım dış kadraja uygulanır. Tamamen örtülü karelerde bulanık katman çizilmez (render maliyeti).",
+   "bagimlilik": "Açık soru 9 (daha yüksek çözünürlüklü kaynak)",
+   "emek": "Düşük (0,5 gün)",
+   "kabul": "Dış çekim ölçeği ≤1,60×, iç çekim ≤1,32×. 23,45–24,15 rampasında üst/alt 60 px ile orta bölge arasındaki parlaklık farkı ≤%5. 10,5 sn'de iç mekân duvarında R≥B."
+  },
+  {
+   "no": 12,
+   "kaynak_saniye": "tüm film",
+   "yeni_saniye": "tüm film",
+   "oge": "Render ayarları ve otomatik QC (durum fonksiyonu, geometri, veri, döngü)",
+   "yarar": "Renk kaymasız yükleme sağlanır. Uydurma, çakışma ve okunurluk her render'da otomatik denetlenir.",
+   "teknik": "npx remotion render src/index.ts V12-916 out/v12.mp4 --codec=h264 --crf=16 --pixel-format=yuv420p --color-space=bt709 --image-format=png --x264-preset=slow --concurrency=4 --muted (--gl verilmez). V12'den saf stateAt(f) dışa aktarılır. scripts/qc-v12.mjs şunları denetler: (a) ekran durumu ≥18 kare, geri dönen durum yok; (b) projectOut ile gövde köşeleri ve dış metin, logo, şerit kutularının kesişimi; ≥48 px; (c) live/*.json ile metin karşılaştırması (£139.000, 2+1, 2 banyo, 107 m² türsüz, 14 foto, 8 ilan, £105–147 bin; detayda _meta 6 özellik); (d) 0. ve 1799. kare SSIM; (e) blackdetect; (f) 360×640 temas sayfası (0,5 sn aralıkla 60 kare). Önce still turu: COMP=V12-916 node scripts/stills.mjs out/v12k 1.5,2.0,2.5,3.45,6.25,6.6,7.7,8.35,9.0,9.65,12.85,15.6,19.65,19.7,19.75,22.5,23.8,29.9.",
+   "bagimlilik": "No 1–11",
+   "emek": "Düşük (0,5 gün)",
+   "kabul": "ffprobe: yuv420p, color_range=tv, bt709 ×3, 60/1, 1800 kare, 1080×1920, ses yok. QC sıfır hata. Kare bit hızı ölçütü kullanılmaz."
+  }
+ ],
+ "tasarim_sistemi": {
+  "telefon": "Gövde 1299×2700 tasarım px, ekran 1179×2556 (gövdede x=60, y=72), perspektif 3200, kalınlık 150 (scale3d), ışık sol üstten. Markasız gövde: Ø44 delik kamera, BR 128, ekran yarıçapı 96, tek tonlu grafit çerçeve, saat 10:24, sol yan tuş yok. Pozlar (x; y; s; rx; ry; rz): PH (540;1110;0,55;2;−4;−1), kanca ve detay; üst kenar 367,5, logoyla pay 72. CHAT (540;1050;0,55;2;−4;−1), kurulum; şeritle pay 104. PB' (432;1700;0,85;2;−4;−1) nominal, soru balonu yakın planı; y formülle seçilir, kart şeridi kadraj dışında. PC (669;606;0,80;2;−4;−1) nominal, CARD5 merkezinden formülle. PDH (540;1180;0,62;2;−4;−1), tam ekran detay kahramanı ve fiyat. P_IN (740;1300;0,42;3;−8;0), iç mekânda giriş; sağda 67, altta 53 px pay. PD (560;1000;0,70;2;−5;−1), detay bilgisi. PP (540;650;0,78;2;−4;−1), evlek.app fiyat ve başlık. PBTN (540;1070;0,60;2;−4;−1), 'Eklentiyi kur' / 'Bağlı' / Girne sonucu; üst kenar 260. CLOSE (540;1330;0,40;3;−6;−1), kapanış; üst 790, alt ≈1872. EXIT (540;2650;0,40;3;−6;−1). Bütün paylar projectOut ile doğrulanır. Gölge: lacivert zeminde v10'un üç katmanı; fotoğraf üstünde temas gölgesi (−40,60)·s, blur 80·s, α .35 ve ortam gölgesi (0,140)·s, blur 220·s, α .22. Plan ölçeği kuralı: geniş plan (s 0,40–0,42) telefonu mekânda bir nesne olarak gösterir; orta plan (0,55–0,62) bir ekranın bütününü okutur; yakın plan (0,70–0,85) tek bir anlam satırını okutur. Yakın planda gövde bilinçli kırpılır, ama bir köşe ve bir kenar görünür kalır.",
+  "fotograf": "Dış çekim EVL-100102_00: Lanczos ile 2560×1920 PNG, 1,60× sabit, zoom yok. Yalnız yatay pan: 1,5%/sn = 22,2 px/sn (taşma 1480 px). Kanca xPct = 24 + 1,5·t (0–1,5). Kapanış xPct = 24 − 1,5·(30 − t) (23,45–30,0). Döngüde konum ve hız aynı. İç çekim EVL-100102_01: 1584×2112 PNG (1,32×), left −150; kapı ve deniz x≈325–640. Tilt top 0→−120 px, 9,65–11,65, bezier(.33,0,.2,1), değer Math.round edilir. Renk: GRADE_EXT 'brightness(1.0) contrast(1.05) sepia(.06) hue-rotate(-3deg)', GRADE_INT 'brightness(.98) contrast(1.03) sepia(.08)'; beyazlarda R≥B. Vinyet radial-gradient(ellipse 80% 62% at 50% 52%, transparent 58%, rgba(5,16,28,.30)). Yazı alanında üst degrade rgba(10,37,64,.55–.60)→0, 0–560/620 px. Bulanık faz: blur 0↔24 px + lacivert 0↔.6, bezier(.4,0,.2,1), tek görüntü, aynalı dolgulu sarmalayıcı. Fotoğraf değişimi yalnız portalla ya da bulanık zeminde kesmeyle yapılır. Arayüz PNG'leri ve page_view.png üstüne filtre uygulanmaz. Kullanılmayanlar: yatak odası (_06/_07), EVL-101433 büyük planda, EVL-100336, 100837 ve 100932 (CGI) görselleri.",
+  "tipografi": "Font yalnız Inter, letter-spacing −0,03em; fiyatta −0,04em ve tabular-nums. Logo h150, merkez (540;220). Başlık 'artık ChatGPT'de.' 92/700, top 330. Slogan 72/700, top 128. Künye fiyat 96/800 (top 210), alt satır 52/600 (top 322). Yol şeridi 52/600, top 128. CTA 72/800, üç satır, satır aralığı 79, top 330. Dipnot 30/500, satır aralığı 40, sol ve sağ 90, top 610, krem %85, ≤2 satır. Güvenli alan: yanlarda 76 px; metin üstte ≥110 px; alt 280 px'e dış metin konmaz. Minimum: dış metin ≥52 px (dipnot 30); telefon içinde anlam taşıyan metin çıktıda ≥28 px (360 px önizlemede ≥9,3 px). Metin ile telefon gövdesi arası ≥48 px. Ana yazının kalış süresi ≥ kelime×0,3+0,7 sn. Girişler yalnız opaklık ve 14 px yükselme (0,25 sn); bulanık giriş yok.",
+  "kunyeler": "Tek dış künye, 9,75–11,6 arasında, telefonsuz iç mekân planında: '£139.000' (96/800) ve 'Lapta · 2+1 · 107 m²' (52/600). Krem metin lacivert üst degrade üstünde; kontrast ≥4,5:1; metin gölgesi yok. Alan türü yazılmaz (MCP'de basis null). Künye yalnız telefon kadrajda yokken görünür. Arayüz içindeki bütün künyeler gerçek pikseldir: kart '£139.000 · 2+1 · 2 banyo · 107 m² · Lapta, Girne · 14 foto'; tam ekran detay ('Satılık · Eklendi', 1/14 ve 2/14, gerçek özellikler); evlek.app ('107 m² Kapalı' sayfanın kendi metni).",
+  "hareket": "Eğriler: SOFT bezier(.25,.1,0,1), kamera hareketleri 0,55–0,7 sn. FLY bezier(.45,0,.15,1): portallar 1,0 sn, logo uçuşu 0,5 sn, çıkış 0,5 sn. ENTER bezier(.22,1,.36,1), 0,65 sn. Ekran geçişi (push/modal) 0,3–0,4 sn, bezier(.4,0,.2,1). Kart kaydırma bezier(.2,.7,.2,1), 0,35 sn ve snap. Dokunuş halkası r 110 ekran px, 0,3 sn, beyaz %35; kick 0,18 sn (s −%0,4, y +3). Kurallar: aynı anda tek büyük hareket; ekran durumu yalnız kamera dururken değişir; her durum ≥0,3 sn; okunacak bir şey varsa ≥1,2 sn duruş. Çapraz geçiş yasak. Hareket bulanıklığı ilk finalde yok. Katman sırası (alttan üste): zemin (Photo/Interior) → degrade ve vinyet → telefon gölgesi → telefon (ekran dahil) → portal → dış metin → yol şeridi → dipnot → logo/Signature.",
+  "kapanis": "24,15–29,45 sabit kompozisyon. Zemin keskin EVL-100102_00 (1,60×), xPct 15,2→23,2, üst degrade .55. Logo krem h150, merkez (540;220). CTA 'ChatGPT'de / Eklentiler'den / Evlek'i ekleyin.' 72/800, top 330 (330–567). Dipnot 30/500, top 610 (≤2 satır, 610–690): 'Arayüz temsilidir; ilanlar ve fiyatlar Evlek'in gerçek verisidir. ChatGPT, OpenAI'ın ticari markasıdır.' Telefon CLOSE (540;1330;0,40;3;−6;−1); üst kenar 790, dipnotla pay 100. Ekranda kurulumdan sonraki gerçek Girne sonucu ('Girne · Satılık · 52 ilan'). Kapanışta yol şeridi yok, çünkü CTA yolu içeriyor. 29,45–29,95 telefon EXIT'e iner. 29,5–29,65 CTA ve dipnot söner. 29,7–29,95 'artık ChatGPT'de.' girer. 30,0 = 0. kare.",
+  "renk": "Lacivert #0A2540: zemin, degradeler, bulanık faz. Krem #FAF8F2: bütün dış metin ve logo. Mercan #B84E3B yalnız dış katmanda, yol şeridindeki aktif adımın 4 px alt çizgisinde. Arayüz renkleri gerçek pikselden gelir: ChatGPT koyu dili (#212121, #2F2F2F, #ECECEC) ve gerçek Evlek widget'ı (mercan 'Emlakçıya sor' düğmesi dahil). Evlek renkleri arayüzün içine sızdırılmaz. evlek.app sayfası açık temadadır ve tarayıcı başlığı açık (#F7F7F7). Mercan piksel oranı (ΔE<12) her karede <%3."
+ },
+ "kurgu": [
+  {
+   "saniye": "0,0–0,5",
+   "plan": "Kanca · tam ekran dış çekim",
+   "goruntu": "Keskin havuz, palmiye ve deniz; üst lacivert degrade",
+   "kaynak": "public/v12/EVL-100102_00_l2560.png · V12 Photo",
+   "telefon": "yok",
+   "kamera": "Pan xPct 24→24,75 (22 px/sn)",
+   "yazi": "Logo h150 (540;220) + 'artık ChatGPT'de.' 92/700, top 330",
+   "gecis": "Döngü girişi (30,0 karesiyle aynı)",
+   "ses": "Ortam (sonradan eklenecek)"
+  },
+  {
+   "saniye": "0,5–1,0",
+   "plan": "Kanca",
+   "goruntu": "Aynı kare",
+   "kaynak": "Photo",
+   "telefon": "yok",
+   "kamera": "Pan 24,75→25,5",
+   "yazi": "Logo + başlık",
+   "gecis": "—",
+   "ses": "Müzik girişi"
+  },
+  {
+   "saniye": "1,0–1,5",
+   "plan": "Kanca",
+   "goruntu": "Başlık söner, logo kalır",
+   "kaynak": "Photo",
+   "telefon": "yok",
+   "kamera": "Pan 25,5→26,25",
+   "yazi": "Başlık çıkışı 1,25–1,5",
+   "gecis": "Opaklık",
+   "ses": "—"
+  },
+  {
+   "saniye": "1,5–2,0",
+   "plan": "Ters portal",
+   "goruntu": "Fotoğraf ve kırpım çerçevesi küçülür; arkada bulanık havuz ve telefon belirir; ekranda tam ekran Evlek detayı (kahraman alanı boş)",
+   "kaynak": "ReversePortal · dFull_1.png (heroHidden)",
+   "telefon": "(540;1110;0,55;2;−4;−1)",
+   "kamera": "Sabit",
+   "yazi": "Logo",
+   "gecis": "Portal FLY 1,5–2,5; üst degrade 1,5–2,0 söner",
+   "ses": "Whoosh"
+  },
+  {
+   "saniye": "2,0–2,5",
+   "plan": "Ters portal iniş",
+   "goruntu": "Fotoğraf kahraman alanına oturur: '1 / 14', £139.000, 2+1 · 2 banyo · 107 m², Lapta, Girne",
+   "kaynak": "dFull_1.png",
+   "telefon": "(540;1110;0,55;2;−4;−1)",
+   "kamera": "Sabit",
+   "yazi": "Logo",
+   "gecis": "Köşeler ±2 px eşleşir; heroHidden 2,5'te kalkar",
+   "ses": "Oturma tıkı"
+  },
+  {
+   "saniye": "2,5–3,0",
+   "plan": "Detay → soru",
+   "goruntu": "2,5–2,95 ChatGPT tam ekranında Evlek detayı. 2,95'te sohbete kesme: gönderilmiş soru balonu (çip yuvası boş), altında 'Evlek' araç satırı",
+   "kaynak": "dFull_1 → ChatShell qBubble",
+   "telefon": "(540;1110;0,55;2;−4;−1)",
+   "kamera": "Sabit",
+   "yazi": "Logo 2,95'te uçmaya başlar",
+   "gecis": "Sert kesme 2,95 (ileri sıçramanın sonu)",
+   "ses": "—"
+  },
+  {
+   "saniye": "3,0–3,5",
+   "plan": "İmza: logo → çip",
+   "goruntu": "Logo küçülerek balondaki 'Ev Evlek' çipine iner (3,45)",
+   "kaynak": "Signature (BUBBLE_CHIP, projectOut)",
+   "telefon": "(540;1110;0,55;2;−4;−1)",
+   "kamera": "Sabit; itme 3,45'te başlar",
+   "yazi": "—",
+   "gecis": "FLY 2,95–3,45",
+   "ses": "Çip 'pop'"
+  },
+  {
+   "saniye": "3,5–4,0",
+   "plan": "Balona itme",
+   "goruntu": "'Lapta'da £160 bin altı, deniz manzaralı 2+1 daireleri ucuzdan pahalıya göster'",
+   "kaynak": "ChatShell",
+   "telefon": "→ PB' (432;1700;0,85;2;−4;−1)",
+   "kamera": "İtme SOFT 3,45–4,15",
+   "yazi": "—",
+   "gecis": "—",
+   "ses": "—"
+  },
+  {
+   "saniye": "4,0–4,5",
+   "plan": "Balon yakın plan",
+   "goruntu": "Balon okunur (çıktıda ≈38 px)",
+   "kaynak": "ChatShell",
+   "telefon": "PB'",
+   "kamera": "Oturuş 4,15",
+   "yazi": "'Sor. Evlek göstersin.' 72/700, top 128, giriş 4,15–4,4",
+   "gecis": "Opaklık + 14 px",
+   "ses": "—"
+  },
+  {
+   "saniye": "4,5–5,0",
+   "plan": "Cevap gelir",
+   "goruntu": "Balonun altında gerçek Lapta haritası ve '£105–147 bin · 8' kapsülü",
+   "kaynak": "wLaptaTop.png",
+   "telefon": "PB'",
+   "kamera": "Sabit",
+   "yazi": "Slogan",
+   "gecis": "Ekran içi opaklık 4,5–4,9",
+   "ses": "Yumuşak yükleme"
+  },
+  {
+   "saniye": "5,0–5,5",
+   "plan": "Widget üstü",
+   "goruntu": "'Lapta · Satılık · 8 ilan', Satılık|Kiralık, 'Filtreler · 5', 'Havuz', 'Deniz manzarası'; kart şeridi kadraj dışında",
+   "kaynak": "wLaptaTop.png",
+   "telefon": "PB'",
+   "kamera": "Sabit",
+   "yazi": "Slogan",
+   "gecis": "Başlık ve çipler 4,95–5,2",
+   "ses": "—"
+  },
+  {
+   "saniye": "5,5–6,0",
+   "plan": "Okuma",
+   "goruntu": "Duruş",
+   "kaynak": "wLaptaTop.png",
+   "telefon": "PB'",
+   "kamera": "Sabit",
+   "yazi": "Slogan tam opak (4,4–6,0)",
+   "gecis": "—",
+   "ses": "—"
+  },
+  {
+   "saniye": "6,0–6,5",
+   "plan": "Kesme → kart şeridi",
+   "goruntu": "Slogan 6,0–6,25'te söner. 6,25'te kart şeridine kesme: şerit parmakla sola akıyor (£120.000 bahçe → £127.000 → £139.000), parmak halkası sürüklenir",
+   "kaynak": "wLaptaRow.png (yalnız 3–7. dizin)",
+   "telefon": "PC (669;606;0,80;2;−4;−1) nominal",
+   "kamera": "Sabit",
+   "yazi": "Slogan çıkışı",
+   "gecis": "Sert kesme 6,25; şerit translateX 6,25–6,6 ve snap",
+   "ses": "Kaydırma 'fış'"
+  },
+  {
+   "saniye": "6,5–7,0",
+   "plan": "Kart yakın plan",
+   "goruntu": "£139.000 · 2+1 · 2 banyo · 107 m² · Lapta, Girne · 14 foto; sağda £139.990 kartının kenarı",
+   "kaynak": "wLaptaRow.png",
+   "telefon": "PC",
+   "kamera": "Sabit",
+   "yazi": "—",
+   "gecis": "—",
+   "ses": "—"
+  },
+  {
+   "saniye": "7,0–7,5",
+   "plan": "Karta dokunuş",
+   "goruntu": "7,3'te dokunuş halkası; 7,35'te ChatGPT tam ekran görünümü açılmaya başlar",
+   "kaynak": "wLaptaRow → dFull_1",
+   "telefon": "PC (+kick 7,3)",
+   "kamera": "Sabit",
+   "yazi": "—",
+   "gecis": "Tam ekran açılışı 7,35–7,7 (temsilî ölçek)",
+   "ses": "Dokunuş tıkı"
+  },
+  {
+   "saniye": "7,5–8,0",
+   "plan": "Tam ekran detay",
+   "goruntu": "'Sonuçlara dön', kahraman 1/14 (kancadaki kare), fiyat",
+   "kaynak": "dFull_1.png",
+   "telefon": "PC → PDH (540;1180;0,62;2;−4;−1)",
+   "kamera": "Çekilme SOFT 7,7–8,2",
+   "yazi": "—",
+   "gecis": "—",
+   "ses": "—"
+  },
+  {
+   "saniye": "8,0–8,5",
+   "plan": "Galeri 'sonraki'",
+   "goruntu": "8,3'te '›' dokunuşu; 8,35'te kahraman '2 / 14' iç mekâna geçer",
+   "kaynak": "dFull_1 → dFull_2",
+   "telefon": "PDH",
+   "kamera": "Oturuş 8,2",
+   "yazi": "—",
+   "gecis": "Anlık değişim (gerçek galeri davranışı)",
+   "ses": "Tık"
+  },
+  {
+   "saniye": "8,5–9,0",
+   "plan": "Portal → iç mekân",
+   "goruntu": "8,65'te 2/14 görseli telefon düzleminden kalkar; bilgi alanı yok (ph=h)",
+   "kaynak": "Portal (HERO_D → 1584×2112, left −150)",
+   "telefon": "PDH (hareketsiz; portal üstünü örter)",
+   "kamera": "Sabit",
+   "yazi": "—",
+   "gecis": "Portal FLY 8,65–9,65",
+   "ses": "Açılış whoosh"
+  },
+  {
+   "saniye": "9,0–9,5",
+   "plan": "Portal",
+   "goruntu": "Görsel büyür, telefon örtülür",
+   "kaynak": "Portal",
+   "telefon": "PDH (örtülü)",
+   "kamera": "Sabit",
+   "yazi": "—",
+   "gecis": "Portal sürüyor",
+   "ses": "—"
+  },
+  {
+   "saniye": "9,5–10,0",
+   "plan": "İç mekân tam ekran",
+   "goruntu": "9,65'te çift yükseklikli cam ve perdeler tam ekranda; telefon gizli",
+   "kaynak": "Interior EVL-100102_01_l1584.png",
+   "telefon": "yok",
+   "kamera": "Tilt top 0→−120 (9,65–11,65)",
+   "yazi": "'£139.000' 96/800 top 210, giriş 9,75–10,0",
+   "gecis": "Köşeler kadraja oturur",
+   "ses": "İç mekân tonu"
+  },
+  {
+   "saniye": "10,0–10,5",
+   "plan": "İç mekân · künye",
+   "goruntu": "Tilt pencereden aşağı iner",
+   "kaynak": "Interior",
+   "telefon": "yok",
+   "kamera": "Tilt",
+   "yazi": "+ 'Lapta · 2+1 · 107 m²' 52/600 top 322 (9,85–10,1)",
+   "gecis": "—",
+   "ses": "—"
+  },
+  {
+   "saniye": "10,5–11,0",
+   "plan": "İç mekân · künye",
+   "goruntu": "Kapı ve deniz kadrajın sol-ortasına gelir",
+   "kaynak": "Interior",
+   "telefon": "yok",
+   "kamera": "Tilt",
+   "yazi": "Künye",
+   "gecis": "—",
+   "ses": "—"
+  },
+  {
+   "saniye": "11,0–11,5",
+   "plan": "İç mekân",
+   "goruntu": "Tilt kapıdaki denize yaklaşır",
+   "kaynak": "Interior",
+   "telefon": "yok",
+   "kamera": "Tilt",
+   "yazi": "Künye çıkışı 11,4–11,6",
+   "gecis": "Opaklık",
+   "ses": "—"
+  },
+  {
+   "saniye": "11,5–12,0",
+   "plan": "Telefon girişi",
+   "goruntu": "11,65'te telefon sağ alttan girer; ekranda tam ekran detay 2/14 (arkadakiyle aynı fotoğraf); zemin hafif kararır",
+   "kaynak": "dFull_2.png · Phone onPhoto gölgesi",
+   "telefon": "(900;2500;0,42) → P_IN (740;1300;0,42;3;−8;0)",
+   "kamera": "ENTER 11,65–12,3",
+   "yazi": "—",
+   "gecis": "Zemin brightness 1→.85 (11,65–12,05)",
+   "ses": "Giriş swish"
+  },
+  {
+   "saniye": "12,0–12,5",
+   "plan": "Detaya itme",
+   "goruntu": "Telefon oturur, ardından bilgi alanına itme",
+   "kaynak": "dFull_2.png",
+   "telefon": "P_IN → PD (560;1000;0,70;2;−5;−1)",
+   "kamera": "İtme SOFT 12,3–12,85",
+   "yazi": "—",
+   "gecis": "—",
+   "ses": "—"
+  },
+  {
+   "saniye": "12,5–13,0",
+   "plan": "Detay okuma",
+   "goruntu": "£139.000 · 2+1 · 2 banyo · 107 m² · Lapta, Girne; özellik çipleri doku olarak",
+   "kaynak": "dFull_2.png",
+   "telefon": "PD",
+   "kamera": "Oturuş 12,85",
+   "yazi": "—",
+   "gecis": "—",
+   "ses": "—"
+  },
+  {
+   "saniye": "13,0–13,5",
+   "plan": "Kaydırma",
+   "goruntu": "13,35–13,6 parmakla yukarı kaydırma; 'Evlek'te tüm ayrıntılar ↗' görünür",
+   "kaynak": "dFull_2 → dFull_info.png",
+   "telefon": "PD",
+   "kamera": "Sabit",
+   "yazi": "—",
+   "gecis": "Ekran içi kaydırma 0,25 sn",
+   "ses": "—"
+  },
+  {
+   "saniye": "13,5–14,0",
+   "plan": "Dokunuş → tarayıcı",
+   "goruntu": "13,7'de dv__out dokunuşu; 13,8–14,2 uygulama içi tarayıcı aşağıdan kayar",
+   "kaynak": "dFull_info → WebPage",
+   "telefon": "PD",
+   "kamera": "Sabit",
+   "yazi": "—",
+   "gecis": "iOS modal 0,4 sn; zemin blur 0→24 + lacivert .6 (13,8–14,4)",
+   "ses": "Tık"
+  },
+  {
+   "saniye": "14,0–14,5",
+   "plan": "evlek.app üstü",
+   "goruntu": "Açık tarayıcı başlığı 'evlek.app', Evlek logosu, 'Satılık' havuz fotoğrafı",
+   "kaynak": "public/page/page_view.png (iki parça, 1:1)",
+   "telefon": "PD",
+   "kamera": "Sabit 14,2–14,55",
+   "yazi": "—",
+   "gecis": "—",
+   "ses": "—"
+  },
+  {
+   "saniye": "14,5–15,0",
+   "plan": "Fiyat bloğuna itme",
+   "goruntu": "Kamera fiyat ve başlık bloğuna iner",
+   "kaynak": "WebPage",
+   "telefon": "PD → PP (540;650;0,78;2;−4;−1)",
+   "kamera": "İtme SOFT 14,55–15,15",
+   "yazi": "—",
+   "gecis": "—",
+   "ses": "—"
+  },
+  {
+   "saniye": "15,0–15,5",
+   "plan": "evlek.app fiyat",
+   "goruntu": "'£139.000' · 'Evlek › Satılık › Girne › Lapta › Daire' · 'Lapta'da Deniz Manzaralı 2+1 Daire'",
+   "kaynak": "WebPage",
+   "telefon": "PP",
+   "kamera": "Oturuş 15,15",
+   "yazi": "—",
+   "gecis": "—",
+   "ses": "—"
+  },
+  {
+   "saniye": "15,5–16,0",
+   "plan": "evlek.app okuma",
+   "goruntu": "'Lapta, Girne · 2 Yatak · 2 Banyo · 107 m² Kapalı' (≈34 px)",
+   "kaynak": "WebPage",
+   "telefon": "PP",
+   "kamera": "Sabit",
+   "yazi": "—",
+   "gecis": "—",
+   "ses": "—"
+  },
+  {
+   "saniye": "16,0–16,5",
+   "plan": "Kesme → Ekle perdesi",
+   "goruntu": "16,2'de Lapta sohbetine kesme, zemin bulanık havuz; 16,45'te ≡ dokunuşu",
+   "kaynak": "ChatShell + wLaptaTop · Photo blur 24",
+   "telefon": "CHAT (540;1050;0,55;2;−4;−1)",
+   "kamera": "Sabit",
+   "yazi": "Yol şeridi 52/600 top 128, giriş 16,2–16,45, aktif 'ChatGPT'",
+   "gecis": "Bulanık zeminler arasında sert kesme",
+   "ses": "Bölüm vurgusu"
+  },
+  {
+   "saniye": "16,5–17,0",
+   "plan": "Kenar menü",
+   "goruntu": "Menü kayar (16,5–16,75): Yeni sohbet · Zamanlananlar · Kitaplık · Eklentiler · Keşfet; sabitlenenler ve hesap yok",
+   "kaynak": "Sidebar (temsilî)",
+   "telefon": "CHAT",
+   "kamera": "Sabit",
+   "yazi": "Yol şeridi",
+   "gecis": "Kayma 0,25 sn",
+   "ses": "Tık"
+  },
+  {
+   "saniye": "17,0–17,5",
+   "plan": "Eklentiler",
+   "goruntu": "17,05'te 'Eklentiler' dokunuşu; 17,1–17,4 push: İzinler · Eklentilere göz at · 'Eklenti ara'",
+   "kaynak": "PluginsHome (eklenti_9_0 düzeni)",
+   "telefon": "CHAT",
+   "kamera": "Sabit",
+   "yazi": "Yol şeridi, aktif 'Eklentiler'",
+   "gecis": "Push 0,3 sn",
+   "ses": "Tık"
+  },
+  {
+   "saniye": "17,5–18,0",
+   "plan": "Arama",
+   "goruntu": "17,7'de aramaya dokunuş; 'evlek' yazılır (17,75–17,95, klavye yok); 18,0'de tek sonuç: 'Ev Evlek · Northern Cyprus property data'",
+   "kaynak": "PluginsSearch (iskelet yok)",
+   "telefon": "CHAT",
+   "kamera": "Sabit",
+   "yazi": "Yol şeridi",
+   "gecis": "—",
+   "ses": "Yazım tıkırtısı"
+  },
+  {
+   "saniye": "18,0–18,5",
+   "plan": "Evlek eklenti sayfası",
+   "goruntu": "18,3'te satıra dokunuş; 18,35–18,65 push: degrade soru kartları, açıklama, 'Eklentiyi kur'",
+   "kaynak": "EvlekPage (eklenti_28_5 düzeni)",
+   "telefon": "CHAT",
+   "kamera": "Sabit",
+   "yazi": "Yol şeridi, aktif 'Evlek'",
+   "gecis": "Push 0,3 sn",
+   "ses": "Tık"
+  },
+  {
+   "saniye": "18,5–19,0",
+   "plan": "Düğmeye itme",
+   "goruntu": "Kamera 'Eklentiyi kur' ve 'Uygulama › Evlek' satırına iner",
+   "kaynak": "EvlekPage",
+   "telefon": "CHAT → PBTN (540;1070;0,60;2;−4;−1)",
+   "kamera": "İtme SOFT 18,7–19,3",
+   "yazi": "Yol şeridi",
+   "gecis": "—",
+   "ses": "—"
+  },
+  {
+   "saniye": "19,0–19,5",
+   "plan": "Kur",
+   "goruntu": "19,35'te 'Eklentiyi kur' dokunuşu; dönen gösterge",
+   "kaynak": "EvlekPage",
+   "telefon": "PBTN (+kick)",
+   "kamera": "Oturuş 19,3",
+   "yazi": "Yol şeridi",
+   "gecis": "spin [19,35; 19,7)",
+   "ses": "Tık"
+  },
+  {
+   "saniye": "19,5–20,0",
+   "plan": "Bağlı ✓",
+   "goruntu": "19,7'de aynı karede '✓ Bağlı' (56 ekran px) ve 'Sohbette dene'",
+   "kaynak": "EvlekPage connected",
+   "telefon": "PBTN",
+   "kamera": "Sabit",
+   "yazi": "Yol şeridi, 'Ekle ✓'",
+   "gecis": "spin[1] = bound = 19,7; geri dönüş yok",
+   "ses": "Onay 'ding'"
+  },
+  {
+   "saniye": "20,0–20,5",
+   "plan": "Bağlı okuma",
+   "goruntu": "Duruş",
+   "kaynak": "EvlekPage",
+   "telefon": "PBTN",
+   "kamera": "Sabit",
+   "yazi": "Yol şeridi",
+   "gecis": "—",
+   "ses": "—"
+  },
+  {
+   "saniye": "20,5–21,0",
+   "plan": "Sohbette dene",
+   "goruntu": "20,9'da dokunuş; 20,95'te yeni sohbete push başlar",
+   "kaynak": "EvlekPage → NewChat",
+   "telefon": "PBTN",
+   "kamera": "Sabit",
+   "yazi": "Yol şeridi çıkışı 20,9–21,15",
+   "gecis": "Push 20,95–21,25",
+   "ses": "Tık"
+  },
+  {
+   "saniye": "21,0–21,5",
+   "plan": "Yeni sohbet",
+   "goruntu": "Yazım kutusunda 'Ev Evlek' çipi ve gerçek Girne istemi (klavye yok)",
+   "kaynak": "NewChat (eklenti_31_5 düzeni)",
+   "telefon": "PBTN",
+   "kamera": "Sabit",
+   "yazi": "—",
+   "gecis": "—",
+   "ses": "—"
+  },
+  {
+   "saniye": "21,5–22,0",
+   "plan": "Gönder → Girne sonucu",
+   "goruntu": "21,55'te gönder; 21,6'da balon; 21,7–21,95 gerçek Girne widget'ı (harita, 52 ilan, ilk kart)",
+   "kaynak": "wGirne.png",
+   "telefon": "PBTN (+kick 21,55)",
+   "kamera": "Sabit",
+   "yazi": "—",
+   "gecis": "Sonuç girişi 0,25 sn",
+   "ses": "Gönder tıkı"
+  },
+  {
+   "saniye": "22,0–22,5",
+   "plan": "Girne sonucu",
+   "goruntu": "'Girne · Satılık · 52 ilan'; ilk kart £75.000 (gerçek ilk durum)",
+   "kaynak": "wGirne.png",
+   "telefon": "PBTN",
+   "kamera": "Sabit",
+   "yazi": "—",
+   "gecis": "—",
+   "ses": "—"
+  },
+  {
+   "saniye": "22,5–23,0",
+   "plan": "Girne sonucu",
+   "goruntu": "Duruş",
+   "kaynak": "wGirne.png",
+   "telefon": "PBTN",
+   "kamera": "Sabit",
+   "yazi": "—",
+   "gecis": "—",
+   "ses": "—"
+  },
+  {
+   "saniye": "23,0–23,5",
+   "plan": "Girne → çekilme",
+   "goruntu": "Girne 21,95–23,45 arası (1,5 sn); 23,45'te çekilme başlar",
+   "kaynak": "wGirne · Photo",
+   "telefon": "PBTN → CLOSE",
+   "kamera": "Çekilme SOFT 23,45–24,15",
+   "yazi": "—",
+   "gecis": "Bulanıklık 24→0 (23,45–24,15, tek görüntü)",
+   "ses": "Müzik açılır"
+  },
+  {
+   "saniye": "23,5–24,0",
+   "plan": "Kapanışa çekilme",
+   "goruntu": "Havuz ve deniz netleşir; telefon Girne sonucuyla iner",
+   "kaynak": "Photo (pan) · wGirne",
+   "telefon": "→ CLOSE (540;1330;0,40;3;−6;−1)",
+   "kamera": "Çekilme; pan 1,5%/sn",
+   "yazi": "—",
+   "gecis": "—",
+   "ses": "—"
+  },
+  {
+   "saniye": "24,0–24,5",
+   "plan": "Kapanış",
+   "goruntu": "Keskin havuz, önde telefon",
+   "kaynak": "Photo · Logo",
+   "telefon": "CLOSE",
+   "kamera": "Oturuş 24,15; pan",
+   "yazi": "Logo 24,15–24,4; CTA 'ChatGPT'de / Eklentiler'den / Evlek'i ekleyin.' 72/800 top 330, giriş 24,25–24,5",
+   "gecis": "Opaklık + 14 px",
+   "ses": "—"
+  },
+  {
+   "saniye": "24,5–25,0",
+   "plan": "Kapanış",
+   "goruntu": "Sabit kompozisyon",
+   "kaynak": "V12 kapanış",
+   "telefon": "CLOSE",
+   "kamera": "Pan",
+   "yazi": "CTA + dipnot 30/500 top 610 (24,6–24,85)",
+   "gecis": "Opaklık",
+   "ses": "—"
+  },
+  {
+   "saniye": "25,0–25,5",
+   "plan": "Kapanış",
+   "goruntu": "Sabit",
+   "kaynak": "V12 kapanış",
+   "telefon": "CLOSE",
+   "kamera": "Pan",
+   "yazi": "CTA + dipnot",
+   "gecis": "—",
+   "ses": "—"
+  },
+  {
+   "saniye": "25,5–26,0",
+   "plan": "Kapanış",
+   "goruntu": "Sabit",
+   "kaynak": "V12 kapanış",
+   "telefon": "CLOSE",
+   "kamera": "Pan",
+   "yazi": "CTA + dipnot",
+   "gecis": "—",
+   "ses": "—"
+  },
+  {
+   "saniye": "26,0–26,5",
+   "plan": "Kapanış",
+   "goruntu": "Sabit",
+   "kaynak": "V12 kapanış",
+   "telefon": "CLOSE",
+   "kamera": "Pan",
+   "yazi": "CTA + dipnot",
+   "gecis": "—",
+   "ses": "—"
+  },
+  {
+   "saniye": "26,5–27,0",
+   "plan": "Kapanış",
+   "goruntu": "Sabit",
+   "kaynak": "V12 kapanış",
+   "telefon": "CLOSE",
+   "kamera": "Pan",
+   "yazi": "CTA + dipnot",
+   "gecis": "—",
+   "ses": "—"
+  },
+  {
+   "saniye": "27,0–27,5",
+   "plan": "Kapanış",
+   "goruntu": "Sabit",
+   "kaynak": "V12 kapanış",
+   "telefon": "CLOSE",
+   "kamera": "Pan",
+   "yazi": "CTA + dipnot",
+   "gecis": "—",
+   "ses": "—"
+  },
+  {
+   "saniye": "27,5–28,0",
+   "plan": "Kapanış",
+   "goruntu": "Sabit",
+   "kaynak": "V12 kapanış",
+   "telefon": "CLOSE",
+   "kamera": "Pan",
+   "yazi": "CTA + dipnot",
+   "gecis": "—",
+   "ses": "—"
+  },
+  {
+   "saniye": "28,0–28,5",
+   "plan": "Kapanış",
+   "goruntu": "Sabit",
+   "kaynak": "V12 kapanış",
+   "telefon": "CLOSE",
+   "kamera": "Pan",
+   "yazi": "CTA + dipnot",
+   "gecis": "—",
+   "ses": "—"
+  },
+  {
+   "saniye": "28,5–29,0",
+   "plan": "Kapanış",
+   "goruntu": "Sabit",
+   "kaynak": "V12 kapanış",
+   "telefon": "CLOSE",
+   "kamera": "Pan",
+   "yazi": "CTA + dipnot",
+   "gecis": "—",
+   "ses": "Müzik kapanış cümlesi"
+  },
+  {
+   "saniye": "29,0–29,5",
+   "plan": "Döngü hazırlığı",
+   "goruntu": "29,45'te telefon inmeye başlar",
+   "kaynak": "V12 kapanış",
+   "telefon": "CLOSE → EXIT (540;2650;0,40;3;−6;−1), FLY 29,45–29,95",
+   "kamera": "Pan",
+   "yazi": "CTA ve dipnot; logo kalır",
+   "gecis": "FLY çıkış",
+   "ses": "—"
+  },
+  {
+   "saniye": "29,5–30,0",
+   "plan": "Döngü dikişi",
+   "goruntu": "Telefon kadrajdan çıkar; tam ekran keskin havuz; 30,0 = 0. kare (xPct 24)",
+   "kaynak": "Photo",
+   "telefon": "yok (29,95'ten itibaren)",
+   "kamera": "Pan → 24",
+   "yazi": "CTA ve dipnot çıkışı 29,5–29,65; 'artık ChatGPT'de.' girişi 29,7–29,95",
+   "gecis": "Dikişsiz döngü",
+   "ses": "Ortam, açılışa bağlanır"
+  }
+ ],
+ "kisa_surumler": "15 SN (Root.tsx'te V12-15; <Series.Sequence> + <Sequence from={−başlangıç}> kesme listesi; M = yeni master zamanı; tek kodlama kuşağı):\n0,00–3,45 ← M 0,00–3,45: kanca, ters portal, detay, logo → çip (3,45 sn)\n3,45–5,55 ← M 4,15–6,25: balon yakın planı ve slogan giriş-çıkış; itmeyle eşleşen kesme (2,10 sn; slogan tam opak 1,6 sn)\n5,55–7,00 ← M 6,25–7,70: kaydırma, £139.000 kartı, dokunuş, tam ekran açılış (1,45 sn)\n7,00–7,45 ← M 8,20–8,65: '›' ve 2/14 (0,45 sn)\n7,45–9,85 ← M 8,65–11,05: portal, iç mekân, künye (2,40 sn; künye tam opak ≈1,05 sn)\n9,85–10,90 ← M 16,20–17,25: yol şeridi, ≡ › Eklentiler (1,05 sn)\n10,90–12,05 ← M 19,25–20,40: Kur › '✓ Bağlı' (1,15 sn; Bağlı 0,70 sn = 42 kare)\n12,05–14,45 ← M 27,05–29,45: kapanış (havuz, telefon, logo, CTA, dipnot) (2,40 sn)\n14,45–15,00 ← M 29,45–30,00: döngü dikişi (0,55 sn)\nToplam: 3,45+2,10+1,45+0,45+2,40+1,05+1,15+2,40+0,55 = 15,00 sn ✓ (900 kare). Açılış 0. karede ev ve haber. CTA tam opak 2,40 sn; 5 kelime için kural 2,2 sn ✓. Son kare = ilk kare. Bu sürümde evlek.app sayfası ve Girne sonucu yok. Dipnot 2,4 sn, önerilen 4,6 sn'nin altında; platform açıklamasında da verilmesi önerilir.\n\n6 SN (V12-6):\n0,00–2,95 ← M 0,00–2,95: havuz + logo + 'artık ChatGPT'de.' → ters portalla ChatGPT'deki Evlek detayı (2,95 sn)\n2,95–3,45 ← M 2,95–3,45: soru balonu ve logo → 'Ev Evlek' çipi (0,50 sn)\n3,45–6,00 ← M 26,90–29,45: kapanış: logo, CTA, dipnot, Girne sonucunu gösteren telefon (2,55 sn)\nToplam: 2,95+0,50+2,55 = 6,00 sn ✓ (360 kare). Ana mesaj sayısı iki (haber ve CTA); slogan 1,6 sn kuralını karşılayamadığı için bilinçli olarak çıkarıldı. CTA 2,55 sn ✓ (kural 2,2). Dipnot 2,55 sn; açıklama metninde tekrar edilmesi önerilir. Döngü bağlantısı yok; son kare CTA.",
+ "widget_karari": "Karar: Evlek'in kendi yüzeyleri yeniden çizilmiyor; gerçek pikselleri ve dış reklam katmanları kullanılıyor. ChatGPT kabuğu ve Eklentiler ekranları temsilî çiziliyor.\n\nGerekçe:\n(1) Yeni brif ve docs/KURALLAR.md açıkça 'içerikleri yeniden çizilmez; kırpım, ölçek, ışık, derinlik ve gerçek piksel kopyası serbest' diyor.\n(2) Toplantı planındaki karma modelin dayandığı öncül ('gerçek widget kaydı yok, 1179 px'e büyütülünce bulanıklaşır') yanlış. Repoda gerçek widget HTML'i (live/listing-cards-v3-14.html, listing-detail-v3-11.html), canlı veri (live/w_*.json) ve koyu tema düzeneği (cap/harness.mjs; inline ve fullscreen modları) var. cap/s52_inline.png gerçek render'ın netliğini kanıtlıyor; 393 pt × DPR 3 = 1179 px ekranla birebir.\n(3) Yeniden tasarım, envanter 'kilitli' olsa bile bu planda üç kez uydurma üretti: sıralama çipi, kartta galeri kaydırması ve detayda 'Evlek'te aç'. Gerçek piksel bu hata sınıfını tamamen kapatıyor. Etiketler (Satılık|Kiralık, 'Filtreler · 5', 'Haritada tümü', 'Evlek'te tüm ayrıntılar ↗', 'Emlakçıya sor ↗', '1 / 14') ve davranışlar (kart dokunuşu → tam ekran detay; '‹ ›' galeri; dv__out → openLink(ilan adresi)) kaynaktan geliyor.\n(4) Onur'un 'gerçek widget zayıf görünüyor' itirazı (HANDOFF karar 2) şu katmanlarla cevaplanıyor: 3B cihaz, yakın planlar, iki portal, keskin fotoğraf zemini, lacivert ve krem dış tipografi. Widget'ın kendisi değiştirilmiyor.\n\nUygulama:\n- cap/capture-v12.mjs ile Lapta (8 ilan), tam ekran EVL-100102 detayı (1/14, 2/14, dv__out görünür) ve Girne (52 ilan) yakalanıyor.\n- Ofis satırı veriden temizleniyor (officeName ve office null); başka veri değişmiyor.\n- £105.000, £110.000 ve £120.000 (CGI ve insan görüntülü) kart görselleri varlıklara hiç girmiyor.\n- evlek.app için public/page/page_view.png kullanılıyor; ofis kartı zaten kırpılmış. Uygulama içi tarayıcıda iki parça halinde yerleşiyor ve yapışkan çubuk görünüm alanının dibinde duruyor.\n- Eklentiler akışının yalnız 384×848 düşük çözünürlüklü kaydı ve kişisel öğeleri olduğu için bu ekranlar kayıttaki yerleşime sadık biçimde yeniden çiziliyor. Bildirim, abonelik ve kullanıcı adı yok.\n- Dipnot 'Arayüz temsilidir; ilanlar ve fiyatlar Evlek'in gerçek verisidir. ChatGPT, OpenAI'ın ticari markasıdır.' ChatGPT kabuğunu kapsıyor ve 4,65 sn ekranda kalıyor.\n\nRisk ve kapı: Bu karar HANDOFF karar 2'den sapıyor. Tam render öncesinde aynı 4 karede (2,5 / 6,6 / 8,35 / 15,6) gerçek piksel ile yeniden tasarım yan yana Onur'a sunulur. Yazılı onay gelmeden V12 yayın adayı sayılmaz. Onur yeniden tasarımda ısrar ederse, bileşen ve etiket listesi ekran görüntüsünden değil, HTML'deki EVLEK_STRINGS ve render dallarından çıkarılır ve her etkileşimin HTML'de karşılığı olan bir olay işleyicisi bulunur.",
+ "acik_sorular": [
+  "Widget: Evlek yüzeyleri (sonuçlar, tam ekran detay, evlek.app) için gerçek piksel + reklam katmanları kararı, HANDOFF karar 2'nin ('daha seksi bir yeniden tasarım') yerine kabul ediliyor mu? Aynı 4 karede A/B still sunulacak; yazılı onay gerekiyor.",
+  "Kanca: HANDOFF karar 1'deki 'Bir sabahın böyle başlasa?' → 'ChatGPT'de Evlek'e sor.' yerine 'Evlek artık ChatGPT'de.' haberi ve görsel arzu kullanılıyor. Kabul mü, yoksa ayrı bir A/B kompozisyonu mu istenir?",
+  "Telefonsuz iki tam ekran plan (0,0–1,5 ve 9,65–11,65; toplam 3,5 sn), HANDOFF'taki 'telefon her an telefon olmalı' cümlesiyle bağdaşıyor mu?",
+  "Karar 5 'Girne sonucu 1,5 sn', kurulumdan sonraki ilk deneme olarak gerçek Girne araması (52 ilan) ile karşılanıyor. Kastedilen bu mu?",
+  "Karşılaştırmanın bu filmden tamamen çıkarılması onaylanıyor mu? Gerçek oturumda ChatGPT £127.000'lik ilanı öneriyor.",
+  "ChatGPT iOS uygulamasında (abone hesapta) Eklentiler'e giriş tam olarak nereden yapılıyor: kenar menüde 'Eklentiler' satırı mı, ayarlar mı? 3,5 sn'lik öğretici buna göre kesinleşecek; doğrulanmadan yayın yok.",
+  "Soru balonundaki istem ('Lapta'da £160 bin altı, deniz manzaralı 2+1 daireleri ucuzdan pahalıya göster') w_lapta.json'daki filtrelerle birebir uyuşuyor, ama kayıttaki gerçek istem farklı ('Lapta'dakileri ucuzdan pahalıya göster.', önceki Girne bağlamıyla). Bu birleştirilmiş istem kabul mü, yoksa canlı MCP'de bu istemle yeni bir kayıt mı alınmalı?",
+  "Evlek eklenti sayfasındaki örnek istemler gerçekte İngilizce. Türkçe filmde gerçek metin olarak kalması uygun mu?",
+  "EVL-100102_00 ve _01'in Evlek kaynağında 1600 px'ten büyük orijinalleri var mı? Varsa 1,60× ve 1,32× büyütme gereksizleşir.",
+  "Markasızlaştırılmış cihaz (delik kamera, 10:24, tek tonlu grafit, sol tuş yok) yeterli mi, yoksa hukuki kontrol gerekiyor mu?",
+  "15 ve 6 sn sürümlerde dipnot 2,4 ve 2,55 sn ekranda kalıyor (önerilen 4,6 sn). Platform açıklamasında da yer alması yeterli mi?",
+  "Sürekli köşe Evlek imi (HANDOFF, 3–25 sn) kullanılmıyor; marka her 6 sn'de en az bir kez görünüyor. Kabul mü?",
+  "v12 üretimi 'video/evlek-chatgpt-v10' dalında sürüyor (aynı film, yeni sürüm). CLAUDE.md'deki 'her video için ayrı dal' kuralı açısından bu yeterli mi, yoksa 'video/evlek-chatgpt-v12' dalı mı açılmalı?"
+ ],
+ "kisa_surumler_note": "ignored"
+}

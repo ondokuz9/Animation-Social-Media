@@ -1,0 +1,821 @@
+[
+ {
+  "uzman": "Baş kreatif direktör (ilk bağımsız görüş)",
+  "bulgular": [
+   {
+    "saniye": "0,0–5,5 ve 26,0–30,0",
+    "tur": "sorun",
+    "gozlem": "Film boş, koyu bir ChatGPT ekranıyla açılıyor: 0–2,25 sn arasında 'Evlek / artık ChatGPT'de.' yazısı var, telefon (P 540,1330, s 0,42) kadrajın yaklaşık yarısını kaplıyor ve ekranında hiçbir şey yok. Arka plan EVL-100102_00 havuz/deniz fotoğrafı, ama 24 px bulanık ve 0,58 parlaklıkta. İlk ilan görseli 5,6 sn'de küçük kart olarak, ilk tam ekran ev ise 10,83 sn'de görünüyor. Kapanış (26,0–30,0) açılışın aynısı: aynı boş ekran ve aynı başlık, altına 'Eklentiler'den Evlek'i ekle.' ve dipnot eklenmiş.",
+    "etki": "Yorum: İlk karede ne ev ne de bir ürün kanıtı var. Yazının çalışması ChatGPT adını tanımaya bağlı; KKTC'de ev aramayan izleyiciyi tutacak bir arzu yok. Performans varsayımı: kaydırma akışında ilk 1–2 sn'deki kayıp yüksek olabilir. Bu izlenme verisi olmadan ölçülemez. Kapanış, filmin en zayıf görüntüsünü ikinci kez gösteriyor. Ayrıca HANDOFF karar 1'deki 'yaşam arzusu + marka' kancası uygulanmamış.",
+    "duzeltme": "0,0–0,9 sn: EVL-100102_00 keskin ve tam ekran (GRADE_EXT, dış çekim Ken Burns %1,8/sn). 'Evlek artık ChatGPT'de.' gökyüzünde y≈300'de, 150 px / 800 ağırlıkta. 0,9–1,6 sn: ters portal. Fotoğraf, köşeleri eşleşerek telefondaki EVL-100102 kartına küçülür (10,5–11,5'teki portalın tersi, FLY eğrisi). Telefon P(540,1050,0,55) pozunda girer. Ekranda Lapta istemi gönderilmiş ve harita yükleniyor olmalı; boş ekran hiç görünmemeli. Kapanış 26,0–30,0: aynı fotoğraf tam ekran döner (parlaklık 0,75, üst %40'ta lacivert #0A2540 degrade). Önünde s≈0,40 telefon durur; ekranında 'Evlek' çipi ve yazılmış istem görünür, boş ekran olmaz. CTA 56 px. Son 0,4 sn ilk kareye bağlanır.",
+    "guven": "yüksek",
+    "oncelik": "P0"
+   },
+   {
+    "saniye": "10,5–17,0",
+    "tur": "korunacak başarı",
+    "gozlem": "10,5–11,5 sn'de EVL-100102 kart fotoğrafı köşeleri eşleşerek tam ekran gerçek fotoğrafa açılıyor; opaklık hilesi yok. 11,1–11,5'te keskinleşiyor. 12,0–14,2'de sakin bir künye var: '£139.000 / Lapta · 2+1 · 107 m²'. 14,5–15,2'de telefon alttan giriyor ve gerçek ilan detayını gösteriyor: 'Satılık · EVL-100102', 2/14, 2+1 · 2 banyo · 107 m², Lapta, Girne, beş gerçek özellik çipi. 15,5'te arka plan iç mekâna (çift yükseklikli cam, deniz) geçiyor. 107 m² için tür uydurulmamış.",
+    "etki": "Yorum: Filmin tek gerçek arzu anı bu ve 'ChatGPT'deki cevap gerçek bir eve açılıyor' fikrini sözsüz anlatıyor. Ürünle mekân aynı planda olduğu için telefon, fotoğraf planında da telefon olarak okunuyor. Veri doğru ilan kaydına bağlı.",
+    "duzeltme": "Kart→mekân portalının eğrisi, köşe eşleşmesi ve süresi (1,0 sn) olduğu gibi kalmalı; filmin ana fikri bu hareket üzerine kurulmalı (bkz. yön önerisi). Tek ince ayar: 10,6–10,8 sn'de büyüyen fotoğrafın altında telefonun giriş çubuğu ve kart kalıntıları görünüyor. Bunlar 0,1 sn erken (phoneOut 10,65) gizlenmeli. İç mekân geçişindeki (15,5–15,6) çift pozlama görüntüsü, 280 ms hız rampasıyla kısaltılabilir.",
+    "guven": "yüksek",
+    "oncelik": "P1"
+   },
+   {
+    "saniye": "5,6–9,5 ve 17,0–30,0",
+    "tur": "sorun",
+    "gozlem": "Filmde görülen ilk ilan görseli (£105.000 kartı, 5,6–9,5 sn) bir mimari render ve havuzda iki insan figürü (çocuk ve kadın) içeriyor. Yeniden çizilmiş widget koyu tema, gerçeği ise açık tema. Gerçek widget'taki 'Evlek'te aç ↗' düğmesi filmde yok ve gerçek evlek.app sayfası hiç görünmüyor. Karşılaştırma gerçekte ChatGPT'nin metin tablosu, filmde ise widget kartı ('Lapta · karşılaştırma', 'Fiyat farkı £12.000 (%9,4)') olarak çizilmiş; kartın altında yaklaşık 280 px boşluk var. Eklentiler akışındaki Evlek sayfası, butonlar ve İngilizce soru kartları ise referans kareyle (eklenti_16_5, eklenti_28_5) birebir uyumlu.",
+    "etki": "Yorum: 'Gerçek evler' vaadinin ilk görüntüsü bir render; bu, güveni ve 'insan görüntüsü yok' kuralını zayıflatıyor. Gerçek tek bir piksel ya da ilan sayfasına geçiş olmadığı için izleyici, ilanların gerçek olduğunu yalnızca dipnottan öğreniyor. BİLİNEN ÇELİŞKİ hakkındaki kararım şu: Onur'un 14 Kasım kararı (HANDOFF karar 2) ürün sahibinin açık talimatı ve gerçek widget kaydı repoda yok. Bu yüzden widget'ın yeniden çizilmesi (temsilî ve dipnotlu) kabul edilebilir. Ancak yalnızca stil yeniden tasarlanabilir; yapı, etiketler ve veri gerçeğe kilitli kalmalı. Gerçeklik kanıtı da filme gerçek bir pikselle girmeli. Yeni brif ile HANDOFF'un çatıştığı bu nokta Onur'a yazılı olarak onaylatılmalı.",
+    "duzeltme": "(a) £105.000 kartının fotoğrafı, gerçek veride kadraj serbest olduğu için object-position 50% 15% ile kırpılsın; bina kalsın, havuz ve insanlar kadraj dışında kalsın. Alternatif olarak sıralama gerçek tutulup karusel 5,85'te 3. karttan başlasın. (b) Widget'a gerçek etiketler geri gelsin: 'Tümünü gör' ve 'Evlek'te aç ↗'. (c) Yaklaşık 16,3 sn'de detaydaki 'Evlek'te aç ↗' düğmesine dokunuluyor; ardından 0,8 sn boyunca public/page/page_view.png'nin gerçek piksel kopyası telefonda kaydırılıyor. Filmdeki tek gerçek arayüz kanıtı bu olur. (d) Karşılaştırma 17,8–20,5'ten en çok 1,5 sn'ye insin ve kart boşluğu kapatılsın (kartın alt kenarı y≈1390, ekran içi). Ya da karşılaştırma tümüyle çıkarılıp kazanılan süre iç mekâna verilsin (EVL-100102_01/_04 dikey). Karşılaştırma kalırsa alan satırı '107 m² (tipi belirtilmemiş)' olsun.",
+    "guven": "orta",
+    "oncelik": "P1"
+   },
+   {
+    "saniye": "2,9–8,6 ve 20,5–26,0",
+    "tur": "sorun",
+    "gozlem": "Arama perdesi 5,7 sn sürüyor: yazma 2,9–3,98, gönder 5,0, haritaya uçuş 5,85–7,0, poligon 7,0–7,3. Ana yazı 'Sor. Evlek göstersin.' sonuç ekrana geldikten sonra, 7,0'de beliriyor. Üst yazı 'Lapta'da deniz manzaralı 2+1' ile ekrandaki istem ('£160 bin altı' dahil) aynı değil. Ekleme perdesi 5,5 sn boyunca koyu arayüzde geçiyor. Adım başlıklarında üç ayrı fiil var: 'Eklentiler'de Evlek'i bul.', 'Eklentiyi kur.', kapanışta 'Eklentiler'den Evlek'i ekle.' Tam ekran ev süresi 30 sn'nin yaklaşık 6 sn'si (10,83–17,0). HANDOFF'taki '3–25 sn köşede küçük Evlek logosu' filmde yok.",
+    "etki": "Yorum: Sessiz izleyen biri ürünün ne yaptığını anlıyor (istem, harita, kartlar, detay, kurulum); öğretici açıdan akış doğru. Ancak arzu süresi, arayüz süresinin yaklaşık üçte biri. Slogan da kanıttan sonra geldiği için tekrar gibi okunuyor. Fiillerin farklı olması 'nasıl başlarım' cevabını bulanıklaştırıyor.",
+    "duzeltme": "Arama perdesi 4,0 sn'ye insin: yazma 0,7 sn, gönder ile harita arasında 0,3 sn, uçuş 0,8 sn. 'Sor. Evlek göstersin.' gönder anına (bubble) bağlansın. Üst yazı istemle aynı olsun ('Lapta'da £160 bin altı, deniz manzaralı 2+1'). Kazanılan yaklaşık 1,7 sn ve karşılaştırmadan kazanılan süre, ikinci bir tam ekran mekâna (EVL-100102_01 dikey cam/deniz, iç çekim Ken Burns %1,0/sn) verilsin. Ekleme perdesi 4,0 sn'ye insin; adımlar ekranın üstünde tek yol şeridiyle verilsin: 'ChatGPT › Eklentiler › Evlek › Ekle' (52 px, aktif adım mercan #B84E3B alt çizgiyle). Kapanış CTA'sı aynı fiili kullansın. 3–25 sn arasına 48 px'lik Evlek imi eklensin (sağ üst, y≈120, %70 opaklık).",
+    "guven": "orta",
+    "oncelik": "P1"
+   }
+  ],
+  "puanlar": [
+   {
+    "olcut": "Kanca",
+    "puan": 3,
+    "gerekce": "İlk 2,5 sn'de yalnızca metin ve boş koyu ekran var; ev, fiyat ya da ürün kanıtı yok. Elimizdeki en güçlü görüntü (havuz ve deniz) arka planda bulanık ve karartılmış duruyor.",
+    "kabul_10": "0,0 sn karesi keskin, gerçek bir ilan fotoğrafı olmalı ve başlığı 360×640'ta okunmalı. 1,6 sn içinde telefon ve gerçek ilan kartı kadraja girmeli. Boş arayüz ekranı hiçbir karede görünmemeli."
+   },
+   {
+    "olcut": "İlan arzusu",
+    "puan": 6,
+    "gerekce": "10,8–17,0 arasındaki portal, künye ve iç mekân planları gerçekten çekici ve gerçek EVL-100102 fotoğrafları iyi seçilmiş. Ancak bu süre yaklaşık 6 sn ile sınırlı ve görülen ilk ilan görseli insanlı bir render.",
+    "kabul_10": "Filmin en az %40'ı (≥12 sn) gerçek mekân planlarından oluşmalı. İlk ilan görseli gerçek bir fotoğraf olmalı ve insan figürü içermemeli. En az iki farklı mekân (dış ve iç) tam ekran görünmeli."
+   },
+   {
+    "olcut": "Ürünün çekiciliği",
+    "puan": 6,
+    "gerekce": "İstemden haritaya, kartlardan detaya giden akış sessiz izlerken anlaşılıyor; eklenti sayfası gerçeğe sadık. Öte yandan widget gerçek etiketlerden ('Evlek'te aç') kopuk, gerçek ilan sayfasına geçiş gösterilmiyor ve karşılaştırma kartında boşluk var.",
+    "kabul_10": "Her ürün planı gerçek bir etiket ya da kayda bağlanmalı. En az 0,8 sn'lik gerçek evlek.app piksel kopyası bulunmalı. Hiçbir arayüz kartında 150 px'ten büyük işlevsiz boşluk olmamalı."
+   },
+   {
+    "olcut": "Marka bütünlüğü",
+    "puan": 6,
+    "gerekce": "Lacivert zemin, Inter, krem başlıklar ve ölçülü mercan (poligon, fark çipi) tutarlı; dipnot doğru ve okunur boyutta. Ancak köşedeki Evlek imi yok, marka yalnızca 'Ev' monogramı ve yazıyla taşınıyor ve CTA fiilleri tutarsız.",
+    "kabul_10": "3–25 sn arasında Evlek imi sürekli görünmeli. Tüm dış yazılarda tek fiil ('ekle') ve tek renk sistemi (krem #FAF8F2, lacivert #0A2540, mercan yalnız vurgu) kullanılmalı. Dipnot 28 px'ten küçük olmamalı."
+   },
+   {
+    "olcut": "Tempo",
+    "puan": 5,
+    "gerekce": "Hareketler tek tek temiz ve duruşlar yeterli. Ancak açılış ve arama perdesi yavaş (ilk tam ekran ev 10,8 sn'de), ekleme perdesi uzun ve karşılaştırma ana hikâyeyi bölüyor.",
+    "kabul_10": "İlk gerçek ilan görseli 1,0 sn'den önce gelmeli. Arama perdesi ≤4 sn, ekleme perdesi ≤4 sn olmalı. Her ana yazı, kanıtladığı görüntüyle aynı anda girmeli."
+   },
+   {
+    "olcut": "Kapanış",
+    "puan": 4,
+    "gerekce": "CTA metni açık ve dipnot yerinde, döngü de teknik olarak bağlı. Ancak kapanış görüntüsü boş bir ekran ve açılışın tekrarı. Ekleme yolu görselleştirilmemiş, fiiller adımlarla uyuşmuyor.",
+    "kabul_10": "Son 4 sn'de gerçek mekân, telefon (Evlek çipli) ve tek satırlık yol 'ChatGPT › Eklentiler › Evlek › Ekle' birlikte görünmeli. CTA 56 px olmalı ve 360×640'ta okunmalı. Son 0,4 sn ilk kareye görünür sıçrama olmadan bağlanmalı."
+   }
+  ],
+  "yon_onerisi": "Tek fikir: 'Sorduğun ev ekrandan taşar.' Gerçek ev telefonun içine girer, ChatGPT'deki Evlek cevabı yeniden gerçek eve açılır; film bu döngüden ibaret. İlk kare (0,0 sn): EVL-100102_00 keskin ve tam ekran (havuz, palmiye, deniz), gökyüzünde 'Evlek artık ChatGPT'de.' yazısı. 0,9–1,6 sn'de fotoğraf köşeleri eşleşerek telefondaki ilan kartına küçülür; ekranda Lapta istemi gönderilmiş, harita ve 8 ilan yükleniyor ('Sor. Evlek göstersin.' gönder anında girer). Kanıt anı mevcut portal: kart dokunuşuyla mekân tam ekrana açılır, £139.000 · Lapta · 2+1 · 107 m² künyesi çıkar, telefon iç mekân planında gerçek detayı (EVL-100102, 2/14, özellikler) gösterir, 'Evlek'te aç ↗' ile 0,8 sn gerçek evlek.app sayfası kayar. Karşılaştırma ya çıkar ya da 1,5 sn'ye iner ve kazanılan süre ikinci bir mekâna verilir. Ekleme adımı ≤4 sn'lik tek bir yol şeridi olur: 'ChatGPT › Eklentiler › Evlek › Ekle'. Kapanış aynı havuz ve deniz fotoğrafına döner; önünde Evlek çipli telefon, altında 'Eklentiler'den Evlek'i ekle.' ve dipnot. Son 0,4 sn ilk kareye bağlanır, böylece döngü boş bir ekranla değil evle kapanır.",
+  "kanaat": "v11 ürünü sessizken doğru ve gerçek veriyle anlatıyor ve 10,5–17 sn arasında sahiden arzu uyandıran bir portal anı var; ama boş ekranla açılıp boş ekranla kapandığı ve ev süresi 30 sn'nin yaklaşık beşte biri olduğu için reklam henüz bir kanca ve arzu filmi değil, düzgün bir ürün demosu."
+ },
+ {
+  "uzman": "Reklam filmi yönetmeni (hikâye, duygu, sahne sırası, açılış ve kapanış)",
+  "bulgular": [
+   {
+    "saniye": "0,0–2,5",
+    "tur": "sorun",
+    "oncelik": "P0",
+    "guven": "yüksek",
+    "gozlem": "İlk kare: bulanık lacivert zemin, ortası boş koyu bir ChatGPT ekranı (P 540,1330, s=0,42) ve 'Evlek / artık ChatGPT'de.' yazısı. 0–0,5 sn'de 40 px yükselmeden başka hareket yok; ev, fotoğraf ya da sıcak renk yok. Bir evin ilk görüntüsü (widget kartı) 5,5 sn'de küçük boyutta geliyor, tam kadraj ev ise ancak 10,8 sn'de çıkıyor. HANDOFF.md'deki 14 Kasım tarihli bağlayıcı karar 1 şöyle: 'Kanca yaşam arzusu ve marka üzerine kurulur'.",
+    "etki": "Yorum: Açılış bir haber başlığı gibi çalışıyor; ilk saniyede arzu ya da merak uyandıran bir görüntü yok. KKTC'de ev aramayan izleyiciyi çekecek bir şey sunmuyor. Performans varsayımı: Akışta erken kaydırıp geçme riski yüksek. Bunu oranla söyleyemem, izlenme verisi yok.",
+    "duzeltme": "Filmi gerçek havuz fotoğrafıyla (EVL-100102_00) aç. 0–1,4 sn: 1080×1920 tam kadraj, ölçek 1,00→1,04 doğrusal itme ve tek ana yazı ('Bir sabahın böyle başlasa?'; krem, Inter 800, 88 px, y≈300). 1,4–2,2 sn: portal geçişinin tersi (FLY eğrisi 0,45,0,0,15,1). Fotoğraf küçülüp telefondaki Evlek ilan kartına iner ve telefon CHAT pozuna (540,1050, s=0,55) oturur. İzleyici 'bu ev ChatGPT'de' bilgisini 2 sn içinde kendisi çıkarır. Logo-çip imzası 2,2–2,7 sn'ye kayar; ardından soru yazımı başlar."
+   },
+   {
+    "saniye": "10,5–17,0",
+    "tur": "korunacak başarı",
+    "oncelik": "P1",
+    "guven": "yüksek",
+    "gozlem": "10,5–11,5 sn'de £139.000 kartı telefonun 3B düzleminden kalkıyor ve kesintisiz biçimde tam kadraj gerçek havuz fotoğrafına dönüşüyor. Ara karelerde kart, fotoğraf ve telefon tek uzayda kalıyor. 12,0–14,2 sn'de iki satırlık künye var (£139.000 / Lapta · 2+1 · 107 m²). 14,5–15,2 sn'de telefon alttan giriyor; ekranda aynı ilanın detayı görünüyor (Satılık · EVL-100102, 2+1 · 2 banyo · 107 m², 5 özellik, 2/14). 15,3 sn'de ekrandaki galeri kaydırılınca arka plan da aynı iç mekâna (EVL-100102_01) geçiyor. Veriler kayıtla birebir tutuyor; 107 m²'ye 'brüt' eklenmemiş.",
+    "etki": "Yorum: Filmin tek gerçek duygu zirvesi bu bölüm. 'Sohbetten eve geçiş' fikri sessiz izlerken de anlaşılıyor; telefon ile arka plandaki dünyanın eşleşmesi ürünü akıllı ve güvenilir gösteriyor.",
+    "duzeltme": "Koru. Yalnız iki ayar öneriyorum: (1) Havuz fotoğrafı 1200 px yükseklikten 1920 px'e yaklaşık 1,66× büyütülüyor; büyütme 1,04 yerine 1,00'da sabitlenmeli ve ek itme yapılmamalı. (2) 15,2–17,0 sn'deki telefon pozu (800,1440, s=0,42) sağ alttan kesiliyor; telefon gövdesinin tamamının kadrajda kalması için x=760, y=1400 yapılmalı."
+   },
+   {
+    "saniye": "17,8–20,5",
+    "tur": "sorun",
+    "oncelik": "P1",
+    "guven": "orta",
+    "gozlem": "Arzu zirvesinden hemen sonra sohbete geri dönülüyor: 'Bunu £127.000'likle karşılaştır.' yazılıyor, karşılaştırma kartı geliyor ve ana yazı 'Arada £12.000 fark.' beliriyor. Kartın altında yaklaşık 300 px boş koyu alan kalıyor (y≈1400–1680).",
+    "etki": "Yorum: Duygusal eğri burada düşüyor. Az önce arzulanan ev, daha ucuz bir alternatifin yanına konunca 'pahalı olan' konumuna düşüyor. '£12.000 fark' iyi mi kötü mü, anlamı belirsiz kalıyor. Müşteri kararı 3'e göre de karşılaştırma bu filmin amacı değil. Böylece filmin ana yazılarından biri ikincil bir özelliğe gidiyor.",
+    "duzeltme": "17,8–20,5 sn'yi çıkar (2,7 sn kazanılır). Karşılaştırma mutlaka kalacaksa yalnızca 1,2 sn'lik bir kanıt planı olsun ve üzerine ana yazı konmasın. Kazanılan süre açılıştaki 2,2 sn'lik arzu planına ve kapanışın ev üzerine kurulmasına aktarılmalı. Üç ana yazı şöyle olsun: 'Bir sabahın böyle başlasa?' · 'Sor. Evlek göstersin.' · 'Evlek artık ChatGPT'de.'"
+   },
+   {
+    "saniye": "20,5–30,0",
+    "tur": "sorun",
+    "oncelik": "P1",
+    "guven": "yüksek",
+    "gozlem": "Son 9,5 sn'de hiç ev görünmüyor. 20,7–22,3 sn'deki Eklentiler arama ekranında yalnızca gri iskelet çubuklar var; yükleniyor ekranı gibi okunuyor. 'ChatGPT › Eklentiler' giriş yolu gösterilmiyor; karşılaştırma sohbetinden doğrudan Eklentiler paneline kesiliyor. 26,6–30,0 sn'de film bulanık lacivert zemin ve boş koyu telefonla bitiyor; telefon 3,4 sn hareketsiz. 'Eklentiler'den Evlek'i ekle.' cümlesi 21,0 sn'deki adım yazısının tekrarı. Dipnot 28 px; 360×640 önizlemede yaklaşık 9 px'e düşüyor ve zor okunuyor.",
+    "etki": "Yorum: Filmin son hissi 'kurulum ekranı ve boş sohbet' oluyor; ev ve yaşam arzusu son karede yok. Performans varsayımı: Döngüye girildiğinde son kare ile ilk karenin aynı ölçüde boş olması, ikinci izlemeyi teşvik etmez.",
+    "duzeltme": "Eklenti bölümünü 4,0 sn'ye sıkıştır: ChatGPT menüsü › Eklentiler (0,6 sn), 'evlek' yazılınca tek sonuç olan Evlek satırı (iskelet çubuklar olmadan, 0,9 sn), Evlek sayfası ve 'Eklentiyi kur' (1,2 sn), Bağlı ✓ (0,6 sn), sohbette Evlek çipi (0,7 sn). Kapanış (son 3 sn): netleşen havuz fotoğrafı tam kadraj. Önünde CHAT pozunda telefon olsun ve ekranında Evlek çipli yazım kutusu görünsün. Ana yazı 'Evlek artık ChatGPT'de.' olsun. Altına yol satırı gelsin: 'ChatGPT › Eklentiler › Evlek › Ekle' (Inter 600, 44 px). Dipnot en az 32 px olsun ve 2,0 sn'den uzun ekranda kalsın. Son kare açılış karesiyle aynı havuz kadrajı olsun; böylece döngü dikişsiz olur."
+   }
+  ],
+  "puanlar": [
+   {
+    "olcut": "Kanca",
+    "puan": 4,
+    "gerekce": "İlk 2,5 sn'de yalnızca metin ve boş koyu ekran var; ev ya da hareketli bir merak unsuru yok. Bu, müşterinin 'yaşam arzusu' kancası kararıyla çelişiyor. Logonun çipe inmesi zekice ama ancak 2,0 sn'den sonra geliyor ve küçük boyutta kalıyor.",
+    "kabul_10": "Kare 0'da gerçek bir ev görüntüsü tam kadraj olmalı. İlk 1,0 sn içinde belirgin bir hareket (itme ya da dönüşüm) olmalı. İzleyici 2,5 sn'de 'bu ev ChatGPT'de Evlek'le bulundu' bilgisini ses ve tam metin okumadan çıkarabilmeli. Bu, sessiz izlemeyle yapılan 5 kişilik kör testte en az 4 kişinin doğru söylemesiyle ölçülür."
+   },
+   {
+    "olcut": "İlan arzusu",
+    "puan": 7,
+    "gerekce": "Portal geçişi, havuz ve çift yükseklikteki iç mekân gerçekten çekici; veriler de doğru. Ancak tam kadraj ev toplam yaklaşık 6 sn ekranda kalıyor ve ilk kez 10,8 sn'de geliyor. Ardından gelen karşılaştırma ve kurulum, oluşan arzuyu söndürüyor.",
+    "kabul_10": "Gerçek ev görüntüsü filmin en az %40'ında (≥12 sn) baskın olmalı. Açılış, zirve ve son karede aynı ilan görünmeli. Hiçbir sahne seçilen ilanı daha ucuz bir alternatifin altında konumlamamalı."
+   },
+   {
+    "olcut": "Tempo",
+    "puan": 6,
+    "gerekce": "0,5 sn'lik ızgara ve hareketten sonraki duruş disiplini iyi. Ancak süre dağılımı dengesiz: arzu 6 sn, karşılaştırma 2,7 sn, kurulum ve kapanış 9,5 sn. Kapanışta telefon 3,4 sn hareketsiz duruyor.",
+    "kabul_10": "SOR, GÖR ve EKLE perdeleri yaklaşık 8/12/7 sn olmalı ve 3 sn kapanış eklenmeli. Görsel bilgi taşımayan hiçbir plan 1,5 sn'yi geçmemeli. Kurulum adımlarının her biri 0,6–1,2 sn sürmeli."
+   },
+   {
+    "olcut": "Kapanış",
+    "puan": 4,
+    "gerekce": "Kurulum adımları anlaşılır ve 'Bağlı ✓' anı var. Ancak son kare bulanık lacivert zemin ve boş bir sohbet ekranı; ev yok, 'ChatGPT › Eklentiler' yolu yok. Eylem çağrısı adım yazısını tekrar ediyor. Dipnot mobilde yaklaşık 9 px'e düşüyor.",
+    "kabul_10": "Son 3 sn'de gerçek ev, Evlek çipli telefon, tek ana yazı ve 'ChatGPT › Eklentiler › Evlek › Ekle' yol satırı birlikte görünmeli. Dipnot 360 px önizlemede en az 10 px olmalı ve en az 2 sn ekranda kalmalı. Son kare ilk kareyle aynı olmalı."
+   }
+  ],
+  "yon_onerisi": "Tek fikir: 'Bu ev bir soruyla bulundu.' Ortak motivasyon olarak denize bakan bir sabahı seçiyorum; bu hem tatilciyi, hem taşınmayı düşüneni, hem de yabancı alıcıyı kapsıyor. İlk kare EVL-100102'nin havuz ve deniz fotoğrafı, tam kadraj ve yavaş itmeli; üzerinde 'Bir sabahın böyle başlasa?' yazıyor. 1,4 sn'de fotoğraf küçülüp ChatGPT içindeki Evlek kartına iniyor ve izleyici evin nerede bulunduğunu böylece görüyor. Ardından soru yazılıyor, harita ve 8 gerçek ilan geliyor, aynı kart seçiliyor. Kanıt anı mevcut portal geçişi: kart telefondan kalkıp eve dönüşüyor, telefon iç mekânla eşleşen detay ekranıyla geri geliyor. Bu bölüm olduğu gibi kalmalı. Karşılaştırma çıkarılmalı. Kurulum 4 sn'de anlatılmalı: ChatGPT › Eklentiler › Evlek › Kur › Bağlı ✓. Kapanışta aynı havuz yeniden netleşiyor; önünde Evlek çipli telefon var ve 'Evlek artık ChatGPT'de.' yazıyor. Son kare ilk kareyle birleşerek döngüyü kapatıyor. Widget çelişkisinde müşterinin 14 Kasım tarihli bağlayıcı yeniden tasarım kararından yanayım; bu karar daha yeni ve daha özel. Koşulları şunlar: harita, kart ve detay hiyerarşisi gerçek widget'la aynı kalmalı, her rakam ve fotoğraf kayıtla birebir tutmalı, 'Arayüz temsilidir' dipnotu mobilde okunur boyutta olmalı. Repoda gerçek widget ekran kaydı olmadığı için 'gerçek piksel kopyası' bugün zaten uygulanabilir değil.",
+  "kanaat": "İşçilik ve ortadaki portal ile iç mekân bölümü (10,5–17 sn) güçlü ve veriler dürüst; ama film arzuyla açılmıyor ve arzuyla bitmiyor: ilk 2,5 sn boş bir ekran, son 9,5 sn kurulum ve boş sohbet, aradaki duygu zirvesini de karşılaştırma söndürüyor."
+ },
+ {
+  "uzman": "Teknoloji lansmanı kreatif stratejisti",
+  "bulgular": [
+   {
+    "saniye": "0,0–5,5",
+    "tur": "sorun",
+    "oncelik": "P0",
+    "guven": "yüksek",
+    "gozlem": "İlk kare (t_0,0): üstte 'Evlek / artık ChatGPT'de.' (y≈240–490), altta içi boş, siyah bir ChatGPT ekranı; arka plan karartılmış, bulanık deniz. 2,0–2,6'da 'Evlek' kelimesi telefona düşüp giriş alanında @Evlek çipine dönüşüyor (2,07–2,13 arası birkaç karede alt satırla çakışıyor). 2,9–4,0 arası sorgu yazılıyor, telefonun üstünde de altyazı olarak tekrarlanıyor. İlk ev görüntüsü 5,5 sn'de ~280 px'lik küçük kart küçük resimleri olarak geliyor. Tam ekran ilk ev 11,5 sn'de.",
+    "etki": "Yorum: haber cümlesi net, ama ilk 5 saniyede arzu uyandıran hiçbir şey yok. Ekranın yaklaşık %60'ı koyu ve boş. Performans varsayımı: akışta başlığı zaten tanımayan izleyici (tatilci, yurt dışındaki Kıbrıslı, yabancı alıcı) için 'ChatGPT'de' bilgisi tek başına durdurma sebebi olmayabilir. İzlenme verisi olmadan kayıp oranı söylenemez.",
+    "duzeltme": "Kanıtı başa al. 0,0–1,6: EVL-100102_01 havuz/deniz fotoğrafı tam ekran (1200×1600 → 1,2× ölçek, 1440×1920, yatayda 180'er px kırpım), 2 sn'de 1,00→1,04 yavaş itme. Üstte 'Evlek artık ChatGPT'de.' y≈300. Altta künye: '£139.000 · Lapta · 2+1'. Telefon poz (540, 1250, 0,46, 0, −8, 2) ile alttan girsin. Telefonda gönderilmiş sorgu ve sonuç kartı görünsün. 1,6–2,3: ters portal (650 ms, ease-in-out). Fotoğraf telefondaki £139.000 kartına geri küçülsün. Ardından sorgu ve sonuç akışı kısaltılmış haliyle (2,3–7,5) gelsin. Mevcut 'Evlek' kelimesinin çipe düşmesi korunabilir, ama 2,0–2,15 aralığındaki çakışma giderilsin: alt satır 0,15 sn önce sönsün."
+   },
+   {
+    "saniye": "10,3–17,0",
+    "tur": "korunacak başarı",
+    "oncelik": "P0",
+    "guven": "yüksek",
+    "gozlem": "Telefondaki £139.000 kartının fotoğrafı (10,5–11,5) dışarı taşıp tam ekran oluyor ve 11,5–14,5 boyunca duruyor. Bu sırada sade bir künye çıkıyor: '£139.000 / Lapta · 2+1 · 107 m²'. 14,5'te telefon aynı ilanın detayıyla geri geliyor: 'Satılık · EVL-100102', 2/14 galeri sayacı, 2+1 · 2 banyo · 107 m², Deniz manzarası / Ortak havuz / Otopark / Balkon / Eşyalı. Arkada aynı ilanın deniz gören salon fotoğrafı var (t_16,3). Kart, detay ve karşılaştırmadaki veriler ilan kaydıyla tutarlı. 107 m²'ye brüt/net eki konmamış, 101433 için '104 m² brüt' yazıyor. Widget, gerçek oturum karesiyle (06-lapta-kartlar-cevap) aynı yapıda: 'Lapta · Satılık', 8 ilan, Filtreler · 5, '7 foto/23 foto', aynı fiyatlar.",
+    "etki": "Yorum: Evlek'in ChatGPT içinde ne yaptığını en iyi bu bölüm anlatıyor: sohbet kartı gerçek bir eve açılıyor. Arzu ve güven aynı anda kuruluyor. Filmin kanıt anı burası.",
+    "duzeltme": "Kurgu korunmalı. Portal süresi (1,0 sn) ve tam ekran tutuş (≈3 sn) değişmesin. Kanca havuz fotoğrafını kullanırsa portal ikinci kareye açılsın: EVL-100102 salon/deniz fotoğrafı (_04 dikey). Böylece aynı görüntü tekrarlanmaz. Widget çelişkisine kararım: yeniden çizim kalsın. HANDOFF'taki müşteri kararı daha yeni ve açık, gerçek widget ekran kaydı repoda yok, mevcut çizim de gerçek bileşene yapısal olarak sadık. Ama yalnız canlı bileşenler kalmalı. Gerçek referansta 'Ucuzdan pahalıya' çipi yok: onun yerine gerçek 'Satılık | Kiralık' segmenti ve 'Deniz manzarası' çipi gelsin. 'Haritada tümü' ve 'Evlek'te aç ↗' düğmeleri kart altına eklensin. 'Arayüz temsilidir' dipnotu kalsın."
+   },
+   {
+    "saniye": "20,5–30,0",
+    "tur": "sorun",
+    "oncelik": "P1",
+    "guven": "yüksek",
+    "gozlem": "Kurulum perdesi 5,5 sn sürüyor (filmin %18'i). 21,0–22,3 arası Eklentiler listesi gri iskelet satırlarla boş duruyor. Evlek sayfasındaki örnek istemler İngilizce: 'Show me apartments for sale in Kyrenia…'. 26,0–30,0 kapanışında yine içi boş, siyah bir ChatGPT telefonu var. Üstte dört düzey yazı yer alıyor: 'Evlek' 200 px, 'artık ChatGPT'de.', 'Eklentiler'den Evlek'i ekle.', dipnot (t_28,5). 20,5'ten sona kadar hiçbir ev görüntüsü yok.",
+    "etki": "Yorum: Adımlar doğru öğretiliyor (bul → kur → Bağlı → Sohbette dene). Ama filmin son 9,5 saniyesi arzuyu bırakıp ayar ekranına dönüyor ve CTA boş bir telefonun üstünde duruyor. Performans varsayımı: harekete geçme anında akılda kalan görüntü ev değil, boş bir sohbet olur.",
+    "duzeltme": "Kurulumu 3,5 sn'ye indir (20,5–24,0). 20,5 'Eklentiler'. 20,9 'evlek' 0,4 sn'de yazılsın. 21,4 sonuç satırına dokunuş. 21,9 'Eklentiyi kur'. 22,6 '✓ Bağlı'. 23,2 'Sohbette dene'. İskelet listedeki duruş kaldırılsın. Kazanılan 2 sn kapanışa gitsin. 24,0–30,0: fotoğraf tam ekran geri gelsin (üst %35'e lacivert #0A2540 → saydam degrade, yazı alanı için). Telefon poz (540, 1330, 0,42, 0, −6, 0) ile yeni sohbette @Evlek çipi ve yazılmaya hazır sorgu göstersin. Yalnız iki yazı düzeyi kalsın: 'Evlek artık ChatGPT'de.' (88 px) ve 'Eklentiler'den Evlek'i ekle.' (60 px). Dipnot ≥26 px, krem %70. Son kare ilk kareyle eşleşsin (döngü)."
+   },
+   {
+    "saniye": "17,0–20,5",
+    "tur": "sorun",
+    "oncelik": "P1",
+    "guven": "orta",
+    "gozlem": "'Bunu £127.000'likle karşılaştır.' yazılıyor. Karşılaştırma kartı iki fotoğraf, iki fiyat, '104 m² brüt / 107 m²' ve 'Fiyat farkı £12.000 (%9,4)' gösteriyor. Üstte 80 px 'Arada £12.000 fark.' var. Bu, kancadan sonraki en büyük ikinci reklam yazısı ve ana mesaj gibi biçimlenmiş. Telefon ekranının alt ~%25'i boş (t_19,8, y≈1400–1680).",
+    "etki": "Yorum: Ana mesaj sayısı fiilen dörde çıkıyor (artık ChatGPT'de / Sor. Evlek göstersin. / Arada £12.000 fark. / Eklentiler'den Evlek'i ekle.), oysa sınır üç. Fiyat farkı tek başına bir fayda söylemiyor: izleyici iki evden hangisinin neden daha iyi olduğunu bu sahneden çıkaramıyor. Karşılaştırmanın asıl değeri ('iki ilanı tek cümleyle yan yana getiriyor') yazıda kayboluyor.",
+    "duzeltme": "'Arada £12.000 fark.' ana mesaj olmaktan çıksın, veri künyesi olarak dursun: 44 px, 600 ağırlık, telefonun altında y≈1760, krem %85. Ya da tamamen kaldırılsın; ekrandaki 'Fiyat farkı £12.000 (%9,4)' satırı yeterli. Telefona 1,05× itme verilsin (poz s 0,55→0,58, merkez y 1060→1010) ve boş alt bölge kadraj dışında kalsın. Sahnenin süresi 3,5 sn'den 2,5 sn'ye insin. Karşılaştırma kartına gerçek kayıtta bulunan ama gösterilmeyen bir satır eklenecekse yalnızca doğrulanmış alanlar kullanılsın: '14 foto / 31 foto' ya da 'Deniz manzarası'. Uydurma satır olmasın."
+   }
+  ],
+  "puanlar": [
+   {
+    "olcut": "Kanca",
+    "puan": 5,
+    "gerekce": "Haber cümlesi büyük, net ve ilk karede okunuyor. Ama görsel bir vaat yok: ev yok, telefon boş, arka plan karanlık. İlk ev 5,5 sn'de küçük kart olarak geliyor.",
+    "kabul_10": "İlk 0,5 sn'de tam ekran gerçek bir ilan fotoğrafı ve 'Evlek artık ChatGPT'de.' birlikte görünür. Sohbet içinde gerçek sonuç kartı ≤1,6 sn'de görünür. 360×640 önizlemede başlık ve fiyat künyesi okunur."
+   },
+   {
+    "olcut": "İlan arzusu",
+    "puan": 7,
+    "gerekce": "11,5–17,0 arasında havuz/deniz ve deniz gören salon fotoğrafları güçlü, kadrajlar yerinde. Ama arzu 30 sn'nin yalnız ~5,5 sn'sinde var. Açılış ve kapanışta ev görünmüyor.",
+    "kabul_10": "Gerçek ilan fotoğrafı filmin en az %35'inde tam ekran ya da baskın görünür ve ilk ile son karede yer alır. Her fotoğraf doğru ilan kaydına bağlıdır (EVL kodu ve fiyat aynı sahnede)."
+   },
+   {
+    "olcut": "Ürünün çekiciliği",
+    "puan": 7,
+    "gerekce": "Doğal dil sorgusu → harita poligonu '£105–147 bin · 8 ilan' → kartlar → detay → karşılaştırma zinciri sessizken de okunuyor, gerçek veriyle tutarlı. Karşılaştırma yalnız fiyat farkına iniyor. Real widget'ta olmayan 'Ucuzdan pahalıya' çipi küçük bir güven riski.",
+    "kabul_10": "Ekrandaki her arayüz öğesi gerçek widget'ta var (referans karelerle birebir öğe envanteri). Sorgudan sonuca ≤3 sn, sonuçtan gerçek eve ≤2 sn. Karşılaştırmada en az iki doğrulanmış alan yan yana görünür."
+   },
+   {
+    "olcut": "Tempo",
+    "puan": 6,
+    "gerekce": "Orta perde ritmi iyi (portal, duruş, dönüş). Ama 0–2,5 sn boş telefonda bekleme, 21,0–22,3 iskelet listede duruş ve 26–30 sn boş telefon üzerindeki kapanış, toplamda ~7 sn ölü zaman.",
+    "kabul_10": "0,8 sn'yi aşan, yeni bilgi ya da yeni görüntü içermeyen tek bir aralık yok. Kurulum ≤3,5 sn. Kamera hareketi 650–1300 ms, ardından ≥1,2 sn duruş kuralı her yerde korunur."
+   },
+   {
+    "olcut": "Kapanış",
+    "puan": 4,
+    "gerekce": "Ekleme adımı doğru ve okunuyor. Ama CTA boş siyah telefon üzerinde, dört yazı düzeyi var ve 9,5 sn boyunca ev görünmüyor. Döngü teknik olarak çalışıyor ama başa dönen kare de boş.",
+    "kabul_10": "Son 3 sn: gerçek ilan fotoğrafı + @Evlek çipli telefon + en çok iki yazı düzeyi (marka cümlesi ve 'Eklentiler'den Evlek'i ekle.') + ≥26 px dipnot. Son kare ilk kareyle piksel uyumlu döngü kurar."
+   },
+   {
+    "olcut": "Okunurluk",
+    "puan": 7,
+    "gerekce": "Dış yazılar 360×640 önizlemede rahat okunuyor. Telefon içindeki fiyatlar ve sorgu okunuyor. Eklenti sayfasındaki İngilizce örnek istemler ve kart alt satırları mobilde zor. Dipnot mobilde ~7 px.",
+    "kabul_10": "360×640 önizlemede ana yazı, fiyat, konum ve ekleme adımı ilk bakışta okunur. Telefon içinde anlamı taşıyan her metin çıktıda ≥28 px. Dipnot çıktıda ≥26 px."
+   }
+  ],
+  "yon_onerisi": "Tek fikir: \"Sor, ev gelsin\". Ortak motivasyon olarak denize yakın, gerçek bir evi zahmetsizce bulmak seçilsin. Film ilk karede kanıtla açılsın: EVL-100102'nin havuz/deniz fotoğrafı tam ekran, '£139.000 · Lapta · 2+1' künyesi ve 'Evlek artık ChatGPT'de.'. 1,6 sn'de fotoğraf ters portalla telefondaki karta geri küçülsün ve izleyici bu evin tek bir cümleyle bulunduğunu görsün. Ardından sorgu, harita ve kartlar akışı, 'Sor. Evlek göstersin.' yazısıyla birlikte gelsin. Kanıt anı mevcut portal olarak kalsın, ama bu kez salonun deniz gören fotoğrafına açılsın. Telefon aynı ilanın detayıyla (EVL-100102, 2/14) geri dönsün. Karşılaştırma kısa bir veri künyesine insin. Kurulum 3,5 sn'de bitsin (bul → kur → Bağlı). Kapanış yeniden aynı fotoğrafın üstünde, @Evlek çipli telefon ve tek CTA ile yapılsın: 'Eklentiler'den Evlek'i ekle.'. Son kare ilk kareye bağlanıp döngüyü kapatsın.",
+  "kanaat": "Ortadaki kart → gerçek ev → detay zinciri, Evlek'in ChatGPT içinde ne yaptığını sessizken de doğru ve çekici anlatıyor, ama film arzuyu yalnız 11,5–17 sn'de veriyor: boş telefonla açılıp boş telefonla kapandığı için kanca ve kapanış ürünün en güçlü kanıtını harcıyor."
+ },
+ {
+  "uzman": "Lüks emlak sanat yönetmeni (mekânın çekiciliği, yaşam hissi, görsel kalite, gerçek evlere arzu)",
+  "bulgular": [
+   {
+    "saniye": "10,75–17,4",
+    "tur": "korunacak başarı",
+    "gozlem": "10,75–11,4'te £139.000 kartının fotoğrafı telefondan çıkıp ~0,65 sn'de tam ekran havuz planına dönüşüyor. 11,5–14,2'de net havuz ve deniz planı üzerinde '£139.000 / Lapta · 2+1 · 107 m²' künyesi duruyor. 14,5–15,2'de telefon sağ alttan detay ekranıyla giriyor (Satılık · EVL-100102, 2+1 · 2 banyo · 107 m², Deniz manzarası / Ortak havuz / Otopark / Balkon / Eşyalı). 15,25'te telefondaki kaydırmayla arka plan da aynı ilanın çift yükseklikli salonuna (EVL-100102_01, 2/14) geçiyor. Kart, künye, detay ve fotoğraf aynı ilan kaydından geliyor; alan nitelemesi 'brüt' eklenmeden doğru bırakılmış.",
+    "etki": "Yorum: filmde arzunun doğduğu tek yer burası. İzleyici 'bu ev gerçek, fiyatı bu, Lapta'da' bilgisini ürünün içinden çıkan bir kanıt olarak alıyor. Telefon ile arka plan aynı anda değiştiği için 'ekrandaki ilan = gerçek mekân' bağı sözsüz kuruluyor.",
+    "duzeltme": "Kartın tam ekrana açıldığı geçişin (portal) eğrisini ve süresini (10,75–11,4), künyenin 2,2 sn duruşunu ve telefondaki kaydırma ile arka planın birlikte değişmesini olduğu gibi koru. Tek temizlik: 15,37–15,52'deki çapraz geçişte havuz ile masa altlıkları üst üste biniyor ve yarı saydam bir hayalet oluşuyor. Bunun yerine telefondaki kaydırmayla eşlenen 0,25 sn'lik yatay bir silme (wipe) kullan ya da geçişi 0,15 sn'ye indir.",
+    "guven": "yüksek",
+    "oncelik": "P0"
+   },
+   {
+    "saniye": "0,0–10,75",
+    "tur": "sorun",
+    "gozlem": "0–2,5 sn: %60 lacivertle çarpılmış, 24 px bulanık havuz zemini; ekranın ~%55'ini boş, siyah bir ChatGPT ekranı kaplıyor. Gerçek ev pikseli ilk kez ~5,5 sn'de telefon içindeki kartlarda görünüyor; 1080 px'lik karede her kartın fotoğrafı ~280×220 px, 360 px'lik mobil önizlemede ~95 px. 5,5–8,6 arasında haritadaki Lapta poligonu mercan çizgili, kahverengimsi bulanık bir dolguyla ekranın en büyük rengi oluyor. Evin tam ekran ilk görüntüsü 10,85 sn'de.",
+    "etki": "Yorum: arzu ancak filmin üçte birinde başlıyor. Sessiz izleyen ilk 3 sn'de koyu bir telefon ve yazı görüyor; ne mekân, ne ışık, ne deniz var. Performans varsayımı: akışta kaydırıp geçme olasılığı yüksek, ancak izlenme verisi olmadan oran söylenemez. Kahverengi poligon, Akdeniz kıyısındaki bir kasabayı çamur rengiyle temsil ediyor.",
+    "duzeltme": "İlk kare (0,0) 11,5 sn'deki net havuz planı olsun: GRADE_EXT ile, fazladan ölçek olmadan, üstte '£139.000 · Lapta' künyesi. 0,9–1,6 sn'de portal geçişinin tersiyle görüntü 1080→~600 px'lik karta küçülüp telefonun içine, sonuç listesindeki yerine otursun; ardından soru yazılsın. Böylece kanıt önce, nasıl bulunduğu sonra gelir. Harita poligonunun dolgusunu kahverengiden lacivert zemine mercanın %12–15 saydamlıkta bindiği bir tona çek (çizgi mercan #B84E3B kalsın) ve harita süresini 1,5 sn'nin altına indir.",
+    "guven": "orta",
+    "oncelik": "P0"
+   },
+   {
+    "saniye": "11,5–17,0",
+    "tur": "sorun",
+    "gozlem": "Havuz fotoğrafı EVL-100102_00 yatay ve 1600×1200. Dikey kareyi doldurmak için ~1,6× büyütülmüş, üstüne 1,04–1,1 ölçek de var; 1:1 kırpımda palmiye yapraklarında yumuşama ve JPEG halesi görülüyor. Kadrajın üst ~%40'ı (y 0–760) boş gökyüzü; ilanın asıl çekiciliği olan deniz çizgisi ise ince bir şerit olarak y≈810'da kalıyor. İç mekân (EVL-100102_01, 1,32×) için kullanılan dikey kaydırmada (tilt) ön planı masa altlıkları kaplıyor (sol alt, y≈1400–1920); telefon kanepeyi örtüyor; hareket tavana doğru ilerliyor.",
+    "etki": "Yorum: lüks algısı malzemenin netliğine ve ufuk çizgisine dayanır. Yumuşamış palmiyeler ve yarım ekranlık boş gök, mekânı olduğundan sıradan gösteriyor. Masa altlıkları 'kiralık eşyalı daire' izlenimi bırakıyor, oysa çift yükseklikli cam ve kapıdan görünen deniz ile havuz bu ilanın en güçlü vaadi.",
+    "duzeltme": "Havuz: fazladan ölçeği kaldır (yalnız 1,6× kalsın, toplam ≤1,6×); itme (push) yerine 3 sn'de 2560 px'lik genişlik boyunca 28%→58% yatay kaydırma (pan) yap ve kıvrımlı korkuluğu ile denizi kadraja al; ufku y≈700'e indir (objectPosition dikeyde ~45%); künye gökyüzünde kalsın. İç mekân: hareketi tersine çevir; çift yükseklikli camdan başlayıp 1,5 sn'de kapıdaki deniz ve havuz manzarasına inen bir kaydırma olsun ve göz hizasında, manzarada bitsin. Kapı ile deniz kadrajın sol yarısında, telefon sağda dursun; masa kadrajın alt %15'ini geçmesin. Mimari ve mobilyaya dokunulmaz, yalnız kadraj ve hareket değişir.",
+    "guven": "yüksek",
+    "oncelik": "P1"
+   },
+   {
+    "saniye": "26,0–30,0",
+    "tur": "sorun",
+    "gozlem": "Kapanışta 4 sn boyunca 'Evlek / artık ChatGPT'de. / Eklentiler'den Evlek'i ekle.' yazısı ve dipnot, bulanık lacivert zemin ile içi boş siyah bir ChatGPT ekranı üzerinde duruyor; telefon y≈520–1920 arasını, yani karenin ~%70'ini kaplıyor. Dipnot 360 px mobil önizlemede ~7 px yüksekliğinde. Döngüyle film yine aynı boş ekrana dönüyor (0,0).",
+    "etki": "Yorum: izleyicinin aklında kalan son görüntü bir boşluk; arzu uyandıran ev 17,4 sn'den sonra bir daha görünmüyor. Eylem çağrısı doğru, ama neden harekete geçileceğini gösteren görüntü eksik.",
+    "duzeltme": "Kapanışta zemin net, hafifçe derecelendirilmiş havuz planı olsun (%25–30 lacivert çarpımla yazı okunurluğu korunur); telefonun ekranı boş değil, '£139.000 · Lapta' kartının seçili olduğu sonuç ekranında dursun. Telefonu s≈0,42 (~1130 px) yap; yazılar telefonun üstünde kalsın. Dipnot 1080 px'de en az 26 px, krem %70 opaklık olsun.",
+    "guven": "orta",
+    "oncelik": "P1"
+   }
+  ],
+  "puanlar": [
+   {
+    "olcut": "İlan arzusu",
+    "puan": 5.5,
+    "gerekce": "10,85–17,4 arası güçlü, ancak 30 sn'nin yalnız ~6,5 sn'si (~%22) tam ekran gerçek mekân. Arzu geç başlıyor ve kapanışta yok. Fotoğraflar büyütmeden ötürü yumuşamış.",
+    "kabul_10": "İlk 1 sn içinde gerçek ilan tam ekranda; filmin ≥%35'i net gerçek fotoğraf; hiçbir fotoğraf 1,6×'ten fazla büyütülmemiş ve 1:1 kırpımda hale yok; son 3 sn'de ev görüntüde."
+   },
+   {
+    "olcut": "Ürünün çekiciliği",
+    "puan": 6,
+    "gerekce": "Kart, detay, galeri sayacı ve karşılaştırma temiz ve veriler doğru. Buna karşın harita poligonunun kahverengi dolgusu ve ilk 5 sn'deki boş siyah ekran arayüzü 'koyu ve boş' gösteriyor.",
+    "kabul_10": "Ekranda görünen her arayüz durumunda en az bir gerçek fotoğraf ya da veri öğesi var; boş ekran 0,5 sn'yi geçmiyor; harita dolgusu marka paletinde (lacivert zemin üstünde mercan %12–15)."
+   },
+   {
+    "olcut": "Kanca",
+    "puan": 3.5,
+    "gerekce": "0–2,5 sn'de yalnız yazı ve boş, koyu bir telefon var; mekân, ışık ya da fiyat yok. Merak uyandıran görüntü 10,8 sn'de geliyor.",
+    "kabul_10": "0,0 karesinde net gerçek ev ve fiyat künyesi; ilk 1,5 sn içinde bu evin ChatGPT'deki bir sonuçtan geldiği görsel olarak bağlanıyor."
+   },
+   {
+    "olcut": "Hareket kalitesi",
+    "puan": 7,
+    "gerekce": "Portal geçişi ve telefondaki kaydırmanın arka planla eşlenmesi üst düzey. 15,37–15,52'deki çapraz geçişte hayalet oluşuyor; iç mekân kaydırması tavanda, yani anlamsız bir yerde bitiyor.",
+    "kabul_10": "Hiçbir geçişte iki fotoğraf ≥3 kare üst üste binmiyor; her kamera hareketi mekânın en güçlü öğesinde (deniz, cam, havuz) duruyor; hareketlerin tamamı ≤1,3 sn ve ardından ≥1,2 sn duruş var."
+   },
+   {
+    "olcut": "Kapanış",
+    "puan": 4,
+    "gerekce": "Mesaj ve ekleme adımı açık; ancak görüntü boş bir telefon, dipnot mobilde ~7 px.",
+    "kabul_10": "Kapanış zemininde gerçek ilan görüntüsü, telefonda sonuç kartı var; eylem çağrısı ≥2 sn okunur kalıyor; dipnot 1080 px'de ≥26 px."
+   },
+   {
+    "olcut": "Marka bütünlüğü",
+    "puan": 7,
+    "gerekce": "Krem/lacivert/mercan ve Inter tutarlı, mercan sınırlı kullanılmış. Dışarıdaki havuz renk düzeltmesi (sepya .07) ile iç mekânın daha soğuk ve beyaz tonu tek bir dünya gibi durmuyor; haritadaki kahverengi palet dışı.",
+    "kabul_10": "Tüm fotoğraflar tek bir renk düzeltmesi ailesinde (beyaz noktası farkı <300 K); paletin dışında baskın renk yüzeyi yok."
+   }
+  ],
+  "yon_onerisi": "Final için tek fikir: 'Önce ev, sonra nasıl bulduğun.' İlk kare (0,0), EVL-100102'nin net havuz ve deniz planı: ≤1,6× ölçek, ufuk y≈700'de, gökyüzünde '£139.000 · Lapta' künyesi. 0,9–1,6 sn'de bu görüntü portal geçişinin tersiyle telefondaki sonuç kartına küçülsün; böylece izleyici bu evin ChatGPT'deki tek bir cümlelik sorudan geldiğini sözsüz anlar. Sonra soru, kısa bir harita (≤1,5 sn, lacivert zemin üstünde mercan çizgi) ve kartlar gelsin. Kanıt anı mevcut 10,75–17 dizisi aynen kalsın: portal, künye duruşu, telefonun girişi, kaydırmayla arka planın birlikte değişmesi. Tek değişiklik, iç mekân hareketinin çift yükseklikli camdan kapıdaki deniz manzarasına inmesi. Kapanışta zemin yine o havuz planı, telefonda seçili £139.000 kartı, üstte 'Eklentiler'den Evlek'i ekle'; film boş ekranda değil, evin üzerinde bitsin. Çelişkiye kararım: temsilî yeniden tasarımla devam edilmeli. Repoda gerçek widget kaydı yok, müşteri kararı açık ve görsel kalite bunu gerektiriyor. Koşulu, her kart, detay ve karşılaştırma öğesinin canlı MCP kaydıyla birebir eşleşmesi ve 'Arayüz temsilidir' dipnotunun mobilde okunur boyda (≥26 px) olması.",
+  "kanaat": "Filmin ortasındaki portal ve iç mekân dizisi gerçek bir eve gerçek bir arzu kuruyor; ama açılış ve kapanış boş, koyu bir telefonda geçtiği için bu arzu 10,8 sn'den önce başlamıyor, 17,4 sn'den sonra da sürmüyor."
+ },
+ {
+  "uzman": "Mimari fotoğraf ve renk uzmanı",
+  "bulgular": [
+   {
+    "saniye": "0,0–10,8 ve 25,5–30,0",
+    "tur": "sorun",
+    "gozlem": "Açılışta ve kapanışta arka planda EVL-100102_00 var, ama 24 px bulanıklık, %58 parlaklık ve %60 lacivert multiply katmanıyla (V11.tsx Pool, u=0) tanınmaz hâle gelmiş. t_0,0 karesinde koyu lacivert üstünde zeytin rengi bir leke görünüyor; havuz ya da deniz okunmuyor. Gerçek bir ev ilk kez 5,7 sn'de telefon içindeki küçük kartlarda beliriyor (kart başına çıktıda yaklaşık 230 px). Tam ekran ev ancak 10,9 sn'de geliyor. Kapanış (25,5–30) yine aynı koyu lekeyle bitiyor.",
+    "etki": "Yorum: Filmin en güçlü varlığı ilk saniyede kullanılmıyor. Kanca yalnız yazıya ve boş bir sohbet ekranına kalıyor. Varsayım (izlenme verisi yok): Gerçek ev görmeden kaydıran izleyici, filmin vaat ettiği arzuya hiç ulaşmıyor.",
+    "duzeltme": "0,0–0,5 sn'de EVL-100102_00 net ve tam ekran gelsin: cover 1,60×, objectPosition 30% 55%, ek ölçek yok, GRADE_EXT. Üst 0–620 px'e lacivert gradyan konsun (rgba(10,37,64,.55)→0). Telefon bu karenin üstüne girsin. Bulanıklık ve lacivert katman, yazma başladığında (2,9 sn) 0,6 sn içinde, bezier(.4,0,.2,1) eğrisiyle uygulansın. Yani mevcut sıra tersine çevrilsin. Kapanışta (26,0 sn'den sonra) havuz yeniden netleşsin; böylece döngünün ilk ve son karesi aynı fotoğrafla eşleşir.",
+    "guven": "yüksek",
+    "oncelik": "P0"
+   },
+   {
+    "saniye": "10,9–14,4",
+    "tur": "sorun",
+    "gozlem": "Havuz planı 1600×1200 yatay kaynaktan cover ile dolduruluyor. Büyütme 1920/1200 = 1,60×; pan sonunda scale 1,04 eklenince 1,66×'e çıkıyor. Yani kaynağın yalnız 649–675 px genişliği 1080 px'e yayılıyor. Bit hızı 5,97 Mbps. 1:1 kırpımda palmiye ve çalılar lekeli, yağlı boya gibi duruyor. Laplace varyansı kaynakta 1366, çıktıda 267 (kaba bir ölçü; H.264 kaybı da buna dahil). Fiyat yazısının zemin kontrastı da düşük: krem £139.000 ile gökyüzü arasında 2,1–2,6:1, 'Lapta · 2+1 · 107 m²' satırında 1,8:1. Okunurluk yalnız gölgeye dayanıyor. Ufuk seviyede (x=50 ve x=300'de y=811). Deniz çerçevenin yalnız yaklaşık %3'ünde (60 px'lik bir şerit), gökyüzü üst %42'de.",
+    "etki": "Yorum: 360 px önizlemede yumuşaklık fark edilmiyor. 1080 px'e yakın gösteren büyük telefonlarda bitki dokusu ucuz bir büyütme gibi okunuyor. Alt satır parlak ekranda ve güneş altında kaybolabilir.",
+    "duzeltme": "Pandaki 1,00→1,04 zoom kaldırılsın; hareket yalnız objectPosition x 30→52% panı olsun ve büyütme 1,60×'te sabit kalsın. Evlek'in kaynağında bu fotoğrafın daha yüksek çözünürlüklü bir sürümü varsa o kullanılsın; yoksa yeni dosya adıyla önceden Lanczos ve unsharp (yarıçap 0,6 px, %35, eşik 2) uygulanmış bir kopya üretilsin. Fiyat bloğu için y 0–620 aralığına rgba(10,37,64,.45)→0 gradyan eklensin; hedef kontrast ≥4,5:1. Bu filmin dışa aktarımı ana sürüm için CRF 16 ya da yaklaşık 12 Mbps ile yapılsın.",
+    "guven": "orta",
+    "oncelik": "P1"
+   },
+   {
+    "saniye": "15,4–17,0",
+    "tur": "sorun",
+    "gozlem": "İç mekân EVL-100102_01'den geliyor: 1200×1600 kaynak 1584 px genişlikte, yani 1,32× büyütmeyle (keskinlik yeterli). Ancak toplam 1,6 sn görünüyor. Telefon (s≈0,55) sağ yarıyı, yani kanepe, oturma alanı ve denize açılan kapının yarısını kapatıyor. Kadrajın alt çeyreği ön plandaki masa ve amerikan servislerle dolu. Pencere ve gökyüzü alanları kırpılmış durumda (karenin %18'i 250'nin üstünde; üst üçte birde %18,5). GRADE_INT (brightness 1.04, contrast 1.05) bu yanığı artırıyor. Beyazlar soğuk ve camgöbeği tonunda: duvar RGB 212/230/232, havuz güvertesi 219/223/243.",
+    "etki": "Yorum: Fotoğraf seçimi doğru (çift yükseklik, cam, denize bakan kapı), ama izleyici odanın kendisini neredeyse göremiyor. Soğuk beyazlar Akdeniz sıcaklığı yerine klinik bir his veriyor ve krem #FAF8F2 marka rengiyle ayrışıyor.",
+    "duzeltme": "İç mekân en az 2,2 sn görünsün. Telefon s=0,40 ölçeğe indirilip sağ alta alınsın (x≈800, y≈1380), böylece kapı ve kanepe açık kalsın. Tilt top −192→−32 yerine −120→−32 olsun; masayı daha az göstersin ve daha erken pencereye çıksın. GRADE_INT: brightness 0.98, contrast 1.03, highlight 245'te tavan. Beyaz dengesi her iki fotoğrafta R≥B olacak şekilde nötr-sıcağa çekilsin (duvar hedefi yaklaşık #ECE8E2): sepia .04→.08, yalnız beyazlara ölçülü bir sıcaklık eğrisi. Mimariye ve mobilyaya dokunulmasın.",
+    "guven": "orta",
+    "oncelik": "P1"
+   },
+   {
+    "saniye": "10,3–11,5 ve 15,25–15,6",
+    "tur": "korunacak başarı",
+    "gozlem": "Fotoğraf seçimi isabetli: ilanın en güçlü dış çekimi (_00: havuz, palmiye, deniz) ve en güçlü iç çekimi (_01: çift yükseklik, deniz kapısı) kullanılmış; yatak odaları kullanılmamış. Portal geçişinde £139.000 kartındaki aynı fotoğraf telefonun 3D düzleminden kalkıp tam ekrana açılıyor. objectPosition 45/60%→30/55% olarak kesintisiz akıyor, sıçrama yok. Seçilen kırpım, kaynaktaki sağ korkuluğu ve havuz merdivenlerini dışarıda bırakıyor; ufuk seviyede. Telefonda 2/14'e kaydırınca arka planın da aynı iç mekâna geçmesi, kart, detay ve arka planı aynı ilan kaydına (EVL-100102) bağlıyor.",
+    "etki": "Yorum: 'Telefondaki ilan gerçek bir ev' fikrini sessiz izlerken kanıtlayan an bu. Filmin güvenilirlik kanıtı burada.",
+    "duzeltme": "Korunsun: portal eğrisi, havuz kırpımı (x 30→52%), aynı fotoğrafın kart ve tam ekranda kullanılması, swipe ile arka planın eşlenmesi. Yalnız yukarıdaki keskinlik ve renk düzeltmeleri uygulansın.",
+    "guven": "yüksek",
+    "oncelik": "P2"
+   }
+  ],
+  "puanlar": [
+   {
+    "olcut": "Kanca",
+    "puan": 3,
+    "gerekce": "Fotoğraf açısından ilk 10,8 sn'de tam ekran ev yok. Açılış arka planı bilinçli olarak tanınmaz hâle getirilmiş; ilk karede yalnız yazı ve boş, siyah bir telefon ekranı var.",
+    "kabul_10": "0,0–0,5 sn içinde gerçek bir ilan fotoğrafı net ve en az 60% kadraj alanında görünsün, yazı kontrastı ≥4,5:1 olsun."
+   },
+   {
+    "olcut": "İlan arzusu",
+    "puan": 6,
+    "gerekce": "Havuz ve deniz planı 3,4 sn tam ekran kalıyor ve güçlü. Ancak deniz kadrajın yalnız yaklaşık %3'ü. İç mekân 1,6 sn ve yarısı telefonun arkasında; kapanışta ev hiç yok.",
+    "kabul_10": "Tam ekran gerçek fotoğraf toplamı ≥6 sn; iç mekânda kanepe ve deniz kapısı telefonla örtülmeden ≥2 sn görünsün; son 3 sn'de ev fotoğrafı net olsun."
+   },
+   {
+    "olcut": "Ürünün çekiciliği",
+    "puan": 6,
+    "gerekce": "Seçim ve kırpım doğru, ufuk seviyede. Buna karşın 1,60–1,66× büyütmede bitki dokusu yumuşuyor, iç mekânda pencerelerin %18'i kırpılmış, beyazlar camgöbeği tonunda.",
+    "kabul_10": "Tam ekran fotoğraf büyütmesi ≤1,60× ve zoomsuz; 1:1'de yağlı boya dokusu yok; kırpılmış alan (>250) ≤%5; beyazlarda R≥B ve duvar yaklaşık #ECE8E2 ±6."
+   },
+   {
+    "olcut": "Marka bütünlüğü",
+    "puan": 6.5,
+    "gerekce": "Lacivert zemin ve krem yazı tutarlı. Ancak fotoğrafların soğuk camgöbeği dökümü krem #FAF8F2 ile çatışıyor. İç ve dış grade farklı (sepia .04'e karşı .07; hue-rotate yalnız dışta).",
+    "kabul_10": "Tek bir ortak grade: iki fotoğrafta beyaz noktası aynı sıcaklıkta (ΔE<4); arayüzde ve kremde filtre yok; lacivert katman yalnız bulanık fazda."
+   }
+  ],
+  "yon_onerisi": "Film, gerçek evle açılıp gerçek evle kapanmalı. İlk kare EVL-100102_00 olsun: net, tam ekran, 1,60× cover, x=30%, zoom yok. Üst gradyanın üstünde 'Evlek artık ChatGPT'de.' yazısı dursun; telefon bu kareye 0,4 sn'de girsin. Kullanıcı Lapta sorusunu yazmaya başladığında havuz 0,6 sn içinde bulanık laciverte çekilsin; böylece arayüz okunur kalır ve izleyici aradığı evi zaten görmüş olur. Kanıt anı, mevcut portal geçişi olarak korunsun: £139.000 kartındaki aynı havuz fotoğrafı tam ekrana açılıyor (yalnız pan, zoom yok, kontrastı ≥4,5:1 olan fiyat künyesi). Ardından iç mekân 2/14 gelsin: telefon küçültülüp sağ alta alınmış (s=0,40), 2,2 sn boyunca kapı ve deniz açık, beyazlar nötr-sıcak. Kapanışta ekleme adımlarından sonra havuz yeniden netleşsin, çip ve CTA bu karenin üstünde dursun; son kare ilk kareyle eşleşsin ve döngü kesintisiz olsun.",
+  "kanaat": "Fotoğraf seçimi ve portal geçişi doğru, ama filmin en güçlü varlığı olan gerçek ev ilk 10,8 sn'de ve kapanışta saklanıyor; ekrandayken de 1,6× büyütmenin yumuşaklığı, soğuk beyazlar ve zayıf fiyat kontrastıyla potansiyelinin altında kalıyor."
+ },
+ {
+  "uzman": "Hareket tasarımı ve cihaz uzmanı (fiziksel telefon, kamera, derinlik, geçişler, mikro hareket)",
+  "bulgular": [
+   {
+    "saniye": "10,5–17,0 (portal 10,5–11,5; ürün planı 14,5–17,0)",
+    "tur": "korunacak başarı",
+    "gozlem": "£139.000 kartı telefonun 3B düzleminden kalkıyor (ry'ye ek −3°, translateZ 30, gölge büyüyor), FLY eğrisiyle 1,0 sn'de tam ekran fotoğrafa dönüşüyor, telefon kadrajın altından çıkıyor. 12,0–14,2 arasında net havuz fotoğrafının üstünde yalnız '£139.000 / Lapta · 2+1 · 107 m²' künyesi var. 14,5'te telefon sağ alttan giriyor; 15,25'te ekrandaki galeri 2/14'e kaydırılınca arka plan iç mekâna geçiyor ve 160 px yukarı tilt yapılıyor. Kart, künye ve detay aynı kayda bağlı: EVL-100102. Döngü dikişi temiz: 0. ve 1799. kare arasında SSIM 0,9965.",
+    "etki": "Filmin tek gerçek 'arzu' anı burası. Ekrandaki ilanın dünyaya açılması, 'Evlek gerçek evi gösteriyor' fikrini sessiz izlemede de anlatıyor. Yorum: bu blok çıkarılırsa film bir arayüz demosuna döner.",
+    "duzeltme": "Fikir ve zamanlama korunsun; yalnız iki kir temizlensin. (1) 10,93–11,20 arasında kartın alt kenarının altında telefonun giriş çubuğu ve '£127.000' kalıntısı 15 kare görünüyor. phoneOut [10,75–11,4] yerine telefon 10,90'da gizlensin ya da çıkış [10,6–11,0] arasına sıkıştırılsın. (2) 15,37–15,67 arasındaki havuz→iç mekân geçişi çapraz zincirleme; iki mimari 18 kare üst üste biniyor. Bunun yerine ekrandaki kaydırmayla aynı yönde ve aynı eğride (SOFT, 0,32 sn) 1080 px'lik yatay itme ya da kaydırma bitiminde (15,57) temiz kesme kullanılsın.",
+    "guven": "yüksek",
+    "oncelik": "P2"
+   },
+   {
+    "saniye": "2,02–2,12; 2,42–2,50; 24,45–24,50; 26,00–26,06; 26,30–26,47",
+    "tur": "sorun",
+    "gozlem": "İmza hareketiyle durum geçişlerinin hepsinde kare düzeyinde çakışma var. (a) 2,02–2,12'de inen 'Evlek' logosu, opaklığı hâlâ ~%70 olan 'artık ChatGPT'de.' başlığının harflerini 6 kare boyunca kesiyor. 26,30–26,47'de, yükselen logo yeniden belirmeye başlayan başlığın içinden geçiyor. (b) 26,00 karesinde ne çip var ne logo: Screen.tsx:367 çipi kaldırıyor, Signature opaklığı 0'dan başlıyor. 26,01–26,06 arasında logo 'ChatGPT'ye sor' yer tutucusunun üstünde, iki yazı iç içe. Aynı durum 2,42–2,50'de iniş sırasında da var. (c) 24,45–24,50'de düğme 3 kare boyunca yeniden 'Eklentiyi kur' yazıyor: TL.spin bitişi 24,45, TL.bound 24,5. (d) Logo, 3B eğik telefonun üstünde düz 2B katman olarak uçuyor ve 2,15 civarında durum çubuğu ile kamera adasının üstünden geçiyor.",
+    "etki": "Gözlem olarak: filmin 'imza' diye kurgulanmış hareketi, iki uçta da yazıyla çarpışan kirli bir an üretiyor. 'Kur → Bağlı' anındaki 3 karelik geri dönüş, akıllı ve güvenilir izlenimini zayıflatıyor. Bu yorumdur; 60 fps'de fark edilme oranı ölçülmedi.",
+    "duzeltme": "titleOut [2,0–2,25] → [1,70–1,95]; böylece logo hareket etmeden önce başlık tamamen kaybolur. title2 26,3 → 26,65, yani chipLift [26,0–26,6] bittikten sonra. Çip devri: Signature opaklığı t ≥ logoDrop[1]−1 kare / chipLift[0] anında doğrudan 1 olsun. Ekrandaki çip devrin ilk karesinde kalsın, yer tutucu 0,15 sn gecikmeyle (26,15) ve 0,2 sn opaklıkla gelsin. TL.spin [24,0–24,5] olsun, yani bound ile aynı karede bitsin. Logonun çipe iniş/kalkış yolunda 2,25 sn sonrası telefonun ekran düzleminde, perspektifli bir katmanda çizilsin ya da ölçek h<60 px olduktan sonra çip devralsın.",
+    "guven": "yüksek",
+    "oncelik": "P0"
+   },
+   {
+    "saniye": "0,0–5,5",
+    "tur": "sorun",
+    "gozlem": "İlk kare (t=0): HOOK pozunda telefon P(540,1370,0,42,3,−4,−1), ekran boş ve koyu. Kadrajda yaklaşık 500×1050 px'lik siyah alan var. Arka plan EVL-100102_00, ama 24 px bulanık ve %60 lacivert multiply, gerçek ev okunmuyor. 0–2,5 sn arasındaki tek hareket 0,5 sn'de 40 px yükselme. İlk gerçek ev görüntüsü 5,5'te geliyor (küçük kart fotoğrafları, ~270 px). Net ve büyük ev ancak 11,0'da görünüyor.",
+    "etki": "Performans varsayımı (izlenme verisi yok): ilk saniyede ne arzu uyandıran bir görüntü var ne de belirgin bir hareket. Dikey akışta duraklatma gücü düşük kalabilir. 'ChatGPT' kelimesi tek başına dikkat çeker, ama göze hitap eden bir şey yok.",
+    "duzeltme": "0–2,5 arasında arka planda Pool u=1 kullanılsın: net, GRADE_EXT ile renklendirilmiş havuz/deniz. 0→2,5 boyunca 1,00→1,04 yavaş itme olsun, deniz ufku y≈620–700 aralığında dursun. Bulanıklaşma ve lacivertleşme push1 [2,5–3,5] içinde, SOFT eğriyle 24 px ve 0,6'ya çıksın. Telefon ekranı ilk karede boş olmasın: giriş çubuğunda 'Evlek' çipi ve imleç hazır olsun, ya da sorunun ilk kelimesi yazılmaya t=0,2'de başlasın. Ölçülebilir hedef: 0. karede net gerçek ev/manzara görüntüsü kadrajın ≥%40'ını kaplasın, düz siyah alan ≤%15 olsun.",
+    "guven": "orta",
+    "oncelik": "P0"
+   },
+   {
+    "saniye": "0,0–30,0 (özellikle 14,5–17,0 ve 24,5–25,0)",
+    "tur": "sorun",
+    "gozlem": "Cihaz kimliği güncel iPhone Pro'nun neredeyse birebir kopyası: ekran genişliğinin %31,5'i kadar 372×108 hap biçimli kamera adası, '9:41' saati, iOS durum ikonları, ev çubuğu, iki tonlu titanyum benzeri çerçeve, BR 157 köşe yarıçapı. Kalınlık (150 tasarım px'i, 18 katman), yan tuşlar ve saat 10 ışığı lacivert zeminde inandırıcı. Fotoğraf planında (16,3) telefonun sağ kenarı ~x=1070'te kadraja yapışık, alt kenarı ~85 px kırpık. Gölge ofseti (150,260)·s kadraj dışına düşüyor, bu yüzden telefonun parlak iç mekânda hiç teması ya da gölgesi yok; yapıştırma çıkartma gibi duruyor. 24,5–25,0'teki 'Bağlı ✓' 38 px ekran birimiyle çıktıda ~23 px, mobil önizlemede ~7 px. 1,06× itme bu satırı değil ekranın ortasını hedefliyor.",
+    "etki": "'Birebir iPhone kopyası yok' kuralı için risk (yorum, hukuki değerlendirme değil). Fotoğraf planında telefon sahneye oturmadığı için 'gerçek ev + gerçek uygulama' iddiası görsel olarak zayıflıyor. Kurulumun kanıt anı mobilde okunamıyor.",
+    "duzeltme": "Cihaz: hap ada yerine ortalanmış delik kamera (Ø44 px, ekran y=50), saat 9:41 yerine örneğin 10:24, BR 157→128, ekran yarıçapı 117→96, tek tonlu mat çerçeve (titanyum geçişi yerine #2B3B47→#16232D), sağda tek güç + ses tuşu. Ürün planı pozu P(760,1380,0,40,3,−8,−2): sağda ve altta ≥40 px pay kalsın. Fotoğraf zemini üzerinde gölge katmanı ofset (−40,60)·s, bulanıklık 80·s, alfa 0,35 olsun; kenar ışığı iç mekânın sıcak beyazına göre #F2EEE6 yönünde ayarlansın. Kurulum anı: 24,5–25,7 arasında 'Uygulama › Evlek ✓ Bağlı' satırına itme. Satır ekran koordinatında yaklaşık (248,1730); poz yaklaşık P(700,560,0,85,2,−4,−1), 650 ms SOFT eğriyle, ardından ≥1,2 sn duruş. 'Bağlı' yazısı 38→56 px ekran birimine çıksın; mobilde ≥14 px hedeflensin.",
+    "guven": "orta",
+    "oncelik": "P1"
+   }
+  ],
+  "puanlar": [
+   {
+    "olcut": "Telefon gerçekliği",
+    "puan": 6,
+    "gerekce": "Ölçeklenen 150 px kalınlık, yan tuşlar, üç katman gölge ve saat 10 ışığı lacivert zeminde inandırıcı. Buna karşılık cihaz kimliği iPhone Pro kopyasına çok yakın. Fotoğraf planında telefon kırpılmış ve gölgesiz, yani sahneye oturmuyor. Logo 2B katman olarak 3B ekranın üstünden geçiyor.",
+    "kabul_10": "Markasız ama tanınır cihaz: hap ada yok, 9:41 yok. Fotoğraf planlarında telefonun dört kenarında ≥40 px pay var ve zeminde görünür temas gölgesi var. Ekran düzlemine değen her öğe perspektifle hizalı; logo/çip devrinde 2B–3B kayması 0 px."
+   },
+   {
+    "olcut": "Hareket kalitesi",
+    "puan": 6,
+    "gerekce": "Portal (10,5–11,5) ve iç mekân tilt-up gerçekten iyi; eğriler tutarlı, döngü dikişi temiz. Ama 2,02, 26,0, 26,3 ve 24,45'te kare düzeyinde çakışma ve durum geri dönüşleri var. 17,0–17,8 arasında poz değişimi, iOS geri kaydırması ve arka plan zincirlemesi aynı anda çalışıyor; bu, kendi 'bir anda tek hareket' kuralını bozuyor. 15,37–15,67 arasında çift pozlama var.",
+    "kabul_10": "30 fps ve 60 fps kare taramasında hiçbir karede yazı–logo kesişimi, boş devir karesi ya da geri dönen durum yok. Her kamera hareketi 650–1300 ms sürüyor ve arkasından ≥1,2 sn duruş geliyor; aynı anda en fazla bir büyük hareket var. Fotoğraf geçişlerinde ≥3 karelik çift pozlama yok."
+   },
+   {
+    "olcut": "Kanca",
+    "puan": 4,
+    "gerekce": "İlk karede büyük tipografi ve boş, koyu bir telefon var; arka plan bulanık lacivert. İlk 2,5 sn'deki tek hareket 40 px yükselme. Net gerçek ev ilk kez 11,0'da görünüyor.",
+    "kabul_10": "0. karede net gerçek ev/manzara kadrajın ≥%40'ını kaplıyor ve ilk 0,5 sn içinde en az bir anlamlı hareket başlıyor (yazım, itme ya da ekran değişimi). Düz siyah alan ≤%15."
+   },
+   {
+    "olcut": "Tempo",
+    "puan": 6,
+    "gerekce": "GÖR perdesi nefes alıyor (12,0–14,2 künye duruşu iyi). Buna karşılık ilk 8,5 sn tümüyle koyu arayüzde geçiyor, 20,5–26,0 arasındaki EKLE perdesi de 5,5 sn'ye beş ekran durumu sığdırıyor (arama, sonuç, sayfa, kur, yeni sohbet). Kurulumun kanıt anı (Bağlı) 0,5 sn'den kısa ve küçük.",
+    "kabul_10": "Arzu görüntüsü (net ev) ilk 3 sn içinde geliyor. Her ana mesaj ve kanıt anı (fiyat künyesi, £12.000 farkı, Bağlı ✓) mobilde okunur boyutta ≥1,2 sn duruyor. Hiçbir perdede 1 sn'ye birden fazla ekran durumu düşmüyor."
+   },
+   {
+    "olcut": "Kapanış",
+    "puan": 6,
+    "gerekce": "Döngü teknik olarak dikişsiz (SSIM 0,9965) ve CTA ile dipnot yerinde. Ama kapanış yine boş koyu telefonla bitiyor, ev yok. CTA 60 px ve ikincil kalıyor. Logo kalkışı başlıkla çarpışıyor.",
+    "kabul_10": "Son 2 sn'de CTA ≥72 px, mobilde net okunuyor ve en az 1,5 sn duruyor. Kadrajda gerçek bir ev öğesi ya da dolu bir sonuç ekranı var. Logo kalkışında hiçbir karede yazı çakışması yok. 0. ve 1799. kare SSIM ≥0,99."
+   }
+  ],
+  "yon_onerisi": "Tek fikir: Evlek, ChatGPT'deki tek bir cümleyi gerçek bir eve açar. Filmin omurgası, şu an 10,5'te duran portal hareketi olmalı, ve bu hareket filmin kancasına taşınmalı. İlk karede EVL-100102'nin net deniz/havuz görüntüsü tam ekran dursun, üstünde yalnız 'Evlek artık ChatGPT'de.' yazsın. 0,6–1,4 sn arasında fotoğraf ters portal hareketiyle (FLY, 0,8 sn) eğik ve markasız telefondaki £139.000 kartına geri insin. Ardından soru yazılsın ve harita ile 8 ilan gelsin. Kanıt anı aynı kartın yeniden açılması olsun: 2/14 kaydırmasının yönüyle eşleşen itmeyle iç mekâna geçilsin ve 1,2 sn duruşla '£139.000 · Lapta · 2+1 · 107 m²' gösterilsin. Karşılaştırma tek bir duruş olsun. Kurulum adımında kamera düğmeye değil 'Bağlı ✓' satırına gitsin. Kapanış: logo çipten kalkarken başlık ancak logo yerine oturduktan sonra belirsin. Döngü dikişi ilk kareyle aynı net ev görüntüsünde kurulsun. Widget çelişkisi konusunda kararım şu: HANDOFF'taki müşteri kararı daha belirli olduğu ve veriler gerçek kaldığı için temsilî yeniden çizim korunabilir. Ancak dipnot ('Arayüz temsilidir…') ekranda kalmalı. Ayrıca Eklentiler/Evlek sayfası ile sohbet çerçevesi, repodaki gerçek referans görsellerin yerleşimine sadık tutulmalı; widget gerçeğinden daha 'parlak' bir ürün vaat etmemeli.",
+  "kanaat": "Portal ve iç mekân bloğu gerçekten iyi bir hareket fikri; ama kanca karanlık ve boş. İmza hareketi iki uçta da başlıkla çarpışıyor, durum devirlerinde kare düzeyinde hatalar var ve cihaz iPhone'a fazla benziyor. İşçilik henüz yayın kalitesinde değil."
+ },
+ {
+  "uzman": "Arayüz ve etkileşim tasarımcısı",
+  "bulgular": [
+   {
+    "saniye": "10,4–17,0",
+    "tur": "sorun",
+    "gozlem": "10,42'de £139.000 kartına dokunuluyor. Kart fotoğrafı telefondan taşıp tüm kadrajı kaplıyor ve telefon 10,75–11,4 arasında kadrajın altından çıkıyor. 11,4–14,5 arasında kadrajda telefon yok: tam ekran havuz fotoğrafı ve dış künye var (\"£139.000 / Lapta · 2+1 · 107 m²\", 12,0–14,3). 14,5'te telefon sağ alttan geri giriyor ve bir detay ekranı gösteriyor (\"Satılık · EVL-100102\", 2/14 galeri, özellik çipleri). Bu ekranda ne ChatGPT başlığı ne bir adres çubuğu ne de \"Evlek'te aç ↗\" var. Gerçek widget'taki \"Evlek'te aç ↗\" düğmesi (ref 06) filmin hiçbir yerinde yok. public/page/page_view.png hiç kullanılmamış.",
+    "etki": "Yorum: Dokunuşun sonucu \"fotoğraf büyüdü\" gibi okunuyor. Detay ekranının nerede açıldığı (ChatGPT içinde mi, evlek.app'te mi) belli değil. Bu yüzden \"gerçek ilana geçebilirsin\" vaadi ve verinin gerçekliğinin en güçlü kanıtı, yani gerçek web sayfası, izleyiciye ulaşmıyor. 3,1 sn telefonsuz plan, \"telefon fotoğraf planında da telefon olarak tanınmalı\" kuralına da aykırı.",
+    "duzeltme": "Portal (10,5–11,5) kalsın, ama telefon kadrajdan çıkmasın: poz P(800, 1440, 0,42, 3, −8, −2) 11,4'ten itibaren sağ alt köşede dursun ve fotoğraf telefonun arkasında tam kadraj olsun. Dış künye 12,0–14,2 yerine telefonun içindeki kartta kalsın. 15,2–16,4 arasında detay ekranının altına gerçek \"Evlek'te aç ↗\" düğmesi konsun ve 15,6'da düğmeye dokunulsun (halka r=120, 0,3 sn). 16,0–17,0 arasında page_view.png'nin gerçek pikselleri, markasız bir tarayıcı çerçevesinde ve \"evlek.app\" adres satırıyla telefona girsin. Sayfada EVL-100102 ve £139.000 görünür kalsın, kırpım serbest, yeniden çizim yok.",
+    "guven": "yüksek",
+    "oncelik": "P0"
+   },
+   {
+    "saniye": "18,5–20,5 (ayrıca 7,0–10,4 sıralama çipi)",
+    "tur": "sorun",
+    "gozlem": "Karşılaştırma, \"Ev Evlek · 2 ilan\" başlıklı ve \"Lapta · karşılaştırma\" adlı bir widget kartı olarak gösteriliyor. Kartta iki sütun (\"104 m² brüt\" / \"107 m²\") ve \"Fiyat farkı £12.000 (%9,4)\" kutusu var. Gerçek oturumda (ref 07) karşılaştırma ChatGPT'nin metin tablosu ve alan satırı \"107 m² (tipi belirtilmemiş)\". ChatGPT orada alanların doğrudan karşılaştırılamayacağını açıkça söylüyor. Filmdeki widget'ta gerçekte olmayan bir \"Ucuzdan pahalıya\" çipi de var (gerçek widget'ta Satılık/Kiralık, Filtreler · 5, Havuz, Deniz manzarası çipleri bulunuyor).",
+    "etki": "Yorum: Ürünün sahip olmadığı bir bileşen gösteriliyor. Bu sahte arayüz riski ve dipnotun (\"Arayüz temsilidir\") kapsamını aşıyor. \"104 m² brüt\" ile \"107 m²\" yan yana durunca izleyici iki alanı eşdeğer sanıyor; brüt/belirtilmemiş ayrımı fiilen kayboluyor.",
+    "duzeltme": "Karşılaştırma widget çerçevesinden çıkarılsın ve ChatGPT yanıtı olarak yeniden tasarlansın. Kısa bir tablo olsun: İlan / Oda / Alan / Banyo / Deniz manzarası / Havuz satırları, Emlakçı satırı yok. Alan hücresi \"107 m² · tipi belirtilmemiş\" yazsın. Altında kalın \"Fiyat farkı: £12.000 (%9,4)\" satırı dursun. Ölçüler: satır yüksekliği ≥96 px (tasarım), font 40/600, s=0,60 pozunda. \"Ucuzdan pahalıya\" çipi gerçek çip dizisiyle değiştirilsin; sıralama bilgisi gerekiyorsa ChatGPT'nin yanıt metninde geçsin (\"İlanları ucuzdan pahalıya sıraladım\").",
+    "guven": "yüksek",
+    "oncelik": "P1"
+   },
+   {
+    "saniye": "20,5–29,6",
+    "tur": "sorun",
+    "gozlem": "20,5'te karşılaştırma ekranından Eklentiler ekranına yatay itmeyle geçiliyor. Menüye (≡) ya da \"Eklentiler\" satırına dokunuş yok. Dış yazılar art arda üç farklı fiil kullanıyor: \"Eklentiler'de Evlek'i bul.\" (21,2–22,9), \"Eklentiyi kur.\" (23,3–25,9), \"Eklentiler'den Evlek'i ekle.\" (27,4–29,6). Filmdeki toplam dış ana yazı sayısı 6 (\"Evlek artık ChatGPT'de.\", \"Sor. Evlek göstersin.\", \"Arada £12.000 fark.\" ve bu üçü). 25,4'te \"Sohbette dene\" düğmesine basılınca sohbete \"Evlek\" çipi geliyor, ama 25,9–26,3'te çip düz kelimeye dönüşüp yukarı uçuyor. Kapanış boyunca telefonda boş bir sohbet var (26,6–30,0); kurulumdan sonra bir sonuç (ödül) gösterilmiyor.",
+    "etki": "Yorum: İzleyici Eklentiler'in nerede olduğunu öğrenmiyor; HANDOFF'taki \"ChatGPT › Eklentiler › Evlek\" yolu görünmüyor. Üç fiil tek bir eylemi üç ayrı eylem gibi okutuyor, üç-mesaj kuralı da aşılıyor. Kapanıştaki boş ekran kanıtı geri alıyor. Performans varsayımı: talimat adımında izleyici kaybı burada yoğunlaşabilir, ama ölçüm olmadan oran söylenemez.",
+    "duzeltme": "20,5–21,0 arasında sol menü kaysın ve gerçek oturumdaki gibi \"Eklentiler\" satırına dokunulsun (0,35 sn halka). Ana dış yazılar 3'e insin: \"Evlek artık ChatGPT'de.\" / \"Sor. Evlek göstersin.\" / \"Eklentiler'den Evlek'i ekle.\" \"Arada £12.000 fark.\" dış yazısı kalksın; bu bilgi ekranda zaten var. Adım katmanı tek satır, sade bir yol olsun (40 px, %80 opaklık): \"ChatGPT › Eklentiler › Evlek › Eklentiyi kur\". Ekrandaki düğme metni gerçekteki gibi kalsın. 25,5–26,6 arasında yeni sohbette çip + kısa sorgu gönderilsin ve 0,6 sn içinde harita kartı açılsın. Kapanışta telefon boş sohbet yerine bu sonuçla dursun.",
+    "guven": "yüksek",
+    "oncelik": "P1"
+   },
+   {
+    "saniye": "7,0–10,4 · 14,5–17,0 · 18,6–20,5 · 22,5–25,9",
+    "tur": "korunacak başarı",
+    "gozlem": "Yeniden çizilen widget, gerçek oturumun (ref 06) iskeletine sadık: \"Lapta · Satılık\", \"8 ilan\", \"Filtreler · 5\", \"£105–147 bin · 8 ilan\" etiketi, \"7 foto / 23 foto / 31 foto / 14 foto\", £105.000 kartında \"84 m²\" (tür yazmadan, gerçek kayıttaki gibi), £110.000 kartında m² yok, £127.000 kartında \"104 m² brüt\". İlan kimliği zinciri kart → detay (EVL-100102, 2/14, beş gerçek özellik) → karşılaştırma (EVL-101433 / EVL-100102) kopmadan sürüyor. Eklenti sayfası gerçek kayıtla (eklenti_28_5) aynı içerikte: üç degrade soru kartı, açıklama, \"Eklentiyi kur\" → dönen gösterge → \"Bağlı ✓\" → \"Sohbette dene\" sırası. Bildirimler, kişi adı ve abonelik bilgisi temizlenmiş.",
+    "etki": "Yorum: Temsilî yeniden tasarım, gerçeğe benzeme şartını (müşteri kararı #2) yerine getiriyor. Veri bütünlüğü güven duygusunu taşıyan omurga.",
+    "duzeltme": "Koru. Yeni sürümde alan metinleri, ilan kodları, fotoğraf sayıları ve eklenti sayfası içeriği aynen kalsın. Görsel cila yalnız stil düzeyinde yapılsın (ör. harita poligonunun kahverengi-gri dolgusu mercan %18 dolgu + 3 px mercan kenarla daha temiz okunur). Yeni bileşen icat edilmesin.",
+    "guven": "yüksek",
+    "oncelik": "P2"
+   }
+  ],
+  "puanlar": [
+   {
+    "olcut": "Kanca",
+    "puan": 4,
+    "gerekce": "0,0–2,0 arasında ekranda boş, koyu bir ChatGPT sohbeti var (telefon s=0,42, bulanık arka plan); ilk karede ne ev ne Evlek arayüzü görünüyor, dikkati yalnız dış yazı taşıyor. \"Evlek\" kelimesinin düşüp çipe dönüşmesi akıllıca bir eylem metaforu; ancak 2,07–2,13'te kelime \"artık ChatGPT'de\" satırının içinden geçiyor ve iki metin üst üste biniyor.",
+    "kabul_10": "İlk karede (t=0) telefonda gerçek bir ilan fotoğrafı ya da harita sonucu ≥%25 ekran alanında görünür olsun. Dış yazı ile ekran içi öğe hiçbir karede üst üste binmesin. 0,5 sn içinde kullanıcı eylemi (yazma ya da dokunuş) başlasın."
+   },
+   {
+    "olcut": "Telefon gerçekliği",
+    "puan": 6,
+    "gerekce": "Sohbet, widget ve eklenti planlarında telefon markasız ama açıkça telefon olarak okunuyor; durum çubuğu ve ev çubuğu tutarlı. Buna karşılık 11,4–14,5 arasında kadrajda telefon yok. Detay ekranı ise hangi uygulamada açıldığı belirsiz (ChatGPT kabuğu da yok, tarayıcı da yok).",
+    "kabul_10": "30 sn boyunca hiçbir karede telefon kadrajdan tamamen çıkmasın; telefon görünür alanı ≥%30 kalsın. Her ekran hangi uygulamada (ChatGPT ya da evlek.app) olduğunu başlık veya adres çubuğuyla belirtsin."
+   },
+   {
+    "olcut": "Okunurluk",
+    "puan": 6,
+    "gerekce": "Dış yazılar (72–80 px) ve fiyatlar mobil önizlemede okunuyor. Kart künyeleri ise okunmuyor: tasarımda 36 px, s=0,55 pozunda çıktıda ≈20 px, 360 px önizlemede ≈6,6 px. Eklenti soru kartları da 38 px × 0,58 ≈ 22 px. Dipnot asgari sınırda: 28 px, %72 opaklık.",
+    "kabul_10": "Her ekran içi bilgi metni 1080 çıktıda ≥28 px, 360 px önizlemede ≥9 px olsun. Bunu sağlamak için ilgili planlarda telefon s≥0,62'ye itilsin. Dipnot ≥28 px ve ≥%85 opaklıkta, en az 2,5 sn ekranda kalsın."
+   },
+   {
+    "olcut": "Kapanış",
+    "puan": 5,
+    "gerekce": "\"Bağlı ✓\" ve \"Sohbette dene\" adımları gerçek akışa uygun. Ama kapanış telefonu boş sohbette bitiyor, ekleme yolu (ChatGPT › Eklentiler) hiç gösterilmiyor ve aynı eylem için üç farklı fiil kullanılıyor.",
+    "kabul_10": "Son 3 sn'de telefonda kurulumdan sonra alınmış bir sonuç ekranı dursun. Tek satırlık yol \"ChatGPT › Eklentiler › Evlek\" olsun ve yalnızca tek bir CTA fiili kullanılsın. CTA ≥2,0 sn ekranda kalsın."
+   },
+   {
+    "olcut": "Ürünün çekiciliği",
+    "puan": 6,
+    "gerekce": "Koyu temalı widget temiz; mercan fiyat etiketi ölçülü kullanılmış ve kart fotoğraflarından portala geçiş ürünle arzu arasında köprü kuruyor. Öte yandan harita poligonunun kahverengi-gri dolgusu kirli okunuyor. Karşılaştırma kartında altta ≈250 px boşluk kalıyor. Sahte bileşenler (karşılaştırma widget'ı, sıralama çipi) güveni zayıflatıyor.",
+    "kabul_10": "Ekrandaki her bileşenin gerçek oturumda bir karşılığı olsun. Harita dolgusu marka paletine uysun (mercan ≤%20). Hiçbir kartta 120 px'ten fazla işlevsiz boşluk kalmasın."
+   }
+  ],
+  "yon_onerisi": "Tek fikir: \\\"Bir cümle yaz, gerçek ev açılsın.\\\" İlk kare: telefon s≈0,55'te; sorgu (\\\"Lapta'da £160 bin altı, deniz manzaralı 2+1\\\") zaten yazılıyor ve altında £139.000 kartının havuz fotoğrafı yarım görünüyor; yani 0. saniyede ürün ve ev birlikte. Kanıt anı: karta dokunuş → fotoğraf portalı. Telefon kadrajda kalır, ardından gerçek \\\"Evlek'te aç ↗\\\" düğmesine dokunulur ve evlek.app'teki EVL-100102 sayfası (page_view.png, gerçek piksel, tarayıcı çerçevesinde) açılır. Kart, detay ve web sayfası aynı kodu ve fiyatı göstersin. Karşılaştırma çıkarılsın ya da gerçek tablo düzeninde, \\\"tipi belirtilmemiş\\\" ibaresiyle 1,5 sn'ye insin. Kapanış: menü › Eklentiler › Evlek › Eklentiyi kur › Bağlı ✓, üç dokunuşla gösterilsin; son karede telefonda kurulum sonrası ilk sonuç dursun, dış yazı yalnız \\\"Eklentiler'den Evlek'i ekle.\\\" olsun. Bilinen çelişki konusundaki kararım şu: widget için müşterinin 14 Kasım tarihli bağlayıcı kararı (HANDOFF #2, yeniden tasarım) geçerli kalsın, çünkü daha yeni, daha özel ve doğrudan müşteriden geliyor. Ancak yeniden tasarım yalnız stil düzeyinde olsun; bileşen envanteri, metinler ve alan türleri gerçek referanslardan birebir alınsın. Gerçek widget kayıtları repoda olmadığı için gerçekliğin kanıtı, yeniden çizilmeyen tek gerçek yüzey olan evlek.app sayfası ve dipnot olsun.",
+  "kanaat": "Veri ve ilan kimliği zinciri sağlam, gerçek ürüne sadık bir yeniden tasarım var. Ancak eylem-sonuç akışı üç yerde kopuyor: gerçek ilan sayfasına geçiş yok, karşılaştırmada ürünün sahip olmadığı bir bileşen gösteriliyor, kurulum yolu ve kapanış sonucu da eksik; bu hâliyle film güven veriyor ama izleyiciye nasıl başlayacağını tam öğretmiyor."
+ },
+ {
+  "uzman": "Algı ve bilişsel yük uzmanı (dikkat sırası, okuma süresi, görsel rekabet, hatırlanırlık, 360×640 okunurluk)",
+  "bulgular": [
+   {
+    "saniye": "0,0–5,5 (ilk ev görseli ~5,7'de küçük kartta, tam ekran ~10,8'de)",
+    "tur": "sorun",
+    "gozlem": "İlk karede (t_0,0.png) kadrajın yaklaşık %60'ı boş, siyah bir ChatGPT ekranı. Arka plan karanlık ve bulanık. Görünen tek bilgi 'Evlek / artık ChatGPT'de.' yazısı. 0,5–2,0 arasında neredeyse hiçbir şey hareket etmiyor. 2,9–5,0 arasında dış yazı 'Lapta'da deniz manzaralı 2+1', telefondaki yazım ise '£160 bin altı, deniz manzaralı 2+1'. İki metin aynı anda ve birbirinden farklı akıyor; telefondaki metin 360 px'te yaklaşık 9 px. İlk ev fotoğrafı 5,7 sn civarında, 360 px'te yaklaşık 85 px genişlikte bir kartta görünüyor.",
+    "etki": "Yorum: İlk saniyede göze takılacak bir görsel yok. Kanca yalnızca 'haber' cümlesine dayanıyor, bu da Evlek'i önceden tanıyanlara hitap eder. Ev arzusu (ortak motivasyon) yaklaşık 6 sn gecikiyor. Performans varsayımı: kaydırma akışında erken çıkış riski yüksek. İzlenme verisi olmadan bunun oranı söylenemez.",
+    "duzeltme": "0,0'da EVL-100102_00 havuz/deniz fotoğrafını tam ekran koy (kadraj %30 / %55, yavaş 1,00→1,04 itme). Üstüne y≈250'de 96 px '£139.000', y≈370'te 52 px 'Lapta · 2+1 · 107 m²' künyesini yerleştir. Telefonu 0,4 sn'de alttan getir: poz (540, 1180, 0,50, 6, −8, 2). Telefon, içinde soru yazılmış hâlde gelsin. 'Evlek artık ChatGPT'de.' yazısını 1,2–2,8 aralığına al. Dış soru yazısını kaldır, telefondaki prompt'u tek okunacak metin yap. Gerekirse prompt'u 2× büyütülmüş bir dış kırpımla göster. Boş ekran en fazla 0,3 sn kalsın.",
+    "guven": "yüksek",
+    "oncelik": "P0"
+   },
+   {
+    "saniye": "10,5–14,2",
+    "tur": "korunacak başarı",
+    "gozlem": "Kart 1,0 sn içinde telefon düzleminden kalkıp tam ekran gerçek fotoğrafa dönüşüyor (portal). Ardından 2,2 sn boyunca tek odak var: üstte 96 px '£139.000', altında 52 px 'Lapta · 2+1 · 107 m²'. Rakip hareket ya da ikinci bir metin yok. Künye 360 px'te rahat okunuyor (yaklaşık 32 px ve 17 px). 14,5'te telefon aynı fotoğrafla geri geliyor ve görsel süreklilik bozulmuyor.",
+    "etki": "Yorum: Filmin en net 'kanıt' anı bu. Kartta görülen ev ile gerçek ev arasındaki bağ sessiz izlemede de anlaşılıyor. Künyenin okuma süresi yeterli (5 öğe × 0,3 + 0,7 ≈ 2,2 sn). Hatırlanması en olası kare de bu.",
+    "duzeltme": "Süre, eğri ve künye ölçüleri değişmesin. Bu kareyi hem açılışın (bkz. bulgu 1) hem kapanışın görsel çapası olarak kullan.",
+    "guven": "yüksek",
+    "oncelik": "P1"
+   },
+   {
+    "saniye": "17,0–20,5",
+    "tur": "sorun",
+    "gozlem": "Geri dönüş, liste kaydırma, 'Bunu £127.000'likle karşılaştır.' yazımı (0,65 sn) ve karşılaştırma kartı 1,6 sn içinde, dış yönlendirme olmadan art arda geliyor. 18,8'de 'Arada £12.000 fark.' beliriyor (3 kelime → 1,6 sn; görünür kalma yaklaşık 1,6 sn, sınırda). Telefon içinde aynı bilgi bir kez daha yazıyor: 'Fiyat farkı £12.000 (%9,4)'. 360 px'te '104 m² brüt / 107 m²' satırı yaklaşık 6 px ve okunmuyor.",
+    "etki": "Yorum: Hangi evin ucuz olduğu ve farkın neden önemli olduğu belirsiz kalıyor. İzleyici yazılan prompt'u okuyamadan sonucu görüyor. Bu sırada filmin en çekici evinden, pahalı olanın lehine olmayan bir rakama geçiliyor. Bilişsel yük yüksek, kazanç düşük.",
+    "duzeltme": "Prompt yazımını 1,1 sn'ye uzat ve dış kırpımla 2× göster. Karşılaştırma kartını 0,7 sn içinde ekranı dolduracak ölçeğe it: poz s≈0,62, kart 1,4× kırpım. İki fiyatı ve '104 m² brüt / 107 m²' satırını 360 px'te en az 14 px yap. Dış yazıyı 2,0 sn tut. Telefondaki 'Fiyat farkı' satırını dış yazıyla aynı anda vurgula (mercan #B84E3B, 0,3 sn). Böylece iki metin yarışmaz, birbirini doğrular. Karşılaştırma ana mesaj değilse bloğu 2,0 sn'ye indir.",
+    "guven": "orta",
+    "oncelik": "P1"
+   },
+   {
+    "saniye": "20,5–29,75",
+    "tur": "sorun",
+    "gozlem": "Kurulum bloğu 5,5 sn sürüyor (filmin %18'i) ve görsel olarak koyu. Telefon içinde gri iskelet satırlar (21,0–22,0) ve 360 px'te okunmayan İngilizce örnek metinler var. Aynı eylem üç farklı fiille anlatılıyor: 'Eklentiler'de Evlek'i bul.' → 'Eklentiyi kur.' → 'Eklentiler'den Evlek'i ekle.' Kapanışta (26,3–29,75) telefon ekranı yine boş ve siyah. Dipnot (28 px; 360 px'te yaklaşık 9 px, 13 kelime → 4,6 sn gerekiyor) yalnızca 3,15 sn görünüyor ve başlık ile CTA ile yarışıyor.",
+    "etki": "Yorum: Tepe noktasından (ev) sonra en düşük enerjili bölüm geliyor ve film boş bir ekranla bitiyor. 'kur' ile 'ekle' arasındaki fiil farkı, akılda tek bir yol kalmasını zorlaştırıyor. Hatırlanma ihtimali yüksek olan ev görseli son karede yok.",
+    "duzeltme": "Kurulumu 3,5 sn'ye indir: arama → Evlek satırı → 'Bağlı' onayı. İskelet satırları gerçek liste karesiyle değiştir ya da kırp. Bu bölümde tek ve sabit bir dış satır kullan: 'ChatGPT → Eklentiler → Evlek → Ekle' (56–60 px, y≈134, 3,0 sn). Kapanışta aynı satırı aynen tekrarla. Kapanış telefonunun ekranında boş sohbet yerine 'Evlek bağlı' çipi ile 139.000 kartı dursun. Arka planda havuz fotoğrafı yarı saydam olsun. Dipnot 26,0'da başlasın ve en az 4,6 sn görünsün; dipnot alanında başka bir hareket olmasın.",
+    "guven": "yüksek",
+    "oncelik": "P1"
+   }
+  ],
+  "puanlar": [
+   {
+    "olcut": "Kanca",
+    "puan": 4,
+    "gerekce": "İlk kare boş, siyah bir ekran ve bir haber cümlesinden oluşuyor. İlk ev görseli yaklaşık 6 sn'de ve küçük boyutta geliyor. Logo ve yazı okunaklı, ama arzu uyandıran bir görsel yok.",
+    "kabul_10": "0,0–1,0 arasında tam ekran gerçek ev fotoğrafı ile fiyat/konum künyesi görünür. Kadrajın en fazla %15'i boş ya da tek renk arayüzdür. Telefon ve prompt en geç 1,0 sn'de kadrajdadır."
+   },
+   {
+    "olcut": "Okunurluk",
+    "puan": 7,
+    "gerekce": "Dış yazılar 360 px'te net. Künye örnek nitelikte. Ancak dipnot 3,15 sn'de okunamıyor, karşılaştırmadaki m² satırı ve harita etiketi 6–7 px kalıyor. 2,9–5,0 arasında iki farklı metin aynı anda akıyor.",
+    "kabul_10": "Her ana yazı en az kelime×0,3+0,7 sn tam opaklıkta kalır. Anlatıyı taşıyan her arayüz metni 360 px'te en az 12 px'tir. Aynı anda okunması beklenen en fazla bir metin vardır. Dipnot 4,6 sn veya daha uzun görünür."
+   },
+   {
+    "olcut": "Tempo",
+    "puan": 6,
+    "gerekce": "Portal ve künye bölümü (10,5–14,2) iyi nefes alıyor. Açılış 5,5 sn boyunca boş ekran ve yazımla yavaş ilerliyor. 17,0–18,6 aralığı aşırı sıkışık. Kurulum bloğu 5,5 sn ve düşük bilgi taşıyor.",
+    "kabul_10": "Bilgi yoğunluğu en düşük bölüm 3,5 sn'yi geçmez. Her hareketin ardından en az 1,0 sn okunabilir duruş gelir. 1,0 sn içinde ikiden fazla durum değişikliği olmaz."
+   },
+   {
+    "olcut": "Kapanış",
+    "puan": 4.5,
+    "gerekce": "Kapanış açılışla döngü oluşturuyor, ama son kare boş bir telefon gösteriyor. Ev yok. Edinme yolu üç farklı fiille anlatılmış ve tek bir akılda kalan satıra indirgenmemiş.",
+    "kabul_10": "Son 3 sn'de gerçek ev görseli, Evlek logosu ve kurulumda kullanılanla birebir aynı tek satırlık yol ('ChatGPT → Eklentiler → Evlek → Ekle') birlikte görünür. Satır en az 2,5 sn tam opaklıkta kalır."
+   }
+  ],
+  "yon_onerisi": "Film tek fikre dayansın: 'Lapta'daki deniz manzaralı evi ChatGPT'ye sor, Evlek gerçeğini göstersin.' İlk kare, 10,8'deki portal karesinin aynısı olsun: EVL-100102 havuz ve deniz fotoğrafı tam ekran, üstünde '£139.000 / Lapta · 2+1 · 107 m²'. 0,4 sn içinde telefon alttan girsin; içinde prompt zaten yazılı ve okunur ölçekte olsun. Böylece arzu ile ürün birinci saniyede birlikte görünür. 'Evlek artık ChatGPT'de.' ikinci saniyeye kaysın. Kanıt anı mevcut portal ve künye bölümü olarak kalsın; kart telefondan kalkıp gerçek eve dönüşüyor ve bu süre, eğri ve ölçüler değişmesin. Karşılaştırma ya kısaltılsın ya da büyük ve tek mesajlı hâle getirilsin. Kurulum ve kapanış tek ve sabit bir satırla anlatılsın: 'ChatGPT → Eklentiler → Evlek → Ekle'. Son karede bu satır, Evlek logosu ve telefonda 'Bağlı' çipi ile £139.000 kartı birlikte dursun; boş sohbet ekranı olmasın. Bilinen çelişki konusunda kararım şu: HANDOFF.md'deki müşteri kararı açık ve daha sonra alınmış (120. satır eski 'yeniden çizilmez' kuralının geçersiz olduğunu yazıyor). Bu nedenle widget'ın temsilî yeniden tasarımı korunmalı. Gerekçesi algısal da: gerçek widget'ın yoğun metni 360 px'te okunmaz. Koşulları şunlar: veri, alan etiketleri (brüt/belirtilmemiş) ve bileşen düzeni gerçek kayda sadık kalsın, dipnot ise tam okuma süresiyle gösterilsin.",
+  "kanaat": "10,5–14,2 aralığındaki portal ve künye bölümü filmin en güçlü ve akılda kalan anı, ancak 0–5,5 aralığında ekran boş ve ev yok; film de boş bir ekranla ve üç farklı kurulum fiiliyle bittiği için arzu geç başlıyor, hatırlanma da zayıflıyor."
+ },
+ {
+  "uzman": "Marka ve tipografi direktörü",
+  "bulgular": [
+   {
+    "saniye": "2,9–5,2 · 7,0–8,6 · 12,0–14,2 · 18,8–20,4 · 21,0–22,75 · 23,3–25,0 · 27,4–29,75",
+    "tur": "sorun",
+    "gozlem": "30 saniyede 8 ayrı dış yazı var. Yazı ölçüleri 96, 92, 80, 72, 64, 60, 52 ve 28 px; logo 150 px. Ağırlıklar 500, 600, 700 ve 800. Aynı başlık yuvasının üst değeri 118, 128, 134 ve 150 px arasında değişiyor (V11.tsx Txt y). Başlık düzeyinde dört cümle var: 'Evlek artık ChatGPT'de.', 'Lapta'da deniz manzaralı 2+1', 'Sor. Evlek göstersin.' ve 'Arada £12.000 fark.'. Tek bir eylem için üç fiil kullanılıyor: 'Eklentiler'de Evlek'i bul.', 'Eklentiyi kur.' ve 'Eklentiler'den Evlek'i ekle.'. 'Eklentiler'de' ile 'Eklentiler'den' arasında ek de değişiyor. 24,5 sn'den sonra ekranda 'Bağlı' ve 'Sohbette dene' görünürken dış yazı hâlâ 'Eklentiyi kur.' diyor. Bu yazının alt kenarıyla telefonun üst kenarı arasında yaklaşık 15 px kalıyor.",
+    "etki": "Yorum: Hiyerarşi her sahnede yeniden kuruluyor; izleyici bir ses yerine bir altyazı akışı görüyor. Brifin üç mesaj sınırı aşılıyor. Performans varsayımı: üç ayrı fiil, sessiz izleyicinin 'ne yapmalıyım' sorusuna verilen cevabı bulanıklaştırır; kapanıştaki CTA da adımlardaki fiille eşleşmiyor.",
+    "duzeltme": "Üç katmanlı tek bir sistem kurulmalı. (1) Ekran başlığı: logo h=150, altında 92/700. (2) Başlık: 72/700, -0,03em, her zaman top=128, en çok 2 satır, telefonla arasında en az 48 px boşluk. (3) Etiket: 52/600, krem %85. Ana mesajlar üçle sınırlanır: 'Evlek artık ChatGPT'de.', 'Sor. Evlek göstersin.' ve 'Eklentiler'den Evlek'i ekle.'. 'Arada £12.000 fark.' dış yazısı kaldırılmalı; fark arayüz içindeki 'Fiyat farkı £12.000 (%9,4)' satırında zaten görünüyor. Soru yankısı başlık olmaktan çıkmalı; telefondaki baloncuğun birebir büyütülmüş alıntısı olarak gösterilmeli (gerçek ürün metni: 'Lapta'da £160 bin altı, deniz manzaralı 2+1'). Adımlar fiilsiz yol etiketine dönüşmeli. Birinci adım (21,0–22,9) 52/600: 'ChatGPT › Eklentiler › Evlek'. İkinci adım (23,2–25,0) gerçek düğme metniyle: '“Eklentiyi kur” › ✓ Bağlı'. Fiil yalnız CTA'da geçmeli. CTA 26,6'dan 29,75'e kadar sabit kalmalı (bugün 2,1 sn).",
+    "guven": "yüksek",
+    "oncelik": "P0"
+   },
+   {
+    "saniye": "12,0–14,2",
+    "tur": "sorun",
+    "gozlem": "Kunye, açık gökyüzü üzerinde krem #FAF8F2 renkte: '£139.000' 96/800 ve 'Lapta · 2+1 · 107 m²' 52/500. Ölçülen kontrast fiyat için yaklaşık 2,1:1. Alt satırda arka plan RGB(163,209,246) ve kontrast 1,5–1,6:1. Yalnız 24 px'lik ve %45 opaklıktaki metin gölgesi destek veriyor.",
+    "etki": "Yorum: Filmin arzu zirvesindeki tek fiyat-konum künyesi en zayıf okunan yazı. 360×640 önizlemede fiyat seçiliyor ama alt satır soluyor. Marka açısından da krem, açık mavi üstünde ucuz bir 'beyaz yazı' gibi duruyor.",
+    "duzeltme": "Künye lacivert #0A2540 ile yazılmalı: fiyat 96/800, tabular-nums; alt satır 52/600. Aynı noktalarda hesaplanan kontrast fiyat için yaklaşık 6,9:1, alt satır için yaklaşık 9:1. Metin gölgesi kaldırılmalı. Fiyatın üstüne h=40 krem yerine lacivert küçük Evlek wordmark'ı ya da 'EVL-100102' künyesi (40/600) eklenebilir; böylece 2,5–26 sn arasında marka büyük ölçekte görünür olur. Fotoğrafa renk filtresi ya da cam katman konmaz.",
+    "guven": "yüksek",
+    "oncelik": "P1"
+   },
+   {
+    "saniye": "7,0–10,5 · 15,6–17,4 · 18,6–20,5",
+    "tur": "sorun",
+    "gozlem": "Haritada Lapta poligonu mercan dış çizgili. Mercan dolgu koyu yeşil harita üstünde kahverengiye dönüyor ve widget görselinin yaklaşık %40'ını kaplıyor. Fiyat iğnesi mercan. Karşılaştırmadaki 'Fiyat farkı' satırının zemini kiremit-kahve. Uygulama simgesi lacivert 'Ev'. Gerçek referansta (v4/ref/.../05-lapta-harita.jpg) harita nötr koyu, fiyat etiketi siyah hap, simge siyah 'Ev'. Eklenti sayfası (24,8 sn) gerçek ekran kaydı karesine (eklenti_28_5.png) neredeyse birebir sadık.",
+    "etki": "Yorum: Mercan 'ölçülü vurgu' olmaktan çıkıp çamurlu bir yüzey rengine dönüşmüş; filmdeki en büyük mercan alanı en kirli tonda. Marka renginin ChatGPT arayüzünün içine sızması widget'ı ürün görüntüsü olmaktan çıkarıp reklam maketine yaklaştırıyor; bu da güveni zayıflatıyor.",
+    "duzeltme": "Bilinen çelişki için kararım şu. HANDOFF'taki 14 Kasım tarihli müşteri kararı bağlayıcıdır, gerçek arama widget'ının kaydı da repoda yok; bu yüzden widget temsilî ve yeniden çizilmiş olarak kalır. Ama bir sadakat sınırı konur: bileşen düzeni, etiketler ve renk dili gerçek widget'tan gelir; temizlik, tipografi netliği ve ışık cilası serbesttir. Gerçek referansı olan ekranlar (Eklentiler akışı, evlek.app sayfası) yeniden tasarlanmaz; kırpım, büyütme ve gerçek piksel kopyasıyla kullanılır. Evlek renkleri yalnız dış katmanda kalır. Uygulama: poligon dolgusu rgba(250,248,242,0.06), dış çizgi #B84E3B 4 px; fiyat iğnesi tek mercan dolu nokta ve gerçek widget'taki gibi koyu hap etiket; 'Fiyat farkı' satırı zemini #23272E, yalnız '£12.000' mercan; 'Ev' simgesi gerçek renginde siyah. Dipnottaki 'Arayüz temsilidir' ifadesi korunur.",
+    "guven": "orta",
+    "oncelik": "P1"
+   },
+   {
+    "saniye": "0,0–2,5 ve 26,0–30,0",
+    "tur": "korunacak başarı",
+    "gozlem": "Açılışta temizlenmiş vektör Evlek wordmark'ı var (h=150, krem, lacivert zemin), altında 92/700 'artık ChatGPT'de.'. Ölçülen kontrast yaklaşık 12:1. Wordmark 2,0–2,5 sn'de telefonun yazım kutusuna inip 'Evlek' çipine dönüşüyor; 26,0–26,6 sn'de aynı yoldan geri yükseliyor. İlk ve son kare aynı düzende, döngü kesintisiz. Font yalnız Inter. ChatGPT logosu yok, 'ChatGPT' yalnız yazı. Dipnot tam metinle 28 px.",
+    "etki": "Yorum: 'Evlek = ChatGPT'deki çip' fikri tek bir hareketle öğretiliyor. Bu, filmin en güçlü marka buluşu ve kanca-kapanış simetrisi markayı akılda tutuyor. Tek kusur geri dönüşte görülüyor: 26,3–26,45 sn'de wordmark, yarı saydam 'artık ChatGPT'de.' satırının üstünden geçiyor (iki yazı üst üste biniyor). Açılışta da benzer ama daha kısa bir temas var (2,05–2,12).",
+    "duzeltme": "Logo-çip dönüşümü, wordmark çizimi, renk ikilisi ve döngü olduğu gibi korunmalı. Yalnız zamanlama ayarlanmalı: TL.titleOut [2,0–2,25] yerine [1,80–2,02]; TL.title2 26,3 yerine 26,62 (çip 26,6'da yerine oturduktan sonra). Böylece wordmark yazı katmanıyla hiç kesişmez.",
+    "guven": "yüksek",
+    "oncelik": "P2"
+   }
+  ],
+  "puanlar": [
+   {
+    "olcut": "Marka bütünlüğü",
+    "puan": 6,
+    "gerekce": "Wordmark, Inter, krem-lacivert ikilisi ve logo-çip imzası tutarlı. Buna karşılık mercan arayüz içinde çamurlu ve fazla kullanılmış. 2,5 ile 26 sn arasında büyük ölçekli Evlek işareti yok; telefonda en baskın marka etiketi 'ChatGPT'. Dış yazı sistemi her sahnede değişiyor.",
+    "kabul_10": "Dış katmanda en çok 3 yazı ölçüsü, 2 ağırlık ve tek başlık yuvası (top=128 ± 0). Mercan, karenin %3'ünden azını kaplayan yalnız vurgu noktalarında. Arayüz içinde gerçekte olmayan marka rengi yok. Evlek işareti her 6 saniyede en az bir kez, 40 px üstü ölçekte görünür."
+   },
+   {
+    "olcut": "Okunurluk",
+    "puan": 6,
+    "gerekce": "Lacivert zemindeki başlıklar 64–92 px ve yaklaşık 12:1 kontrastla çok iyi. Fotoğraf üstündeki künye 2,1:1 ve 1,6:1'de kalıyor. 360×640 önizlemede telefon içindeki yazım metni okunmuyor; dış yankı bunu telafi etmek için bir başlık daha ekliyor. 'Eklentiyi kur.' telefona yaklaşık 15 px kadar yaklaşıyor.",
+    "kabul_10": "Tüm dış yazılarda kontrast en az 4,5:1 (52 px üstünde en az 3:1). 360×640 önizlemede her dış yazı ve anlatılan her arayüz metni en az 14 px yükseklikte. Kalış süresi en az kelime × 0,3 + 0,7 sn. Yazıyla telefon arasında en az 48 px boşluk."
+   },
+   {
+    "olcut": "Kanca",
+    "puan": 5,
+    "gerekce": "İlk karede marka ve haber 0,0 sn'de net okunuyor. Ama görüntünün yaklaşık %55'ini boş siyah bir telefon ekranı kaplıyor; ev, deniz ya da arzu öğesi yok. Kanca tipografik olarak doğru, görsel olarak boş.",
+    "kabul_10": "0,0 sn'de wordmark ve haber cümlesi, gerçek ilan fotoğrafının (EVL-100102_00) bir parçasıyla ya da telefonda zaten açık duran gerçek bir sonuçla aynı karede. İlk 1 sn içinde boş ekran alanı karenin %20'sini geçmiyor."
+   },
+   {
+    "olcut": "Kapanış",
+    "puan": 6,
+    "gerekce": "Wordmark, haber cümlesi, 60 px CTA ve tam metin dipnot doğru sırada. Ama CTA yalnız 2,1 sn ekranda kalıyor ve fiili adımlarla eşleşmiyor (bul/kur/ekle). Telefon kapanışta boş; yolu ('Eklentiler › Evlek') ve uygulama simgesini göstermiyor.",
+    "kabul_10": "CTA en az 3 sn sabit ve adım etiketleriyle aynı dilde. Telefon kapanışta gerçek 'Ev · Evlek · Bağlı' satırını ya da Eklentiler yolunu gösteriyor. Logo ve satırlar hiç çakışmıyor. Son kare ilk kareye birebir bağlanıyor."
+   }
+  ],
+  "yon_onerisi": "Tek fikir şu: 'Evlek artık ChatGPT'de; sor, gerçek evleri göstersin.' Tüm film bu fikri tek bir tipografik sesle anlatmalı. İlk karede 0,0 sn'de krem wordmark ve 'artık ChatGPT'de.' görünür; ama telefon boş değildir, ekranda EVL-100102'nin havuz ve deniz fotoğrafı kartın içinden taşar. Logo-çip dönüşümü bugünkü gibi korunur. Kanıt anı 10,5–14,2 sn'deki portaldır. Fotoğraf tam ekrana açıldığında lacivert künye gelir: '£139.000 · Lapta · 2+1 · 107 m²' ve küçük 'EVL-100102'. Gökyüzü üstünde yüksek kontrastla okunur; filmin tek arzu cümlesi budur ve dış başlık eşlik etmez. Bütün film boyunca yalnız üç ana cümle olur: 'Evlek artık ChatGPT'de.', 'Sor. Evlek göstersin.' ve 'Eklentiler'den Evlek'i ekle.'. Bunların dışında kalan her yazı ya gerçek ürün metninin büyütülmüş alıntısıdır ya da fiilsiz yol etiketidir ('ChatGPT › Eklentiler › Evlek', '“Eklentiyi kur” › ✓ Bağlı'). Kapanışta çip yükselip wordmark'a döner. Altında CTA en az 3 sn sabit kalır; telefonda gerçek 'Ev · Evlek · Bağlı' satırı görünür; dipnot 28 px'tir. Son kare ilk kareye kesintisiz bağlanır.",
+  "kanaat": "Marka imzası (logo-çip dönüşümü ve kanca-kapanış döngüsü) güçlü ve korunmalı; ama dış yazı sistemi 8 cümleye, 7 ölçüye ve 3 fiile dağılmış, künye okunmuyor ve mercan çamurlaşmış; bu haliyle tipografi ve marka disiplini üst düzey değil, orta seviyede."
+ },
+ {
+  "uzman": "Sosyal reklam büyüme uzmanı (kanca, izleme kaybı, CTA, döngü, 15/6 sn kesimler)",
+  "bulgular": [
+   {
+    "saniye": "0,0–2,0 (ilk ev 5,5'te telefonda küçük, tam ekran ancak 11,5'te)",
+    "tur": "sorun",
+    "gozlem": "İlk 2 sn neredeyse durağan. Çerçevenin üstünde 'Evlek / artık ChatGPT'de.' yazısı var. Altındaki boş, koyu ChatGPT ekranı yaklaşık 1020 px yüksekliğinde ve çerçevenin yarısını kaplıyor. Arka plan bulanık, %60 lacivertle karartılmış. Tek hareket, telefonun 0–0,5 sn arasında 40 px yükselmesi. Ev, deniz ya da fiyat yok. İlk ilan kartları 5,5'te, telefon içinde çok küçük görünüyor. Gerçek mekân 11,5'te tam ekrana geliyor. 2,07–2,13'te logo, sönmekte olan 'artık ChatGPT'de' satırının üstünden geçiyor.",
+    "etki": "Yorum: Haber cümlesi yalnız Evlek'i zaten tanıyan için anlamlı. Geniş kitlede (tatilci, yurt dışındaki Kıbrıslı, yabancı alıcı) ilk karede ne arzu ne merak var. Boş, koyu ekran akışta reklam gibi değil boşluk gibi okunur. Performans varsayımı: ilk 2 sn'de kaydırıp geçme riski bu filmdeki en büyük risk. İzlenme verisi yok, kayıp oranı söylenemez.",
+    "duzeltme": "İlk kare, kaynaktaki 11,5 sn karesi olsun: EVL-100102_00 havuz-deniz tam ekran. 0,0–0,6 arasında %4 itme (1,0→1,04) ve hafif sola kayma olsun ki 0. karede hareket olsun. 0,2'de '£139.000' (96 px, 800 ağırlık), 0,45'te 'Lapta · 2+1 · 107 m²' girsin. 1,0–1,6 arasında fotoğraf ters portal (FLY eğrisi, 600 ms) ile telefondaki kartın içine küçülsün ve telefon görünür olsun. 'Evlek artık ChatGPT'de.' 1,2'de gelsin ve logo bu noktada başlasın; çip inişi en erken 1,8'de olsun. Boş sohbet ekranı hiçbir zaman 0,4 sn'den uzun görünmesin.",
+    "guven": "yüksek",
+    "oncelik": "P0"
+   },
+   {
+    "saniye": "10,5–14,4 ve 15,25–17,0",
+    "tur": "korunacak başarı",
+    "gozlem": "10,6–11,4'te £139.000 kartı telefonun 3D düzleminden kalkıyor ve köşeleri eşleşerek tam ekran havuz-deniz fotoğrafına açılıyor. Geçişte kesme ya da opaklık oyunu yok. 12,0–14,2'de fotoğraf üstünde iki satırlık sade künye var: '£139.000' ve 'Lapta · 2+1 · 107 m²'. 14,5–15,2'de ilan detayı telefonda alttan giriyor. 15,25'ten sonra arka plan, çift yükseklikli camlı iç mekâna (EVL-100102_01) yumuşak bir tilt-up ile geçiyor. Telefon bu planlarda da telefon olarak tanınıyor ve künye doğru ilana bağlı.",
+    "etki": "Yorum: Filmin tek gerçek arzu anı ve 'sor, Evlek gerçek evi göstersin' vaadinin kanıtı burası. Performans varsayımı: 15 ve 6 sn kesimlerin çekirdeği de bu olmalı.",
+    "duzeltme": "Portal eğrisi, 1,0 sn süre, künye tipografisi ve tilt-up aynen korunsun. Tek ince ayar: 11,0–11,3 arasında kartın altında telefon gövdesinin kenarı görünüyor. Telefonu çıkarma anahtarı 11,4 yerine 11,2'de bitsin.",
+    "guven": "yüksek",
+    "oncelik": "P2"
+   },
+   {
+    "saniye": "20,5–26,0 ve 26,0–30,0",
+    "tur": "sorun",
+    "gozlem": "Kurulum akışı 5,5 sn sürüyor (filmin %18'i) ve tamamen koyu arayüzden oluşuyor. Sırası şöyle: Eklentiler arama, 'evlek' yazımı, Evlek sayfası, 'Eklentiyi kur', yükleniyor, 'Bağlı', 'Sohbette dene'. Evlek sayfasındaki örnek soru kartları İngilizce. 26,0'dan sonra kapanış açılışın aynısı: boş koyu telefon, logo ve başlık. CTA 'Eklentiler'den Evlek'i ekle.' 60 px boyutunda ve 27,4–29,5 arası, yani yalnız 2,1 sn ekranda. 'ChatGPT › Eklentiler › Evlek' yolu hiç yazılı değil. Son 9 sn'de hiç ev görünmüyor. 26,37–26,47'de logo yine başlığın üstüne biniyor.",
+    "etki": "Yorum: Adımlar doğru öğretiliyor ama tempo eğitim videosuna dönüyor. Son hatırlanan görüntü boş ekran, ev değil. Performans varsayımı: 20–26 sn aralığı ikinci izleme kaybı bölgesi olabilir. 2,1 sn'lik, 60 px'lik CTA sessiz izleyende akılda kalmaz.",
+    "duzeltme": "Kurulum 3,0 sn'ye insin: arama ve sonuç 0,8 sn, Evlek sayfası 0,7 sn, 'Eklentiyi kur' → 'Bağlı ✓' 1,5 sn. Bunu 'Bağlı ✓' üstünde 1,06× itme izlesin; yükleniyor animasyonu 0,45'ten 0,25 sn'ye insin. 'Sohbette dene'den sonraki boş sohbet atılsın. Kapanış 25,5–30,0 arasında olsun. Arka plan bulanık havuz yerine net havuz ya da iç mekân (Ken Burns %1/sn) olsun, telefon s=0,42 kalsın. CTA iki satır, 64 px, en az 3,5 sn ekranda kalsın: 'ChatGPT › Eklentiler › Evlek' ve altında 'Evlek'i ekle, sor.' Dipnot 28 px kalsın. Logo çipten kalkışı başlık girmeden bitsin: title2 = chipLift[1] + 0,05.",
+    "guven": "yüksek",
+    "oncelik": "P1"
+   },
+   {
+    "saniye": "29,5–30,0 → 0,0 (döngü); 15 ve 6 sn sürümler",
+    "tur": "sorun",
+    "gozlem": "Döngü teknik olarak dikişsiz: 30,0'daki poz ilk kareyle aynı (HOOK0) ve CTA ile dipnot 29,5–29,75'te sönüyor. Ancak döngü, filmin en zayıf karesine bağlanıyor: boş koyu telefon ve haber cümlesi. Sürümler tek bir 30 sn yapısına göre kurulmuş. Karşılaştırma bölümü (17,8–20,5) ve kurulum (20,5–26) kısaltmaya en çok direnç gösteren parçalar.",
+    "etki": "Yorum: Dikişsiz döngü, ikinci turu bir artı olmaktan çıkarıp yine boş açılışa sokuyor. Performans varsayımı: 15 ve 6 sn sürümler, ilk karede ev olmadan arzu üretemez.",
+    "duzeltme": "Döngü noktası havuz karesine taşınsın. Kapanışın son 0,5 sn'si net havuz fotoğrafına açılsın; ilk kare de aynı havuz karesi olsun. 15 sn sürüm (karşılaştırma tamamen çıkar): 0–1,5 havuz ve künye (kaynak 11,5–13,0); 1,5–4,0 yazım ve gönder, 1,3× hızla (kaynak 2,9–5,3); 4,0–7,0 harita, kartlar ve £139.000 seçimi (kaynak 5,5–10,4, kartlar 0,3 sn aralıkla); 7,0–9,5 portal ve iç mekân (kaynak 10,5–11,5 + 15,25–16,75); 9,5–12,0 Eklentiler › Evlek › Bağlı ✓ (kaynak 21,0–25,0, 1,6×); 12,0–15,0 CTA havuz üstünde. 6 sn sürüm: 0–2,0 havuz ve £139.000 · Lapta (kaynak 11,5–13,5); 2,0–4,0 telefonda soru balonu, harita ve kartlar (kaynak 5,0–7,3, 1,15×); 4,0–6,0 'ChatGPT › Eklentiler › Evlek' ve logo.",
+    "guven": "orta",
+    "oncelik": "P1"
+   }
+  ],
+  "puanlar": [
+   {
+    "olcut": "Kanca",
+    "puan": 3.5,
+    "gerekce": "Ses kapalıyken 0. karede boş, koyu ekran ve marka bilmeyi gerektiren bir haber cümlesi var; ev, deniz ya da fiyat yok. İlk tam ekran ev 11,5 sn'de geliyor. Mesaj okunaklı (92 px), ama dikkat çeken bir unsur yok.",
+    "kabul_10": "0,0 sn'de gerçek mekân çerçevenin en az %70'ini kaplar ve hareket ilk karede başlar. Fiyat ve konum 0,5 sn içinde okunur. Telefon ve Evlek/ChatGPT bağlantısı 1,6 sn içinde görünür. Boş sohbet ekranı ilk 3 sn'de toplam 0,4 sn'yi geçmez."
+   },
+   {
+    "olcut": "Tempo",
+    "puan": 5.5,
+    "gerekce": "Ortası iyi akıyor: soru, harita, kartlar, portal ve iç mekân. Kamera hareketi + duruş düzeni okunuyor. Kurulum akışı 5,5 sn sürüyor ve kapanış 4 sn boyunca açılışın tekrarı. Filmin %32'si koyu arayüz ve boş ekran; enerji son üçte birde düşüyor.",
+    "kabul_10": "Hiçbir bölümde 1,5 sn'den uzun süre görsel bilgi değişmeden kalmaz (künye ve CTA duruşları hariç). Kurulum en çok 3,0 sn sürer. Ev ya da mekân görüntüsü her 8 sn'lik pencerede en az bir kez yer alır."
+   },
+   {
+    "olcut": "Kapanış",
+    "puan": 4,
+    "gerekce": "Döngü mekanik olarak kusursuz ve logonun çipe inip geri kalkması akılda kalan bir imza. Ancak CTA 60 px boyutunda ve yalnız 2,1 sn görünüyor. Eklenti yolu yazılı değil. Son görüntü boş telefon ve ev yok. 26,4'te logo başlığın üstüne biniyor.",
+    "kabul_10": "CTA en az 64 px ve en az 3,5 sn görünür, 'ChatGPT › Eklentiler › Evlek' yolunu içerir. Kapanışta gerçek ilan fotoğrafı net görünür. Logo ile metin hiçbir karede çakışmaz. Son kare ilk kareye birebir bağlanır ve bu kare bir ev karesidir."
+   }
+  ],
+  "yon_onerisi": "Tek fikir: 'Hayal ettiğin evi ChatGPT'de Evlek'e sor; gerçek ilan önüne gelsin.' Ortak motivasyon olarak ev arzusu seçilmeli; 'artık ChatGPT'de' haberi destek cümlesine insin. İlk kare, EVL-100102_00'daki havuz-deniz görüntüsü olsun: hareketle açılsın, '£139.000 · Lapta · 2+1 · 107 m²' künyesi taşısın. 1,0–1,6 arasında bu görüntü ters portal ile telefondaki kartın içine küçülsün ve izleyici bu evin bir sohbetten geldiğini görsün. Ardından soru yazılsın, harita ve kartlar gelsin, £139.000 seçilsin. Kanıt anı mevcut portal ve iç mekân tilt-up'ı; hiç değiştirilmeden kullanılsın. Karşılaştırma 30 sn'de 2 sn'ye insin, 15 ve 6 sn'de tamamen çıksın. Kurulum 3 sn'de 'Bağlı ✓' ile bitsin. Kapanış net havuz ya da iç mekân üstünde iki satır olsun: 'ChatGPT › Eklentiler › Evlek' ve 'Evlek'i ekle, sor.' Son kare ilk kareye, yani eve dönsün. Bilinen çelişki için kararım şu: temsilî yeniden çizim korunsun. Repoda gerçek widget kaydı yok, müşteri kararı açık ve dipnot 'Arayüz temsilidir' diyor. Buna karşılık kartlardaki her değer (fiyat, oda, banyo, m² türü, ilan kodu, fotoğraf) MCP kaydıyla birebir aynı kalsın. Evlek sayfasındaki İngilizce örnek sorular, Türkçe sürümde gerçek metin olarak bırakılsın ama ekranda 0,7 sn'den fazla tutulmasın.",
+  "kanaat": "Ortadaki portal ve mekân bölümü güçlü. Ama film ilk 2 sn'de evi göstermeden boş ekranla açılıyor, son 9 sn'de de evi göstermeden boş ekranla kapanıyor; ev arzusu filmin baş ve sonuna taşınmadıkça kanca ve CTA zayıf kalır."
+ },
+ {
+  "uzman": "Remotion/React üretim mühendisi. Kod, render ayarları ve kare kare görüntü incelemesi: V11.tsx, Screen.tsx, tl.ts, Phone.tsx, core.tsx, ffprobe, saniye başına bit hızı, 6 ve 30 fps kareler, tam çözünürlük kareler.",
+  "bulgular": [
+   {
+    "saniye": "0,0–2,5 ve 26,6–30,0",
+    "tur": "sorun",
+    "gozlem": "Açılışta telefon (HOOK, s=0,42; ekranda yaklaşık 470×1060 px) 2,5 sn boyunca boş, siyah bir ChatGPT ekranı gösteriyor. Ekranda yalnız durum çubuğu ve yazım kutusu var, ekranın kalanı bulanık lacivert zemin. Kapanış bunun aynısı. 1. saniyede 0,2 Mb, 27. saniyede 0,4 Mb, 28. saniyede 0,1 Mb kodlanmış veri var (ortalama ~6 Mb/sn). Ölçüm, bu karelerde görsel bilginin neredeyse sıfır olduğunu doğruluyor. Ayrıca 2,05–2,25 sn arasında düşen logo, sönmekte olan 'artık ChatGPT’de.' yazısının üstünden geçiyor (x_2.12). 26,3–26,6 sn arasında yükselen logo, belirmekte olan aynı yazının üstüne biniyor (x_26.45). Nedeni kodda: titleOut [2,0–2,25] ile logoDrop [2,0–2,5] çakışıyor; title2=26,3 ile chipLift [26,0–26,6] çakışıyor.",
+    "etki": "Yorum: Filmin ilk karesi ve döngü dikişi, ekranın %40'ını kaplayan boş bir siyah dikdörtgen. Ne ev ne ürün görülüyor. Akışta durdurma gücü en zayıf kare bu oluyor. Performans varsayımı: ilk 2 sn'deki kayıp bu yüzden artabilir, ölçmeden oran söylenemez. Logo ile yazının çakışması da ilk iki saniyede işçilik hatası gibi okunuyor.",
+    "duzeltme": "Paylaşılan ilk/son kare dolu olmalı. Önerim: HOOK pozunda Screen'i, sonuç listesinin göründüğü 8,5 sn durumuyla (harita, £105–147 bin, £139.000 kartı) ya da detay ekranıyla (EVL-100102 havuz fotoğrafı) render et. Arka planı u=1 net havuz yap; Pool'da u=0 bulanıklığı yerine GRADE_EXT kullan. Çakışmalar için TL.titleOut=[1,75; 2,0] ve TL.title2=26,6 yap, title2 girişini 0,25 sn tut. Kontrol: 0–2,5 ve 26,6–30 sn bloklarında kodlanmış veri ≥2 Mb/sn olmalı. 2,0–2,3 ve 26,0–26,9 aralığında, logonun sınır kutusu ile başlığın sınır kutusu (y 400–500) hiçbir karede kesişmemeli.",
+    "guven": "yüksek",
+    "oncelik": "P0"
+   },
+   {
+    "saniye": "10,90–11,10; 15,40–15,50; 17,30–17,45",
+    "tur": "sorun",
+    "gozlem": "Portalda (Portal bileşeni) kartın fotoğraf yüksekliği (ph) ile kart yüksekliği (h) farklı hızlarla H'ye gidiyor. 10,95 sn'de fotoğrafın altında ~40 px'lik boş, koyu bir #1C2027 şerit var. Bu, künyenin söndüğü bilgi alanı. Altında aşağı inen telefonun arayüzü de görünüyor: 10,95'te kart küçük resmi, 11,05'te 'Tam ekran' ve harita. 15,42–15,50 arasında havuz ile iç mekân yaklaşık 300 ms opaklıkla çapraz geçiyor; palmiye ile perde ve masa üst üste görünüyor. 17,30–17,45 arasında iç mekân, bulanık havuzun üstünde yarı saydam bir hayalet gibi duruyor.",
+    "etki": "Yorum: Filmin en önemli anı 'karttan eve geçiş'. Bu an, telefondan kalkan bir kart gibi değil, telefonun önünden kayan bir dikdörtgen gibi okunuyor. Opaklık geçişleri ucuz bir 'dissolve' izlenimi veriyor ve premium hissi en çok bu birkaç karede zayıflıyor.",
+    "duzeltme": "Portal'da ph'yi h ile eşit hızda büyüt: ph = h − mix(p0.s·(r.h−r.ph), 0, FLY(lin(t, a, a+0.35))). Bilgi alanını 0,3 sn değil 0,15 sn'de söndür. TL.phoneOut'u [10,6; 11,1] yap ki telefon kartın alt kenarından önce kadrajdan çıksın. Bir seçenek de 10,85–11,5 arasında telefonu gizlemek. 15,37 sn'deki havuz → iç mekân geçişinde opaklık yerine telefon kaydırmasıyla eşleşen bir kesme kullan: swipe [15,25–15,57] anında kenarı galeri kaydırmasıyla aynı yönde ilerleyen bir yatay maske (clip-path inset). 17,0–17,6 dönüşünde de iç mekânı opaklıkla değil, aynı maskeyle ters yönde kapat. Kabul: 10,8–11,5 ve 15,2–17,8 aralığında, 60 fps'nin hiçbir karesinde iki fotoğrafın ya da kartın altında telefon arayüzünün aynı anda görünmemesi.",
+    "guven": "yüksek",
+    "oncelik": "P1"
+   },
+   {
+    "saniye": "11,1–14,5 (havuz tam kadraj); 15,4–17,3 (iç mekân); tüm film (renk etiketi)",
+    "tur": "sorun",
+    "gozlem": "1) EVL-100102_00 (1600×1200) 1080×1920'yi cover ile dolduruyor; net evrede ölçek 1,6×1,00–1,04, yani ~1,66× büyütme. Palmiye yapraklarında ve derzlerde yumuşaklık ve kaynak JPEG'in keskinleştirme haleleri seçiliyor (pool_crop). EVL-100102_01 (1200×1600) 1584×2112 gösteriliyor, bu da 1,32× büyütme demek. 2) ffprobe: pix_fmt=yuvj420p, color_range=pc, color_space=bt470bg (BT.601); color_primaries ve color_transfer belirsiz. Bit hızı ortalama 5,97 Mb/sn, 17. saniyede tepe 15 Mb/sn. CRF'ye dayalı kodlama sorunsuz, anahtar kare aralığı 4 sn.",
+    "etki": "Gözlem: 'Arzu' anında, 3,4 sn'lik tam kadraj fotoğraf belirgin biçimde yumuşak. Teknik risk (orta güven): tam aralık ile BT.601 etiketi birlikte platformlarda yeniden kodlanırken yanlış yorumlanabilir. Sonuç: lacivert #0A2540 ile mercan #B84E3B'de ton kayması ve siyahlarda ezilme ya da gri yıkanma. Ne kadar olacağı oynatıcıya bağlı, ölçülmedi.",
+    "duzeltme": "Render: `npx remotion render src/index.ts V11-916 out/v11.mp4 --codec h264 --crf 16 --pixel-format yuv420p --color-space bt709 --image-format png`. Sonrasında ffprobe ile color_range=tv ve color_space/primaries/transfer=bt709 olduğunu doğrula. Fotoğraf: net tam kadraj büyütmesini ≤1,25× ile sınırla. Örneğin havuzu 1080×1440'lık bir bantta göster (kaynaktan 900×1200 kırpım, 1,2×). Fiyat künyesini üstteki 480 px'lik lacivert alana taşı. Gökyüzünü uzatma ya da üretme. İç mekânda width'i 1584'ten 1380'e indir (1,15×) ve tilt'i buna göre 120 px'e düşür. Bunlar uygulanamıyorsa tam kadrajı ≤2,0 sn tut ve 0,4 px'lik bir unsharp yerine kaynağı olduğu gibi bırak; halo artmasın. Kabul: tam kadrajda görünen hiçbir gerçek fotoğrafın ölçeği 1,25×'i geçmemeli; dosya bt709/tv etiketli olmalı.",
+    "guven": "orta",
+    "oncelik": "P1"
+   },
+   {
+    "saniye": "8,5–10,4; 15,2–17,0; 18,6–20,5 (ve tüm film)",
+    "tur": "korunacak başarı",
+    "gozlem": "Bütün hareket saf zaman fonksiyonu: KEYS ve TL tablosu, lin/mix ve bezier eğrileri. Math.random, Date ya da setTimeout yok, fontlar delayRender ile bekleniyor. Bu yüzden render deterministik. Veri zinciri tutarlı: liste kartı £139.000 (EVL-100102) → portal → detayda 'Satılık · EVL-100102 · £139.000 · 2+1 · 2 banyo · 107 m² · Lapta, Girne · 2/14'; özellik çipleri MCP kaydıyla birebir (Deniz manzarası, Ortak havuz, Otopark, Balkon, Eşyalı). Karşılaştırmada '104 m² brüt' ve türü belirtilmemiş '107 m²' ayrı tutuluyor; 'Fiyat farkı £12.000 (%9,4)' doğru. 3D telefon 150 px kalınlık, yan tuşlar ve üç katman gölgeyle bütün planlarda telefon olarak okunuyor. Fiyatlar 360×640 önizlemede de okunuyor.",
+    "etki": "Yorum: Güvenilirlik iddiası doğrulanabilir veriye dayanıyor. Bir sonraki sürümde kurgu değişse bile aynı kare her render'da aynı çıkıyor. Bu, kurul incelemesi ve platform kesimleri için gerçek bir avantaj.",
+    "duzeltme": "Koru: core.tsx'teki LAPTA/HERO/ALT kayıtları, KEYS/TL zaman tablosu yapısı ve Phone.tsx'teki scale3d ile kalınlık. Değişiklikler yalnız TL ve poz değerleri üzerinden yapılsın. Veriye dokunan her değişiklikten sonra live/w_detail_100102.json ile çip ve alan metnini karşılaştıran küçük bir kontrol betiği çalıştır.",
+    "guven": "yüksek",
+    "oncelik": "P2"
+   }
+  ],
+  "puanlar": [
+   {
+    "olcut": "Kanca",
+    "puan": 3,
+    "gerekce": "İlk 2,5 sn'de ekran boş, siyah bir telefon ve yazı var. 1. saniyede kodlanmış veri 0,2 Mb. 2,05–2,25'te logo ile yazı çakışıyor. Ne ev ne ürün görünüyor.",
+    "kabul_10": "0,0 sn karesinde gerçek bir fotoğraf ya da dolu bir Evlek sonucu kadrajın ≥%50'sini kaplıyor; ilk 1 sn'de en az bir hareket var; ilk 3 sn'de hiçbir öğe çakışmıyor."
+   },
+   {
+    "olcut": "Hareket kalitesi",
+    "puan": 6,
+    "gerekce": "Kamera hareketleri yumuşak ve tek tek ilerliyor, 3D telefon tutarlı. Ancak portal dikişi (10,9–11,1), iki opaklık hayaleti (15,4 ve 17,3) ve iki logo-yazı çakışması var.",
+    "kabul_10": "60 fps kare kare bakıldığında çift pozlama, boş şerit ya da çakışan metin yok. Her geçiş bir hareket yönüne (maske ya da eşleşen kesme) bağlı."
+   },
+   {
+    "olcut": "Okunurluk",
+    "puan": 5,
+    "gerekce": "Dış yazılar 64–96 px ve temiz. Telefon arayüzündeki ikincil metinler (tasarımda 30–44 px, s=0,55'te ~17–24 px) 360×640 önizlemede ~6–8 px'e iniyor ve okunmuyor. Eklenti sayfasındaki İngilizce örnek sorular da okunmuyor. Fiyatlar okunuyor.",
+    "kabul_10": "360×640 önizlemede anlatı için gereken her metin (fiyat, konum, 'Eklentiyi kur', 'Bağlı') ≥10 px cap height ile okunuyor; okunamayan metin yalnız doku olarak kalıyor ve anlatı yükü taşımıyor."
+   },
+   {
+    "olcut": "Telefon gerçekliği",
+    "puan": 7,
+    "gerekce": "Kalınlık, tuşlar, çerçeve ışığı ve gölge inandırıcı; telefon markasız. Ama açılış ve kapanışta ekran boş ve siyah, kapalı bir cihaz gibi okunuyor. 15,2–17,0'da telefon sağdan ve alttan kesik, bu bilinçli bir tercih ama gövde yarım kalıyor.",
+    "kabul_10": "Her planda ekran canlı içerik gösteriyor. Gövde kenar ışığı ve gölge ışık yönüyle tutarlı. Kadrajdan taşma yalnız bilinçli planlarda ve ≤%15."
+   },
+   {
+    "olcut": "Ürünün çekiciliği",
+    "puan": 6,
+    "gerekce": "Gerçek veri zinciri güçlü ve doğru (kart → detay → karşılaştırma). Ama arzu anındaki tam kadraj havuz fotoğrafı 1,66× büyütüldüğü için yumuşak; eklenti arama listesi 1,5 sn boyunca boş iskelet satırlarından oluşuyor.",
+    "kabul_10": "Görünen her gerçek fotoğraf ≤1,25× ölçekte ve keskin. Her ürün ekranında gerçek, okunur ve doğru kayda bağlı içerik var."
+   },
+   {
+    "olcut": "Tempo",
+    "puan": 5,
+    "gerekce": "Orta bölüm (5–20,5 sn) yoğun ve iyi ritimli. Buna karşın filmin ~6 sn'si (0–2,5 ve 26,6–30) bilgi taşımıyor. 27–28 sn'de kodlanmış veri 0,1–0,4 Mb.",
+    "kabul_10": "Hiçbir 1 saniyelik dilimde ekran bilgisiz değil. Her 2 sn'de anlatıyı ilerleten yeni bir bilgi var. CTA ≥2,5 sn sabit kalıyor."
+   },
+   {
+    "olcut": "Kapanış",
+    "puan": 4,
+    "gerekce": "CTA ve dipnot okunuyor, ancak boş telefonun üstünde duruyor. Logo, belirmekte olan başlığın üstünden geçiyor (26,3–26,6). Döngü dikişi boş bir kareye bağlanıyor.",
+    "kabul_10": "Kapanışta telefon, Evlek'in dolu bir sonucunu ya da 'Bağlı ✓' durumunu gösteriyor. Logo ve metinlerin sınır kutuları hiç kesişmiyor. Son kare ile ilk kare piksel olarak aynı ve dolu."
+   }
+  ],
+  "yon_onerisi": "Tek fikir: 'Sor, ev gelsin.' Ana motivasyon, deniz manzaralı bir eve zahmetsizce ulaşmak. İlk kare ile son kare aynı olsun, ikisi de dolu: net havuz fotoğrafı (EVL-100102_00, ≤1,25× bant) önünde HOOK pozunda bir telefon; ekranda £139.000 kartı ile Lapta haritası. Logo ve 'artık ChatGPT’de.' yazısı birbirine değmesin. Kanıt anı tek ve dikişsiz bir portal: kart telefondan kalkar, fotoğraf ile kart yüksekliği eşit büyür, telefon kart kenarından önce kadrajdan çıkar. Ardından detay (EVL-100102 · 2+1 · 2 banyo · 107 m² · 5 gerçek çip) ve £12.000 farkı gelir. Opaklık geçişi olmaz; yalnız maske ya da eşleşen kesme kullanılır. Kapanışta telefon 'Bağlı ✓' ile dolu bir sohbet gösterir. CTA 'Eklentiler’den Evlek’i ekle.' en az 2,5 sn sabit durur. Render bt709/tv etiketli ve yuv420p olur, CRF 16. Bilinen çelişki için kararım şu: widget'ın yeniden çizilmesi korunmalı. Gerçek widget'ın kaydı repoda yok, müşteri kararı daha özel ve bağlayıcı, dipnot da 'Arayüz temsilidir' diyor. Ama yeniden çizim gerçek widget'ın bilgi düzenini (harita, kartlar, detay) ve verisini birebir izlemeli. Eklenti sayfası ile evlek.app sayfası için gerçek referans (docs/eklenti-ref, page_view.png) bulunduğundan orada gerçek piksel kırpımı ve büyütme tercih edilmeli.",
+  "kanaat": "Teknik omurga (deterministik zaman tablosu, doğru veri zinciri, inandırıcı 3D telefon) sağlam. Ancak açılış ve kapanıştaki boş ekran, logo-yazı çakışmaları, portal dikişi, 1,66× büyütülmüş tam kadraj fotoğraf ve BT.601/tam aralık etiketi, filmi premium seviyenin altında tutuyor; bunların hepsi ölçülebilir ve düzeltilebilir."
+ }
+]

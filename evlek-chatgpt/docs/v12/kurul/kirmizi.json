@@ -1,0 +1,149 @@
+{
+ "riskler": [
+  {
+   "risk": "Satır içi kartta 1/14'ten 2/14'e galeri kaydırması uydurma bir widget davranışı. Portalın iç mekâna açılması bu davranışa dayanıyor.",
+   "nerede": "Plan no 4 ve kurgu 7,45–8,0 (ListingCard galeri dizini 0→1, ardından portal EVL-100102_01'e açılıyor). 15 sn sürümde 4,6–5,8.",
+   "neden": "Arama yükünde (live/w_lapta.json, EVL-100102) yalnız coverImageUrl ve photoCount=14 var; foto dizisi yok. listing-cards-v3-14.html'deki .evlek-card__dots süs amaçlı ve sabit: yalnız ilk nokta opak ('i:first-child{opacity:1}'), kaydırma mantığı yok. Plan bunu 'gerçek widget davranışı' diye gerekçelendiriyor; bu 'envanter gerçeğe kilitli' iddiasıyla doğrudan çelişiyor. Önceki/sonraki fotoğraf düğmeleri (prevPhoto/nextPhoto) yalnız detay widget'ında var.",
+   "kontrol": "Kartta galeri kaydırması olmayacak. Ya kart kapağından (_00) portal açılır, ya da önce karta dokunulup detay widget'ı açılır, detay galerisinde 2/14'e geçilir ve portal oradan açılır. Kabul ölçütü: ekrandaki her etkileşimin live/listing-*.html içinde karşılık gelen bir olay işleyicisi bulunsun (kart: tıklama → detay; detay: önceki/sonraki fotoğraf, dv__out, dv__pri).",
+   "ciddiyet": "engelleyici"
+  },
+  {
+   "risk": "'Evlek'te aç ↗' ile ilan sayfası arasındaki bağlantı yanlış. Önerilen yedek (liste düğmesi) ilan sayfasını değil arama sayfasını açıyor.",
+   "nerede": "Plan no 5 (dokunuş 13,3, detaydaki 'Evlek'te aç ↗') ve açık soru 2'nin yedeği ('liste düğmesi kullanılır').",
+   "neden": "listing-cards-v3-14.html'de liste altındaki 'Evlek'te aç ↗' App.openLink(siteSearchUrl()) çağırıyor; yani evlek.app arama sayfasını açıyor, ilan sayfasını değil. listing-detail-v3-11.html'deki detay widget'ında ilan URL'sini açan düğmeler şunlar: dv__out 'Evlek'te tüm ayrıntılar ↗'; dv__pri ise ui.contactAvailable===true ise 'Emlakçıya sor ↗' (WhatsApp), değilse 'Evlek'te aç ↗'. Açık soru 2'nin cevabı zaten repoda; yedek seçenek de filmi yanlış sayfaya bağlıyor.",
+   "kontrol": "Detayda 'Evlek'te tüm ayrıntılar ↗' (dv__out) etiketi kullanılsın ve liste yedeği yasaklansın. cap/harness.mjs ile w_detail_100102.json, contactAvailable true ve false için ayrı ayrı render edilsin; birincil düğmenin gerçek etiketi kayda geçsin. Kabul ölçütü: dokunulan düğmenin kaynakta openLink(d.url) çağırdığı ve URL'nin .../lapta-da-deniz-manzarali-2-1-daire-evl-100102 olduğu doğrulansın.",
+   "ciddiyet": "engelleyici"
+  },
+  {
+   "risk": "Widget kararı (karma model) yanlış öncüllere dayanıyor. Gerçek piksel seçeneği gereksiz yere eleniyor.",
+   "nerede": "widget_karari (1), anlasmazliklar 'Gerçek widget mı, yeniden tasarım mı', seçenek (b).",
+   "neden": "Plan 'repoda gerçek widget'ın mobil ekran kaydı yok; 1179 px'e taşınamaz' diyor. Oysa repoda şunlar var: (a) gerçek widget kaynağı live/listing-cards-v3-14.html ve listing-detail-v3-11.html; (b) gerçek veri live/w_*.json; (c) HANDOFF'a göre v9'un 1179 px'lik wcap karelerini üreten Playwright yakalama düzeneği (cap/capture.mjs, harness.mjs, host.html); (d) gerçek mobil widget karesi docs/eklenti-ref/eklenti_57_0.png. Ayrıca plan HANDOFF karar 2'yi 'daha yeni talimat' diye sunuyor; görev ise brifi 'yeni brif' olarak tanımlıyor. docs/KURALLAR.md de 'İçerikleri yeniden çizilmez' diyor. Bu durumda tarih sırası planın iddiasının tersini gösteriyor.",
+   "kontrol": "cap düzeneğiyle Lapta sonucu ve EVL-100102 detayı, koyu temada ve DPR 3'te 1179 px genişlikte render edilsin. Onur'a iki seçenek yan yana sunulsun: (1) gerçek widget pikselleri + dış reklam katmanları (ışık, derinlik, portal, kadraj), (2) envanteri kaynak koda kilitli yeniden tasarım. Yazılı karar alınmadan render yapılmasın. Yeniden tasarım seçilirse bileşen ve etiket listesi masaüstü ekran görüntüsünden değil, HTML'deki EVLEK_STRINGS ve render dallarından çıkarılsın.",
+   "ciddiyet": "yüksek"
+  },
+  {
+   "risk": "Kancanın vardığı widget durumu (karusel £127.000/£139.000'e kaydırılmış) gerçek bir açılış durumu değil.",
+   "nerede": "Plan no 1 (hedef 'results@10,0', 2,5 sn), teşhis 3 ('karusel £127.000/£139.000 konumunda açılıyor'), kurgu 5,5–7,0, kapanıştaki 'ilk sonuç' ekranı.",
+   "neden": "Arama price-low sıralı ve refs dizisinde EVL-100102 6. sırada (index 5). Gerçek karusel £105.000 ile açılıyor (ref 06 ve v11'in 5,5–9,8 sn arası). Plan, insan görünen £105.000 kartını saklamak için kaydırma adımını atlıyor. Kapanışta 'kurulum sonrası ilk sonuç' da aynı kaydırılmış durumla gösteriliyor. Bu, sonucun nasıl göründüğünü çarpıtıyor.",
+   "kontrol": "Ya en az 0,4 sn'lik görünür bir kaydırma (£105.000 → £139.000) eklensin ve £105.000 kartının insan içermeyen kırpımı 1080 px'de kare kare doğrulansın; ya da kartlar ilk durumda (index 0) gösterilip portal detay widget'ından açılsın. Kabul ölçütü: her widget durumuna, gerçek widget'ta ona götüren bir kullanıcı eylemi eşlik etsin.",
+   "ciddiyet": "yüksek"
+  },
+  {
+   "risk": "PBTN pozunda telefon gövdesi yol şeridiyle çakışıyor; planın kendi ≥48 px metin–telefon kuralı çiğneniyor.",
+   "nerede": "Plan no 7 ve kurgu 19,35–22,6. PBTN (540,984,0,60) ile PathStrip 48/600 (top 128, 16,3–22,85) aynı anda ekranda.",
+   "neden": "Gövde üst kenarı = 984 − 0,60×1350 = 174 px (rx/ry/rz ve perspektif hariç). Şeridin metin kutusu 128'den yaklaşık 186'ya, mercan alt çizgisi de y+8 ile yaklaşık 194–198'e iniyor. Yani en az ~20 px üst üste biniyor; ≥48 px kuralı için en az 74 px eksik var.",
+   "kontrol": "PBTN y ≥ 1070 olsun (s 0,60'ta üst kenar ≥ 260), ya da şerit kamera PBTN'ye itilmeden (19,35) önce sönsün. QC betiğine her kare için telefonun 8 köşesinin (3B izdüşüm matrisiyle) dış metin kutularına uzaklığı ≥48 px testi eklensin.",
+   "ciddiyet": "yüksek"
+  },
+  {
+   "risk": "page_view.png 1:1 yerleşimde sahte görünüyor: yapışkan alt çubuk ekranın ortasında kalıyor, altında 345 px boşluk oluşuyor.",
+   "nerede": "Plan no 5 ve kurgu 13,45–16,3 (WebPage: <Img page_view.png 1179×1941, top=270>).",
+   "neden": "Görüntü 270+1941 = 2211'de bitiyor; ekran 2556 px. Sayfanın alt çubuğu (£139.000 · 'WhatsApp'tan yaz' · 'Telefonla ara', png'de y≈1765–1941) ekranda 2035–2211'e düşüyor ve altında 345 px boş alan kalıyor. Gerçek tarayıcıda bu çubuk ekranın dibinde durur. Filmin 'tek gerçeklik kanıtı' bu yüzden yapay görünecek.",
+   "kontrol": "Png iki parçaya bölünsün (kırpım serbest): içerik 0–1765 aralığı top 270'e, alt çubuk 1765–1941 aralığı ekran tabanına (2380–2556) yerleşsin. Aradaki boşluk sayfanın gerçek zemin rengiyle (#EEF2F7 civarı, png'den örneklenecek) dolsun ya da sayfanın bir sonraki gerçek yakalama bölümü kullanılsın. Kabul ölçütü: PP pozunda '107 m² Kapalı' metni ≥28 px çıktı boyutunda (beklenen ≈34 px) ve 1,0 sn okunur; ekranda boş bant yok.",
+   "ciddiyet": "yüksek"
+  },
+  {
+   "risk": "15 sn sürüm 'Bağlı ✓' karesini hiç göstermiyor; kısa sürümlerde slogan kalış süresi yetersiz.",
+   "nerede": "kisa_surumler, 15 SN: '9,5–11,1 ← M 18,2–19,8'. 6 SN: '2,5–3,9 ← M 3,8–5,2'.",
+   "neden": "Bağlı durumu M 19,8'de başlıyor; kesim tam bu karede bitiyor ve 26,1'e atlıyor. Kurulum kanıtı 0 kare görünüyor. Slogan M 4,05'te tam opak oluyor ve 5,15'te sönmeye başlıyor; yani tam opak kalış ≈1,1 sn. Kural (3×0,3+0,7) 1,6 sn istiyor. Planın 6 sn için yazdığı '1,4 sn' de yanlış.",
+   "kontrol": "15 sn için 9,5–11,1 ← M 18,9–20,5 yapılsın (Bağlı ≥0,7 sn). Kısa sürümler için slogan çıkışı ayrı bir 'kısa' anahtarla yeniden zamanlansın. QC'ye her kesim listesi için 'Bağlı' kare sayısı ≥42 (0,7 sn) ve her ana yazı için tam opak süre ≥ kural testi eklensin.",
+   "ciddiyet": "yüksek"
+  },
+  {
+   "risk": "Detay okuma pozu planın kendi okunurluk kuralını karşılamıyor; özellik sayısı da kayıtla tam eşleşmiyor.",
+   "nerede": "Kurgu 12,0–13,3 (PD s 0,62, 'özellik çipleri: 5 gerçek özellik'). Plan no 11 QC (1) '5 özellik'.",
+   "neden": "Telefon içi ikincil metin tasarımda 30–40 px; s 0,62'de çıktıda ≈19–25 px, 360×640 önizlemede ≈6–8 px. Plan 'anlam taşıyan metin ≥28 px' diyor, ama bu çiplere kanıt rolü yüklüyor. Ayrıca gerçek detay widget'ı d.features'ı _meta'dan okuyor ve orada 6 özellik var (Deniz Manzarası, Ortak Havuz, Otopark, Balkon, Eşyalı, Teras). 5 özellik yalnız structuredContent'te. Bir de detay widget'ı basis=null olduğunda alanı 'Kapalı alan' etiketiyle gösteriyor (fieldBuiltArea) ve MCP metni '107 m² kapalı alan' diyor. Açık soru 5 aslında bir çelişki değil.",
+   "kontrol": "Çipler ya PC/PP ölçeğinde (s ≥0,78) okutulsun ya da açıkça 'doku' sayılıp anlatı yükünden çıkarılsın. Özellik listesinin kaynağı (_meta 6 / structuredContent 5) tek bir yerde sabitlensin ve QC o kaynağa göre karşılaştırsın. Arayüz içinde '107 m²' tür eklenmeden kalabilir. 'Kapalı' ibaresi gerçek sayfa ve widget'la tutarlı olduğu için açık soru 5 kapatılsın.",
+   "ciddiyet": "orta"
+  },
+  {
+   "risk": "Bağlayıcı müşteri kararları değiştiriliyor ya da atlanıyor, ama üretim onaydan önce planlanıyor.",
+   "nerede": "secilen_yon, anlasmazliklar (kanca, köşe imi), tasarim_sistemi.tipografi, kurgu (Girne yok).",
+   "neden": "HANDOFF 'Onur'un kararları (14 Kasım, bağlayıcı)' bölümü: karar 1'deki kanca cümleleri ('Bir sabahın böyle başlasa?' → 'ChatGPT'de Evlek'e sor.') kaldırılıyor. Karar 4'teki CTA 'ChatGPT'de Eklentiler'den Evlek'i ekleyin.' kısaltılıyor. Karar 5 ('Girne sonucu 1,5 sn') planda hiç geçmiyor ve açık sorularda da yok. Uygulanacak uzman değeri 'hiçbir yazı 52 px'ten küçük olmaz' iken yol şeridi 44/48 px. Repo kökündeki CLAUDE.md kural 15 belirsizlikte durup sormayı istiyor.",
+   "kontrol": "Tek sayfalık bir karar kaydı hazırlansın: her sapma için HANDOFF maddesi, öneri ve gerekçe; Girne 1,5 sn maddesi de açık soru olarak eklensin. Onur'un yazılı onayı gelmeden src/v12 render'ı yayın adayı sayılmasın. Kanca için A/B (d) ve HANDOFF cümlesi ayrı kompozisyonlarda tutulsun.",
+   "ciddiyet": "orta"
+  },
+  {
+   "risk": "Kabul ölçütleri kendi içinde çelişkili ya da ölçülemez. Koordinat payları 3B dönüş hesaba katılmadan verilmiş. Döngü dikişi iki farklı bileşene bağlı.",
+   "nerede": "Plan no 1, 2, 4, 9, 10 ve 11 kabul alanları. P_IN (760,1300,0,42,3,−8,−2). HookPhoto ve Pool.",
+   "neden": "(a) 'İki keskin fotoğraf aynı anda = 0' ölçütü kapanışta (keskin havuz zemini + telefonda aynı havuzun kart görseli) ve 11,0–13,45'te (iç mekân zemini + detayda 2/14 aynı fotoğraf) planın kendisi tarafından çiğneniyor. (b) 'Her saniye kodlanmış veri ≥1 Mb' ölçütü CRF 16'da 5,6 sn'lik sabit kapanışla çelişiyor; boş ekranın göstergesi de değil. (c) 'Hiçbir karede boş sohbet yok' ölçütü 21,1–22,1'deki yeni ve boş sohbetle çelişiyor. (d) P_IN'de rz −2° ile sağ alt köşe x≈760+292,6=1053'e çıkıyor; pay ≈27 px, oysa iddia ≥40 px (ry −8 ve 150 px kalınlık hariç). (e) 0. kare HookPhoto, 1799. kare Pool bileşeniyle üretiliyor; derecelendirme, vinyet ya da ölçek farkı SSIM ≥0,99'u bozabilir.",
+   "kontrol": "(a) Ölçüt 'tam ekran katmanda iki farklı fotoğrafın çapraz geçişi = 0' olarak yeniden yazılsın. (b) Bit hızı ölçütü kaldırılıp yerine kare farkı ve siyah alan ölçümü konsun. (c) Ölçüt yalnız 0–3,0 ve 23,6–30,0 için tanımlansın. (d) Pay, CSS 3D matrisinden (perspektif 3200) köşe izdüşümüyle hesaplansın; P_IN x ≤740 ya da rz 0 olsun. (e) Kanca ve kapanış aynı Photo bileşenini ve aynı GRADE_EXT değerini kullansın; 1799 ve 0. karelerin SSIM'i render sonrası ölçülsün.",
+   "ciddiyet": "orta"
+  }
+ ],
+ "plan_hatalari": [
+  "Veri ve kaynak: widget_karari 'repoda gerçek widget'ın mobil ekran kaydı yok' diyor. Bu yanlış: docs/eklenti-ref/eklenti_57_0.png gerçek mobil widget karesi (düşük çözünürlüklü). Gerçek widget kaynağı (live/listing-cards-v3-14.html, listing-detail-v3-11.html) ve cap/ yakalama düzeneği de repoda; 1179 px'lik render mümkün.",
+  "Tarih sırası ters sunuluyor: plan HANDOFF karar 2'yi 'daha yeni talimat' olarak gerekçelendiriyor. Görev metni ise brifi 'yeni brif' diye tanımlıyor. docs/KURALLAR.md de 'İçerikleri yeniden çizilmez' diyor.",
+  "Teşhis 'Ucuzdan pahalıya çipi gerçekte yok' diyor; bu yarı doğru. Etiket uydurma, ama gerçek kart widget'ında sortRow var: 'Sırala: En yeni | Fiyat ↑ | Fiyat ↓', price-low aramasında 'Fiyat ↑' etkin. Envanterin 'ref 06'dan birebir' alınması kaynak kodla değil, tek bir masaüstü ekran görüntüsüyle kilitleme demek.",
+  "Kart galerisi 1/14 → 2/14 kaydırması (no 4) gerçek widget davranışı olarak sunuluyor. Arama yükünde foto dizisi yok ve kart noktaları sabit bir süs.",
+  "'Evlek'te aç ↗' (no 5) detaydaki gerçek düğme adı değil. Gerçek adlar: dv__out 'Evlek'te tüm ayrıntılar ↗', dv__pri 'Emlakçıya sor ↗' ya da 'Evlek'te aç ↗'. Listedeki 'Evlek'te aç ↗' arama sayfasını açıyor; yedek plan yanlış sayfaya bağlıyor. Açık soru 2'nin cevabı repoda var.",
+  "Açık soru 5 aslında bir çelişki değil. MCP area.closedM2=107 alanını veriyor, metin çıktısı '107 m² kapalı alan' diyor ve detay widget'ı basis=null için 'Kapalı alan' etiketini kullanıyor. Belirsiz olan yalnız brüt/net ayrımı.",
+  "Açık soru 8 repoda cevaplı: eklenti_31_5 ve 57_0 karelerinde yazım kutusunda ve kullanıcı balonunda 'Ev Evlek' çipi görünüyor.",
+  "Özellik sayısı: plan '5 gerçek özellik' diyor ve QC structuredContent'e göre kurulu. Gerçek detay widget'ı _meta'dan 6 özellik (Teras dahil) gösterir.",
+  "Koordinat: PBTN (540,984,0,60) gövde üst kenarı 174 px. Yol şeridi (top 128, 48 px + alt çizgi) ile çakışıyor; ≥48 px kuralı çiğneniyor.",
+  "Koordinat: P_IN için '≥40 px pay' iddiası rz −2° ile tutmuyor (sağ kenar ≈1053 px, pay ≈27 px; ry −8 ve kalınlık hariç).",
+  "Yerleşim: page_view.png 1179×1941 top=270'te 2211'de bitiyor. 345 px boş kalıyor ve yapışkan WhatsApp/Telefon çubuğu ekranın ortasına düşüyor.",
+  "Kısa sürüm: 15 sn kesimi M 19,8'de bitiyor, yani 'Bağlı ✓' 0 kare görünüyor. 6 sn'de slogan tam opaklığı '1,4 sn' değil ≈1,1 sn; kural 1,6 sn istiyor.",
+  "Okunurluk: PD s 0,62'de detay çipleri çıktıda ≈19–25 px. Planın 'anlam taşıyan metin ≥28 px' kuralı kendi detay okuma planında karşılanmıyor.",
+  "Kabul ölçütü çelişkileri: 'iki keskin fotoğraf = 0' kapanışta ve 11–13,45'te planın kendi kompozisyonuyla çiğneniyor. 'Her saniye ≥1 Mb' sabit kapanışla çelişiyor. 'Boş sohbet ekranı yok' 21,1–22,1'deki yeni boş sohbetle çelişiyor.",
+  "Gerçek dışı durum: kanca 2,5 sn'de karuseli £127.000/£139.000'e kaydırılmış halde gösteriyor; gerçekte karusel £105.000 ile açılıyor. Neden-sonuç sırası da ters: sonuç (2,5 sn) sorudan (3,0–3,8 sn) önce okunuyor.",
+  "Bağlayıcı karar atlanmış: HANDOFF karar 5 ('Girne sonucu 1,5 sn') planda ve açık sorularda hiç geçmiyor. CTA, karar 4'teki 'ChatGPT'de Eklentiler'den Evlek'i ekleyin.' metninden 'ChatGPT'de' çıkarılarak kısaltılmış.",
+  "Tipografi: yol şeridi 44/48 px; HANDOFF'taki uzman değeri 'hiçbir yazı 52 px'ten küçük olmaz (dipnot hariç)'. Dipnot 30/500 ile 840 px genişlikte ≈105 karakter 2 satırı aşabilir; 3 satır olursa telefonla payı (top 733) 48 px'in altına iner. Ölçülmemiş.",
+  "Kenar menü (Yeni sohbet, Zamanlananlar, Kitaplık, Eklentiler, Keşfet) masaüstü web referansından (ref 06) alınıp iOS ekranına taşınıyor. iOS'taki yol doğrulanmamış (açık soru 7); buna rağmen 3,5 sn'lik öğretici bu yolu kesin bilgi gibi öğretiyor.",
+  "Puanlama: A yönüne beş ölçütte 8 verilmesi plan sahibinin kendi tahmini; ölçüm ya da test yok. Seçim gerekçesi olarak zayıf.",
+  "'Gerçek ev filmin ~%48'inde (≈14,5 sn)' hesabına bulanık zemin (13,45–16,3) ve küçük kart planları da katılmış. Keskin ve büyük ev süresi ≈13 sn civarı; iddia şişirilmiş ama büyüklük mertebesi doğru.",
+  "Doğrulananlar (hata değil): £139.000, 2+1, 2 banyo, 107 m² (basis null), 14 foto; 101433 £127.000, 104 m² brüt, 31 foto; Lapta 8 ilan, £105.000–147.000; £12.000 / %9,4. Hepsi live/w_lapta.json ve w_detail_100102.json ile tutarlı. Pan hesapları (22 px/sn; 24→26,25% ve 14,4→24%), ölçekler (2560/1600 = 1,60; 1584/1200 = 1,32), 30 sn ve 15 sn toplamları doğru. _01'de kapı ve deniz yaklaşık x 325–640 aralığında; plan doğru."
+ ],
+ "kabul_kapisi": [
+  {
+   "soru": "İlk karede konu ve odak anlaşılıyor mu?",
+   "plan_karsiliyor_mu": "Evet",
+   "not": "Keskin havuz ve deniz, logo ve 'artık ChatGPT'de.' aynı karede; v11'in boş, koyu açılışı kalkıyor. İlk karede ürün bağı yalnız yazıyla kuruluyor (otel ya da tatil reklamı gibi okunabilir), ama 1,5 sn'deki ters portal bunu çözüyor."
+  },
+  {
+   "soru": "İlk üç saniyede izlemeye devam etmek için somut neden var mı?",
+   "plan_karsiliyor_mu": "Kısmen",
+   "not": "Ters portal güçlü bir merak anı. Ancak vardığı widget durumu (£139.000'e kaydırılmış karusel) gerçek değil ve sonuç sorudan önce gösteriliyor. HANDOFF'taki yaşam cümlesi de yok. Kaydırma adımı eklenmezse kanca bir 'sahne' olarak kalır."
+  },
+  {
+   "soru": "Evlek'in ChatGPT içinde kullanıldığı sessiz izlerken anlaşılıyor mu?",
+   "plan_karsiliyor_mu": "Kısmen",
+   "not": "Balon yakın planı, Evlek çipi (gerçekte var, ref 57_0) ve harita/kart dizisi okunuyor. Bununla birlikte ChatGPT kabuğu yalnız koyu arayüz ve yazıyla tanınıyor, ve soru-cevap sırası ters. 3,0–5,4 aralığı anlatıyı taşıyor."
+  },
+  {
+   "soru": "Eylemler ve sonuçları aynı ilanda doğru bağlanıyor mu?",
+   "plan_karsiliyor_mu": "Hayır",
+   "not": "Bağlanmıyor. Kartta galeri kaydırması uydurma (arama yükünde foto dizisi yok). 'Evlek'te aç ↗' detaydaki gerçek düğme adı değil (gerçeği 'Evlek'te tüm ayrıntılar ↗'). Liste yedeği arama sayfasını açıyor. Fiyat, kod ve sayfa ise EVL-100102'de doğru."
+  },
+  {
+   "soru": "Büyük fotoğraflar mülkü doğru temsil ediyor mu?",
+   "plan_karsiliyor_mu": "Evet",
+   "not": "_00 (havuz ve deniz) ile _01 (çift yükseklikli salon, kapıda deniz) gerçek ve doğru ilana ait. Yatak odası ve 101433 fotoğrafları kullanılmıyor. Kaynak upscale 1,60× ve 1,32×; yumuşaklık riski sürüyor. _01'in kayıttaki 2. foto (02-26482) olduğu dosya eşlemesiyle doğrulanmalı."
+  },
+  {
+   "soru": "Telefon geçişler dahil tanınabilir kalıyor mu?",
+   "plan_karsiliyor_mu": "Kısmen",
+   "not": "Markasızlaştırma ve temas gölgesi doğru adımlar. Ama PBTN'de telefon yol şeridiyle çakışıyor, P_IN payı rz ile 40 px'in altına iniyor ve telefonsuz iki plan HANDOFF'taki 'telefon her an telefon olmalı' cümlesine bağlı olarak onaya muhtaç."
+  },
+  {
+   "soru": "Tablo okunabiliyor ve doğru yorumlanabiliyor mu?",
+   "plan_karsiliyor_mu": "Uygulanamaz (çıkarıldı)",
+   "not": "Karşılaştırmanın çıkarılması doğru karar. Gerçek oturum £127.000'yi öneriyor; uydurma bir karşılaştırma widget'ı riski de kalkıyor. Onay bekleyen açık soru 4'e bağlı."
+  },
+  {
+   "soru": "Son çağrı Eklentiler üzerinden eklemeyi açıkça anlatıyor mu?",
+   "plan_karsiliyor_mu": "Kısmen",
+   "not": "CTA (5 sn) ve 'ChatGPT › Eklentiler › Evlek › Ekle' şeridi açık. Ancak iOS'taki giriş yolu doğrulanmamış (soru 7). CTA, HANDOFF karar 4 metninden kısaltılmış. 15 sn sürümde 'Bağlı ✓' hiç görünmüyor."
+  },
+  {
+   "soru": "Mobil önizlemede kritik metinler okunuyor mu?",
+   "plan_karsiliyor_mu": "Kısmen",
+   "not": "Logo, başlık, slogan, CTA (≈24 px), şerit (≈15 px) ve 'Bağlı' (≈11 px) okunuyor. Detay çipleri (≈6–8 px) ve dipnot (≈10 px) sınırda ya da altında; detay planı kendi ≥28 px kuralını karşılamıyor."
+  },
+  {
+   "soru": "Sonuç seçilen fikirle tutarlı mı?",
+   "plan_karsiliyor_mu": "Evet",
+   "not": "Evle açılıp aynı havuz karesinde kapanma ve dikişsiz döngü 'Önce ev' fikriyle tutarlı. Döngünün dikişsiz olması kanca ve kapanışın aynı fotoğraf bileşenini ve derecelendirmeyi kullanmasına bağlı; SSIM render sonrası ölçülmeli."
+  }
+ ]
+}
