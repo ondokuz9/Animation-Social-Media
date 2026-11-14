@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+<title>Kâğıt lif dokusu</title>
+<defs><filter id="paper" x="0" y="0" width="1" height="1"><feTurbulence type="fractalNoise" baseFrequency=".12 .48" numOctaves="3" seed="41"/><feColorMatrix type="matrix" values="0 0 0 0 .34  0 0 0 0 .28  0 0 0 0 .21  .12 .20 .10 0 -.16"/><feComponentTransfer><feFuncA type="linear" slope=".65"/></feComponentTransfer></filter></defs>
+<rect width="1080" height="1920" filter="url(#paper)"/>
+</svg>

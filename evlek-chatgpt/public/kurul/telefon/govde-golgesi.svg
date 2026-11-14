@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1299" height="2700" viewBox="0 0 1299 2700">
+<title>Hafif silüet gölgesi</title>
+<defs><filter id="b" x="-.1" y="-.1" width="1.2" height="1.2"><feGaussianBlur stdDeviation="17"/></filter></defs>
+<path d="M183 36H1116A157 157 0 0 1 1273 193V2507A157 157 0 0 1 1116 2664H183A157 157 0 0 1 26 2507V193A157 157 0 0 1 183 36Z" fill="#061321" opacity=".38" filter="url(#b)"/>
+</svg>

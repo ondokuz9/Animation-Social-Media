@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="420" viewBox="0 0 1440 420">
+<title>Yayılım ve temas gölgesi</title>
+<defs><filter id="diffuse" x="-.3" y="-.9" width="1.6" height="2.8"><feGaussianBlur stdDeviation="45 28"/></filter><filter id="contact" x="-.16" y="-.9" width="1.32" height="2.8"><feGaussianBlur stdDeviation="20 8"/></filter></defs>
+
+<ellipse cx="735" cy="222" rx="552" ry="70" fill="#091929" opacity=".25" filter="url(#diffuse)"/>
+<ellipse cx="651" cy="191" rx="347" ry="19" fill="#071521" opacity=".43" filter="url(#contact)"/>
+</svg>

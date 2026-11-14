@@ -1,0 +1,5 @@
+{
+  "A": {"b4": [1350, 1650, 1950, 2250]},
+  "B": {"flyFrom": [33.3735, 35.3291], "flyFromZ": 8.05, "flyStart": 250, "flyEnd": 1150, "scroll": [1400, 2200], "press": 3150, "tapIndex": 5},
+  "C": {"swipes": [900, 1600], "swipeDur": 380, "press": 99999}
+}

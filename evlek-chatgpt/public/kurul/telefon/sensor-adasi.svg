@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1299" height="2700" viewBox="0 0 1299 2700">
+<title>Özgün dinamik sensör adası</title>
+<defs></defs>
+
+<g id="sensor-adasi">
+  <rect x="592" y="110" width="116" height="34" rx="17" fill="#050B10" stroke="#242E35" stroke-width="2"/>
+  <path d="M608 124h32m-27 4h22" stroke="#233037" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="683" cy="127" r="9" fill="#152831"/>
+  <circle cx="683" cy="127" r="4" fill="#314653"/>
+  <circle cx="685" cy="125" r="1.5" fill="#607889"/>
+</g>
+</svg>

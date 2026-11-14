@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1299" height="2700" viewBox="0 0 1299 2700">
+<title>Camın ekran dışındaki kenar yansıması</title>
+<defs><linearGradient id="glass" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#FFF5DC" stop-opacity=".9"/><stop offset=".55" stop-color="#DBEEFA" stop-opacity=".2"/><stop offset="1" stop-color="#DBEEFA" stop-opacity="0"/></linearGradient></defs>
+
+<g fill="none" stroke="url(#glass)" stroke-linecap="round">
+  <path d="M53 363V194C53 124 109 66 180 66H836" stroke-width="5"/>
+  <path d="M1247 2230v276c0 70-58 128-129 128H891" stroke-width="3" opacity=".48"/>
+</g>
+</svg>

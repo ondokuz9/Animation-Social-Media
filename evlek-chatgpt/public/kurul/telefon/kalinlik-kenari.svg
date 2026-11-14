@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1299" height="2700" viewBox="0 0 1299 2700">
+<title>Cihazın opak arka plakası ve anodize kenarı</title>
+<defs><linearGradient id="edge"><stop stop-color="#849297"/><stop offset=".024" stop-color="#4F606B"/><stop offset=".075" stop-color="#253746"/><stop offset=".51" stop-color="#182935"/><stop offset=".93" stop-color="#172430"/><stop offset=".978" stop-color="#5A6D77"/><stop offset="1" stop-color="#A1A9A9"/></linearGradient></defs>
+
+<path d="M183 36H1116A157 157 0 0 1 1273 193V2507A157 157 0 0 1 1116 2664H183A157 157 0 0 1 26 2507V193A157 157 0 0 1 183 36Z" fill="url(#edge)" stroke="#182932" stroke-width="3"/>
+<path d="M28 1010v1494c0 84 69 155 157 157h325M1271 188v674" fill="none" stroke="#B5C6C8" stroke-opacity=".32" stroke-width="3"/>
+
+</svg>

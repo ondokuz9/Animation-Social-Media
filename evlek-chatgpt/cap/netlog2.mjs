@@ -1,0 +1,22 @@
+import {chromium} from 'playwright';
+import fs from 'fs';
+import {pathToFileURL} from 'url';
+const [w, r] = process.argv.slice(2);
+const b = await chromium.launch({args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist']});
+const ctx = await b.newContext({viewport: {width: 364, height: 700}, deviceScaleFactor: 3, colorScheme: 'dark'});
+let n = 0, fails = 0;
+ctx.on('request', (q) => { if (/openfreemap.*\/\d+\/\d+\/\d+/.test(q.url())) n++; });
+ctx.on('requestfailed', (q) => { fails++; if (fails < 6) console.log('FAIL', q.failure()?.errorText, q.url().slice(0, 120)); });
+const p = await ctx.newPage();
+p.on('worker', (wk) => { console.log('worker', wk.url().slice(0, 60)); wk.on('console', (m) => console.log('wconsole', m.text().slice(0, 200))); });
+p.on('pageerror', (e) => console.log('pageerror', e.message.slice(0, 200)));
+p.on('console', (m) => { const t = m.text(); if (!/GL Driver/.test(t)) console.log('console', m.type(), t.slice(0, 200)); });
+await p.addInitScript(([W, R]) => { window.__WIDGET__ = W; window.__RESULT__ = R; window.__MODE__ = 'inline'; }, [fs.readFileSync(w, 'utf8'), JSON.parse(fs.readFileSync(r, 'utf8'))]);
+await p.goto(pathToFileURL(process.cwd() + '/host.html').href);
+await p.waitForTimeout(14000);
+const info = await p.frames()[1].evaluate(() => {
+  const c = document.querySelector('canvas');
+  return {canvas: !!c, w: c?.width, h: c?.height, gl: !!(c && (c.getContext('webgl2') || c.getContext('webgl')))};
+}).catch((e) => 'eval err ' + e.message);
+console.log('tile requests', n, 'fails', fails, JSON.stringify(info));
+await b.close();

@@ -1,0 +1,19 @@
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#000;color-scheme:dark}iframe{border:0;width:100%;height:900px;display:block;background:transparent;color-scheme:dark}</style></head>
+<body><iframe id="f"></iframe>
+<script>
+const W=window.__WIDGET__, R=window.__RESULT__, MODE=window.__MODE__||'inline';
+// ChatGPT'nin iframe'e verdiği window.openai (Apps SDK) — yalnız okuma/görüntü için gereken alanlar
+const shim = `<script>(function(){var R=${JSON.stringify(R)};var listeners=[];window.openai={theme:'dark',displayMode:'${MODE}',locale:'tr-TR',maxHeight:4000,safeArea:{insets:{top:0,bottom:0,left:0,right:0}},userAgent:{device:{type:'mobile'},capabilities:{hover:false,touch:true}},toolInput:{},toolOutput:R.structuredContent,toolResponseMetadata:R._meta||null,widgetState:null,
+requestDisplayMode:function(o){window.parent.postMessage({__evlekHost:'displayMode',mode:o&&o.mode},'*');return Promise.resolve({mode:o&&o.mode});},
+openExternal:function(o){window.parent.postMessage({__evlekHost:'open',href:o&&o.href},'*');},
+setWidgetState:function(s){window.openai.widgetState=s;return Promise.resolve();},
+callTool:function(){return Promise.resolve({});},sendFollowUpMessage:function(){return Promise.resolve();},notifyIntrinsicHeight:function(){}};})();<\/script>`;
+const f=document.getElementById('f'); f.srcdoc=W.replace(/<head[^>]*>/i, (m)=>m+shim);
+window.__heights=[];window.__events=[];
+window.addEventListener('message',e=>{const m=e.data; if(m&&m.__evlekHost){window.__events.push(m);return;} if(!m||m.jsonrpc!=='2.0')return;
+ if(m.method==='ui/initialize'&&m.id){f.contentWindow.postMessage({jsonrpc:'2.0',id:m.id,result:{protocolVersion:'2026-01-26',hostInfo:{name:'chatgpt',version:'1'},hostCapabilities:{openLinks:{}},hostContext:{styles:{variables:{'--color-background-primary':'#212121','--color-background-secondary':'#171717','--color-background-inverse':'#ECECEC','--color-text-primary':'#F9F9F9','--color-text-secondary':'#CDCDCD','--color-text-tertiary':'#9B9B9B','--color-text-inverse':'#0D0D0D','--color-border-primary':'#4A4A4A','--color-border-tertiary':'#353535'}},theme:'dark',displayMode:MODE,locale:'tr-TR',availableDisplayModes:['inline','fullscreen'],safeAreaInsets:{top:0,bottom:0,left:0,right:0}}}},'*');
+   setTimeout(()=>f.contentWindow.postMessage({jsonrpc:'2.0',method:'ui/notifications/tool-result',params:R},'*'),50);}
+ else if(m.method==='ui/notifications/size-changed'){f.style.height=(m.params.height||900)+'px';window.__heights.push(m.params.height);}
+ else if(m.id){window.__events.push({req:m.method});f.contentWindow.postMessage({jsonrpc:'2.0',id:m.id,result:{}},'*');}
+});
+</script></body></html>

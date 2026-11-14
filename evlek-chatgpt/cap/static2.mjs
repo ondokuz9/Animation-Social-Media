@@ -1,0 +1,15 @@
+import {chromium} from 'playwright';
+import {openWidget, stopServer} from './harness.mjs';
+const [w, r, out, mode = 'inline', wpt = '364', wait = '12000'] = process.argv.slice(2);
+const b = await chromium.launch({args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist']});
+const ctx = await b.newContext({viewport: {width: +wpt, height: 900}, deviceScaleFactor: 3, colorScheme: 'dark'});
+let n = 0; ctx.on('request', (q) => { if (/openfreemap.*\/\d+\/\d+\/\d+/.test(q.url())) n++; });
+const p = await ctx.newPage();
+await openWidget(p, {widget: w, result: r, mode});
+await p.waitForTimeout(+wait);
+const h = await p.evaluate(() => document.getElementById('f').offsetHeight);
+await p.setViewportSize({width: +wpt, height: Math.max(300, h)});
+await p.waitForTimeout(1500);
+await p.screenshot({path: out});
+console.log('height', h, 'tiles', n);
+await b.close(); stopServer();

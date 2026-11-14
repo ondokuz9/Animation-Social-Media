@@ -1,0 +1,16 @@
+import {chromium} from 'playwright';
+import fs from 'fs';
+import {pathToFileURL} from 'url';
+const [w, r] = process.argv.slice(2);
+const b = await chromium.launch({args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader']});
+const p = await b.newPage({viewport: {width: 364, height: 700}, deviceScaleFactor: 3, colorScheme: 'dark'});
+const seen = {};
+p.on('response', (q) => { const u = q.url(); const k = u.replace(/\/\d+\/\d+\/\d+.*$/, '/{z}/{x}/{y}'); seen[k] = (seen[k] || 0) + 1; if (q.status() >= 400) console.log('HTTP', q.status(), u.slice(0, 140)); });
+p.on('requestfailed', (q) => console.log('FAIL', q.failure()?.errorText, q.url().slice(0, 140)));
+p.on('console', (m) => { const t = m.text(); if (!/GL Driver/.test(t)) console.log('console', t.slice(0, 200)); });
+await p.addInitScript(([W, R]) => { window.__WIDGET__ = W; window.__RESULT__ = R; window.__MODE__ = 'inline'; }, [fs.readFileSync(w, 'utf8'), JSON.parse(fs.readFileSync(r, 'utf8'))]);
+await p.goto(pathToFileURL(process.cwd() + '/host.html').href);
+await p.waitForTimeout(12000);
+for (const [k, v] of Object.entries(seen)) console.log(v, k.slice(0, 150));
+await p.screenshot({path: 'net.png'});
+await b.close();

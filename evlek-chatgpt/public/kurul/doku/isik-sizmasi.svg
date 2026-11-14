@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+<title>Sıcak yumuşak ışık sızması</title>
+<defs><radialGradient id="leak" cx="0" cy=".16" r=".72" gradientTransform="translate(0 .04) scale(1 .91)"><stop stop-color="#FFF2CB" stop-opacity=".76"/><stop offset=".36" stop-color="#FCE0B8" stop-opacity=".35"/><stop offset=".68" stop-color="#B84E3B" stop-opacity=".08"/><stop offset="1" stop-color="#B84E3B" stop-opacity="0"/></radialGradient></defs>
+<rect width="1080" height="1920" fill="url(#leak)"/>
+</svg>

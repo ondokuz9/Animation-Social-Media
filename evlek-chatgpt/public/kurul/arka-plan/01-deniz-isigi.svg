@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+<title>Deniz ışığı · soyut</title>
+<defs>
+<linearGradient id="sea" x2=".72" y2="1"><stop stop-color="#29495C"/><stop offset=".42" stop-color="#123750"/><stop offset="1" stop-color="#0A2540"/></linearGradient>
+<radialGradient id="glow" cx=".14" cy=".08" r=".84"><stop stop-color="#90ABB2" stop-opacity=".73"/><stop offset="1" stop-color="#31556A" stop-opacity="0"/></radialGradient>
+<linearGradient id="shade" x2=".49" y2="1"><stop offset=".48" stop-color="#0A2540" stop-opacity="0"/><stop offset="1" stop-color="#061A2C" stop-opacity=".54"/></linearGradient>
+<filter id="soft" x="-.3" y="-.3" width="1.6" height="1.6"><feGaussianBlur stdDeviation="25"/></filter></defs>
+
+<rect width="1080" height="1920" fill="url(#sea)"/>
+<rect width="1080" height="1920" fill="url(#glow)"/>
+<g fill="none" filter="url(#soft)">
+ <path d="M-140 828C180 696 966 532 1258 296M-140 965C230 853 872 630 1225 571M-160 1150C318 1038 820 857 1260 720" stroke="#C4DDE0" stroke-opacity=".13" stroke-width="38"/>
+ <path d="M-160 1360C196 1291 836 1128 1230 934" stroke="#98B8B7" stroke-opacity=".11" stroke-width="82"/>
+</g>
+<rect width="1080" height="1920" fill="url(#shade)"/>
+</svg>

@@ -1,0 +1,15 @@
+// node scripts/stills.mjs <klasör> <saniye1,saniye2,...>
+import {bundle} from '@remotion/bundler';
+import {renderStill, selectComposition} from '@remotion/renderer';
+import path from 'path';
+import fs from 'fs';
+const [outDir, list] = process.argv.slice(2);
+fs.mkdirSync(outDir, {recursive: true});
+const serveUrl = await bundle({entryPoint: path.resolve('src/index.ts'), publicDir: path.resolve('public')});
+const composition = await selectComposition({serveUrl, id: process.env.COMP || 'V7-916'});
+for (const s of list.split(',').map(Number)) {
+  const frame = Math.round(s * 60);
+  const file = path.join(outDir, `an_${s.toFixed(1).replace('.', ',')}sn.png`);
+  await renderStill({composition, serveUrl, output: file, frame});
+  console.log('ok', file);
+}

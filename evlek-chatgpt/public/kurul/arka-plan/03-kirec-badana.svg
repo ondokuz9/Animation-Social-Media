@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+<title>Kireç badana · soyut Akdeniz zemini</title>
+<defs>
+<radialGradient id="dusk" cx=".21" cy=".1" r=".9"><stop stop-color="#FFFDF6"/><stop offset="1" stop-color="#D7CBB9" stop-opacity=".5"/></radialGradient>
+<linearGradient id="shade" x2=".6" y2="1"><stop stop-color="#B4A591" stop-opacity=".03"/><stop offset="1" stop-color="#958781" stop-opacity=".24"/></linearGradient>
+<filter id="blur" x="-.4" y="-.4" width="1.8" height="1.8"><feGaussianBlur stdDeviation="87"/></filter></defs>
+
+<rect width="1080" height="1920" fill="#FAF8F2"/>
+<rect width="1080" height="1920" fill="url(#dusk)"/>
+<path d="M-320 487C145 201 546 287 1390 970V2020H-320Z" fill="url(#shade)" filter="url(#blur)"/>
+<path d="M-260 1641C209 1528 588 1522 1365 1512" fill="none" stroke="#7A6A59" stroke-opacity=".10" stroke-width="52" filter="url(#blur)"/>
+</svg>

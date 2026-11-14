@@ -1,0 +1,1012 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evlek — Listing Detail</title>
+<style>
+:root{--evlek-bg:var(--color-background-primary,#FFFFFF);--evlek-surface:var(--color-background-secondary,#F4F4F4);--evlek-bg-inverse:var(--color-background-inverse,#141413);--evlek-ink:var(--color-text-primary,#141413);--evlek-ink-muted:var(--color-text-secondary,#3D3D3A);--evlek-ink-faint:var(--color-text-tertiary,#73726C);--evlek-ink-inverse:var(--color-text-inverse,#FFFFFF);--evlek-border:var(--color-border-primary,rgba(31,30,29,.40));--evlek-border-soft:var(--color-border-tertiary,rgba(31,30,29,.15));--evlek-radius-lg:var(--border-radius-lg,12px);--evlek-radius-md:var(--border-radius-md,10px);--evlek-radius-full:var(--border-radius-full,9999px);--evlek-shadow-hairline:var(--shadow-hairline,0 0 0 1px rgba(0,0,0,.08));--evlek-shadow-md:var(--shadow-md,0 4px 16px -4px rgba(0,0,0,.18));--evlek-font:var(--font-sans,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif);--evlek-size-xs:var(--font-text-xs-size,12px);--evlek-size-sm:var(--font-text-sm-size,14px);--evlek-size-md:var(--font-text-md-size,16px);--evlek-size-display:var(--font-heading-xl-size,24px);--evlek-size-display-sm:var(--font-heading-lg-size,20px);--evlek-w-normal:var(--font-weight-normal,400);--evlek-w-medium:var(--font-weight-medium,500);--evlek-w-semibold:var(--font-weight-semibold,600);--evlek-motion:150ms cubic-bezier(.2,0,0,1);--evlek-accent:#B84E3B;--evlek-brand:#B84E3B;--evlek-size-meta:13px;--evlek-safe-top:0px;--evlek-safe-right:0px;--evlek-safe-bottom:0px;--evlek-safe-left:0px;}*{box-sizing:border-box;}html,body{margin:0;padding:0;background:var(--evlek-bg);color:var(--evlek-ink);font-family:var(--evlek-font);font-size:var(--evlek-size-sm);font-weight:var(--evlek-w-normal);line-height:1.4;}#evlek-root{width:100%;max-width:100%;min-width:0;padding-top:var(--evlek-safe-top);padding-right:var(--evlek-safe-right);padding-bottom:var(--evlek-safe-bottom);padding-left:var(--evlek-safe-left);}button{font:inherit;cursor:pointer;}a{color:var(--evlek-ink);}svg.evlek-icon{display:block;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}.evlek-empty{padding:24px 16px;color:var(--evlek-ink-muted);font-size:var(--evlek-size-sm);text-align:center;}.evlek-empty p{margin:0 0 8px;}.evlek-empty__extra{font-size:var(--evlek-size-meta);color:var(--evlek-ink-faint);}.evlek-skel{background:var(--evlek-surface);border-radius:var(--evlek-radius-md);animation:evlek-pulse 1.5s ease-in-out infinite;}@keyframes evlek-pulse{0%,100%{opacity:.6;}50%{opacity:1;}}.evlek-disclosure{font-size:var(--evlek-size-meta);color:var(--evlek-ink-muted);border-top:1px solid var(--evlek-border-soft);padding:8px 12px;}.evlek-btn--secondary{display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;padding:0 16px;border:1px solid var(--evlek-border);border-radius:var(--evlek-radius-md);background:transparent;color:var(--evlek-ink);font-size:var(--evlek-size-sm);font-weight:var(--evlek-w-medium);}.evlek-btn--primary{display:inline-flex;align-items:center;justify-content:center;border:0;background:var(--evlek-bg-inverse);color:var(--evlek-ink-inverse);border-radius:var(--evlek-radius-md);padding:0 16px;font-size:var(--evlek-size-sm);font-weight:var(--evlek-w-medium);min-height:44px;min-width:44px;transition:transform var(--evlek-motion),box-shadow var(--evlek-motion);}.evlek-btn--primary:hover{box-shadow:var(--evlek-shadow-hairline);}.evlek-link-btn{display:inline-flex;align-items:center;justify-content:center;border:0;background:transparent;color:var(--evlek-ink-muted);font-size:var(--evlek-size-sm);font-weight:var(--evlek-w-medium);text-decoration:underline;text-underline-offset:2px;padding:0 4px;min-height:44px;min-width:44px;}.evlek-btn--icon{display:inline-flex;align-items:center;justify-content:center;border:0;background:transparent;color:var(--evlek-ink);padding:0;width:44px;height:44px;}:focus-visible{outline:2px solid var(--evlek-accent);outline-offset:2px;}[tabindex="-1"]:focus{outline:none;}.evlek-handshake-error{padding:16px;text-align:center;border-bottom:1px solid var(--evlek-border-soft);}.evlek-handshake-error p{margin:0 0 8px;color:var(--evlek-ink-muted);font-size:var(--evlek-size-sm);}.evlek-info-btn{position:relative;flex:0 0 auto;width:22px;min-width:22px;height:22px;margin-inline-start:4px;border:1px solid var(--evlek-border);border-radius:var(--evlek-radius-full);background:transparent;color:var(--evlek-ink-muted);font-size:var(--evlek-size-meta);font-style:italic;line-height:1;padding:0;align-self:center;}.evlek-info-btn::after{content:'';position:absolute;inset:-11px;}@media (prefers-reduced-motion: reduce){*{transition-duration:0s !important;animation-duration:0s !important;}}.di__cover{position:relative;width:100%;aspect-ratio:16 / 9;max-height:320px;background:var(--evlek-surface);border-radius:var(--evlek-radius-lg);overflow:hidden;}.di__cover img{width:100%;height:100%;object-fit:cover;display:block;}.di__bd{padding:12px 16px 0;}.di__acts{display:flex;flex-wrap:wrap;gap:8px;padding:12px 16px 12px;}.di__acts > *{flex:1 1 140px;justify-content:center;}.evlek-skel-d{display:flex;flex-direction:column;gap:8px;}.evlek-skel-d__cover{width:100%;aspect-ratio:16 / 9;border-radius:var(--evlek-radius-lg);}.dv{padding-bottom:8px;}.dv--bar{padding-bottom:84px;}.dv__hero{position:relative;width:100%;aspect-ratio:4 / 3;max-height:62vh;background:var(--evlek-surface);overflow:hidden;}.dv__hero img{width:100%;height:100%;object-fit:cover;display:block;}.dv__circ{position:absolute;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border:1px solid var(--evlek-border-soft);border-radius:var(--evlek-radius-full);background:var(--evlek-bg);color:var(--evlek-ink);cursor:pointer;}.dv__circ[hidden]{display:none;}.dv__back{top:12px;inset-inline-start:12px;}.dv__prev{top:50%;inset-inline-start:12px;transform:translateY(-50%);}.dv__next{top:50%;inset-inline-end:12px;transform:translateY(-50%);}[dir="rtl"] .dv__circ svg{transform:scaleX(-1);}.dv__pos{position:absolute;bottom:10px;inset-inline-end:10px;padding:4px 8px;border-radius:var(--evlek-radius-full);background:var(--evlek-bg-inverse);color:var(--evlek-ink-inverse);font-size:var(--evlek-size-meta);font-variant-numeric:tabular-nums;unicode-bidi:plaintext;}.dv__thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:8px 16px 0;}.dv__thumb{position:relative;aspect-ratio:4 / 3;padding:0;border:2px solid transparent;border-radius:var(--evlek-radius-md);overflow:hidden;background:var(--evlek-surface);cursor:pointer;}.dv__thumb.is-on{border-color:var(--evlek-ink);}.dv__thumb img{width:100%;height:100%;object-fit:cover;display:block;}.dv__thumb span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--evlek-bg-inverse) 62%,transparent);color:var(--evlek-ink-inverse);font-weight:var(--evlek-w-semibold);}.dv__bd{padding:12px 16px 0;}.dv__st{font-size:var(--evlek-size-meta);color:var(--evlek-ink-muted);}.dv__st b{color:var(--evlek-ink);font-weight:var(--evlek-w-semibold);}.dv__price{margin:4px 0 0;font-size:var(--evlek-size-display);font-weight:700;color:var(--evlek-ink);font-variant-numeric:tabular-nums;}.dv__facts{margin-top:4px;font-size:var(--evlek-size-md);color:var(--evlek-ink);}.dv__facts b{font-weight:700;}.dv__sub{margin-top:4px;font-size:var(--evlek-size-sm);color:var(--evlek-ink-muted);}.dv__hr{height:1px;margin:16px 0;background:var(--evlek-border-soft);}.dv__h{margin:0 0 8px;font-size:var(--evlek-size-md);font-weight:var(--evlek-w-semibold);color:var(--evlek-ink);}.dv__kf{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,140px),1fr));gap:12px 16px;}.dv__kf div,.dv__kf span{min-width:0;overflow-wrap:anywhere;}.dv__kf div{display:flex;gap:8px;align-items:flex-start;font-size:var(--evlek-size-sm);color:var(--evlek-ink);}.dv__kf svg{flex:0 0 auto;width:20px;height:20px;margin-top:4px;stroke:currentColor;fill:none;stroke-width:1.8;}.dv__kf small{display:block;font-size:var(--evlek-size-meta);color:var(--evlek-ink-muted);}.dv__feat{display:flex;flex-wrap:wrap;gap:8px;}.dv__feat span,.dv__feat button{display:inline-flex;align-items:center;min-height:32px;padding:0 12px;border:1px solid var(--evlek-border-soft);border-radius:var(--evlek-radius-full);background:transparent;color:var(--evlek-ink);font:inherit;font-size:var(--evlek-size-meta);}.dv__feat button{position:relative;cursor:pointer;}.dv__feat button::after{content:'';position:absolute;inset:-7px -2px;}.dv__desc{margin:0;font-size:var(--evlek-size-sm);line-height:1.55;color:var(--evlek-ink);white-space:pre-line;}.dv__desc--clamp{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;}.dv__lnk{position:relative;margin-top:8px;padding:0;min-height:32px;border:0;background:none;color:var(--evlek-ink);font:inherit;font-size:var(--evlek-size-sm);font-weight:var(--evlek-w-semibold);text-decoration:underline;text-underline-offset:2px;cursor:pointer;}.dv__lnk::after{content:'';position:absolute;inset:-8px;}.dv__mini{position:relative;height:150px;border-radius:var(--evlek-radius-lg);overflow:hidden;background:var(--evlek-surface);margin-bottom:8px;}.dv__attr{display:flex;gap:12px;align-items:center;font-size:var(--evlek-size-sm);color:var(--evlek-ink);}.dv__av{flex:0 0 auto;width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:var(--evlek-radius-full);background:var(--evlek-surface);color:var(--evlek-ink);font-weight:var(--evlek-w-semibold);}.dv__attr span{color:var(--evlek-ink-muted);}.dv__out{display:flex;width:100%;margin-top:12px;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 16px;border:1px solid var(--evlek-border);border-radius:var(--evlek-radius-md);background:transparent;color:var(--evlek-ink);font:inherit;font-size:var(--evlek-size-sm);font-weight:var(--evlek-w-semibold);cursor:pointer;}.dv__disc{margin:12px 0 0;font-size:var(--evlek-size-meta);color:var(--evlek-ink-muted);}.dv__bar{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:16px;padding:12px 16px;border-top:1px solid var(--evlek-border-soft);background:var(--evlek-bg);}.dv--bar .dv__bar{position:fixed;inset-inline:0;bottom:0;margin:0;padding-bottom:calc(12px + var(--evlek-safe-bottom));}.dv__bar .dv__bp{flex:1 1 120px;min-width:0;}.dv__bar b{display:block;font-size:var(--evlek-size-md);font-weight:700;color:var(--evlek-ink);font-variant-numeric:tabular-nums;}.dv__bar .dv__bp span{display:block;font-size:var(--evlek-size-meta);color:var(--evlek-ink-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}.dv__pri{flex:0 0 auto;margin-inline-start:auto;justify-content:center;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border:0;border-radius:var(--evlek-radius-md);background:var(--evlek-brand);color:var(--evlek-ink-inverse);font:inherit;font-size:var(--evlek-size-sm);font-weight:var(--evlek-w-semibold);cursor:pointer;}.dv__pri svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.9;}.dv__pri--plain{background:var(--evlek-bg-inverse);}.evlek-staging{padding:12px;}.evlek-staging__nav{display:flex;align-items:center;justify-content:space-between;font-size:var(--evlek-size-meta);color:var(--evlek-ink-muted);margin-bottom:8px;}.evlek-staging__actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:8px;}.evlek-staging__media{position:relative;width:100%;aspect-ratio:4 / 3;border-radius:var(--evlek-radius-lg);overflow:hidden;touch-action:none;cursor:ew-resize;}.evlek-staging__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}.evlek-staging__after{position:absolute;inset:0;}.evlek-staging__handle{position:absolute;top:0;bottom:0;width:2px;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.25);pointer-events:none;}.evlek-staging__media--hint .evlek-staging__handle,.evlek-staging__media--hint .evlek-staging__after{transition:left var(--evlek-motion),clip-path var(--evlek-motion);}.evlek-staging__grip{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:36px;height:36px;border-radius:var(--evlek-radius-full);background:#fff;box-shadow:var(--evlek-shadow-md);display:flex;align-items:center;justify-content:center;gap:4px;}.evlek-staging__grip span{width:2px;height:14px;background:var(--evlek-ink-faint);border-radius:var(--evlek-radius-full);}.evlek-staging__label{position:absolute;top:8px;font-size:var(--evlek-size-xs);font-weight:var(--evlek-w-semibold);padding:4px 8px;border-radius:var(--evlek-radius-full);background:color-mix(in srgb,var(--evlek-bg-inverse) 85%,transparent);color:var(--evlek-ink-inverse);}.evlek-staging__label--before{inset-inline-start:8px;}.evlek-staging__label--after{inset-inline-end:8px;}.evlek-staging__range{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0;}
+</style>
+</head>
+<body>
+<div id="evlek-root" aria-busy="true">
+  <div class="evlek-skel-d" aria-hidden="true">
+    <div class="evlek-skel evlek-skel-d__cover"></div>
+    <div class="evlek-skel" style="width:60%;height:18px;margin:4px 16px 0"></div>
+    <div class="evlek-skel" style="width:40%;height:24px;margin:0 16px"></div>
+    <div class="evlek-skel" style="width:70%;height:16px;margin:0 16px"></div>
+  </div>
+</div>
+<script>
+function createEl(t) { return document.createElement(t); }
+function getEl(id) { return document.getElementById(id); }
+function evlekImgFallback(img, onFail) {
+img.addEventListener('error', function () {
+if (img.parentNode) img.parentNode.removeChild(img);
+if (typeof onFail === 'function') onFail();
+}, { once: true });
+}
+function fullscreenSupported() {
+var hc = window.EvlekApp.getHostContext && window.EvlekApp.getHostContext();
+var modes = hc && hc.availableDisplayModes;
+return !!(modes && modes.indexOf('fullscreen') !== -1);
+}
+var EVLEK_SVG_NS = 'http://www.w3.org/2000/svg';
+var EVLEK_ICON_PATHS = {"chevronLeft":"M15 18l-6-6 6-6","chevronRight":"M9 18l6-6-6-6","expand":"M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3","check":"M20 6L9 17l-5-5","bed":"M3 19v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6M3 16h18M6 11V8a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v3","bath":"M4 12h16v2a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5v-2zM7 12V6a2 2 0 0 1 4 0M7 19l-1 2M17 19l1 2","area":"M4 4h16v16H4zM4 9h5M15 20v-5","floor":"M4 20h4v-4h4v-4h4V8h4","home":"M4 11l8-7 8 7v9H4zM10 20v-5h4v5","sofa":"M5 11V8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v3M3 17v-4a2 2 0 0 1 4 0v1h10v-1a2 2 0 0 1 4 0v4H3zM5 17v2M19 17v2","cal":"M4 5h16v15H4zM4 10h16M9 3v4M15 3v4","chat":"M20 12a8 8 0 0 1-11.8 7L4 20l1.1-4A8 8 0 1 1 20 12z","sliders":"M4 7h10M18 7h2M4 17h4M12 17h8M14 5v4M8 15v4","close":"M6 6l12 12M18 6L6 18"};
+function evlekIcon(name, size) {
+var svg = document.createElementNS(EVLEK_SVG_NS, 'svg');
+svg.setAttribute('viewBox', '0 0 24 24');
+svg.setAttribute('width', String(size || 20));
+svg.setAttribute('height', String(size || 20));
+svg.setAttribute('aria-hidden', 'true');
+svg.setAttribute('class', 'evlek-icon');
+var path = document.createElementNS(EVLEK_SVG_NS, 'path');
+path.setAttribute('d', EVLEK_ICON_PATHS[name] || '');
+svg.appendChild(path);
+return svg;
+}
+function evlekSkelBlock(width, height) {
+var el = document.createElement('div');
+el.className = 'evlek-skel';
+el.style.width = width;
+el.style.height = height;
+el.setAttribute('aria-hidden', 'true');
+return el;
+}
+function evlekChannelLuminance(c) {
+c = c / 255;
+return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+}
+function evlekParseColor(input) {
+if (!input || typeof input !== 'string') return null;
+var s = input.trim();
+var hexMatch = /^#([0-9a-f]{6})$/i.exec(s);
+if (hexMatch) {
+var h = hexMatch[1];
+return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
+}
+var rgbMatch = /^rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/i.exec(s);
+if (rgbMatch) return [Number(rgbMatch[1]), Number(rgbMatch[2]), Number(rgbMatch[3])];
+return null;
+}
+function evlekRelativeLuminance(rgb) {
+return 0.2126 * evlekChannelLuminance(rgb[0]) + 0.7152 * evlekChannelLuminance(rgb[1]) + 0.0722 * evlekChannelLuminance(rgb[2]);
+}
+function evlekContrastRatio(hex1, hex2) {
+var c1 = evlekParseColor(hex1), c2 = evlekParseColor(hex2);
+if (!c1 || !c2) return null;
+var l1 = evlekRelativeLuminance(c1), l2 = evlekRelativeLuminance(c2);
+var lighter = Math.max(l1, l2), darker = Math.min(l1, l2);
+return (lighter + 0.05) / (darker + 0.05);
+}
+function evlekPickAccent(bgColor) {
+var rgb = evlekParseColor(bgColor);
+var luminance = rgb ? evlekRelativeLuminance(rgb) : 1;
+return luminance < 0.18 ? '#E8836A' : '#B84E3B';
+}
+(function () {
+'use strict';
+var msgId = 0;
+var pending = Object.create(null);
+var toolResultHandlers = [];
+var toolInputHandlers = [];
+var hostContextHandlers = [];
+var teardownHandlers = [];
+
+function post(message) {
+if (window.parent === window) return;
+window.parent.postMessage(message, '*');
+}
+
+function notify(method, params) {
+post({ jsonrpc: '2.0', method: method, params: params || {} });
+}
+
+function request(method, params) {
+return new Promise(function (resolve, reject) {
+var id = ++msgId;
+var timeoutMs = method === 'ui/initialize' ? 10000 : method === 'ui/open-link' ? 120000 : 20000;
+var timer = setTimeout(function () {
+delete pending[id];
+reject(new Error('evlek-rpc-timeout: ' + method));
+}, timeoutMs);
+pending[id] = {
+resolve: function (value) { clearTimeout(timer); resolve(value); },
+reject: function (err) { clearTimeout(timer); reject(err); }
+};
+post({ jsonrpc: '2.0', id: id, method: method, params: params || {} });
+});
+}
+
+function applyHostTheme(hostContext) {
+var vars = hostContext && hostContext.styles && hostContext.styles.variables;
+if (vars) {
+var root = document.documentElement;
+for (var key in vars) {
+if (Object.prototype.hasOwnProperty.call(vars, key) && vars[key] != null) {
+root.style.setProperty(key, vars[key]);
+}
+}
+}
+if (typeof evlekPickAccent === 'function' && document.body) {
+var resolvedBg = getComputedStyle(document.body).backgroundColor;
+document.documentElement.style.setProperty('--evlek-accent', evlekPickAccent(resolvedBg));
+}
+if (hostContext && (hostContext.theme === 'light' || hostContext.theme === 'dark')) {
+document.documentElement.style.colorScheme = hostContext.theme;
+}
+var insets = hostContext && hostContext.safeAreaInsets;
+if (insets) {
+var rootStyle = document.documentElement.style;
+if (typeof insets.top === 'number') rootStyle.setProperty('--evlek-safe-top', insets.top + 'px');
+if (typeof insets.right === 'number') rootStyle.setProperty('--evlek-safe-right', insets.right + 'px');
+if (typeof insets.bottom === 'number') rootStyle.setProperty('--evlek-safe-bottom', insets.bottom + 'px');
+if (typeof insets.left === 'number') rootStyle.setProperty('--evlek-safe-left', insets.left + 'px');
+}
+if (typeof evlekSetLocale === 'function') {
+evlekSetLocale(hostContext && hostContext.locale);
+}
+}
+
+var lastReportedSize = null;
+var resizeTimer = null;
+function contentHeight() {
+var html = document.documentElement;
+var was = html.style.height;
+html.style.height = 'max-content';
+var h = Math.ceil(html.getBoundingClientRect().height);
+html.style.height = was;
+return h;
+}
+function reportSize() {
+var w = Math.ceil(document.documentElement.scrollWidth);
+var h = contentHeight();
+if (lastReportedSize && lastReportedSize.width === w && lastReportedSize.height === h) return;
+lastReportedSize = { width: w, height: h };
+notify('ui/notifications/size-changed', { width: w, height: h });
+}
+function scheduleSizeReport() {
+if (resizeTimer) clearTimeout(resizeTimer);
+resizeTimer = setTimeout(reportSize, 100);
+}
+if (typeof ResizeObserver !== 'undefined') {
+var sizeObserver = new ResizeObserver(scheduleSizeReport);
+sizeObserver.observe(document.documentElement);
+if (document.body) sizeObserver.observe(document.body);
+}
+
+var lastHostContext = null;
+
+var WIDGET_KEY = 'evlek/widget';
+var UI_KEY = 'evlek/ui';
+function widgetDataIn(meta, key) {
+key = key || WIDGET_KEY;
+if (!meta || typeof meta !== 'object') return null;
+var direct = meta[key];
+if (direct && typeof direct === 'object') return direct;
+var inner = meta.mcp_tool_result && meta.mcp_tool_result._meta;
+var nested = inner && typeof inner === 'object' ? inner[key] : null;
+return nested && typeof nested === 'object' ? nested : null;
+}
+function hostWidgetData(key) {
+var o = window.openai;
+return o && typeof o === 'object' ? widgetDataIn(o.toolResponseMetadata, key) : null;
+}
+function withWidgetData(result, useHostGlobals) {
+if (!result || typeof result !== 'object') return result;
+var data = widgetDataIn(result._meta) || (useHostGlobals ? hostWidgetData() : null);
+var ui = widgetDataIn(result._meta, UI_KEY) || (useHostGlobals ? hostWidgetData(UI_KEY) : null);
+if (!data && !ui) return result;
+var out = {};
+for (var key in result) if (Object.prototype.hasOwnProperty.call(result, key)) out[key] = result[key];
+if (data) out.structuredContent = data;
+if (ui) out.evlekUi = ui;
+return out;
+}
+function isSummaryOnly(sc) {
+if (!sc || typeof sc !== 'object') return false;
+if (Array.isArray(sc.refs) && !sc.listings) return true;
+if (Array.isArray(sc.results) && !sc.listings && Object.prototype.hasOwnProperty.call(sc, 'priceRange')) return true;
+return typeof sc.priceLabel === 'string' && !sc.photos && !sc.listing;
+}
+var waitingSummary = null;
+var waitingTimer = null;
+function dispatchToolResult(params) {
+for (var i = 0; i < toolResultHandlers.length; i++) toolResultHandlers[i](params);
+}
+function receiveToolResult(params) {
+var resolved = withWidgetData(params, true);
+if (resolved.structuredContent !== (params && params.structuredContent) || !isSummaryOnly(params && params.structuredContent)) {
+waitingSummary = null;
+if (waitingTimer) { clearTimeout(waitingTimer); waitingTimer = null; }
+dispatchToolResult(resolved);
+return;
+}
+waitingSummary = params;
+if (waitingTimer) clearTimeout(waitingTimer);
+waitingTimer = setTimeout(function () {
+waitingTimer = null;
+dispatchToolResult({ isError: true, content: [], structuredContent: { code: 'INTERNAL_ERROR' } });
+}, 4000);
+}
+window.addEventListener('openai:set_globals', function () {
+if (!waitingSummary) return;
+var resolved = withWidgetData(waitingSummary, true);
+if (resolved.structuredContent === waitingSummary.structuredContent) return;
+waitingSummary = null;
+if (waitingTimer) { clearTimeout(waitingTimer); waitingTimer = null; }
+dispatchToolResult(resolved);
+});
+
+function showHandshakeError() {
+if (document.getElementById('evlek-handshake-error')) return;
+var banner = createEl('div');
+banner.id = 'evlek-handshake-error';
+banner.className = 'evlek-handshake-error';
+var msg = createEl('p');
+msg.textContent = "Evlek couldn't load.";
+banner.appendChild(msg);
+var link = createEl('button');
+link.type = 'button';
+link.className = 'evlek-btn--primary';
+link.textContent = 'Open on Evlek';
+link.addEventListener('click', function () { window.EvlekApp.openLink('https://evlek.app'); });
+banner.appendChild(link);
+document.body.insertBefore(banner, document.body.firstChild);
+}
+
+function openaiFn(name) {
+var o = window.openai;
+return o && typeof o === 'object' && typeof o[name] === 'function' ? o : null;
+}
+function quiet(promise) { return promise.then(function (r) { return r == null ? {} : r; }, function () { return null; }); }
+function openLink(url) {
+var o = openaiFn('openExternal');
+if (o) {
+try { return quiet(Promise.resolve(o.openExternal({ href: url }))); } catch (e) {}
+}
+return request('ui/open-link', { url: url }).then(function (r) { return r == null ? {} : r; }, function (err) {
+if (err && err.code === -32601) {
+try { window.open(url, '_blank', 'noopener'); } catch (e) {}
+}
+return null;
+});
+}
+function requestDisplayMode(mode) {
+var o = openaiFn('requestDisplayMode');
+if (o) {
+try { return quiet(Promise.resolve(o.requestDisplayMode({ mode: mode }))); } catch (e) { return Promise.resolve(null); }
+}
+return quiet(request('ui/request-display-mode', { mode: mode }));
+}
+
+window.addEventListener('message', function (event) {
+if (event.source !== window.parent) return;
+var data = event.data;
+if (!data || data.jsonrpc !== '2.0') return;
+
+if (data.method === 'ui/notifications/tool-result') {
+receiveToolResult(data.params || {});
+return;
+}
+if (data.method === 'ui/notifications/tool-input') {
+for (var j = 0; j < toolInputHandlers.length; j++) toolInputHandlers[j](data.params || {});
+return;
+}
+if (data.method === 'ui/notifications/host-context-changed') {
+var hc = (data.params && data.params.hostContext) || null;
+lastHostContext = hc;
+applyHostTheme(hc);
+for (var h = 0; h < hostContextHandlers.length; h++) hostContextHandlers[h](hc);
+return;
+}
+if (data.method === 'ui/resource-teardown') {
+for (var k = 0; k < teardownHandlers.length; k++) teardownHandlers[k]();
+return;
+}
+if (typeof data.id !== 'undefined' && pending[data.id]) {
+var entry = pending[data.id];
+delete pending[data.id];
+if (data.error) entry.reject(data.error);
+else entry.resolve(data.result);
+}
+});
+
+document.addEventListener('keydown', function (ev) {
+if (ev.key === 'Escape' && lastHostContext && lastHostContext.displayMode === 'fullscreen') {
+window.EvlekApp.requestDisplayMode('inline');
+}
+});
+
+function init() {
+if (window.parent === window) return;
+request('ui/initialize', {
+appInfo: { name: 'evlek-widget', version: '2.0.0' },
+appCapabilities: { availableDisplayModes: ['inline', 'fullscreen'] },
+protocolVersion: '2026-01-26'
+})
+.then(function (result) {
+lastHostContext = (result && result.hostContext) || null;
+applyHostTheme(lastHostContext);
+for (var i2 = 0; i2 < hostContextHandlers.length; i2++) hostContextHandlers[i2](lastHostContext);
+notify('ui/notifications/initialized', {});
+})
+.catch(showHandshakeError);
+}
+
+window.EvlekApp = {
+onToolResult: function (fn) { toolResultHandlers.push(fn); },
+onToolInput: function (fn) { toolInputHandlers.push(fn); },
+onHostContext: function (fn) { hostContextHandlers.push(fn); },
+getHostContext: function () { return lastHostContext; },
+onTeardown: function (fn) { teardownHandlers.push(fn); },
+callTool: function (name, args) { return request('tools/call', { name: name, arguments: args || {} }).then(function (r) { return withWidgetData(r, false); }); },
+openLink: openLink,
+requestDisplayMode: requestDisplayMode,
+updateModelContext: function (context) { return quiet(request('ui/update-model-context', context || {})); },
+notifySizeChanged: function (width, height) { notify('ui/notifications/size-changed', { width: width, height: height }); },
+sendMessage: function (text) {
+return request('ui/message', { role: 'user', content: [{ type: 'text', text: text }] });
+}
+};
+
+init();
+})();
+var EVLEK_LOCALE_ORDER = ["tr","en","ru","de","ar"];
+var EVLEK_STRINGS = {"notFound":["Bu ilan artık mevcut değil.","This listing is no longer available.","Это объявление больше недоступно.","Dieses Inserat ist nicht mehr verfügbar.","هذا الإعلان لم يعد متاحًا."],"couldNotLoad":["Şu an yüklenemedi.","Couldn't load right now.","Не удалось загрузить.","Konnte gerade nicht geladen werden.","تعذر التحميل الآن."],"photosCount":["Fotoğraflar ({n})","Photos ({n})","Фото ({n})","Fotos ({n})","الصور ({n})"],"linkLanguageNote":["bağlantı {lang} sayfayı açar","the link opens the {lang} page","ссылка открывает страницу {lang}","der Link öffnet die Seite {lang}","الرابط يفتح الصفحة {lang}"],"furnishedYes":["eşyalı","furnished","с мебелью","möbliert","مفروش"],"furnishedNo":["eşyasız","unfurnished","без мебели","unmöbliert","غير مفروش"],"moreText":["Devamı","More","Ещё","Mehr","المزيد"],"prevPhoto":["Önceki fotoğraf","Previous photo","Предыдущее фото","Vorheriges Foto","الصورة السابقة"],"nextPhoto":["Sonraki fotoğraf","Next photo","Следующее фото","Nächstes Foto","الصورة التالية"],"fieldRooms":["Oda düzeni","Room layout","Планировка","Zimmeraufteilung","توزيع الغرف"],"fieldBathrooms":["Banyo","Bathrooms","Ванные","Bäder","الحمامات"],"fieldBuiltArea":["Kapalı alan","Indoor area","Жилая площадь","Wohnfläche","المساحة الداخلية"],"fieldPlotArea":["Arsa alanı","Plot area","Площадь участка","Grundstücksfläche","مساحة الأرض"],"fieldFurnishing":["Eşya durumu","Furnishing","Мебель","Möblierung","الأثاث"],"fieldFeatures":["Özellikler","Features","Особенности","Ausstattung","المميزات"],"fieldDescription":["Açıklama","Description","Описание","Beschreibung","الوصف"],"fieldListed":["Yayın tarihi","Listed","Опубликовано","Eingestellt","تاريخ النشر"],"fieldLocation":["Konum","Location","Расположение","Lage","الموقع"],"gross":["brüt","gross","брутто","brutto","إجمالي"],"grossAreaField":["Brüt alan","Gross area","Площадь брутто","Bruttofläche","المساحة الإجمالية"],"bedShort":["{n} yatak","{n} bed","{n} спал.","{n} SZ","{n} غرف"],"statusSale":["Satılık","For sale","Продажа","Zu verkaufen","للبيع"],"statusRent":["Kiralık","For rent","Аренда","Zu vermieten","للإيجار"],"listedOn":["Eklendi: {date}","Added {date}","Добавлено: {date}","Eingestellt: {date}","أُضيف: {date}"],"keyFacts":["Temel bilgiler","Key facts","Основное","Eckdaten","معلومات أساسية"],"fieldType":["Tür","Type","Тип","Art","النوع"],"askAgent":["Emlakçıya sor","Ask the agent","Спросить агента","Makler fragen","اسأل الوسيط"],"allDetails":["Evlek'te tüm ayrıntılar","All details on Evlek","Все подробности на Evlek","Alle Details auf Evlek","كل التفاصيل على Evlek"],"locArea":["konum semt düzeyinde, tam adres emlakçıda","location at neighbourhood level, the exact address is with the agent","местоположение на уровне района, точный адрес у агента","Lage auf Ortsebene, die genaue Adresse kennt der Makler","الموقع على مستوى الحي، والعنوان الدقيق لدى الوسيط"],"locApprox":["yaklaşık konum","approximate location","примерное местоположение","ungefähre Lage","موقع تقريبي"],"listingDisclaimer":["İlan bilgileri ofis tarafından verilmiştir. Fiyat istenen fiyattır; değerleme değildir.","The listing details come from the office. The price is the asking price, not a valuation.","Данные объявления предоставлены агентством. Цена — запрашиваемая, это не оценка.","Die Angaben stammen vom Büro. Der Preis ist der Angebotspreis, keine Bewertung.","بيانات الإعلان مقدَّمة من المكتب. السعر هو السعر المطلوب وليس تقييمًا."],"backToResults":["Sonuçlara dön","Back to results","Назад к результатам","Zurück zu den Ergebnissen","العودة إلى النتائج"],"morePhotos":["+{n}","+{n}","+{n}","+{n}","+{n}"],"moreFeatures":["+{n}","+{n}","+{n}","+{n}","+{n}"],"fieldPricePerSqm":["m² başına fiyat","Price per m²","Цена за м²","Preis pro m²","السعر لكل م²"],"virtualStagingAction":["Sanal dekorasyon","Virtual staging","Виртуальная меблировка","Virtuelle Einrichtung","التأثيث الافتراضي"],"approxGbp":["≈ {v} (yaklaşık)","≈ {v} (approx.)","≈ {v} (примерно)","≈ {v} (ungefähr)","≈ {v} (تقريبًا)"],"net":["net","net","нетто","netto","صافي"],"netAreaField":["Net alan","Net area","Площадь нетто","Nettofläche","المساحة الصافية"],"beforeLabel":["Önce","Before","До","Vorher","قبل"],"stagingBeforeAlt":["Orijinal fotoğraf, yapay zekâ ile sanal dekorasyondan önce","Original photo, before AI virtual staging","Исходное фото до виртуального дизайна с ИИ","Originalfoto vor der virtuellen Einrichtung mit KI","الصورة الأصلية قبل التنسيق الافتراضي بالذكاء الاصطناعي"],"stagingAfterAlt":["Aynı fotoğrafın yapay zekâ ile sanal dekore edilmiş hâli","AI virtually staged version of the same photo","То же фото после виртуального дизайна с ИИ","Dasselbe Foto, virtuell mit KI eingerichtet","نسخة من الصورة نفسها بعد التنسيق الافتراضي بالذكاء الاصطناعي"],"stagingSlider":["Önce ve sonra karşılaştırma kaydırıcısı (yapay zekâ ile sanal dekorasyon)","Before and after AI virtual staging comparison slider","Ползунок сравнения до и после виртуального дизайна с ИИ","Vorher-Nachher-Regler der virtuellen Einrichtung mit KI","شريط مقارنة قبل وبعد التنسيق الافتراضي بالذكاء الاصطناعي"],"viewOriginalAria":["Orijinal, düzenlenmemiş fotoğrafı Evlek'te tam boyutta aç","Open the original, unedited photo at full size on Evlek","Открыть исходное, неизменённое фото в полном размере на Evlek","Das unbearbeitete Originalfoto in voller Größe auf Evlek öffnen","افتح الصورة الأصلية غير المعدلة بالحجم الكامل على Evlek"],"aiStagedLabel":["AI dekorasyonu","AI staged","Дизайн ИИ","KI-Einrichtung","تنسيق الذكاء الاصطناعي"],"viewOriginalPhoto":["Orijinal fotoğrafı gör","View original photo","Показать оригинал фото","Originalfoto ansehen","عرض الصورة الأصلية"],"areaBuilt":["{a} kapalı alan","{a} built","площадь {a}","{a} Wohnfläche","المساحة المبنية {a}"],"areaPlot":["{a} arsa","{a} plot","участок {a}","{a} Grundstück","مساحة الأرض {a}"],"areaUnverified":["alan doğrulanmamış","area unverified","площадь не подтверждена","Fläche ungeprüft","المساحة غير مؤكدة"],"perMonth":["/ ay","/ month","/ мес.","/ Monat","شهريًا"],"propertyWord":["mülk","property","объект","Immobilie","عقار"],"openOnEvlek":["Evlek'te aç","Open on Evlek","Открыть на Evlek","Auf Evlek öffnen","افتح على Evlek"],"tryAgain":["Tekrar dene","Try again","Повторить","Erneut versuchen","أعد المحاولة"],"retryMessage":["Lütfen önceki isteği tekrar dene.","Please try the previous request again.","Пожалуйста, повторите предыдущий запрос.","Bitte versuche die vorherige Anfrage erneut.","يرجى إعادة محاولة الطلب السابق."]};
+var EVLEK_DISCLOSURE_TRANSLATIONS = {"Virtually staged with AI. This image was digitally generated. View the original photo to verify the physical condition of the space.":["Yapay zekâ ile sanal olarak düzenlenmiştir. Bu görüntü dijital olarak oluşturulmuştur. Mekânın fiziksel durumunu doğrulamak için orijinal fotoğrafı görüntüleyin.","Virtually staged with AI. This image was digitally generated. View the original photo to verify the physical condition of the space.","Виртуально оформлено с помощью ИИ. Это изображение создано в цифровом виде. Просмотрите исходную фотографию, чтобы проверить физическое состояние помещения.","Mit KI virtuell eingerichtet. Dieses Bild wurde digital erstellt. Sehen Sie das Originalfoto an, um den physischen Zustand des Raums zu prüfen.","تم تنسيق الصورة افتراضياً بالذكاء الاصطناعي. أُنشئت هذه الصورة رقمياً. اعرض الصورة الأصلية للتحقق من الحالة الفعلية للمكان."],"Virtually staged with AI. Furniture and decorative elements are digitally generated.":["AI ile sanal olarak döşenmiştir. Mobilya ve dekoratif öğeler dijital olarak oluşturulmuştur.","Virtually staged with AI. Furniture and decorative elements are digitally generated.","Виртуально меблировано с помощью ИИ. Мебель и элементы декора созданы цифровым способом.","Virtuell mit KI eingerichtet. Möbel und Dekorationselemente sind digital generiert.","تم التأثيث الافتراضي بالذكاء الاصطناعي. الأثاث والعناصر الزخرفية تم إنشاؤها رقميًا."]};
+var evlekCurrentLocale = 'en';
+function evlekRooms(t) { return evlekCurrentLocale === 'ar' && t ? t.replace(/\d+(?:\+\d*)+|[≤≥] \S+/g, '\u2066$&\u2069') : t; }
+var evlekLocaleOverride = null;
+function evlekResolveLocale(bcp47) {
+  if (!bcp47 || typeof bcp47 !== 'string') return 'en';
+  var base = bcp47.split('-')[0].toLowerCase();
+  return EVLEK_LOCALE_ORDER.indexOf(base) !== -1 ? base : 'en';
+}
+function evlekApplyLocale(code) {
+  evlekCurrentLocale = code;
+  document.documentElement.lang = code;
+  document.documentElement.dir = code === 'ar' ? 'rtl' : 'ltr';
+}
+function evlekSetLocale(bcp47) {
+  evlekApplyLocale(evlekLocaleOverride || evlekResolveLocale(bcp47));
+}
+function evlekUseContentLocale(code) {
+  if (typeof code === 'string' && EVLEK_LOCALE_ORDER.indexOf(code) !== -1) {
+    evlekLocaleOverride = code;
+    evlekApplyLocale(code);
+  }
+}
+function evlekT(key, vars) {
+  var row = EVLEK_STRINGS[key];
+  var idx = EVLEK_LOCALE_ORDER.indexOf(evlekCurrentLocale);
+  var text = row ? (row[idx] || row[1] || key) : key;
+  // PR-J / 4.6 — real singular/plural branching via {plural:one|other},
+  // resolved from vars.n, instead of a hardcoded "(s)"/"(n)" hack that
+  // reads wrong for both n=1 and n=6+.
+  if (vars && typeof vars.n === 'number') {
+    var isOne = vars.n === 1;
+    text = text.replace(/\{plural:([^|}]*)\|([^}]*)\}/g, function (m, one, other) {
+      return isOne ? one : other;
+    });
+  }
+  if (vars) {
+    for (var k in vars) {
+      if (Object.prototype.hasOwnProperty.call(vars, k)) {
+        var value = vars[k];
+        var replacement = typeof value === 'number' && typeof evlekFmtNum === 'function' ? evlekFmtNum(value, value % 1 === 0 ? 0 : 1) : String(value);
+        text = text.replace('{' + k + '}', function () { return replacement; });
+      }
+    }
+  }
+  return text;
+}
+function evlekTranslateDisclosure(serverText) {
+  var row = serverText && EVLEK_DISCLOSURE_TRANSLATIONS[serverText];
+  if (!row) return serverText;
+  var idx = EVLEK_LOCALE_ORDER.indexOf(evlekCurrentLocale);
+  return (row[idx]) || serverText;
+}
+var EVLEK_INTL = {"tr":"tr-TR","en":"en-GB","ru":"ru-RU","de":"de-DE","ar":"ar-EG-u-nu-latn"};
+var EVLEK_AREA_UNIT = {"tr":"m²","en":"m²","ru":"м²","de":"m²","ar":"م²"};
+var EVLEK_STUDIO = {"tr":"Stüdyo","en":"Studio","ru":"Студия","de":"Studio","ar":"استوديو"};
+var EVLEK_PLURALS = {"bedrooms":{"tr":{"other":"{n} yatak odası"},"en":{"one":"{n} bedroom","other":"{n} bedrooms"},"ru":{"one":"{n} спальня","few":"{n} спальни","many":"{n} спален"},"de":{"other":"{n} Schlafzimmer"},"ar":{"one":"غرفة نوم واحدة","two":"غرفتا نوم","few":"{n} غرف نوم","many":"{n} غرفة نوم"}},"bathrooms":{"tr":{"other":"{n} banyo"},"en":{"one":"{n} bath","other":"{n} baths"},"ru":{"one":"{n} санузел","few":"{n} санузла","many":"{n} санузлов"},"de":{"other":"{n} Badezimmer"},"ar":{"one":"حمام واحد","two":"حمامان","few":"{n} حمامات","many":"{n} حمامًا"}}};
+var EVLEK_LANG_NAMES = {"tr":{"tr":"Türkçe","en":"İngilizce","ru":"Rusça","de":"Almanca","ar":"Arapça"},"en":{"tr":"Turkish","en":"English","ru":"Russian","de":"German","ar":"Arabic"},"ru":{"tr":"на турецком","en":"на английском","ru":"на русском","de":"на немецком","ar":"на арабском"},"de":{"tr":"auf Türkisch","en":"auf Englisch","ru":"auf Russisch","de":"auf Deutsch","ar":"auf Arabisch"},"ar":{"tr":"باللغة التركية","en":"باللغة الإنجليزية","ru":"باللغة الروسية","de":"باللغة الألمانية","ar":"باللغة العربية"}};
+var EVLEK_APPROX = [{"min":1000000,"step":10000},{"min":10000,"step":1000},{"min":0,"step":10}];
+function evlekApprox(n) {
+var band = EVLEK_APPROX.filter(function (b) { return Math.abs(n) >= b.min; })[0] || EVLEK_APPROX[EVLEK_APPROX.length - 1];
+return Math.round(n / band.step) * band.step;
+}
+var EVLEK_CURRENCY_SYMBOLS = { GBP: '\u00a3', EUR: '\u20ac', USD: '$', TRY: '\u20ba' };
+function evlekIntl() { return EVLEK_INTL[evlekCurrentLocale] || EVLEK_INTL.en; }
+function evlekIsNum(n) { return typeof n === 'number' && isFinite(n); }
+function evlekFmtNum(n, maxFrac) {
+if (!evlekIsNum(n)) return '';
+try {
+return new Intl.NumberFormat(evlekIntl(), { maximumFractionDigits: maxFrac || 0 }).format(n).replace(/[\u00a0\u202f]/g, ' ');
+} catch (e) {
+return String(Math.round(n));
+}
+}
+function evlekFmtDate(iso) {
+if (!iso) return '';
+var d = new Date(iso);
+if (isNaN(d.getTime())) return String(iso);
+try {
+return new Intl.DateTimeFormat(evlekIntl(), { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'Europe/Nicosia' }).format(d);
+} catch (e) {
+return String(iso);
+}
+}
+function evlekFmtMoney(amount, currency) {
+if (!evlekIsNum(amount)) return '';
+var symbol = EVLEK_CURRENCY_SYMBOLS[currency] || (currency ? currency + ' ' : '\u00a3');
+return symbol + evlekFmtNum(amount, 0);
+}
+function evlekFmtPrice(amount, currency, rent) {
+var text = evlekFmtMoney(amount, currency);
+return text && rent ? text + ' ' + evlekT('perMonth') : text;
+}
+function evlekCount(key, n) {
+var table = EVLEK_PLURALS[key];
+var forms = (table && (table[evlekCurrentLocale] || table.en)) || {};
+var form;
+try { form = new Intl.PluralRules(evlekIntl()).select(n); } catch (e) { form = n === 1 ? 'one' : 'other'; }
+var text = forms[form] || forms.other || forms.many || forms.one || '';
+return text.replace('{n}', evlekFmtNum(n, 0));
+}
+function evlekPlaceText(l) {
+return [l && l.district, l && (l.cityLabel || l.city)].filter(Boolean).join(', ');
+}
+function evlekCanonicalUrl(u) {
+return typeof u === 'string' && /^https:\/\/[^\s]+$/i.test(u) ? u : null;
+}
+function evlekOpenCanonical(u) {
+var url = evlekCanonicalUrl(u);
+if (url) window.EvlekApp.openLink(url);
+}
+function evlekRenderStatus(mount, opts) {
+while (mount.firstChild) mount.removeChild(mount.firstChild);
+var wrap = createEl('div');
+wrap.className = 'evlek-empty';
+var msg = createEl('p');
+msg.textContent = opts.message;
+wrap.appendChild(msg);
+if (opts.extra) {
+var extra = createEl('p');
+extra.className = 'evlek-empty__extra';
+extra.textContent = opts.extra;
+wrap.appendChild(extra);
+}
+if (opts.retry) {
+var retryBtn = createEl('button');
+retryBtn.type = 'button';
+retryBtn.className = 'evlek-btn--primary';
+retryBtn.textContent = evlekT('tryAgain');
+retryBtn.addEventListener('click', function () {
+if (opts.retry === 'agent') {
+if (window.EvlekApp.sendMessage) window.EvlekApp.sendMessage(evlekT('retryMessage'));
+} else {
+opts.retry();
+}
+});
+wrap.appendChild(retryBtn);
+}
+if (opts.open) {
+var openBtn = createEl('button');
+openBtn.type = 'button';
+openBtn.className = 'evlek-link-btn';
+openBtn.textContent = evlekT('openOnEvlek');
+openBtn.addEventListener('click', function () { window.EvlekApp.openLink('https://evlek.app'); });
+wrap.appendChild(openBtn);
+}
+mount.appendChild(wrap);
+}
+function evlekIsErrorResult(params, sc) {
+if (params && params.isError === true) return true;
+var code = sc && sc.code;
+return code === 'INTERNAL_ERROR' || code === 'SEARCH_BACKEND_UNAVAILABLE' || code === 'INVALID_PARAMS' || code === 'INVALID_PARAMS_SHAPE';
+}
+var EVLEK_CITY_NAMES = {"Lefkoşa":{"tr":"Lefkoşa","en":"Nicosia","ru":"Никосия","de":"Nikosia","ar":"نيقوسيا"},"Girne":{"tr":"Girne","en":"Kyrenia","ru":"Кирения","de":"Kyrenia","ar":"كيرينيا"},"Gazimağusa":{"tr":"Gazimağusa","en":"Famagusta","ru":"Фамагуста","de":"Famagusta","ar":"فاماغوستا"},"İskele":{"tr":"İskele","en":"Iskele","ru":"Искеле","de":"Iskele","ar":"إسكله"},"Güzelyurt":{"tr":"Güzelyurt","en":"Güzelyurt","ru":"Гюзельюрт","de":"Güzelyurt","ar":"غوزيليورت"},"Lefke":{"tr":"Lefke","en":"Lefke","ru":"Лефке","de":"Lefke","ar":"لفكه"}};
+function evlekCityName(l) {
+var names = l && l.city ? EVLEK_CITY_NAMES[l.city] : null;
+if (names) return names[evlekCurrentLocale] || names.en;
+return (l && (l.cityLabel || l.city)) || '';
+}
+function evlekLocalPlaceText(l) {
+var city = evlekCityName(l);
+var district = l && typeof l.district === 'string' ? l.district.trim() : '';
+var names = l && l.city ? EVLEK_CITY_NAMES[l.city] : null;
+var key = function (v) { return String(v || '').toLocaleLowerCase('tr'); };
+var same = !!district && [city, l && l.city].concat(names ? [names.tr, names.en, names.ru, names.de, names.ar] : []).some(function (n) { return n && key(n) === key(district); });
+var parts = [];
+if (district && !same) parts.push(district);
+if (city) parts.push(city);
+return parts.join(evlekCurrentLocale === 'ar' ? '، ' : ', ');
+}
+function buildStagingSlider() {
+var media = createEl('div');
+media.className = 'evlek-staging__media';
+
+var beforeImg = createEl('img');
+beforeImg.loading = 'lazy';
+beforeImg.setAttribute('decoding', 'async');
+beforeImg.width = 800;
+beforeImg.height = 600;
+beforeImg.alt = evlekT('stagingBeforeAlt');
+var afterWrap = createEl('div');
+afterWrap.className = 'evlek-staging__after';
+var afterImg = createEl('img');
+afterImg.loading = 'lazy';
+afterImg.setAttribute('decoding', 'async');
+afterImg.width = 800;
+afterImg.height = 600;
+afterImg.alt = evlekT('stagingAfterAlt');
+afterWrap.appendChild(afterImg);
+
+var handle = createEl('div');
+handle.className = 'evlek-staging__handle';
+
+var grip = createEl('div');
+grip.className = 'evlek-staging__grip';
+grip.appendChild(createEl('span'));
+grip.appendChild(createEl('span'));
+handle.appendChild(grip);
+
+var beforeLabel = createEl('span');
+beforeLabel.className = 'evlek-staging__label evlek-staging__label--before';
+beforeLabel.textContent = evlekT('beforeLabel');
+var afterLabel = createEl('span');
+afterLabel.className = 'evlek-staging__label evlek-staging__label--after';
+afterLabel.textContent = evlekT('aiStagedLabel');
+
+var range = createEl('input');
+range.type = 'range';
+range.min = '4';
+range.max = '96';
+range.value = '50';
+range.className = 'evlek-staging__range';
+range.setAttribute('aria-label', evlekT('stagingSlider'));
+
+media.appendChild(beforeImg);
+media.appendChild(afterWrap);
+media.appendChild(handle);
+media.appendChild(beforeLabel);
+media.appendChild(afterLabel);
+media.appendChild(range);
+
+function setSplit(pct) {
+var clamped = Math.max(4, Math.min(96, pct));
+afterWrap.style.clipPath = 'inset(0 0 0 ' + clamped + '%)';
+handle.style.left = clamped + '%';
+range.value = String(clamped);
+}
+
+function splitFromClientX(clientX) {
+var rect = media.getBoundingClientRect();
+return ((clientX - rect.left) / rect.width) * 100;
+}
+
+media.addEventListener('pointerdown', function (ev) {
+setSplit(splitFromClientX(ev.clientX));
+media.setPointerCapture(ev.pointerId);
+});
+media.addEventListener('pointermove', function (ev) {
+if ((ev.buttons & 1) !== 1) return;
+setSplit(splitFromClientX(ev.clientX));
+});
+range.addEventListener('input', function () { setSplit(Number(range.value)); });
+
+setSplit(50);
+
+media.classList.add('evlek-staging__media--hint');
+setTimeout(function () { setSplit(32); }, 200);
+setTimeout(function () { setSplit(50); }, 550);
+setTimeout(function () { media.classList.remove('evlek-staging__media--hint'); }, 750);
+
+return { root: media, beforeImg: beforeImg, afterImg: afterImg, range: range };
+}
+
+function evlekBuildStaging(items, disclosureText) {
+var box = createEl('div');
+box.className = 'evlek-staging';
+var index = 0;
+var label = createEl('span');
+var slider = buildStagingSlider();
+function show() {
+var item = items[index];
+slider.beforeImg.src = item.beforeUrl;
+slider.afterImg.src = item.afterUrl;
+label.textContent = (index + 1) + ' / ' + items.length + (item.styleLabel ? ' \u00b7 ' + item.styleLabel : '');
+}
+function stepper(icon, delta, label) {
+var b = createEl('button');
+b.type = 'button';
+b.className = 'evlek-btn--icon';
+b.setAttribute('aria-label', evlekT(label));
+b.appendChild(evlekIcon(icon));
+b.addEventListener('click', function () { index = (index + delta + items.length) % items.length; show(); });
+return b;
+}
+if (items.length > 1) {
+var nav = createEl('div');
+nav.className = 'evlek-staging__nav';
+nav.appendChild(stepper('chevronLeft', -1, 'prevPhoto'));
+nav.appendChild(label);
+nav.appendChild(stepper('chevronRight', 1, 'nextPhoto'));
+box.appendChild(nav);
+}
+box.appendChild(slider.root);
+var disclosure = createEl('p');
+disclosure.className = 'evlek-disclosure';
+disclosure.id = 'evlek-staging-disclosure';
+disclosure.textContent = disclosureText;
+box.appendChild(disclosure);
+slider.range.setAttribute('aria-describedby', 'evlek-staging-disclosure');
+var actions = createEl('div');
+actions.className = 'evlek-staging__actions';
+var original = createEl('button');
+original.type = 'button';
+original.className = 'evlek-link-btn';
+original.textContent = evlekT('viewOriginalPhoto');
+original.setAttribute('aria-label', evlekT('viewOriginalAria'));
+original.addEventListener('click', function () { window.EvlekApp.openLink(slider.beforeImg.src); });
+actions.appendChild(original);
+box.appendChild(actions);
+show();
+return box;
+}
+
+function dvEl(tag,cls,text){var n=createEl(tag);if(cls)n.className=cls;if(text!=null)n.textContent=text;return n;}
+function dvClear(n){while(n.firstChild)n.removeChild(n.firstChild);}
+function dvIcon(name){return evlekIcon(name,20);}
+function evlekDvNormalize(sc){
+var d={},key;
+var card=sc&&sc.listing&&typeof sc.listing==='object'?sc.listing:null;
+if(card)for(key in card)d[key]=card[key];
+for(key in sc)if(key!=='listing')d[key]=sc[key];
+if(d.price&&typeof d.price==='object'){
+if(d.currency==null)d.currency=d.price.currency;
+if(d.priceGbp==null)d.priceGbp=d.price.gbp;
+if(d.pricePerSqmGbp==null)d.pricePerSqmGbp=d.price.perSqmGbp;
+d.price=d.price.amount;
+}
+if(d.rooms&&typeof d.rooms==='object'){
+if(d.isStudio==null)d.isStudio=d.rooms.isStudio;
+if(d.roomLabel==null)d.roomLabel=d.rooms.label;
+if(d.bedrooms==null)d.bedrooms=d.rooms.bedrooms;
+}
+if(d.location&&typeof d.location==='object'){
+if(d.cityLabel==null)d.cityLabel=d.location.cityLabel;
+if(d.city==null)d.city=d.location.city;
+if(d.district==null)d.district=d.location.district;
+if(d.locationPrecision==null)d.locationPrecision=d.location.precision;
+if(d.approx==null&&d.location.approx)d.approx=d.location.approx;
+}
+if(d.area&&typeof d.area==='object'){
+if(d.areaSqm==null)d.areaSqm=d.area.closedM2;
+if(d.areaBasis==null)d.areaBasis=d.area.basis;
+if(d.plotM2==null)d.plotM2=d.area.plotM2;
+if(d.areaSuspect==null)d.areaSuspect=d.area.suspect;
+}
+if(d.officeName==null&&d.office&&typeof d.office==='object')d.officeName=d.office.name;
+if(d.listedAt==null&&d.dates&&typeof d.dates==='object')d.listedAt=d.dates.listedAt;
+if(!d.photos&&Array.isArray(sc.photoUrls))d.photos=sc.photoUrls.map(function(u){return{url:u,caption:null};});
+if(!Array.isArray(d.photos))d.photos=[];
+if(!d.photos.length&&d.coverImageUrl)d.photos=[{url:d.coverImageUrl,caption:null}];
+if(!Array.isArray(d.features))d.features=[];
+return d;
+}
+var DV_TYPE_FIRST={ru:true,ar:true};
+function dvRent(d){return d.transaction==='rent'||d.rentPeriod==='month';}
+function dvUnit(){return EVLEK_AREA_UNIT[evlekCurrentLocale]||EVLEK_AREA_UNIT.en;}
+function dvType(d){return d.isStudio?(EVLEK_STUDIO[evlekCurrentLocale]||EVLEK_STUDIO.en):(d.propertyTypeLabel||evlekT('propertyWord'));}
+function dvHead(d){
+var type=dvType(d);
+if(d.isStudio||!d.roomLabel)return type;
+return DV_TYPE_FIRST[evlekCurrentLocale]?type+' '+evlekRooms(d.roomLabel):evlekRooms(d.roomLabel)+' '+type;
+}
+function dvSpot(d){return(typeof d.district==='string'&&d.district.trim())||evlekCityName(d);}
+function dvPrice(d){return evlekFmtPrice(d.price!=null?d.price:d.priceGbp,d.currency||'GBP',dvRent(d));}
+function dvApprox(d){return d.currency&&d.currency!=='GBP'&&evlekIsNum(d.priceGbp)?evlekT('approxGbp',{v:evlekFmtMoney(evlekApprox(d.priceGbp),'GBP')}):'';}
+function dvCap(t){if(!t)return t;var f=t.charAt(0),u;try{u=f.toLocaleUpperCase(evlekCurrentLocale);}catch(e){u=f.toUpperCase();}return u+t.slice(1);}
+function dvArea(d){
+if(!d.areaSuspect&&evlekIsNum(d.areaSqm)&&d.areaSqm>0)return evlekFmtNum(d.areaSqm,1)+' '+dvUnit();
+if(evlekIsNum(d.plotM2)&&d.plotM2>0)return evlekFmtNum(d.plotM2,1)+' '+dvUnit();
+return '';
+}
+function dvBuilt(d){return!d.areaSuspect&&evlekIsNum(d.areaSqm)&&d.areaSqm>0;}
+function dvBasisWord(d){return dvBuilt(d)&&(d.areaBasis==='gross'||d.areaBasis==='net')?evlekT(d.areaBasis):'';}
+function dvPlot(d){return evlekIsNum(d.plotM2)&&d.plotM2>0?evlekFmtNum(d.plotM2,1)+' '+dvUnit():'';}
+function dvPerSqm(d){
+if(d.areaSuspect||d.areaBasis!=='net'||!evlekIsNum(d.pricePerSqmGbp)||dvRent(d)||!(evlekIsNum(d.areaSqm)&&d.areaSqm>0))return '';
+return evlekFmtMoney(d.pricePerSqmGbp,'GBP')+'/'+dvUnit();
+}
+function dvSentence(label){
+if(!label||evlekCurrentLocale==='de')return label;
+return label.split(' ').map(function(w,i){
+if(i===0||/\p{Lu}[^\s]*\p{Lu}/u.test(w))return w;
+try{return w.toLocaleLowerCase(evlekCurrentLocale);}catch(e){return w.toLowerCase();}
+}).join(' ');
+}
+function dvFeatures(d){
+var matched=Array.isArray(d.matchedFeatures)?d.matchedFeatures:[];
+var list=d.features.filter(function(f){return f&&(typeof f==='string'||f.label);});
+list.sort(function(a,b){var ia=matched.indexOf(a.key),ib=matched.indexOf(b.key);return(ia===-1?99:ia)-(ib===-1?99:ib);});
+return list.map(function(f){return dvSentence(typeof f==='string'?f:f.label);});
+}
+function dvStaging(d){
+var vs=d.virtualStaging,items=(vs&&vs.items)||[];
+var disclosure=(vs&&vs.disclosureLocalized)||evlekTranslateDisclosure((vs&&vs.disclosure)||'');
+return vs&&vs.available&&items.length&&disclosure?{items:items,disclosure:disclosure}:null;
+}
+function dvRef(d){return d.listingRef||(d.listingNumber?'EVL-'+d.listingNumber:'');}
+function dvTotal(d){return typeof d.photoCount==='number'&&d.photoCount>d.photos.length?d.photoCount:d.photos.length;}
+function dvAlt(d,p,i){return(p&&(p.alt||p.caption))||([dvHead(d),dvSpot(d)].filter(Boolean).join(', ')+' \u2014 '+(i+1)+'/'+dvTotal(d));}
+function dvFactsLine(d,wrap){
+var parts=[];
+if(d.roomLabel&&!d.isStudio)parts.push([evlekRooms(d.roomLabel),'']);
+else if(d.isStudio)parts.push([dvType(d),'']);
+if(evlekIsNum(d.bathrooms)&&d.bathrooms>0)parts.push(['',evlekCount('bathrooms',d.bathrooms)]);
+var area=dvArea(d);
+if(area)parts.push([area,dvBasisWord(d)?' '+dvBasisWord(d):'']);
+parts.forEach(function(p,i){
+if(i)wrap.appendChild(document.createTextNode(' \u00b7 '));
+if(p[0])wrap.appendChild(dvEl('b',null,p[0]));
+if(p[1]){
+var m=/^(\S+)(.*)$/.exec(p[1]);
+if(!p[0]&&m&&/\d/.test(m[1])){wrap.appendChild(dvEl('b',null,m[1]));wrap.appendChild(document.createTextNode(m[2]));}
+else wrap.appendChild(document.createTextNode(p[1]));
+}
+});
+return wrap;
+}
+function evlekDvPrimary(d,ui){
+var url=evlekCanonicalUrl(d.url);
+var ref=dvRef(d);
+if(ui&&ui.contactAvailable===true&&url&&ref){
+var origin;
+try{origin=new URL(url).origin;}catch(e){origin=null;}
+if(origin){
+var a=ui.assistant==='chatgpt'||ui.assistant==='claude'||ui.assistant==='gemini'?'&a='+ui.assistant:'';
+return{kind:'wa',label:evlekT('askAgent'),url:origin+'/go/wa/'+encodeURIComponent(ref)+'?s=mcp_widget&l='+evlekCurrentLocale+a};
+}
+}
+return url?{kind:'open',label:evlekT('openOnEvlek'),url:url}:null;
+}
+function dvPrimaryButton(d,ui){
+var p=evlekDvPrimary(d,ui);
+if(!p)return null;
+var b=dvEl('button','dv__pri'+(p.kind==='wa'?'':' dv__pri--plain'));
+b.type='button';
+b.dataset.kind=p.kind;
+if(p.kind==='wa')b.appendChild(dvIcon('chat'));
+b.appendChild(dvEl('span',null,p.label+' \u2197'));
+b.addEventListener('click',function(){window.EvlekApp.openLink(p.url);});
+return b;
+}
+function dvGallery(d,opts){
+var hero=dvEl('div','dv__hero');
+var img=createEl('img');
+img.setAttribute('decoding','async');
+var pos=dvEl('span','dv__pos');
+var idx=0;
+var total=dvTotal(d);
+var prev=dvEl('button','dv__circ dv__prev');prev.type='button';prev.setAttribute('aria-label',evlekT('prevPhoto'));prev.appendChild(evlekIcon('chevronLeft',20));
+var next=dvEl('button','dv__circ dv__next');next.type='button';next.setAttribute('aria-label',evlekT('nextPhoto'));next.appendChild(evlekIcon('chevronRight',20));
+var thumbs=dvEl('div','dv__thumbs');
+function show(i){
+idx=Math.max(0,Math.min(d.photos.length - 1,i));
+var p=d.photos[idx];
+if(p&&p.url){img.src=p.url;img.alt=dvAlt(d,p,idx);if(!img.parentNode)hero.insertBefore(img,hero.firstChild);}
+pos.textContent=(idx+1)+' / '+total;
+pos.hidden=total<2;
+prev.hidden=idx<=0;
+next.hidden=idx>=d.photos.length - 1;
+Array.prototype.forEach.call(thumbs.children,function(t){t.classList.toggle('is-on',Number(t.dataset.i)===idx);});
+}
+evlekImgFallback(img,function(){});
+prev.addEventListener('click',function(){show(idx - 1);});
+next.addEventListener('click',function(){show(idx+1);});
+hero.appendChild(prev);hero.appendChild(next);hero.appendChild(pos);
+if(opts.onBack){
+var back=dvEl('button','dv__circ dv__back');back.type='button';back.setAttribute('aria-label',evlekT('backToResults'));back.appendChild(evlekIcon('chevronLeft',20));
+back.addEventListener('click',opts.onBack);
+hero.appendChild(back);
+}
+var shown=Math.min(4,d.photos.length);
+for(var k=0;k<shown;k++){
+(function(k){
+var t=dvEl('button','dv__thumb');t.type='button';t.dataset.i=String(k);
+var ti=createEl('img');ti.src=d.photos[k].url;ti.alt='';ti.loading='lazy';
+evlekImgFallback(ti,function(){});
+t.appendChild(ti);
+var rest=total - shown;
+if(k===shown - 1&&rest>0){t.appendChild(dvEl('span',null,evlekT('morePhotos',{n:rest})));t.setAttribute('aria-label',evlekT('morePhotos',{n:rest}));}
+else t.setAttribute('aria-label',dvAlt(d,d.photos[k],k));
+t.addEventListener('click',function(){show(k);});
+thumbs.appendChild(t);
+})(k);
+}
+if(!d.photos.length){prev.hidden=true;next.hidden=true;pos.hidden=true;}
+else show(0);
+var frag=document.createDocumentFragment();
+frag.appendChild(hero);
+if(shown>1)frag.appendChild(thumbs);
+return frag;
+}
+function dvSection(parent,heading){
+parent.appendChild(dvEl('div','dv__hr'));
+var h=dvEl('h3','dv__h',heading);
+parent.appendChild(h);
+return h;
+}
+function evlekDvRender(mount,d,opts){
+opts=opts||{};
+dvClear(mount);
+var wrap=dvEl('article','dv'+(opts.fixedBar?' dv--bar':''));
+wrap.appendChild(dvGallery(d,opts));
+var bd=dvEl('div','dv__bd');
+var st=dvEl('div','dv__st');
+st.appendChild(dvEl('b',null,'\u25cf '+evlekT(dvRent(d)?'statusRent':'statusSale')));
+if(d.listedAt)st.appendChild(document.createTextNode(' \u00b7 '+evlekT('listedOn',{date:evlekFmtDate(d.listedAt)})));
+bd.appendChild(st);
+bd.appendChild(dvEl('h2','dv__price',dvPrice(d)));
+if(dvApprox(d))bd.appendChild(dvEl('div','dv__sub dv__approx',dvApprox(d)));
+var per=dvPerSqm(d);
+if(per)bd.appendChild(dvEl('div','dv__sub',evlekT('fieldPricePerSqm')+': '+per));
+bd.appendChild(dvFactsLine(d,dvEl('div','dv__facts')));
+if(d.title)bd.appendChild(dvEl('div','dv__sub',evlekRooms(d.title)));
+bd.appendChild(dvEl('div','dv__sub',evlekLocalPlaceText(d)));
+dvSection(bd,evlekT('keyFacts'));
+var kf=dvEl('div','dv__kf');
+function fact(icon,value,label){if(!value)return;var c=dvEl('div');c.appendChild(dvIcon(icon));var s=dvEl('span',null,dvCap(value));s.appendChild(dvEl('small',null,label));c.appendChild(s);kf.appendChild(c);}
+fact('home',dvType(d),evlekT('fieldType'));
+fact('bed',d.isStudio?dvType(d):(d.roomLabel?evlekRooms(d.roomLabel):(evlekIsNum(d.bedrooms)&&d.bedrooms>0?evlekT('bedShort',{n:d.bedrooms}):'')),evlekT('fieldRooms'));
+fact('bath',evlekIsNum(d.bathrooms)&&d.bathrooms>0?evlekCount('bathrooms',d.bathrooms):'',evlekT('fieldBathrooms'));
+if(dvBuilt(d))fact('area',dvArea(d),d.areaBasis==='gross'?evlekT('grossAreaField'):d.areaBasis==='net'?evlekT('netAreaField'):evlekT('fieldBuiltArea'));
+fact('area',dvPlot(d),evlekT('fieldPlotArea'));
+fact('sofa',d.furnished==='yes'?evlekT('furnishedYes'):d.furnished==='no'?evlekT('furnishedNo'):'',evlekT('fieldFurnishing'));
+fact('cal',d.listedAt?evlekFmtDate(d.listedAt):'',evlekT('fieldListed'));
+bd.appendChild(kf);
+var labels=dvFeatures(d);
+if(labels.length){
+dvSection(bd,evlekT('fieldFeatures'));
+var feat=dvEl('div','dv__feat');
+var fill=function(all){
+dvClear(feat);
+(all?labels:labels.slice(0,6)).forEach(function(t){feat.appendChild(dvEl('span',null,t));});
+if(!all&&labels.length>6){var m=dvEl('button',null,evlekT('moreFeatures',{n:labels.length - 6}));m.type='button';m.addEventListener('click',function(){fill(true);});feat.appendChild(m);}
+};
+fill(false);
+bd.appendChild(feat);
+}
+if(typeof d.description==='string'&&d.description.trim()){
+dvSection(bd,evlekT('fieldDescription'));
+var desc=dvEl('p','dv__desc dv__desc--clamp',d.description.trim());
+bd.appendChild(desc);
+if(d.description.length>220){
+var more=dvEl('button','dv__lnk',evlekT('moreText'));more.type='button';
+more.addEventListener('click',function(){desc.classList.remove('dv__desc--clamp');more.remove();});
+bd.appendChild(more);
+}
+}
+dvSection(bd,evlekT('fieldLocation'));
+if(typeof opts.mini==='function'){var mini=dvEl('div','dv__mini');bd.appendChild(mini);try{opts.mini(mini,d);}catch(e){mini.remove();}}
+var prec=d.locationPrecision;
+var where=evlekLocalPlaceText(d)+(prec==='district'||prec==='city'?' \u00b7 '+evlekT('locArea'):prec==='approximate_grid'?' \u00b7 '+evlekT('locApprox'):'');
+bd.appendChild(dvEl('div','dv__sub',where));
+var staging=dvStaging(d);
+if(staging&&typeof evlekBuildStaging==='function'){dvSection(bd,evlekT('virtualStagingAction'));bd.appendChild(evlekBuildStaging(staging.items,staging.disclosure));}
+bd.appendChild(dvEl('div','dv__hr'));
+var attr=dvEl('div','dv__attr');
+var office=d.officeName||'';
+attr.appendChild(dvEl('span','dv__av',office.split(/\s+/).map(function(w){return w.charAt(0);}).join('').slice(0,2).toUpperCase()||'E'));
+var who=dvEl('div');
+if(office)who.appendChild(dvEl('b',null,office));
+var ref=dvRef(d);
+if(ref)who.appendChild(dvEl('span',null,(office?' \u00b7 ':'')+ref));
+attr.appendChild(who);
+bd.appendChild(attr);
+var url=evlekCanonicalUrl(d.url);
+if(url){var out=dvEl('button','dv__out',evlekT('allDetails')+' \u2197');out.type='button';out.addEventListener('click',function(){window.EvlekApp.openLink(url);});bd.appendChild(out);}
+bd.appendChild(dvEl('p','dv__disc',evlekT('listingDisclaimer')));
+if(d.localeFallback&&d.contentLocale&&EVLEK_LANG_NAMES[evlekCurrentLocale]&&EVLEK_LANG_NAMES[evlekCurrentLocale][d.contentLocale])bd.appendChild(dvEl('p','dv__disc',evlekT('linkLanguageNote',{lang:EVLEK_LANG_NAMES[evlekCurrentLocale][d.contentLocale]})));
+wrap.appendChild(bd);
+var bar=dvEl('div','dv__bar');
+var bp=dvEl('div','dv__bp');
+bp.appendChild(dvEl('b',null,dvPrice(d)));
+bp.appendChild(dvEl('span',null,[evlekT(dvRent(d)?'statusRent':'statusSale'),d.roomLabel?evlekRooms(d.roomLabel):dvType(d),dvSpot(d)].filter(Boolean).join(' \u00b7 ')));
+bar.appendChild(bp);
+var pri=dvPrimaryButton(d,opts.ui);
+if(pri)bar.appendChild(pri);
+wrap.appendChild(bar);
+mount.appendChild(wrap);
+if(opts.fixedBar){
+var fitBar=function(){if(bar.offsetHeight)wrap.style.paddingBottom=(bar.offsetHeight+12)+'px';};
+fitBar();
+if(typeof ResizeObserver!=='undefined')new ResizeObserver(fitBar).observe(bar);
+}
+return wrap;
+}
+var rootEl=getEl('evlek-root');
+var mode='inline';
+var lastData=null;
+var lastUi=null;
+function renderInline(d){
+var wrap=dvEl('article','di');
+var cover=dvEl('div','di__cover');
+var first=d.photos[0];
+if(first&&first.url){
+var img=createEl('img');
+img.src=first.url;
+img.loading='eager';
+img.setAttribute('decoding','async');
+img.width=640;
+img.height=360;
+img.alt=dvAlt(d,first,0);
+evlekImgFallback(img,function(){});
+cover.appendChild(img);
+}
+var total=dvTotal(d);
+if(total>1)cover.appendChild(dvEl('span','dv__pos','1 / '+total));
+wrap.appendChild(cover);
+var bd=dvEl('div','di__bd');
+var st=dvEl('div','dv__st');
+st.appendChild(dvEl('b',null,'\u25cf '+evlekT(dvRent(d)?'statusRent':'statusSale')));
+if(d.listedAt)st.appendChild(document.createTextNode(' \u00b7 '+evlekT('listedOn',{date:evlekFmtDate(d.listedAt)})));
+bd.appendChild(st);
+bd.appendChild(dvEl('h2','dv__price',dvPrice(d)));
+if(dvApprox(d))bd.appendChild(dvEl('div','dv__sub dv__approx',dvApprox(d)));
+bd.appendChild(dvFactsLine(d,dvEl('div','dv__facts')));
+bd.appendChild(dvEl('div','dv__sub',evlekLocalPlaceText(d)));
+wrap.appendChild(bd);
+var acts=dvEl('div','di__acts');
+var pri=dvPrimaryButton(d,lastUi);
+if(pri)acts.appendChild(pri);
+var more=createEl('button');
+more.type='button';
+more.className='evlek-btn--secondary';
+more.textContent=total>1?evlekT('photosCount',{n:evlekFmtNum(total,0)}):evlekT('allDetails');
+more.addEventListener('click',function(){window.EvlekApp.requestDisplayMode('fullscreen');});
+acts.appendChild(more);
+wrap.appendChild(acts);
+return wrap;
+}
+function render(){
+if(!lastData)return;
+dvClear(rootEl);
+rootEl.removeAttribute('aria-busy');
+if(mode==='fullscreen')evlekDvRender(rootEl,lastData,{fixedBar:true,ui:lastUi});
+else if(!fullscreenSupported())evlekDvRender(rootEl,lastData,{fixedBar:false,ui:lastUi});
+else rootEl.appendChild(renderInline(lastData));
+}
+function showStatus(opts){
+lastData=null;
+dvClear(rootEl);
+rootEl.removeAttribute('aria-busy');
+var holder=dvEl('div','evlek-error-holder');
+rootEl.appendChild(holder);
+evlekRenderStatus(holder,opts);
+}
+function applyHostMode(hc){
+var next=hc&&hc.displayMode==='fullscreen'?'fullscreen':'inline';
+if(next===mode&&lastData){render();return;}
+mode=next;
+render();
+}
+window.EvlekApp.onHostContext(applyHostMode);
+window.EvlekApp.onToolResult(function(params){
+var sc=params&&params.structuredContent;
+if(sc&&sc.locale)evlekUseContentLocale(sc.locale);
+var hc=window.EvlekApp.getHostContext&&window.EvlekApp.getHostContext();
+mode=hc&&hc.displayMode==='fullscreen'?'fullscreen':'inline';
+if(!sc||evlekIsErrorResult(params,sc)){showStatus({message:evlekT('couldNotLoad'),retry:'agent',open:true});return;}
+if(sc.found!==true){showStatus({message:evlekT('notFound')});return;}
+lastUi=params.evlekUi||null;
+lastData=evlekDvNormalize(sc);
+render();
+});
+</script>
+</body>
+</html>

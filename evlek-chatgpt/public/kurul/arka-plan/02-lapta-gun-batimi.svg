@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+<title>Akdeniz gün batımı · soyut</title>
+<defs>
+<linearGradient id="limestone" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FAF8F2"/><stop offset=".61" stop-color="#E8DCD0"/><stop offset="1" stop-color="#CAB8B1"/></linearGradient>
+<radialGradient id="sun" cx=".12" cy=".2" r=".7"><stop stop-color="#B84E3B" stop-opacity=".20"/><stop offset=".37" stop-color="#E2A38D" stop-opacity=".2"/><stop offset="1" stop-color="#E2A38D" stop-opacity="0"/></radialGradient>
+<linearGradient id="floor" x2=".74" y2="1"><stop stop-color="#BAA49D" stop-opacity=".1"/><stop offset="1" stop-color="#A58F8E" stop-opacity=".48"/></linearGradient>
+<filter id="air"><feGaussianBlur stdDeviation="37"/></filter></defs>
+
+<rect width="1080" height="1920" fill="url(#limestone)"/>
+<rect width="1080" height="1920" fill="url(#sun)"/>
+<path d="M0 1470Q310 1390 560 1435T1080 1370V1920H0Z" fill="url(#floor)"/>
+<path d="M-200 1560Q350 1475 1240 1505" fill="none" stroke="#FAF8F2" stroke-opacity=".67" stroke-width="23" filter="url(#air)"/>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1299" height="2700" viewBox="0 0 1299 2700">
+<title>Markasız telefon · ön çerçeve ve gerçek şeffaf kesim</title>
+<defs>
+<linearGradient id="body" x2="1" y2=".74"><stop stop-color="#364756"/><stop offset=".35" stop-color="#142330"/><stop offset=".67" stop-color="#243645"/><stop offset="1" stop-color="#111B26"/></linearGradient>
+<linearGradient id="rim" x2="1" y2=".55"><stop stop-color="#D8D8D1" stop-opacity=".71"/><stop offset=".28" stop-color="#657883"/><stop offset=".54" stop-color="#16242D"/><stop offset="1" stop-color="#9C9A91" stop-opacity=".66"/></linearGradient>
+<linearGradient id="button"><stop stop-color="#647783"/><stop offset=".6" stop-color="#263743"/><stop offset="1" stop-color="#101B23"/></linearGradient>
+<linearGradient id="catch"><stop stop-color="#DCD6C6" stop-opacity=".66"/><stop offset="1" stop-color="#DCD6C6" stop-opacity="0"/></linearGradient>
+</defs>
+
+<g id="yan-tuslar">
+  <rect x="16" y="492" width="22" height="132" rx="9" fill="url(#button)"/>
+  <rect x="16" y="672" width="22" height="164" rx="9" fill="url(#button)"/>
+  <rect x="1263" y="652" width="22" height="236" rx="9" fill="url(#button)"/>
+</g>
+<path id="cerceve" d="M183 36H1116A157 157 0 0 1 1273 193V2507A157 157 0 0 1 1116 2664H183A157 157 0 0 1 26 2507V193A157 157 0 0 1 183 36Z M177 72H1122A117 117 0 0 1 1239 189V2511A117 117 0 0 1 1122 2628H177A117 117 0 0 1 60 2511V189A117 117 0 0 1 177 72Z" fill="url(#body)" fill-rule="evenodd"/>
+<path d="M183 36H1116A157 157 0 0 1 1273 193V2507A157 157 0 0 1 1116 2664H183A157 157 0 0 1 26 2507V193A157 157 0 0 1 183 36Z" fill="none" stroke="url(#rim)" stroke-width="5"/>
+<path d="M177 72H1122A117 117 0 0 1 1239 189V2511A117 117 0 0 1 1122 2628H177A117 117 0 0 1 60 2511V189A117 117 0 0 1 177 72Z" fill="none" stroke="#07111A" stroke-width="4"/>
+<path d="M29 425V198C29 111 96 40 187 39H787" stroke="url(#catch)" stroke-width="3" fill="none" stroke-linecap="round"/>
+<path d="M1270 2220V2504C1270 2594 1198 2661 1114 2661H865" fill="none" stroke="#ACB6BC" stroke-opacity=".27" stroke-width="3" stroke-linecap="round"/>
+
+</svg>

@@ -1,0 +1,12 @@
+<!doctype html><html><head><meta charset="utf-8"><style>body{margin:0;background:#fff;font-family:system-ui}iframe{border:0;width:100%;height:900px;display:block}</style></head>
+<body><iframe id="f"></iframe>
+<script>
+const W=window.__WIDGET__, R=window.__RESULT__;
+const f=document.getElementById('f'); f.srcdoc=W;
+window.addEventListener('message',e=>{const m=e.data; if(!m||m.jsonrpc!=='2.0')return;
+ if(m.method==='ui/initialize'&&m.id){f.contentWindow.postMessage({jsonrpc:'2.0',id:m.id,result:{protocolVersion:'2026-01-26',hostInfo:{name:'demo',version:'1'},hostCapabilities:{},hostContext:{theme:'light',displayMode:'fullscreen',locale:'tr-TR',availableDisplayModes:['inline','fullscreen']}}},'*');
+   setTimeout(()=>f.contentWindow.postMessage({jsonrpc:'2.0',method:'ui/notifications/tool-result',params:R},'*'),300);}
+ else if(m.method==='ui/notifications/size-changed'){f.style.height=(m.params.height||900)+'px';}
+ else if(m.id){f.contentWindow.postMessage({jsonrpc:'2.0',id:m.id,result:{}},'*');}
+});
+</script></body></html>
