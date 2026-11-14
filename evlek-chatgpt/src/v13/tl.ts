@@ -2,9 +2,9 @@
 // GİRİŞ 0–2,8 haber → GELİŞME 2,8–19,3 yaz → ara → sonuç → kart → ilan → ev → emlakçıya sor → SONUÇ 19,3–30 Eklentiler'den ekle → "Evlek artık ChatGPT'de."
 export const TL = {
   // GİRİŞ
-  sig: [1.4, 2.1], pop: [2.1, 2.3], push: [2.3, 2.8],
+  sig: [1.4, 2.1], pop: [2.1, 2.3], push: [2.3, 3.0],
   // GELİŞME
-  type: [2.8, 5.77], typePause: [4.08, 4.33], send: 6.2, rise: [6.35, 6.95],
+  type: [3.05, 5.8], typePause: [4.25, 4.45], send: 6.2, rise: [6.35, 6.95],
   search: [7.0, 7.8], res: [7.8, 8.3], slogan: [8.5, 8.75, 10.15, 10.35],
   scroll: [10.35, 10.9], drag: [10.9, 11.7], tap: 12.6, expand: [12.75, 13.45],
   portalOut: [14.45, 15.15], tag: [15.35, 15.6, 16.7, 16.85], portalIn: [16.85, 17.55],

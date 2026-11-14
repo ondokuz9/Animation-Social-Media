@@ -21,7 +21,7 @@ const L_ = Easing.linear;
 
 // ---------------- pozlar ----------------
 const COVER = P(540, 1330, 0.45, 2, -4, -1); // kapak: telefon altta, karartılmış
-const COMP = P(540, 524, 0.9, 2, -4, -1); // yazım kutusu yakın planı (kutu çıktıda y≈1500)
+const COMP = P(530, -40, 0.92, 2, -4, -1); // yazım kutusu yakın planı: kutu kadrajın ortasında (y≈960), altında zemin
 const PR = P(540, 1698, 0.8, 2, -4, -1); // soru + sonuç; kart şeridi önce kadraj dışında
 const PT = P(540, 1255, 0.78, 2, -4, -1); // ilan detayı: üst %60 sıkı kadraj
 const PF = P(540, 1000, 0.58, 2, -4, -1); // ilanın tamamı + "Emlakçıya sor"
@@ -58,7 +58,7 @@ const kick = (t: number, p: Pose): Pose => {
 };
 export const poseK = (t: number) => kick(t, poseAt(t));
 /** kapakta telefon %45 karartılmış; imza hareketiyle aydınlanır, kapanışta yeniden kararır */
-const dimAt = (t: number) => (t < TL.sig[1] ? 0.3 * (1 - RAMP(lin(t, TL.sig[0], TL.sig[1]))) : t >= TL.back[0] ? 0.3 * RAMP(lin(t, TL.back[0], TL.back[1])) : 0);
+const dimAt = (t: number) => (t < TL.sig[1] ? 0.15 * (1 - RAMP(lin(t, TL.sig[0], TL.sig[1]))) : t >= TL.back[0] ? 0.15 * RAMP(lin(t, TL.back[0], TL.back[1])) : 0);
 
 // ---------------- zemin ----------------
 const NAVY_BG = 'radial-gradient(ellipse 95% 62% at 50% 38%, #163E68 0%, #0A2540 58%, #061A2E 100%)';
@@ -137,7 +137,7 @@ const Title: React.FC<{t: number; n: number; o: number; dy?: number}> = ({t, n, 
   return (
     <div style={{position: 'absolute', left: 60, right: 60, top: 440 + dy, textAlign: 'center', opacity: o, fontFamily: F, fontSize: 92, fontWeight: 700, color: C.cream, letterSpacing: '-0.03em', lineHeight: 1.1, whiteSpace: 'nowrap'}}>
       <span>{TITLE.slice(0, n)}</span>
-      <span style={{position: 'relative', display: 'inline-block', width: 0}}><span style={{position: 'absolute', left: 6, top: 8, width: 7, height: 86, borderRadius: 2, background: C.cream, opacity: on ? 1 : 0}} /></span>
+      <span style={{position: 'relative', display: 'inline-block', width: 0}}><span style={{position: 'absolute', left: 8, top: -76, width: 7, height: 92, borderRadius: 2, background: C.cream, opacity: on ? 1 : 0}} /></span>
       <span style={{opacity: 0}}>{TITLE.slice(n)}</span>
     </div>
   );
