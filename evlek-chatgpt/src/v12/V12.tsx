@@ -1,52 +1,50 @@
 // VIDEO-1 v12 (final) · "Evlek artık ChatGPT'de" · 30 sn, 1080×1920, 60 fps, sessiz.
-// Kurul (docs/v10/KURUL-v10.md) kararları: üç perde SOR → GÖR → EKLE; kanca = logo + "artık ChatGPT'de.";
-// imza hareketi: logo yazım kutusundaki Evlek çipine iner, kapanışta geri kalkar; döngü dikişsiz.
-// Dış metin: 10 blok; yalnız opaklıkla giriş/çıkış. Kamera hareketi ≥650 ms, ardından duruş. ry hep negatif.
+// Yön "Önce ev" (12 uzmanlı kurul, docs/v12/FINAL-RAPOR.md): film gerçek havuz karesi + "Evlek artık ChatGPT'de." ile açılır,
+// fotoğraf ters portalla ChatGPT tam ekranındaki gerçek Evlek detayına iner; soru → gerçek sonuç → kart → detay → galeri →
+// iç mekân → "Evlek'te tüm ayrıntılar ↗" → evlek.app → Eklentiler yolu → Bağlı → Girne → aynı havuz karesinde CTA; dikişsiz döngü.
+// Üç ana mesaj: "Evlek artık ChatGPT'de." · "Sor. Evlek göstersin." · "ChatGPT'de Eklentiler'den Evlek'i ekleyin."
 import React from 'react';
 import {AbsoluteFill, Easing, Img, staticFile, useCurrentFrame} from 'remotion';
-import {C, F, FPS, H, Logo, W, lin, mix, useFontsV10} from '../v10/core';
-import {OX, OY, P, PH, PW, Phone, Pose, mixPose, screenToOut} from '../v10/Phone';
-import {CHIP, INSTALL_BTN, QTEXT, Screen, galSwiped, heroCardRect} from './Screen';
+import {C, F, FPS, H, Logo, LOGO_AR, W, lin, mix, useFontsV10} from '../v10/core';
+import {OX, OY, P, PH, PW, Phone, Pose, mixPose, projectOut} from './Phone';
+import {BUBBLE_CHIP, HERO_D, Screen} from './Screen';
 import {TL} from './tl';
 
 const img = (p: string) => staticFile(p);
-const SOFT = Easing.bezier(0.25, 0.1, 0, 1); // kurul: bütün kamera hareketleri
-const FLY = Easing.bezier(0.45, 0, 0.15, 1); // portal, imza hareketi
+const SOFT = Easing.bezier(0.25, 0.1, 0, 1); // kamera
+const FLY = Easing.bezier(0.45, 0, 0.15, 1); // portal, imza, çıkış
 const ENTER = Easing.bezier(0.22, 1, 0.36, 1);
-const fade = (t: number, a: number, b: number, d = 0.25, din = 0.25) => lin(t, a, a + din) * (1 - lin(t, b, b + d));
+const RAMP = Easing.bezier(0.4, 0, 0.2, 1);
+const L_ = Easing.linear;
 
-// ---------------- telefon pozları ----------------
-const HOOK = P(540, 1330, 0.42, 3, -4, -1);
-const HOOK0 = {...HOOK, y: HOOK.y + 40}; // ilk kare: 0–0,5 arasında 40 px yükselir
+// ---------------- pozlar (x; y; s; rx; ry; rz) ----------------
+const PHK = P(540, 1110, 0.55, 2, -4, -1); // kanca ve detay
+const PB = P(506, 1750, 0.85, 2, -4, -1); // soru balonu yakın planı; kart şeridi kadraj dışında
+const PC = P(695, 654, 0.8, 2, -4, -1); // £139.000 kartı yakın planı
+const PDH = P(540, 1180, 0.62, 2, -4, -1); // tam ekran detay kahramanı
+const PIN0 = P(900, 2500, 0.42, 3, -8, 0), PIN = P(740, 1300, 0.42, 3, -8, 0);
+const PD = P(560, 1000, 0.7, 2, -5, -1); // detay bilgisi
+const PP = P(540, 650, 0.78, 2, -4, -1); // evlek.app fiyat ve başlık
 const CHAT = P(540, 1050, 0.55, 2, -4, -1);
+const PBTN = P(540, 1070, 0.6, 2, -4, -1);
+const CLOSE = P(540, 1330, 0.4, 3, -6, -1);
+const EXIT = P(540, 2650, 0.4, 3, -6, -1);
+const dr = (p: Pose, k = 1.012, dy = -6): Pose => ({...p, s: p.s * k, y: p.y + dy}); // duruşta nefes
+
 type Key = {t: number; p: Pose; e?: (x: number) => number; cut?: boolean};
 const K = (t: number, p: Pose, e: (x: number) => number = SOFT, cut = false): Key => ({t, p, e, cut});
-const L_ = Easing.linear;
-const btnPose = (s: number): Pose => P(540, 1640 - s * (OY + INSTALL_BTN.y - PH / 2), s, 2, -4, -1);
 const KEYS: Key[] = [
-  K(0, HOOK0),
-  K(0.5, HOOK),
-  K(2.5, {...HOOK, y: HOOK.y - 4}, L_),
-  K(3.5, CHAT), // 1000 ms itme
-  K(10.0, {...CHAT, y: CHAT.y - 6, s: CHAT.s * 1.008}, L_),
-  K(10.75, {...CHAT, y: CHAT.y - 6, s: CHAT.s * 1.008}, L_),
-  K(11.4, P(540, 2520, 0.4, 2, -4, -1), FLY), // portal: telefon kadrajın altından çıkar
-  K(14.5, P(860, 2500, 0.42, 3, -8, -2), L_, true),
-  K(15.2, P(800, 1440, 0.42, 3, -8, -2), ENTER), // ürün planı, alttan giriş
-  K(17.0, P(796, 1432, 0.424, 3, -8, -2), L_),
-  K(17.8, CHAT), // 800 ms dönüş
-  K(18.6, CHAT, L_),
-  K(19.3, P(540, 1060, 0.6, 2, -4, -1)), // karşılaştırma kartına 1,1× itme
-  K(20.5, P(540, 1058, 0.602, 2, -4, -1), L_),
-  K(21.3, CHAT), // eklentiler: geri çekilme
-  K(23.0, {...CHAT, y: CHAT.y - 4}, L_),
-  K(23.7, btnPose(0.58)), // "Eklentiyi kur" düğmesine itme
-  K(24.5, btnPose(0.582), L_),
-  K(25.0, P(540, 1012, 0.615, 2, -4, -1)), // Bağlı ✓ anı: 1,06× push-in
-  K(26.0, P(540, 1010, 0.616, 2, -4, -1), L_),
-  K(26.6, HOOK, FLY), // imza hareketinin tersi ile kanca pozuna dönüş
-  K(29.5, HOOK, L_),
-  K(30.0, HOOK0, Easing.bezier(0.45, 0, 0.55, 1)), // döngü: ilk kareye birebir
+  K(0, PHK), K(3.45, dr(PHK, 1.006, -3), L_),
+  K(TL.pushB[1], PB), K(TL.cutCards, dr(PB), L_),
+  K(TL.cutCards, PC, L_, true), K(TL.pullD[0], dr(PC, 1.008, -4), L_),
+  K(TL.pullD[1], PDH), K(TL.phoneIn[0], PDH, L_),
+  K(TL.phoneIn[0], PIN0, L_, true), K(TL.phoneIn[1], PIN, ENTER),
+  K(TL.pushPD[1], PD), K(TL.pushPP[0], dr(PD, 1.008, -4), L_),
+  K(TL.pushPP[1], PP), K(TL.ext, dr(PP, 1.008, -4), L_),
+  K(TL.ext, CHAT, L_, true), K(TL.pushBtn[0], dr(CHAT, 1.006, -3), L_),
+  K(TL.pushBtn[1], PBTN), K(TL.close[0], dr(PBTN, 1.01, -4), L_),
+  K(TL.close[1], CLOSE), K(TL.exit[0], dr(CLOSE, 1.012, -6), L_),
+  K(TL.exit[1], EXIT, FLY),
 ];
 const poseAt = (t: number): Pose => {
   let i = 0;
@@ -55,133 +53,176 @@ const poseAt = (t: number): Pose => {
   if (!b || b.cut) return a.p;
   return mixPose(a.p, b.p, (b.e ?? SOFT)(lin(t, a.t, b.t)));
 };
-// yalnız üç fiziksel tepki: gönder, £139.000 seçimi, Eklentiyi kur
+/** üç fiziksel tepki: karta dokunuş, Eklentiyi kur, Girne gönder */
 const kick = (t: number, p: Pose): Pose => {
   let b = 0;
-  for (const at of [TL.send, TL.tap, TL.installTap]) {
+  for (const at of [TL.tap, TL.installTap, TL.send]) {
     const k = lin(t, at, at + 0.18);
     if (k > 0 && k < 1) b = Math.max(b, Math.sin(Math.PI * k));
   }
   return {...p, s: p.s * (1 - 0.004 * b), y: p.y + 3 * b};
 };
-const poseK = (t: number) => kick(t, poseAt(t));
+export const poseK = (t: number) => kick(t, poseAt(t));
+export const showPhoneAt = (t: number) => t >= TL.rportal[0] && !(t >= TL.portal[1] && t < TL.phoneIn[0]) && t < TL.exit[1];
 
-// ---------------- zemin ----------------
-const GRADE_EXT = 'brightness(1.02) contrast(1.04) saturate(.96) sepia(.07) hue-rotate(-3deg)';
-const GRADE_INT = 'brightness(1.04) contrast(1.05) sepia(.04)';
-const VIG = 'radial-gradient(ellipse 80% 62% at 50% 52%, transparent 58%, rgba(5,16,28,.35))';
-const POOL = 'v4/EVL-100102_00.jpg';
-/** bulanık havuz + %70 lacivert (kurul: tek dünya) — u=0 bulanık, u=1 net */
-const Pool: React.FC<{u: number; t: number}> = ({u, t}) => {
-  const pan = lin(t, TL.portal[1], 14.5);
-  const px = u > 0 ? mix(30, 52, pan) : 30;
-  const z = u > 0 ? mix(1, 1.04, pan) : 1.1;
-  return (
-    <AbsoluteFill style={{overflow: 'hidden', background: C.navy}}>
-      <Img src={img(POOL)} style={{position: 'absolute', inset: 0, width: W, height: H, objectFit: 'cover', objectPosition: `${px}% 55%`, transform: `scale(${mix(1.1, z, u)})`,
-        filter: u >= 1 ? GRADE_EXT : `blur(${24 * (1 - u)}px) brightness(${mix(0.58, 1.02, u)})${u > 0 ? ` contrast(${mix(1, 1.04, u)}) sepia(${0.07 * u})` : ''}`}} />
-      <AbsoluteFill style={{background: C.navy, opacity: 0.6 * (1 - u), mixBlendMode: 'multiply'}} />
-      <AbsoluteFill style={{background: VIG, opacity: u}} />
-    </AbsoluteFill>
+// ---------------- fotoğraflar ----------------
+const GRADE_EXT = 'brightness(1.0) contrast(1.05) sepia(.06) hue-rotate(-3deg)';
+const GRADE_INT = 'brightness(.98) contrast(1.03) sepia(.08)';
+const VIG = 'radial-gradient(ellipse 80% 62% at 50% 52%, transparent 58%, rgba(5,16,28,.30))';
+const EXT = 'v12/EVL-100102_00_l2560.png'; // 2560×1920 (1,60×, Lanczos)
+const INT = 'v12/EVL-100102_01_l1584.png'; // 1584×2112 (1,32×, Lanczos)
+/** dış çekim yatay konumu: kanca 24 + 1,5·t; kapanış 24 − 1,5·(30 − t) → t=30'da 0. kareyle aynı */
+const xPct = (t: number) => (t < 12 ? Math.min(24 + 1.5 * t, 26.25) : 24 - 1.5 * (30 - t));
+const extLeft = (t: number) => -(xPct(t) / 100) * 1480;
+/** bulanık fazda kenar bandı olmasın: görüntü sarmalayıcıya üst/alt 72 px ayna şeridiyle girer, filtre sarmalayıcıda */
+const Blurred: React.FC<{src: string; left: number; top: number; w: number; h: number; blur: number; grade: string}> = ({src, left, top, w, h, blur, grade}) => {
+  const M = 72;
+  const im = (y: number, flip: boolean, clipTop: number, clipH: number) => (
+    <div style={{position: 'absolute', left: 0, top: clipTop, width: w, height: clipH, overflow: 'hidden'}}>
+      <Img src={img(src)} style={{position: 'absolute', left: 0, top: y, width: w, height: h, transform: flip ? 'scaleY(-1)' : undefined}} />
+    </div>
   );
-};
-const Interior: React.FC<{t: number}> = ({t}) => {
-  // EVL-100102_01 (1200×1600): 1,1× fazladan ölçek, 160 px tilt-up (masadan çift yükseklikteki cama)
-  const k = Easing.bezier(0.33, 0, 0.2, 1)(lin(t, TL.tilt[0], TL.tilt[1]));
   return (
-    <AbsoluteFill style={{overflow: 'hidden', background: C.navy}}>
-      <Img src={img('v4/EVL-100102_01.jpg')} style={{position: 'absolute', width: 1584, height: 2112, left: -252, top: mix(-192, -32, k), filter: GRADE_INT}} />
-      <AbsoluteFill style={{background: VIG}} />
-    </AbsoluteFill>
-  );
-};
-const Background: React.FC<{t: number}> = ({t}) => {
-  const unblur = Easing.bezier(0.4, 0, 0.2, 1)(lin(t, TL.unblur[0], TL.unblur[1]));
-  const clear = t >= TL.unblur[0] && t < TL.back[0] + 0.6 ? (t < TL.back[0] ? unblur : 1) : 0;
-  const intO = t >= TL.swipe[0] ? Easing.bezier(0.4, 0, 0.2, 1)(lin(t, TL.swipe[0] + 0.12, TL.swipe[0] + 0.42)) : 0;
-  const backK = Easing.bezier(0.4, 0, 0.2, 1)(lin(t, TL.back[0], TL.back[0] + 0.6));
-  return (
-    <>
-      <Pool u={0} t={t} />
-      {clear > 0 && <AbsoluteFill style={{opacity: t < TL.back[0] ? 1 : 1 - backK}}><Pool u={clear} t={t} /></AbsoluteFill>}
-      {intO > 0 && t < TL.back[0] + 0.6 && <AbsoluteFill style={{opacity: intO * (t < TL.back[0] ? 1 : 1 - backK)}}><Interior t={t} /></AbsoluteFill>}
-    </>
-  );
-};
-
-// ---------------- dış metin ----------------
-const Txt: React.FC<{o: number; y: number; size: number; weight?: number; children: React.ReactNode; shadow?: boolean}> = ({o, y, size, weight = 700, children, shadow}) =>
-  o <= 0 ? null : (
-    <div style={{position: 'absolute', left: 76, right: 76, top: y, textAlign: 'center', opacity: o, fontFamily: F, fontSize: size, fontWeight: weight, color: C.cream, letterSpacing: '-0.03em', lineHeight: 1.1,
-      textShadow: shadow ? '0 2px 24px rgba(0,8,18,.45)' : undefined}}>{children}</div>
-  );
-/** kelime kelime: 170 ms aralık, 350 ms giriş, bulanıklık yok */
-const WordsIn: React.FC<{lines: string[]; t: number; t0: number}> = ({lines, t, t0}) => {
-  let wi = 0;
-  return (
-    <>
-      {lines.map((ln, li) => (
-        <div key={li}>
-          {ln.split(' ').map((w, j) => {
-            const k = SOFT(lin(t, t0 + wi * 0.17, t0 + wi++ * 0.17 + 0.35));
-            return <span key={j} style={{display: 'inline-block', marginRight: '0.24em', opacity: k, transform: `translateY(${(1 - k) * 14}px)`}}>{w}</span>;
-          })}
-        </div>
-      ))}
-    </>
-  );
-};
-
-// ---------------- imza: logo ↔ yazım kutusundaki çip ----------------
-const LOGO_C = {x: 540, y: 305, h: 150};
-const Signature: React.FC<{t: number}> = ({t}) => {
-  let k = 0, o = 1, p: Pose;
-  if (t < TL.logoDrop[1]) { k = FLY(lin(t, TL.logoDrop[0], TL.logoDrop[1])); p = poseK(TL.logoDrop[1]); o = 1 - lin(t, TL.logoDrop[1] - 0.08, TL.logoDrop[1]); }
-  else if (t >= TL.chipLift[0]) { k = 1 - FLY(lin(t, TL.chipLift[0], TL.chipLift[1])); p = poseK(t); o = lin(t, TL.chipLift[0], TL.chipLift[0] + 0.06); }
-  else return null;
-  const c = screenToOut(p, CHIP.x, CHIP.y);
-  const h = mix(LOGO_C.h, CHIP.h * p.s, k);
-  const x = mix(LOGO_C.x, c.x, k), y = mix(LOGO_C.y, c.y, k);
-  return (
-    <div style={{position: 'absolute', left: x - (h * 530) / 165 / 2, top: y - h / 2, opacity: o}}>
-      <Logo h={h} />
+    <div style={{position: 'absolute', left, top: top - (blur > 0 ? M : 0), width: w, height: h + (blur > 0 ? 2 * M : 0), filter: blur > 0 ? `blur(${blur}px) ${grade}` : grade}}>
+      {blur > 0 ? (
+        <>
+          {im(M - h, true, 0, M)}
+          {im(0, false, M, h)}
+          {im(0, true, M + h, M)}
+        </>
+      ) : <Img src={img(src)} style={{position: 'absolute', left: 0, top: 0, width: w, height: h}} />}
     </div>
   );
 };
+const Exterior: React.FC<{t: number; blur: number; navy: number}> = ({t, blur, navy}) => (
+  <AbsoluteFill style={{overflow: 'hidden', background: C.navy}}>
+    <Blurred src={EXT} left={Math.round(extLeft(t) * 2) / 2} top={0} w={2560} h={1920} blur={blur} grade={GRADE_EXT} />
+    <AbsoluteFill style={{background: C.navy, opacity: navy, mixBlendMode: 'multiply'}} />
+    <AbsoluteFill style={{background: VIG, opacity: 1 - navy}} />
+  </AbsoluteFill>
+);
+const intTop = (t: number) => Math.round(-120 * Easing.bezier(0.33, 0, 0.2, 1)(lin(t, TL.interior[0], TL.interior[1])));
+const Interior: React.FC<{t: number; blur: number; navy: number; dim: number}> = ({t, blur, navy, dim}) => (
+  <AbsoluteFill style={{overflow: 'hidden', background: C.navy}}>
+    <Blurred src={INT} left={-150} top={intTop(t)} w={1584} h={2112} blur={blur} grade={GRADE_INT} />
+    <AbsoluteFill style={{background: '#000', opacity: dim}} />
+    <AbsoluteFill style={{background: C.navy, opacity: navy, mixBlendMode: 'multiply'}} />
+    <AbsoluteFill style={{background: VIG, opacity: 1 - navy}} />
+  </AbsoluteFill>
+);
+/** zeminin keskinliği (0 bulanık-lacivert … 1 net) */
+const clarity = (t: number) => {
+  if (t < TL.rportal[0]) return 1;
+  if (t < TL.interior[0]) return 0;
+  if (t < 13.8) return 1;
+  if (t < TL.ext) return 1 - RAMP(lin(t, 13.8, 14.4));
+  return RAMP(lin(t, TL.close[0], TL.close[1]));
+};
+const Background: React.FC<{t: number}> = ({t}) => {
+  const c = clarity(t);
+  if (t >= TL.interior[0] && t < TL.ext) return <Interior t={t} blur={24 * (1 - c)} navy={0.6 * (1 - c)} dim={0.15 * RAMP(lin(t, TL.phoneIn[0], TL.phoneIn[0] + 0.4))} />;
+  return <Exterior t={t} blur={24 * (1 - c)} navy={0.6 * (1 - c)} />;
+};
+/** yazı alanı üst degradesi: kanca, iç mekân künyesi, kapanış */
+const topGrad = (t: number) => {
+  if (t < TL.gradOut[1]) return 1 - lin(t, TL.gradOut[0], TL.gradOut[1]);
+  if (t >= TL.interior[0] - 0.1 && t < TL.tag[2] + 0.2) return lin(t, TL.interior[0] - 0.1, TL.interior[0] + 0.15) * (1 - lin(t, TL.tag[2], TL.tag[2] + 0.2));
+  if (t >= TL.close[0]) return RAMP(lin(t, TL.close[0], TL.close[1]));
+  return 0;
+};
 
-// ---------------- portal: kart telefonun 3D düzleminden kalkar ----------------
+// ---------------- portal: telefon düzlemindeki kahraman ↔ tam kare ----------------
+type Rect = {x: number; y: number; w: number; h: number};
+const mixR = (a: Rect, b: Rect, k: number): Rect => ({x: mix(a.x, b.x, k), y: mix(a.y, b.y, k), w: mix(a.w, b.w, k), h: mix(a.h, b.h, k)});
+// filtre karışımı (k=0 filtresiz gerçek piksel, k=1 derecelendirme): sepia/hue sıfırdan, diğerleri 1'den
+const gradeMix = (g: string, k: number) =>
+  g.replace(/(brightness|contrast|saturate|sepia|hue-rotate)\(([-\d.]+)(deg)?\)/g, (_m, f, v, u) => {
+    const n = Number(v);
+    const base = f === 'sepia' || f === 'hue-rotate' ? 0 : 1;
+    return `${f}(${(base + (n - base) * k).toFixed(4)}${u ?? ''})`;
+  });
 const Portal: React.FC<{t: number}> = ({t}) => {
-  const [a, b] = TL.portal;
-  if (t < a || t >= b) return null;
-  const p0 = poseK(a);
-  const r = heroCardRect(a);
-  const k = FLY(lin(t, a, b));
-  const lift = Math.sin(Math.PI * k);
-  const x = mix(p0.s * (OX + r.x - PW / 2), -p0.x, k);
-  const y = mix(p0.s * (OY + r.y - PH / 2), -p0.y, k);
-  const w = mix(p0.s * r.w, W, k), h = mix(p0.s * r.h, H, k);
-  const ph = mix(p0.s * r.ph, H, k);
-  const info = 1 - lin(t, a, a + 0.3);
+  if (t >= TL.rportal[0] && t < TL.rportal[1]) {
+    const k = 1 - FLY(lin(t, TL.rportal[0], TL.rportal[1]));
+    return <PortalLayer p0={poseK(TL.rportal[1])} k={k} src={EXT} imgHero={{x: 0, y: 0, w: HERO_D.w, h: HERO_D.h}} imgFull={{x: extLeft(TL.rportal[0]), y: 0, w: 2560, h: 1920}} grade={GRADE_EXT} />;
+  }
+  if (t >= TL.portal[0] && t < TL.portal[1]) {
+    const k = FLY(lin(t, TL.portal[0], TL.portal[1]));
+    const ih = (HERO_D.w * 1600) / 1200;
+    return <PortalLayer p0={poseK(TL.portal[0])} k={k} src={INT} imgHero={{x: 0, y: (HERO_D.h - ih) / 2, w: HERO_D.w, h: ih}} imgFull={{x: -150, y: 0, w: 1584, h: 2112}} grade={GRADE_INT} />;
+  }
+  return null;
+};
+const PortalLayer: React.FC<{p0: Pose; k: number; src: string; imgHero: Rect; imgFull: Rect; grade: string}> = (pr) => {
+  const s = pr.p0.s;
+  const cropHero: Rect = {x: s * (OX + HERO_D.x - PW / 2), y: s * (OY + HERO_D.y - PH / 2), w: s * HERO_D.w, h: s * HERO_D.h};
+  const cropFull: Rect = {x: -pr.p0.x, y: -pr.p0.y, w: W, h: H};
+  const cr = mixR(cropHero, cropFull, pr.k);
+  // görüntü dikdörtgeni kırpım çerçevesine göre: kahramanda (ekran px · s), tam karede (çıktı px)
+  const ir = mixR({x: pr.imgHero.x * s, y: pr.imgHero.y * s, w: pr.imgHero.w * s, h: pr.imgHero.h * s}, pr.imgFull, pr.k);
+  const lift = Math.sin(Math.PI * pr.k);
+  const p0 = pr.p0;
   return (
     <div style={{position: 'absolute', inset: 0, perspective: 3200, perspectiveOrigin: `${p0.x}px ${p0.y}px`}}>
       <div style={{position: 'absolute', left: p0.x, top: p0.y, width: 0, height: 0, transformStyle: 'preserve-3d',
-        transform: `rotateX(${p0.rx * (1 - k)}deg) rotateY(${p0.ry * (1 - k) - 3 * lift}deg) rotateZ(${p0.rz * (1 - k)}deg) translateZ(${30 * lift}px)`}}>
-        <div style={{position: 'absolute', left: x, top: y, width: w, height: h, borderRadius: mix(40 * p0.s, 0, k), overflow: 'hidden', background: '#1C2027',
-          boxShadow: `0 ${50 * lift}px ${120 * lift}px rgba(0,6,14,${0.55 * lift})`}}>
-          <div style={{position: 'absolute', left: 0, top: 0, width: w, height: ph, overflow: 'hidden'}}>
-            <Img src={img(POOL)} style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: `${mix(45, 30, k)}% ${mix(60, 55, k)}%`,
-              filter: `brightness(${mix(1, 1.02, k)}) contrast(${mix(1, 1.04, k)}) saturate(${mix(1, 0.96, k)}) sepia(${0.07 * k}) hue-rotate(${-3 * k}deg)`}} />
-          </div>
-          {info > 0 && (
-            <div style={{position: 'absolute', left: 0, top: ph, width: r.w, transform: `scale(${w / r.w})`, transformOrigin: '0 0', padding: '30px 34px 0', fontFamily: F, opacity: info}}>
-              <div style={{fontSize: 80, fontWeight: 800, letterSpacing: '-0.04em', color: '#EEF0F3', lineHeight: 1}}>£139.000</div>
-              <div style={{marginTop: 22, fontSize: 36, fontWeight: 500, color: '#CDD3DC'}}>2+1 · 2 banyo · 107 m²</div>
-            </div>
-          )}
+        transform: `rotateX(${p0.rx * (1 - pr.k)}deg) rotateY(${p0.ry * (1 - pr.k)}deg) rotateZ(${p0.rz * (1 - pr.k)}deg) translateZ(${s * (1 - pr.k) + 20 * lift}px)`}}>
+        <div style={{position: 'absolute', left: cr.x, top: cr.y, width: cr.w, height: cr.h, overflow: 'hidden', boxShadow: lift > 0.01 ? `0 ${40 * lift}px ${110 * lift}px rgba(0,6,14,${0.5 * lift})` : undefined}}>
+          <Img src={img(pr.src)} style={{position: 'absolute', left: ir.x, top: ir.y, width: ir.w, height: ir.h, filter: pr.k > 0 ? gradeMix(pr.grade, pr.k) : undefined}} />
+          <div style={{position: 'absolute', inset: 0, background: VIG, opacity: pr.k}} />
         </div>
       </div>
     </div>
   );
+};
+
+// ---------------- dış metin ----------------
+const Txt: React.FC<{o: number; y: number; size: number; weight?: number; lh?: number; children: React.ReactNode; num?: boolean}> = ({o, y, size, weight = 700, lh = 1.1, children, num}) =>
+  o <= 0 ? null : (
+    <div style={{position: 'absolute', left: 76, right: 76, top: y + (1 - o) * 14, textAlign: 'center', opacity: o, fontFamily: F, fontSize: size, fontWeight: weight, color: C.cream,
+      letterSpacing: num ? '-0.04em' : '-0.03em', lineHeight: lh, fontVariantNumeric: num ? 'tabular-nums' : undefined}}>{children}</div>
+  );
+const fade = (t: number, a: number, b: number, c: number) => Easing.bezier(0.25, 0.1, 0.25, 1)(lin(t, a, b)) * (1 - lin(t, c - 0.25 < b ? b : c - 0.25, c));
+/** Eklentiler yolu: aktif adım krem %100 + 4 px mercan alt çizgi, geçilen adım %55, bitince ✓ */
+const STEPS: [string, number][] = [['ChatGPT', TL.ext], ['Eklentiler', TL.plugTap], ['Evlek', TL.rowTap], ['Ekle', TL.installTap]];
+const PathStrip: React.FC<{t: number}> = ({t}) => {
+  const o = lin(t, TL.strip[0], TL.strip[0] + 0.25) * (1 - lin(t, TL.strip[1], TL.strip[2]));
+  if (o <= 0) return null;
+  let act = 0;
+  STEPS.forEach(([, at], i) => { if (t >= at) act = i; });
+  const done = t >= TL.bound;
+  return (
+    <div style={{position: 'absolute', left: 0, right: 0, top: 128, display: 'flex', justifyContent: 'center', alignItems: 'baseline', gap: 18, fontFamily: F, fontSize: 52, fontWeight: 600, letterSpacing: '-0.03em', color: C.cream, opacity: o}}>
+      {STEPS.map(([s], i) => {
+        const on = i === act;
+        return (
+          <React.Fragment key={s}>
+            {i > 0 && <span style={{opacity: 0.4}}>›</span>}
+            <span style={{position: 'relative', opacity: on ? 1 : i < act ? 0.72 : 0.5}}>
+              {s}{on && done ? ' ✓' : ''}
+              {on && <span style={{position: 'absolute', left: 0, right: 0, bottom: -12, height: 4, borderRadius: 2, background: C.coral}} />}
+            </span>
+          </React.Fragment>
+        );
+      })}
+    </div>
+  );
+};
+
+// ---------------- logo ve imza hareketi (logo → sorudaki Evlek çipi) ----------------
+const LOGO_C = {x: 540, y: 220, h: 150};
+const LogoAt: React.FC<{x: number; y: number; h: number; o?: number}> = ({x, y, h, o = 1}) => (
+  <div style={{position: 'absolute', left: x - (h * LOGO_AR) / 2, top: y - h / 2, opacity: o}}><Logo h={h} /></div>
+);
+const LogoLayer: React.FC<{t: number}> = ({t}) => {
+  if (t < TL.sig[0]) return <LogoAt {...LOGO_C} />;
+  if (t < TL.sig[1]) {
+    const k = FLY(lin(t, TL.sig[0], TL.sig[1]));
+    const p = poseK(TL.sig[1]);
+    const c = projectOut(p, BUBBLE_CHIP.x, BUBBLE_CHIP.y);
+    return <LogoAt x={mix(LOGO_C.x, c.x, k)} y={mix(LOGO_C.y, c.y, k)} h={mix(LOGO_C.h, BUBBLE_CHIP.h * p.s, k)} o={1 - lin(t, TL.sig[1] - 0.06, TL.sig[1])} />;
+  }
+  if (t >= TL.logoIn) return <LogoAt {...LOGO_C} o={lin(t, TL.logoIn, TL.logoIn + 0.25)} />;
+  return null;
 };
 
 // ---------------- master ----------------
@@ -191,47 +232,38 @@ export const V12: React.FC = () => {
   const t = f / FPS;
   if (!ok) return <AbsoluteFill style={{background: C.navy}} />;
   const pose = poseK(t);
-  const hookTitle = t < TL.titleOut[1] ? 1 - lin(t, TL.titleOut[0], TL.titleOut[1]) : t >= TL.title2 ? lin(t, TL.title2, TL.title2 + 0.25) : 0;
-  const logoStatic = t < TL.logoDrop[0] || t >= TL.chipLift[1];
-  const inPortal = t >= TL.portal[0] && t < TL.portal[1];
-  const showPhone = !(t >= TL.phoneOut[1] && t < TL.phoneIn[0]);
+  const title = t < TL.titleOut[1] ? 1 - lin(t, TL.titleOut[0], TL.titleOut[1]) : t >= TL.title2[0] ? lin(t, TL.title2[0], TL.title2[1]) : 0;
+  const ctaO = lin(t, TL.cta, TL.cta + 0.25) * (1 - lin(t, TL.ctaOut[0], TL.ctaOut[1]));
+  const footO = lin(t, TL.foot, TL.foot + 0.25) * (1 - lin(t, TL.ctaOut[0], TL.ctaOut[1]));
+  const g = topGrad(t);
+  const onPhoto = clarity(t);
   return (
     <AbsoluteFill style={{background: C.navy, overflow: 'hidden'}}>
       <Background t={t} />
-      {showPhone && (
-        <Phone pose={pose} dark shadow={0.9}>
+      {showPhoneAt(t) && (
+        <Phone pose={pose} onPhoto={onPhoto}>
           <Screen t={t} />
         </Phone>
       )}
-      {inPortal && <Portal t={t} />}
-      {/* I · kanca ve kapanış: haber cümlesi (ilk ve son kare aynı) */}
-      {logoStatic && <div style={{position: 'absolute', left: 0, right: 0, top: LOGO_C.y - LOGO_C.h / 2, display: 'flex', justifyContent: 'center'}}><Logo h={LOGO_C.h} /></div>}
-      <Signature t={t} />
-      <Txt o={hookTitle} y={400} size={92}>artık ChatGPT’de.</Txt>
-      {/* soru: telefondaki yazımla eşzamanlı */}
-      {t >= TL.qWords && t < TL.send + 0.3 && (
-        <Txt o={1 - lin(t, TL.send, TL.send + 0.3)} y={118} size={72}><WordsIn lines={['Lapta’da deniz', 'manzaralı 2+1']} t={t} t0={TL.qWords} /></Txt>
-      )}
-      <Txt o={fade(t, TL.slogan[0], TL.slogan[1])} y={150} size={72}>Sor. Evlek göstersin.</Txt>
-      {/* II · ev: iki satırlık künye */}
-      <Txt o={fade(t, TL.tag[0], TL.tag[1], 0.3, 0.35)} y={250} size={96} weight={800} shadow>£139.000</Txt>
-      <Txt o={fade(t, TL.tagSub, TL.tag[1], 0.3, 0.35)} y={370} size={52} weight={500} shadow>Lapta · 2+1 · 107 m²</Txt>
-      <Txt o={fade(t, TL.diff[0], TL.diff[1] - 0.1)} y={128} size={80}>Arada £12.000 fark.</Txt>
-      {/* III · ekle */}
-      <Txt o={fade(t, TL.step1[0], TL.step1[1] - 0.15)} y={134} size={64} weight={600}>Eklentiler’de Evlek’i bul.</Txt>
-      <Txt o={fade(t, TL.step2[0] + 0.1, TL.step2[1])} y={134} size={64} weight={600}>Eklentiyi kur.</Txt>
+      <Portal t={t} />
+      {g > 0 && <AbsoluteFill style={{background: t >= TL.interior[0] - 0.1 && t < TL.ext ? 'linear-gradient(180deg, rgba(10,37,64,.82) 0px, rgba(10,37,64,.62) 300px, rgba(10,37,64,0) 560px)' : 'linear-gradient(180deg, rgba(10,37,64,.74) 0px, rgba(10,37,64,.58) 520px, rgba(10,37,64,0) 860px)', opacity: g}} />}
+      {/* 1 · haber: ilk ve son kare */}
+      <Txt o={title} y={330} size={92}>artık ChatGPT’de.</Txt>
+      {/* 2 · ürün vaadi */}
+      <Txt o={fade(t, TL.slogan[0], TL.slogan[0] + 0.25, TL.slogan[2])} y={128} size={72}>Sor. Evlek göstersin.</Txt>
+      {/* tek künye: telefonsuz iç mekân planında */}
+      <Txt o={fade(t, TL.tag[0], TL.tag[0] + 0.25, TL.tag[2])} y={210} size={96} weight={800} lh={1} num>£139.000</Txt>
+      <Txt o={fade(t, TL.tagSub, TL.tagSub + 0.25, TL.tag[2])} y={322} size={52} weight={600}>Lapta · 2+1 · 107 m²</Txt>
+      {/* 3 · edinme yolu */}
+      <PathStrip t={t} />
       {/* kapanış */}
-      {(() => {
-        const out = 1 - lin(t, TL.ctaOut[0], TL.ctaOut[1]);
-        return (
-          <>
-            <Txt o={lin(t, TL.cta, TL.cta + 0.3) * out} y={548} size={60}>Eklentiler’den Evlek’i ekle.</Txt>
-            <div style={{position: 'absolute', left: 120, right: 120, top: 664, textAlign: 'center', fontFamily: F, fontSize: 28, lineHeight: '38px', color: 'rgba(250,248,242,.72)', opacity: lin(t, TL.foot, TL.foot + 0.3) * out}}>
-              Arayüz temsilidir; ilanlar ve fiyatlar Evlek’in gerçek verisidir. ChatGPT, OpenAI’ın ticari markasıdır.
-            </div>
-          </>
-        );
-      })()}
+      <Txt o={ctaO} y={330} size={72} weight={800} lh={79 / 72}>ChatGPT’de<br />Eklentiler’den<br />Evlek’i ekleyin.</Txt>
+      {footO > 0 && (
+        <div style={{position: 'absolute', left: 90, right: 90, top: 610, textAlign: 'center', fontFamily: F, fontSize: 30, fontWeight: 500, lineHeight: '40px', color: C.cream, opacity: footO}}>
+          ChatGPT arayüzü temsilîdir; Evlek ekranları ve ilan verileri gerçektir. ChatGPT, OpenAI’ın ticari markasıdır.
+        </div>
+      )}
+      <LogoLayer t={t} />
     </AbsoluteFill>
   );
 };
