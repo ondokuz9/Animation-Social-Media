@@ -1,0 +1,576 @@
+[
+ {
+  "uzman": "Kurgu yönetmeni (editör). 20 yıldır reklam ve lansman filmi kesiyorum. Bu filmde baktığım şeyler: hikâye mantığı (neden-sonuç), her kesmenin gerekçesi ve insan gözüne göre ritim.",
+  "v12_teshis": [
+   "0–1,5 sn: Kanca habere değil eve bakıyor. Karenin yaklaşık %80'i parlak havuz ve palmiye fotoğrafı. 'Evlek / artık ChatGPT'de.' üst bantta, gökyüzünün üstünde ufak bir altyazı gibi duruyor. Kontrastı ve yüzey alanı en büyük olan şey fotoğraf, göz de oraya gidiyor. Kare sıradan bir ilan reklamı gibi okunuyor. Ayrıca bu açılış kanca olarak kurulmamış: 30,0'daki döngü dikişine uysun diye seçilmiş (FINAL-RAPOR G: 'Döngü girişi').",
+   "1,5–2,95 sn: Neden-sonuç zinciri tersten kurulmuş. Ters portal, sonucu (2,0'da £139.000'lık tam ekran detay) sorudan önce gösteriyor. 2,95'te gönderilmiş bir soru balonuna sert kesme var, yani film zamanda geriye atlıyor. İzleyici önce evi görüyor, sonra o evi bulduran soruyu. Rumi'nin 'dışardaki görsel bir anda evleke geliyor, ne alaka' tepkisi tam bu iki kesmeye ait.",
+   "2,95–4,5 sn: 'Yazma' anı yok. Lapta sorusu 2,95'te hazır, gönderilmiş balon olarak geliyor. 'Evlek'te aranıyor…' 3,5–4,4 arasında küçük gri bir satır, üstelik kamera hareket ederken geçiyor. Filmin vaadi 'sor, Evlek arasın' ama soru yazılırken hiç görülmüyor. 4,15'te 'Sor. Evlek göstersin.' sonucun geldiği anla (4,5) üst üste biniyor. Göz yazıyla widget arasında bölünüyor.",
+   "8,65–16,2 sn: Aynı hile üç kez kullanılıyor ve ana konudan sapılıyor. Önce portal (8,65), sonra telefonun yeniden girişi (11,65), sonra evlek.app tarayıcısı (13,85). 'Fotoğraf telefondan çıkar/girer' hareketi açılıştakiyle birlikte üçüncü kez tekrarlanıyor. 13,85–16,2'de film ChatGPT'den çıkıp evlek.app'e gidiyor; oysa haber ChatGPT. Rumi'nin itiraz ettiği yuvarlak tuşlar da tam burada: 14,0–16,0 arasında altta 'WhatsApp'tan yaz' (beyaz hap) ve 'Telefonla ara' (mercan hap) görünüyor. Aynı aralıkta sahnenin kendisi de gereksiz.",
+   "16,2–23,45 sn: Sonuç ortada kalıyor, iki doruk var. Eklentiler yolu 16,2–21'de oynuyor, ardından ikinci bir sorgu geliyor: Girne, 52 ilan. Bu, Lapta'daki widget'ın neredeyse birebir tekrarı. Yani 'nasıl eklenir' bölümü sonuç olarak değil, ara bölüm olarak oynuyor; Girne ise v11'in 'tek Lapta sorgusu' onayına da aykırı. 'ChatGPT › Eklentiler › Evlek › Ekle' yol şeridi üstte, küçük ve soluk kalıyor.",
+   "24,15–29,45 sn: Kapanış 5,3 sn hareketsiz. Havuz fotoğrafının önünde küçük bir telefon (Girne sonucu okunmuyor), üstte 3 satırlık bir talimat ('ChatGPT'de / Eklentiler'den / Evlek'i ekleyin.') ve dipnot var. Kameradaki tek hareket yavaş bir pan; ritim ölüyor. Son söz haber değil talimat; 'artık ChatGPT'de.' ancak 29,7'de, döngü için yeniden görünüyor. Brif ise sonun 'Evlek artık ChatGPT'de.' olmasını istiyor."
+  ],
+  "ilkeler": [
+   "Önce haber, sonra ürün. İlk 2 sn tek bilgi taşır: 'Evlek artık ChatGPT'de.' Karedeki en büyük ve en kontrastlı öğe bu yazıdır; fotoğraf yoktur. 0. kare hazır gelir, içine solarak girilmez (akışta otomatik oynatma ve kapak karesi için).",
+   "Sebep sonuçtan önce gelir. Her plan bir öncekinin eylemiyle tetiklenir: yaz → gönder → aranıyor → sonuç → dokun → detay → ev. Zamanda geri sıçrama yoktur. İzleyici gördüğü her şeye 'bunu ne açtı?' diye sorduğunda cevap bir önceki saniyededir.",
+   "Kesmeler eylemin üstüne düşer. Kesmeler ve büyük geçişler bir dokunuşa, gönderme anına ya da galerideki '›' işaretine denk gelir. Hareket kesmenin iki yanında aynı yönde sürer. Kesme izleyicinin kafasında 'parmak bunu yaptı' diye okunur, efekt olarak değil.",
+   "Bir gösteri hareketi filmde bir kez kullanılır ve bir anlam taşır. Fotoğrafın telefondan taşması yalnız ilan açıldıktan sonra, 'ev bölümleri başladı' cümlesi olarak, bir kez gelir; sonra telefona geri döner ve parantezi kapatır. Logo→çip imzası filmin iki ucunda kafiye olur.",
+   "Okuma süresi insan gözüne göre ayarlanır. Dış metin için 3 kelime/sn + 0,5 sn. Arayüzün oturduğu her anda en az 1,2–1,5 sn sabit kamera. Yazı ile yeni gelen arayüz aynı yarım saniyeye düşmez: önce arayüz oturur, sonra yazı gelir. Rumi'nin 'biraz yavaş' onayı bağlayıcıdır.",
+   "Sonuç bir eylem ve bir imzadır. Film izleyiciye ne yapacağını gösterir (Eklentiler → Evlek → Ekle → Bağlı) ve haberi yeniden söyleyerek kapanır. Son kare ilk karedir; döngüde dikiş görünmez."
+  ],
+  "giris": "GİRİŞ, 0,00–6,30. Görev: haberi vermek, sonra 'nasıl?' sorusunu yazım kutusuna bağlamak.\n\n0,00–1,70 · Kanca (tek plan):\n- Düz lacivert #0A2540 zemin. Fotoğraf yok, telefon yok.\n- Kare 0'da her şey yerinde. Ortada krem 'Evlek' logosu (yükseklik ≈200 px, y≈780), altında 'artık ChatGPT'de.' (krem, 92/700).\n- Cümlenin sonunda yazım imleci yanıp söner (krem çubuk, 0,5 sn periyot, 1,7 sn içinde 3 kez). Mercan kullanılmaz.\n- Kamera 0–1,7 boyunca %100→%103 yavaş itme yapar.\n- Neden işe yarar: göz ilk 2 sn içinde ekranda başka bir şey bulamaz, haberi okumak zorunda kalır (3 kelime, ≈1,2 sn). İmleç 'bu bir sohbet' fikrini sözsüz ekler ve bir sonraki planın yazma eylemini hazırlar.\n- Rumi'nin istediği 'unvan' satırı (bkz. kanca metinleri) eklenecekse logonun üstüne 52 px kısa bir üst satır olarak gelir. 'İlk' sözcüğü ancak doğrulama ve onaydan sonra kullanılabilir.\n\n1,70–2,40 · Köprü, eşleşen hareket (v11 onaylı imza):\n- 'artık ChatGPT'de.' 1,70–1,90 arasında 14 px aşağı kayarak söner.\n- Logo küçülerek aşağı uçar; aynı anda alttan markasız 3B telefon yükselir. Ekranda boş, yeni bir sohbet var (temsilî koyu kabuk).\n- Kamera telefonun alt yarısında, yazım kutusuna yakın plandır; kutu karenin ≈%85 genişliğini kaplar.\n- Logo 2,40'ta kutudaki 'Ev Evlek' çipine oturur, küçük bir 'pop' ile.\n- Bu kesme değil sürekli bir hareket: haberin öznesi (Evlek) eylemin aracına (çip) dönüşüyor.\n\n2,40–4,90 · YAZ:\n- Çipin yanına insan hızında yazılır: 'Lapta'da £160 bin altı, deniz manzaralı 2+1 daire'.\n- 48 karakter 2,3 sn'de yazılır; 'altı,' sözcüğünden sonra 0,25 sn duraksanır. Klavye gösterilmez.\n- Yazı çıktıda ≥40 px olmalı. Bu yüzden kamera kutudan uzaklaşmaz; metin uzadıkça kutu tek satırdan iki satıra büyür.\n- Dış metin yok. İzleyici yazılanı okur, bu planın tek işi budur.\n\n4,90–5,70 · GÖNDER → ARA (eylem üstünde kesme):\n- 4,90'da gönder (↑) düğmesine dokunuş halkası çıkar.\n- 4,95'te dokunuşun üstüne kesme: orta plan. Balon ekranın üstüne yerleşmiş, altında 'Evlek'te aranıyor…' satırı, 5,00–5,70 arasında ışıltı efektiyle.\n- Kamera bu satırı karenin optik merkezinde tutar. 'Evlek arar' vuruşu ilk kez okunabilir hale gelir (0,7 sn).\n\n5,70–6,30 · SONUÇ ÇIKAR:\n- Gerçek wLaptaTop pikselleri aşağıdan oturur: Lapta haritası, '£105–147 bin · 8' kapsülü, 'Lapta · Satılık · 8 ilan', çipler.\n- Kamera sabittir. Sonuç bir yükleme gibi gelir, efekt gibi değil.",
+  "gelisme": "GELİŞME, 6,30–16,00. Görev: sonuçtan bir eve inmek. Ev bölümleri ancak burada, bir dokunuşun sonucu olarak başlar.\n\n6,30–7,90 · Sonucu okuma:\n- Kamera sabit; harita ve 'Lapta · Satılık · 8 ilan' 1,6 sn okunur.\n- 6,50'de ekranın üstüne dış metin gelir: 'Sor. Evlek göstersin.' (72/700, krem, telefonun üst kenarının üstünde). 6,50–6,75 opaklıkla girer, 7,85–8,05 arasında söner. Tam opak süre 1,1 sn (3 kelime için yeterli).\n- Yazı arayüz oturduktan 0,2 sn sonra gelir, ikisi aynı anda girmez.\n\n7,90–9,30 · Kart şeridi (kesmesiz):\n- 7,90–8,20 arasında sohbet yukarı kayar; kamera aynı ekranda kart şeridine iner. Bu, kullanıcının kaydırması olarak okunur.\n- 8,25–8,75 arasında parmak halkası şeridi sola sürükler: £120.000 → £127.000 → £139.000 (yalnız 4.–8. kartlar).\n- 8,75'te kart yerine oturur; 0,5 sn okunur: '£139.000 · 2+1 · 2 banyo · 107 m² · Lapta, Girne · 14 foto'.\n\n9,30–10,00 · DOKUN → İLAN AÇILIR:\n- 9,30'da £139.000 kartına dokunuş.\n- Kartın havuz fotoğrafı tam ekran detaya genişler (dFull_1, 9,33–9,70). Kesme yok, dokunuşun doğrudan sonucu.\n- 9,70–10,00 arasında kamera fiyat bloğuna yumuşak itme yapar: '£139.000 · 2+1 · 2 banyo · 107 m²'.\n- Alttaki 'Emlakçıya sor' mercan hapı gerçek widget'ın parçası. Rumi'nin itirazı bu tuşu da kapsıyorsa yeniden tasarlanmaz, kadraj dışında bırakılır (çerçeve fiyat bloğunun üstünde kesilir).\n\n10,00–12,10 · EV BÖLÜMÜ 1, havuz (filmdeki tek portal):\n- 10,00'da 1/14 kahraman fotoğrafı telefon düzleminden kalkar ve 10,00–10,70 arasında tam kadraja yayılır; telefon kaybolur.\n- 10,70–12,10 telefonsuz nefes (v11 onaylı): havuz ve deniz, sağa doğru yavaş pan.\n- 10,90'da künye girer: '£139.000' (96/800) ve altında 'Lapta · 2+1 · 107 m²' (52/600).\n- İzleyici artık bu fotoğrafın nereden geldiğini biliyor: az önce dokunduğu karttan. 'Dışarıdaki görsel birden geliyor' sorunu, sıra tersine çevrilerek çözülür.\n\n12,10–14,00 · EV BÖLÜMÜ 2, çift yükseklikli salon:\n- 12,10'da galerinin '›' yönünde (sağdan sola) yatay süpürme ile salon fotoğrafı (_01) gelir. Bu, gerçek galeri davranışının tam ekran karşılığı.\n- 12,40–14,00 arasında kamera pencereden kapıdaki denize iner (tilt).\n- Künye 12,10'da söner. Salon yazısız kalır: tek mesajın tekrarı gereksiz.\n\n14,00–15,00 · Parantezi kapat:\n- Salon fotoğrafı küçülerek telefonun kahraman alanına geri iner (14,00–14,60). Aynı anda telefon kadraja girer; ekranda '2 / 14' görünür.\n- Köşeler ±2 px eşleşir. Ev bölümleri bitti, arayüze dönüldü.\n\n15,00–16,00 · Sohbete dönüş:\n- 15,10'da '‹' / kapat dokunuşu; tam ekran kapanır. Lapta sonucunun durduğu sohbete dönülür.\n- 15,40–16,00 arasında kamera çekilir, telefon karede tam boy ve ortalı. Bu, sonuç bölümünün açılış pozu.\n- Çıkarılanlar: evlek.app tarayıcı sahnesi (ChatGPT'den sapıyor; 'WhatsApp'tan yaz / Telefonla ara' hap tuşlarını taşıyor) ve Girne ikinci sorgusu (tekrar). Böylece ≈4,5 sn kazanılır; okuma süresine ve Eklentiler bölümüne verilir.",
+  "sonuc": "SONUÇ, 16,00–30,00. Görev: 'siz de ekleyin' yolunu göstermek ve haberi yeniden söyleyerek kapatmak. Ekranlar Onur'un iOS kaydının düzeninde (eklenti_9_0 → 13_0 → 28_5 → 31_5 → 57_0), temsilî olarak yeniden çizilir.\n\n16,00–16,40 · Bölüm başlığı:\n- Üstte yol şeridi girer: 'ChatGPT › Eklentiler › Evlek › Ekle' (52/600, krem). Aktif adım tam opak, diğerleri %45.\n- Bu, filmin 3. ve son mesajı; talimatın kendisi. Ayrı bir 'ekleyin' cümlesi kullanılmaz.\n\n16,40–17,40 · Menü ve Eklentiler:\n- 16,40'ta ≡ dokunuşu; 16,50–16,75 arasında kenar menü kayar. Hesap adı ve sohbet adı görünmez.\n- 17,00'de 'Eklentiler' dokunuşu.\n- 17,10–17,40 arasında push: 'İzinler · Eklentilere göz at · Eklenti ara'. Aktif adım 'Eklentiler'.\n- Popüler listesi ve oradaki üçüncü taraf logoları gösterilmez.\n\n17,60–18,70 · Arama:\n- 17,60'ta arama kutusuna dokunuş.\n- 17,70–18,30 arasında 'evlek' harf harf yazılır (0,12 sn/harf). Filmin baştaki 'yaz' motifinin tekrarı.\n- 18,40'ta tek sonuç: 'Ev Evlek · Northern Cyprus property data'.\n\n18,80–20,10 · Evlek eklenti sayfası:\n- 18,80'de dokunuş; 18,90–19,20 arasında push: degrade soru kartları, açıklama, 'Eklentiyi kur'. Aktif adım 'Evlek'.\n- 19,30–19,90 arasında kamera düğmeye ve 'Uygulama › Evlek' satırına yumuşak itme yapar.\n\n20,10–21,60 · EKLE:\n- 20,10'da 'Eklentiyi kur' dokunuşu; 20,10–20,50 dönen gösterge.\n- 20,50'de aynı karede 'Evlek ✓ Bağlı' ve 'Sohbette dene' belirir. Yol şeridi 'Ekle ✓' olur.\n- 1,1 sn duruş: filmin duygusal doruğu bu onay anı.\n\n21,60–23,00 · Sohbette dene:\n- 21,60'ta dokunuş; 21,70–22,00 arasında yeni sohbete push.\n- Yazım kutusunda 'Ev Evlek' çipi. Kamera 22,00–22,60 arasında kutuya iner ve 2,40'taki planla aynı kadrajı yakalar (eşleşen kare).\n- Yol şeridi 22,0–22,2 arasında söner.\n\n23,00–24,40 · İmza tersine (kafiye):\n- Çipteki 'Evlek' yazısı büyüyerek kutudan kalkar. Telefon aşağı iner ve kadrajdan çıkar; zemin lacivert #0A2540'a kapanır.\n- 24,40'ta logo, 0. karedeki konumuna ve boyutuna oturur. Giriş 'logo → çip' ile açılmıştı; sonuç 'çip → logo' ile kapanıyor.\n\n24,40–30,00 · Son kart:\n- 24,50–25,60 arasında logonun altına 'artık ChatGPT'de.' harf harf yazılır, sonunda imleç yanıp söner. Haber artık bir sohbet mesajı gibi 'yazılmış' olur.\n- 25,20'de alta dipnot gelir (28–30 px, krem %70): 'ChatGPT arayüzü temsilîdir; Evlek ekranları ve ilan verileri gerçektir. ChatGPT, OpenAI'ın ticari markasıdır.' 29,40'a kadar kalır, okuma süresi 4,2 sn.\n- 24,4–30,0 boyunca kamera %100→%103 itme yapar. Durağan değil ama sakin.\n- 29,40–29,60 arasında dipnot söner. 30,00 = 0,00 karesi; döngü dikişsiz.\n- Son söz brifin istediği gibi 'Evlek artık ChatGPT'de.'.\n\n15 sn kesimi için öneri:\n- 0–2,4 kanca + çip\n- 2,4–4,9 yaz (1,6 sn'ye sıkıştırılmış)\n- ara + sonuç (1,8)\n- dokun + havuz (2,2)\n- Eklentiler → Kur → Bağlı (3,6)\n- çip → logo + son kart (3,4)",
+  "kanca_metinleri": [
+   {
+    "metin": "Evlek artık ChatGPT'de.",
+    "kural_durumu": "Uygun. Canlı bir özelliği söylüyor, iddia içermiyor. Ana kanca ve kapanış metni olarak önerilir."
+   },
+   {
+    "metin": "KKTC'nin ilk yapay zekâ emlak platformu Evlek, artık ChatGPT'de.",
+    "kural_durumu": "Kurala aykırı. 'İlk' brifte yasak bir üstünlük iddiası, kurumsal kurala göre de doğrulanmamış iddia. Bizim bültenimizden üretilmiş bir haber bağımsız doğrulama sayılmaz. Ancak bağımsız bir kaynak ve Onur'un yazılı onayı olursa yeniden konuşulabilir. Ayrıca odağı ChatGPT haberinden 'yapay zekâ platformu' unvanına kaydırıyor ve kancayı uzatıyor (10 kelime)."
+   },
+   {
+    "metin": "ChatGPT'deki ilk Kıbrıs emlak eklentisi",
+    "kural_durumu": "Kurala aykırı. Yine 'ilk' iddiası var ve ChatGPT eklenti dizininin tamamını bizim doğrulamamız mümkün değil."
+   },
+   {
+    "metin": "Yapay zekâlı emlak platformu Evlek, artık ChatGPT'de.",
+    "kural_durumu": "Doğrulama ve onay gerekir. Tanımlayıcı bir ifade, 'ilk/tek' yok; Evlek'in kendi tanımıyla (AI-native) uyumlu. Rumi'nin istediği 'unvan' hissini iddiasız veriyor. Logonun üstünde 52 px'lik bir üst satır olarak kullanılabilir ('Yapay zekâlı emlak platformu'). Uzunluk ve metin sayısı açısından onay gerekir."
+   },
+   {
+    "metin": "KKTC'nin yapay zekâlı emlak platformu Evlek, artık ChatGPT'de.",
+    "kural_durumu": "Doğrulama ve onay gerekir. Türkçede 'KKTC'nin ... platformu' biçimi 'tek/asıl platform' gibi okunabilir; örtük bir tekillik iddiası taşıyor. Yerine 'Kuzey Kıbrıs'tan' denebilir."
+   },
+   {
+    "metin": "Yeni: Evlek artık ChatGPT'de.",
+    "kural_durumu": "Doğrulama gerekir. Yayın tarihi henüz yeniyse uygun. Film haberden aylar sonra yayınlanacaksa 'Yeni' sözcüğü kaldırılır."
+   },
+   {
+    "metin": "Evlek ilanları artık ChatGPT'de.",
+    "kural_durumu": "Uygun. Kapsamı doğru: yalnız Evlek'teki ilanlar. 'KKTC'deki tüm ilanlar' gibi bir genelleme yapmıyor."
+   },
+   {
+    "metin": "Sor. Evlek göstersin.",
+    "kural_durumu": "Uygun (v12 sloganı). Kanca olarak değil, 2. mesaj olarak sonucun geldiği anda kullanılır."
+   },
+   {
+    "metin": "Türkçe sorun, Evlek göstersin.",
+    "kural_durumu": "Uygun. Eklenti sayfası Türkçe, İngilizce, Rusça, Almanca ve Arapça destek yazıyor (canlı özellik). Ancak çok dilli tanıtım bu filmin konusu değil; yedek metin."
+   }
+  ],
+  "yaratici_fikir": "Çipin iki yönlü yolculuğu, filmin omurgası. Film, haberin kendisi olan 'Evlek' logosuyla açılıyor. Logo, cümlenin sonundaki yanıp sönen imleçle birlikte bir sohbet mesajı gibi duruyor. 1,7 sn sonra logo yazım kutusundaki 'Ev Evlek' çipine iniyor ve o çiple soru yazılıyor (giriş = haber → araç). Gelişmede çip işini yapıyor: arar, bulur, ev açılır. Sonuçta izleyici aynı çipi kendi eliyle kazanıyor: Eklentiler → evlek → Kur → Bağlı → Sohbette dene, ve kutuda yine o çip var (2,40'taki kadrajla eşleşen kare). Ardından çip büyüyerek kutudan kalkıyor, yeniden logo oluyor. 'artık ChatGPT'de.' bu kez harf harf yazılıyor ve film başladığı karede bitiyor. Tek bir nesne (logo/çip) haberi, ürünü ve talimatı birbirine bağlıyor. Neden-sonuç zinciri görünür oluyor, döngü dikişsiz kapanıyor. Fikir yalnız canlı özellikleri kullanıyor (Evlek eklentisi ve çip), gerçek widget'a dokunmuyor, yeni bir iddia eklemiyor. v11'de onaylanan 'logo çipe iner' imzasının doğal tamamlanması.",
+  "korunacaklar": [
+   "Logo → yazım kutusundaki 'Ev Evlek' çipi imza hareketi (v11 onayı). v13'te iki uca taşınıyor: girişte logo → çip, sonda çip → logo.",
+   "Tek Lapta sorgusu: 'Lapta'da £160 bin altı, deniz manzaralı 2+1 daire'. Gerçek wLaptaTop (harita, '£105–147 bin · 8', 'Lapta · Satılık · 8 ilan', çipler) ve wLaptaRow'un yalnız 4.–8. kartları.",
+   "Kart şeridini kaydırma, £139.000 kartına dokunuş, tam ekran detay (dFull_1) ve gerçek galeri davranışıyla '›' → 2/14 (dFull_2). Gerçek pikseller, yeniden tasarım yok.",
+   "Telefonsuz havuz nefesi ve çift yükseklikli salon (v11 onayı). Künye '£139.000 / Lapta · 2+1 · 107 m²' korunur; ancak bu planlar artık dokunuştan sonra geliyor.",
+   "Eklentiler akışının ekranları ve sırası: kenar menü → Eklentiler → 'evlek' araması → Evlek sayfası → 'Eklentiyi kur' → dönen gösterge → '✓ Bağlı' → 'Sohbette dene' → yazım kutusunda çip. Yol şeridi 'ChatGPT › Eklentiler › Evlek › Ekle' ve 'Ekle ✓' onayı da korunur.",
+   "'Sor. Evlek göstersin.' sloganı (2. mesaj olarak). Dipnot metni. Krem, lacivert ve mercan paleti, Inter, markasız 3B telefon. 'Biraz yavaş' tempo. Son kare = ilk kare döngüsü."
+  ],
+  "riskler": [
+   "'İlk' iddiası: Rumi'nin hatırladığı haber başlığı büyük olasılıkla bizim beyanımızı tekrarlıyor. Kancaya girerse marka ve hukuk riski doğar, brife ve kurumsal kurala da aykırı olur. Kaynak ve onay gelmeden 'ilk', 'tek', 'öncü' kullanılmamalı.",
+   "Düz lacivert tipografik açılış ustalıkla hareketlendirilmezse 'boş' görünebilir. İmleç, %3'lük itme ve 1,7'de başlayan köprü hareketi zamanlamada kritik. Sessiz izlenen ilk 2 sn 3 kişiye gösterilip 'ne anladın?' testi yapılmalı.",
+   "Yazılan soru akışta küçük kalırsa 'yaz' vuruşu kaybolur. Yazım kutusu çıktıda en az 40 px metin verecek yakınlıkta tutulmalı; yazma hızı 48 karakter için 2,3 sn'nin altına inmemeli.",
+   "Eklentiler ekranları ChatGPT arayüzünün temsilî çizimi. ChatGPT/OpenAI logosu, üçüncü taraf eklenti logoları (Popüler listesi) ve hesap adı görünmemeli. Menü adı ('Eklentiler' mi, başka bir ad mı) yayından önce güncel Türkçe arayüzde doğrulanmalı. Akış değişmişse film yanlış talimat verir.",
+   "14. saniyedeki tuş itirazı belirsiz. evlek.app sahnesi çıkınca 'WhatsApp'tan yaz / Telefonla ara' hapları da gider. Kastedilen widget'taki 'Emlakçıya sor' hapıysa o gerçek widget pikseli: yeniden tasarlanamaz, yalnız kadraj dışında bırakılabilir. Rumi'nin elinde yeni bir tasarım varsa canlıya çıkmadan gösterilemez.",
+   "Sonuç bölümü 8 sn talimat içeriyor; 'kullanım kılavuzu' hissi verebilir. Bunu Bağlı ✓ onayının doruk olarak işlenmesi ve çip → logo kafiyesi dengeliyor. Yine de 30 sn içinde Eklentiler bölümü 7 sn'yi geçmemeli. Ayrıca son kare 0. kareyle piksel düzeyinde eşleşmezse döngü atlar."
+  ],
+  "rumiye_sorular": [
+   "Haberi tam olarak görebilir miyiz? Hangi yayın, hangi tarih, başlık ve spot nasıl yazılmış (link ya da ekran görüntüsü)? 'İlk' ifadesi haberde mi geçiyor, yoksa bizim bültenimizden mi alındı? Bağımsız bir doğrulama ve Onur'un onayı yoksa 'Yapay zekâlı emlak platformu Evlek, artık ChatGPT'de.' gibi iddiasız bir unvan sana uyar mı?",
+   "14. saniyedeki 'yuvarlak kenarlı tuşlar' evlek.app sayfasının altındaki 'WhatsApp'tan yaz / Telefonla ara' hapları mı, yoksa widget'taki mercan 'Emlakçıya sor' mu? 'Filtredeki gibi' derken hangi filtreyi kastediyorsun? Widget'taki 'Filtreler · 5' çipi de yuvarlak; evlek.app'in filtre panelinin bir ekran görüntüsünü atabilir misin? Benim önerim evlek.app sahnesini filmden tamamen çıkarmak; uygun mu?",
+   "Açılış zemini düz lacivert tipografi mi olsun, krem mi? Yoksa haber satırını doğrudan ChatGPT yazım kutusunun yakın planı üstünde mi verelim?",
+   "Logonun altındaki imleç ve sonda 'artık ChatGPT'de.' yazısının harf harf yazılması fikri sana uygun mu?",
+   "Ev bölümleri için havuz (1/14) ve salon (2/14) yeterli mi? 14 fotoğraftan başka bir oda da görünsün mü?",
+   "Girne ikinci sorgusunu çıkarıyorum (tek Lapta, v11 onayın). Kapanışta yol şeridi ya da 'evlek.app' adresi de görünsün mü, yoksa yalnız 'Evlek artık ChatGPT'de.' mi kalsın?",
+   "ChatGPT Türkçe arayüzünde menü bugün de 'Eklentiler' mi geçiyor? Onur'un iOS kaydı güncel mi, yoksa yeni bir kayıt alalım mı?",
+   "Film sessiz mi yayınlanacak, yoksa müzik ve yazma tıkırtısı mı eklenecek? Ritmi ona göre kilitleyeceğim."
+  ]
+ },
+ {
+  "uzman": "Kreatif vizyon direktörü (teknoloji ve marka filmleri): filmin tek fikri, tonu ve kancanın vizyonu",
+  "v12_teshis": [
+   "0,00–1,50 sn: İlk kare tam ekran havuz fotoğrafı, üstünde 'Evlek / artık ChatGPT'de.' yazıyor. Görüntünün yüzde 80'i havuz ve palmiye. Kare bir villa ilanı gibi okunuyor, haber gibi değil. Ekranda ChatGPT'yi anlatan tek bir görsel işaret yok (yazım kutusu, imleç, sohbet yok). 'ChatGPT'de' ikinci satırda, küçük ve fotoğrafın içinde kayboluyor. Dikkat eve gidiyor; Rumi'nin 'dikkat eve değil' notunun kaynağı bu kare.",
+   "1,67–2,83 sn: Ters portal. Dış çekim fotoğraf küçülüyor ve telefondaki tam ekran ilan detayına (£139.000, Emlakçıya sor) 'iniyor'. Bu sırada henüz soru sorulmamış, arama yapılmamış. Sonuç nedenden önce geliyor; Rumi'nin 'ne alaka, garip' tepkisi bu yüzden. 2,0 sn'deki detay ekranı ilanın 8,0 sn'de bir kez daha gösterilecek ekranının aynısı, yani boşa harcanmış bir tekrar.",
+   "2,95–4,50 sn: Gönderilmiş soru balonuna sert kesme var. Yazma eylemi hiç görülmüyor. Logo 3,0–3,3 sn'de balondaki çipe uçuyor ama çip koyu telefonun içinde 20 px'lik bir leke kadar kalıyor; filmin asıl haber anı fark edilmiyor. 'Evlek'te aranıyor…' satırı da çok küçük. Neden-sonuç zincirinin ilk iki halkası (yaz → ara) izleyiciye aktarılmamış.",
+   "6,25–16,20 sn: Mekân dört kez değişiyor: widget, tam ekran iç mekân, dönen telefon ve evlek.app web sayfası. 13,83–16,0 sn'de ChatGPT'den çıkılıyor. Web sayfasının altındaki 'WhatsApp'tan yaz' ve 'Telefonla ara' hap tuşları (14,0 sn), Rumi'nin 'bizim güncel tuşlarımız öyle değil' dediği öğe. Haber 'ChatGPT'de' iken filmin ortasında ChatGPT dışına çıkmak mesajı sulandırıyor.",
+   "16,20–23,45 sn: Eklentiler yolu filmin sonunda değil ortasında. Ardından ikinci bir Girne sorgusu geliyor (21,0–23,5). Böylece 'nasıl eklenir' bölümü son perde olamıyor, film iki kez 'sonuç' gösteriyor. 'ChatGPT › Eklentiler › Evlek › Ekle' kırıntısı ve telefon içi ekranlar dikey videoda okunamayacak kadar küçük.",
+   "23,45–29,50 sn: Altı saniye boyunca durağan bir CTA var: havuz, Girne sonucunu gösteren telefon ve üç satırlık 'ChatGPT'de Eklentiler'den Evlek'i ekleyin.' metni. Haber cümlesi 'artık ChatGPT'de.' ancak 29,67 sn'de, son 0,3 saniyede geri dönüyor; kapanışta haber yerine oturmuyor. Açılış ve kapanış aynı havuz fotoğrafı olduğu için film kendini evin reklamı olarak tanımlıyor."
+  ],
+  "ilkeler": [
+   "Haber önce gelir, ev sonra. Kanca bir cümle iletmeli: özne 'Evlek', yüklem 'artık ChatGPT'de'. İlk 2 saniyede bu cümle tamamlanmış olmalı. Duygu kurmaya yönelik atmosfer planı (havuz, gün batımı) kancada yer almaz; sonradan, kazanıldığında gelir.",
+   "Neden ekranda, sonuç ekranda. Her görüntü bir önceki görüntünün ürettiği şey olmalı: yazı aramayı, arama haritayı, harita kartı, kart fotoğrafı doğurur. Ekranda olmayan bir sebeple hiçbir şey belirmez. Ters portal gibi 'büyülü' geçişler yasak; geçişler dokunuşla ya da kaydırmayla, yani kullanıcı eylemiyle tetiklenir.",
+   "Tek dünya kuralı. Film ChatGPT sohbetinin içinde yaşar. Dışarı çıkmaya (evlek.app web sayfası) yalnızca habere bir şey katıyorsa izin verilir. Burada katmıyor; tersine tuş tasarımı sorununu da getiriyor.",
+   "Tek kahraman nesne: Evlek çipi. Çip 0,9 sn'de doğar, soruyu taşır, sonucu üretir ve filmin sonunda izleyicinin kendi yazım kutusuna yerleşir. Logo uçuşu, kırıntı ve dönen telefon gibi ikincil efektler bu nesneyle yarışmamalı.",
+   "Halka yapı. Son kare ilk karenin kadrajına döner (aynı yazım kutusu, aynı çip, yanıp sönen imleç). Reels döngüsünde film kesintisiz başa sarar; haber cümlesi hem açılışta hem kapanışta tam ve okunur durur.",
+   "İddiasız güç. Sıfatların yerine gerçek pikseller kanıt olur: gerçek widget, gerçek fiyatlar, gerçek Eklentiler akışı. Metin en çok üç mesajdır ve hiçbiri 'ilk/tek/en' içermez."
+  ],
+  "giris": "GİRİŞ, 0,00–6,40 sn: haberin kendisi.\n- 0,00 sn, ilk kare (kapak karesi olarak da çalışır): Telefon yok, fotoğraf yok. Yazım kutusu temsilî olarak yeniden çiziliyor, ekran genişliğinin yaklaşık yüzde 86'sını kaplıyor (yaklaşık 930 px) ve dikey eksende ortanın biraz üstünde duruyor. Kutu, gerçek uygulamadaki gibi koyu (#2F2F2F tonu) ve yuvarlak köşeli; artı, mikrofon ve gönder ikonları duruyor. Zemin lacivert #0A2540, hafif radyal ışıklı. İçeride gri yer tutucu 'ChatGPT'ye sor' ve yanıp sönen imleç var. Yazı tipi 64–72 px, yani bu bir arayüz değil, manşet ölçeğinde bir nesne. İzleyici ilk karede, logo olmadan, 'ChatGPT yazım kutusu' olduğunu tanır.\n- 0,15–0,85 sn: Kutuya 'Evlek' harf harf yazılır (her harf yaklaşık 0,12 sn). Yer tutucu kaybolur.\n- 0,85–1,05 sn, 'çıt' anı: Yazılan kelime gerçek Evlek çipine dönüşür (Ev rozeti + 'Evlek', ref eklenti_31_5'teki çip). Ölçek 1,08'den 1,00'e iner, 6–8 karelik bir kıvrım olur, çipin zemini mavi tona geçer. Film sessiz; ses yerine fiziksel bir hareket kullanılıyor.\n- 1,05–1,60 sn: Kutunun hemen altında aynı sol hizada 'artık ChatGPT'de.' belirir (krem #FAF8F2, 76–84 px, Inter Bold). Yazı yukarı 24 px kayarak ve opaklığı açılarak gelir. Okunan cümle: [Evlek çipi] artık ChatGPT'de. Cümlenin öznesi bir çip; haber 1,6 sn'de tamamdır.\n- 1,60–2,40 sn: Tutma süresi. Kamera mikro bir itiş yapar (ölçek yüzde 100'den 103'e). Okuma için 0,8 sn ayrılıyor.\n- 2,40–2,70 sn: 'artık ChatGPT'de.' aşağı doğru çözülür, imleç çipin sağında yeniden yanıp söner.\n- 2,70–5,10 sn: Soru insan hızında yazılır: 'Lapta'da £160 bin altı, deniz manzaralı 2+1 daire'. Kamera aynı anda yavaşça geri çekilir; yazım kutusu küçülür ve telefonun alt kenarına yerleşir. 5,0 sn'de markasız 3B telefon tanınabilir hale gelir. Arayüzün tanıtımı yazma eyleminin içinde yapılmış olur.\n- 5,10 sn: Gönder okuna dokunuş (dokunuş halkası).\n- 5,10–5,60 sn: Soru balonu yukarı çıkar ve gerçek uygulamadaki gibi sağa yaslanır, çip başında kalır.\n- 5,60–6,40 sn: Gerçek ara durum satırı görünür ('Evlek'te aranıyor…' ya da canlıdaki gerçek metin; doğrulanacak). İnce bir yükleme ışıltısı geçer. Bu, 'arıyor' halkası.",
+  "gelisme": "GELİŞME, 6,40–18,60 sn: sonuç çıkar, ev ondan doğar.\n- 6,40–8,60 sn: Gerçek widget pikselleri yukarıdan aşağı açılır: harita (£105–147 bin · 8), 'Lapta · Satılık · 8 ilan' ve filtre çipleri. Kamera widget'a yaklaşır (telefon ekranın yüzde 70'i). Dış metin 7,0 sn'de üstte belirir: 'Sor. Evlek göstersin.' (64 px, ikinci mesaj).\n- 8,60–10,60 sn: Kart şeridi parmak hareketiyle sola kayar. Yalnız 4.–8. kartlar görünür: £120.000 → £127.000 → £139.000. Kaydırma yavaşlayarak £139.000'de durur; 10,2 sn'de dokunuş halkası.\n- 10,60–12,00 sn: Tam ekran detay 1/14 açılır (dFull_1): £139.000 · 2+1 · 2 banyo · 107 m² · Lapta, Girne. Kamera havuz fotoğrafına iter.\n- 12,00–14,60 sn, telefonsuz nefes (v11 onayı korunuyor, ama artık kazanılmış durumda): Havuz fotoğrafı widget'taki çerçevesinden taşarak tam ekrana büyür. Hareket kartın kendi fotoğrafından çıkar; dışarıdan gelen bir görüntü yok. Ken Burns tarzı yavaş bir sağa kayış. Arayüz kalktığı için grain ve renk derecelendirmesi yalnız fotoğrafa uygulanır. Dış metin yok, sessiz bir an.\n- 14,60–16,60 sn: Fotoğraf yerinde '›' ile 2/14'e geçer: çift yükseklikli salon. Altta künye belirir: '£139.000 · Lapta · 2+1 · 107 m² kapalı' (52 px; alan türü evlek.app'teki gibi 'kapalı').\n- 16,60–18,60 sn: Fotoğraf yeniden telefonun içindeki detay ekranına küçülür (ters yön, ama artık mantıklı, çünkü oradan çıktı). Detay aşağı kaydırılır, Özellikler çipleri ve 'Evlek'te tüm ayrıntılar ↗' düğmesi görünür. Burada durulur. ÖNERİ: evlek.app web sayfasına geçiş (v12'de 13,83–16,2 sn) tümden çıkarılsın. Böylece 14 sn'deki hap tuşları sorunu da kalkar ve film ChatGPT'den hiç çıkmaz. Rumi web sayfasını isterse tuşların güncel tasarımı gelmeden gösterilmesin. Not: v12'deki ikinci Girne sorgusu da çıkarılıyor.",
+  "sonuc": "SONUÇ, 18,60–30,00 sn: nasıl eklenir ve haberin kapanışı.\n- 18,60–19,40 sn: Geçiş. Sohbet ekranında sol menü açılır (gerçek ChatGPT akışındaki gibi). Üstte üçüncü mesaj belirir: 'Eklentiler'den Evlek'i ekleyin.' (60 px, iki satır). Ayrı bir kırıntı satırı yok; adımlar ekranda kendini anlatıyor. Kırıntı mutlaka kalacaksa ≥52 px olmalı ve tek seferde yalnız etkin adımı göstermeli ('1 Eklentiler', '2 Evlek' gibi).\n- 19,40–21,00 sn: 'Eklentiler' satırına dokunuş, ardından Eklentiler ekranı (ref eklenti_9_0 ve 10_5). Arama kutusuna 'evlek' yazılır (ref eklenti_13_0).\n- 21,00–22,40 sn: Sonuç listesinde Evlek satırına dokunuş, ardından Evlek sayfası açılır: Ev rozeti, 'Evlek', başlangıç komutları kartı (ref eklenti_16_5). İngilizce komut metinleri gerçek; kamera onları geçip 'Eklentiyi kur' düğmesine yaklaşır.\n- 22,40–24,20 sn: 'Eklentiyi kur' düğmesine dokunuş, kısa bir yükleme halkası, ardından 'Bağlı' etiketi ve 'Sohbette dene' düğmesi (ref eklenti_28_5). Burada 0,6 sn tutulur; 'Bağlı' ekleme işinin bittiğinin görsel kanıtı.\n- 24,20–25,40 sn: 'Sohbette dene'ye dokunuş. Yeni sohbet açılır ve yazım kutusunda Evlek çipi hazır bekler (ref eklenti_31_5). İmleç yanıp söner.\n- 25,40–26,60 sn: Halka kapanır. Kamera yazım kutusuna doğru itilir ve telefon kadrajdan çıkar. 26,6 sn'de kadraj 0,00 sn'deki kadrajla piksel piksel aynıdır: lacivert zemin, büyük yazım kutusu, içinde çip ve imleç.\n- 26,60–27,10 sn: Altına 'artık ChatGPT'de.' gelir. Cümle yine [Evlek çipi] artık ChatGPT'de. Bu sefer izleyicinin kendi kutusunda.\n- 27,10–30,00 sn: Tutma süresi. En altta evlek.app (52 px) ve dipnot (28–30 px): 'ChatGPT arayüzü temsilîdir; Evlek ekranları ve ilan verileri gerçektir. ChatGPT, OpenAI'ın ticari markasıdır.' 29,6–30,0 sn arasında 'artık ChatGPT'de.' ve dipnot söner; geriye 0,00 sn'deki gibi çip ve imleç kalır. Böylece döngü dikişsiz olur, ama haber cümlesi 2,9 saniye boyunca okunmuş olur.",
+  "kanca_metinleri": [
+   {
+    "metin": "[Evlek çipi] artık ChatGPT'de.  (çip cümlenin öznesi; 'Evlek' kelimesi yazım kutusundaki gerçek çip)",
+    "kural_durumu": "Uygun. Canlı bir özelliği tarif ediyor, iddia yok. Önerilen ana kanca bu."
+   },
+   {
+    "metin": "Evlek artık ChatGPT'de.",
+    "kural_durumu": "Uygun. Düz metin hali, kapak karesi ve paylaşım başlığı için."
+   },
+   {
+    "metin": "Yeni: Evlek artık ChatGPT'de.",
+    "kural_durumu": "Uygun, ama 'Yeni' etiketi de ≥52 px olmalı ve yayın tarihi eklentinin yayına giriş tarihine yakın olmalı. Eklentinin herkese açık yayın tarihini doğrulamak gerekir."
+   },
+   {
+    "metin": "Evlek'teki Kuzey Kıbrıs ilanları artık ChatGPT'de.",
+    "kural_durumu": "Uygun. Eklenti sayfasındaki 'Evlek brings live Northern Cyprus (KKTC/TRNC) property listings into ChatGPT' tanımıyla örtüşüyor. 'KKTC ilanları artık ChatGPT'de' şeklindeki kısaltma ise kurala aykırı, çünkü tüm KKTC ilanları anlamına gelir ve doğrulanamaz."
+   },
+   {
+    "metin": "Ev aramayı ChatGPT'ye sorun.",
+    "kural_durumu": "Uygun. Eylem çağrısı biçiminde, iddia yok. Haber vurgusu zayıf; kanca yerine ikinci mesajın alternatifi olur."
+   },
+   {
+    "metin": "Sor. Evlek göstersin.",
+    "kural_durumu": "Uygun. Daha önce onaylandı. Kanca değil, ikinci mesaj (7,0 sn) olarak korunuyor."
+   },
+   {
+    "metin": "Yapay zekâ ile çalışan emlak platformu Evlek, artık ChatGPT'de.",
+    "kural_durumu": "Doğrulama ve onay gerekir. Kurumun kendini tanımlaması (AI-native) olarak savunulabilir, ama Onur'un onayı lazım. Ayrıca uzun; 2 saniyede okunmaz, kanca olarak önerilmez."
+   },
+   {
+    "metin": "KKTC'nin ilk yapay zekâ emlak platformu Evlek, artık ChatGPT'de.",
+    "kural_durumu": "Kurala aykırı. Brif kuralı 'ilk/tek/en iyi yok' mutlak; kurumsal kural da doğrulanmamış iddiayı yasaklıyor. Rumi'nin andığı haber metni bulunsa bile bu, Evlek'in kendi basın metni olur, bağımsız bir doğrulama sayılmaz. Film içinde kullanılmamalı. Rumi ve Onur yine de isterse en fazla haber bağlantısıyla gönderi açıklamasında, kaynak gösterilerek ve Onur'un yazılı onayıyla değerlendirilebilir; filmin kendisinde kullanılmamalı."
+   },
+   {
+    "metin": "ChatGPT'deki ilk KKTC emlak eklentisi: Evlek.",
+    "kural_durumu": "Kurala aykırı. 'İlk' iddiası, eklenti dizini anlık değiştiği için doğrulanamaz; rakip platform var mı yok mu dolaylı bir karşılaştırma da içeriyor."
+   }
+  ],
+  "yaratici_fikir": "\"Öznesi çip olan cümle\": Haber manşeti gerçek ChatGPT yazım kutusunun içinde kuruluyor. Film telefonla değil, ekranı dolduran tek bir nesneyle açılır: manşet ölçeğinde (64–72 px) büyütülmüş bir yazım kutusu ve imleç. 'Evlek' yazılır, 0,9 sn'de 'çıt' diye gerçek Evlek çipine dönüşür, altına 'artık ChatGPT'de.' gelir. Böylece cümlenin öznesi bir kelime değil, ChatGPT'nin içindeki somut bir nesne olur. Bu tek imge haberi iddiasız kanıtlıyor: Evlek ChatGPT'de olduğu için kutuya çip olarak girebiliyor. Sıradan 'telefon + arayüz' filmlerinden farkı şu: ilk 2 saniyede telefon yok, ev yok, logo uçuşu yok; tek bir tipografik nesne var. Telefon ancak soru yazılırken kamera geri çekildiğinde ortaya çıkıyor. Filmin geri kalanı bu çipin sonuçları (arama, harita, kart, ev). Kapanış, izleyicinin kendi yazım kutusunda aynı kadraja dönüyor; Reels döngüsü dikişsiz başa sarıyor. Uygulanabilirlik: ChatGPT kabuğu ve çip brifte 'yeniden çizilebilir (temsilî)' olarak serbest; ChatGPT/OpenAI logosu kullanılmıyor; Evlek widget'ına dokunulmuyor; yeni görsel üretilmiyor.",
+  "korunacaklar": [
+   "Gerçek widget pikselleri olduğu gibi kalacak: Lapta haritası (£105–147 bin · 8), 'Lapta · Satılık · 8 ilan' ve filtre çipleri, kart şeridinde yalnız 4.–8. kartlar (CGI/insanlı ilk 3 kart dışarıda), dFull_1/dFull_2 detayları (1/14 ve 2/14).",
+   "Tek Lapta sorgusu ve metni: 'Lapta'da £160 bin altı, deniz manzaralı 2+1 daire' (v11 onayı). Girne ikinci sorgusu çıkarılacak.",
+   "'Sor. Evlek göstersin.' ikinci mesaj olarak kalacak (v12'de 4,2–6,2 sn; yeni kurguda 7,0 sn).",
+   "Havuzda telefonsuz nefes (v11 onayı) kalacak, ama artık açılışta değil, £139.000 kartına dokunulduktan sonra kartın fotoğrafından büyüyerek gelecek (12,0–14,6 sn).",
+   "Çift yükseklikli salon (2/14) ve künye kalacak; '107 m²' alan türü evlek.app'teki gibi 'kapalı' olarak yazılacak, brüt/net uydurulmayacak.",
+   "Eklentiler akışının v12'deki ekranları kalacak; gerçek iOS kaydı düzenine sadık, 'Eklentiyi kur' → 'Bağlı' → 'Sohbette dene' sırasıyla (v12, 18,0–20,8 sn). Bu ekranlar iyi; sadece sona taşınacak ve büyütülecek.",
+   "Tempo 'insan gözüne göre biraz yavaş' kalacak: yazma insan hızında, her bilgi ekranında en az 0,8 sn tutma.",
+   "Markasız 3B telefon, renk paleti (krem/lacivert/sınırlı mercan), Inter yazı tipi ve dipnot metni ('ChatGPT arayüzü temsilîdir; Evlek ekranları ve ilan verileri gerçektir. ChatGPT, OpenAI'ın ticari markasıdır.') kalacak.",
+   "v11'in onaylı 'logo yazım kutusundaki Evlek çipine iner' fikri kalacak, ama çevrilerek: logo uçmuyor, kelime kutunun içinde çipe dönüşüyor. Onaylı niyet korunuyor, ölçek büyütülerek görünür kılınıyor."
+  ],
+  "riskler": [
+   "'İlk' iddiası. Rumi'nin 'KKTC'nin ilk yapay zekâ…' önerisi film içinde kullanılırsa hem brif kuralı hem kurumsal kural ihlal edilir ve yayın sonrası düzeltme riski doğar. Kancada kesinlikle önerilmiyor.",
+   "Açılışta fotoğraf olmaması, filmin 'soğuk/arayüz' hissi vermesine yol açabilir. Önlem: yazım kutusu manşet ölçeğinde, lacivert zeminde hafif ışık, 0,9 sn'de fiziksel bir 'çıt' hareketi. Duygu 12,0 sn'deki havuz nefesine bırakılıyor. Bunu Rumi'ye iki küçük kare taslağıyla göstermek gerekir.",
+   "Temsilî ChatGPT kabuğu manşet ölçeğinde büyütüldüğü için gerçek ürüne fazla benzerse marka/ticari takdim riski oluşur. Logo yok, dipnot var; kutu genel bir sohbet kutusu dilinde kalmalı.",
+   "Yazma hızı. 45 karakterlik soru 2,4 sn'ye sığdırılırsa okunmaz, uzatılırsa tempo düşer. Çözüm: kamera geri çekilirken yazı sürer; okunabilirlik için soru balonu gönderildikten sonra 0,5 sn ek tutma.",
+   "Gerçek arayüz durumları doğrulanmalı: soru balonunun hizası (gerçek uygulamada sağa yaslı), ara durum metni ('Evlek'te aranıyor…' mı, 'Birkaç saniye düşündü' mü), çipin görünümü ve konumu. Canlı olmayan bir durum gösterilmemeli.",
+   "Eklentinin erişilebilirliği: CTA 'Eklentiler'den Evlek'i ekleyin.' tüm kullanıcılar (ücretsiz plan, Türkiye, mobil/web) için geçerli değilse yanıltıcı olur. Kimlerin ekleyebildiği doğrulanmalı.",
+   "evlek.app sayfasını çıkarmak 'Evlek'te aç' köprüsünü göstermeyi kaldırır. Rumi web sayfasını isterse, güncel tuş tasarımı gelmeden 14 sn sorunu tekrarlanır."
+  ],
+  "rumiye_sorular": [
+   "'Haber yapmıştık' dediğin haberin bağlantısını ya da metnini paylaşabilir misin? Orada tam olarak hangi ifade geçiyor? 'İlk' iddiası filmde kullanılamaz (brif kuralı ve doğrulanmamış iddia); haber yalnızca gönderi açıklamasında, kaynak gösterilerek ve Onur onaylarsa kullanılabilir. Kanca olarak '[Evlek çipi] artık ChatGPT'de.' sana yeterince güçlü geliyor mu?",
+   "14. saniyedeki tuşlar evlek.app sayfasının altındaki 'WhatsApp'tan yaz / Telefonla ara' hapları mı? 'Filtredeki gibi' derken hangi ekranı kastediyorsun (evlek.app arama filtresi mi, başka bir ekran mı)? Güncel tasarımın ekran görüntüsünü atabilir misin? Ya da önerim gibi evlek.app sayfasını tümden çıkarıp filmi ChatGPT'nin içinde tutalım mı?",
+   "Açılış: telefon ve ev yok; lacivert zemin, ekranı dolduran yazım kutusu, 'Evlek' yazılıp çipe dönüşüyor, altında 'artık ChatGPT'de.' beliriyor. Bu yön senin istediğin 'dikkat haberde' hissini veriyor mu? Kutunun rengi gerçek uygulamadaki gibi koyu mu olsun, Evlek kremi mi?",
+   "Havuz fotoğrafını açılıştan alıp, £139.000 kartına dokunulduktan sonra kartın fotoğrafından büyüyen 'nefes' anına (12–14,6 sn) taşımak senin 'önce ara, sonra çıksın' mantığına uyuyor mu?",
+   "v12'deki ikinci Girne sorgusunu çıkarıp sonu tamamen 'Eklentiler'den ekle' adımlarına ve 'Evlek artık ChatGPT'de.' kapanışına bırakıyoruz. Onaylıyor musun?",
+   "Eklenti şu an herkes için mi açık (ücretsiz plan, Türkiye, iOS/Android/web)? CTA'yı buna göre yazmamız gerekiyor. Ekranda 'Yeni' etiketi kullanmak ister misin?"
+  ]
+ },
+ {
+  "uzman": "Teknoloji lansmanı stratejisti (keynote reveal, entegrasyon duyurusu filmleri; \"X artık Y'de\" kalıbı: duyuru → kanıt → nasıl başlanır; sesi kapalı dikey akış)",
+  "v12_teshis": [
+   "0,00–1,50 sn: İlk kareye havuz fotoğrafı hâkim. Ekranın yaklaşık %80'i havuz ve palmiye; 'Evlek / artık ChatGPT'de.' üstte ikinci derecede bir başlık gibi kalıyor. Göz önce EVE gidiyor, film tatil konutu reklamı gibi açılıyor. 'artık ChatGPT'de.' 1,33 sn'de sönmeye başlıyor; 1,5 sn'ye varmayan bir okuma, haberin oturması için yetmiyor.",
+   "1,50–2,95 sn (ters portal): Havuz fotoğrafı küçülüp telefondaki Evlek detayına iniyor. Ama ortada henüz bir soru yok. Sonuç (ilan detayı) nedenden (soru) önce geliyor; Rumi'nin 'ne alaka, garip' tepkisinin kaynağı bu. 2,95'te boş ChatGPT ekranına sert kesme geliyor, logo başka sahnedeki çipe uçuyor ve süreklilik kopuyor.",
+   "3,00–4,40 sn: Soru balonu gönderilmiş hâlde beliriyor; YAZMA anı hiç görünmüyor. 'Evlek'te aranıyor…' yalnız yaklaşık 0,9 sn ekranda ve küçük. Yaz → ara → çık zincirinin ilk iki halkası görünmüyor; izleyici sonucu, kendi cümlesiyle sormanın sonucu olarak okumuyor.",
+   "8,83–16,20 sn: İç mekân 3 sn tam kadraj kalıyor, telefon geri geliyor, sonra 13,5–16,2'de film ChatGPT'den çıkıp evlek.app sayfasına geçiyor. 14,0 sn'de görünen 'WhatsApp'tan yaz / Telefonla ara' hap tuşları Rumi'nin 'yuvarlak kenarlı tuşlar' şikâyeti. Bu bölüm haberin (ChatGPT) dışına sapan bir yan yol; detay çubuğundaki 'Emlakçıya sor' hapı da çok kez görünüyor.",
+   "16,2–23,45 sn: 'Nasıl eklenir' bölümü filmin ortasında, ardından ikinci bir demo (Girne, 52 ilan) geliyor. Yapı giriş-gelişme-sonuç değil, demo → kurulum → demo. Girne tekrarı kalabalık hissini (v10 geri bildirimi) geri getiriyor.",
+   "23,45–30,0 sn: CTA kartı 3 satır başlık + dipnotla yaklaşık 6 sn statik bekliyor (telefonda Girne sonucu). Kapanış cümlesi 'artık ChatGPT'de.' yalnız 29,67–30,0'da, 0,33 sn görünüyor; film ana haberle kapanmıyor. Dipnot 1080 genişlikte çok küçük görünüyor; 28 px alt sınırı ölçülmeli."
+  ],
+  "ilkeler": [
+   "Önce haber, sonra kanıt. Sesi kapalı ve küçük ekranda tam cümle ilk 1 sn içinde okunur olmalı. İlk karede fotoğraf yok; düz lacivert zemin ve tipografi var. Ürün görüntüsü haberi süslemek için değil, kanıtlamak için girer.",
+   "Her görüntü bir önceki eylemin sonucudur: yazı → gönder → arıyor → sonuç → dokunuş → detay. Kesme yerine eylemle motive edilen tek kamera hareketi kullanılır. 'Ters' yönlü geçiş (dışarıdan içeri, sonuçtan nedene) yasak; görüntü yalnız içeriden dışarı taşabilir (dokunulan foto büyür).",
+   "Tek soru, tek demo. Entegrasyon duyurularında kanıt, izleyicinin kendi cümlesini ekranda görmesidir. İkinci sorgu (Girne) yeni bilgi katmıyor, dikkati bölüyor. Lapta sorgusu baştan sona taşınır.",
+   "'Nasıl başlanır' bölümü adımları görünür bir ilerleme çubuğuyla gösterir (ChatGPT › Eklentiler › Evlek › Ekle) ve izleyiciyi filmin başladığı yere, içinde Evlek çipi olan yazım kutusuna geri getirir. Böylece kurulum, hikâyenin başlangıç noktası olur.",
+   "Sessiz okuma bütçesi: ekranda aynı anda tek dış metin, en az 1,5 sn + kelime başına yaklaşık 0,3 sn. Ana mesaj en çok 3 (aç/kapa aynı cümle). Son kare en az 2,5 sn tutulur.",
+   "Kapanış = açılış (döngü). Reels/Shorts filmi başa sarıyor; son karenin ilk kareyle aynı olması ikinci izlemeyi dikişsiz yapar ve 'Evlek artık ChatGPT'de.' cümlesini iki kez bastırır."
+  ],
+  "giris": "GİRİŞ 0,00–3,60 sn (duyuru; ev yok, fotoğraf yok). 0,00: Düz lacivert #0A2540 zemin, ortada krem renkte büyük 'Evlek' yazısı (vektör logo, yaklaşık 240 px yükseklik). Altında yanıp sönen ince bir imleç var; ilk kare tek başına da okunur ve hareketlidir (kapak karesi güvenli). 0,15–0,90: İmleçten 'artık ChatGPT'de.' harf harf yazılır (Inter Semibold, yaklaşık 96 px, krem). Bu, ChatGPT logosu kullanmadan 'sohbet' dilini çağıran yerel bir jest. 0,90: Cümle tamam; isteğe bağlı küçük mercan 'YENİ' etiketi 'Evlek'in üst soluna oturur (mercanın tek kullanımı). 0,90–2,40: Okuma tutması, %2'lik çok yavaş itme (push-in). Toplam okunurluk 1,5 sn'nin üstünde. 2,40–3,60 köprü: Markasız telefon alttan kadraja yükselir; yalnız alt yarısı ve yazım kutusu yakın planda görünür. 'artık ChatGPT'de.' 2,40–2,80 arasında söner. 'Evlek' yazısı küçülerek aşağı süzülür ve 3,20'de yazım kutusundaki 'Ev Evlek' çipine dönüşerek oturur (v11'de onaylanan Kanca A). 3,20–3,60: İmleç çipin hemen sağında yanıp söner. Haber, bir sonraki eylemin, yani yazmanın başlangıç noktasına dönüşür. Kamera: tek sürekli hareket, kesme yok.",
+  "gelisme": "GELİŞME 3,60–19,00 sn (kanıt: yaz → ara → çık → ev). 3,60–6,60 YAZ: Kamera yazım kutusunda yaklaşık 2,2x yakın plan; yazının kendisi 1080 karede yaklaşık 48–52 px'e denk gelecek kadar büyük. Çipin arkasından 'Lapta'da £160 bin altı, deniz manzaralı 2+1 daire' saniyede yaklaşık 15 harfle yazılır (Rumi'nin 'biraz yavaş' temposu). Dış metin yok; okunacak tek şey sorunun kendisi. 6,60–6,90: Gönder tuşuna dokunuş halkası; balon yukarı kalkar, kamera 1,4x'e geri çekilir. 6,90–8,20 ARA: Balonun altında 'Ev Evlek' satırı ve yükleniyor durumu 1,3 sn görünür. Etiket, Onur'un gerçek kaydındaki metinle birebir olmalı; referansta 'Birkaç saniye düşündü ›' ve 'Ev Evlek' var, v12'deki 'Evlek'te aranıyor…' doğrulanmalı. 8,20–11,00 ÇIK: Gerçek widget pikselleri (wLaptaTop) yukarıdan açılır: harita + 'Lapta · Satılık · 8 ilan' + çipler. Dış metin 2: 'Sor. Evlek göstersin.' (64 px, krem, telefonun üstünde) 8,60–11,00. 11,00–12,60: Kart şeridi (wLaptaRow, yalnız 4.–8. kartlar) sola kayar ve £139.000'de durur; 12,40'ta dokunuş. 12,60–13,60: Tam ekran detay 1/14 telefonda (dFull_1): £139.000 · 2+1 · 2 banyo · 107 m². 13,60–16,00 NEFES: Dokunulan 1/14 havuz fotoğrafı telefonun İÇİNDEN büyüyerek çerçeveden taşar ve tam kadraja açılır. Yön içeriden dışarıya olduğu için neden-sonuç doğru; v11'deki 'havuzda telefonsuz nefes' onayı da korunur. Alt bölgede 52 px künye: '£139.000 · 2+1 · 107 m² kapalı · Lapta'. 16,00–16,60: Fotoğraf aynı dikdörtgene geri küçülüp telefona oturur. 16,60–18,20: '›' dokunuşu, 2/14 çift yükseklikli salon (dFull_2), ardından hafif aşağı kaydırma ile Özellikler çipleri (Deniz manzarası, Ortak havuz, Otopark…). 18,20–19,00: Telefon tam boya geri çekilir; köprü. evlek.app sayfası ve Girne ikinci sorgusu ÇIKARILIR. Böylece 14. sn'deki hap tuş sorunu kurgudan kalkar ve film ChatGPT'nin dışına hiç çıkmaz.",
+  "sonuc": "SONUÇ 19,00–30,00 sn (nasıl başlanır + kapanış). 19,00: Telefonun üstünde ilerleme çubuğu belirir: 'ChatGPT › Eklentiler › Evlek › Ekle' (52 px; etkin adım krem ve altı çizili, diğerleri %45 opak). Bu, 3. ana mesajın taşıyıcısı. 19,00–20,00: Kenar menü açılır, 'Eklentiler' satırına dokunuş; çubukta 'Eklentiler' yanar. 20,00–21,40: Eklentiler ekranı (iOS kaydındaki düzen, eklenti_9_0 / 10_5 referansı). 'Eklenti ara' alanına dokunuş, 'evlek' yazılır (13_0). 21,40–22,10: Sonuçtaki 'Ev Evlek' satırına dokunuş; çubukta 'Evlek' yanar. 22,10–24,00: Evlek sayfası (16_5). 23,00'te 'Eklentiyi kur' dokunuşu, 23,00–23,50 dönen gösterge, 23,60'ta 'Bağlı' ve çubukta 'Ekle ✓' (28_5). 24,00–24,80: 'Sohbette dene' dokunuşu. 24,80–26,20: Yeni sohbet; yazım kutusunda 'Ev Evlek' çipi ve imleç (31_5). Kompozisyon 3,20–3,60 aralığındaki kareyle birebir aynı (eşleşme kesmesi); izleyici 'başta gördüğüm yere geldim' der. 26,20–27,00: Açılışın tersi: çip büyüyerek yukarı süzülür ve 'Evlek' yazısına döner, telefon aşağı çıkar, zemin düz laciverte geçer. 27,00–30,00 KAPANIŞ (3 sn tutma): 'Evlek' + 'artık ChatGPT'de.' (açılışla aynı yerleşim ve boyut). Altında 52 px 'Eklentiler'den ekleyin.' Dipnot 28–30 px: 'ChatGPT arayüzü temsilîdir; Evlek ekranları ve ilan verileri gerçektir. ChatGPT, OpenAI'ın ticari markasıdır.' 29,60'tan sonra alt satır ve dipnot söner. Son kare = ilk kare (lacivert, 'Evlek artık ChatGPT'de.'), döngü dikişsiz. Oranlar: duyuru %12, kanıt %51, nasıl başlanır %24, kapanış %13.",
+  "kanca_metinleri": [
+   {
+    "metin": "Evlek artık ChatGPT'de.",
+    "kural_durumu": "Uygun. Basın duyurusuyla (13 Kasım 2026) ve canlı özellikle örtüşüyor; hem açılış hem kapanış cümlesi."
+   },
+   {
+    "metin": "Kuzey Kıbrıs emlak ilanları artık ChatGPT'de.",
+    "kural_durumu": "Uygun. Basın duyurusu başlığının diline dayanıyor ('Kuzey Kıbrıs emlak ilanlarını ChatGPT'ye taşıdı'); 'ilk' demeden KKTC kapsamını ve haber ağırlığını veriyor. Üst satır (overline) olarak 'Evlek artık ChatGPT'de.' ile birlikte kullanılabilir; 3 mesaj sınırına dikkat."
+   },
+   {
+    "metin": "Kuzey Kıbrıs'ta ev mi arıyorsun? ChatGPT'ye sor.",
+    "kural_durumu": "Uygun, ama marka adı ikinci planda kalıyor. Rumi'nin 'dikkat Evlek ChatGPT'de olmalı' isteğine göre ana kanca değil, yedek."
+   },
+   {
+    "metin": "Sor. Evlek göstersin.",
+    "kural_durumu": "Uygun. Gelişme bölümündeki 2. mesaj; v12'den korunuyor."
+   },
+   {
+    "metin": "Kendi cümlenle sor. Evlek göstersin.",
+    "kural_durumu": "Uygun. Duyurudaki 'kendi cümlesiyle yazar' ifadesine dayanıyor. Hitap biçimi (sen/siz) CTA ile tutarlı olmalı; kapanış 'ekleyin' olduğu için 'Kendi cümlenizle sorun.' daha tutarlı."
+   },
+   {
+    "metin": "YENİ · Evlek artık ChatGPT'de.",
+    "kural_durumu": "Uygun. Kasım 2026 yayına girişi duyuruda belgeli. 'YENİ' etiketi zamanla eskir; yayın süresi kısa tutulmalı."
+   },
+   {
+    "metin": "KKTC'nin ilk yapay zekâ emlak asistanı / ChatGPT'deki ilk KKTC emlak uygulaması",
+    "kural_durumu": "Kurala aykırı. Brifteki 'ilk/tek/en iyi yok' kuralına ve kurumsal 'doğrulanmamış iddia yok' kuralına takılıyor. Rumi'nin atıf yaptığı basın duyurusunda böyle bir ifade YOK. Ancak bağımsız ve doğrulanmış bir kaynak gösterilir ve Onur yazılı onay verirse yeniden değerlendirilebilir; o durumda bile dipnotlu ve tarihli olmalı. Önerilen yerine koyma: 'Kuzey Kıbrıs emlak ilanları artık ChatGPT'de.'"
+   },
+   {
+    "metin": "Evlek hesabı gerekmez.",
+    "kural_durumu": "Doğrulama gerekir. Duyuruda yazıyor; filmde kullanılırsa canlı akışta hesapsız çalıştığı ekranla teyit edilmeli. 4. mesaj olacağı için ana metin yerine dipnota uygun."
+   },
+   {
+    "metin": "Beş dilde sor: Türkçe, İngilizce, Rusça, Almanca, Arapça.",
+    "kural_durumu": "Doğrulama gerekir. Duyuruda var ama film Türkçe ve tek demo; gösterilmeyen bir özelliği metinle iddia etmek kanıt-dışı kalır. Bu filmde önerilmez."
+   }
+  ],
+  "yaratici_fikir": "\"Logo çipe dönüşür, çip logoya döner\": tek bir nesne bütün hikâyeyi taşır. Açılışta 'Evlek' yazısı haber cümlesiyle birlikte görünür, sonra küçülüp ChatGPT yazım kutusundaki 'Ev Evlek' çipine iner (haber → eylem). Soru o çipin arkasından yazılır, sonuç o çipin altından çıkar. Kurulum akışı 'Sohbette dene' ile yine aynı çipe, açılıştakiyle birebir aynı kareye döner. Son 3 saniyede çip büyüyüp tekrar 'Evlek artık ChatGPT'de.' başlığına dönüşür ve son kare ilk kareye eşitlenir, film döngüde dikişsiz başa sarar. Haber iki kez okunur; araya giren her şey (yaz, ara, çık, ev, ekle) o haberin kanıtı olarak çerçevelenir. Yeni bir görsel üretim gerektirmez: vektör logo, temsilî ChatGPT kabuğu ve gerçek widget pikselleriyle yapılır; ChatGPT logosu, yapay zekâ görseli ya da widget yeniden tasarımı yok.",
+  "korunacaklar": [
+   "v11'de onaylanan Kanca A mekaniği: logo yazım kutusundaki Evlek çipine iner (bu kez araya fotoğraf girmeden, lacivert zeminden doğrudan).",
+   "Tek Lapta sorgusu ve metni: 'Lapta'da £160 bin altı, deniz manzaralı 2+1 daire'.",
+   "Gerçek widget pikselleri: wLaptaTop (harita + 'Lapta · Satılık · 8 ilan'), wLaptaRow (yalnız 4.–8. kartlar), £139.000 kartına dokunuş, dFull_1 → '›' → dFull_2 (1/14 → 2/14) geçişi.",
+   "'Sor. Evlek göstersin.' ara mesajı.",
+   "Havuzda telefonsuz nefes (v11 onayı); yalnız yönü içeriden dışarı olacak şekilde, dokunulan fotoğraftan büyüyerek.",
+   "'ChatGPT › Eklentiler › Evlek › Ekle' ilerleme çubuğu ve etkin adımın yanması; 'Eklentiyi kur' → dönen gösterge → 'Bağlı' → 'Sohbette dene' sırası (iOS kaydıyla birebir).",
+   "Bulanık arka plan + markasız 3B telefon, krem/lacivert/mercan paleti, Inter.",
+   "Dipnottaki temsilî arayüz ve ticari marka açıklaması.",
+   "Rumi'nin 'insan gözüne göre biraz yavaş' tempo onayı: yazma yaklaşık 15 harf/sn, her dış metin en az 1,5 sn."
+  ],
+  "riskler": [
+   "'İlk' iddiası: Rumi kancada 'KKTC'nin ilk yapay zekâ…' istiyor. Duyuruda yok, kurallara aykırı; kaynak ve Onur onayı olmadan kullanılırsa marka ve hukuk riski doğar. Alternatif kancalar Rumi'ye önceden gösterilmeli.",
+   "Arama anı etiketi: v12'deki 'Evlek'te aranıyor…' metni gerçek ChatGPT akışında olmayabilir (iOS referansında 'Birkaç saniye düşündü ›' görünüyor). Temsilî kabukta bile canlıda olmayan bir durum göstermek 'yalnız canlı özellik' kuralını zorlar.",
+   "14. sn tuş şikâyetinin hedefi belirsiz. evlek.app bölümünü çıkarmak hap tuşları kaldırır, ama şikâyet widget'taki 'Emlakçıya sor' hapına yönelikse o gerçek widget'tır, yeniden tasarlanamaz. Tek çözüm kadrajla dışarıda bırakmak; detay ekranlarında alt çubuk kırpılmalı.",
+   "Havuz 'nefesi' Rumi'ye yine 'dışarıdaki görsel' gibi gelebilir. Fotoğraf mutlaka dokunulan karenin dikdörtgeninden büyümeli ve aynı yere geri dönmeli; ayrı bir 'manzara planı' gibi girmemeli. Gerekirse nefes tamamen çıkarılıp detay telefonda kalır.",
+   "Girne sonucunun ve evlek.app sayfasının çıkarılmasıyla 'Evlek'te tüm ayrıntılar' köprüsü ve çok şehir kanıtı kaybolur. Bu bilinçli bir sadeleştirme; Rumi'nin onayı gerekir.",
+   "Eklentiler ekranlarındaki Evlek sayfası metinleri İngilizce ('Northern Cyprus property data', örnek istemler). Gerçek oldukları için değiştirilemezler; Türkçe filmde kısa göründükleri sürece sorun değil, okunmaya zorlanmamalı. Ayrıca Eklentiler listesinde başka eklentilerin markaları görünmemeli (eklenti_10_5'te üçüncü taraf logolar var; o kare kullanılmamalı veya kırpılmalı).",
+   "Okunurluk: telefon içi arayüz metinleri 1080 karede küçük kalır. Yazma ve sonuç anlarında kamera yakınlaşması şart; dipnot en az 28 px olacak şekilde ölçülmeli (v12'de daha küçük görünüyor)."
+  ],
+  "rumiye_sorular": [
+   "Haberde 'ilk' ifadesi yok. 'KKTC'nin ilk…' için bağımsız ve doğrulanmış bir kaynak var mı? Yoksa kanca 'Evlek artık ChatGPT'de.' (+ isteğe bağlı üst satır 'Kuzey Kıbrıs emlak ilanları') olarak mı kalsın?",
+   "14. sn'deki tuşlar evlek.app sayfasındaki 'WhatsApp'tan yaz / Telefonla ara' mı, detay çubuğundaki 'Emlakçıya sor' mu? 'Filtredeki gibi' derken widget'taki Satılık/Kiralık/Filtreler çiplerini mi, yoksa evlek.app'in yeni filtre tasarımını mı kastediyorsun? Güncel tasarımın ekran görüntüsü var mı?",
+   "Öneri: evlek.app sayfası bölümünü tamamen çıkaralım, film ChatGPT'nin içinde kalsın. Uygun mu?",
+   "Girne ikinci sorgusunu çıkarıp tek Lapta sorgusuyla devam edelim mi?",
+   "Arama anında ekranda ne yazmalı: gerçek akıştaki 'Birkaç saniye düşündü ›' + 'Evlek' mi, yoksa başka bir etiket mi? Onur'un kaydındaki birebir metni kullanalım mı?",
+   "Havuz fotoğrafı, dokunulan ilandan büyüyerek tam kadraja açılırsa 'dışarıdan gelen görsel' hissi verir mi? Yoksa ev bölümünü tamamen telefonun içinde mi tutalım?",
+   "Kapanışta 'Evlek artık ChatGPT'de.' + 'Eklentiler'den ekleyin.' ve son karenin ilk kareyle aynı olduğu döngü onaylanıyor mu? 'YENİ' etiketi kalsın mı?"
+  ]
+ },
+ {
+  "uzman": "Sosyal reklam ve ilk 2 sn kanca uzmanı (Reels/TikTok/Shorts dikey; KKTC'de ev arayan, yatırımcı ve emlakla ilgilenen Türkçe izleyici). Bakış açım: kaydırma akışında ilk kare küçük önizlemede (360×640) okunuyor mu, 0,5. saniyede bir şey kıpırdıyor mu, 2. saniyede izleyici haberi alıp \"nasıl?\" diye merak ediyor mu, film sona gelince başa takılmadan dönüyor mu.",
+  "v12_teshis": [
+   "0,00–1,50 sn kanca hareketsiz ve dikkati eve veriyor. 0,00–0,83 arasındaki kareler birebir aynı, ilk yarım saniyede hiçbir şey kıpırdamıyor. Kadrajın yaklaşık %70'i havuz fotoğrafı (y≈600–1920). 'artık ChatGPT'de.' satırı yalnız 67 px yüksekliğinde (360 önizlemede ≈22 px), 1,33–1,50 arasında soluyor; yani haber ancak 1,3 sn okunuyor. Tam ekran havuzun üstündeki logo bir ilan reklamı gibi okunuyor, 'haber' gibi değil.",
+   "1,50–2,95 sn ters portalda neden-sonuç tersine işliyor. Havuz fotoğrafı 2,0–2,8'de telefondaki tam ekran ilan detayına iniyor, oysa daha hiçbir soru sorulmadı. Sonuç sorudan önce geliyor; Rumi'nin 'dışardaki görsel bir anda evleke geliyor ne alaka' dediği an bu. 3,00'te kesmeyle gelen soru balonu zaten gönderilmiş, yazma hiç görülmüyor. Logonun çipe uçuşu (3,0–3,3) önizlemede okunamayacak kadar küçük.",
+   "Tekrar ve yorgunluk var. Aynı havuz karesi 0,0'da, 2,0'da, 6,5'te (kartta) ve 7,5'te (detayda), sonra 23,8–29,8'de bir daha görünüyor. Ev, hikâyede hak edilmeden önce harcanıyor; 7,5'te gelen asıl 'açılış' anı yeni bir şey göstermiyor.",
+   "11,65–16,2 sn evlek.app sapması. Telefon dönüp evlek.app sayfasına gidiyor, 14,0–16,0'da altta hap biçimli 'WhatsApp'tan yaz / Telefonla ara' tuşları ekranı kaplıyor. Rumi'nin '14. saniyedeki yuvarlak tuşlar' dediği bunlar. Hikâye ChatGPT'den çıkıyor, ayrıca güncel olmayan bir tasarım gösteriliyor.",
+   "16,2–23,45 sn yapı kırılıyor. 'Nasıl eklenir' yolu filmin ortasında kalıyor, ardından 21,0–23,45'te ikinci bir Girne sorgusu (52 ilan) geliyor. Bu, v11'de onaylanan 'tek Lapta sorgusu'nu bozuyor. Giriş → gelişme → sonuç yok; sonuç, yani ekleme yolu, finale konmamış.",
+   "24,0–29,5 sn kapanış 5,5 sn boyunca duruyor. Kartta 3 satır CTA var (satır yüksekliği ≈50 px, ≥52 sınırında). Dipnot ≈20 px ölçülüyor, kural 28–30 px. Telefondaki Girne sonucu okunamayacak kadar küçük. Döngü fikri iyi (son kare = ilk kare) ama döndüğü yer yine havuz, yani yine ev."
+  ],
+  "ilkeler": [
+   "İlk kare kendi başına bir kapak olmalı. Haber cümlesi 0,00'da tam opak ve ekranda olur, belirerek gelmez. 1080 genişlikte ≥88–96 px (360 önizlemede ≈30 px) yazılır ve Reels güvenli alanında durur: üst 220 px, alt 420 px ve sağ 140 px boş kalır.",
+   "0,5 sn kuralı: ilk yarım saniyede gözü yakalayan tek bir hareket olur ve bu hareket ürünün kendisidir. Burada bu hareket, yazım kutusunda yanıp sönen imleç ve yazılmaya başlayan sorudur. Fotoğraf zoom'u ya da süs animasyonu değildir.",
+   "Neden-sonuç zinciri kesintisiz kurulur: yaz → gönder → 'Evlek'te aranıyor…' → sonuç → dokun → detay. Her görüntü bir önceki eylemin sonucu olmalı. İzleyici bir ekranın neden geldiğini sorarsa kanca bozulmuştur.",
+   "Ev, filmin ödülüdür; açılışın konusu değildir. Havuz ve salon ancak izleyici £139.000 kartına dokunulduğunu gördükten sonra büyür. O andan sonra tam ekran 'nefes' bir anlam taşır.",
+   "Sessiz film, düşük bilişsel yük: tüm film boyunca en çok 3 kısa mesaj olur ve her mesaj ekranda ≥2 sn kalır. Tempo 'insan gözüne göre biraz yavaş' tutulur; 30 sn'de 10–12 çekim yeter, aynı anda tek eylem olur.",
+   "Döngü bir kanca çarpanıdır. Son kare, ilk karedeki yazım kutusuna geri döner; böylece ikinci izlemede soru yeniden yazılmaya başlar. Tekrar izlemeler sayılır, sona gelen biri de başa takılmadan döner."
+  ],
+  "giris": "GİRİŞ (0,00–5,0 sn), kanca = haber + yazım kutusu.\n\nKARE 0 (0,00): Zemin düz lacivert #0A2540; fotoğraf yok, ev yok. Üst üçte birde (y≈300–560) beyaz vektör Evlek logosu (≈150 px) ve altında krem renkte, en az 92 px'lik \"artık ChatGPT'de.\" yazısı yer alır. Logonun üstünde küçük mercan bir künye olabilir: \"DUYURU · KASIM 2026\" (40 px, harf aralığı açık). Bu, Rumi'nin istediği \"haber\" tonunu verir ve duyuru tarihiyle doğrulanabilir. Ekranın ortasında (y≈980–1130) büyük ölçekte, temsilî bir ChatGPT yazım kutusu durur: koyu gri, 940 px genişlik, ≈150 px yükseklik. Solunda gerçek düzendeki \"Ev Evlek\" çipi, yanında yanıp sönen imleç vardır. ChatGPT logosu yoktur. 360×640 önizlemede okunan şey: \"Evlek artık ChatGPT'de\" ve bir yazım kutusu. Mesaj tek bakışta geçer.\n\n0,00–0,50: Kare genelinde çok yavaş bir yaklaşma başlar (ölçek 1,00→1,03). İmleç 0,15'te bir kez yanıp söner. 0,30'da yazma başlar: \"Lapta'da…\" Kaydırmayı durduran hareket budur; göz, büyüyen harflere gider.\n\n0,50–2,20: Soru, insan hızına yakın bir tempoyla (≈25 karakter/sn), 56–60 px'lik yazıyla yazılır: \"Lapta'da £160 bin altı, deniz manzaralı 2+1 daire\". Uzun gelirse \"Lapta'da £160 bin altı 2+1\" kısaltması kullanılabilir, ama sonuç aynı sorgu olmalı. Başlık bu sürenin tamamında ekranda kalır; 2. saniye bitince izleyici hem haberi hem \"kendi cümlenle soruyorsun\" fikrini almış olur.\n\n2,20–2,60: Gönder okuna dokunulur (dokunuş halkası). Kamera geri çekilir: büyük yazım kutusu küçülüp aşağı iner ve tek bir hareketle markasız 3B telefonun içindeki ChatGPT yazım kutusuna oturur. Bu sırada telefon alttan yükselir. Rumi'nin mantıksız bulduğu \"fotoğraftan telefona\" geçişin yerini, mantıklı \"kelimeden telefona\" geçişi alır. Logo ve başlık yukarı kayar; 3,0'da sönerler.\n\n2,60–3,80: Gönderilmiş balon görünür; altında \"Evlek'te aranıyor…\" durumu belirir (neden-sonuç adımı, 1 sn bekletilir). Mesaj 2 üst güvenli alanda, 64–72 px: \"Kendi cümlenle sor.\" (duyurudaki \"kendi cümlesiyle yazar\" ifadesine dayanır). Alternatif olarak v12'deki \"Sor. Evlek göstersin.\" kullanılabilir; Rumi seçer.\n\n3,80–5,00: Sonuç çıkar. Gerçek wLaptaTop pikselleri hafif zoom'la gelir: harita, \"£105–147 bin · 8\" baloncuğu ve \"Lapta · Satılık · 8 ilan\". Kamera \"8 ilan\"a yaklaşır. Soru → arama → sonuç zinciri 5. saniyede kapanmış olur.",
+  "gelisme": "GELİŞME (5,0–15,5 sn), ev bölümleri ancak şimdi başlar.\n\n5,0–7,0: Kart şeridi (wLaptaRow) kaydırılır. Görünen kartlar yalnız gerçek 4.–8. kartlardır: £120.000 · £127.000 · £139.000 · £139.990 · £147.000. Kaydırma £139.000 kartında yumuşakça durur.\n\n7,0–7,4: £139.000 kartına dokunulur (halka). Detayın bu dokunuşla açıldığı açıkça görülür.\n\n7,4–9,0: Tam ekran detay dFull_1 açılır (1/14 havuz): £139.000 · 2+1 · 2 banyo · 107 m² · Lapta, Girne. \"›\" tuşuna dokunulur → 2/14, çift yükseklikli salon.\n\n9,0–12,0: NEFES. Fotoğraf telefondan dışarı taşar ve tam kadraj olur (gerçek EVL-100102 fotoğrafı). v11'de onaylanan \"havuzda telefonsuz nefes\" burada yer alır: salon ya da havuz, tek seçim yapılır, ikisi birden değil. Çok yavaş bir Ken Burns hareketi uygulanır. Künye sade tutulur, 64 px başlık ve 44 px alt satır: \"£139.000\" / \"Lapta · 2+1 · 107 m² kapalı\". Alan türü widget'taki \"Kapalı alan\" ile aynı yazılır; bu nokta doğrulanmalı. Bu, filmdeki tek \"ev anı\"dır; ev, artık hak edilmiştir.\n\n12,0–15,5: Fotoğraf telefona geri girer; bu sefer mantıklıdır, çünkü geldiği yere döner. Detay aşağı kaydırılır: Temel bilgiler → Özellikler → \"Evlek'te tüm ayrıntılar ↗\" düğmesi vurgulanır (dokunuş halkası, sayfa açılmaz). Altta gerçek dBar görünür: \"£139.000 · Emlakçıya sor ↗\".\n\nÖNERİ: evlek.app sayfasına geçiş (v12'deki 11,65–16,2) tamamen çıkarılır. Hikâye ChatGPT'den çıkmaz ve 14. saniyedeki hap tuşlar sorunu kendiliğinden ortadan kalkar. Rumi bu sayfayı istiyorsa, güncel tuş tasarımının ekran görüntüsü gelmeden kurgulanmamalı.",
+  "sonuc": "SONUÇ (15,5–30,0 sn): önce \"nasıl eklenir\", sonra kapanış.\n\n15,5–16,3: Geçiş ve mesaj 3 başlığı. Üst güvenli alanda, 60–64 px'lik yazıyla kırıntı yolu belirir: \"ChatGPT › Eklentiler › Evlek › Ekle\". Her adım, ekrandaki adıma geldiğinde mercan alt çizgiyle yanar (v12'deki iyi buluş korunur). Telefon, sohbetin sol menüsünü açar.\n\n16,3–17,5: Menüde \"Eklentiler\"e dokunulur. Temsilî ekran, Onur'un iOS kaydındaki düzene uygun olur (eklenti_9_0).\n\n17,5–19,0: \"Eklenti ara\" alanına \"evlek\" yazılır, harf harf ve okunur hızda. Sonuçta Evlek satırı çıkar ve ona dokunulur.\n\n19,0–20,8: Evlek sayfası açılır: \"Northern Cyprus property data\" ve örnek istem kartları (eklenti_16_5). \"Eklentiyi kur\"a dokunulur → kısa bir yükleniyor dönmesi gösterilir.\n\n20,8–22,0: \"Bağlı ✓\" durumu ve \"Sohbette dene\" görünür (eklenti_28_5). Kırıntı yolundaki \"Ekle\" ✓ ile kilitlenir.\n\n22,0–23,5: \"Sohbette dene\"ye dokunulur → yazım kutusunda Evlek çipi belirir ve imleç yanıp söner (eklenti_31_5). Bu kare, filmin AÇILIŞ karesinin küçük hâlidir.\n\n23,5–25,0: Kamera yazım kutusuna doğru ileri itilir. Kutu telefondan çıkıp kare 0'daki büyük ölçeğe döner ve telefon aşağıda kaybolur.\n\n25,0–29,0: Kapanış kartı lacivert zemindedir. Logo ve \"artık ChatGPT'de.\" (≥92 px) yer alır; altında 52–56 px'lik tek satır vardır: \"ChatGPT › Eklentiler › Evlek › Ekle\". Dipnot 28–30 px olur (v12'deki ≈20 px'lik dipnot düzeltilir): \"ChatGPT arayüzü temsilîdir; Evlek ekranları ve ilan verileri gerçektir. ChatGPT, OpenAI'ın ticari markasıdır.\" Dipnot alt güvenli alanın üstünde, y≈1380'e kadar kalır. Büyük yazım kutusundaki imleç yanıp sönmeyi sürdürür.\n\n29,0–30,0: Dipnot ve CTA satırı söner. Geriye birebir kare 0 kalır: logo, \"artık ChatGPT'de.\" ve boş yazım kutusunda Evlek çipiyle imleç. Döngü dikişsiz işler; film başa döndüğünde 0,30'da soru yeniden yazılmaya başlar. Son söz, Rumi'nin istediği gibi \"Evlek artık ChatGPT'de.\" olur.",
+  "kanca_metinleri": [
+   {
+    "metin": "Evlek artık ChatGPT'de.",
+    "kural_durumu": "uygun. Basın duyurusu (13 Kasım 2026) doğruluyor ve v11'de onaylanmış."
+   },
+   {
+    "metin": "DUYURU · KASIM 2026 (künye) + Evlek artık ChatGPT'de.",
+    "kural_durumu": "uygun. Duyuru tarihi gerçek ve Rumi'nin istediği 'haber' havasını iddia içermeden veriyor."
+   },
+   {
+    "metin": "Kuzey Kıbrıs'ta ev aramanın yeni yolu: ChatGPT.",
+    "kural_durumu": "uygun. 'Yeni' bir üstünlük iddiası değil, zamana bağlı bir tanım; yayın tarihi 2026 sonundan çok sonraya kalırsa yenilenmeli."
+   },
+   {
+    "metin": "Evlek'in KKTC ilanları artık ChatGPT'de.",
+    "kural_durumu": "uygun. Duyuru başlığına dayanıyor. 'Kuzey Kıbrıs emlak ilanları artık ChatGPT'de' biçimi ise doğrulama gerektirir, çünkü KKTC'deki tüm ilanlar gibi okunabilir. Öznede 'Evlek' kalmalı."
+   },
+   {
+    "metin": "Ne aradığını yaz. Evlek ChatGPT'de göstersin.",
+    "kural_durumu": "uygun. Duyurudaki 'kendi cümlesiyle yazar' ifadesine dayanıyor ve canlı bir özellik."
+   },
+   {
+    "metin": "KKTC'de ev ara, ChatGPT'ye sor. Evlek hesabı gerekmez.",
+    "kural_durumu": "uygun. 'Evlek hesabı gerekmez' duyuruda geçiyor. Ancak tek karede iki mesaj olur; 3 mesaj sınırını zorlar, yalnız alternatif olarak tutulmalı."
+   },
+   {
+    "metin": "Beş dilde sor: Türkçe, İngilizce, Rusça, Almanca, Arapça.",
+    "kural_durumu": "uygun (duyuruda TR/EN/RU/DE/AR var). Bu metin, Türkçe kancayı dağıtır; yabancı dil kesimi ya da ikinci film için saklanmalı."
+   },
+   {
+    "metin": "KKTC'nin ilk yapay zekâ emlak uygulaması ChatGPT'de.",
+    "kural_durumu": "kurala aykırı. Brifteki 'ilk/tek/en iyi yok' kuralını ve kurumsal 'doğrulanmamış iddia yok' kuralını çiğniyor. Rumi'nin andığı duyuruda 'ilk' sözcüğü hiç geçmiyor. 'Yapay zekâ emlak uygulaması' kategorisi de belirsiz ve tartışmaya açık. Ancak bağımsız bir kaynakla doğrulanırsa ve Onur onaylarsa yeniden konuşulabilir; o zaman bile kanca için gerekli değil."
+   },
+   {
+    "metin": "Yapay zekâyla ev arama KKTC'de başladı.",
+    "kural_durumu": "kurala aykırı. Örtük bir 'ilk' iddiası taşıyor ve doğrulanmamış."
+   },
+   {
+    "metin": "Property Week finalisti Evlek, artık ChatGPT'de.",
+    "kural_durumu": "doğrulama ve onay gerekir. Bilgi duyuruda var (Temmuz 2026 finalist), ama ödül adı kancada dikkati haberden uzaklaştırıyor ve üçüncü taraf marka adı kullanıyor; önerilmez."
+   }
+  ],
+  "yaratici_fikir": "\"Yazım kutusu = manşet.\" Filmin tek ana nesnesi büyük ölçekli yazım kutusudur. Kare 0'da bir haber manşeti gibi ekranın ortasında durur: Evlek çipi + imleç ve hemen üstünde \"Evlek artık ChatGPT'de.\" yazar. 0,3 sn'de soru bu kutuda yazılmaya başlar; gönderilince kutu küçülerek telefonun içindeki kendi yerine oturur. Böylece kanca, ürünün kendisine dönüşür ve \"dışarıdan bir görsel bir anda Evlek'e geliyor\" tuhaflığı ortadan kalkar. Sonda Eklentiler yolu \"Sohbette dene\" ile yine aynı kutuya, Evlek çipine çıkar. Kamera kutuya doğru ileri itilir; kutu yeniden büyüyerek kare 0'a döner. Film bir çember çizer: haber → soru → ev → nasıl eklenir → yeniden haber. Döngü dikişsizdir ve izleyici ikinci turda soruyu yeniden yazılırken görür. Bu fikir uygulanabilir: gerçek widget'a dokunmaz, ChatGPT kabuğu zaten temsilî olarak yeniden çiziliyor, logo yok, yeni iddia yok.",
+  "korunacaklar": [
+   "Gerçek widget pikselleri ve kırpımları: wLaptaTop (harita, '£105–147 bin · 8', 'Lapta · Satılık · 8 ilan'), wLaptaRow (yalnız 4.–8. kartlar), dFull_1/dFull_2 (1/14 → '›' → 2/14), dBar ('Emlakçıya sor ↗')",
+   "Tek Lapta sorgusu (v11 onayı). Sorgu metni ile çıkan sonuç (8 ilan, £105–147 bin) birebir tutarlı kalır",
+   "'Evlek'te aranıyor…' ara durumu. Neden-sonuç zincirinin kanıtı olduğu için en az ~1 sn ekranda kalır",
+   "£139.000 kartına dokunuş → tam ekran detay → '›' ile salona geçiş dizisi (v12'nin 6,25–8,65 arasındaki en sağlam bölümü)",
+   "Telefonsuz tam kadraj 'nefes' anı ve sade künye (v11 onayı), ama yalnız bir kez ve detay açıldıktan sonra",
+   "Eklentiler akışının adımları ve 'ChatGPT › Eklentiler › Evlek › Ekle' kırıntı yolu ile adım adım mercan vurgu; yalnız yeri finale taşınır",
+   "Dipnot cümlesi (yalnız boyutu 28–30 px'e çıkarılır), renk paleti, markasız 3B telefon, Inter yazı tipi, 'insan gözüne göre biraz yavaş' tempo",
+   "Son karenin ilk kareye dönmesi (döngü). Yalnız döndüğü yer havuz değil, haber ve yazım kutusu olur"
+  ],
+  "riskler": [
+   "Temsilî ChatGPT yazım kutusu kare 0'da büyük ölçekte gösterilince ChatGPT'nin resmî bir reklamı gibi algılanabilir. Logo olmamalı, kutu sade gri kalmalı, dipnot kapanışta mutlaka okunur boyutta yer almalı.",
+   "Yazma hızı: 48–50 karakterlik soru 2 sn'ye sığmazsa 2. saniyede izleyici yarım bir cümle görür. 0,3'te başlayıp ≈2,2'de bitecek şekilde ayarlanmalı ya da sorgu kısaltılmalı. Ama kısaltılmış sorgu gerçekte de aynı 8 ilanı döndürmeli; değişirse sonuç ekranı yeniden yakalanmalı.",
+   "Kare 0 için 360×640 önizlemede test şart. 1179 px'lik widget pikselleri 1080 telefona küçüldüğünde fiyat ve 'm²' satırları önizlemede okunmaz; kart ve detay için en az 1,6× kırpım-zoom gerekir.",
+   "Alan bilgisi: EVL-100102'nin alan türü null, ama widget ve evlek.app 'Kapalı' diyor. Künyede '107 m² kapalı' ya da yalnız '107 m²' seçilmeli; brüt/net karışmamalı, onay alınmalı.",
+   "Eklentiler ekranları İngilizce örnek istemler içeriyor ('Show me apartments…'). Bu gerçek bir görüntü, yeniden yazılamaz. Türkçe filmde kısa tutulmalı ya da kırpım öncelikle 'Eklentiyi kur' düğmesine verilmeli.",
+   "evlek.app sapması çıkarılırsa 'Evlek sayfasına yönlendirir' bilgisi yalnız düğme vurgusuyla kalır; Rumi sayfanın görünmesini isteyebilir. 'Yeni' ya da 'Duyuru · Kasım 2026' künyesi ise yayın gecikirse eskir."
+  ],
+  "rumiye_sorular": [
+   "Haberdeki başlık 'Evlek, Kuzey Kıbrıs emlak ilanlarını ChatGPT'ye taşıdı'. Duyuruda 'ilk' iddiası yok ve kural gereği kullanamıyoruz. Kanca için hangisi daha yakın: 'Evlek artık ChatGPT'de.' (üstünde 'DUYURU · KASIM 2026' künyesiyle), 'Kuzey Kıbrıs'ta ev aramanın yeni yolu: ChatGPT.' ya da 'Evlek'in KKTC ilanları artık ChatGPT'de.'?",
+   "'İlk' iddiası için elinizde bağımsız bir kaynak (başka bir haber ya da resmî bir belge) var mı? Yoksa bu fikri tamamen bırakıyoruz; Onur'un onayı olmadan kullanmayacağız.",
+   "14. saniyedeki yuvarlak tuşlar: evlek.app sayfasının altındaki 'WhatsApp'tan yaz / Telefonla ara' hapları mı, yoksa widget'taki 'Emlakçıya sor' ya da Özellikler çipleri mi? 'Filtredeki gibi' derken hangi ekranı kastediyorsun? Güncel tuşların bir ekran görüntüsünü atabilir misin? Canlı evlek.app'te bugün hâlâ hap tuşlar görünüyor.",
+   "evlek.app sayfasına geçişi tamamen çıkarıp hikâyeyi ChatGPT içinde tutmayı öneriyorum. 'Evlek'te tüm ayrıntılar' düğmesi yalnızca vurgulanır, sayfa açılmaz. Uygun mu, yoksa sitenin görünmesi şart mı?",
+   "Açılışta ev fotoğrafı olmayan, lacivert zemin + manşet + büyük yazım kutusu + yazılan soru düzeni sana 'haber' hissi veriyor mu? Yoksa arkada çok silik ve bulanık bir KKTC kıyı görüntüsü mü istersin? Önerim: hiç fotoğraf olmasın.",
+   "İkinci mesaj 'Kendi cümlenle sor.' mu olsun, 'Sor. Evlek göstersin.' mi? Nefes anı tek kare olacak: havuz mu, çift yükseklikli salon mu?"
+  ]
+ },
+ {
+  "uzman": "Arayüz akışı ve gerçeklik uzmanı (ChatGPT uygulama/eklenti deneyimi; ekran durumlarının gerçek mi temsilî mi olduğunu ve neden-sonuç zincirini denetler)",
+  "v12_teshis": [
+   "0,00–1,50 sn: İlk kare tam ekran havuz fotoğrafı. Haber metni ('Evlek / artık ChatGPT'de.') küçük bir üst başlık olarak kalıyor, görsel ağırlık evde. Alt satır 1,33'te sönmeye başlıyor. Dikkat habere değil eve gidiyor; Rumi'nin 1. itirazı karede doğrulanıyor.",
+   "1,50–2,90 sn: Ters portal. Havuz fotoğrafı küçülüp telefondaki tam ekran ilan detayına (1/14, £139.000, mercan 'Emlakçıya sor ↗') iniyor. Sonuç, sebepten (soru) önce geliyor; dış dünyadaki görsel gerekçesiz biçimde uygulamanın içine giriyor. Rumi'nin 'ne alaka, garip' tepkisinin kaynağı bu.",
+   "2,95–4,0 sn: Doğrudan zaten gönderilmiş balona kesme yapılıyor. Yazma anı hiç yok; film boyunca tek yazım 21,2–21,8 sn'deki Girne sorgusunda. 3,0–3,3'te 'Evlek' logosu balonun üstünde yüzüyor, çip balona oturmuyor (v12_03,30sn.jpg). Balon sola yaslı ve gri. Onur'un kaydında ise kullanıcı balonu sağa yaslı, 'Ev Evlek' çipi balonun içinde.",
+   "13,80–16,10 sn: evlek.app sayfası yakın planda yaklaşık 2,3 sn. Altta beyaz hap 'WhatsApp'tan yaz' ve mercan hap 'Telefonla ara' duruyor (v12_15,50sn.jpg). Rumi'nin '14. saniye' itirazı büyük olasılıkla bu. Aynı hap biçimi 7,5–13,8 sn arasında detayın alt çubuğundaki mercan 'Emlakçıya sor ↗' düğmesinde de var. Widget'taki 'Satılık / Kiralık / Filtreler · 5 / Havuz' çipleri de hap biçimli. Hangisinin kastedildiği belirsiz.",
+   "16,2–23,45 sn: Eklentiler yolundan sonra ikinci bir sorgu (Girne, 52 ilan) yazılıyor ve sonucu kapanışta 24–29,5 sn boyunca telefonda kalıyor. Sonuç bölümü ikinci bir gelişmeye dönüşüyor ve film kalabalıklaşıyor; v10'daki 'kalabalık' eleştirisi tekrarlanmış oluyor. Eklentiler ekranları yaklaşık 0,5 sn'lik adımlarla akıyor, 'Eklentiyi kur' dokunuşu ancak okunuyor.",
+   "24,0–29,85 sn: Kapanış yine havuz ve telefon. Ana mesaj bir talimat ('ChatGPT'de / Eklentiler'den / Evlek'i ekleyin.'). Haber cümlesi 'Evlek artık ChatGPT'de.' yalnız 29,67'den sonra, yaklaşık 0,3 sn görünüyor. Rumi'nin istediği 'ekleme yolu + Evlek artık ChatGPT'de' kapanışı okunacak sürede yok."
+  ],
+  "ilkeler": [
+   "Her ekran bir önceki eylemin sonucu olmalı: yaz → gönder → arıyor → sonuç → dokun → detay → dokun → sayfa. Kesmeler yalnız dokunuş ya da gönder anında yapılır. Ekranın dışından gelip içeri giren görsel olmaz; fotoğraf ancak içeride açılmış bir galeriden dışarı büyüyebilir (içeriden dışarıya, tersi değil).",
+   "Zaman sıkıştırılır, adım atlanmaz. Yazım hızı, yükleme süresi ve kaydırma kısaltılabilir. Ama 'yazma', 'arıyor' ve 'Bağlı' gibi durum geçişleri en az birkaç kare görünür kalmalı; izleyici sebebi görmeden sonucu görmemeli.",
+   "Gerçek piksel ile temsilî kabuk net biçimde ayrılır. Widget, tam ekran detay ve evlek.app gerçek pikseldir: kırpılır ve büyütülür, asla yeniden çizilmez. ChatGPT kabuğu ve Eklentiler ekranları temsilîdir, metinleri yalnız Onur'un iOS kaydında görünen Türkçe ifadelerden alınır. Kayıtta olmayan etiket uydurulmaz ('Evlek · 8 ilan' başlığı ya da Türkçeleştirilmiş durum satırı gibi).",
+   "Bir film, bir sorgu. Kullanım (gelişme) ile edinme (sonuç) ayrı bölümlerdir; sonuç bölümünde ikinci bir arama gösterilmez. Edinme bölümü açılıştaki yazım kutusu durumuna dönerek hikâyeyi kapatır.",
+   "Telefon ekranında okunması gereken tek öğe (çip, '8 ilan', £139.000, 'Eklentiyi kur', 'Bağlı') her adımda kamera zoom'uyla vurgulanır. Öteki öğeler okunmasa da olur. Bu, insan gözüne göre yavaş tempo onayına da uyar.",
+   "Sorunlu bir gerçek öğe yeniden tasarlanmaz. Kırpılır, kadrajdan çıkarılır ya da ürün canlıda güncellendikten sonra yeniden yakalanır."
+  ],
+  "giris": "GİRİŞ 0,00–4,10 sn (haber + yazma).\n\n0,00 (ilk kare, aynı zamanda kapak karesi):\n- Zemin düz lacivert #0A2540. Fotoğraf yok, ev yok.\n- Üst üçte birde, ortalanmış: Evlek vektör logosu (yaklaşık 150 px yükseklik) ve altında 'artık ChatGPT'de.' (Inter 800, yaklaşık 96 px, krem #FAF8F2). 'ChatGPT'de' altında ince mercan çizgi.\n- Alt yarıda markasız telefon, %80 ölçekte, 3° eğik. Ekranda boş yeni sohbet ve yazım kutusu var, kutunun içinde henüz çip yok.\n- Haber ilk karede tam okunur; fade-in yok, çünkü Reels otomatik oynatmada ilk kare kancadır.\n\n0,00–0,70: Duruş. Yalnız telefona çok hafif bir itme (%80 → %82).\n\n0,70–1,50 (v11 onaylı Kanca A):\n- Logo bir kopyasını bırakır; kopya küçülerek yay çizer ve yazım kutusundaki 'Ev Evlek' çipine iner. İniş 1,35'te, çip 1,35–1,50 arasında 1,0 → 1,08 → 1,0 ölçekte 'tık' yapar.\n- Üstteki başlık yerinde kalır. Neden-sonuç: haber 'Evlek ChatGPT'de' der; çip bunun arayüzdeki karşılığıdır.\n\n1,50–3,70 (yazma):\n- Kamera telefonun alt yarısına iter, yazım kutusu yaklaşık 2,2 kat büyür. Başlık yukarı kayar ve 2,0'da söner; ekranda tek odak kalır.\n- 'Lapta'da £160 bin altı, deniz manzaralı 2+1 daire' harf harf yazılır (46 karakter, yaklaşık 2,1 sn, başı yavaş ve sonu hızlanan ritimle), imleç yanıp söner.\n- Klavye gösterilmez: iOS klavye kopyası olmaz, kutu yakın planda kalır.\n- 3,70: gönder okuna dokunuş, 0,12 sn baskı halkası.\n\n3,70–4,10: Balon sağa yaslı yükselir; Onur'un kaydındaki gibi 'Ev Evlek' çipi balonun içinde. Kamera bir kademe geri çekilir.\n\nAna mesaj 1 'Evlek artık ChatGPT'de.' girişte verilmiş olur. Dikkat eve değil habere ve çipe gider.",
+  "gelisme": "GELİŞME 4,10–16,60 sn (arar → çıkar → ev bölümleri).\n\n4,10–5,30 · ARAR:\n- Balonun altında durum satırı ışıltılı akar. Çift yazıyla ekranın orta-üstüne zoom.\n- Bu satırın gerçeği uygulamanın tanımladığı 'Searching Evlek listings…' metnidir (live/tools_list.json, toolInvocation/invoking).\n- 'Evlek'te aranıyor…' Türkçe temsilî bir çeviridir; hangisinin kullanılacağı karara bağlanmalı.\n- Dış başlık: ana mesaj 2 'Sor. Evlek göstersin.' bu anda, 4,30'da girer.\n\n5,30–7,60 · ÇIKAR:\n- Gerçek widget piksel olarak açılır: wLaptaTop.\n- Kayıtta görüldüğü gibi üstte 'Ev Evlek' uygulama etiketi var. v12'deki 'Evlek · 8 ilan' etiketi kayıtta yok, çıkarılmalı ya da doğrulanmalı.\n- Harita '£105–147 bin · 8'. Kamera 'Lapta · Satılık · 8 ilan' satırına yarım saniye odaklanır; sonuç sayısı okunur.\n\n7,60–9,40 · SEÇİM:\n- Kart şeridi (wLaptaRow, 4.–8. kartlar) sola kayar ve £139.000 kartı ortada durur.\n- 9,10'da karta dokunuş, 9,25'te baskı.\n\n9,40–10,80 · DETAY:\n- Kart, tam ekran detaya büyür (dFull_1, 1/14): £139.000 · 2+1 · 2 banyo · 107 m² · Lapta, Girne.\n- Kamera fiyat bloğuna iter.\n\n10,80–14,20 · EV BÖLÜMLERİ (Rumi'nin 'sonra bu kısımlar başlasın' dediği yer):\n- 10,80'de '›' dokunuşu, 2/14 çift yükseklikli salon (dFull_2).\n- 11,40–13,60: 'Telefonsuz nefes' (v11 onayı) burada ve doğru yönde yapılır. Galerideki fotoğraf telefonun çerçevesinden dışarı taşar ve tam kadraja büyür; içeriden dışarıya, çünkü kullanıcı galeriyi kendi açtı. Bu sırada künye görünür: '£139.000 · Lapta · 2+1 · 107 m² kapalı'. Dış metin ≥52 px.\n- 13,60–14,20: Fotoğraf yeniden telefondaki galeriye küçülerek geri döner.\n\n14,20–16,60 · KÖPRÜ (isteğe bağlı, Rumi'ye sorulacak):\n- Detay aşağı kayar ve 'Evlek'te tüm ayrıntılar ↗' düğmesine dokunulur (14,90).\n- evlek.app sayfası açılır, 15,20–16,40 arası görünür.\n- Kadraj, hap tuşların bulunduğu alt çubuktan ve 'Büro sahibi' kartından ÖNCE biter. Görünen: fotoğraf, £139.000, başlık, '107 m² Kapalı'.\n- Bu, 14. sn itirazına kırpımla verilen geçici çözümdür.\n- Alternatif: köprü tümden çıkarılır ve gelişme 14,20'de biter. Bu, sonuç bölümüne 2,4 sn kazandırır.",
+  "sonuc": "SONUÇ 16,60–30,00 sn (ekleme yolu + 'Evlek artık ChatGPT'de.').\n\n16,60–17,20 · Geçiş:\n- Telefon geri çekilir ve lacivert zemine oturur.\n- Üstte ana mesaj 3 belirir: 'Eklentiler'den Evlek'i ekle.' Altında yol satırı 'ChatGPT › Eklentiler › Evlek › Eklentiyi kur'. Her adım ekranla eşzamanlı yanar.\n- 'Ekle' mi 'Eklentiyi kur' mu, Rumi'ye sorulacak. Ekrandaki gerçek düğme metni 'Eklentiyi kur'.\n\n17,20–18,60:\n- Kenar menüden 'Eklentiler'e dokunuş. Eklentiler ekranı (İzinler / Eklenenler / 'Eklentilere göz at') Onur'un 9,0 sn karesine göre temsilî çizilir.\n- 'Eklentilere göz at'a dokunuş. Popüler listesindeki üçüncü taraf uygulama ve logoları gösterilmez; kamera doğrudan alttaki 'Eklenti ara' alanına iner.\n\n18,60–19,80:\n- Arama alanına 'evlek' yazılır (0,6 sn), Evlek satırı çıkar, satıra dokunuş.\n\n19,80–22,20:\n- Evlek sayfası açılır: 'Northern Cyprus property data', İngilizce örnek kartlar. Gerçek metin olduğu için Türkçeleştirilmez.\n- Kamera alttaki beyaz 'Eklentiyi kur' düğmesine iter (20,60–21,20 okunur), 21,20'de dokunuş.\n- 21,30–21,70 arası düğmede dönen gösterge.\n- 21,70'te 'Uygulama › Evlek ✓ Bağlı' yeşil onay ve düğme 'Sohbette dene'ye döner. 'Bağlı' 0,5 sn zoom ile okunur.\n\n22,20–23,40:\n- 'Sohbette dene'ye dokunuş. Yeni sohbet açılır, yazım kutusunda 'Ev Evlek' çipi ve imleç var. Bu, filmin 1,50'deki durumunun tıpatıp aynısıdır.\n- Girne sorgusu YOK.\n\n23,40–30,00 · Kapanış:\n- Telefon %80 ölçeğe çekilir ve ilk karedeki konumuna oturur.\n- 23,60'ta çip yukarı kalkar ve logoya dönüşür (girişteki hareketin tersi). Altına 'artık ChatGPT'de.' yazılır; tam görünürlük 24,10'da.\n- 24,40'ta dipnot (28–30 px): 'ChatGPT arayüzü temsilîdir; Evlek ekranları ve ilan verileri gerçektir. ChatGPT, OpenAI'ın ticari markasıdır.'\n- 24,10–30,00 arası 5,9 sn sabit okuma süresi.\n- Son kare ilk kareyle aynı kompozisyonda. Reels döngüsünde 30,00 → 0,00 dikişsiz geçer.",
+  "kanca_metinleri": [
+   {
+    "metin": "Evlek artık ChatGPT'de.",
+    "kural_durumu": "uygun: 13 Kasım 2026 Evlek basın duyurusu yayında olduğunu söylüyor, canlı özellik"
+   },
+   {
+    "metin": "Evlek, Kuzey Kıbrıs emlak ilanlarını ChatGPT'ye taşıdı.",
+    "kural_durumu": "uygun: duyurunun kendi başlığı, birebir. Haber dili Rumi'nin 'haber yapmıştık' isteğini karşılıyor. Uzun; kancada 2 satıra sığdırılmalı"
+   },
+   {
+    "metin": "Kuzey Kıbrıs ilanları artık ChatGPT'de.",
+    "kural_durumu": "doğrulama ve onay gerekir: 'tüm KKTC ilanları' gibi okunabilir, oysa yalnız Evlek'teki ilanlar. 'Evlek'in Kuzey Kıbrıs ilanları…' biçimi daha güvenli"
+   },
+   {
+    "metin": "ChatGPT'ye sor. Evlek göstersin.",
+    "kural_durumu": "uygun: canlı akışın kendisi (çip + soru → widget)"
+   },
+   {
+    "metin": "Kendi cümlenle sor; ilanlar fotoğraf ve haritayla gelsin.",
+    "kural_durumu": "uygun: duyurudaki 'kendi cümlesiyle', 'fotoğraf', 'harita' ifadelerine dayanıyor. Ancak 3 kısa mesaj sınırı için uzun"
+   },
+   {
+    "metin": "Yeni: Evlek, ChatGPT'de.",
+    "kural_durumu": "uygun: tarih doğrulanmış (Kasım 2026). 'Yeni' sözcüğü birkaç ay sonra eskir"
+   },
+   {
+    "metin": "Evlek hesabı gerekmez.",
+    "kural_durumu": "doğrulama ve onay gerekir: duyuruda geçiyor, ama 'Eklentiyi kur' akışında oturum açma adımı olmadığı Onur'la teyit edilmeli. Ana mesaj değil, en fazla dipnot"
+   },
+   {
+    "metin": "KKTC'nin ilk yapay zekâ emlak uygulaması artık ChatGPT'de.",
+    "kural_durumu": "kurala aykırı: 'ilk' iddiası brif kuralıyla yasak. Basın duyurusunda böyle bir ifade yok. Kurumsal kural gereği doğrulanmamış iddia yayımlanamaz. 'İlk', bağımsız bir kaynakla kanıtlansa bile Onur onayı olmadan kullanılamaz"
+   },
+   {
+    "metin": "Property Week finalisti Evlek artık ChatGPT'de.",
+    "kural_durumu": "doğrulama ve onay gerekir: finalistlik duyuruda var (Temmuz 2026). Ancak üçüncü taraf ödül adının reklamda kullanımı ve 'ChatGPT uygulamasıyla ilgili' sanılma riski için onay gerekir. Kancayı habere değil ödüle çeker, önerilmez"
+   }
+  ],
+  "yaratici_fikir": "ÇİP DÖNGÜSÜ: Filmin ilk ve son karesi aynı, aradaki her şey o çipin hikâyesi. 0,7 sn'de haber başlığındaki Evlek logosu yazım kutusuna inip 'Ev Evlek' çipi olur (v11 onaylı Kanca A). Böylece haber, arayüzdeki somut karşılığına bağlanır. Sonra o çiple yazılır, aranır ve sonuç alınır. Sonuç bölümünde Eklentiler → Evlek → 'Eklentiyi kur' → 'Bağlı ✓' → 'Sohbette dene' adımları, gerçek akışta olduğu gibi tam o çipi yazım kutusuna yeniden koyar. Bu kez çip yukarı kalkıp logoya dönüşür ve 'artık ChatGPT'de.' başlığını tamamlar. Son kare ilk kareyle aynı olduğu için Reels döngüsünde dikiş görünmez. İzleyicinin zihnindeki neden-sonuç da kapanır: 'çip nereden geldi?' sorusunun cevabı filmin sonunda verilmiş olur. Yeni bir görsel, uydurma bir öğe ya da iddia gerekmez. Her durum Onur'un iOS kaydında gerçekten var ('Sohbette dene' sonrası yazım kutusundaki 'Ev Evlek' çipi, 57,0 sn karesi).",
+  "korunacaklar": [
+   "Gerçek widget pikselleri ve kullanım biçimi: wLaptaTop, wLaptaRow (yalnız 4.–8. kartlar; CGI ve insanlı ilk 3 kart dışarıda), dFull_1 ve dFull_2. £139.000 kartına dokunuş ve '›' ile 1/14 → 2/14 geçişi.",
+   "Tek Lapta sorgusu ve metni ('Lapta'da £160 bin altı, deniz manzaralı 2+1 daire'). Şartı: widget'ın gerçekten bu sorguyla üretildiği teyit edilmeli.",
+   "Logo → yazım kutusundaki Evlek çipi inişi (v11 Kanca A). Yalnız şimdi havuzdan değil haber başlığından kalkıyor.",
+   "Eklentiler akışının Onur kaydına sadık durumları: 'Eklentiyi kur' → dönen gösterge → 'Bağlı ✓' → 'Sohbette dene'. Evlek sayfasındaki İngilizce metinler ('Northern Cyprus property data', örnek kartlar) olduğu gibi, çevrilmeden.",
+   "Yol satırı fikri (ChatGPT › Eklentiler › Evlek › …), adımların ekranla eşzamanlı yanmasıyla birlikte.",
+   "Dipnot metni: 'ChatGPT arayüzü temsilîdir; Evlek ekranları ve ilan verileri gerçektir. ChatGPT, OpenAI'ın ticari markasıdır.'",
+   "Markasız 3B telefon, 10:24 durum çubuğu, Inter yazı tipi, krem / lacivert / sınırlı mercan paleti. Alan türü 'Kapalı' ve '107 m²' doğruluğu. Detaydaki 'Fiyat istenen fiyattır; değerleme değildir' notu.",
+   "Telefonsuz nefes anı (v11 onayı) ve iç mekân salon fotoğrafı. Yalnız konumu değişiyor: gelişmede, galeriden dışarı büyüyerek."
+  ],
+  "riskler": [
+   "Durum satırı gerçek değil: uygulamanın tanımladığı arama metni İngilizce 'Searching Evlek listings…'. 'Evlek'te aranıyor…' çeviridir; canlı arayüzü yanlış temsil etme riski var. Onur'un kaydında tamamlanmış durum 'Birkaç saniye düşündü ›' olarak görünüyor.",
+   "v12 widget üstündeki 'Evlek · 8 ilan' etiketi kayıttaki 'Ev Evlek' etiketiyle örtüşmüyor; uydurma etiket riski. Kart dokunuşunun iOS ChatGPT'de gerçekten tam ekran detayı açtığı (satır içi yeni bir yanıt değil) Onur'la doğrulanmalı.",
+   "14. sn itirazı: Rumi'nin istediği 'filtredeki gibi' tuşlar canlıda yoksa gösterilemez (yalnız canlı özellik). Gerçek widget veya sayfa yeniden çizilemez. Tek seçenek kırpmak ya da bölümü çıkarmak. Ürün güncellenirse yeniden yakalamak gerekir, bu da takvimi etkiler.",
+   "Canlı evlek.app sayfasında kişi ve ofis adı içeren 'Büro sahibi' kartı ile çerez bandı var. Kadraj bunları asla içermemeli (kişi/ofis adı yasak).",
+   "Eklentiler mağazasının 'Popüler' listesinde üçüncü taraf uygulama logoları var. Bunlar gösterilmemeli ve kayıttaki öteki kurulu eklenti ikonu kopyalanmamalı. iOS klavyesi, Dinamik Ada ve kayıt göstergesi de kopyalanmamalı.",
+   "'KKTC'nin ilk…' kancası yayımlanırsa doğrulanmamış iddia olur ve kurumsal kuralı ihlal eder. Ayrıca ilan fiyatları ve ilanın yayında oluşu yayın gününe kadar değişebilir; yayından önce EVL-100102 ve kart fiyatları yeniden kontrol edilmeli."
+  ],
+  "rumiye_sorular": [
+   "14. saniyede kastettiğin tuşlar hangisi? (a) evlek.app sayfasının altındaki 'WhatsApp'tan yaz / Telefonla ara' hapları (v12_15,50sn), (b) ChatGPT detayındaki mercan 'Emlakçıya sor ↗' (v12_13,60sn), (c) widget'taki 'Satılık / Kiralık / Filtreler · 5 / Havuz' çipleri mi?",
+   "'Filtredeki gibi' derken hangi filtreyi kastediyorsun: evlek.app arama filtresi paneli mi, widget'taki çip satırı mı? Bir ekran görüntüsü ya da URL atabilir misin? Bu yeni tuş tasarımı evlek.app'te ve ChatGPT widget'ında şu an canlı mı? Değilse o bölümü kırpalım ya da çıkaralım mı?",
+   "'Haber yapmıştık' dediğin 13 Kasım 2026 tarihli 'Evlek, Kuzey Kıbrıs emlak ilanlarını ChatGPT'ye taşıdı' duyurusu mu? Orada 'ilk' ifadesi yok; kural gereği kullanamıyoruz. Kanca 'Evlek artık ChatGPT'de.' mi olsun, duyurunun başlığı mı?",
+   "evlek.app sayfasına geçiş ('Evlek'te tüm ayrıntılar ↗') filmde kalsın mı, yoksa film tamamen ChatGPT içinde mi geçsin? Çıkarırsak ekleme bölümüne yaklaşık 2,4 sn daha kalıyor.",
+   "Girne'deki ikinci aramayı çıkarıp sonda 'Sohbette dene' ile açılıştaki yazım kutusuna dönmeyi (döngü) onaylıyor musun?",
+   "Arama sırasındaki satır nasıl görünsün: gerçekteki gibi İngilizce 'Searching Evlek listings…' mi, yoksa Türkçe temsilî 'Evlek'te aranıyor…' mı? Kapanış fiilinde de bir seçim gerekiyor: 'Eklentiler'den Evlek'i ekle' mi, ekrandaki gerçek düğme metni 'Eklentiyi kur' mu?"
+  ]
+ },
+ {
+  "uzman": "Metin yazarı ve marka sesi (Türkçe reklam metni: kanca, slogan, CTA, okuma bütçesi, iddia denetimi). Okuma süresi v12 raporundaki kurala göre hesaplandı: gereken süre = kelime × 0,3 + 0,7 sn.",
+  "v12_teshis": [
+   "Kanca bir ilan gibi görünüyor, haber gibi değil (0,00–1,50). Karenin yaklaşık %75'ini parlak havuz ve palmiye kaplıyor. 'Evlek / artık ChatGPT'de.' üstte iki satırlık ince bir şerit olarak kalıyor (blok_0, 0,00–1,33). İlk karede göz önce eve gidiyor, haber duvar kâğıdına dönüyor. Ayrıca logo ile cümle görsel olarak ayrık: 'artık ChatGPT'de.' öznesiz bir slogan gibi okunuyor, 'Evlek artık ChatGPT'de.' haberi olarak okunmuyor.",
+   "Sonuç, sorudan önce geliyor (1,50–2,95). Ters portal dış çekimi telefondaki £139.000 detayına indiriyor, yani izleyici sonucu soruyu görmeden görüyor. 2,95'te soru balonu 'zaten gönderilmiş' halde beliriyor (blok_0, 3,00). Filmin en önemli metni olan kullanıcının sorusu hiç yazılmıyor ve yalnız 4,0–4,5 arasında yaklaşık 38 px okunuyor. Rumi'nin 'önce yazma, sonra arama, sonra çıkması' notu tam olarak bu.",
+   "Slogan, görülmemiş bir eylemi anlatıyor (4,15–6,0). 'Sor. Evlek göstersin.' soru sorulup 'Evlek'te aranıyor…' gelmişken giriyor. Sorma eylemi ekranda olmadığı için slogan yalnızca anlatıyor, kanıtlamıyor; harita yüklenmesiyle de üst üste biniyor.",
+   "Bir yan yol, dördüncü bir fikir taşıyor (11,65–16,2). 'Evlek'te tüm ayrıntılar' ile evlek.app sayfası açılıyor. Böylece web sitesi, 3 mesaj sınırını aşan dördüncü bir fikir oluyor. 14,0–16,0 arasında altta 'WhatsApp'tan yaz' (beyaz hap) ve 'Telefonla ara' (mercan hap) tuşları büyük görünüyor (blok_2, 14,00–14,83; blok_3, 15,00–16,00). Rumi'nin itiraz ettiği yuvarlak tuşlar bunlar olmalı (doğrulanmalı).",
+   "Yapı ters kurulmuş. Eklentiler yolu ortada duruyor (16,2–21), ardından Girne sonucu geliyor, sonra 24,15–29,5 arasında yaklaşık 5,3 sn hareketsiz bir poster: üç satır CTA ve iki satır dipnot üstte, telefon küçük (blok_5). Film 'nasıl eklenir' ile bitmiyor, okunacak bir levhayla bitiyor; giriş-gelişme-sonuç akışı yok. Kapanış 'Evlek artık ChatGPT'de.' diye geri dönmüyor; haber cümlesi ancak 29,7'de, döngü dikişinde tekrar beliriyor.",
+   "Hitap karışık. Ortada 'Sor.' (sen), sonda 'Evlek'i ekleyin.' (siz). CTA 'ChatGPT'de Eklentiler'den Evlek'i ekleyin.' üç satırı dolduruyor ama 'ChatGPT'de' kelimesi kancadakini tekrar ediyor. Ekranda aynı anda logo, CTA, dipnot ve Girne widget'ı yarışıyor."
+  ],
+  "ilkeler": [
+   "Haber tek parça okunmalı. 'Evlek artık ChatGPT'de.' öznesiyle birlikte tek cümle olarak, 0. karede tam opak durur; logo bu cümlenin öznesidir, süs değildir. İlk karede ev fotoğrafı olmaz, zemin düz lacivert #0A2540 olur.",
+   "Ekrandaki en önemli metin kullanıcının kendi sorusudur. Soru yazılırken dışarıda başka yazı olmaz; slogan ancak sonuç geldiği anda girer ve gördüğümüzü adlandırır ('göstersin' = harita ve kartlar o an ekranda).",
+   "Üç mesaj, üç perde. Giriş = haber ('Evlek artık ChatGPT'de.'), gelişme = nasıl çalışır ('Sor. Evlek göstersin.'), sonuç = nasıl edinilir ('Eklentiler'den ekle.'). Kapanıştaki 'Evlek artık ChatGPT'de.' yeni bir mesaj değil, girişin aynası. Fiyat künyesi ve dipnot veri sayılır, mesaj sayılmaz.",
+   "Her kelime bir kaynağa bağlanır: 13 Kasım 2026 basın duyurusu ya da canlı ekran. 'İlk/tek/en' ve rakam iddiası yok. 'Yeni' ancak zaman sınırlı kullanılır (lansmandan sonraki birkaç ay). Haber hissi iddiadan değil, haber dilinden ve tarihten gelir.",
+   "Okuma bütçesi: dış yazılar 2–3 kelime (1,3–1,6 sn). Gerçek kalış süresi formülün en az 1,5 katı olur, çünkü Rumi tempoyu 'insan gözüne göre biraz yavaş' istiyor.",
+   "Tek hitap: sen. Sohbet ortamına ve sosyal medyaya uyar; 'Sor', 'Yaz', 'ekle' aynı seste olur. (Rumi onaylamalı.)"
+  ],
+  "giris": "0,00–5,20 · Haber → yaz → gönder.\n0,00–2,40: Zemin düz lacivert #0A2540; ev fotoğrafı yok, filtre yok. Ortada büyük krem vektör logo (yaklaşık h200, y≈760), hemen altında 'artık ChatGPT'de.' 92/700 krem. İkisi tek blok halinde 'Evlek artık ChatGPT'de.' diye okunur. 0. karede tam opak, giriş animasyonu yok; kapak karesi ve ilk saniye haberi taşır. 3 kelime için kural 1,6 sn, kalış 2,4 sn.\nİsteğe bağlı (Rumi'ye sorulacak): üstte 30 px 'Duyuru · Kasım 2026' künyesi. Haber dilini iddiasız verir.\nİlk 2 sn'de dikkati çeken şey kontrast ve sadeliktir: akışta herkes ev fotoğrafı gösterirken düz zeminde tek cümle durur. Hareket 1,6'da başlar: markasız telefon alttan girer, ekranında boş ChatGPT sohbeti ve yazım kutusu (temsilî kabuk) görünür.\n1,60–2,40: Logo küçülerek yazım kutusundaki 'Ev Evlek' çipine iner ve 2,40'ta oturur (v11'de onaylı Kanca A imzası). 'artık ChatGPT'de.' 2,40–2,60'ta söner.\n2,60–4,40: Kamera yazım kutusuna iter (metin çıktıda ≥38 px). İmleç harf harf yazar: 'Lapta'da £160 bin altı, deniz manzaralı 2+1 daire' (8 kelime, kural 3,1 sn; balon 6,0'a kadar ekranda kaldığı için toplam 3,4 sn).\n4,40: Gönder dokunuşu (tık). 4,45 balon, 4,50–5,20 'Evlek'te aranıyor…'. Bu aralıkta dış yazı yok.",
+  "gelisme": "5,20–16,50 · Ara → sonuç çıkar → ancak sonra ev.\n5,20–5,60: Gerçek Lapta widget'ının üstü gelir (wLaptaTop): harita '£105–147 bin · 8', 'Lapta · Satılık · 8 ilan', çipler.\n5,40–7,20: Dış yazı 'Sor. Evlek göstersin.' 72/700, üstte (3 kelime, kural 1,6 sn, kalış 1,8 sn). Sonuç ekrandayken girer, 'göstersin' görüntüyle eşleşir.\n7,20–8,80: Kart şeridi (yalnız 4.–8. kartlar) parmakla kayar; 8,30'da £139.000 kartına dokunuş, tam ekran detay 1/14 açılır.\n8,80–9,60: '›' dokunuşu, 2/14 iç mekân.\n9,60–13,00: İç mekân tam ekran. Artık bu bir dokunuşun sonucu olduğu için 'dışarıdan Evlek'e' tuhaflığı ortadan kalkar. Künye '£139.000' (96/800) ve 'Lapta · 2+1 · 107 m²' (52/600) 9,80–11,80 arası; bu veridir, mesaj değil. Alan türü yazılmaz.\n13,00–16,50: İki seçenek var (Rumi'ye sorulacak). (A) Tavsiyem: telefon geri gelir, widget'ın altı 'Haritada tümü / Evlek'te aç' görünür ve gelişme widget içinde kapanır. Hap tuş sorunu da dördüncü fikir de ortadan kalkar. (B) evlek.app sayfası kalır, ama altındaki tuşlar Rumi'nin elindeki güncel ve canlı tasarımın gerçek pikseliyle değiştirilir. Bu yeniden çizim değil, yeni bir ekran görüntüsü olmalı. Canlıda yoksa B yapılamaz.",
+  "sonuc": "16,50–30,00 · Nasıl eklenir → haberin aynası.\n16,50–17,00: Sohbete kesme; yol şeridi 'ChatGPT › Eklentiler › Evlek › Ekle' 52/600 üstte girer, 'ChatGPT' aktif (4 öğe, kural 1,9 sn; şerit 16,5–23,8 boyunca sürer).\n17,00–17,60: ≡ dokunuşu, kenar menü açılır; 17,50'de 'Eklentiler'.\n17,60–18,60: Eklentiler ekranı. 18,00–18,40 arası aramaya 'evlek' yazılır, 18,60'ta tek sonuç: 'Evlek · Northern Cyprus property data' (gerçek dizin metni, çevrilmez).\n18,90: Satıra dokunuş. 19,00–20,20: Evlek sayfası, soru kartları ve açıklama doku olarak görünür.\n20,40: 'Eklentiyi kur' dokunuşu, ardından dönen gösterge. 20,80–22,20: '✓ Bağlı' (1,4 sn duruş, onay sesi).\n22,20: 'Sohbette dene'. 22,50–24,00: Yeni sohbet; yazım kutusunda 'Ev Evlek' çipi ve yanıp sönen imleç (eklenti_31_5 düzeni). Yol şeridi 23,80'de söner.\n24,00–29,50 kapanış: Kamera geri çekilir, zemin lacivert; telefon ekranında boş yazım kutusu, Evlek çipi ve imleç kalır. Üstte, açılışla aynı yerde logo ve 'artık ChatGPT'de.' (24,20 giriş; kalış 5,3 sn). Altında 52/600 'Eklentiler'den ekle.' (2 kelime, kural 1,3 sn, kalış 5,0 sn). Dipnot 30/500 24,60–29,50 arası: 'ChatGPT arayüzü temsilîdir; Evlek ekranları ve ilan verileri gerçektir. ChatGPT, OpenAI'ın ticari markasıdır.' (13 kelime, kural 4,6 sn, kalış 4,9 sn).\n29,50–30,00: Telefon ve alt satırlar çıkar; logo ve 'artık ChatGPT'de.' kalır, son kare 0. kareyle aynı olur ve döngü dikişsiz kapanır.\nGönderi açıklaması önerisi (ekrana değil): 'Evlek artık ChatGPT'de. Kuzey Kıbrıs'ta satılık ve uzun dönem kiralık ilanları kendi cümlenle sor; fotoğraf, ilan fiyatı ve harita sohbette gelsin. Evlek hesabı gerekmez. ChatGPT › Eklentiler › Evlek › Ekle.' Tüm ifadeler 13 Kasım 2026 duyurusunda geçiyor.",
+  "kanca_metinleri": [
+   {
+    "metin": "Evlek artık ChatGPT'de. [KANCA, önerilen] 3 kelime · 1,6 sn",
+    "kural_durumu": "Uygun. Canlı özellik; 13 Kasım 2026 duyurusu ('uygulama dizininde yayında') ile doğrulanmış."
+   },
+   {
+    "metin": "Duyuru · Kasım 2026 / Evlek artık ChatGPT'de. [KANCA + 30 px künye] 6 kelime · 2,5 sn (künye dipnot boyutunda)",
+    "kural_durumu": "Uygun. Tarih ve duyuru gerçek; haber hissini iddia kullanmadan verir. Künye dördüncü bir mesaj sayılmaz ama Rumi onaylamalı."
+   },
+   {
+    "metin": "Yapay zekâyla ev ara. Evlek artık ChatGPT'de. [KANCA, Rumi'nin 'yapay zekâ' isteğine iddiasız karşılık] 7 kelime · 2,8 sn",
+    "kural_durumu": "Uygun. İşlevi tarif ediyor, sıralama iddiası yok. 2,8 sn kanca için uzun; ilk cümle 0. karede, ikincisi 1,2'de girmeli."
+   },
+   {
+    "metin": "Kuzey Kıbrıs emlak ilanları artık ChatGPT'de. [KANCA] 6 kelime · 2,5 sn",
+    "kural_durumu": "Doğrulama ve onay gerekir. Duyuru başlığının diline dayanıyor ('Kuzey Kıbrıs emlak ilanlarını ChatGPT'ye taşıdı'), ama tek başına 'piyasadaki bütün ilanlar' gibi okunabilir. Logo yanında verilmeli ya da 'Evlek'teki' diye daraltılmalı; Onur onaylamalı."
+   },
+   {
+    "metin": "KKTC emlakı artık ChatGPT'de. [KANCA, kısa yerel] 4 kelime · 1,9 sn",
+    "kural_durumu": "Doğrulama ve onay gerekir. Aynı kapsam riski var; 'Evlek' adı geçmediği için logo zorunlu."
+   },
+   {
+    "metin": "Evlek, ChatGPT'de yayında. [KANCA, düz haber dili] 3 kelime · 1,6 sn",
+    "kural_durumu": "Uygun. Duyurunun kendi ifadesi; 'artık' kadar sıcak değil."
+   },
+   {
+    "metin": "YENİ · Evlek artık ChatGPT'de. [KANCA] 4 kelime · 1,9 sn",
+    "kural_durumu": "Uygun, süre sınırlı. Lansman 13 Kasım 2026; 'yeni' birkaç ay sonra kaldırılmalı. Mercan rozet olursa renk kullanımı sınırlı kalmalı."
+   },
+   {
+    "metin": "Kuzey Kıbrıs'ta ev mi arıyorsun? ChatGPT'ye sor. [KANCA, ihtiyaçtan giriş] 7 kelime · 2,8 sn",
+    "kural_durumu": "Uygun ama brife aykırı yönde. Dikkati habere değil ihtiyaca çeker ve Evlek adı geçmez; Rumi'nin 'dikkat haberde olsun' notuyla çelişir. Yalnız B testi için."
+   },
+   {
+    "metin": "KKTC'nin ilk yapay zekâ emlak uygulaması [Rumi'nin fikri] 6 kelime · 2,5 sn",
+    "kural_durumu": "Kurala aykırı. Brifte 'ilk/tek/en iyi yok' kuralı mutlak; kurum kuralı da 'doğrulanmamış iddia yok' diyor. Duyuruda böyle bir ifade yok. 'Yapay zekâ emlak uygulaması' kategorisi tanımsız ve tartışmaya açık, ispat yükü bizde. Rakip itirazı ve reklam denetimi riski taşıyor."
+   },
+   {
+    "metin": "KKTC'nin ChatGPT'deki ilk emlak uygulaması [daraltılmış 'ilk'] 5 kelime · 2,2 sn",
+    "kural_durumu": "Kurala aykırı. Dizinde tarihli kanıt bulunsa bile brifteki 'ilk' yasağı geçerli. Kırılgan da: dizine başka bir uygulama girdiği ya da önceden var olduğu ortaya çıktığı gün kampanya geri çekilir. Ancak Rumi ve Onur kuralı yazılı olarak değiştirir ve tarihli kanıt sağlarsa yeniden konuşulur."
+   },
+   {
+    "metin": "Sor. Evlek göstersin. [GELİŞME sloganı, önerilen] 3 kelime · 1,6 sn",
+    "kural_durumu": "Uygun. Yalnız sonuç ekrandayken girerse anlatmaz, kanıtlar."
+   },
+   {
+    "metin": "Yaz. Evlek göstersin. [GELİŞME alternatifi; Rumi'nin 'önce yazma' vurgusu] 3 kelime · 1,6 sn",
+    "kural_durumu": "Uygun. Ekranda gösterilen eylemi birebir adlandırır; 'Sor' daha doğal geliyor."
+   },
+   {
+    "metin": "Kendi cümlenle sor. [GELİŞME alternatifi; duyurunun dili] 3 kelime · 1,6 sn",
+    "kural_durumu": "Uygun. Duyuru: 'ne aradığını kendi cümlesiyle yazar'."
+   },
+   {
+    "metin": "Beş dilde sor. Evlek göstersin. [GELİŞME alternatifi] 5 kelime · 2,2 sn",
+    "kural_durumu": "Uygun (TR/EN/RU/DE/AR canlı, duyuruda var), ama film yalnız Türkçe gösteriyor; gösterilmeyen bir özelliği dış yazıya taşımak yerine açıklamada kalması daha iyi."
+   },
+   {
+    "metin": "Eklentiler'den ekle. [CTA, kapanış alt satırı, önerilen] 2 kelime · 1,3 sn",
+    "kural_durumu": "Uygun. Edinme yolu (ChatGPT → Eklentiler → Evlek → Ekle) iOS kaydıyla doğrulanmış."
+   },
+   {
+    "metin": "Eklentiler'den Evlek'i ekle. [CTA alternatifi] 3 kelime · 1,6 sn",
+    "kural_durumu": "Uygun. Logo hemen üstte 'Evlek' dediği için 'Evlek'i' tekrar ediyor."
+   },
+   {
+    "metin": "ChatGPT › Eklentiler › Evlek › Ekle [yol şeridi, 16,5–23,8] 4 öğe · 1,9 sn",
+    "kural_durumu": "Uygun. Gerçek menü sırası. Mesaj 3'ün görsel hali, ayrı bir mesaj sayılmaz."
+   },
+   {
+    "metin": "Evlek hesabı gerekmez. [destek cümlesi; yalnız gönderi açıklaması] 3 kelime · 1,6 sn",
+    "kural_durumu": "Uygun (duyuruda geçiyor). Filmde dördüncü mesaj olacağı için ekrana konmamalı."
+   },
+   {
+    "metin": "ChatGPT arayüzü temsilîdir; Evlek ekranları ve ilan verileri gerçektir. ChatGPT, OpenAI'ın ticari markasıdır. [dipnot 30/500] 13 kelime · 4,6 sn",
+    "kural_durumu": "Uygun ve gerekli. Kalış 4,9 sn ile kural karşılanıyor."
+   }
+  ],
+  "yaratici_fikir": "Boş yazım kutusu CTA'nın kendisi olsun ve film onunla başlayıp bitsin. Açılışta logo yazım kutusundaki 'Ev Evlek' çipine iner ve izleyici ilk cümleyi orada yazılırken görür. Kapanışta 'Eklentiyi kur → Bağlı ✓ → Sohbette dene' sonrası aynı yazım kutusu yeniden belirir: Evlek çipi yerinde, imleç yanıp sönüyor, soru yok. Üstte açılıştaki cümle aynı konumda geri gelir: 'Evlek artık ChatGPT'de.' ve altında 'Eklentiler'den ekle.' Boş kutu, 'sıra sende, yaz' davetini hiç kelime harcamadan yapar. Yazıyla 'şimdi sen sor' demeye gerek kalmaz ve 3 mesaj sınırı korunur. Halka şöyle kapanır: ekle → yaz → ara → bul; son kare ilk kareyle aynı olduğu için döngü de dikişsiz olur. Yeni bir iddia yok, yeni bir arayüz yok: gerçek ref (eklenti_31_5) düzeni ve v11'de onaylı logo-çip imzası kullanılıyor.",
+  "korunacaklar": [
+   "Logonun yazım kutusundaki 'Ev Evlek' çipine inmesi (v11'de onaylı Kanca A imzası). Bu kez fotoğraf yerine düz lacivert zeminde.",
+   "Lapta sorgusu ve gerçek sonucu: 'Lapta'da £160 bin altı, deniz manzaralı 2+1 daire' → 'Lapta · Satılık · 8 ilan', harita '£105–147 bin · 8'. Sorgu metni değişirse widget yeniden yakalanmalı.",
+   "Gerçek widget pikselleri (wLaptaTop/Row/Bot, dFull_1/2) ve CGI ya da insan içeren ilk 3 kartın dışarıda kalması.",
+   "£139.000 kartına dokunuş → tam ekran 1/14 → '›' 2/14 → iç mekân zinciri. Artık soru ve sonuçtan sonra gelecek.",
+   "Künye '£139.000 / Lapta · 2+1 · 107 m²', alan türü yazılmadan.",
+   "Eklentiler akışının iOS kaydına sadık sırası, 'evlek' araması, '✓ Bağlı' anı ve 'Sohbette dene'.",
+   "Yol şeridi 'ChatGPT › Eklentiler › Evlek › Ekle' (52/600, aktif adım vurgulu).",
+   "Dipnot metni (13 kelime) ve okuma formülü (kelime × 0,3 + 0,7).",
+   "'Sor. Evlek göstersin.' sloganı. Metin kalabilir, zamanı değişmeli.",
+   "Döngü dikişi (son kare = ilk kare), Inter, renk paleti, ≥52 px dış metin, yavaş tempo."
+  ],
+  "riskler": [
+   "'İlk' iddiası. Brifteki 'ilk' yasağı mutlak, kurum kuralı doğrulanmamış iddiayı yasaklıyor, duyuruda 'ilk' geçmiyor. İspat yükü bizde; rakip itirazı ve kampanyanın geri çekilmesi riski var. Üçüncü taraf bir haber 'ilk' yazmış olsa bile onu alıntılamak iddiayı bizim yapar.",
+   "Kapsam ifadesi. 'Kuzey Kıbrıs emlak ilanları' gibi başlıklar piyasadaki bütün ilanlar gibi okunabilir. Logoyla birlikte verilmeli ya da 'Evlek'teki' diye daraltılmalı; Onur onaylamalı.",
+   "Canlı veri eskiyebilir. Lapta'daki 8 ilan ve £139.000 çekim günü gerçek; ilan satılır ya da fiyatı değişirse film eskir. Dipnota tarih eklemek kelime bütçesini artırır, gönderi açıklamasında tarih verilebilir.",
+   "14. sn tuşları. evlek.app sayfasının ya da 'Emlakçıya sor' hapının 'filtre gibi' yeniden çizilmesi 'gerçek arayüz yeniden tasarlanmaz' ve 'yalnız canlı özellik' kurallarını çiğner. Güncel tasarım canlıda değilse bölüm çıkarılmalı.",
+   "Dil karışması. Eklenti dizinindeki gerçek metinler İngilizce ('Northern Cyprus property data', '@Evlek Show me…'). Çevirmek gerçeği çarpıtır; Türkçe yol şeridi köprü görevi görmeli, dizin metni doku olarak kalmalı.",
+   "Temsilî ChatGPT metinleri ('Evlek'te aranıyor…', 'ChatGPT'ye sor', 'Eklentiler') gerçek Türkçe arayüzle birebir aynı olmalı. OpenAI menü adını değiştirirse CTA eskir. ChatGPT ya da OpenAI logosu kullanılmaz."
+  ],
+  "rumiye_sorular": [
+   "'Haber yapmıştık' dediğin, 13 Kasım 2026 tarihli evlek.app/basin/duyuru/chatgpt-uygulamasi duyurusu mu? Başlığı 'Evlek, Kuzey Kıbrıs emlak ilanlarını ChatGPT'ye taşıdı' ve içinde 'ilk' geçmiyor. Yoksa başka bir yayında çıkan bir haber mi? Öyleyse linkini atar mısın?",
+   "'KKTC'nin ilk yapay zekâ…' derken asıl istediğin 'ilk' iddiası mı, yoksa haber ve yenilik hissi mi? Kural gereği 'ilk' kullanamıyoruz. 'Evlek artık ChatGPT'de.' (üstünde 'Duyuru · Kasım 2026'), 'Yapay zekâyla ev ara. Evlek artık ChatGPT'de.' ya da 'Kuzey Kıbrıs emlak ilanları artık ChatGPT'de.' sana aynı etkiyi veriyor mu?",
+   "Hitap 'sen' mi olsun 'siz' mi? v12'de 'Sor.' ile 'ekleyin' karışıktı.",
+   "Orta slogan hangisi: 'Sor. Evlek göstersin.', 'Yaz. Evlek göstersin.' ya da 'Kendi cümlenle sor.'?",
+   "14. saniyedeki tuşlar hangileri: evlek.app sayfasının altındaki 'WhatsApp'tan yaz / Telefonla ara' mı, detaydaki mercan 'Emlakçıya sor' mu? 'Filtredeki gibi' dediğin güncel tasarım canlıda mı? Canlı sitede bugün hâlâ hap biçimli görünüyor. Değilse ekran görüntüsü verebilir misin, yoksa evlek.app bölümünü tamamen çıkaralım mı?",
+   "Soru Lapta sorgusu olarak mı kalsın, yoksa duyurudaki örnek mi olsun: 'Girne'de 200 bin £ altı satılık 2+1 daire'? İkincisi haberle birebir örtüşür ama widget'ın yeniden yakalanması gerekir.",
+   "Kapanışta 'Evlek artık ChatGPT'de.' ve 'Eklentiler'den ekle.' yeterli mi, yoksa tam yol 'ChatGPT › Eklentiler › Evlek › Ekle' kapanışta da kalsın mı? 'Evlek hesabı gerekmez.' yalnız gönderi açıklamasında olsun, uygun mu?"
+  ]
+ }
+]

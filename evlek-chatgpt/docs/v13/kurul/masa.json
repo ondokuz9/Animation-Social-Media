@@ -1,0 +1,701 @@
+{
+ "ozet_karar": "Rumi, v13'te film baştan kuruluyor. Açılışta ev yok. İlk karede düz lacivert zemin üstünde yalnız 'Evlek artık ChatGPT'de.' yazıyor ve tam opak duruyor; göz habere gidiyor. Ardından sıra mantıklı ilerliyor: önce soru yazılıyor (Lapta), sonra gönderiliyor, Evlek arıyor, sonuç çıkıyor. Ev ancak £139.000 kartına dokunulunca açılıyor ve havuz fotoğrafı telefonun içinden dışarı büyüyor. Böylece 'dışarıdaki görsel bir anda Evlek'e geliyor' sorunu ortadan kalkıyor. evlek.app sayfası çıkıyor; 14. saniyedeki hap tuşlar da onunla birlikte gidiyor. Girne sorgusu da çıkıyor, film tek Lapta sorgusuyla kalıyor. Son 13 saniye 'nasıl eklenir' bölümü: Eklentiler → evlek → Eklentiyi kur → Bağlı → Sohbette dene. Bu yol yazım kutusundaki Evlek çipine çıkıyor, çip yeniden logoya dönüşüyor ve film 'Evlek artık ChatGPT'de.' ile kapanıyor. Son kare ilk kareyle aynı, böylece döngü dikişsiz. 'KKTC'nin ilk…' ifadesi kural gereği kullanılamıyor: senin verdiğin 13 Kasım duyurusunda böyle bir ifade geçmiyor. Yerine iddiasız seçenekler hazırladım. Önerim A seçeneği.",
+ "uzlasma": [
+  "Altı uzmanın altısı da aynı noktada buluşuyor: açılışta ev fotoğrafı olmayacak. Zemin düz lacivert #0A2540 ve haber 0. karede tam opak duracak, içine solarak girilmeyecek. Bu kare aynı zamanda kapak karesi.",
+  "Neden-sonuç zinciri tek yönde ilerler ve zamanda geriye sıçranmaz: yaz → gönder → ara → sonuç → kaydır → dokun → detay → ev. v12'deki ters portal (dış fotoğrafın telefondaki detaya inmesi) kaldırılıyor.",
+  "Ev bölümleri ancak £139.000 kartına dokunulduktan sonra başlar. Fotoğraf yalnız içeriden dışarıya, yani dokunulan ilanın kendi dikdörtgeninden büyür, sonra aynı yere geri döner. v11'de onaylanan havuzda telefonsuz nefes bu konumda korunuyor.",
+  "Film tek Lapta sorgusuyla kalıyor ('Lapta'da £160 bin altı, deniz manzaralı 2+1 daire'). Girne ikinci sorgusu çıkarılıyor.",
+  "evlek.app sayfası filmden çıkarılıyor. Böylece film ChatGPT'nin dışına hiç çıkmıyor ve 14. saniyedeki 'WhatsApp'tan yaz / Telefonla ara' hap tuşları da ortadan kalkıyor.",
+  "Eklentiler bölümü filmin sonunda yer alıyor (iOS kaydındaki sırayla: Eklentiler → 'evlek' araması → Evlek sayfası → Eklentiyi kur → dönen gösterge → Bağlı → Sohbette dene). Akış, yazım kutusundaki Evlek çipine çıkıyor.",
+  "Kapanış cümlesi 'Evlek artık ChatGPT'de.' Son kare ilk kareyle aynı olduğu için Reels döngüsü dikişsiz başa sarıyor.",
+  "Logo ile yazım kutusundaki Evlek çipi arasındaki ilişki (v11 Kanca A) filmin omurgası olarak kalıyor ve iki uçta kafiye kuruyor.",
+  "'İlk/tek/en' ifadeleri kullanılmıyor. 13 Kasım 2026 tarihli duyuruda 'ilk' sözcüğü geçmiyor. 'KKTC'nin ilk yapay zekâ…' önerisi kurala aykırı.",
+  "Gerçek widget pikselleri (wLaptaTop, wLaptaRow'da yalnız 4.–8. kartlar, dFull_1/dFull_2) yeniden tasarlanmıyor; yalnız kırpılıyor ve yakınlaştırılıyor.",
+  "Ana metin en fazla üç mesajdan oluşuyor: (1) Evlek artık ChatGPT'de. (2) Sor. Evlek göstersin. (3) Eklentiler'den ekle, ekranda yol şeridi olarak gösteriliyor.",
+  "Dipnot 28–30 px'e büyütülüyor (v12'de yaklaşık 20 px'ti) ve en az 4,5 sn ekranda kalıyor.",
+  "Tempo insan gözüne göre ayarlanıyor: her arayüz durumu okunacak kadar kalıyor, yazılar arayüz yerine oturduktan sonra geliyor, iki şey aynı yarım saniyeye düşmüyor."
+ ],
+ "anlasmazliklar": [
+  {
+   "konu": "Kanca biçimi: logo + başlık (tipografik) mı, manşet ölçeğinde yazım kutusu (ürün içi) mu",
+   "taraflar": "Kurgu yönetmeni, lansman stratejisti, arayüz uzmanı ve metin yazarı logo + 'artık ChatGPT'de.' tipografisini istiyor. Kreatif direktör ve sosyal kanca uzmanı ekranı dolduran yazım kutusunu ve içindeki Evlek çipini istiyor.",
+   "karar": "İki yaklaşım ayrı seçenek olarak Rumi'ye sunuluyor: A tipografik, B ürün içi. Önerim A. Gerekçeleri: v11'de onaylanan Kanca A ile süreklilik sağlıyor, kapak karesinde marka logosu bulunuyor ve büyük bir ChatGPT kutusunun resmî ChatGPT reklamı gibi algılanma riskini taşımıyor."
+  },
+  {
+   "konu": "İlk karede haber metni hazır mı gelecek, yoksa yazılarak mı oluşacak",
+   "taraflar": "Kreatif direktör 'Evlek'in kutuya harf harf yazılmasını istiyor; haber 1,6 sn'de tamamlanıyor. Lansman stratejisti 'artık ChatGPT'de.' satırının imleçten yazılmasını istiyor. Sosyal uzman, kurgu yönetmeni ve metin yazarı 0. karede tam opak metin istiyor.",
+   "karar": "Her iki seçenekte de 0. karede tam cümle okunur durumda olacak. Hareketi yanıp sönen imleç ve %3'lük itme sağlayacak. Harf harf yazma yalnız kapanışta kullanılacak, çünkü orada son kare yine tam metin olduğu için döngü bozulmuyor."
+  },
+  {
+   "konu": "Arama sırasında görünen durum satırının metni",
+   "taraflar": "v12'de ve kurgu yönetmeninin önerisinde 'Evlek'te aranıyor…' (Türkçe ama uydurma). Arayüz uzmanı Evlek'in canlı tanımındaki 'Searching Evlek listings…' metnini öneriyor. Lansman stratejisti iOS kaydındaki 'Birkaç saniye düşündü ›' ifadesine dikkat çekiyor.",
+   "karar": "Uydurma Türkçe metin kullanılmayacak. Arama anında kayıttaki 'Ev Evlek' etiketi ışıltıyla gösterilecek; yanına uygulamanın canlı tanımındaki 'Searching Evlek listings…' metni gelecek. Onur Türkçe iOS'ta farklı bir metin görüyorsa birebir o metin kullanılacak. v12 widget'ının üstündeki 'Evlek · 8 ilan' etiketi kayıtta olmadığı için kaldırılacak, yerine 'Ev Evlek' konacak."
+  },
+  {
+   "konu": "Soru balonunun biçimi",
+   "taraflar": "v12'de balon sola yaslı ve gri. Arayüz uzmanı, iOS kaydındaki gibi sağa yaslı ve çipin balonun içinde olduğu biçimi istiyor.",
+   "karar": "Kayda uyulacak: balon sağa yaslı, koyu mavi tonda ve 'Ev Evlek' çipi balonun içinde."
+  },
+  {
+   "konu": "Ev bölümleri: tek nefes mi, havuz ve salon birlikte mi",
+   "taraflar": "Sosyal uzman tek bir tam kadraj anı istiyor. Kurgu yönetmeni havuz nefesinin ardından '›' süpürmesiyle tam kadraj salon istiyor. Arayüz uzmanı yalnız salonun dışarı taşmasını istiyor.",
+   "karar": "Tek bir telefonsuz parantez açılacak. Önce havuz (1/14) gelecek, bu v11'de onaylanan nefes. Ardından galerinin '›' yönünde süpürmeyle salon (2/14) gelecek ve parantez telefona geri dönerek kapanacak. Parantezin toplam süresi yaklaşık 3,4 sn. Rumi 'ev bölümleri' derken çoğul konuşuyor; salon da gerçek galeri davranışının karşılığı."
+  },
+  {
+   "konu": "Künyedeki alan bilgisi",
+   "taraflar": "Kreatif direktör ve arayüz uzmanı '107 m² kapalı' yazılmasını istiyor. Metin yazarı ve kurgu yönetmeni yalnız '107 m²' yazılmasını istiyor.",
+   "karar": "Künyede '£139.000 / Lapta · 2+1 · 107 m²' yazacak, alan türü belirtilmeyecek. EVL-100102'nin alan türü verisi boş (null). 'Kapalı alan' bilgisi zaten gerçek widget pikselinde görünüyor, dış metinde tekrarlanmayacak."
+  },
+  {
+   "konu": "Hitap biçimi (sen/siz)",
+   "taraflar": "v12'de karışık kullanılmış ('Sor' ve 'ekleyin'). Metin yazarı 'sen' öneriyor, lansman stratejisti tutarlılık için 'siz' öneriyor.",
+   "karar": "Film boyunca 'sen' kullanılacak: 'Sor. Evlek göstersin.' ve 'Eklentiler'den ekle.' Sohbet diline ve sosyal akışa bu uyuyor. Son onay Rumi'de."
+  },
+  {
+   "konu": "Kapanıştaki çağrı satırı",
+   "taraflar": "Bir görüş yalnız 'Evlek artık ChatGPT'de.' der. Diğerleri altına 'Eklentiler'den ekle.', 'Eklentiler'den Evlek'i ekleyin.' ya da yol şeridini ekler.",
+   "karar": "Kapanışta 'Evlek artık ChatGPT'de.' ana satır olacak, altında 52/600 boyutunda 'Eklentiler'den ekle.' yer alacak. Yol şeridi ('ChatGPT › Eklentiler › Evlek › Ekle') yalnız ekleme akışı sırasında görünecek. Son 0,5 sn'de alt satır ve dipnot sönecek; geriye 0. kare kalacak."
+  },
+  {
+   "konu": "Haberi duyuru/yeni etiketiyle vermek",
+   "taraflar": "Lansman stratejisti mercan 'YENİ' etiketi, sosyal uzman 40 px 'DUYURU · KASIM 2026' künyesi, metin yazarı 30 px künye öneriyor.",
+   "karar": "Varsayılan olarak kullanılmayacak, çünkü dördüncü bir öğe ve zamanla eskiyor. Rumi isterse 52 px 'Duyuru · Kasım 2026' üst satırı olarak eklenecek. Dış metin 52 px kuralı nedeniyle 40 px ve 30 px seçenekleri olmaz."
+  },
+  {
+   "konu": "14. saniyedeki tuş sorunu ve dBar'daki 'Emlakçıya sor' hapı",
+   "taraflar": "Uzmanların hepsi hedefin belirsiz olduğunu düşünüyor. Metin yazarının B seçeneği evlek.app sayfasını yeni ekran görüntüsüyle tutmak.",
+   "karar": "evlek.app sahnesi çıkarılıyor. Detay planlarında kadraj fiyat bloğunun altında bitecek, böylece dBar'daki 'Emlakçıya sor' hapı görünmeyecek. Gerçek widget yeniden çizilmeyecek. Not: widget'taki 'Satılık / Kiralık / Filtreler · 5' çipleri de hap biçiminde. Bu yüzden 'filtredeki gibi' büyük olasılıkla evlek.app'in filtre paneline işaret ediyor. Rumi'den ekran görüntüsü istenecek."
+  },
+  {
+   "konu": "Eklentiler bölümünün süresi",
+   "taraflar": "Kurgu yönetmeni en fazla 7 sn istiyor. Diğer önerilerde süre 8–11 sn arasında.",
+   "karar": "Eklenti akışı yaklaşık 7,4 sn (17,0–24,4), çip → logo ve kapanış yaklaşık 5,6 sn olacak. Her arayüz durumu en az 0,8 sn ekranda kalacak, 'Bağlı ✓' anı ise 1,2 sn. Yalnız 'Eklentiler' ekranının üst kısmı gösterilecek; Popüler listesi ve üçüncü taraf logoları hiç görünmeyecek."
+  },
+  {
+   "konu": "Yazma hızı ve okunabilirlik",
+   "taraflar": "Önerilen yazma hızları saniyede 15–25 karakter arasında değişiyor.",
+   "karar": "Saniyede yaklaşık 18 karakter: 48 karakter, 'altı,' sözcüğünden sonraki 0,25 sn duraklama dahil 2,6–2,8 sn sürecek. Yazı çıktıda en az 44 px olacak. Yazma bitince gönderilmeden önce 0,4 sn okuma beklemesi olacak."
+  }
+ ],
+ "secenekler": [
+  {
+   "ad": "A · Manşet → Çip (tipografik haber reveal'ı)",
+   "tek_cumle": "Film lacivert zemin üstünde 'Evlek artık ChatGPT'de.' manşetiyle açılıyor. Logo yazım kutusundaki çipe iniyor ve o çiple soru yazılıyor. Sonda izleyici aynı çipi Eklentiler'den kendi ekliyor, çip yeniden logoya dönüşüyor ve haber bu kez harf harf yazılarak kapanıyor.",
+   "kurgu": [
+    {
+     "saniye": "0,00–1,00",
+     "bolum": "GİRİŞ",
+     "goruntu": "Düz lacivert #0A2540 zemin. Ortada krem vektör Evlek logosu (yükseklik ≈200 px, y≈760). Altında 'artık ChatGPT'de.' yazısı. Noktanın sağında krem imleç 0,5 sn arayla yanıp sönüyor. Ekranda fotoğraf ve telefon yok.",
+     "telefon_kamera": "Telefon yok. Kamera 0,00–2,00 arasında tek itme yapıyor, %100'den %103'e (2 sn).",
+     "dis_metin": "Evlek / artık ChatGPT'de. (logo + 92/700 krem, 0. karede tam opak)",
+     "gecis": "Yok; 0. kare hazır olarak geliyor.",
+     "neden": "Karede başka bir şey olmadığı için göz haberi okumak zorunda. İmleç 'bu bir sohbet' fikrini sözsüz veriyor ve sonraki yazma eylemini hazırlıyor. Bu kare kapak karesi olarak da çalışıyor."
+    },
+    {
+     "saniye": "1,00–2,00",
+     "bolum": "GİRİŞ",
+     "goruntu": "Aynı kare; imleç iki kez daha yanıp sönüyor.",
+     "telefon_kamera": "İtme sürüyor.",
+     "dis_metin": "Aynı",
+     "gecis": "—",
+     "neden": "Üç kelimelik cümle için gereken okuma süresi yaklaşık 1,6 sn; 'biraz yavaş' tempo payıyla toplam 2,0 sn veriliyor."
+    },
+    {
+     "saniye": "2,00–2,80",
+     "bolum": "GİRİŞ",
+     "goruntu": "'artık ChatGPT'de.' satırı 14 px aşağı kayarak 2,00–2,40 arasında sönüyor. Alttan markasız 3B telefon yükseliyor. Ekranda boş yeni sohbet ve 'ChatGPT'ye sor' yazan yazım kutusu var.",
+     "telefon_kamera": "Telefon 2,00–2,80 arasında yükseliyor (800 ms, ease-in-out). Kadraj telefonun alt yarısında; yazım kutusu kare genişliğinin yaklaşık %85'ini kaplıyor.",
+     "dis_metin": "Yalnız logo kalıyor.",
+     "gecis": "Eşleşen hareket başlıyor.",
+     "neden": "Haber 'ChatGPT'de' diyor; şimdi ChatGPT sohbetinin kendisi gösteriliyor. Arada kesme yok."
+    },
+    {
+     "saniye": "2,80–3,60",
+     "bolum": "GİRİŞ",
+     "goruntu": "Logo küçülerek yay çiziyor ve 3,40'ta kutudaki 'Ev Evlek' çipine dönüşüyor. 3,40–3,60 arasında çip 1,0 → 1,06 → 1,0 ölçekle küçük bir 'tık' yapıyor. Çip görünümü eklenti_31_5'teki gibi.",
+     "telefon_kamera": "Logo uçuşu 2,70–3,40 arasında (700 ms); kamera sabit.",
+     "dis_metin": "Yok",
+     "gecis": "Eşleşen hareket (v11 Kanca A).",
+     "neden": "Haberin öznesi aracın kendisine dönüşüyor. 'Evlek ChatGPT'de nerede?' sorusunun cevabı ekranda: kutuda."
+    },
+    {
+     "saniye": "3,60–4,60",
+     "bolum": "GİRİŞ",
+     "goruntu": "İmleç çipin sağında. 3,70'te yazma başlıyor: 'Lapta'da £160 bin altı,'. Ardından 0,25 sn duraklama.",
+     "telefon_kamera": "Kutuya yakın plan, metin çıktıda en az 44 px. Klavye gösterilmiyor. Kamera sabit.",
+     "dis_metin": "Yok",
+     "gecis": "—",
+     "neden": "Rumi 'önce yazma' dedi. Bu sürede okunacak tek şey soru."
+    },
+    {
+     "saniye": "4,60–5,70",
+     "bolum": "GİRİŞ",
+     "goruntu": "Yazma 'deniz manzaralı 2+1 daire' ile sürüyor; kutu iki satıra büyüyor. Yazma 5,70'te bitiyor (saniyede ≈18 karakter).",
+     "telefon_kamera": "Kamera metni takip ederek %100'den %103'e itiyor (4,60–5,60, 1 sn).",
+     "dis_metin": "Yok",
+     "gecis": "—",
+     "neden": "İnsan hızında yazılıyor; izleyici sorunun tamamını okuyabiliyor."
+    },
+    {
+     "saniye": "5,70–6,40",
+     "bolum": "GİRİŞ",
+     "goruntu": "Tam soru 0,4 sn ekranda kalıyor. 6,10'da gönder ↑ düğmesine dokunuş halkası çıkıyor (0,15 sn baskı).",
+     "telefon_kamera": "Kamera sabit.",
+     "dis_metin": "Yok",
+     "gecis": "Eylem anı",
+     "neden": "Gönder dokunuşu, bundan sonraki her şeyin sebebi. Kesme bu eylemin üstüne düşüyor."
+    },
+    {
+     "saniye": "6,40–7,40",
+     "bolum": "GELİŞME",
+     "goruntu": "Soru balonu sağa yaslı yukarı kalkıyor; kayıttaki gibi koyu mavi, 'Ev Evlek' çipi balonun içinde. Altında 'Ev Evlek' etiketi ve ışıltıyla 'Searching Evlek listings…' (Onur'un kaydındaki gerçek metin ne ise o).",
+     "telefon_kamera": "Kamera bir kademe geri çekiliyor (6,40–7,20, 800 ms). Durum satırı karenin optik merkezinde.",
+     "dis_metin": "Yok",
+     "gecis": "Eylemle tetiklenen geri çekilme",
+     "neden": "'Evlek arar' halkası 1 sn boyunca okunur halde kalıyor ve sebep sonuçtan önce görünüyor."
+    },
+    {
+     "saniye": "7,40–8,40",
+     "bolum": "GELİŞME",
+     "goruntu": "Gerçek wLaptaTop aşağıdan yerine oturuyor (7,40–7,90). İçinde Lapta haritası, '£105–147 bin · 8', 'Lapta · Satılık · 8 ilan' ve çipler var.",
+     "telefon_kamera": "Kamera sabit; widget telefonun yaklaşık %70'ini kaplıyor.",
+     "dis_metin": "Yok; önce arayüz oturuyor.",
+     "gecis": "Yükleme gibi geliyor.",
+     "neden": "Sonuç, aramanın doğrudan çıktısı olarak görünüyor; efekt hissi yok."
+    },
+    {
+     "saniye": "8,40–9,60",
+     "bolum": "GELİŞME",
+     "goruntu": "Sonuç okunuyor.",
+     "telefon_kamera": "Kamera 'Lapta · Satılık · 8 ilan' satırına yumuşak itme yapıyor (8,40–9,40, 1 sn).",
+     "dis_metin": "8,60'ta 'Sor. Evlek göstersin.' giriyor (72/700, krem, telefonun üstünde; 8,60–8,85 arasında açılıyor).",
+     "gecis": "—",
+     "neden": "Slogan, ekranda o an görüneni adlandırıyor. Arayüz oturduktan 0,2 sn sonra geldiği için ikisi aynı ana düşmüyor."
+    },
+    {
+     "saniye": "9,60–10,60",
+     "bolum": "GELİŞME",
+     "goruntu": "Sohbet yukarı kayıyor ve kart şeridi görünüyor (yalnız 4.–8. kartlar).",
+     "telefon_kamera": "Kamera aynı ekranda aşağı iniyor (9,60–10,40, 800 ms).",
+     "dis_metin": "Slogan 10,40–10,60 arasında sönüyor (1,8 sn tam opak kaldı).",
+     "gecis": "Kaydırma",
+     "neden": "Kullanıcının kaydırması gibi okunuyor; kesme yok."
+    },
+    {
+     "saniye": "10,60–11,60",
+     "bolum": "GELİŞME",
+     "goruntu": "Parmak halkası şeridi sola sürüklüyor: £120.000 → £127.000 → £139.000. Şerit yavaşlayarak duruyor.",
+     "telefon_kamera": "Sürükleme 10,60–11,40 (800 ms), kamera sabit.",
+     "dis_metin": "Yok",
+     "gecis": "—",
+     "neden": "Seçim anı: izleyici bir eve yöneliyor."
+    },
+    {
+     "saniye": "11,60–12,40",
+     "bolum": "GELİŞME",
+     "goruntu": "£139.000 kartı ortada; '£139.000 · 2+1 · 2 banyo · 107 m²' 0,5 sn okunuyor. 12,10'da karta dokunuş halkası.",
+     "telefon_kamera": "Kamera sabit.",
+     "dis_metin": "Yok",
+     "gecis": "Eylem anı",
+     "neden": "Evin neden açıldığı belli: kullanıcı karta dokundu."
+    },
+    {
+     "saniye": "12,40–13,40",
+     "bolum": "GELİŞME",
+     "goruntu": "Kartın fotoğrafı tam ekran detaya genişliyor: dFull_1, 1/14, £139.000 · 2+1 · 2 banyo · 107 m² · Lapta, Girne.",
+     "telefon_kamera": "Genişleme 12,40–13,10 (700 ms). Kadraj fiyat bloğunun hemen altında bitiyor; dBar'daki 'Emlakçıya sor' hapı kadraj dışında.",
+     "dis_metin": "Yok",
+     "gecis": "Dokunuşun sonucu olarak genişleme",
+     "neden": "Detay ekranı, dokunuşun doğrudan sonucu olarak açılıyor."
+    },
+    {
+     "saniye": "13,40–14,40",
+     "bolum": "GELİŞME",
+     "goruntu": "dFull_1 okunuyor; ekranda '1 / 14' görünüyor.",
+     "telefon_kamera": "Kamera fotoğrafa doğru itiyor (13,40–14,20, 800 ms).",
+     "dis_metin": "Yok",
+     "gecis": "—",
+     "neden": "Bu itme, bir sonraki nefes planını hazırlıyor."
+    },
+    {
+     "saniye": "14,40–15,40",
+     "bolum": "GELİŞME",
+     "goruntu": "1/14 havuz fotoğrafı telefon düzleminden kalkıyor ve kendi dikdörtgeninden tam kadraja açılıyor; telefon kayboluyor.",
+     "telefon_kamera": "Açılma 14,40–15,20 (800 ms).",
+     "dis_metin": "Yok",
+     "gecis": "Portal, içeriden dışarıya",
+     "neden": "Fotoğrafın nereden geldiği belli: az önce dokunulan karttan. 'Dışarıdan geliyor' sorunu bu sırayla çözülüyor."
+    },
+    {
+     "saniye": "15,40–16,40",
+     "bolum": "GELİŞME",
+     "goruntu": "Telefonsuz havuz ve deniz (v11 nefesi).",
+     "telefon_kamera": "Kamera sağa yavaş pan yapıyor (15,20–16,90, 1,7 sn).",
+     "dis_metin": "15,60'ta künye: '£139.000' (96/800) ve altında 'Lapta · 2+1 · 107 m²' (52/600). 16,60–16,80 arasında sönüyor.",
+     "gecis": "—",
+     "neden": "Duygu anı artık kazanılmış. Künye veri taşıyor, ayrı bir mesaj sayılmıyor."
+    },
+    {
+     "saniye": "16,40–17,00",
+     "bolum": "GELİŞME",
+     "goruntu": "Galerinin '›' yönünde sağdan sola süpürmeyle 2/14 çift yükseklikli salon geliyor; ardından salon küçülerek telefonun kahraman alanına iniyor ve ekranda '2 / 14' görünüyor.",
+     "telefon_kamera": "Süpürme 16,40–17,05 (650 ms). Telefona geri dönüş, sonuç bölümüyle örtüşerek 17,00–17,70 (700 ms); köşeler ±2 px eşleşiyor.",
+     "dis_metin": "Yok",
+     "gecis": "Yatay süpürme, sonra ters portal (parantezi kapatıyor)",
+     "neden": "İkinci ev bölümü gerçek galeri davranışıyla geliyor. Parantez telefona dönerek kapanıyor ve film arayüze geri bağlanıyor."
+    },
+    {
+     "saniye": "17,00–18,00",
+     "bolum": "SONUÇ",
+     "goruntu": "Detay ✕ ile kapanıyor ve sohbete dönülüyor; 17,60'ta ≡ dokunuşu, kenar menü kayarak açılıyor. Hesap adı ve sohbet adı görünmüyor.",
+     "telefon_kamera": "Kamera telefonu tam boy ve ortalı kadraja çekiyor (17,00–17,80, 800 ms).",
+     "dis_metin": "Üstte yol şeridi giriyor: 'ChatGPT › Eklentiler › Evlek › Ekle' (52/600). Aktif adım 'ChatGPT' tam opak, diğer adımlar %45.",
+     "gecis": "Kapatma dokunuşu",
+     "neden": "Üçüncü mesaj ekranda yol olarak görünüyor. Bölüm artık 'sen de ekle' kısmına geçiyor."
+    },
+    {
+     "saniye": "18,00–19,00",
+     "bolum": "SONUÇ",
+     "goruntu": "18,10'da 'Eklentiler' dokunuşu. Eklentiler ekranına push geçişi; ekranda 'İzinler', 'Eklentilere göz at' ve 'Eklenti ara' görünüyor (eklenti_9_0 düzeni, temsilî). Popüler listesi ve üçüncü taraf logoları gösterilmiyor.",
+     "telefon_kamera": "Kamera arama alanına yumuşak iniyor (18,30–19,00, 700 ms).",
+     "dis_metin": "Yol şeridinde 'Eklentiler' yanıyor.",
+     "gecis": "Push",
+     "neden": "Dokunuş → ekran: aynı neden-sonuç dili bu bölümde de sürüyor."
+    },
+    {
+     "saniye": "19,00–20,00",
+     "bolum": "SONUÇ",
+     "goruntu": "Arama alanına 'evlek' harf harf yazılıyor (19,10–19,70); tek sonuç çıkıyor: 'Ev Evlek · Northern Cyprus property data'.",
+     "telefon_kamera": "Kamera sabit.",
+     "dis_metin": "—",
+     "gecis": "—",
+     "neden": "Baştaki 'yaz' motifi burada tekrar ediyor; izleyici Evlek'in nasıl bulunacağını görüyor."
+    },
+    {
+     "saniye": "20,00–21,00",
+     "bolum": "SONUÇ",
+     "goruntu": "Satıra dokunuş; Evlek sayfası açılıyor (eklenti_16_5 düzeni): Ev rozeti, degrade soru kartları ve 'Eklentiyi kur'. Sayfadaki İngilizce metinler gerçek olduğu için çevrilmiyor.",
+     "telefon_kamera": "Push geçişi, ardından kamera 'Eklentiyi kur' düğmesine itiyor (20,30–21,00, 700 ms).",
+     "dis_metin": "Yol şeridinde 'Evlek' yanıyor.",
+     "gecis": "Push",
+     "neden": "Okunması gereken tek öğe düğme; kamera onu öne çıkarıyor."
+    },
+    {
+     "saniye": "21,00–22,00",
+     "bolum": "SONUÇ",
+     "goruntu": "21,10'da 'Eklentiyi kur' dokunuşu; 21,10–21,60 arasında dönen gösterge.",
+     "telefon_kamera": "Kamera sabit.",
+     "dis_metin": "—",
+     "gecis": "Eylem anı",
+     "neden": "Ekleme anı gerçek akıştaki sırayla gösteriliyor."
+    },
+    {
+     "saniye": "22,00–23,20",
+     "bolum": "SONUÇ",
+     "goruntu": "'Uygulama › Evlek · Bağlı' görünüyor ve alttaki düğme 'Sohbette dene' oluyor (eklenti_28_5 düzeni).",
+     "telefon_kamera": "Kamera 'Bağlı' satırına itiyor (22,00–22,80, 800 ms), ardından 0,4 sn sabit duruyor.",
+     "dis_metin": "Yol şeridi 'Ekle ✓' olarak kilitleniyor.",
+     "gecis": "—",
+     "neden": "Bu, filmin duygusal doruğu: işin bittiğinin kanıtı 1,2 sn ekranda kalıyor."
+    },
+    {
+     "saniye": "23,20–24,40",
+     "bolum": "SONUÇ",
+     "goruntu": "23,30'da 'Sohbette dene' dokunuşu; yeni sohbet açılıyor. Yazım kutusunda 'Ev Evlek' çipi ve yanıp sönen imleç var (eklenti_31_5 düzeni, klavye yok).",
+     "telefon_kamera": "Kamera kutuya iniyor (23,50–24,30, 800 ms) ve 3,40'taki kadrajı birebir yakalıyor.",
+     "dis_metin": "Yol şeridi 23,80–24,10 arasında sönüyor.",
+     "gecis": "Eşleşen kare",
+     "neden": "İzleyici, başta gördüğü çipe bu kez kendi eliyle ulaşıyor. Halka kapanıyor."
+    },
+    {
+     "saniye": "24,40–25,40",
+     "bolum": "SONUÇ",
+     "goruntu": "Çip büyüyerek kutudan kalkıyor ve Evlek logosuna dönüşüyor. Telefon aşağı inip kadrajdan çıkıyor; zemin düz laciverte dönüyor. Logo 0. karedeki konumuna ve boyutuna oturuyor.",
+     "telefon_kamera": "Dönüşüm 24,40–25,30 (900 ms).",
+     "dis_metin": "—",
+     "gecis": "Ters imza (çip → logo)",
+     "neden": "Girişteki 'logo → çip' ile kafiye kuruyor."
+    },
+    {
+     "saniye": "25,40–26,40",
+     "bolum": "SONUÇ",
+     "goruntu": "Logonun altına 'artık ChatGPT'de.' harf harf yazılıyor (25,40–26,10); sonunda imleç yanıp sönüyor.",
+     "telefon_kamera": "Kamera 25,40–30,00 boyunca %100'den %103'e itiyor (4,6 sn).",
+     "dis_metin": "Evlek / artık ChatGPT'de.",
+     "gecis": "—",
+     "neden": "Haber bu kez bir sohbet mesajı gibi 'yazılmış' oluyor. Son söz, Rumi'nin istediği gibi 'Evlek artık ChatGPT'de.'"
+    },
+    {
+     "saniye": "26,40–29,50",
+     "bolum": "SONUÇ",
+     "goruntu": "Kart sabit; imleç yanıp sönmeye devam ediyor.",
+     "telefon_kamera": "İtme sürüyor.",
+     "dis_metin": "26,40'ta 'Eklentiler'den ekle.' (52/600, krem %85). 25,00–29,50 arasında dipnot (30/500, alt güvenli alanın üstünde): 'ChatGPT arayüzü temsilîdir; Evlek ekranları ve ilan verileri gerçektir. ChatGPT, OpenAI'ın ticari markasıdır.'",
+     "gecis": "—",
+     "neden": "Haber, eylem çağrısı ve hukuki not okunacak kadar kalıyor: dipnot 4,5 sn, çağrı satırı 3,1 sn."
+    },
+    {
+     "saniye": "29,50–30,00",
+     "bolum": "SONUÇ",
+     "goruntu": "Çağrı satırı ve dipnot sönüyor; geriye 0. karenin aynısı kalıyor (logo, 'artık ChatGPT'de.' ve imleç).",
+     "telefon_kamera": "İtme %103'te bitiyor; döngüde %100'e dönüş dikiş göstermiyor (fark 0. karenin itmesi içinde emiliyor).",
+     "dis_metin": "Evlek / artık ChatGPT'de.",
+     "gecis": "Döngü dikişi",
+     "neden": "Son kare ilk kareye eşit; ikinci izlemede dikiş görünmüyor."
+    }
+   ],
+   "ana_mesajlar": [
+    "Evlek artık ChatGPT'de. (açılış ve kapanış, aynı cümle)",
+    "Sor. Evlek göstersin. (sonuç ekrandayken, 8,6–10,6)",
+    "Eklentiler'den ekle. (akış sırasında yol şeridi 'ChatGPT › Eklentiler › Evlek › Ekle', kapanışta alt satır)"
+   ],
+   "guclu": "v11'de onaylanan Kanca A'nın doğal devamı. Kapak karesinde marka logosu ve haber birlikte duruyor; marka ilk bakışta tanınıyor. Logo ile çip arasındaki kafiye, haberi, ürünü ve talimatı tek bir nesnede birleştiriyor. Açılışta ChatGPT kutusu yok, bu yüzden 'resmî ChatGPT reklamı' gibi görünme riski en düşük. Uygulaması basit: vektör logo, temsilî kabuk ve gerçek pikseller yetiyor.",
+   "zayif": "İlk 2 sn yalnız tipografi; ustalıkla hareketlendirilmezse 'boş' görünebilir. Bu yüzden imlecin, itmenin ve 2,0'da başlayan telefon yükselişinin zamanlaması kritik. Soru, telefonun içindeki kutuda yazıldığı için B seçeneğine göre daha küçük görünüyor (en az 44 px şartı). 'Yaz' anı ancak 3,7'de başlıyor."
+  },
+  {
+   "ad": "B · Kutu = Manşet (ürün içi reveal)",
+   "tek_cumle": "İlk karede ekranı dolduran büyük bir ChatGPT yazım kutusu var; içinde Evlek çipi, altında 'artık ChatGPT'de.' yazıyor. Cümlenin öznesi çipin kendisi. Soru bu dev kutuda yazılıyor, gönderilince kutu telefonun içine küçülüyor. Sonda film aynı dev kutuya geri dönüyor.",
+   "kurgu": [
+    {
+     "saniye": "0,00–1,00",
+     "bolum": "GİRİŞ",
+     "goruntu": "Lacivert zemin, hafif radyal ışık. Ortada manşet ölçeğinde temsilî bir yazım kutusu: yaklaşık 930×160 px, koyu #2F2F2F, yuvarlak köşeli; içinde artı, mikrofon ve gönder ikonları var, ChatGPT logosu yok. Kutunun içinde 64 px 'Ev Evlek' çipi ve yanıp sönen imleç. Kutunun altında 'artık ChatGPT'de.' yazıyor.",
+     "telefon_kamera": "Telefon yok. Kamera 0,00–2,00 arasında itme yapıyor, %100'den %103'e.",
+     "dis_metin": "[Ev Evlek] artık ChatGPT'de. (88/700 krem, 0. karede tam opak)",
+     "gecis": "Yok; 0. kare hazır olarak geliyor.",
+     "neden": "Haber, ürünün içindeki somut bir nesneyle kuruluyor: Evlek ChatGPT'de olduğu için kutuya çip olarak girebiliyor."
+    },
+    {
+     "saniye": "1,00–2,00",
+     "bolum": "GİRİŞ",
+     "goruntu": "Aynı kare; imleç yanıp sönüyor, çip 1,20'de hafif bir parıltı geçiriyor.",
+     "telefon_kamera": "İtme sürüyor.",
+     "dis_metin": "Aynı",
+     "gecis": "—",
+     "neden": "Okuma süresi 2,0 sn. Hareket ürünün kendisinden geliyor: imleç ve çip."
+    },
+    {
+     "saniye": "2,00–2,60",
+     "bolum": "GİRİŞ",
+     "goruntu": "'artık ChatGPT'de.' satırı aşağı kayarak sönüyor (2,00–2,40); imleç çipin sağında kalıyor.",
+     "telefon_kamera": "Kamera kutuyu karenin optik merkezine alıyor (2,00–2,70, 700 ms).",
+     "dis_metin": "—",
+     "gecis": "—",
+     "neden": "Bir sonraki eylem olan yazmaya yer açılıyor; ekranda tek odak kalıyor."
+    },
+    {
+     "saniye": "2,60–3,60",
+     "bolum": "GİRİŞ",
+     "goruntu": "Dev kutuya yazma başlıyor: 'Lapta'da £160 bin altı,' ardından 0,25 sn duraklama.",
+     "telefon_kamera": "Kamera sabit; yazı 56–60 px.",
+     "dis_metin": "Yok",
+     "gecis": "—",
+     "neden": "Yazma anı filmin en büyük ve en okunur metni oluyor. Rumi'nin 'önce yazma' isteği tam karşılanıyor."
+    },
+    {
+     "saniye": "3,60–4,80",
+     "bolum": "GİRİŞ",
+     "goruntu": "Yazma 'deniz manzaralı 2+1 daire' ile sürüyor; kutu 2–3 satıra büyüyor. Yazma 4,80'de bitiyor.",
+     "telefon_kamera": "Kamera metni takip ederek %100'den %102'ye itiyor (3,60–4,60, 1 sn).",
+     "dis_metin": "Yok",
+     "gecis": "—",
+     "neden": "Saniyede yaklaşık 18 karakter; soru tam olarak okunabiliyor."
+    },
+    {
+     "saniye": "4,80–5,40",
+     "bolum": "GİRİŞ",
+     "goruntu": "Tam soru 0,4 sn ekranda kalıyor; 5,20'de gönder ↑ dokunuş halkası.",
+     "telefon_kamera": "Kamera sabit.",
+     "dis_metin": "Yok",
+     "gecis": "Eylem anı",
+     "neden": "Gönder dokunuşu sonraki her şeyin sebebi."
+    },
+    {
+     "saniye": "5,40–6,40",
+     "bolum": "GİRİŞ",
+     "goruntu": "Dev kutu küçülüp aşağı iniyor ve alttan yükselen markasız telefondaki yazım kutusunun yerine oturuyor. Aynı anda soru, sağa yaslı ve çipi içinde bir balon olarak yukarı kalkıyor.",
+     "telefon_kamera": "Kamera tek bir sürekli hareketle geri çekiliyor (5,40–6,40, 1 sn); telefon 6,30'da tanınır hale geliyor.",
+     "dis_metin": "Yok",
+     "gecis": "Eşleşen ölçek (kelime → telefon)",
+     "neden": "'Dışarıdan gelen görsel' yerine mantıklı bir 'kutudan telefona' geçişi kuruluyor. Arayüz, yazma eyleminin içinde tanıtılmış oluyor."
+    },
+    {
+     "saniye": "6,40–7,40",
+     "bolum": "GELİŞME",
+     "goruntu": "Balonun altında 'Ev Evlek' etiketi ve ışıltıyla 'Searching Evlek listings…' (ya da Onur'un kaydındaki gerçek metin).",
+     "telefon_kamera": "Kamera durum satırına hafif itiyor (6,40–7,20, 800 ms).",
+     "dis_metin": "Yok",
+     "gecis": "—",
+     "neden": "'Ara' halkası 1 sn görünür kalıyor."
+    },
+    {
+     "saniye": "7,40–8,40",
+     "bolum": "GELİŞME",
+     "goruntu": "Gerçek wLaptaTop yerine oturuyor: harita '£105–147 bin · 8', 'Lapta · Satılık · 8 ilan' ve çipler.",
+     "telefon_kamera": "Kamera sabit; widget telefonun yaklaşık %70'i.",
+     "dis_metin": "Yok",
+     "gecis": "Yükleme gibi",
+     "neden": "Sonuç, aramanın çıktısı olarak görünüyor."
+    },
+    {
+     "saniye": "8,40–9,60",
+     "bolum": "GELİŞME",
+     "goruntu": "Sonuç okunuyor.",
+     "telefon_kamera": "Kamera '8 ilan' satırına itiyor (8,40–9,40, 1 sn).",
+     "dis_metin": "8,60'ta 'Sor. Evlek göstersin.' (72/700).",
+     "gecis": "—",
+     "neden": "Slogan, arayüz oturduktan sonra geliyor ve görüneni adlandırıyor."
+    },
+    {
+     "saniye": "9,60–10,60",
+     "bolum": "GELİŞME",
+     "goruntu": "Sohbet yukarı kayıyor ve kart şeridi geliyor (4.–8. kartlar).",
+     "telefon_kamera": "Kamera aşağı iniyor (9,60–10,40, 800 ms).",
+     "dis_metin": "Slogan 10,40–10,60 arasında sönüyor.",
+     "gecis": "Kaydırma",
+     "neden": "Kullanıcının kaydırması gibi okunuyor."
+    },
+    {
+     "saniye": "10,60–11,60",
+     "bolum": "GELİŞME",
+     "goruntu": "Şerit sola sürükleniyor: £120.000 → £127.000 → £139.000, yavaşlayarak duruyor.",
+     "telefon_kamera": "Sürükleme 800 ms, kamera sabit.",
+     "dis_metin": "Yok",
+     "gecis": "—",
+     "neden": "Seçim anı."
+    },
+    {
+     "saniye": "11,60–12,40",
+     "bolum": "GELİŞME",
+     "goruntu": "£139.000 kartı okunuyor; 12,10'da dokunuş.",
+     "telefon_kamera": "Kamera sabit.",
+     "dis_metin": "Yok",
+     "gecis": "Eylem anı",
+     "neden": "Ev, dokunuşun sonucu olarak açılıyor."
+    },
+    {
+     "saniye": "12,40–13,40",
+     "bolum": "GELİŞME",
+     "goruntu": "dFull_1 (1/14) açılıyor: £139.000 · 2+1 · 2 banyo · 107 m².",
+     "telefon_kamera": "Genişleme 700 ms; kadraj fiyat bloğunun altında bitiyor, dBar görünmüyor.",
+     "dis_metin": "Yok",
+     "gecis": "Dokunuşun sonucu olarak genişleme",
+     "neden": "Detay ekranı dokunuşun sonucu."
+    },
+    {
+     "saniye": "13,40–14,40",
+     "bolum": "GELİŞME",
+     "goruntu": "dFull_1 okunuyor.",
+     "telefon_kamera": "Kamera fotoğrafa itiyor (800 ms).",
+     "dis_metin": "Yok",
+     "gecis": "—",
+     "neden": "Nefes planına hazırlık."
+    },
+    {
+     "saniye": "14,40–15,40",
+     "bolum": "GELİŞME",
+     "goruntu": "Havuz fotoğrafı kendi dikdörtgeninden tam kadraja açılıyor; telefon kayboluyor.",
+     "telefon_kamera": "Açılma 800 ms.",
+     "dis_metin": "Yok",
+     "gecis": "Portal, içeriden dışarıya",
+     "neden": "Fotoğraf az önce dokunulan karttan geliyor."
+    },
+    {
+     "saniye": "15,40–16,40",
+     "bolum": "GELİŞME",
+     "goruntu": "Telefonsuz havuz nefesi.",
+     "telefon_kamera": "Kamera sağa yavaş pan yapıyor (1,7 sn).",
+     "dis_metin": "15,60'ta künye: '£139.000' ve 'Lapta · 2+1 · 107 m²'.",
+     "gecis": "—",
+     "neden": "Duygu anı kazanılmış durumda; künye veri olarak kalıyor."
+    },
+    {
+     "saniye": "16,40–17,00",
+     "bolum": "GELİŞME",
+     "goruntu": "'›' süpürmesiyle 2/14 salon geliyor; ardından salon telefona geri iniyor ve ekranda '2 / 14' görünüyor.",
+     "telefon_kamera": "Süpürme 650 ms; geri dönüş 17,00–17,70 (700 ms).",
+     "dis_metin": "Yok",
+     "gecis": "Süpürme, sonra ters portal",
+     "neden": "Galeri davranışı tam ekranda gösteriliyor ve parantez kapanıyor."
+    },
+    {
+     "saniye": "17,00–18,00",
+     "bolum": "SONUÇ",
+     "goruntu": "Detay ✕ ile kapanıyor, ≡ dokunuşuyla kenar menü açılıyor.",
+     "telefon_kamera": "Kamera telefonu tam boy kadraja çekiyor (800 ms).",
+     "dis_metin": "Yol şeridi giriyor: 'ChatGPT › Eklentiler › Evlek › Ekle' (52/600).",
+     "gecis": "Kapatma dokunuşu",
+     "neden": "Üçüncü mesaj yol olarak görünüyor."
+    },
+    {
+     "saniye": "18,00–19,00",
+     "bolum": "SONUÇ",
+     "goruntu": "'Eklentiler' dokunuşu; İzinler / Eklentilere göz at / Eklenti ara ekranı açılıyor. Popüler listesi gösterilmiyor.",
+     "telefon_kamera": "Kamera arama alanına iniyor (700 ms).",
+     "dis_metin": "'Eklentiler' yanıyor.",
+     "gecis": "Push",
+     "neden": "Dokunuş → ekran."
+    },
+    {
+     "saniye": "19,00–20,00",
+     "bolum": "SONUÇ",
+     "goruntu": "'evlek' yazılıyor; 'Ev Evlek · Northern Cyprus property data' sonucu çıkıyor.",
+     "telefon_kamera": "Kamera sabit.",
+     "dis_metin": "—",
+     "gecis": "—",
+     "neden": "'Yaz' motifi tekrar ediyor."
+    },
+    {
+     "saniye": "20,00–21,00",
+     "bolum": "SONUÇ",
+     "goruntu": "Evlek sayfası açılıyor; kamera 'Eklentiyi kur' düğmesine gidiyor.",
+     "telefon_kamera": "Push geçişi, ardından itme (700 ms).",
+     "dis_metin": "'Evlek' yanıyor.",
+     "gecis": "Push",
+     "neden": "Okunacak tek öğe düğme."
+    },
+    {
+     "saniye": "21,00–22,00",
+     "bolum": "SONUÇ",
+     "goruntu": "'Eklentiyi kur' dokunuşu ve dönen gösterge.",
+     "telefon_kamera": "Kamera sabit.",
+     "dis_metin": "—",
+     "gecis": "Eylem anı",
+     "neden": "Ekleme anı."
+    },
+    {
+     "saniye": "22,00–23,20",
+     "bolum": "SONUÇ",
+     "goruntu": "'Evlek · Bağlı' görünüyor, düğme 'Sohbette dene' oluyor.",
+     "telefon_kamera": "Kamera 'Bağlı' satırına itiyor (800 ms), ardından 0,4 sn duruyor.",
+     "dis_metin": "'Ekle ✓'",
+     "gecis": "—",
+     "neden": "Doruk anı, 1,2 sn ekranda."
+    },
+    {
+     "saniye": "23,20–24,40",
+     "bolum": "SONUÇ",
+     "goruntu": "'Sohbette dene' dokunuşu; yeni sohbet açılıyor, kutuda 'Ev Evlek' çipi ve imleç var.",
+     "telefon_kamera": "Kamera kutuya iniyor (800 ms).",
+     "dis_metin": "Yol şeridi sönüyor.",
+     "gecis": "—",
+     "neden": "İzleyici, açılıştaki nesneye kendi eliyle ulaşıyor."
+    },
+    {
+     "saniye": "24,40–25,40",
+     "bolum": "SONUÇ",
+     "goruntu": "Kamera kutunun içine doğru itiyor. Kutu telefondan çıkıp büyüyor ve 0. karedeki manşet ölçeğine ulaşıyor; telefon aşağıda kayboluyor, zemin laciverte dönüyor.",
+     "telefon_kamera": "Sürekli itme, 24,40–25,30 (900 ms).",
+     "dis_metin": "—",
+     "gecis": "Eşleşen ölçek (telefon → manşet)",
+     "neden": "Girişteki küçülmenin tersi; halka kapanıyor."
+    },
+    {
+     "saniye": "25,40–26,40",
+     "bolum": "SONUÇ",
+     "goruntu": "Kutunun altında 'artık ChatGPT'de.' beliriyor (25,40–25,80, 24 px yukarı kayarak).",
+     "telefon_kamera": "Kamera 25,40–30,00 boyunca %100'den %103'e itiyor.",
+     "dis_metin": "[Ev Evlek] artık ChatGPT'de.",
+     "gecis": "—",
+     "neden": "Cümle bu kez izleyicinin kendi kutusunda kuruluyor."
+    },
+    {
+     "saniye": "26,40–29,50",
+     "bolum": "SONUÇ",
+     "goruntu": "Kart sabit, imleç yanıp sönüyor.",
+     "telefon_kamera": "İtme sürüyor.",
+     "dis_metin": "26,40'ta 'Eklentiler'den ekle.' (52/600). 25,00–29,50 arasında dipnot (30/500).",
+     "gecis": "—",
+     "neden": "Boş kutu 'sıra sende' davetini kelimesiz yapıyor; okuma bütçesi karşılanıyor."
+    },
+    {
+     "saniye": "29,50–30,00",
+     "bolum": "SONUÇ",
+     "goruntu": "Çağrı satırı ve dipnot sönüyor; geriye 0. kare kalıyor.",
+     "telefon_kamera": "Döngü",
+     "dis_metin": "[Ev Evlek] artık ChatGPT'de.",
+     "gecis": "Döngü dikişi",
+     "neden": "Son kare ilk kareye eşit."
+    }
+   ],
+   "ana_mesajlar": [
+    "[Ev Evlek] artık ChatGPT'de. (açılış ve kapanış; cümlenin öznesi çip)",
+    "Sor. Evlek göstersin.",
+    "Eklentiler'den ekle. (yol şeridi ve kapanış alt satırı)"
+   ],
+   "guclu": "Daha az rastlanan bir açılış: haber ürünün içinde kuruluyor ve çip, Evlek'in ChatGPT'de olduğunu iddiasız biçimde kanıtlıyor. Soru filmin en büyük metni olarak yazılıyor (56–60 px), bu yüzden 'önce yaz' vuruşu çok güçlü. Kapanıştaki boş kutu 'sıra sende' davetini kelime harcamadan yapıyor.",
+   "zayif": "Kapak karesinde Evlek logosu yok; marka yalnız çipteki küçük 'Ev' rozeti ve 'Evlek' yazısıyla taşınıyor, bu da tanınırlığı zayıflatıyor. Manşet ölçeğinde bir ChatGPT kutusu, resmî bir ChatGPT reklamı gibi algılanabilir (marka ve takdim riski). v11'de onaylanan 'logo çipe iner' imzası burada yalnız niyet olarak korunuyor, mekaniği değişiyor. Kutunun gerçeğe yeterince benzemesi ama fazla benzememesi arasındaki dengeyi kurmak tasarımı daha zor kılıyor."
+  }
+ ],
+ "onerilen": "A · Manşet → Çip seçeneğini öneriyorum. Gerekçelerim:\n(1) Rumi'nin istediği 'dikkat Evlek ChatGPT'de olsun' hissini en doğrudan A veriyor: ilk karede yalnız marka logosu ve haber cümlesi var, kapak karesi de bu.\n(2) A, v11'de onaylanan Kanca A'nın (logo yazım kutusundaki çipe iner) devamı. Rumi'nin onayladığı bir şeyi bozmuyoruz, yalnız havuzu aradan çıkarıyoruz.\n(3) Açılışta büyük bir ChatGPT kutusu olmadığı için resmî ChatGPT reklamı gibi algılanma ve marka riski en düşük A'da.\n(4) 'Logo → çip / çip → logo' kafiyesi, giriş-gelişme-sonuç yapısını tek bir nesne üstünden okunur kılıyor. Kapanıştaki harf harf yazılan 'artık ChatGPT'de.' Rumi'nin istediği son sözü veriyor.\nB'nin en güçlü yanı, sorunun dev boyutta yazılması; bunun bir kısmını A'ya da taşıyoruz: A'da kamera yazım kutusuna yakın plan duruyor ve yazı çıktıda en az 44 px oluyor.\nİki seçeneğin ilk 2 sn'si 3 kişiye sessiz gösterilip 'ne anladın?' testi yapılabilir. Gelişme ve sonuç bölümleri iki seçenekte de aynı; karar yalnız kancayı etkiliyor.",
+ "kanca_metin_secenekleri": [
+  {
+   "metin": "Evlek artık ChatGPT'de.",
+   "durum": "Uygun. 13 Kasım 2026 duyurusu ve canlı özellikle doğrulanıyor. Ana kanca ve kapanış cümlesi olarak önerilen bu."
+  },
+  {
+   "metin": "Duyuru · Kasım 2026 (52 px üst satır) + Evlek artık ChatGPT'de.",
+   "durum": "Uygun. Tarih ve duyuru gerçek, haber hissini iddia kullanmadan veriyor. Ancak dördüncü bir öğe ekliyor ve zamanla eskiyor; Rumi onaylarsa kullanılır."
+  },
+  {
+   "metin": "Yeni: Evlek artık ChatGPT'de.",
+   "durum": "Uygun, süre sınırlı: lansmandan sonraki birkaç ay içinde kullanılmalı, sonra 'Yeni' kaldırılmalı."
+  },
+  {
+   "metin": "Evlek'teki Kuzey Kıbrıs ilanları artık ChatGPT'de.",
+   "durum": "Uygun. Duyuru başlığına ve eklenti tanımına dayanıyor; kapsam 'Evlek'teki' diye doğru sınırlanmış. Uzun olduğu için kanca yerine gönderi başlığına daha uygun."
+  },
+  {
+   "metin": "Kuzey Kıbrıs emlak ilanları artık ChatGPT'de.",
+   "durum": "Doğrulama ve onay gerekir. Piyasadaki tüm ilanlar gibi okunabilir; yalnız logonun yanında ya da 'Evlek'teki' diye daraltılarak kullanılmalı, Onur onaylamalı."
+  },
+  {
+   "metin": "Yapay zekâyla ev ara. Evlek artık ChatGPT'de.",
+   "durum": "Uygun. Rumi'nin 'yapay zekâ' vurgusuna iddiasız bir karşılık; işlevi tarif ediyor, sıralama iddiası yok. Ancak 7 kelime ve 2,8 sn ile kanca için uzun."
+  },
+  {
+   "metin": "Yapay zekâlı emlak platformu Evlek, artık ChatGPT'de.",
+   "durum": "Doğrulama ve onay gerekir. Evlek'in kendi tanımıyla ('AI-native') uyumlu, 'ilk/tek' içermiyor; ancak uzun ve Onur'un onayı gerekiyor."
+  },
+  {
+   "metin": "Evlek, Kuzey Kıbrıs emlak ilanlarını ChatGPT'ye taşıdı.",
+   "durum": "Uygun. Duyurunun kendi başlığı, haber dilinde. Uzun olduğu için gönderi açıklamasına ya da kapak metnine daha uygun."
+  },
+  {
+   "metin": "Sor. Evlek göstersin.",
+   "durum": "Uygun. İkinci mesaj; sonuç ekrandayken kullanılıyor."
+  },
+  {
+   "metin": "Kendi cümlenle sor.",
+   "durum": "Uygun. Duyurudaki 'kendi cümlesiyle yazar' ifadesine dayanıyor; ikinci mesaj için alternatif."
+  },
+  {
+   "metin": "Eklentiler'den ekle.",
+   "durum": "Uygun. Edinme yolu iOS kaydıyla doğrulanmış; kapanıştaki alt satır."
+  },
+  {
+   "metin": "KKTC'nin ilk yapay zekâ emlak platformu Evlek, artık ChatGPT'de.",
+   "durum": "Kurala aykırı. Brifte 'ilk' yasağı var, kurumsal kural doğrulanmamış iddiayı yasaklıyor ve 13 Kasım duyurusunda bu ifade geçmiyor. Bağımsız bir kaynak ve Onur'un yazılı onayı olmadan filmde de gönderi metninde de kullanılmaz."
+  },
+  {
+   "metin": "ChatGPT'deki ilk KKTC emlak uygulaması: Evlek.",
+   "durum": "Kurala aykırı. 'İlk' iddiası, eklenti dizini sürekli değiştiği için doğrulanamaz ve örtük bir karşılaştırma taşıyor."
+  },
+  {
+   "metin": "Evlek hesabı gerekmez.",
+   "durum": "Doğrulama gerekir. Duyuruda geçiyor ama filmde dördüncü mesaj olur; yalnız gönderi açıklamasında kullanılmalı."
+  }
+ ],
+ "rumiye_sorular": [
+  "'Haber yapmıştık' dediğin, 13 Kasım 2026 tarihli 'Evlek, Kuzey Kıbrıs emlak ilanlarını ChatGPT'ye taşıdı' duyurusu mu? Orada 'ilk' sözcüğü geçmiyor ve kural gereği 'ilk' diyemiyoruz. 'KKTC'nin ilk…' ile asıl istediğin haber ve yenilik hissi mi? Öyleyse kanca 'Evlek artık ChatGPT'de.' olarak kalsın mı, yoksa üstüne 'Duyuru · Kasım 2026' ya da 'Yapay zekâyla ev ara.' satırı mı ekleyelim?",
+  "14. saniyedeki tuşlar evlek.app sayfasının altındaki 'WhatsApp'tan yaz / Telefonla ara' hapları mı, yoksa ChatGPT detayındaki mercan 'Emlakçıya sor ↗' mu? 'Filtredeki gibi' derken hangi filtreyi kastediyorsun? Widget'taki 'Satılık / Kiralık / Filtreler · 5' çipleri de yuvarlak; evlek.app'in filtre panelinin bir ekran görüntüsünü atabilir misin? Bu tasarım şu an canlıda mı?",
+  "evlek.app sayfasını filmden tamamen çıkarmayı ve detayda 'Emlakçıya sor' çubuğunu kadraj dışında bırakmayı öneriyorum. Film ChatGPT'nin içinde kalır. Uygun mu?",
+  "Kanca için iki yön var: A, lacivert zemin + Evlek logosu + 'artık ChatGPT'de.', logo çipe iniyor; B, ekranı dolduran büyük bir yazım kutusu, içinde Evlek çipi. Benim önerim A. Sana hangisi 'haber' gibi geliyor?",
+  "Arama anında ekranda ne yazmalı? Uydurma 'Evlek'te aranıyor…' yerine gerçek akıştaki metni kullanmak istiyoruz. Onur'un Türkçe iOS kaydında arama sırasında tam olarak ne görünüyor ('Searching Evlek listings…' mı, başka bir şey mi)?",
+  "Ev bölümü için havuz (1/14, telefonsuz nefes) ve ardından salon (2/14) yeterli mi?",
+  "Girne ikinci sorgusunu çıkarıyoruz, sonu tamamen Eklentiler'den ekleme yoluna ve 'Evlek artık ChatGPT'de.' kapanışına bırakıyoruz. Kapanışta altta 'Eklentiler'den ekle.' satırı da kalsın mı?",
+  "Hitap 'sen' mi olsun ('Sor', 'ekle')? İkinci mesaj 'Sor. Evlek göstersin.' mi, 'Kendi cümlenle sor.' mu?",
+  "ChatGPT'nin Türkçe arayüzünde menü bugün de 'Eklentiler' adını mı taşıyor ve eklenti herkese (ücretsiz plan, Türkiye, iOS/Android/web) açık mı? Onur'un kaydı güncel mi, yoksa yeni bir kayıt mı alalım?",
+  "Film sessiz mi yayınlanacak, yoksa müzik ve yazma sesi mi eklenecek? Ritmi buna göre kilitleyeceğim."
+ ]
+}
