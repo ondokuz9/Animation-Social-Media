@@ -2,6 +2,36 @@
 
 **Önce bunu, sonra `docs/raporlar/v10-PLAN.md`'yi baştan sona oku.** Plan bağlayıcıdır.
 
+## Onur'un vizyonu (kendi geri bildirimlerinden, sırayla)
+
+Bu bölüm, önceki sohbetteki her şeyin özüdür. Onur'un sözlerinin anlamı korundu.
+
+- **v7'den sonra:** "Güzel ilerleme ama telefon görünmüyor. Daha geniş, dışarıdan ve daha seksi olmalı."
+  - En az 3–4 kat gelişmeli. Taslağın mantığı doğru ama etkileyici değil.
+  - Evlek ekranı çok tek düze; gerekirse cila yap.
+  - Telefonun telefon olduğu anlaşılmıyor.
+  - Giriş, KKTC'de ev aramayanları da çekmeli.
+- **v8'den sonra:** "Bu ve bunun gibi bir sürüm bile 2–3 kat geliştirme ister. Kalitenin hedeflendiğini anla."
+  - Havalı ve kaliteli bir "Evlek ChatGPT'de" filmi olmalı.
+- **v9'dan önce:**
+  - "@Evlek yazın" ile kimse bulamaz; Eklentiler'den eklenmeli.
+  - İnce ayar yap, kalite üst seviye olsun.
+  - Her şeye hâkim, 20 yılı aşkın deneyimli bir sektör uzmanı gibi çalış: grafik tasarım, algı, emlak.
+  - Emlak kısımları çok iyi görünmeli; gerekirse gerçeklikten biraz sapılabilir.
+- **v9'dan sonra:**
+  - Evlek'le ev bakmak ve MCP kullanmak daha seksi olmalı.
+  - Gerçek görseller bir tık kötü; geliştirilmeli.
+  - Hedef, mevcut kalite standartlarının üstüne çıkmak.
+- **Son kararlar:**
+  - **Fiyat tahmin kancası saçma.** Film Evlek'e çekmeli: Evlek, MCP, ChatGPT. Algı ve marka önemli.
+  - **Gerçek widget kötü.** Benzerini daha seksi, güzel ve kaliteli yap.
+  - **Karşılaştırma kartları** gerekirse olabilir, ama amaç değil; olay ev aramak.
+  - **Eklentiler videosunu seksi kullan.** Videodaki kötü ve saçma şeyleri koyma: bildirimler, kişisel bilgi.
+  - **Eklentilere ulaşmak:** Videoda çok uzakta, ama abone hesapta daha yakında. Aradaki fark bilinmeli.
+  - **Girne bölümü 1,5 sn.**
+
+**Kısacası:** Ev aramak ChatGPT içinde Evlek'le zahmetsiz, akıllı ve arzulanır görünmeli. Telefon her an telefon olmalı. Mekânlar lüks emlak reklamı kalitesinde olmalı. Marka akılda kalmalı. İzleyici sonunda Evlek'i Eklentiler'den eklemek istemeli.
+
 ## Repo kuralları
 
 Bu klasör `ondokuz9/Animation-Social-Media` reposunun `video/evlek-chatgpt-v10` dalında. Repo kökündeki `CLAUDE.md` geçerlidir. Özetle:
