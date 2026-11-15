@@ -4,8 +4,8 @@
 set -e
 cd "$(dirname "$0")/.."
 Q=out/v16qc; rm -rf $Q; mkdir -p $Q/f6
-SIL=out/evlek_chatgpt_v16_1080x1920_60fps_sessiz.mp4
-FIN=out/evlek_chatgpt_v16_1080x1920_60fps.mp4
+SIL=out/evlek_chatgpt_FINAL_1080x1920_60fps_sessiz.mp4
+FIN=out/evlek_chatgpt_FINAL_1080x1920_60fps.mp4
 ffmpeg -v error -y -i out/v16.mp4 -c copy -bsf:v h264_metadata=transfer_characteristics=1 -movflags +faststart $SIL
 ffmpeg -v error -y -i $SIL -i out/audio/v16_master_48k.wav -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 320k -ar 48000 -ac 2 -movflags +faststart -shortest $FIN
 echo "== ffprobe"; ffprobe -v error -show_entries stream=codec_name,pix_fmt,width,height,nb_frames,r_frame_rate,color_space,color_transfer,color_primaries,sample_rate,channels -show_entries format=duration,size -of compact $FIN
@@ -14,7 +14,7 @@ echo "== ses"; ffmpeg -hide_banner -i $FIN -map 0:a -af ebur128=peak=true -f nul
 ffmpeg -hide_banner -i out/audio/v16_master_48k.wav -af loudnorm=print_format=summary -f null - 2>&1 | grep "Input True Peak"
 sha256sum $SIL $FIN out/audio/v16_master_48k.wav
 ffmpeg -v error -i $SIL -vf "fps=6,scale=540:960" -q:v 3 $Q/f6/f_%03d.jpg
-ffmpeg -v error -y -ss 0 -i $SIL -frames:v 1 out/evlek_chatgpt_v16_kapak.png
+ffmpeg -v error -y -ss 0.8 -i $SIL -frames:v 1 out/evlek_chatgpt_FINAL_kapak.png
 echo "== siyah kare"; ffmpeg -i $SIL -vf blackdetect=d=0.05:pix_th=0.05 -an -f null - 2>&1 | grep -c black_start || true
 ffmpeg -v error -i $SIL -vf "scale=270:480,format=gray,tblend=all_mode=difference,signalstats,metadata=print:key=lavfi.signalstats.YAVG:file=$Q/diff.txt" -f null -
 python3 - <<'PY'
@@ -52,11 +52,11 @@ sr,x=wavfile.read('out/audio/v16_master_48k.wav'); x=x.astype(float); m=x.mean(1
 y=signal.sosfilt(signal.butter(4,[300,12000],'bandpass',fs=sr,output='sos'),m)
 s=open('src/v16/tl.ts').read(); g=lambda k: json.loads(re.search(k+r':\s*(\[[^\]]*\]|-?[\d.]+)',s).group(1))
 def jump(t): i=int(t*sr); w=int(0.05*sr); r=lambda z: np.sqrt(np.mean(z**2)+1e-12); return 20*np.log10(r(y[i:i+w])/r(y[i-w:i]))
-ev={'sonuç':g('shrink')[1],'dokunuş (kart)':g('tap'),'dokunuş (emlakçı)':g('contact'),'dokunuş (kur)':g('install'),'Bağlı':g('bound'),'kapanış':g('end')[0]}
+ev={'sonuç':g('res')[0],'dokunuş (kart)':g('tap'),'dokunuş (emlakçı)':g('contact'),'dokunuş (kur)':g('install'),'Bağlı':g('bound'),'kapanış':g('end')[0]}
 print('== telefon bandı sıçrama (dB):',{k:round(jump(v),1) for k,v in ev.items()})
 L=x[:,0]; R=x[:,1]; st=signal.sosfilt(signal.butter(4,[300,12000],'bandpass',fs=sr,output='sos'),x,axis=0)
 r=lambda z: 10*np.log10(np.mean(z**2)+1e-12)
 print('== mono toplama kaybı (dB):', round((r(st[:,0])+r(st[:,1]))/2 - r(st.mean(1)),2))
-sec=[('açılış',0,1.7),('sonuç+groove',2.5,6.9),('ev',7.5,9.5),('ilan',9.5,11.5),('CTA',11.5,14.0),('kapanış',14.0,15.5)]
+sec=[('açılış',0,1.4),('yazma',2.0,3.5),('sonuç+groove',4.0,8.4),('ev',9.0,11.0),('ilan',11.0,13.0),('CTA',13.0,15.5),('kapanış',15.5,17.0)]
 print('== bölüm seviyesi (dBFS):',{n:round(r(m[int(a*sr):int(b*sr)]),1) for n,a,b in sec})
 PY

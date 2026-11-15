@@ -18,21 +18,30 @@ const M = 72; // sol hiza çizgisi
 
 // ---------------- kamera: düz pozlar ----------------
 const view = (sx0: number, sy0: number, s: number): Pose => P((PW / 2 - OX - sx0) * s, (PH / 2 - OY - sy0) * s, s);
+const COMPOSE = view(0, 460, 0.916); // yazım kutusu + klavye, kenardan kenara
+const SEARCH = view(0, -560, 0.916); // balon + "Evlek" araması alt yaprakta
+const CLOSE1 = view(0, 150, 0.916); // balon + harita + kartların başı
 const CARDS = view(0, 560, 1); // kart şeridi 1:1 gerçek piksel
 const DS = 0.6, DY = 862;
 const DETAIL = P(540, DY, DS); // tam telefon: ilan; "Emlakçıya sor" y≈1566 (Reels alt arayüzünün üstünde)
-const FULL = P(540, 1136, 0.56); // tam telefon + söz
 const CTAP = P(540, 1008, 0.5); // "Eklentiyi kur" düğmesi y≈1565
 const dy = (p: Pose, y: number): Pose => ({...p, y: p.y + y});
 export const poseAt = (t: number): Pose => {
-  if (t < TL.pull[0]) return dy(CARDS, -10 * lin(t, TL.shrink[1], TL.pull[0]));
-  if (t < TL.pull[1]) return mixPose(dy(CARDS, -10), FULL, IO(lin(t, TL.pull[0], TL.pull[1])));
-  if (t < TL.expand[0]) { const b = Math.sin(Math.PI * lin(t, TL.tap, TL.tap + 0.16)); return {...FULL, s: FULL.s * (1 - 0.006 * b)}; }
-  if (t < TL.expand[1]) return mixPose(FULL, DETAIL, EXP(lin(t, TL.expand[0], TL.expand[1])));
+  if (t < TL.cam1[0]) return dy(COMPOSE, (1 - OUT(lin(t, TL.sheet[0], TL.sheet[1]))) * 1200);
+  if (t < TL.cam1[1]) return mixPose(COMPOSE, SEARCH, IO(lin(t, TL.cam1[0], TL.cam1[1])));
+  if (t < TL.open[0]) return SEARCH;
+  if (t < TL.open[1]) return mixPose(SEARCH, CLOSE1, EXP(lin(t, TL.open[0], TL.open[1])));
+  if (t < TL.cam2[0]) return dy(CLOSE1, -12 * lin(t, TL.open[1], TL.cam2[0]));
+  if (t < TL.cam2[1]) return mixPose(dy(CLOSE1, -12), CARDS, IO(lin(t, TL.cam2[0], TL.cam2[1])));
+  if (t < TL.expand[0]) { const b = Math.sin(Math.PI * lin(t, TL.tap, TL.tap + 0.16)); return {...CARDS, s: 1 - 0.005 * b}; }
+  if (t < TL.expand[1]) return mixPose(CARDS, DETAIL, EXP(lin(t, TL.expand[0], TL.expand[1])));
   if (t < TL.cut) return DETAIL;
   if (t < TL.ctaOut[0]) return dy(CTAP, (1 - OUT(lin(t, TL.ctaIn[0], TL.ctaIn[1]))) * 520);
   return dy(CTAP, EIN(lin(t, TL.ctaOut[0], TL.ctaOut[1])) * 1800);
 };
+/** yazma sahnesinde arayüz, alttan yükselen yuvarlak köşeli bir yaprak olarak görünür (üstteki boş siyah ekran kadraja girmez) */
+const SHEET_TOP = 792;
+const sheetClip = (t: number) => (t < TL.open[0] ? mix(1920, SHEET_TOP, OUT(lin(t, TL.sheet[0], TL.sheet[1]))) : mix(SHEET_TOP, 0, EXP(lin(t, TL.open[0], TL.open[1] - 0.05))));
 
 // ---------------- zemin ve gren ----------------
 const Stage: React.FC = () => (
@@ -98,35 +107,29 @@ export const PriceCaption: React.FC<{k: number; top?: number}> = ({k, top = 262}
       <div style={{fontSize: 44, fontWeight: 500, letterSpacing: '-0.02em', ...rise(OUT(lin(k, 0.35, 1)))}}>2+1 · 107 m² · deniz manzaralı</div>
     </div>
   );
-/** AÇILIŞ: havuz fotoğrafı (1080×1600) + sorgu → gerçek karta iner */
+/** AÇILIŞ: havuz fotoğrafı (1080×1600) + söz → fotoğraf üste çekilir, altında ChatGPT yazım kutusu açılır */
+const PRINT: Rect = {x: M, y: 150, w: 936, h: 600};
+const PRINT_IMG: Rect = {x: 0, y: -62, w: 936, h: 702};
 const Opening: React.FC<{t: number}> = ({t}) => {
-  if (t >= TL.shrink[1]) return null;
+  if (t >= TL.open[1]) return null;
   const k = EXP(lin(t, TL.shrink[0], TL.shrink[1]));
   const pan = Easing.out(Easing.quad)(lin(t, 0, TL.shrink[0] + 0.2));
   const a = mixR(POOL_A, POOL_B, pan);
-  const c = mixR(WIN, CARD, k), i = mixR(a, {x: 0, y: 0, w: CARD.w, h: CARD.h}, k);
-  const txt = 1 - lin(t, TL.shrink[0] - 0.05, TL.shrink[0] + 0.16);
-  const pass = 1 - lin(t, TL.shrink[0] - 0.08, TL.shrink[0] + 0.06);
+  const out = EXP(lin(t, TL.open[0], TL.open[1] - 0.1));
+  const txt = 1 - lin(t, TL.shrink[0] - 0.12, TL.shrink[0] + 0.08);
+  const la = OUT(lin(t, 0.0, 0.01)), lb = OUT(lin(t, 0.0, 0.01));
+  const eb = OUT(lin(t, TL.shrink[1] - 0.1, TL.shrink[1] + 0.3)) * (1 - out);
   return (
     <>
-      <AbsoluteFill style={{opacity: 1 - lin(k, 0.02, 0.16)}}><Stage /><Grain /></AbsoluteFill>
-      <Passe o={pass} n="1" />
-      <Pic src={POOL} c={c} i={i} r={mix(0, 36, lin(k, 0.05, 0.6))} shadow={Math.sin(Math.PI * k)} />
-      <div style={{position: 'absolute', left: M, top: 236, fontFamily: F, color: NAVY, opacity: txt, transform: `translateY(${(1 - txt) * -18}px)`}}>
-        <Rule color={NAVY} /><Eyebrow color={NAVY} style={{marginTop: 20, fontSize: 30}}>CHATGPT’DE EVLEK’E SOR</Eyebrow>
-        <div style={{marginTop: 14, fontSize: 100, fontWeight: 700, lineHeight: '106px', letterSpacing: '-0.045em', whiteSpace: 'nowrap', fontFeatureSettings: '"tnum"'}}>
-          {CHUNKS.map((s_, j) => {
-            const o = OUT(lin(t, TL.chunks[j], TL.chunks[j] + 0.14));
-            const last = j === TL.chunks.filter((q) => t >= q).length - 1;
-            return (
-              <div key={s_} style={{height: 106}}>
-                <span style={{display: 'inline-block', ...rise(o, 24)}}>{s_}</span>
-                {last && <span style={{display: 'inline-block', width: 8, height: 84, marginLeft: 12, verticalAlign: -10, borderRadius: 4, background: CORAL, opacity: 0.5 + 0.5 * Math.cos(2 * Math.PI * ((t * 1.25) % 1))}} />}
-              </div>
-            );
-          })}
-        </div>
+      <Passe o={1 - lin(k, 0, 0.25)} n="1" />
+      <div style={{opacity: 1 - out, transform: `translateY(${-700 * out}px)`}}>
+        <Pic src={POOL} c={mixR(WIN, PRINT, k)} i={mixR(a, PRINT_IMG, k)} r={mix(0, 40, k)} shadow={k} />
       </div>
+      <div style={{position: 'absolute', left: M, top: 252, opacity: txt}}>
+        <div style={rise(la, 26)}><Logo h={156} color={NAVY} style={{marginLeft: -6}} /></div>
+        <div style={{marginTop: 6, fontFamily: F, fontSize: 96, fontWeight: 700, letterSpacing: '-0.045em', lineHeight: '106px', color: NAVY, whiteSpace: 'nowrap', ...rise(lb, 26)}}>artık ChatGPT’de.</div>
+      </div>
+      <div style={{position: 'absolute', left: M, top: 70, ...rise(eb, 14)}}><Rule /><Eyebrow style={{marginTop: 16, fontSize: 26}}>CHATGPT’DE EVLEK’E SOR</Eyebrow></div>
     </>
   );
 };
@@ -227,16 +230,17 @@ export const V16: React.FC = () => {
   const ok = useFontsV10();
   const t = useCurrentFrame() / FPS;
   if (!ok) return <AbsoluteFill style={{background: CREAM}} />;
-  const phoneOn = t >= TL.shrink[0] && t < TL.ctaOut[1] && !(t >= TL.expand2[1] && t < TL.land[0]);
-  const band = t < TL.pull[0] ? 1 : 1 - lin(t, TL.pull[0], TL.pull[0] + 0.22);
-  const bandTxt = OUT(lin(t, TL.shrink[0] + 0.3, TL.shrink[0] + 0.7));
+  const phoneOn = t >= TL.sheet[0] && t < TL.ctaOut[1] && !(t >= TL.expand2[1] && t < TL.land[0]);
+  const clip = sheetClip(t);
   return (
     <AbsoluteFill style={{background: CREAM, overflow: 'hidden'}}>
       <Stage />
       <Grain />
-      {phoneOn && <Phone pose={poseAt(t)} lit={1} sweep={-1} flash={0}><Screen t={t} /></Phone>}
-      {t >= TL.shrink[0] && <QueryBand o={band} txt={bandTxt} />}
-      <Promise_ t={t} />
+      {phoneOn && (
+        <AbsoluteFill style={clip > 0 ? {clipPath: `inset(${clip}px 0px 0px 0px round 56px 56px 0px 0px)`, filter: 'drop-shadow(0 -18px 50px rgba(10,37,64,.22))'} : undefined}>
+          <Phone pose={poseAt(t)} lit={1} sweep={-1} flash={0}><Screen t={t} /></Phone>
+        </AbsoluteFill>
+      )}
       <Opening t={t} />
       <PhotoStage t={t} />
       <CtaText t={t} />

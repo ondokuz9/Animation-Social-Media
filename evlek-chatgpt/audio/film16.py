@@ -13,7 +13,7 @@ import film15_2 as F2          # film15'i CC0 örneklerle yamalar
 import film15 as F
 from synth import SR, RNG, t_, stereo, env_adsr, lp, hp, bp, noise, saw_bl, midi, make_ir, place, to_wav
 
-DUR = 18.0
+DUR = 19.5
 KI, KU = F2.KI, F2.KU
 BEAT = 0.5
 
@@ -52,13 +52,16 @@ def pad(notes, dur, cut0, cut1=None, sweep=0.6, amp=0.06, a=0.5, r=1.4):
 def music(tl):
     n = int((DUR + 4) * SR)
     bus = {k: np.zeros((n, 2)) for k in ('pad', 'keys', 'pluck', 'bass', 'drums', 'fx')}
-    RES, OPEN, HOUSE, LAND, CTA, BOUND, END = tl['shrink'][1], tl['expand'][1], tl['expand2'][1], tl['land'][0], tl['cut'], tl['bound'], tl['end'][0]
+    RES, OPEN, HOUSE, LAND, CTA, BOUND, END = tl['res'][0], tl['expand'][1], tl['expand2'][1], tl['land'][0], tl['cut'], tl['bound'], tl['end'][0]
     # ---- açılış (0–1,75): fotoğraf kadrajda → havadar. açık ped (lidyen), sub yok, vibrafon öbeklerle (ui)
     place(bus['pad'], pad(CH['Glyd'][1], 2.3, 2600, 5200, 1.2, amp=0.06, a=0.08, r=0.5), 0.0)
     place(bus['keys'], F.felt(78, 2.4, 0.045), 0.02); place(bus['keys'], F.felt(66, 2.4, 0.03, -0.15), 0.02)
+    place(bus['pad'], pad(CH['Em9'][1], 2.3, 1400, 3200, 2.0, amp=0.05, a=0.3, r=0.4), tl['shrink'][0])
+    for i in range(8):
+        place(bus['pluck'], lp(F.ks_pluck([69, 76][i % 2], 0.6, 0.025 + 0.02 * i / 7, pan=0.25 if i % 2 else -0.25), 1200 + 1500 * i / 7), 1.5 + i * BEAT / 2)
     # fotoğraf karta inerken: emme (1,5–2,5), 16'lık klap merdiveni son vuruşta
-    place(bus['fx'], F.reverse_swell(0.95, 0.05, 700, 5000), RES - 1.0)
-    for i in range(3): place(bus['drums'], F.clap(0.02 + 0.012 * i), RES - 0.5 + i * BEAT / 4)
+    place(bus['fx'], F.reverse_swell(0.48, 0.05, 700, 5000), RES - 0.5)
+    for i in range(2): place(bus['drums'], F.clap(0.02 + 0.012 * i), RES - 0.25 + i * BEAT / 4)
     # ---- SONUÇ (2,5): ritmik vuruş + groove (2,5–5,0)
     place(bus['fx'], F.impact(0.42, bells=(86, 93)), RES)
     place(bus['drums'], F.kick(0.3), RES); place(bus['drums'], F.clap(0.14), RES)
@@ -150,15 +153,20 @@ def ui(tl):
     k, tuned, jit = F2.k, F2.tuned, F2.jit
     TAP = -6.0  # ses raporu: dokunuşlar sonuç vuruşunun altında kalmalı
     # sorgu öbekleri: öbek başına tek tık + yükselen vibrafon notası (D5 E5 F#5)
-    for i, at in enumerate(tl['chunks'][1:]):
+    for i, at in enumerate(tl['chunks']):
         place(bus, k(KI + 'click_003', F.key_tick(-27, False), 0, jit()), at)
         place(bus, k(KI + 'click_005', F.key_tick(-33, False), 0, jit()), at + 0.05)
-        place(bus, F.ks_pluck([74, 76, 78][i], 0.7, 0.04, pan=(i - 1) * 0.2), at)
-    # açılış: deniz (fotoğraf), karta inerken alçalan hava, sonuç oturması
-    place(bus, bp(F.sea(tl['shrink'][1] + 0.2, amp=0.04), 400, 4000)[int(0.5 * SR):], 0.0)
-    a = t_(tl['shrink'][1] - tl['shrink'][0]); kk = a / a[-1]
-    place(bus, stereo(bp(noise(len(a)), 400, 3000) * np.sin(np.pi * kk) ** 2 * 0.012), tl['shrink'][0])
-    place(bus, tuned(KI + 'drop_003', 77.85, 78, F.tone_pair(240, 480, 0.06, 0.4, -24, paper=True)), tl['shrink'][1] + 0.02)
+        place(bus, F.ks_pluck([74, 76, 78, 81][i], 0.7, 0.04, pan=(i - 1.5) * 0.15), at)
+    # açılış: deniz (fotoğraf); yaprak yükselirken hava; gönder; sonuç oturması; kaydırma
+    place(bus, bp(F.sea(tl['shrink'][1] + 0.4, amp=0.04), 400, 4000)[int(0.5 * SR):], 0.0)
+    a = t_(tl['sheet'][1] - tl['sheet'][0]); kk = a / a[-1]
+    place(bus, stereo(bp(noise(len(a)), 400, 3000) * np.sin(np.pi * kk) ** 2 * 0.012), tl['sheet'][0])
+    place(bus, k(KU + 'switch13', F.detent(-34), 0), tl['sheet'][1] - 0.05)
+    place(bus, k(KI + 'select_002', F.tap(-22), TAP, jit(), pan(1000)), tl['send'] - 0.01)
+    place(bus, k(KI + 'maximize_009', F.send_snd(-17), -3.0), tl['send'])
+    place(bus, tuned(KI + 'drop_003', 77.85, 78, F.tone_pair(240, 480, 0.06, 0.4, -24, paper=True)), tl['res'][0] + 0.02)
+    d = tl['scroll'][1] - tl['scroll'][0]; e = np.sin(np.pi * np.linspace(0, 1, int(d * SR))) ** 1.5
+    place(bus, stereo(F.friction(d, -40, e)), tl['scroll'][0])
     # karta dokunuş → ilan
     place(bus, k(KI + 'select_007', F.tap(-17), TAP, jit(), pan(396)), tl['tap'])
     place(bus, tuned(KI + 'drop_004', 74.7, 74, F.tone_pair(180, 360, 0.08, 0.5, -26)), tl['expand'][1] - 0.02)
@@ -196,7 +204,7 @@ def main():
     mix = m * duck[:, None] + u * 1.3
     # nefes: sonuçtan ve kapanıştan önce 150 ms gerçek boşluk (−20 dB), vuruşta tam açılır
     tt = np.arange(len(mix)) / SR; g = np.ones(len(mix))
-    for b0 in (tl['shrink'][1], tl['end'][0]):
+    for b0 in (tl['res'][0], tl['end'][0]):
         g = np.minimum(g, 1 - 0.9 * np.clip((tt - (b0 - 0.17)) / 0.03, 0, 1) * (tt < b0 - 0.002))
     mix = mix * g[:, None]
     # mono uyumu (telefon hoparlörü): yan kanal −3,5 dB

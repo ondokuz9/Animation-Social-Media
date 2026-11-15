@@ -144,6 +144,7 @@ const Composer: React.FC<{t: number; lines: string[]; chip: boolean; caret?: boo
 // ---------- parmak imleci (ekran koordinatı) ----------
 type WP = [number, number, number]; // t, x, y
 const CUR_TRACKS: {a: number; b: number; pts: WP[]; taps: number[]; row?: boolean}[] = [
+  {a: TL.send - 0.42, b: TL.send + 0.14, pts: [[TL.send - 0.42, 900, 1560], [TL.send - 0.1, SEND_BTN.x, SEND_BTN.y]], taps: [TL.send]},
   {a: TL.tap - 0.5, b: TL.tap + 0.14, row: true, pts: [[TL.tap - 0.5, 640, 0], [TL.tap - 0.1, 396, 1], [TL.tap, 396, 1]], taps: [TL.tap]},
   {a: TL.swipe[0] - 0.3, b: TL.swipe[1] + 0.1, pts: [[TL.swipe[0] - 0.3, 940, 760], [TL.swipe[0], 900, 715], [TL.swipe[1], 520, 715]], taps: []},
   {a: TL.contact - 0.5, b: TL.contact + 0.5, pts: [[TL.contact - 0.5, 640, 2180], [TL.contact - 0.08, 881, 2452]], taps: [TL.contact]},
@@ -409,6 +410,30 @@ const EvlekPage: React.FC<{t: number}> = ({t}) => {
 const cardCenterY = (t: number) => TOP + FLOW.widget - chatScroll(t) + (LAP.rowY + LAP.cardY + LAP.cardH * 0.42) * WS;
 
 const ScreenBody: React.FC<{t: number}> = ({t}) => {
+  // GİRİŞ + yazma (klavye açık)
+  if (t < TL.rise[0]) {
+    const tt = typeTimes();
+    const all = QL.join('\n');
+    const n = tt.filter((x) => x <= t).length;
+    const lines = all.slice(0, n).split('\n');
+    return <NewChat t={t} chip lines={lines} caret ready={n > 0} />;
+  }
+  // gönder: metin kutudan balona uçar, klavye iner, kutu boşalır
+  if (t < TL.rise[1]) {
+    const k = IOS(lin(t, TL.rise[0], TL.rise[1]));
+    const kb = 1 - IOSOUT(lin(t, TL.kbdDown[0], TL.kbdDown[1]));
+    const fromY = SH - KB_BOTTOM - compH(2) - TOP + 10, toY = FLOW.bubble;
+    return (
+      <>
+        <NewChat t={t} chip={false} kb={kb} />
+        <div style={{position: 'absolute', left: 0, right: 0, top: TOP + mix(fromY, toY, k), opacity: lin(k, 0, 0.15)}}>
+          <div style={{position: 'absolute', right: 40, padding: '34px 54px', borderRadius: 56, background: `rgba(1,4,86,${k})`, fontFamily: F, fontSize: mix(48, 46, k), lineHeight: '69px', color: K.text, whiteSpace: 'nowrap'}}>
+            <EvChip size={44} />{QL.map((l, i) => <React.Fragment key={i}>{i > 0 && <br />}{l}</React.Fragment>)}
+          </div>
+        </div>
+      </>
+    );
+  }
   if (t < TL.expand[0]) return <LaptaChat t={t} />;
   if (t < TL.expand[1]) return <Zoom t={t} k={PUSH(lin(t, TL.expand[0], TL.expand[1]))} under={<LaptaChat t={t} />} />;
   if (t < TL.cut) return <FsDetail t={t} heroHidden={t >= TL.expand2[0] + 0.03 && t < TL.land[1]} />;
