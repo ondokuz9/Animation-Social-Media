@@ -77,7 +77,7 @@ const Keyboard: React.FC<{k: number; search?: boolean; caps?: boolean}> = ({k, s
   if (k <= 0) return null;
   const kw = 79, gap = 18;
   const key = (ch: string, x: number, y: number, w = kw, fn = false, blue = false) => (
-    <div key={`${ch}${x}${y}`} style={{position: 'absolute', left: x, top: y, width: w, height: 123, borderRadius: 15, background: blue ? '#006DFD' : '#343633', color: '#F2F2F2', fontFamily: F, fontSize: 56, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{ch === 'S' ? Ico.search('#FFFFFF', 56) : ch === 'R' ? <svg width={48} height={48} viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round"><path d="M20 5v7a3 3 0 0 1-3 3H5M9 11l-4 4 4 4" /></svg> : ch}</div>
+    <div key={`${ch}${x}${y}`} style={{position: 'absolute', left: x, top: y, width: w, height: 123, borderRadius: 15, background: blue ? '#006DFD' : '#343633', color: '#F2F2F2', fontFamily: F, fontSize: 56, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{ch === '#S' ? Ico.search('#FFFFFF', 56) : ch === '#R' ? <svg width={48} height={48} viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round"><path d="M20 5v7a3 3 0 0 1-3 3H5M9 11l-4 4 4 4" /></svg> : ch}</div>
   );
   const rowX = (n: number, w = kw) => (SW - (n * w + (n - 1) * gap)) / 2;
   const tops = [1781, 1932, 2083, 2234].map((y) => y - KB.top);
@@ -88,7 +88,7 @@ const Keyboard: React.FC<{k: number; search?: boolean; caps?: boolean}> = ({k, s
   const x3 = rowX(9);
   R[2].split('').forEach((c, i) => els.push(key(c, x3 + i * (kw + gap), tops[2])));
   els.push(key(caps ? '⬆' : '⇧', 10, tops[2], x3 - 10 - gap, true), key('⌫', x3 + 9 * (kw + gap), tops[2], SW - 10 - (x3 + 9 * (kw + gap)), true));
-  els.push(key('123', 10, tops[3], 150, true), key('☺', 178, tops[3], 120, true), key('', 316, tops[3], SW - 316 - 10 - 248 - gap), key(search ? 'S' : 'R', SW - 10 - 248, tops[3], 248, true, !!search));
+  els.push(key('123', 10, tops[3], 150, true), key('☺', 178, tops[3], 120, true), key('', 316, tops[3], SW - 316 - 10 - 248 - gap), key(search ? '#S' : '#R', SW - 10 - 248, tops[3], 248, true, !!search));
   return (
     <div style={{position: 'absolute', left: 0, top: KB.top, width: SW, height: KB.h, background: '#161815', borderRadius: '42px 42px 0 0', boxShadow: 'inset 0 1.5px 0 rgba(255,255,255,.08)', transform: `translateY(${(1 - k) * KB.h}px)`}}>
       {els}
@@ -191,8 +191,9 @@ const COAST_PX = V0 * TAU * (1 - Math.exp(-(TL.coast[1] - TL.coast[0]) / TAU));
 const TOTAL_PX = DRAG_PX + COAST_PX;
 const travelled = (t: number) => {
   if (t < TL.drag[0]) return 0;
-  if (t < TL.drag[1]) return DRAG_PX * lin(t, TL.drag[0], TL.drag[1]);
-  return DRAG_PX + V0 * TAU * (1 - Math.exp(-Math.min(t - TL.drag[1], TL.coast[1] - TL.coast[0]) / TAU));
+  if (t < TL.drag[1]) { const u = lin(t, TL.drag[0], TL.drag[1]); return DRAG_PX * (2 * u * u - u * u * u); }
+  const u = lin(t, TL.drag[1], TL.coast[1]);
+  return DRAG_PX + COAST_PX * (1 - Math.pow(1 - u, 2.09)); // v17: süzülme sıfır hızla durur
 };
 export const cardIdx = (t: number) => 5 - (TOTAL_PX - travelled(t)) / CARD_PX;
 const rowLeft = (idx: number) => (LAP.x0pt - 244 * idx) * PT;
@@ -233,7 +234,7 @@ const LaptaChat: React.FC<{t: number}> = ({t}) => {
           {t >= TL.search[0] && (
             <div style={{position: 'absolute', left: 46, top: FLOW.label, display: 'flex', alignItems: 'center', gap: 24, fontFamily: F, fontSize: 38, fontWeight: 400, opacity: lin(t, TL.search[0], TL.search[0] + 0.12)}}>
               <EvIcon size={48} r={0.28} />
-              {done ? <span style={{color: '#8E8E8E'}}>Evlek</span> : <span style={{backgroundImage: `linear-gradient(90deg, ${K.dim} ${sh * 160 - 40}%, #FFFFFF ${sh * 160 - 20}%, ${K.dim} ${sh * 160}%)`, WebkitBackgroundClip: 'text', color: 'transparent'}}>Evlek</span>}
+              {done ? <span style={{color: '#8E8E8E'}}>Evlek</span> : <span style={{backgroundImage: `linear-gradient(90deg, #8E8E8E ${sh * 160 - 40}%, #FFFFFF ${sh * 160 - 20}%, #8E8E8E ${sh * 160}%)`, WebkitBackgroundClip: 'text', color: 'transparent'}}>Evlek</span>}
             </div>
           )}
           {t >= TL.res[0] && <div style={{position: 'absolute', left: 0, right: 0, top: FLOW.widget}}><LaptaWidget t={t} /></div>}
@@ -287,7 +288,6 @@ const FsDetail: React.FC<{t: number; heroHidden?: boolean}> = ({t, heroHidden}) 
       <div style={{position: 'absolute', left: 0, right: 0, top: 0, height: FS_TOP, background: '#000'}} />
       <Circ x={110} y={208} s={press(t, TL.close)}>{Ico.close()}</Circ>
       <div style={{position: 'absolute', left: 0, right: 0, top: 176, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 18, fontSize: 48, fontWeight: 600, color: K.text}}><EvIcon size={58} r={0.28} />Evlek</div>
-      <HomeBar />
     </div>
   );
 };
@@ -300,11 +300,15 @@ const Zoom: React.FC<{t: number; k: number; under: React.ReactNode; heroPool?: n
   return (
     <>
       {under}
-      <div style={{position: 'absolute', left: x, top: y + clipTop, width: SW * sc, height: clipH, overflow: 'hidden', borderRadius: mix(36, 104, k)}}>
+      <div style={{position: 'absolute', left: x, top: y + clipTop, width: SW * sc, height: clipH, overflow: 'hidden', borderRadius: mix(36, 104, k), transform: `scale(${press(t, TL.tap)})`, transformOrigin: '50% 50%'}}>
         <div style={{position: 'absolute', left: 0, top: -clipTop, width: SW, height: SH, transform: `scale(${sc})`, transformOrigin: '0 0'}}>
           <FsDetail t={t} />
           {heroPool > 0 && <Img src={img('v4/EVL-100102_00.jpg')} style={{position: 'absolute', left: 0, top: FS_TOP, width: SW, height: HERO_D.h, opacity: heroPool}} />}
         </div>
+        {k < 0.3 && (() => { const W = SW * sc, fx = W / LAP.cardW, fy = fx; /* eşit ölçek */ return (
+          <div style={{position: 'absolute', left: 0, top: 0, width: W, height: 522 * fx, overflow: 'hidden', opacity: 1 - lin(k, 0, 0.3)}}>
+            <Img src={W_('wLaptaRow.png')} style={{position: 'absolute', left: -1482 * fx, top: -LAP.cardY * fy, width: 3690 * fx, height: LAP.rowH * fy}} />
+          </div>); })()}
       </div>
     </>
   );
@@ -432,16 +436,16 @@ const ScreenBody: React.FC<{t: number}> = ({t}) => {
     const lines = all.slice(0, n).split('\n');
     return <NewChat t={t} chip={t >= TL.chunks[0]} lines={lines} caret ready={t >= TL.chunks[0]} />;
   }
-  // gönder: metin kutudan balona uçar, klavye iner, kutu boşalır
+  // gönder (v17): metin her karede görünür; balon yazım kutusundaki konumundan sağa ve yukarı akar, zemini sonradan dolar
   if (t < TL.rise[1]) {
-    const k = IOS(lin(t, TL.rise[0], TL.rise[1]));
+    const k = Easing.bezier(0.45, 0, 0.2, 1)(lin(t, TL.rise[0], TL.rise[1])); // kamerayla aynı tempoda: balon kadrajdan çıkmaz
     const kb = 1 - IOSOUT(lin(t, TL.kbdDown[0], TL.kbdDown[1]));
-    const fromY = SH - KB_BOTTOM - compH(2) - TOP + 10, toY = FLOW.bubble;
+    const fromY = SH - KB_BOTTOM - compH(2) - TOP + COMP.padTop - 34, toY = FLOW.bubble;
     return (
       <>
-        <NewChat t={t} chip={false} kb={kb} />
-        <div style={{position: 'absolute', left: 0, right: 0, top: TOP + mix(fromY, toY, k), opacity: lin(k, 0, 0.15)}}>
-          <div style={{position: 'absolute', right: 40, padding: '34px 54px', borderRadius: 56, background: `rgba(1,4,86,${k})`, fontFamily: F, fontSize: mix(48, 46, k), lineHeight: '69px', color: K.text, whiteSpace: 'nowrap'}}>
+        <NewChat t={t} chip={false} kb={kb} lines={['', '']} textO={0} />
+        <div style={{position: 'absolute', left: 0, right: 0, top: TOP + mix(fromY, toY, k)}}>
+          <div style={{position: 'absolute', right: 40, padding: '34px 54px', borderRadius: 56, background: `rgba(1,4,86,${lin(k, 0.15, 0.7)})`, fontFamily: F, fontSize: mix(48, 46, k), lineHeight: '69px', color: K.text, whiteSpace: 'nowrap', transform: `translateX(${-(1 - k) * 330}px)`}}>
             <EvChip size={44} />{QL.map((l, i) => <React.Fragment key={i}>{i > 0 && <br />}{l}</React.Fragment>)}
           </div>
         </div>
@@ -451,7 +455,7 @@ const ScreenBody: React.FC<{t: number}> = ({t}) => {
   if (t < TL.expand[0]) return <LaptaChat t={t} />;
   // ilan (yakınlaşma, galeri, kapanış)
   if (t < TL.collapse[1]) {
-    const hidden = t >= TL.portalOut[0] && t < TL.portalIn[1];
+    const hidden = t >= TL.portalOut[0] + 0.08 && t < TL.portalIn[1] - 0.12;
     if (t < TL.expand[1]) return <Zoom t={t} k={PUSH(lin(t, TL.expand[0], TL.expand[1]))} under={<LaptaChat t={t} />} />;
     if (t < TL.collapse[0]) return <FsDetail t={t} heroHidden={hidden} />;
     const k = 1 - PUSH(lin(t, TL.collapse[0], TL.collapse[1]));
@@ -459,7 +463,7 @@ const ScreenBody: React.FC<{t: number}> = ({t}) => {
   }
   // SONUÇ
   if (t < TL.plugOpen[1]) {
-    const k = Easing.bezier(0.2, 0.8, 0.2, 1)(lin(t, TL.side[0], TL.side[1]));
+    const k = IOS(lin(t, TL.side[0], TL.side[1]));
     const close = PUSH(lin(t, TL.plugOpen[0], TL.plugOpen[1]));
     const under = t >= TL.plugOpen[0] ? <Plugins t={t} /> : <LaptaChat t={t} />;
     const kk = k * (1 - close);

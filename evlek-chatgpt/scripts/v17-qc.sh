@@ -3,7 +3,7 @@
 # 360 px okunurluk ızgarası, siyah kare, kare farkı, telefon bandı ses testi.   Kullanım: bash scripts/v16-qc.sh
 set -e
 cd "$(dirname "$0")/.."
-# ses masteri: LRA=20 bash audio/master.sh out/audio/v16_raw.wav out/audio/v17_master_48k.wav (doğrusal kazanç; dinamik moda düşmesin)
+# ses masteri: GAIN=1 bash audio/master.sh out/audio/v17_raw.wav out/audio/v17_master_48k.wav (doğrusal kazanç, −14 LUFS)
 Q=out/v17qc; rm -rf $Q; mkdir -p $Q/f6
 SIL=out/evlek_chatgpt_V17_FINAL_1080x1920_60fps_sessiz.mp4
 FIN=out/evlek_chatgpt_V17_FINAL_1080x1920_60fps.mp4

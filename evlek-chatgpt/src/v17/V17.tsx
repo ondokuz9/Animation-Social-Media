@@ -20,11 +20,12 @@ const view = (sx0: number, sy0: number, s: number): Pose => P((PW / 2 - OX - sx0
 const OPEN = P(540, 1196, 0.52); // başlığın altında tam telefon
 const TYPE = view(0, 760, 0.88); // yazarken: yazım kutusu + klavye kadrajın alt %70'inde, ekranın üstü az
 const SEND = P(540, (PH / 2 - OY - 300) * 0.78 + 40, 0.78); // gönderince balonu izler: ekranın üstü (balon, Evlek) + telefonun altı
+const SEND2 = P(540, (PH / 2 - OY - 300) * 0.82 + 40, 0.82); // aranırken yavaşça yaklaşır
 const CHAT = view(0, 150, 0.916); // balon + Evlek + sonuç
 const CARDS = view(0, 560, 1); // kart şeridi 1:1 gerçek piksel
 const DS = 0.6, DY = 862;
 const DETAIL = P(540, DY, DS); // tam telefon: ilan; "Emlakçıya sor" y≈1566
-const PLUG = P(540, 1212, 0.6); // eklenti bölümü: üstte başlık + adımlar
+const PLUG = P(540, 1140, 0.55); // eklenti bölümü: üstte başlık + adımlar; düğme altı ≈1793 (Reels alt bandının üstü)
 const END = P(540, 1236, 0.5);
 const dy = (p: Pose, y: number): Pose => ({...p, y: p.y + y});
 const bump = (p: Pose, t: number, at: number): Pose => { const b = Math.sin(Math.PI * lin(t, at, at + 0.16)); return b > 0 && b < 1 ? {...p, s: p.s * (1 - 0.005 * b)} : p; };
@@ -33,14 +34,18 @@ export const poseAt = (t: number): Pose => {
   if (t < TL.push[0]) return OPEN;
   if (t < TL.push[1]) return mixPose(OPEN, TYPE, EXP(lin(t, TL.push[0], TL.push[1])));
   if (t < TL.follow[0]) return bump(TYPE, t, TL.send);
-  if (t < TL.follow[1]) return mixPose(TYPE, SEND, IO(lin(t, TL.follow[0], TL.follow[1])));
-  if (t < TL.cam1[0]) return SEND;
-  if (t < TL.cam1[1]) return mixPose(SEND, CHAT, IO(lin(t, TL.cam1[0], TL.cam1[1])));
+  if (t < TL.follow[1]) return mixPose(TYPE, SEND, Easing.bezier(0.3, 0, 0.2, 1)(lin(t, TL.follow[0], TL.follow[1])));
+  if (t < TL.cam1[0]) return mixPose(SEND, SEND2, IO(lin(t, TL.follow[1], TL.cam1[0])));
+  if (t < TL.cam1[1]) return mixPose(SEND2, CHAT, IO(lin(t, TL.cam1[0], TL.cam1[1])));
   if (t < TL.cam2[0]) return dy(CHAT, -10 * lin(t, TL.cam1[1], TL.cam2[0]));
   if (t < TL.cam2[1]) return mixPose(dy(CHAT, -10), CARDS, IO(lin(t, TL.cam2[0], TL.cam2[1])));
   if (t < TL.expand[0]) return bump(CARDS, t, TL.tap);
   if (t < TL.expand[1]) return mixPose(CARDS, DETAIL, EXP(lin(t, TL.expand[0], TL.expand[1])));
-  if (t < TL.cam3[0]) return DETAIL;
+  if (t < TL.cam3[0]) {
+    const AWAY: Pose = {...DETAIL, y: DETAIL.y + 300, s: 0.56};
+    if (t < TL.portalIn[0]) return mixPose(DETAIL, AWAY, EXP(lin(t, TL.portalOut[0], TL.portalOut[1])));
+    return mixPose(AWAY, DETAIL, EXP(lin(t, TL.portalIn[0], TL.portalIn[0] + 0.7 * (TL.portalIn[1] - TL.portalIn[0]))));
+  }
   if (t < TL.cam3[1]) return mixPose(DETAIL, PLUG, IO(lin(t, TL.cam3[0], TL.cam3[1])));
   if (t < TL.back[0]) return PLUG;
   if (t < TL.back[1]) return mixPose(PLUG, END, IO(lin(t, TL.back[0], TL.back[1])));
@@ -49,9 +54,11 @@ export const poseAt = (t: number): Pose => {
 
 // ---------------- zemin, gren, tipografi ----------------
 const Stage: React.FC = () => <AbsoluteFill style={{background: `radial-gradient(120% 70% at 30% 18%, #FFFEFB 0%, ${CREAM} 46%, #F0EBDF 100%)`}} />;
-const Grain: React.FC<{o?: number}> = ({o = 0.07}) => (
-  <AbsoluteFill style={{backgroundImage: `url(${img('v16/gren.png')})`, backgroundSize: '512px 512px', mixBlendMode: 'multiply', opacity: o, pointerEvents: 'none'}} />
-);
+const Grain: React.FC<{o?: number}> = ({o = 0.06}) => {
+  const f = Math.floor(useCurrentFrame() / 2);
+  const gx = (f * 197) % 512, gy = (f * 331) % 512; // deterministik kayma
+  return <AbsoluteFill style={{backgroundImage: `url(${img('v16/gren.png')})`, backgroundSize: '512px 512px', backgroundPosition: `${gx}px ${gy}px`, mixBlendMode: 'multiply', opacity: o, pointerEvents: 'none'}} />;
+};
 const Eyebrow: React.FC<{children: React.ReactNode; color?: string; style?: React.CSSProperties}> = ({children, color = CORAL, style}) => (
   <div style={{fontFamily: F, fontSize: 28, fontWeight: 600, letterSpacing: '0.14em', color, whiteSpace: 'nowrap', ...style}}>{children}</div>
 );
@@ -107,10 +114,10 @@ const PlugCaption: React.FC<{t: number}> = ({t}) => {
         {STEPS.map(([, label], i) => {
           const on = i <= cur, now = i === cur && !done, ok = done || i < cur;
           return (
-            <div key={label} style={{height: 58, padding: '0 22px 0 10px', borderRadius: 29, display: 'flex', alignItems: 'center', gap: 12, fontSize: 28, fontWeight: 600, letterSpacing: '-0.01em', whiteSpace: 'nowrap',
+            <div key={label} style={{height: 66, padding: '0 22px 0 10px', borderRadius: 33, display: 'flex', alignItems: 'center', gap: 12, fontSize: 32, fontWeight: 600, letterSpacing: '-0.01em', whiteSpace: 'nowrap',
               background: now ? NAVY : on ? 'rgba(10,37,64,.08)' : 'transparent', color: now ? CREAM : on ? NAVY : 'rgba(10,37,64,.4)', boxShadow: on ? 'none' : 'inset 0 0 0 2px rgba(10,37,64,.14)'}}>
-              <span style={{width: 40, height: 40, borderRadius: 20, background: ok ? CORAL : now ? CREAM : 'rgba(10,37,64,.12)', color: ok ? '#fff' : NAVY, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24, fontWeight: 700}}>
-                {ok ? <svg width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth={3.4} strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg> : i + 1}
+              <span style={{width: 46, height: 46, borderRadius: 23, background: ok ? CORAL : now ? CREAM : 'rgba(10,37,64,.12)', color: ok ? '#fff' : NAVY, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24, fontWeight: 700}}>
+                {ok ? <svg width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth={3.4} strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg> : i + 1}
               </span>
               {label}
             </div>
@@ -138,7 +145,7 @@ const PhotoStage: React.FC<{t: number}> = ({t}) => {
   if (t < TL.portalOut[0] || t >= TL.portalIn[1]) return null;
   const k1 = EXP(lin(t, TL.portalOut[0], TL.portalOut[1]));
   const lk = EXP(lin(t, TL.portalIn[0], TL.portalIn[1]));
-  const cover = t < TL.portalIn[0] ? lin(k1, 0.06, 0.5) : 1 - lin(lk, 0.05, 0.5);
+  const cover = t < TL.portalIn[0] ? lin(k1, 0.5, 0.9) : 1 - lin(lk, 0.1, 0.5);
   const r2 = mixR(ROOM_A, ROOM_B, Easing.out(Easing.quad)(lin(t, TL.portalOut[1] - 0.2, TL.portalIn[0] + 0.1)));
   const c = lk > 0 ? mixR(WIN, HERO, lk) : mixR(HERO, WIN, k1);
   const i = lk > 0 ? mixR(r2, HERO_IMG, lk) : mixR(HERO_IMG, r2, k1);
@@ -148,13 +155,13 @@ const PhotoStage: React.FC<{t: number}> = ({t}) => {
     <>
       <AbsoluteFill style={{opacity: cover}}><Stage /><Grain /></AbsoluteFill>
       <div style={{position: 'absolute', left: M, top: 62, opacity: pass}}><Logo h={46} color={NAVY} /></div>
-      <Eyebrow color="rgba(10,37,64,.55)" style={{position: 'absolute', right: M, top: 70, opacity: pass, fontSize: 24}}>CHATGPT’DE · GERÇEK İLAN</Eyebrow>
-      <Eyebrow color="rgba(10,37,64,.55)" style={{position: 'absolute', left: M, top: 1812, opacity: pass, fontSize: 24}}>EVL-100102</Eyebrow>
-      <Eyebrow color="rgba(10,37,64,.55)" style={{position: 'absolute', right: M, top: 1812, opacity: pass, fontSize: 24, fontFeatureSettings: '"tnum"'}}>2 / 14</Eyebrow>
-      <Pic src={ROOM} c={c} i={i} shadow={Math.max(Math.sin(Math.PI * k1), Math.sin(Math.PI * lk))} />
+      <Eyebrow color="rgba(10,37,64,.55)" style={{position: 'absolute', right: M, top: 70, opacity: pass, fontSize: 30}}>CHATGPT’DE · GERÇEK İLAN</Eyebrow>
+      <Eyebrow color="rgba(10,37,64,.55)" style={{position: 'absolute', left: M, top: 1800, opacity: pass, fontSize: 30}}>EVL-100102</Eyebrow>
+      <Eyebrow color="rgba(10,37,64,.55)" style={{position: 'absolute', right: M, top: 1800, opacity: pass, fontSize: 30, fontFeatureSettings: '"tnum"'}}>2 / 14</Eyebrow>
+      <div style={{opacity: lin(t, TL.portalOut[0], TL.portalOut[0] + 0.08) * (1 - lin(t, TL.portalIn[1] - 0.12, TL.portalIn[1]))}}><Pic src={ROOM} c={c} i={i} shadow={Math.max(Math.sin(Math.PI * k1), Math.sin(Math.PI * lk))} /></div>
       <div style={{position: 'absolute', left: M, top: 1390, fontFamily: F, ...rise(cap, 24)}}>
         <div style={{display: 'inline-flex', flexDirection: 'column', padding: '26px 38px 30px', borderRadius: 40, background: 'rgba(250,248,242,.96)', boxShadow: '0 24px 60px rgba(10,37,64,.25)', color: NAVY}}>
-          <Eyebrow color={CORAL} style={{fontSize: 24}}>LAPTA · GİRNE · 2+1 · 107 m²</Eyebrow>
+          <Eyebrow color={CORAL} style={{fontSize: 30}}>LAPTA · GİRNE · 2+1 · 107 m²</Eyebrow>
           <div style={{marginTop: 4, fontSize: 92, fontWeight: 700, letterSpacing: '-0.05em', lineHeight: '98px', fontFeatureSettings: '"tnum"'}}>£139.000</div>
         </div>
       </div>
@@ -168,7 +175,7 @@ export const V17: React.FC = () => {
   const t = useCurrentFrame() / FPS;
   if (!ok) return <AbsoluteFill style={{background: CREAM}} />;
   const phoneOn = !(t >= TL.portalOut[1] && t < TL.portalIn[0]);
-  const fadeIn = lin(t, 0, 0.25), fadeOut = 1 - EIN(lin(t, 21.5, 22));
+  const fadeIn = lin(t, 0, 0.1), fadeOut = 1 - EIN(lin(t, 21.5, 22));
   return (
     <AbsoluteFill style={{background: CREAM, overflow: 'hidden'}}>
       <Stage />

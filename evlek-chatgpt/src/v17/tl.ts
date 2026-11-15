@@ -8,7 +8,7 @@ export const TL = {
   // 1 · AÇILIŞ: başlık + telefon (yeni sohbet)
   intro: [0.0, 0.9], titleOut: [1.55, 1.9], push: [1.6, 2.4],
   // 2 · YAZ: Evlek çipi + sorgu, 4 öbek → gönder → Evlek aranıyor
-  chunks: [2.45, 2.75, 3.05, 3.35, 3.65], send: 4.05, kbdDown: [4.1, 4.4], rise: [4.1, 4.42], follow: [4.08, 4.5],
+  chunks: [2.45, 2.75, 3.05, 3.35, 3.65], send: 4.05, kbdDown: [4.1, 4.4], rise: [4.1, 4.55], follow: [4.04, 4.4],
   search: [4.42, 5.0], think: 4.88, res: [5.0, 5.3], stopOff: 5.3, cam1: [5.0, 5.5],
   // 3 · ETKİLEŞİM
   cam2: [5.75, 6.3], scroll: [5.75, 6.25], drag: [6.4, 6.65], coast: [6.65, 7.2], tap: 7.45, expand: [7.53, 7.95],
@@ -17,7 +17,7 @@ export const TL = {
   // 4 · EKLENTİLER'DEN EVLEK'İ EKLE
   cam3: [13.0, 13.5], cap: [13.25, 13.65], menu: 13.6, side: [13.75, 14.05], plug: 14.45, plugOpen: [14.6, 14.9],
   searchTap: 15.2, kbd: [15.35, 15.6], ptype: [15.65, 15.9], pres: 16.0, row: 16.45, page: [16.6, 16.9],
-  install: 17.5, bound: 18.0, tryTap: 18.55, newChat: [18.7, 19.0], capOut: [18.95, 19.25],
+  install: 17.5, bound: 18.0, tryTap: 18.55, newChat: [18.7, 19.0], capOut: [19.3, 19.55],
   // 5 · BİTİŞ
   back: [19.1, 19.8], end: [19.5, 20.1], cta: [20.3, 20.7],
   // v15 ekranında olup v17'de tetiklenmeyenler
