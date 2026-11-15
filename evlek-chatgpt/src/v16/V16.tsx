@@ -75,7 +75,7 @@ const POOL_B: Rect = {x: -330 * (1080 / 794), y: -12 * (1080 / 794), w: 1600 * (
 // salon: kaynak 1200×1600 · ölçek 1,0 → 1,10, sabit nokta kapıdaki deniz (460,800)
 const ROOM_A: Rect = {x: -60, y: 0, w: 1200, h: 1600};
 const ROOM_B: Rect = {x: 400 - 460 * 1.1, y: 800 - 800 * 1.1, w: 1320, h: 1760};
-const HERO_IMG: Rect = {x: 0, y: -(HERO.w * (4 / 3) - HERO.h) / 2 - 18, w: HERO.w, h: HERO.w * (4 / 3)};
+const HERO_IMG: Rect = {x: 0, y: -(HERO.w * (4 / 3) - HERO.h) / 2 - 1, w: HERO.w, h: HERO.w * (4 / 3)}; // ölçüm: kare 605↔607 kayma 0 px olmalı
 const Pic: React.FC<{src: string; c: Rect; i: Rect; r?: number; dx?: number; shadow?: number; children?: React.ReactNode}> = ({src, c, i, r = 0, dx = 0, shadow = 0, children}) => (
   <div style={{position: 'absolute', left: c.x + dx, top: c.y, width: c.w, height: c.h, overflow: 'hidden', borderRadius: r, boxShadow: shadow > 0 ? `0 ${30 * shadow}px ${90 * shadow}px rgba(10,37,64,${0.28 * shadow})` : undefined}}>
     <Img src={img(src)} style={{position: 'absolute', left: i.x, top: i.y, width: i.w, height: i.h}} />
