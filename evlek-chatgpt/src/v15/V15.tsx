@@ -6,7 +6,7 @@ import {AbsoluteFill, Easing, Img, staticFile, useCurrentFrame} from 'remotion';
 import {C, F, FPS, Logo, LOGO_AR, lin, mix, useFontsV10} from '../v10/core';
 import {OX, OY, P, PH, PW, Phone, Pose, bodyBox, mixPose, projectOut} from './Phone';
 import {CHIP_WORD, HERO_D, Screen} from './Screen';
-import {TL} from './tl';
+import {BEATS, SWEEPS, TL} from './tl';
 
 const img = (p: string) => staticFile(p);
 const SOFT = Easing.bezier(0.25, 0.1, 0, 1);
@@ -21,16 +21,18 @@ const B = P(524, 951, 0.67, 3, -12, 0);
 const A = P(527, 1058, 0.6, 3, -12, 0);
 const EP = P(527, 1095, 0.574, 3, -12, 0);
 const dr = (p: Pose, ds: number, dy: number): Pose => ({...p, s: p.s + ds, y: p.y + dy});
+const K0: Pose = {...KAPAK, ry: -21, s: 0.426}; // açılış/kapanış yörüngesi (döngü karesi)
+const PUSH = Easing.bezier(0.7, 0, 0.15, 1);
 
 type Key = {t: number; p: Pose; e?: (x: number) => number};
 const K = (t: number, p: Pose, e: (x: number) => number = IOE): Key => ({t, p, e});
 const KEYS: Key[] = [
-  K(0, KAPAK), K(TL.push[0], KAPAK, L_),
-  K(TL.push[1], B), K(TL.cam1[0], dr(B, 0.005, -3), L_),
+  K(0, K0), K(1.4, KAPAK, IOE), K(TL.push[0], KAPAK, L_),
+  K(TL.push[1], B, PUSH), K(TL.cam1[0], dr(B, 0.005, -3), L_),
   K(TL.cam1[1], A), K(TL.cam2[0], dr(A, 0.004, 3), L_),
   K(TL.cam2[1], B), K(TL.cam3[0], B, L_), // ilan ve portal sırasında kamera sabit (köşe eşleşmesi)
   K(TL.cam3[1], EP), K(TL.back[0], EP, L_),
-  K(TL.back[1], KAPAK, FLY), K(30, KAPAK, L_),
+  K(TL.back[1], KAPAK, FLY), K(27.95, KAPAK, L_), K(30, K0, IOE),
 ];
 const poseAt = (t: number): Pose => {
   let i = 0;
@@ -51,14 +53,31 @@ export const poseK = (t: number) => kick(t, poseAt(t));
 
 // ---------------- zemin: poza bağlı anahtar ışık; karartma yalnız zeminde ----------------
 const POOL = 'v4/EVL-100102_00.jpg';
+/** sahne ışığı: karanlıktan açılış, sonda kararış (döngü) */
+const lightL = (t: number) => (t < 0.15 ? 0 : t < 1.15 ? Easing.bezier(0.33, 0, 0.2, 1)(lin(t, 0.15, 1.15)) : t < 29.35 ? 1 : 1 - IOE(lin(t, 29.35, 30)));
+/** vuruş zarfı: 0,06 sn atak, üstel sönüm */
+const burst = (t: number, h: number, a: number, tau: number) => (t < h || t > h + 6 * tau ? 0 : t < h + 0.06 ? a * lin(t, h, h + 0.06) : a * Math.exp(-(t - h - 0.06) / tau));
+const beatEnv = (t: number) => BEATS.reduce((m, [h, a, tau]) => Math.max(m, burst(t, h, a, tau)), 0);
+const sweepAt = (t: number) => { for (const [a, b] of SWEEPS) if (t >= a && t <= b) return Easing.bezier(0.45, 0.05, 0.25, 1)(lin(t, a, b)); return -1; };
 const poolBg = (t: number) => (t < TL.expand[0] || t >= TL.collapse[1] ? 0 : t < TL.collapse[0] ? RAMP(lin(t, TL.expand[0], TL.expand[1])) : 1 - RAMP(lin(t, TL.collapse[0], TL.collapse[1])));
-const bgDim = (t: number) => (t < TL.sig[1] ? 0.15 * (1 - RAMP(lin(t, TL.sig[0], TL.sig[1]))) : t >= TL.back[0] ? 0.15 * RAMP(lin(t, TL.back[0], TL.back[1])) : 0);
+const bgDim = (t: number) => { const L = lightL(t); if (t < TL.sig[0]) return 0.15 + 0.4 * (1 - L); if (t < TL.sig[1]) return 0.15 * (1 - RAMP(lin(t, TL.sig[0], TL.sig[1]))); if (t < TL.back[0]) return 0; if (t < TL.back[1]) return 0.15 * RAMP(lin(t, TL.back[0], TL.back[1])); return 0.15 + 0.4 * (1 - L); };
 const Background: React.FC<{t: number; pose: Pose}> = ({t, pose}) => {
   const b = bodyBox(pose);
   const ly = b.y0 + 0.32 * (b.y1 - b.y0);
   const o = poolBg(t);
+  const env = beatEnv(t);
+  const ax = mix(540, pose.x, 0.55), ay = mix(900, ly, 0.55);
+  const sc = 0.6 + 0.4 * (pose.s / 0.6);
+  // patlama yarıçapı: en yakın vuruşa göre
+  const hit = BEATS.find(([h, , tau]) => t >= h - 0.1 && t <= h + 6 * tau);
+  const R = hit ? mix(380, 1500, Easing.bezier(0.22, 1, 0.36, 1)(lin(t, hit[0] - 0.1, hit[0] + 0.9))) * pose.s / 0.6 : 0;
+  const e = hit ? burst(t, hit[0], hit[1], hit[2]) : 0;
   return (
-    <AbsoluteFill style={{background: `radial-gradient(ellipse 90% 58% at ${pose.x}px ${ly}px, #3B6E9E 0%, #24527F 40%, #0F3157 75%, #061A2E 100%)`}}>
+    <AbsoluteFill style={{background: `radial-gradient(ellipse ${90 * sc}% ${58 * sc}% at ${ax}px ${ay}px, #3B6E9E 0%, #24527F 40%, #0F3157 75%, #061A2E 100%)`}}>
+      {env > 0.002 && <AbsoluteFill style={{background: `radial-gradient(ellipse 70% 45% at ${pose.x}px ${ly}px, rgba(127,176,224,${0.22 * env}) 0%, transparent 70%)`, mixBlendMode: 'screen'}} />}
+      {e > 0.002 && <AbsoluteFill style={{background: `radial-gradient(circle ${R}px at ${pose.x}px ${ly}px, rgba(250,248,242,${0.3 * e}) 0%, rgba(178,185,189,${0.16 * e}) 28%, rgba(59,110,158,${0.1 * e}) 52%, rgba(10,37,64,0) 100%)`}} />}
+      <div style={{position: 'absolute', left: pose.x - 520, top: b.y1 - 110, width: 1040, height: 200, borderRadius: '50%', background: 'radial-gradient(ellipse at center, rgba(59,110,158,.9) 0%, rgba(59,110,158,0) 70%)', filter: 'blur(28px)', opacity: (0.22 * lightL(t) + 0.4 * env) * (1 - o)}} />
+      <AbsoluteFill style={{background: 'radial-gradient(ellipse 110% 80% at 50% 46%, rgba(6,26,46,0) 58%, rgba(4,14,26,.55) 100%)'}} />
       {o > 0 && (
         <AbsoluteFill style={{opacity: o, overflow: 'hidden'}}>
           <Img src={img(POOL)} style={{position: 'absolute', left: -560, top: -60, width: 2720, height: 2040, filter: 'blur(30px) brightness(.72) saturate(1.05)'}} />
@@ -141,7 +160,10 @@ const PathBlock: React.FC<{t: number}> = ({t}) => {
       <div style={{fontSize: 64, fontWeight: 700, letterSpacing: '-0.03em', lineHeight: 1.1}}>Eklentiler’den ekle.</div>
       {i >= 0 && (
         <div style={{position: 'absolute', left: 0, right: 0, top: 88 + (1 - sk) * 14, opacity: sk, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 22}}>
-          <div style={{width: 76, height: 76, borderRadius: 38, background: C.coral, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 52, fontWeight: 700}}>{done ? '✓' : STEPS[i][1]}</div>
+          <div style={{position: 'relative', width: 76, height: 76, borderRadius: 38, background: C.coral, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 52, fontWeight: 700}}>
+            {done ? '✓' : STEPS[i][1]}
+            {(() => { const k = lin(t, TL.bound, TL.bound + 0.5); if (k <= 0 || k >= 1) return null; const d = mix(76, 124, E2(k)); return <div style={{position: 'absolute', left: 38 - d / 2, top: 38 - d / 2, width: d, height: d, borderRadius: d / 2, border: `2px solid rgba(184,78,59,${0.45 * (1 - k)})`, boxSizing: 'border-box'}} />; })()}
+          </div>
           <div style={{fontSize: 56, fontWeight: 600, letterSpacing: '-0.02em'}}>{STEPS[i][2]}</div>
         </div>
       )}
@@ -168,14 +190,19 @@ const logoFlight = (t: number, k: number) => {
 };
 const LogoLayer: React.FC<{t: number}> = ({t}) => {
   if (t < TL.sig[0] || t >= TL.back[1]) return <LogoAt {...LOGO_C} />;
-  if (t < TL.sig[1]) {
-    const k = IOE(lin(t, TL.sig[0], TL.sig[1]));
-    return <LogoAt {...logoFlight(t, k)} o={1 - lin(t, TL.sig[1] - 0.06, TL.sig[1])} />;
-  }
-  if (t >= TL.back[0]) {
-    const k = 1 - FLY(lin(t, TL.back[0], TL.back[1]));
-    return <LogoAt {...logoFlight(t, k)} o={lin(t, TL.back[0], TL.back[0] + 0.06)} />;
-  }
+  const at = (tt: number) => (tt < TL.sig[1] ? logoFlight(tt, IOE(lin(tt, TL.sig[0], TL.sig[1]))) : logoFlight(tt, 1 - FLY(lin(tt, TL.back[0], TL.back[1]))));
+  const trail = (o: number) => {
+    const p0 = at(t), p1 = at(t - 1 / 60);
+    const v = Math.hypot(p0.x - p1.x, p0.y - p1.y);
+    return (
+      <>
+        {v > 15 && [3, 2, 1].map((k, i) => <LogoAt key={k} {...at(t - k / 240)} o={o * [0.14, 0.28, 0.45][i]} />)}
+        <LogoAt {...p0} o={o} />
+      </>
+    );
+  };
+  if (t < TL.sig[1]) return trail(1 - lin(t, TL.sig[1] - 0.06, TL.sig[1]));
+  if (t >= TL.back[0]) return trail(lin(t, TL.back[0], TL.back[0] + 0.06));
   return null;
 };
 
@@ -192,14 +219,24 @@ export const V15: React.FC = () => {
     <AbsoluteFill style={{background: C.navy, overflow: 'hidden'}}>
       <Background t={t} pose={pose} />
       {pk < 0.999 && (
-        <Phone pose={pose} onPhoto={poolBg(t)}>
+        <Phone pose={pose} onPhoto={poolBg(t)} lit={lightL(t)} sweep={sweepAt(t)} flash={beatEnv(t) * 0.8}>
           <Screen t={t} />
         </Phone>
       )}
       <Portal t={t} />
       <LogoLayer t={t} />
       <Title t={t} n={titleN} o={titleO} />
-      <Txt o={fade4(t, TL.slogan)} y={130} size={72}>Sor. Evlek göstersin.</Txt>
+      {(() => {
+        const out = 1 - lin(t, TL.slogan[2], TL.slogan[3]);
+        const a = E2(lin(t, TL.slogan[0], TL.slogan[1])) * out, b2 = E2(lin(t, TL.slogan[1] - 0.003, TL.slogan[1] + 0.18)) * out;
+        if (a <= 0) return null;
+        return (
+          <div style={{position: 'absolute', left: 60, right: 60, top: 130, textAlign: 'center', fontFamily: F, fontSize: 72, fontWeight: 700, color: C.cream, letterSpacing: '-0.03em', lineHeight: 1.1}}>
+            <span style={{display: 'inline-block', opacity: a, transform: `translateY(${(1 - a) * 12}px)`}}>Sor.</span>{' '}
+            <span style={{display: 'inline-block', opacity: b2, transform: `translateY(${(1 - b2) * 12}px)`}}>Evlek göstersin.</span>
+          </div>
+        );
+      })()}
       <PathBlock t={t} />
       {(() => {
         const o = fade4(t, TL.foot);

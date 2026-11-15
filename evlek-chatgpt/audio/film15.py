@@ -13,7 +13,9 @@ DUR = 30.0
 
 def load_tl(path):
     s = open(path, encoding='utf-8').read()
-    tl = {k: json.loads(v) for k, v in re.findall(r'(\w+):\s*(\[[^\]]*\]|[\d.]+)', s)}
+    blk = s[s.index('export const TL'):]
+    blk = blk[: blk.index('};')]
+    tl = {k: json.loads(v) for k, v in re.findall(r'(\w+):\s*(\[[^\]]*\]|[\d.]+)', blk)}
     m = re.search(r'bpm:\s*([\d.]+),\s*phi:\s*([\d.]+)', s)
     return tl, float(m.group(1)), float(m.group(2))
 
@@ -225,69 +227,178 @@ def logo_note(m, level_db, sub=False):
     return stereo(y)
 
 
-# ---------------- müzik ----------------
+# ---------------- lansman katmanları (v15) ----------------
+def clap(amp=0.07, pan=0.0):
+    t = t_(0.25); y = np.zeros_like(t)
+    for d in (0.0, 0.011, 0.022):
+        s0 = int(d * SR); seg = bp(noise(len(t) - s0), 900, 3200) * np.exp(-np.arange(len(t) - s0) / (0.006 * SR)); y[s0:] += seg
+    y += bp(noise(len(t)), 1000, 2500) * np.exp(-t / 0.09) * 0.5
+    return stereo(y / np.max(np.abs(y)) * amp, pan)
+
+
+def open_hat(amp=0.035, pan=0.2):
+    t = t_(0.3); y = np.zeros_like(t)
+    for f in (205.3, 304.4, 369.6, 522.7, 540.0, 800.0):
+        y += signal.square(2 * np.pi * f * 3.5 * t)
+    y = hp(y / 6, 7000, 4) * np.exp(-t / 0.09)
+    return stereo(y * amp, pan)
+
+
+def synth_bass(m, dur, amp=0.05):
+    t = t_(dur); f = midi(m)
+    y = saw_bl(f, t, 3000) * 0.6 + np.sin(2 * np.pi * f * t)
+    cut = 300 + 1500 * np.exp(-t / 0.08)
+    y = lp(y, 900) * 0.6 + lp(y, 2400) * np.exp(-t / 0.08) * 0.4
+    y = np.tanh(1.8 * y) * env_adsr(len(t), a=0.004, d=0.12, s=0.6, r=0.06)
+    return stereo(y * amp)
+
+
+def fm_bell(ms, dur=3.0, amp=0.03):
+    out = None
+    for i, m in enumerate(ms):
+        t = t_(dur); f = midi(m)
+        y = np.sin(2 * np.pi * f * t + 1.8 * np.exp(-t / 0.5) * np.sin(2 * np.pi * f * 3.5 * t)) * np.exp(-t / 1.1)
+        y = stereo(y * amp, (-0.3, 0.3, 0.0)[i % 3])
+        out = y if out is None else out + y
+    return out
+
+
+def impact(amp=0.5, f0=36.7, fs=110, tau=0.05, bells=(86, 93)):
+    t = t_(2.2)
+    f = f0 + fs * np.exp(-t / tau)
+    sub = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t / 0.45)
+    air = hp(noise(len(t)), 6000) * np.exp(-t / 0.25) * 0.08
+    y = stereo(np.tanh(1.5 * sub) * amp) + stereo(air)
+    y[: len(t)] += fm_bell(bells, 2.2, 0.035)[: len(t)]
+    return y
+
+
+def reverse_swell(dur, amp=0.05, lo=800, hi=5000):
+    t = t_(dur); k = t / dur
+    x = noise(len(t))
+    y = lp(x, hi) * 0.5 + bp(x, lo, hi) * 0.5
+    return stereo(y * (k ** 2.2) * amp)
+
+
+def saw_stab(notes, dur=1.6, amp=0.06):
+    t = t_(dur); y = np.zeros_like(t)
+    for m in notes:
+        for c in (-8, 0, 8):
+            y += saw_bl(midi(m) * 2 ** (c / 1200), t, 6000)
+    y = lp(y / (len(notes) * 3), 3500) * np.exp(-t / 0.5)
+    return stereo(y * amp)
+
+
+# ---------------- müzik (v15: döngü sarması yok, lansman yapısı) ----------------
 def music(tl, bpm, phi):
     beat = 60 / bpm; bar = 4 * beat
-    tail = 4.0; n = int((DUR + tail + bar) * SR)
-    off = bar                                       # B0'ı çizebilmek için (negatif zaman) kaydırma
+    n = int((DUR + 5) * SR)
     bus = {k: np.zeros((n, 2)) for k in ('pad', 'keys', 'pluck', 'bass', 'drums', 'fx')}
-    T = lambda bi, b=0: phi + (bi - 1) * bar + b * beat + off
-    drums_on = (4, 11, 2)                           # B4 → B11 3. vuruş
-    for bi in range(0, 15):
+    T = lambda bi, b=0: phi + (bi - 1) * bar + b * beat
+    FINAL = tl['back'][1]                        # 26,911 (B12)
+    # açılış (0–1,4): filtreli ostinato + D2 drone + sub nabzı
+    for i in range(12):
+        at = 0.08 + i * beat / 2
+        m = [74, 69, 76, 69][i % 4]
+        p = ks_pluck(m, 0.7, 0.03 + 0.03 * i / 11, pan=0.25 if i % 2 else -0.25)
+        place(bus['pluck'], lp(p, 500 + 700 * i / 11), at)
+    dr = stereo(np.sin(2 * np.pi * midi(38) * t_(3.0)) * env_adsr(int(3.0 * SR), a=0.45, d=0.3, s=0.8, r=1.2) * 0.05)
+    place(bus['pad'], dr, 0.12)
+    for k, at in enumerate((0.373, 0.950, 1.527, 2.104, 2.681)):
+        tt = t_(0.5); place(bus['bass'], stereo(np.sin(2 * np.pi * 55 * tt) * np.exp(-tt / 0.18) * (0.05 + 0.025 * k)), at)
+    # kamera itişi (2,2–3,12): Asus4 testere swell + 3,12 mini varış
+    d = tl['push'][1] - tl['push'][0]
+    sw = saw_stab([57, 62, 64, 69], d + 0.05, 1.0)[:, 0] * 0
+    tt = t_(d); y = np.zeros_like(tt)
+    for m in (57, 62, 64, 69):
+        y += saw_bl(midi(m), tt, 5000)
+    cut = 800 + 4200 * (tt / d) ** 1.5
+    y = lp(y, 1600) * (1 - tt / d) + lp(y, 5000) * (tt / d)
+    place(bus['fx'], stereo(y / 4 * (0.012 + 0.06 * (tt / d) ** 2)), tl['push'][0])
+    place(bus['bass'], stereo(np.sin(2 * np.pi * midi(38) * t_(0.9)) * np.exp(-t_(0.9) / 0.4) * 0.08), tl['push'][1])
+    for i, m in enumerate((54, 62, 66, 69)):
+        place(bus['keys'], felt(m + 12, 1.8, 0.028, pan=(i - 1.5) * 0.12), tl['push'][1] + 0.008 * i)
+    # akorlar B1–B12 (B13 yeniden vuruşu yok)
+    for bi in range(1, 13):
         chords = PROG.get(bi, [(0, 'Gmaj9')])
         for j, (b, name) in enumerate(chords):
             end_b = chords[j + 1][0] if j + 1 < len(chords) else 4
             root, notes = CH[name]
-            t0 = T(bi, b); d = (end_b - b) * beat
-            # ped filtresi: kamera açılışı ve build
-            tc = t0 - off
-            cut = 900 if tc < 2.4 else 1600 if tc < 7.296 else 4000 if tc < 8.45 else 4200
-            place(bus['pad'], glass_pad(notes, d + 1.6, cut, 0.075), t0)
-            # keçe: ölçü başı akorları (6–12 ms strum)
-            if b == 0 or name in ('A', 'A/C#', 'Bm9'):
+            t0 = T(bi, b); dd = (end_b - b) * beat
+            if bi == 12:  # final: uzun Dmaj9 ped kuyruğu
+                root, notes = CH['Dmaj9']; dd = 3.0
+            cut = 900 if t0 < 2.2 else 1800 if t0 < tl['send'] else 4200
+            place(bus['pad'], glass_pad(notes, dd + 1.6, cut, 0.05 if t0 < tl['send'] else 0.075), t0)
+            if t0 > 3.0 and (b == 0 or name in ('A', 'A/C#', 'Bm9')) and bi < 12:
                 for i, m in enumerate(notes[1:]):
-                    place(bus['keys'], felt(m + 12, 2.0, 0.034, pan=(i - 2) * 0.1), t0 + 0.008 * i)
-            # bas
-            if (4 <= bi < 11) or (bi == 11 and b < 2):
-                place(bus['bass'], bass(root + 12, d * 0.96, 0.055), t0)
-        # pluck ostinato (B2–B10, B7 hariç), 8'lik; 7,873–8,45 16'lık
+                    place(bus['keys'], felt(m + 12, 2.0, 0.018 if t0 < tl['send'] else 0.034, pan=(i - 2) * 0.1), t0 + 0.008 * i)
+        # pluck ostinato (B2–B10, B7 hariç)
         if 2 <= bi <= 10 and bi != 7:
             pat = [74, 69, 76, 69, 78, 69, 76, 69]
             for i, m in enumerate(pat):
-                at = T(bi, i * 0.5) + RNG.normal(0, 0.005)
-                place(bus['pluck'], ks_pluck(m, 0.8, 0.07, pan=0.25 if i % 2 else -0.25), at)
-        if bi == 3:
-            for i in range(8):
-                at = T(3, 2.7) + i * beat / 4
-                if at - off < 8.45: place(bus['pluck'], ks_pluck(81 if i % 2 else 76, 0.4, 0.035, pan=0.2 * (-1) ** i), at)
-        # davul
+                place(bus['pluck'], ks_pluck(m, 0.8, 0.04 if bi < 4 else 0.065, pan=0.25 if i % 2 else -0.25), T(bi, i * 0.5) + RNG.normal(0, 0.005))
+        # groove B4–B11 (B7 seyrek), final vuruşunda biter
         if 4 <= bi <= 11:
-            last = 4 if bi < 11 else 2
-            for b in range(last):
+            for b in range(4):
                 at = T(bi, b)
-                if bi != 7 and b == 0: place(bus['drums'], kick(0.2), at)
-                if bi != 7 and b == 2 and last > 2: place(bus['drums'], kick(0.14), at + beat / 2)
-                if b == 2: place(bus['drums'], rim(0.05), at + RNG.normal(0, 0.004))
-                for h in range(2):
-                    place(bus['drums'], mhat(0.11 if h == 0 else 0.07), at + h * beat / 2 + RNG.normal(0, 0.005))
-    # ışıltı (build)
-    place(bus['fx'], shimmer_gran(7.8, 8.45), 7.8 + off)
-    # sidechain: bas kick'e (−4 dB)
-    k_env = np.abs(bus['drums'][:, 0]); k_env = signal.lfilter([1], [1, -np.exp(-1 / (0.11 * SR))], k_env) * (1 - np.exp(-1 / (0.11 * SR)))
-    bus['bass'] *= (1 - np.clip(k_env * 6, 0, 0.37))[:, None]
-    mix = bus['pad'] + bus['keys'] * 1.0 + bus['pluck'] * 0.9 + bus['bass'] * 1.0 + bus['drums'] * 0.85 + bus['fx']
-    # nefes: düşüşten önceki 16'lık (ped dışında −12 dB)
-    a, b = int((8.306 + off) * SR), int((8.45 + off) * SR)
-    mix[a:b] = bus['pad'][a:b] + (mix[a:b] - bus['pad'][a:b]) * 0.25
+                if at >= FINAL - 0.15: break
+                if bi != 7:
+                    if b in (0, 2): place(bus['drums'], kick(0.24), at)
+                    if b in (1, 3): place(bus['drums'], clap(0.06, 0.05), at + RNG.normal(0, 0.003))
+                    place(bus['drums'], open_hat(0.03), at + beat / 2 + RNG.normal(0, 0.004))
+                    for h in range(2): place(bus['bass'], synth_bass(BASS_N(bi) , beat / 2 * 0.9, 0.05), at + h * beat / 2)
+                place(bus['drums'], mhat(0.06), at + RNG.normal(0, 0.004))
+                if bi == 7 and b == 2: place(bus['drums'], rim(0.05), at)
+    # build (7,85–8,45): iki kick, klap, ters emme, nefes
+    for at in (7.874, 8.162): place(bus['drums'], kick(0.2), at)
+    for at in (8.018, 8.162): place(bus['drums'], clap(0.05), at)
+    place(bus['fx'], reverse_swell(0.45, 0.05), 7.85)
+    # vurgular
+    place(bus['fx'], impact(0.42), tl['res'][0])
+    place(bus['drums'], kick(0.3), tl['res'][0])
+    place(bus['bass'], stereo(np.sin(2 * np.pi * np.cumsum(36.7 + 40 * np.exp(-t_(1.2) / 0.3)) / SR) * np.exp(-t_(1.2) / 0.5) * 0.18), 15.373)
+    place(bus['fx'], reverse_swell(0.29, 0.04), 17.39)
+    tc = t_(0.8); place(bus['fx'], stereo(hp(noise(len(tc)), 7000) * np.exp(-tc / 0.3) * 0.05), tl['menu'])
+    for i in range(7):  # 16'lık merdiven
+        at = 24.027 + i * beat / 4
+        if at < 24.46: place(bus['drums'], clap(0.02 + 0.006 * i), at); place(bus['keys'], felt(69 + [0, 2, 4, 5, 7, 9, 11][i], 0.5, 0.025), at)
+    place(bus['fx'], impact(0.24), tl['bound'])
+    # final HIT
+    place(bus['fx'], impact(0.85, 36.7, 80, 0.06, (86, 93, 98)), FINAL)
+    place(bus['drums'], kick(0.32), FINAL)
+    place(bus['keys'], saw_stab([50, 54, 57, 61, 64], 2.2, 0.14), FINAL)
+    # sidechain pompası (kick tetiği)
+    trig = np.zeros(n)
+    for bi in range(4, 12):
+        for b in (0, 2):
+            at = T(bi, b)
+            if at < FINAL - 0.15 and bi != 7: trig[int(at * SR)] = 1
+    for at in (tl['res'][0], tl['bound'], FINAL): trig[int(at * SR)] = 1
+    k = np.arange(int(0.6 * SR)) / SR; shape = (1 - np.exp(-k / 0.005)) * np.exp(-k / 0.14)
+    duck = np.convolve(trig, shape)[:n]
+    bus['pad'] *= (1 - 0.44 * np.clip(duck, 0, 1))[:, None]
+    bus['pluck'] *= (1 - 0.44 * np.clip(duck, 0, 1))[:, None]
+    bus['bass'] *= (1 - 0.6 * np.clip(duck, 0, 1))[:, None]
+    mix = bus['pad'] + bus['keys'] + bus['pluck'] * 0.9 + bus['bass'] + bus['drums'] * 0.85 + bus['fx']
+    # nefesler
+    for a0, b0 in ((8.306, 8.45), (FINAL - 0.144, FINAL)):
+        i0, i1 = int(a0 * SR), int(b0 * SR)
+        mix[i0:i1] = bus['pad'][i0:i1] + (mix[i0:i1] - bus['pad'][i0:i1]) * 0.25
+    # send reverb: kick/bas hariç
+    send = bus['pad'] * 0.30 + bus['keys'] * 0.28 + bus['pluck'] * 0.22 + bus['fx'] * 0.35
     plate = make_ir(2.6, predelay=0.022, damp=6000, size=1.1, seed=3)
-    wet = np.stack([signal.fftconvolve(mix[:, c], plate[:, c])[: len(mix)] for c in range(2)], 1)
-    mix = mix + wet * 0.28
-    # döngü: [off, off+30) al; öncesi ve sonrası başa/sona sarılır
-    s0 = int(off * SR); k = int(DUR * SR)
-    out = mix[s0:s0 + k].copy()
-    rest = mix[s0 + k:]; out[: min(k, len(rest))] += rest[:k]
-    pre = mix[:s0]; out[k - len(pre):] += pre
-    return out
+    wet = np.stack([signal.fftconvolve(send[:, c], plate[:, c])[: len(send)] for c in range(2)], 1)
+    wet = lp(hp(wet, 250), 9000)
+    mix = mix + wet
+    out = mix[: int(DUR * SR)].copy()
+    # kuyruk: 27,95'ten sonra yavaşça söner, 29,9'da ≤ −45 dBFS
+    tt = np.arange(len(out)) / SR
+    fade = np.where(tt < 27.95, 1.0, np.clip(1 - (tt - 27.95) / 1.95, 0, 1) ** 2.2)
+    return out * fade[:, None]
+
+
+def BASS_N(bi):
+    return [43, 40, 45, 38, 35, 43, 40, 45, 42, 43, 38, 40, 43][(bi - 1) % 13] + 12
 
 
 def ui(tl):
@@ -334,7 +445,7 @@ def ui(tl):
     for at, m in ((tl['menu'], 69), (tl['plugOpen'][0], 71), (tl['page'][0], 73)):
         place(bus, felt(m, 1.4, 0.05), at); place(bus, ks_pluck(m + 12, 0.6, 0.02), at)
     for k, x in (('menu', 110), ('plug', 260), ('searchTap', 589), ('row', 330), ('tryTap', 589)):
-        place(bus, tap(-17 if k != 'searchTap' else -19, pan(x)), tl[k])
+        place(bus, tap(-20 if k == 'tryTap' else -17 if k != 'searchTap' else -19, pan(x)), tl[k])
     for k in ('side', 'plugOpen', 'page', 'newChat'):
         place(bus, detent(-36), tl[k][1])
     a, b = tl['ptype']
@@ -343,8 +454,8 @@ def ui(tl):
     place(bus, tap(-18, 0.0), tl['install'])
     for k in range(3): place(bus, stereo(np.sin(2 * np.pi * (2400 + 200 * k) * t_(0.03)) * np.exp(-t_(0.03) / 0.004) * 10 ** (-36 / 20)), tl['spin'][0] + 0.15 * k)
     # Bağlı: mandal (iki klik 9 ms) + D5/A5 keçe
-    m1 = detent(-22); place(bus, m1, tl['bound']); place(bus, m1, tl['bound'] + 0.009)
-    place(bus, felt(74, 1.8, 0.09, -0.1), tl['bound'] + 0.012); place(bus, felt(81, 1.8, 0.07, 0.1), tl['bound'] + 0.019)
+    m1 = detent(-26); place(bus, m1, tl['bound']); place(bus, m1, tl['bound'] + 0.009)
+    place(bus, felt(74, 1.8, 0.05, -0.1), tl['bound'] + 0.012); place(bus, felt(81, 1.8, 0.04, 0.1), tl['bound'] + 0.019)
     # kapanış imzası 'Ev·lek'
     place(bus, logo_note(69, -24), tl['back'][0])
     a = t_(0.12); place(bus, stereo(bp(noise(len(a)), 800, 3000) * np.sin(np.pi * a / 0.12) * 10 ** (-40 / 20)), tl['back'][1] - 0.12)
@@ -380,6 +491,20 @@ def main():
     e = np.abs(u).max(1); e = signal.lfilter([1 - np.exp(-1 / (0.18 * SR))], [1, -np.exp(-1 / (0.18 * SR))], e)
     duck = 1 - np.clip(e / (np.max(e) + 1e-9) * 1.2, 0, 0.25)
     mix = m * duck[:, None] + u * 1.6
+    # fader otomasyonu: bölüm hedeflerine göre yumuşak kazanç (±8 dB), lansman dinamiği (sakin açılış → vurgular → en yüksek final)
+    F_ = tl['back'][1]
+    TG = [(0, -26), (1.4, -21), (3.15, -19.5), (7.3, -17), (8.4, -16), (8.45, -9), (8.95, -14.5), (14.7, -17), (17.68, -15), (19.99, -15), (24.55, -15), (24.6, -10.5), (25.1, -15),
+          (F_ - 0.25, -17), (F_, -7), (F_ + 0.6, -9), (27.6, -13), (28.6, -22), (30, -34)]
+    hop = int(0.1 * SR); win = int(0.4 * SR)
+    pw = np.convolve(np.mean(mix ** 2, 1), np.ones(win) / win, 'same')
+    lv = 10 * np.log10(pw[::hop] + 1e-12)
+    tt = np.arange(len(lv)) * hop / SR
+    tgt = np.interp(tt, [a for a, _ in TG], [b for _, b in TG])
+    ref = np.median(lv[(tt > 9) & (tt < 14)] - tgt[(tt > 9) & (tt < 14)])
+    g = np.clip(tgt - (lv - ref), -8, 8)
+    g = np.convolve(g, np.ones(3) / 3, 'same')
+    gl = np.interp(np.arange(len(mix)) / SR, tt, g)
+    mix = mix * (10 ** (gl / 20))[:, None]
     pad_n = SR  # dairesel dolgu: filtreler döngü dikişinde süreksizlik üretmesin
     mix = master_pre(np.concatenate([mix[-pad_n:], mix, mix[:pad_n]]))[pad_n:-pad_n]
     mix = mix / np.max(np.abs(mix)) * 0.5

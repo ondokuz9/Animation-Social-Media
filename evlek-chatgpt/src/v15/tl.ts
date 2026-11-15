@@ -1,9 +1,12 @@
 // v14 · zaman çizelgesi (sn, 60 fps). docs/v14/kurul/plan.json (finish şefi) + Rumi kararı ("emlakçıya ulaş" anı korunur).
 // Müzik ızgarası: 104 BPM, ölçü 2,30769 sn, faz 1,527 → B4 8,450 (sonuç) · B6 13,065 (kart) · B9 19,988 (eklenti) · B11 24,604 (Bağlı).
 export const MUSIC = {bpm: 104, phi: 1.527};
+/** lansman ışık vuruşları (yalnız zeminde ve gövde kenarında): sonuç · eklenti · final */
+export const BEATS: [number, number, number][] = [[8.45, 0.5, 0.55], [19.988, 0.8, 0.7], [26.911, 1.0, 0.9]];
+export const SWEEPS: [number, number][] = [[0.12, 1.2], [19.988, 20.9], [26.911, 27.95]];
 export const TL = {
   // GİRİŞ
-  sig: [1.4, 2.1], pop: [2.1, 2.3], titleDim: [1.42, 1.58], titleOut: [2.25, 2.45], push: [2.4, 3.1],
+  sig: [1.4, 2.1], pop: [2.1, 2.3], titleDim: [1.42, 1.58], titleOut: [2.25, 2.45], push: [2.2, 3.12],
   // GELİŞME · yaz → ara → sonuç
   type: [3.15, 7.16], send: 7.296, kbdDown: [7.4, 7.7], rise: [7.4, 7.78], cam1: [7.8, 8.45],
   search: [7.8, 8.3], think: 8.3, res: [8.45, 8.75], stopOff: 8.75, slogan: [8.85, 9.03, 10.5, 10.7],
@@ -18,7 +21,7 @@ export const TL = {
   searchTap: 21.6, kbd: [21.78, 22.06], ptype: [22.1, 22.367], pres: 22.45, row: 22.873, page: [23.06, 23.36],
   install: 24.027, spin: [24.1, 24.55], bound: 24.604, tryTap: 25.181, newChat: [25.36, 25.66],
   // KAPANIŞ
-  back: [25.9, 26.55], title2: [26.55, 27.4], foot: [27.5, 27.75, 29.7, 29.9],
+  back: [26.15, 26.911], title2: [27.0, 27.85], foot: [27.9, 28.15, 29.55, 29.85],
 };
 /** yazma: kelime içinde harf başına 4 kare, boşlukta +0,09 sn, satır sonunda +0,20 sn; her harf bir kareye kilitli */
 export const QL = ['Lapta’da £160 bin altı,', 'deniz manzaralı 2+1 daire'];

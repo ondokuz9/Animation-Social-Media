@@ -46,7 +46,7 @@ const Key: React.FC<{y0: number; y1: number}> = ({y0, y1}) => (
 );
 
 /** onPhoto: fotoğraf zeminine geçişte gölge biraz daha yumuşak ve açık */
-export const Phone: React.FC<{pose: Pose; children?: React.ReactNode; shadow?: number; onPhoto?: number}> = ({pose, children, shadow = 1, onPhoto = 0}) => {
+export const Phone: React.FC<{pose: Pose; children?: React.ReactNode; shadow?: number; onPhoto?: number; lit?: number; sweep?: number; flash?: number}> = ({pose, children, shadow = 1, onPhoto = 0, lit = 1, sweep = -1, flash = 0}) => {
   const {x, y, s, rx, ry, rz} = pose;
   const left = x - PW / 2, top = y - PH / 2;
   const sh = (dx: number, dy: number, blur: number, a: number, grow: number) => (
@@ -85,8 +85,20 @@ export const Phone: React.FC<{pose: Pose; children?: React.ReactNode; shadow?: n
           <div style={{position: 'absolute', left: BX, top: BY, width: BW, height: BH, borderRadius: BR,
             background: 'linear-gradient(135deg, #5C636A 0%, #3A4046 22%, #23282C 55%, #30363B 80%, #4E555B 100%)'}} />
           {/* pah ışığı (siluet) */}
-          <div style={{position: 'absolute', left: BX, top: BY, width: BW, height: BH, borderRadius: BR, boxShadow: 'inset 0 0 0 4px rgba(255,255,255,.55)', transform: 'translateZ(0.3px)', pointerEvents: 'none',
+          <div style={{position: 'absolute', left: BX, top: BY, width: BW, height: BH, borderRadius: BR, boxShadow: `inset 0 0 0 4px rgba(255,255,255,${0.25 + 0.3 * lit})`, transform: 'translateZ(0.3px)', pointerEvents: 'none',
             WebkitMaskImage: `radial-gradient(farthest-corner at ${mx}% ${my}%, #000 0%, rgba(0,0,0,.25) 55%, #000 100%)`}} />
+          {/* kenar ışığı süpürmesi (yalnız gövde bandında; ekranın üstüne binmez) */}
+          {sweep >= 0 && sweep <= 1 && (() => {
+            const pp = -15 + 130 * sweep;
+            const m = `linear-gradient(118deg, transparent ${pp - 9}%, rgba(0,0,0,.35) ${pp - 4}%, #000 ${pp}%, rgba(0,0,0,.35) ${pp + 4}%, transparent ${pp + 9}%)`;
+            return (
+              <>
+                <div style={{position: 'absolute', left: BX, top: BY, width: BW, height: BH, borderRadius: BR, boxShadow: 'inset 0 0 0 5px rgba(250,248,242,.95)', transform: 'translateZ(0.35px)', pointerEvents: 'none', WebkitMaskImage: m}} />
+                {[45, 50, 55].map((z) => <div key={z} style={{position: 'absolute', left: BX, top: BY, width: BW, height: BH, borderRadius: BR, background: '#E6E2D8', transform: `translateZ(${-z}px)`, WebkitMaskImage: m, opacity: 0.55}} />)}
+              </>
+            );
+          })()}
+          {flash > 0.002 && <div style={{position: 'absolute', left: BX, top: BY, width: BW, height: BH, borderRadius: BR, boxShadow: `inset 0 0 0 5px rgba(250,248,242,${0.6 * flash}), 0 0 36px 4px rgba(178,185,189,${0.35 * flash})`, transform: 'translateZ(0.36px)', pointerEvents: 'none'}} />}
           {/* cam mürekkebi */}
           <div style={{position: 'absolute', left: BX + 12, top: BY + 12, width: BW - 24, height: BH - 24, borderRadius: BR - 12, background: '#0B0D10', transform: 'translateZ(0.5px)'}} />
           {/* cam kenarı parıltısı: yalnız mürekkep halkasında (ekran dikdörtgeni dışarıda) */}

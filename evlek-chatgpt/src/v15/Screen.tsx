@@ -7,7 +7,7 @@ import {E, EvIcon, F, S, lin, mix} from '../v10/core';
 import {SH, SW} from './Phone';
 import {QL, TL, typeTimes} from './tl';
 
-const K = {bg: '#000000', comp: '#191919', surf: '#1C1C1E', surf2: '#2C2C2E', text: '#F2F2F2', sub: '#9B9B9B', dim: '#6E6E73', bubble: '#010456', stop: '#305BEE', skel: '#1F1F22'};
+const K = {accent: '#305BEE', bg: '#000000', comp: '#191919', surf: '#1C1C1E', surf2: '#2C2C2E', text: '#F2F2F2', sub: '#9B9B9B', dim: '#6E6E73', bubble: '#010456', stop: '#305BEE', skel: '#1F1F22'};
 const img = (p: string) => staticFile(p);
 const W_ = (n: string) => img(`v12/w/${n}`);
 const PT = 3;
@@ -24,7 +24,7 @@ const typed = (s: string, t: number, a: number, b: number) => s.slice(0, Math.ro
 // ---------- ikonlar ----------
 const sv = (w: number, d: React.ReactNode, c: string, sw = 2) => <svg width={w} height={w} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round">{d}</svg>;
 const Ico = {
-  menu: (c = K.text, w = 60) => sv(w, <path d="M4 9h16M4 15h10" />, c),
+  menu: (c = K.text) => <svg width={56} height={32} viewBox="0 0 56 32" fill="none" stroke={c} strokeWidth={5} strokeLinecap="round"><path d="M2.5 2.5h51M2.5 29.5h32" /></svg>,
   edit: (c = K.text, w = 56) => sv(w, <><path d="M12 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6" /><path d="M17.5 3.5a2.1 2.1 0 0 1 3 3L12 15l-4 1 1-4z" /></>, c, 1.8),
   close: (c = K.text, w = 54) => sv(w, <path d="M6 6l12 12M18 6L6 18" />, c, 2.2),
   back: (c = K.text, w = 60) => sv(w, <path d="M15 5l-7 7 7 7" />, c, 2.2),
@@ -48,8 +48,8 @@ const Ico = {
 
 const StatusBar: React.FC = () => (
   <div style={{position: 'absolute', left: 0, right: 0, top: 0, height: 140, fontFamily: F, color: K.text, pointerEvents: 'none'}}>
-    <div style={{position: 'absolute', left: 120, top: 48, fontSize: 50, fontWeight: 600, letterSpacing: '-0.01em'}}>10:24</div>
-    <div style={{position: 'absolute', right: 100, top: 58, display: 'flex', gap: 18, alignItems: 'center'}}>
+    <div style={{position: 'absolute', left: 136, top: 50, fontSize: 52, fontWeight: 600, letterSpacing: '-0.01em'}}>10:24</div>
+    <div style={{position: 'absolute', right: 111, top: 66, display: 'flex', gap: 18, alignItems: 'center'}}>
       <svg width="58" height="36" viewBox="0 0 29 18">{[0, 1, 2, 3].map((i) => <rect key={i} x={i * 7.5} y={14 - i * 4} width="5" height={4 + i * 4} rx="1.3" fill={K.text} />)}</svg>
       <svg width="52" height="38" viewBox="0 0 26 19"><path d="M13 17.5l3.2-3.7a4.6 4.6 0 0 0-6.4 0z M5.6 10.2a10.6 10.6 0 0 1 14.8 0l-2.2 2.4a7.4 7.4 0 0 0-10.4 0z M1.2 5.6a17 17 0 0 1 23.6 0l-2.2 2.4a13.8 13.8 0 0 0-19.2 0z" fill={K.text} /></svg>
       <div style={{width: 74, height: 36, borderRadius: 11, border: '3px solid rgba(238,240,243,.45)', padding: 3, boxSizing: 'border-box'}}><div style={{width: '82%', height: '100%', borderRadius: 6, background: K.text}} /></div>
@@ -57,13 +57,13 @@ const StatusBar: React.FC = () => (
   </div>
 );
 const HomeBar: React.FC = () => <div style={{position: 'absolute', left: SW / 2 - 200, bottom: 22, width: 400, height: 14, borderRadius: 7, background: 'rgba(238,240,243,.85)'}} />;
-const Circ: React.FC<{x: number; y: number; children: React.ReactNode; r?: number; s?: number}> = ({x, y, children, r = 62, s = 1}) => (
-  <div style={{position: 'absolute', left: x - r, top: y - r, width: 2 * r, height: 2 * r, borderRadius: r, background: K.surf, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: 'inset 0 0 0 2px rgba(255,255,255,.06)', transform: `scale(${s})`}}>{children}</div>
+const Circ: React.FC<{x: number; y: number; children: React.ReactNode; r?: number; s?: number; bg?: string}> = ({x, y, children, r = 59, s = 1, bg = '#181818'}) => (
+  <div style={{position: 'absolute', left: x - r, top: y - r, width: 2 * r, height: 2 * r, borderRadius: r, background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: 'inset 0 0 0 1.5px rgba(255,255,255,.10)', transform: `scale(${s})`}}>{children}</div>
 );
-const ChatHeader: React.FC<{t: number}> = ({t}) => (
+const ChatHeader: React.FC<{t: number; empty?: boolean}> = ({t, empty}) => (
   <>
-    <Circ x={110} y={228} s={press(t, TL.menu)}>{Ico.menu()}</Circ>
-    <Circ x={SW - 110} y={228}>{Ico.edit()}</Circ>
+    <Circ x={113} y={225} s={press(t, TL.menu)}>{Ico.menu()}</Circ>
+    <Circ x={SW - 113} y={225}>{Ico.edit(empty ? '#3A3A3A' : K.text)}</Circ>
   </>
 );
 
@@ -74,7 +74,7 @@ const Keyboard: React.FC<{k: number; search?: boolean}> = ({k, search}) => {
   if (k <= 0) return null;
   const kw = 79, gap = 18;
   const key = (ch: string, x: number, y: number, w = kw, fn = false, blue = false) => (
-    <div key={`${ch}${x}${y}`} style={{position: 'absolute', left: x, top: y, width: w, height: 123, borderRadius: 15, background: blue ? '#006DFD' : fn ? '#434542' : '#343633', color: '#F2F2F2', fontFamily: F, fontSize: 56, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{ch}</div>
+    <div key={`${ch}${x}${y}`} style={{position: 'absolute', left: x, top: y, width: w, height: 123, borderRadius: 15, background: blue ? '#006DFD' : '#343633', color: '#F2F2F2', fontFamily: F, fontSize: 56, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{ch === 'S' ? Ico.search('#FFFFFF', 56) : ch === 'R' ? <svg width={48} height={48} viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round"><path d="M20 5v7a3 3 0 0 1-3 3H5M9 11l-4 4 4 4" /></svg> : ch}</div>
   );
   const rowX = (n: number, w = kw) => (SW - (n * w + (n - 1) * gap)) / 2;
   const tops = [1781, 1932, 2083, 2234].map((y) => y - KB.top);
@@ -84,9 +84,9 @@ const Keyboard: React.FC<{k: number; search?: boolean}> = ({k, search}) => {
   const x3 = rowX(9);
   ROWS[2].split('').forEach((c, i) => els.push(key(c, x3 + i * (kw + gap), tops[2])));
   els.push(key('⇧', 10, tops[2], x3 - 10 - gap, true), key('⌫', x3 + 9 * (kw + gap), tops[2], SW - 10 - (x3 + 9 * (kw + gap)), true));
-  els.push(key('123', 10, tops[3], 150, true), key('☺', 178, tops[3], 120, true), key('', 316, tops[3], SW - 316 - 10 - 248 - gap), key(search ? '⌕' : '↵', SW - 10 - 248, tops[3], 248, true, !!search));
+  els.push(key('123', 10, tops[3], 150, true), key('☺', 178, tops[3], 120, true), key('', 316, tops[3], SW - 316 - 10 - 248 - gap), key(search ? 'S' : 'R', SW - 10 - 248, tops[3], 248, true, !!search));
   return (
-    <div style={{position: 'absolute', left: 0, top: KB.top, width: SW, height: KB.h, background: '#161815', transform: `translateY(${(1 - k) * KB.h}px)`}}>
+    <div style={{position: 'absolute', left: 0, top: KB.top, width: SW, height: KB.h, background: '#161815', borderRadius: '42px 42px 0 0', boxShadow: 'inset 0 1.5px 0 rgba(255,255,255,.08)', transform: `translateY(${(1 - k) * KB.h}px)`}}>
       {els}
       <HomeBar />
     </div>
@@ -94,10 +94,10 @@ const Keyboard: React.FC<{k: number; search?: boolean}> = ({k, search}) => {
 };
 
 // ---------- Evlek çipi ----------
-export const CHIP_W = 210;
+export const CHIP_W = 190;
 const EvChip: React.FC<{size?: number; o?: number}> = ({size = 48, o = 1}) => (
-  <span style={{display: 'inline-flex', alignItems: 'center', gap: size * 0.25, width: CHIP_W, verticalAlign: 'middle', fontWeight: 700, color: K.text, opacity: o}}>
-    <EvIcon size={size * 0.95} r={0.28} />Evlek
+  <span style={{display: 'inline-flex', alignItems: 'center', gap: 24, width: CHIP_W, verticalAlign: 'middle', fontWeight: 500, color: K.text, opacity: o}}>
+    <EvIcon size={size * 0.75} r={0.28} />Evlek
   </span>
 );
 
@@ -106,25 +106,36 @@ const LH = 68, COMP = {x: 36, padTop: 44, row: 132};
 export const compH = (n: number) => COMP.padTop + n * LH + COMP.row;
 const KB_BOTTOM = SH - KB.top + 30; // klavye açıkken kutunun alt payı (877)
 /** çipin "Evlek" sözcüğünün merkezi (klavye açık, tek satır) */
-export const CHIP_WORD = {x: COMP.x + 44 + 48 * 0.95 + 12 + 70, y: SH - KB_BOTTOM - compH(1) + COMP.padTop + LH / 2, h: 38};
-export const SEND_BTN = {x: SW - COMP.x - 26 - 52, y: SH - KB_BOTTOM - 22 - 52};
-const Composer: React.FC<{t: number; lines: string[]; chip: boolean; caret?: boolean; bottom: number; sendState?: 'empty' | 'ready' | 'stop'; textO?: number}> = ({t, lines, chip, caret, bottom, sendState = 'empty', textO = 1}) => {
+export const CHIP_WORD = {x: COMP.x + 44 + 36 + 24 + 60, y: SH - KB_BOTTOM - compH(1) + COMP.padTop + LH / 2, h: 38};
+export const INSTALL_BTN = {x: SW / 2, y: SH - 91 - 72};
+export const SEND_BTN = {x: SW - COMP.x - 17 - 44, y: SH - KB_BOTTOM - 20 - 44};
+/** yazım kutusu: kb=1 klavye açık (iki katlı kutu), kb=0 klavye kapalı (tek satırlık yüzen hap, gerçek kayıt 57_0) */
+export const PILL = {left: 98, right: 101, bottom: 91, h: 127};
+const Composer: React.FC<{t: number; lines: string[]; chip: boolean; caret?: boolean; kb: number; sendState?: 'empty' | 'ready' | 'stop'; textO?: number}> = ({t, lines, chip, caret, kb, sendState = 'empty', textO = 1}) => {
   const n = Math.max(1, lines.length);
-  const blink = 0.5 + 0.5 * Math.cos(2 * Math.PI * (t % 1)); // yumuşak 1 sn döngü
-  const has = sendState === 'ready';
+  const blink = 0.5 + 0.5 * Math.cos(2 * Math.PI * (t % 1));
+  const hasText = lines.some((l) => l);
+  const H = mix(PILL.h, compH(n), kb);
+  const bottom = mix(PILL.bottom, KB_BOTTOM, kb);
+  const sp = press(t, TL.send);
+  const showBtn = sendState !== 'empty';
+  const bs = mix(86, 88, kb);
   return (
-    <div style={{position: 'absolute', left: COMP.x, right: COMP.x, bottom, height: compH(n), borderRadius: 64, background: K.comp, boxShadow: 'inset 0 0 0 2px rgba(255,255,255,.07)', fontFamily: F}}>
-      <div style={{position: 'absolute', left: 44, right: 44, top: COMP.padTop, fontSize: 48, lineHeight: `${LH}px`, color: K.text, letterSpacing: '-0.01em', whiteSpace: 'nowrap', opacity: textO}}>
+    <div style={{position: 'absolute', left: mix(PILL.left, COMP.x, kb), right: mix(PILL.right, COMP.x, kb), bottom, height: H, borderRadius: 64, background: kb < 1 ? `rgba(25,25,25,${mix(0.94, 1, kb)})` : K.comp, boxShadow: 'inset 0 0 0 1.5px rgba(255,255,255,.10)', fontFamily: F}}>
+      <div style={{position: 'absolute', left: mix(138, 44, kb), right: 44, top: mix((PILL.h - 64) / 2, COMP.padTop, kb), fontSize: mix(46, 48, kb), lineHeight: `${mix(64, LH, kb)}px`, color: K.text, letterSpacing: '-0.01em', whiteSpace: 'nowrap', opacity: textO}}>
         {chip && <EvChip />}
-        {!chip && !lines.some((l) => l) && !caret && <span style={{color: K.dim}}>ChatGPT’ye sor</span>}
+        {caret && !hasText && <span style={{display: 'inline-block', width: 4, height: 56, marginRight: 6, verticalAlign: -10, background: '#3A6BFF', opacity: blink}} />}
+        {!chip && !hasText && <span style={{color: '#757575'}}>ChatGPT’ye sor</span>}
         {lines.map((l, i) => <React.Fragment key={i}>{i > 0 && <br />}{l}</React.Fragment>)}
-        {caret && <span style={{display: 'inline-block', width: 4, height: 56, marginLeft: 4, verticalAlign: -10, background: '#8FB4FF', opacity: blink}} />}
+        {caret && hasText && <span style={{display: 'inline-block', width: 4, height: 56, marginLeft: 4, verticalAlign: -10, background: '#3A6BFF', opacity: blink}} />}
       </div>
-      <div style={{position: 'absolute', left: 36, bottom: 36}}>{Ico.plus(K.text, 60)}</div>
-      <div style={{position: 'absolute', right: 160, bottom: 38}}>{Ico.mic(K.text)}</div>
-      <div style={{position: 'absolute', right: 26, bottom: 22, width: 104, height: 104, borderRadius: 52, background: sendState === 'stop' ? K.stop : has ? '#F2F2F2' : K.surf2, display: 'flex', alignItems: 'center', justifyContent: 'center', transform: `scale(${press(t, TL.send) === 1 ? 1 : mix(1, 0.9, (1 - press(t, TL.send)) / 0.04)})`}}>
-        {sendState === 'stop' ? <div style={{width: 30, height: 30, borderRadius: 6, background: '#fff'}} /> : Ico.up(has ? '#000' : K.sub)}
-      </div>
+      <div style={{position: 'absolute', left: mix(41, 36, kb), bottom: mix((PILL.h - 48) / 2, 36, kb)}}>{Ico.plus(K.text, mix(48, 60, kb))}</div>
+      <div style={{position: 'absolute', right: mix(164, 160, kb), bottom: mix((PILL.h - 56) / 2, 38, kb)}}>{Ico.mic(K.text)}</div>
+      {showBtn && (
+        <div style={{position: 'absolute', right: mix(19, 17, kb), bottom: mix((PILL.h - 86) / 2, 20, kb), width: bs, height: bs, borderRadius: bs / 2, background: K.accent, display: 'flex', alignItems: 'center', justifyContent: 'center', transform: `scale(${sp === 1 ? 1 : mix(1, 0.9, (1 - sp) / 0.04)})`}}>
+          {sendState === 'stop' ? <div style={{width: 30, height: 30, borderRadius: 6, background: '#fff'}} /> : Ico.up('#fff', 48)}
+        </div>
+      )}
     </div>
   );
 };
@@ -133,15 +144,15 @@ const Composer: React.FC<{t: number; lines: string[]; chip: boolean; caret?: boo
 type WP = [number, number, number]; // t, x, y
 const CUR_TRACKS: {a: number; b: number; pts: WP[]; taps: number[]}[] = [
   {a: 6.95, b: 7.42, pts: [[6.95, 900, 1420], [7.22, SEND_BTN.x, SEND_BTN.y]], taps: [TL.send]},
-  {a: 11.85, b: 13.2, pts: [[11.85, 980, 0], [12.0, 980, 0], [12.25, 680, 0], [12.85, 680, 0], [12.95, 420, 1], [13.065, 420, 1]], taps: [TL.tap]},
+  {a: 11.85, b: 13.2, pts: [[11.85, 980, 0], [12.0, 980, 0], [12.25, 680, 0], [12.85, 680, 0], [12.95, 396, 1], [13.065, 396, 1]], taps: [TL.tap]},
   {a: 17.25, b: 17.75, pts: [[17.25, 900, 715], [17.45, 900, 715], [17.681, 520, 715]], taps: []},
   {a: 18.12, b: 18.75, pts: [[18.12, 760, 2300], [18.3, 881, 2452], [18.45, 881, 2452], [18.6, 110, 208], [18.62, 110, 208]], taps: [TL.contact, TL.close]},
   {a: 19.7, b: 20.0, pts: [[19.7, 260, 420], [19.95, 110, 228]], taps: [TL.menu]},
   {a: 20.47, b: 20.87, pts: [[20.47, 420, 900], [20.82, 260, 614]], taps: [TL.plug]},
-  {a: 21.34, b: 21.62, pts: [[21.34, 589, 1900], [21.58, 589, 2372]], taps: [TL.searchTap]},
+  {a: 21.34, b: 21.62, pts: [[21.34, 589, 1900], [21.58, 589, SH - 104 - 62]], taps: [TL.searchTap]},
   {a: 22.5, b: 22.9, pts: [[22.5, 589, 760], [22.85, 330, 430]], taps: [TL.row]},
-  {a: 23.75, b: 24.05, pts: [[23.75, 700, 2000], [24.0, 589.5, 2371]], taps: [TL.install]},
-  {a: 24.9, b: 25.2, pts: [[24.9, 760, 2100], [25.16, 589.5, 2371]], taps: [TL.tryTap]},
+  {a: 23.75, b: 24.05, pts: [[23.75, 700, 2000], [24.0, INSTALL_BTN.x, INSTALL_BTN.y]], taps: [TL.install]},
+  {a: 24.9, b: 25.2, pts: [[24.9, 760, 2100], [25.16, INSTALL_BTN.x, INSTALL_BTN.y]], taps: [TL.tryTap]},
 ];
 const Cursor: React.FC<{t: number; cardY: number}> = ({t, cardY}) => {
   const tr = CUR_TRACKS.find((c) => t >= c.a && t < c.b);
@@ -160,11 +171,11 @@ const Cursor: React.FC<{t: number; cardY: number}> = ({t, cardY}) => {
 
 // ---------- sohbet akışı ----------
 const TOP = 300;
-const FLOW = {bubble: 40, think: 300, label: 372, widget: 470};
-const WS = 0.96, WX = 24;
+const FLOW = {bubble: 40, think: 337, label: 450, widget: 529};
+const WS = 1, WX = 0;
 const LAP = {mapH: 188 * PT, topH: 829, rowY: 829, rowH: 860, botY: 1689, botH: 171, x0pt: 742, cardY: 12 * PT, cardH: 262.67 * PT, cardW: 232 * PT};
 export const WIDGET_H = 1860;
-export const LAPTA_SCROLL = 420;
+export const LAPTA_SCROLL = 514;
 export const chatScroll = (t: number) => mix(0, LAPTA_SCROLL, IOS(lin(t, TL.scroll[0], TL.scroll[1])));
 // sürükle (1:1, 300 ekran px) + bırak (üstel yavaşlama τ 0,32) → £139.000 kartı yakalanır
 const CARD_PX = 244 * PT * WS;
@@ -182,7 +193,7 @@ const rowLeft = (idx: number) => (LAP.x0pt - 244 * idx) * PT;
 export const card5Rect = () => ({x: WX + 16 * PT * WS, y: TOP + FLOW.widget - LAPTA_SCROLL + (LAP.rowY + LAP.cardY) * WS, w: LAP.cardW * WS, h: LAP.cardH * WS});
 
 const Bubble: React.FC<{lines: string[]}> = ({lines}) => (
-  <div style={{position: 'absolute', right: 40, maxWidth: 1000, padding: '34px 44px', borderRadius: 56, background: K.bubble, fontFamily: F, fontSize: 46, lineHeight: '64px', color: K.text, letterSpacing: '-0.01em', whiteSpace: 'nowrap'}}>
+  <div style={{position: 'absolute', right: 40, maxWidth: 1000, padding: '34px 54px', borderRadius: 56, background: K.bubble, fontFamily: F, fontSize: 46, lineHeight: '69px', color: K.text, letterSpacing: '-0.01em', whiteSpace: 'nowrap'}}>
     <EvChip size={44} />{lines.map((l, i) => <React.Fragment key={i}>{i > 0 && <br />}{l}</React.Fragment>)}
   </div>
 );
@@ -191,7 +202,7 @@ const LaptaWidget: React.FC<{t: number}> = ({t}) => {
   const idx = cardIdx(t);
   const cp = press(t, TL.tap);
   return (
-    <div style={{position: 'absolute', left: WX, top: (1 - k) * 24, width: SW, height: WIDGET_H, transform: `scale(${WS})`, transformOrigin: '0 0', borderRadius: 44, overflow: 'hidden', background: '#212121', opacity: k}}>
+    <div style={{position: 'absolute', left: WX, top: (1 - k) * 24, width: SW, height: WIDGET_H, transform: `scale(${WS})`, transformOrigin: '0 0', overflow: 'hidden', background: '#212121', opacity: k}}>
       <Img src={W_('wLaptaTop.png')} style={{position: 'absolute', left: 0, top: 0, width: SW, height: LAP.topH}} />
       <div style={{position: 'absolute', left: 0, top: LAP.rowY, width: SW, height: LAP.rowH, overflow: 'hidden'}}>
         <div style={{position: 'absolute', left: 0, top: 0, width: SW, height: LAP.rowH, transform: `scale(${cp})`, transformOrigin: `${16 * PT + LAP.cardW / 2}px ${LAP.cardY + LAP.cardH / 2}px`}}>
@@ -212,11 +223,11 @@ const LaptaChat: React.FC<{t: number}> = ({t}) => {
       <div style={{position: 'absolute', left: 0, right: 0, top: TOP, bottom: 0, overflow: 'hidden'}}>
         <div style={{position: 'absolute', left: 0, right: 0, top: -sc}}>
           {t >= TL.rise[1] - 0.001 && <div style={{position: 'absolute', left: 0, right: 0, top: FLOW.bubble}}><Bubble lines={QL} /></div>}
-          {t >= TL.think && <div style={{position: 'absolute', left: 52, top: FLOW.think, fontFamily: F, fontSize: 45, color: K.sub, display: 'flex', alignItems: 'center', gap: 8, opacity: lin(t, TL.think, TL.think + 0.15)}}>Birkaç saniye düşündü {Ico.chev(K.sub, 38)}</div>}
+          {t >= TL.think && <div style={{position: 'absolute', left: 46, top: FLOW.think, fontFamily: F, fontSize: 45, color: '#A1A1A1', display: 'flex', alignItems: 'center', gap: 8, opacity: lin(t, TL.think, TL.think + 0.15)}}>Birkaç saniye düşündü {Ico.chev(K.sub, 38)}</div>}
           {t >= TL.search[0] && (
-            <div style={{position: 'absolute', left: 52, top: FLOW.label, display: 'flex', alignItems: 'center', gap: 20, fontFamily: F, fontSize: 44, fontWeight: 500, opacity: lin(t, TL.search[0], TL.search[0] + 0.12)}}>
-              <EvIcon size={60} r={0.28} />
-              {done ? <span style={{color: K.text}}>Evlek</span> : <span style={{backgroundImage: `linear-gradient(90deg, ${K.dim} ${sh * 160 - 40}%, #FFFFFF ${sh * 160 - 20}%, ${K.dim} ${sh * 160}%)`, WebkitBackgroundClip: 'text', color: 'transparent'}}>Evlek</span>}
+            <div style={{position: 'absolute', left: 46, top: FLOW.label, display: 'flex', alignItems: 'center', gap: 24, fontFamily: F, fontSize: 38, fontWeight: 400, opacity: lin(t, TL.search[0], TL.search[0] + 0.12)}}>
+              <EvIcon size={48} r={0.28} />
+              {done ? <span style={{color: '#8E8E8E'}}>Evlek</span> : <span style={{backgroundImage: `linear-gradient(90deg, ${K.dim} ${sh * 160 - 40}%, #FFFFFF ${sh * 160 - 20}%, ${K.dim} ${sh * 160}%)`, WebkitBackgroundClip: 'text', color: 'transparent'}}>Evlek</span>}
             </div>
           )}
           {t >= TL.res[0] && <div style={{position: 'absolute', left: 0, right: 0, top: FLOW.widget}}><LaptaWidget t={t} /></div>}
@@ -224,7 +235,7 @@ const LaptaChat: React.FC<{t: number}> = ({t}) => {
       </div>
       <div style={{position: 'absolute', left: 0, right: 0, top: 0, height: TOP, background: 'linear-gradient(180deg, #000 82%, rgba(0,0,0,0))'}} />
       <ChatHeader t={t} />
-      <Composer t={t} lines={['']} chip={false} bottom={70} sendState={stop ? 'stop' : 'empty'} />
+      <Composer t={t} lines={['']} chip={false} kb={0} sendState={stop ? 'stop' : 'empty'} />
       <HomeBar />
     </div>
   );
@@ -232,8 +243,8 @@ const LaptaChat: React.FC<{t: number}> = ({t}) => {
 /** yeni sohbet (kapak, yazma, kapanış): klavye açık */
 const NewChat: React.FC<{t: number; chip: boolean; lines?: string[]; caret?: boolean; kb?: number; ready?: boolean; textO?: number}> = ({t, chip, lines = [''], caret, kb = 1, ready, textO}) => (
   <div style={{position: 'absolute', inset: 0, background: K.bg}}>
-    <ChatHeader t={t} />
-    <Composer t={t} lines={lines} chip={chip} caret={caret} bottom={mix(70, KB_BOTTOM, kb)} sendState={ready ? 'ready' : 'empty'} textO={textO} />
+    <ChatHeader t={t} empty={!lines.some((l) => l)} />
+    <Composer t={t} lines={lines} chip={chip} caret={caret} kb={kb} sendState={ready ? 'ready' : 'empty'} textO={textO} />
     <Keyboard k={kb} />
   </div>
 );
@@ -302,7 +313,7 @@ const Sidebar: React.FC<{t: number}> = ({t}) => (
     <Circ x={SIDE_W - 120} y={226}>{Ico.search(K.text, 54)}</Circ>
     {SIDE_ITEMS.map(([s, ic], i) => (
       <div key={s} style={{position: 'absolute', left: 50, right: 40, top: 300 + i * 128, height: 116, borderRadius: 36, display: 'flex', alignItems: 'center', gap: 34, padding: '0 36px', fontSize: 51, fontWeight: 500,
-        background: s === 'Eklentiler' && t >= TL.plug ? K.surf2 : 'transparent'}}>{ic(K.text, 60)}{s}</div>
+        background: s === 'Eklentiler' && t >= TL.plug ? 'rgba(255,255,255,.08)' : 'transparent'}}>{ic(K.text, 60)}{s}</div>
     ))}
     <div style={{position: 'absolute', left: 100, bottom: 120, height: 130, padding: '0 50px', borderRadius: 65, background: '#F2F2F2', color: '#000', display: 'flex', alignItems: 'center', gap: 20, fontSize: 48, fontWeight: 600}}>{Ico.edit('#000', 52)}Sohbet</div>
     <Circ x={SIDE_W - 120} y={SH - 185}>{Ico.gear()}</Circ>
@@ -320,7 +331,7 @@ const Plugins: React.FC<{t: number}> = ({t}) => {
   const searching = t >= TL.searchTap;
   const res = E(lin(t, TL.pres, TL.pres + 0.2));
   const rowS = press(t, TL.row);
-  const pillBottom = mix(120, SH - KB.top + 24, kb);
+  const pillBottom = mix(104, SH - KB.top + 34, kb);
   return (
     <div style={{position: 'absolute', inset: 0, background: K.bg, fontFamily: F, color: K.text}}>
       <Circ x={110} y={228}>{Ico.menu()}</Circ>
@@ -343,14 +354,14 @@ const Plugins: React.FC<{t: number}> = ({t}) => {
           </div>
         </div>
       )}
-      <div style={{position: 'absolute', left: 50, right: searching ? 200 : 50, bottom: pillBottom, height: 128, borderRadius: 64, background: K.comp, boxShadow: `inset 0 0 0 2px ${searching ? 'rgba(143,180,255,.45)' : 'rgba(255,255,255,.06)'}`, display: 'flex', alignItems: 'center', gap: 22, padding: '0 36px', fontSize: 48, transform: `scale(${press(t, TL.searchTap)})`}}>
+      <div style={{position: 'absolute', left: searching ? 36 : 103, right: searching ? 189 : 103, bottom: pillBottom, height: searching ? 127 : 125, borderRadius: 64, background: searching ? '#121212' : 'rgba(18,18,18,.92)', boxShadow: 'inset 0 0 0 1.5px rgba(255,255,255,.08)', display: 'flex', alignItems: 'center', gap: 30, padding: '0 35px', fontSize: 46, transform: `scale(${press(t, TL.searchTap)})`}}>
         {Ico.search(K.sub, 54)}
         {q ? <span>{q}</span> : <span style={{color: K.dim}}>Eklenti ara</span>}
         {searching && <span style={{width: 4, height: 56, background: '#8FB4FF', opacity: 0.5 + 0.5 * Math.cos(2 * Math.PI * (t % 1))}} />}
         <span style={{flex: 1}} />
         {q && Ico.xcirc(K.sub, 44)}
       </div>
-      {searching && <div style={{position: 'absolute', right: 50, bottom: pillBottom}}><Circ x={64} y={64}>{Ico.close()}</Circ></div>}
+      {searching && <div style={{opacity: lin(t, TL.searchTap, TL.searchTap + 0.15)}}><Circ x={1080} y={SH - pillBottom - 64} r={60}>{Ico.close()}</Circ></div>}
       <Keyboard k={kb} search />
     </div>
   );
@@ -360,7 +371,6 @@ const PROMPTS = [
   ['@Evlek', ' What are the median asking prices for apartments for sale in Kyrenia?'],
   ['@Evlek', ' Compare EVL-101366 and EVL-101348.'],
 ];
-export const INSTALL_BTN = {x: SW / 2, y: SH - 110 - 75};
 const EvlekPage: React.FC<{t: number}> = ({t}) => {
   const spin = t >= TL.spin[0] && t < TL.bound;
   const bound = t >= TL.bound;
@@ -392,7 +402,7 @@ const EvlekPage: React.FC<{t: number}> = ({t}) => {
           </div>
         </div>
       </div>
-      <div style={{position: 'absolute', left: 64, right: 64, bottom: 110, height: 150, borderRadius: 75, background: bound ? '#9E9E9E' : '#F2F2F2', color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 52, fontWeight: 700,
+      <div style={{position: 'absolute', left: 83, right: 83, bottom: 91, height: 144, borderRadius: 72, background: bound ? '#9E9E9E' : '#F2F2F2', color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 48, fontWeight: 600,
         transform: `scale(${bound ? press(t, TL.tryTap) : press(t, TL.install)})`}}>
         {spin ? <div style={{width: 60, height: 60, borderRadius: 30, border: '7px solid rgba(0,0,0,.2)', borderTopColor: '#000', transform: `rotate(${(t - TL.spin[0]) * 900}deg)`}} /> : bound ? 'Sohbette dene' : 'Eklentiyi kur'}
       </div>
@@ -415,7 +425,7 @@ const ScreenBody: React.FC<{t: number}> = ({t}) => {
     const all = QL.join('\n');
     const n = tt.filter((x) => x <= t).length;
     const lines = all.slice(0, n).split('\n');
-    return <NewChat t={t} chip={t >= TL.sig[1] - 0.06} lines={lines} caret={t >= TL.sig[1]} ready={n > 0} />;
+    return <NewChat t={t} chip={t >= TL.sig[1] - 0.06} lines={lines} caret ready={n > 0} />;
   }
   // gönder: metin kutudan balona uçar, klavye iner, kutu boşalır
   if (t < TL.rise[1]) {
@@ -426,7 +436,7 @@ const ScreenBody: React.FC<{t: number}> = ({t}) => {
       <>
         <NewChat t={t} chip={false} kb={kb} />
         <div style={{position: 'absolute', left: 0, right: 0, top: TOP + mix(fromY, toY, k), opacity: lin(k, 0, 0.15)}}>
-          <div style={{position: 'absolute', right: 40, padding: '34px 44px', borderRadius: 56, background: `rgba(1,4,86,${k})`, fontFamily: F, fontSize: mix(48, 46, k), lineHeight: '64px', color: K.text, whiteSpace: 'nowrap'}}>
+          <div style={{position: 'absolute', right: 40, padding: '34px 54px', borderRadius: 56, background: `rgba(1,4,86,${k})`, fontFamily: F, fontSize: mix(48, 46, k), lineHeight: '69px', color: K.text, whiteSpace: 'nowrap'}}>
             <EvChip size={44} />{QL.map((l, i) => <React.Fragment key={i}>{i > 0 && <br />}{l}</React.Fragment>)}
           </div>
         </div>
@@ -450,7 +460,7 @@ const ScreenBody: React.FC<{t: number}> = ({t}) => {
     const kk = k * (1 - close);
     return (
       <>
-        <div style={{position: 'absolute', inset: 0, transform: `translateX(${kk * SIDE_W}px)`}}>{under}<div style={{position: 'absolute', inset: 0, background: `rgba(0,0,0,${0.45 * kk})`}} /></div>
+        <div style={{position: 'absolute', inset: 0, transform: `translateX(${kk * SIDE_W}px)`, borderRadius: mix(0, 165, kk), overflow: 'hidden', boxShadow: `inset 0 0 0 1.5px rgba(255,255,255,${0.14 * kk})`}}>{under}<div style={{position: 'absolute', inset: 0, background: `rgba(255,255,255,${0.07 * kk})`, borderRadius: mix(0, 165, kk), boxShadow: `inset 0 0 0 1.5px rgba(255,255,255,${0.14 * kk})`}} /></div>
         {kk > 0 && <div style={{position: 'absolute', inset: 0, transform: `translateX(${(kk - 1) * SIDE_W}px)`}}><Sidebar t={t} /></div>}
       </>
     );
