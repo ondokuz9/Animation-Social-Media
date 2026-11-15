@@ -3,3 +3,4 @@ out/
 public/wcap/
 .env
 __pycache__/
+audio/_samples/
