@@ -13,7 +13,7 @@ import film15_2 as F2          # film15'i CC0 örneklerle yamalar
 import film15 as F
 from synth import SR, RNG, t_, stereo, env_adsr, lp, hp, bp, noise, saw_bl, midi, make_ir, place, to_wav
 
-DUR = 19.5
+DUR = 20.0
 KI, KU = F2.KI, F2.KU
 BEAT = 0.5
 
@@ -60,8 +60,8 @@ def music(tl):
     for i in range(8):
         place(bus['pluck'], lp(F.ks_pluck([69, 76][i % 2], 0.6, 0.025 + 0.02 * i / 7, pan=0.25 if i % 2 else -0.25), 1200 + 1500 * i / 7), 1.5 + i * BEAT / 2)
     # fotoğraf karta inerken: emme (1,5–2,5), 16'lık klap merdiveni son vuruşta
-    place(bus['fx'], F.reverse_swell(0.48, 0.05, 700, 5000), RES - 0.5)
-    for i in range(2): place(bus['drums'], F.clap(0.02 + 0.012 * i), RES - 0.25 + i * BEAT / 4)
+    place(bus['fx'], F.reverse_swell(0.95, 0.05, 700, 5000), RES - 1.0)
+    for i in range(3): place(bus['drums'], F.clap(0.02 + 0.012 * i), RES - 0.5 + i * BEAT / 4)
     # ---- SONUÇ (2,5): ritmik vuruş + groove (2,5–5,0)
     place(bus['fx'], F.impact(0.42, bells=(86, 93)), RES)
     place(bus['drums'], F.kick(0.3), RES); place(bus['drums'], F.clap(0.14), RES)

@@ -18,7 +18,7 @@ import '@fontsource/inter/700.css';
 import '@fontsource/inter/800.css';
 export const Root: React.FC = () => (
   <>
-    <Composition id="V16-916" component={V16} durationInFrames={1170} fps={60} width={1080} height={1920} />
+    <Composition id="V16-916" component={V16} durationInFrames={1200} fps={60} width={1080} height={1920} />
     <Composition id="V15-916" component={V15} durationInFrames={1800} fps={60} width={1080} height={1920} />
     <Composition id="V14-916" component={V14} durationInFrames={1800} fps={60} width={1080} height={1920} />
     <Composition id="V13-916" component={V13} durationInFrames={1800} fps={60} width={1080} height={1920} />

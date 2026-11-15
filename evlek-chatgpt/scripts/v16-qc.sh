@@ -3,7 +3,7 @@
 # 360 px okunurluk ızgarası, siyah kare, kare farkı, telefon bandı ses testi.   Kullanım: bash scripts/v16-qc.sh
 set -e
 cd "$(dirname "$0")/.."
-# ses masteri: LRA=20 bash audio/master.sh … (doğrusal kazanç; dinamik moda düşmesin)
+# ses masteri: LRA=20 bash audio/master.sh out/audio/v16_raw.wav out/audio/v16_master_48k.wav (doğrusal kazanç; dinamik moda düşmesin)
 Q=out/v16qc; rm -rf $Q; mkdir -p $Q/f6
 SIL=out/evlek_chatgpt_FINAL_1080x1920_60fps_sessiz.mp4
 FIN=out/evlek_chatgpt_FINAL_1080x1920_60fps.mp4
@@ -58,6 +58,6 @@ print('== telefon bandı sıçrama (dB):',{k:round(jump(v),1) for k,v in ev.item
 L=x[:,0]; R=x[:,1]; st=signal.sosfilt(signal.butter(4,[300,12000],'bandpass',fs=sr,output='sos'),x,axis=0)
 r=lambda z: 10*np.log10(np.mean(z**2)+1e-12)
 print('== mono toplama kaybı (dB):', round((r(st[:,0])+r(st[:,1]))/2 - r(st.mean(1)),2))
-sec=[('açılış',0,1.4),('yazma',2.0,3.5),('sonuç+groove',4.0,8.4),('ev',9.0,11.0),('ilan',11.0,13.0),('CTA',13.0,15.5),('kapanış',15.5,17.0)]
+sec=[('açılış',0,1.4),('yazma',2.0,3.5),('sonuç+groove',4.5,8.9),('ev',9.5,11.5),('ilan',11.5,13.5),('CTA',13.5,16.0),('kapanış',16.0,17.5)]
 print('== bölüm seviyesi (dBFS):',{n:round(r(m[int(a*sr):int(b*sr)]),1) for n,a,b in sec})
 PY

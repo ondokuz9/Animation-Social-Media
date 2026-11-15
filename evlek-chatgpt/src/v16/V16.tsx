@@ -118,7 +118,7 @@ const Opening: React.FC<{t: number}> = ({t}) => {
   const out = EXP(lin(t, TL.open[0], TL.open[1] - 0.1));
   const txt = 1 - lin(t, TL.shrink[0] - 0.12, TL.shrink[0] + 0.08);
   const la = OUT(lin(t, 0.0, 0.01)), lb = OUT(lin(t, 0.0, 0.01));
-  const eb = OUT(lin(t, TL.shrink[1] - 0.1, TL.shrink[1] + 0.3)) * (1 - out);
+  const eb = OUT(lin(t, TL.shrink[1] - 0.1, TL.shrink[1] + 0.3)) * (1 - lin(t, TL.open[0] - 0.05, TL.open[0] + 0.08));
   return (
     <>
       <Passe o={1 - lin(k, 0, 0.25)} n="1" />
