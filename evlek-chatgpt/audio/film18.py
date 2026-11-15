@@ -168,7 +168,7 @@ def ui(tl):
     place(bus, stereo(F.friction(d, -38, e)), tl['featScroll'][0])
     place(bus, k(KI + 'tick_001', F.detent(-34), -2, jit() + 2), tl['featScroll'][1] - 0.05)
     # emlakçıya sor, kapat, karta küçülme
-    place(bus, k(KI + 'select_002', F.tap(-16), TAP, jit(), pan(881)), tl['contact'])
+    # yönetmen turu: "Emlakçıya sor" dokunuşu kaldırıldı (ses de)
     place(bus, k(KI + 'select_007', F.tap(-17), TAP, jit(), pan(110)), tl['close'])
     place(bus, tuned(KI + 'drop_004', 74.7, 74, F.tone_pair(180, 360, 0.08, 0.5, -28), -2), tl['collapse'][1])
     # eklentiler: adım notaları (piyano + vibrafon), dokunuşlar, panel geçişleri, "evlek" yazımı

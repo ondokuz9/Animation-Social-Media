@@ -180,7 +180,7 @@ const PhotoStage: React.FC<{t: number}> = ({t}) => {
 const FAST: [number, number][] = [[TL.push[0], TL.push[1]], [TL.follow[0], TL.follow[1]], [TL.cam1[0], TL.cam1[1]], [TL.cam2[0], TL.cam2[1]], [TL.expand[0], TL.expand[1]],
   [TL.portalOut[0], TL.portalOut[1]], [TL.portalIn[0], TL.portalIn[1]], [TL.featCam[0], TL.featCam[1]], [TL.featBack[0], TL.featBack[1]], [TL.cam3[0], TL.cam3[1]], [TL.back[0], TL.back[1]]];
 /** hareket bulanıklığı yalnız saf kamera hareketlerinde (metnin aktığı gönder/okuma anlarında yok: hayalet kopya yapar) */
-const BLUR: [number, number][] = [[TL.push[0], TL.push[1]], [TL.expand[0], TL.expand[1]], [TL.portalOut[0], TL.portalOut[1]], [TL.portalIn[0], TL.portalIn[1]], [TL.cam3[0], TL.cam3[1]], [TL.back[0], TL.back[1]]];
+const BLUR: [number, number][] = [[TL.push[0], TL.push[1]], [TL.expand[0], TL.expand[1]], [TL.portalOut[0], TL.portalOut[1]], [TL.portalIn[0], TL.portalIn[1]], [TL.back[0], TL.back[1]]]; // cam3 yok: ilan karta dönerken hayalet yapıyordu
 const blurK = (t: number) => BLUR.reduce((m, [a, b]) => Math.max(m, t > a && t < b ? Math.sin(Math.PI * lin(t, a, b)) : 0), 0);
 const fastK = (t: number) => FAST.reduce((m, [a, b]) => Math.max(m, t > a && t < b ? Math.sin(Math.PI * lin(t, a, b)) : 0), 0);
 const PhoneLayer: React.FC = () => {

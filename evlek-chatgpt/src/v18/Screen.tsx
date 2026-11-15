@@ -153,7 +153,7 @@ const CUR_TRACKS: {a: number; b: number; pts: WP[]; taps: number[]; row?: boolea
   {a: TL.send - 0.45, b: TL.send + 0.14, pts: [[TL.send - 0.45, 900, 1420], [TL.send - 0.12, SEND_BTN.x, SEND_BTN.y]], taps: [TL.send]},
   {a: TL.drag[0] - 0.15, b: TL.tap + 0.14, row: true, pts: [[TL.drag[0] - 0.15, 980, 0], [TL.drag[0], 980, 0], [TL.drag[1], 680, 0], [TL.coast[1], 680, 0], [TL.tap - 0.1, 396, 1], [TL.tap, 396, 1]], taps: [TL.tap]},
   {a: TL.swipe[0] - 0.2, b: TL.swipe[1] + 0.1, pts: [[TL.swipe[0] - 0.2, 900, 715], [TL.swipe[0], 900, 715], [TL.swipe[1], 520, 715]], taps: []},
-  {a: TL.contact - 0.45, b: TL.close + 0.12, pts: [[TL.contact - 0.45, 760, 2300], [TL.contact - 0.1, 881, 2452], [TL.contact + 0.1, 881, 2452], [TL.close - 0.08, 110, 208], [TL.close, 110, 208]], taps: [TL.contact, TL.close]},
+  {a: TL.close - 0.42, b: TL.close + 0.12, pts: [[TL.close - 0.42, 330, 520], [TL.close - 0.08, 110, 208], [TL.close, 110, 208]], taps: [TL.close]},
   {a: TL.menu - 0.3, b: TL.menu + 0.12, pts: [[TL.menu - 0.3, 260, 420], [TL.menu - 0.05, 110, 228]], taps: [TL.menu]},
   {a: TL.plug - 0.38, b: TL.plug + 0.12, pts: [[TL.plug - 0.38, 420, 900], [TL.plug - 0.05, 260, 614]], taps: [TL.plug]},
   {a: TL.searchTap - 0.28, b: TL.searchTap + 0.12, pts: [[TL.searchTap - 0.28, 589, 1900], [TL.searchTap - 0.04, 589, SH - 104 - 62]], taps: [TL.searchTap]},

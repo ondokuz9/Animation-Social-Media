@@ -53,7 +53,7 @@ sr,x=wavfile.read('out/audio/v18_master_48k.wav'); x=x.astype(float); m=x.mean(1
 y=signal.sosfilt(signal.butter(4,[300,12000],'bandpass',fs=sr,output='sos'),m)
 s=open('src/v18/tl.ts').read(); g=lambda k: json.loads(re.search(r'\b'+k+r':\s*(\[[^\]]*\]|-?[\d.]+)',s).group(1))
 def jump(t): i=int(t*sr); w=int(0.05*sr); r=lambda z: np.sqrt(np.mean(z**2)+1e-12); return 20*np.log10(r(y[i:i+w])/r(y[i-w:i]))
-ev={'sonuç':g('res')[0],'kart':g('tap'),'emlakçı':g('contact'),'kur':g('install'),'Bağlı':g('bound'),'bitiş':g('end')[0]}
+ev={'sonuç':g('res')[0],'kart':g('tap'),'kapat':g('close'),'kur':g('install'),'Bağlı':g('bound'),'bitiş':g('end')[0]}
 print('== telefon bandı sıçrama (dB):',{k:round(jump(v),1) for k,v in ev.items()})
 L=x[:,0]; R=x[:,1]; st=signal.sosfilt(signal.butter(4,[300,12000],'bandpass',fs=sr,output='sos'),x,axis=0)
 r=lambda z: 10*np.log10(np.mean(z**2)+1e-12)
