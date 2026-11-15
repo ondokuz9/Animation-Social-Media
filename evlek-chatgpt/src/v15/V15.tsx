@@ -238,14 +238,7 @@ export const V15: React.FC = () => {
         );
       })()}
       <PathBlock t={t} />
-      {(() => {
-        const o = fade4(t, TL.foot);
-        return o > 0 ? (
-          <div style={{position: 'absolute', left: 90, right: 90, top: 572, textAlign: 'center', fontFamily: F, fontSize: 30, fontWeight: 500, lineHeight: '40px', color: 'rgba(250,248,242,.86)', opacity: o}}>
-            ChatGPT arayüzü temsilîdir; Evlek ekranları ve ilan verileri gerçektir. ChatGPT, OpenAI’ın ticari markasıdır.
-          </div>
-        ) : null;
-      })()}
+      {/* v15.1: kapanış dipnotu Rumi'nin isteğiyle kaldırıldı; marka/temsil notu gönderi açıklamasına taşınır */}
     </AbsoluteFill>
   );
 };
