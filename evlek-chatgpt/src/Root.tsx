@@ -10,6 +10,7 @@ import {V13} from './v13/V13';
 import {V14} from './v14/V14';
 import {V15} from './v15/V15';
 import {V16} from './v16/V16';
+import {V17} from './v17/V17';
 import {CUTS_15, CUTS_6, V12_15, V12_6, framesOf} from './v12/Cuts';
 import '@fontsource/inter/400.css';
 import '@fontsource/inter/500.css';
@@ -18,6 +19,7 @@ import '@fontsource/inter/700.css';
 import '@fontsource/inter/800.css';
 export const Root: React.FC = () => (
   <>
+    <Composition id="V17-916" component={V17} durationInFrames={1320} fps={60} width={1080} height={1920} />
     <Composition id="V16-916" component={V16} durationInFrames={1200} fps={60} width={1080} height={1920} />
     <Composition id="V15-916" component={V15} durationInFrames={1800} fps={60} width={1080} height={1920} />
     <Composition id="V14-916" component={V14} durationInFrames={1800} fps={60} width={1080} height={1920} />
