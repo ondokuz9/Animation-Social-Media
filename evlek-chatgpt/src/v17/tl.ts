@@ -8,8 +8,8 @@ export const TL = {
   // 1 · AÇILIŞ: başlık + telefon (yeni sohbet)
   intro: [0.0, 0.9], titleOut: [1.55, 1.9], push: [1.6, 2.4],
   // 2 · YAZ: Evlek çipi + sorgu, 4 öbek → gönder → Evlek aranıyor
-  chunks: [2.45, 2.7, 2.95, 3.2, 3.45], send: 3.85, kbdDown: [3.9, 4.2], rise: [3.9, 4.25],
-  search: [4.25, 5.0], think: 4.85, res: [5.0, 5.3], stopOff: 5.3, cam1: [5.0, 5.5],
+  chunks: [2.45, 2.75, 3.05, 3.35, 3.65], send: 4.05, kbdDown: [4.1, 4.4], rise: [4.1, 4.42], follow: [4.08, 4.5],
+  search: [4.42, 5.0], think: 4.88, res: [5.0, 5.3], stopOff: 5.3, cam1: [5.0, 5.5],
   // 3 · ETKİLEŞİM
   cam2: [5.75, 6.3], scroll: [5.75, 6.25], drag: [6.4, 6.65], coast: [6.65, 7.2], tap: 7.45, expand: [7.53, 7.95],
   swipe: [8.6, 8.83], page2: [8.83, 9.2], portalOut: [9.45, 10.0], portalIn: [11.2, 11.8],

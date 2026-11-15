@@ -18,7 +18,8 @@ const M = 72; // sol hiza çizgisi
 // ---------------- kamera ----------------
 const view = (sx0: number, sy0: number, s: number): Pose => P((PW / 2 - OX - sx0) * s, (PH / 2 - OY - sy0) * s, s);
 const OPEN = P(540, 1196, 0.52); // başlığın altında tam telefon
-const TYPE = P(540, (PH / 2 - OY - 300) * 0.78 + 40, 0.78); // ekrana yaklaşma: ekranın üst kısmından alt kenara, telefonun altı kadrajda
+const TYPE = view(0, 760, 0.88); // yazarken: yazım kutusu + klavye kadrajın alt %70'inde, ekranın üstü az
+const SEND = P(540, (PH / 2 - OY - 300) * 0.78 + 40, 0.78); // gönderince balonu izler: ekranın üstü (balon, Evlek) + telefonun altı
 const CHAT = view(0, 150, 0.916); // balon + Evlek + sonuç
 const CARDS = view(0, 560, 1); // kart şeridi 1:1 gerçek piksel
 const DS = 0.6, DY = 862;
@@ -31,8 +32,10 @@ export const poseAt = (t: number): Pose => {
   if (t < TL.intro[1]) return mixPose({...OPEN, y: OPEN.y + 90, s: 0.5}, OPEN, OUT(lin(t, TL.intro[0], TL.intro[1])));
   if (t < TL.push[0]) return OPEN;
   if (t < TL.push[1]) return mixPose(OPEN, TYPE, EXP(lin(t, TL.push[0], TL.push[1])));
-  if (t < TL.cam1[0]) return bump(TYPE, t, TL.send);
-  if (t < TL.cam1[1]) return mixPose(TYPE, CHAT, IO(lin(t, TL.cam1[0], TL.cam1[1])));
+  if (t < TL.follow[0]) return bump(TYPE, t, TL.send);
+  if (t < TL.follow[1]) return mixPose(TYPE, SEND, IO(lin(t, TL.follow[0], TL.follow[1])));
+  if (t < TL.cam1[0]) return SEND;
+  if (t < TL.cam1[1]) return mixPose(SEND, CHAT, IO(lin(t, TL.cam1[0], TL.cam1[1])));
   if (t < TL.cam2[0]) return dy(CHAT, -10 * lin(t, TL.cam1[1], TL.cam2[0]));
   if (t < TL.cam2[1]) return mixPose(dy(CHAT, -10), CARDS, IO(lin(t, TL.cam2[0], TL.cam2[1])));
   if (t < TL.expand[0]) return bump(CARDS, t, TL.tap);

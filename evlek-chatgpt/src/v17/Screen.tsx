@@ -4,7 +4,9 @@
 // Üçüncü taraf logo/adı yok; kişi/ofis adı yok; klavyede küre/mikrofon satırı ve dil etiketi yok (markasız).
 import React from 'react';
 import {Easing, Img, staticFile} from 'remotion';
-import {E, EvIcon, F, S, lin, mix} from '../v10/core';
+import {E, EvIcon as EvIcon0, F, S, lin, mix} from '../v10/core';
+/** kayıttaki Evlek simgesi: #11171F zemin, beyaz "Ev" (eklenti_28_5, WA 09) */
+const EvIcon: React.FC<{size: number; r?: number}> = ({size, r}) => <EvIcon0 size={size} r={r} style={{background: '#11171F', color: '#FFFFFF'}} />;
 import {SH, SW} from '../v15/Phone';
 import {QL, TL, typeTimes} from './tl';
 
@@ -37,14 +39,14 @@ const Ico = {
   down: (c = K.text, w = 40) => sv(w, <path d="M6 9l6 6 6-6" />, c, 2.4),
   share: (c = K.text, w = 56) => sv(w, <path d="M12 15V3M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6" />, c, 1.9),
   arrow: (c = '#0D0F13', w = 40) => sv(w, <path d="M5 12h14M13 6l6 6-6 6" />, c, 2.6),
-  gear: (c = K.text, w = 56) => sv(w, <><circle cx="12" cy="12" r="3" /><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1" /></>, c, 1.8),
+  gear: (c = K.text, w = 56) => sv(w, <><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" /></>, c, 1.6),
   xcirc: (c = K.sub, w = 44) => sv(w, <><circle cx="12" cy="12" r="9" fill={c} stroke="none" /><path d="M9 9l6 6M15 9l-6 6" stroke="#191919" /></>, c, 2.2),
   lib: (c = K.text, w = 60) => sv(w, <><path d="M4 4h4v16H4zM10 4h4v16h-4z" /><path d="M16 5l4 1-3 14-4-1z" /></>, c, 1.7),
   folder: (c = K.text, w = 60) => sv(w, <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />, c, 1.7),
-  plugin: (c = K.text, w = 60) => sv(w, <><circle cx="12" cy="12" r="8.5" /><circle cx="12" cy="12" r="3.5" /><path d="M12 3.5v5M12 15.5v5" /></>, c, 1.7),
+  plugin: (c = K.text, w = 60) => sv(w, <><circle cx="12" cy="12" r="3.6" /><path d="M15.6 8.6v4.6a2.6 2.6 0 0 0 5.2 0V12a8.8 8.8 0 1 0-3.5 7" /></>, c, 1.7),
   clock: (c = K.text, w = 60) => sv(w, <><circle cx="12" cy="12" r="8.5" /><path d="M12 7.5V12l3 2" /></>, c, 1.7),
-  code: (c = K.text, w = 60) => sv(w, <><circle cx="12" cy="12" r="8.5" /><path d="M10 9l-3 3 3 3M14 9l3 3-3 3" /></>, c, 1.7),
-  grid: (c = K.text, w = 60) => sv(w, <><rect x="4" y="4" width="6.5" height="6.5" rx="1.6" /><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.6" /><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.6" /><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.6" /></>, c, 1.7),
+  code: (c = K.text, w = 60) => sv(w, <><path d="M7 18.5h10a4 4 0 0 0 .6-7.95A5.5 5.5 0 0 0 7 9.6a4.5 4.5 0 0 0 0 8.9z" /><path d="M9.5 12.5l2 1.5-2 1.5M13 15.5h2" /></>, c, 1.6),
+  grid: (c = K.text, w = 60) => sv(w, <><rect x="4" y="4" width="6.5" height="6.5" rx="1.6" /><circle cx="16.75" cy="7.25" r="3.25" /><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.6" /><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.6" /></>, c, 1.7),
 };
 
 const StatusBar: React.FC = () => (
@@ -61,17 +63,17 @@ const HomeBar: React.FC = () => <div style={{position: 'absolute', left: SW / 2 
 const Circ: React.FC<{x: number; y: number; children: React.ReactNode; r?: number; s?: number; bg?: string}> = ({x, y, children, r = 59, s = 1, bg = '#181818'}) => (
   <div style={{position: 'absolute', left: x - r, top: y - r, width: 2 * r, height: 2 * r, borderRadius: r, background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: 'inset 0 0 0 1.5px rgba(255,255,255,.10)', transform: `scale(${s})`}}>{children}</div>
 );
-const ChatHeader: React.FC<{t: number; empty?: boolean}> = ({t, empty}) => (
+const ChatHeader: React.FC<{t: number; empty?: boolean; x?: boolean}> = ({t, empty, x}) => (
   <>
-    <Circ x={113} y={225} s={press(t, TL.menu)}>{Ico.menu()}</Circ>
+    <Circ x={113} y={225} s={press(t, TL.menu)}>{x ? Ico.close() : Ico.menu()}</Circ>
     <Circ x={SW - 113} y={225}>{Ico.edit(empty ? '#3A3A3A' : K.text)}</Circ>
   </>
 );
 
-// ---------- klavye (markasız Türkçe Q; küre/mikrofon satırı ve dil etiketi yok) ----------
+// ---------- klavye (Türkçe Q; gerçek kayıt 13_0/31_5: küre + mikrofon satırı, boş kutuda büyük harf; dil etiketi yok) ----------
 export const KB = {top: 1715, h: SH - 1715};
 const ROWS = ['qwertyuıopğü', 'asdfghjklşi', 'zxcvbnmöç'];
-const Keyboard: React.FC<{k: number; search?: boolean}> = ({k, search}) => {
+const Keyboard: React.FC<{k: number; search?: boolean; caps?: boolean}> = ({k, search, caps}) => {
   if (k <= 0) return null;
   const kw = 79, gap = 18;
   const key = (ch: string, x: number, y: number, w = kw, fn = false, blue = false) => (
@@ -80,15 +82,18 @@ const Keyboard: React.FC<{k: number; search?: boolean}> = ({k, search}) => {
   const rowX = (n: number, w = kw) => (SW - (n * w + (n - 1) * gap)) / 2;
   const tops = [1781, 1932, 2083, 2234].map((y) => y - KB.top);
   const els: React.ReactNode[] = [];
-  ROWS[0].split('').forEach((c, i) => els.push(key(c, rowX(12) + i * (kw + gap), tops[0])));
-  ROWS[1].split('').forEach((c, i) => els.push(key(c, rowX(11) + i * (kw + gap), tops[1])));
+  const R = caps ? ['QWERTYUIOPĞÜ', 'ASDFGHJKLŞİ', 'ZXCVBNMÖÇ'] : ROWS;
+  R[0].split('').forEach((c, i) => els.push(key(c, rowX(12) + i * (kw + gap), tops[0])));
+  R[1].split('').forEach((c, i) => els.push(key(c, rowX(11) + i * (kw + gap), tops[1])));
   const x3 = rowX(9);
-  ROWS[2].split('').forEach((c, i) => els.push(key(c, x3 + i * (kw + gap), tops[2])));
-  els.push(key('⇧', 10, tops[2], x3 - 10 - gap, true), key('⌫', x3 + 9 * (kw + gap), tops[2], SW - 10 - (x3 + 9 * (kw + gap)), true));
+  R[2].split('').forEach((c, i) => els.push(key(c, x3 + i * (kw + gap), tops[2])));
+  els.push(key(caps ? '⬆' : '⇧', 10, tops[2], x3 - 10 - gap, true), key('⌫', x3 + 9 * (kw + gap), tops[2], SW - 10 - (x3 + 9 * (kw + gap)), true));
   els.push(key('123', 10, tops[3], 150, true), key('☺', 178, tops[3], 120, true), key('', 316, tops[3], SW - 316 - 10 - 248 - gap), key(search ? 'S' : 'R', SW - 10 - 248, tops[3], 248, true, !!search));
   return (
     <div style={{position: 'absolute', left: 0, top: KB.top, width: SW, height: KB.h, background: '#161815', borderRadius: '42px 42px 0 0', boxShadow: 'inset 0 1.5px 0 rgba(255,255,255,.08)', transform: `translateY(${(1 - k) * KB.h}px)`}}>
       {els}
+      <div style={{position: 'absolute', left: 64, top: 2420 - KB.top}}><svg width={66} height={66} viewBox="0 0 24 24" fill="none" stroke="#E8E8E8" strokeWidth={1.6}><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c2.6 2.6 2.6 15.4 0 18M12 3c-2.6 2.6-2.6 15.4 0 18" /></svg></div>
+      <div style={{position: 'absolute', right: 64, top: 2420 - KB.top}}>{Ico.mic('#E8E8E8', 66)}</div>
       <HomeBar />
     </div>
   );
@@ -242,11 +247,11 @@ const LaptaChat: React.FC<{t: number}> = ({t}) => {
   );
 };
 /** yeni sohbet (kapak, yazma, kapanış): klavye açık */
-const NewChat: React.FC<{t: number; chip: boolean; lines?: string[]; caret?: boolean; kb?: number; ready?: boolean; textO?: number}> = ({t, chip, lines = [''], caret, kb = 1, ready, textO}) => (
+const NewChat: React.FC<{t: number; chip: boolean; lines?: string[]; caret?: boolean; kb?: number; ready?: boolean; textO?: number; x?: boolean}> = ({t, chip, lines = [''], caret, kb = 1, ready, textO, x}) => (
   <div style={{position: 'absolute', inset: 0, background: K.bg}}>
-    <ChatHeader t={t} empty={!lines.some((l) => l)} />
+    <ChatHeader t={t} empty={!lines.some((l) => l)} x={x} />
     <Composer t={t} lines={lines} chip={chip} caret={caret} kb={kb} sendState={ready ? 'ready' : 'empty'} textO={textO} />
-    <Keyboard k={kb} />
+    <Keyboard k={kb} caps={!chip && !lines.some((l) => l)} />
   </div>
 );
 
@@ -323,7 +328,7 @@ const Sidebar: React.FC<{t: number}> = ({t}) => (
 const Skel: React.FC<{y: number; w: number}> = ({y, w}) => (
   <div style={{position: 'absolute', left: 50, right: 50, top: y, display: 'flex', alignItems: 'center', gap: 36}}>
     <div style={{width: 128, height: 128, borderRadius: 32, background: K.surf}} />
-    <div><div style={{width: w, height: 34, borderRadius: 17, background: K.skel}} /><div style={{marginTop: 20, width: w * 1.45, height: 26, borderRadius: 13, background: '#151517'}} /></div>
+    <div><div style={{width: w, height: 34, borderRadius: 17, background: K.skel}} /><div style={{marginTop: 20, width: w * 2.1, height: 26, borderRadius: 13, background: '#1B1B1B'}} /></div>
   </div>
 );
 const Plugins: React.FC<{t: number}> = ({t}) => {
@@ -339,28 +344,27 @@ const Plugins: React.FC<{t: number}> = ({t}) => {
       <div style={{position: 'absolute', left: 0, right: 0, top: 196, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 10, fontSize: 52, fontWeight: 600}}>Eklentiler{Ico.down(K.text, 40)}</div>
       {!searching && (
         <>
-          <div style={{position: 'absolute', left: 60, top: 370, fontSize: 48, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 6}}>Kurulu{Ico.chev(K.text, 40)}</div>
+          <div style={{position: 'absolute', left: 60, top: 370, fontSize: 48, fontWeight: 600, color: '#C0C0C0', display: 'flex', alignItems: 'center', gap: 6}}>Kurulu{Ico.chev('#C0C0C0', 40)}</div>
           <div style={{position: 'absolute', left: 50, top: 480, display: 'flex', gap: 30}}>{[0, 1, 2, 3, 4, 5].map((i) => <div key={i} style={{width: 132, height: 132, borderRadius: 34, background: K.surf}} />)}</div>
-          <div style={{position: 'absolute', left: 60, top: 720, fontSize: 48, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 6}}>Popüler{Ico.chev(K.text, 40)}</div>
+          <div style={{position: 'absolute', left: 60, top: 720, fontSize: 48, fontWeight: 600, color: '#C0C0C0', display: 'flex', alignItems: 'center', gap: 6}}>Popüler{Ico.chev('#C0C0C0', 40)}</div>
           {[850, 1065, 1280].map((y, i) => <Skel key={y} y={y} w={[220, 300, 250][i]} />)}
         </>
       )}
-      {searching && res < 1 && <div style={{opacity: 1 - res}}>{[330, 545, 760].map((y, i) => <Skel key={y} y={y} w={[260, 200, 300][i]} />)}</div>}
+      {searching && res < 1 && <div style={{opacity: 1 - res}}>{[330, 545, 760, 975, 1190, 1405].map((y, i) => <Skel key={y} y={y} w={[260, 200, 300, 230, 280, 210][i]} />)}</div>}
       {res > 0 && (
         <div style={{position: 'absolute', left: 30, right: 30, top: 330, opacity: res, transform: `translateY(${(1 - res) * 24}px) scale(${rowS})`}}>
           <div style={{display: 'flex', alignItems: 'center', gap: 36, padding: '28px 30px', borderRadius: 44, background: t > TL.row ? K.surf2 : 'transparent'}}>
             <EvIcon size={132} r={0.28} />
-            <div style={{flex: 1}}><div style={{fontSize: 51, fontWeight: 600}}>Evlek</div><div style={{fontSize: 45, color: K.sub, marginTop: 6}}>Northern Cyprus property data</div></div>
+            <div style={{flex: 1}}><div style={{fontSize: 51, fontWeight: 600}}>Evlek</div><div style={{fontSize: 45, color: '#C1C1C1', marginTop: 6}}>Northern Cyprus property data</div></div>
             {Ico.plus(K.text, 60)}
           </div>
         </div>
       )}
       <div style={{position: 'absolute', left: searching ? 36 : 103, right: searching ? 189 : 103, bottom: pillBottom, height: searching ? 127 : 125, borderRadius: 64, background: searching ? '#121212' : 'rgba(18,18,18,.92)', boxShadow: 'inset 0 0 0 1.5px rgba(255,255,255,.08)', display: 'flex', alignItems: 'center', gap: 30, padding: '0 35px', fontSize: 46, transform: `scale(${press(t, TL.searchTap)})`}}>
         {Ico.search(K.sub, 54)}
-        {q ? <span>{q}</span> : <span style={{color: K.dim}}>Eklenti ara</span>}
-        {searching && <span style={{width: 4, height: 56, background: '#8FB4FF', opacity: 0.5 + 0.5 * Math.cos(2 * Math.PI * (t % 1))}} />}
+        {q ? <span>{q}{searching && <span style={{display: 'inline-block', width: 4, height: 56, marginLeft: 3, verticalAlign: -10, background: '#3A82F7', opacity: 0.5 + 0.5 * Math.cos(2 * Math.PI * (t % 1))}} />}</span> : <span style={{color: K.dim}}>{searching && <span style={{display: 'inline-block', width: 4, height: 56, marginRight: 6, verticalAlign: -10, background: '#3A82F7', opacity: 0.5 + 0.5 * Math.cos(2 * Math.PI * (t % 1))}} />}Eklenti ara</span>}
         <span style={{flex: 1}} />
-        {q && Ico.xcirc(K.sub, 44)}
+        {q && Ico.xcirc('#CECECE', 56)}
       </div>
       {searching && <div style={{opacity: lin(t, TL.searchTap, TL.searchTap + 0.15)}}><Circ x={1080} y={SH - pillBottom - 64} r={60}>{Ico.close()}</Circ></div>}
       <Keyboard k={kb} search />
@@ -370,7 +374,7 @@ const Plugins: React.FC<{t: number}> = ({t}) => {
 const PROMPTS = [
   ['@Evlek', ' Show me apartments for sale in Kyrenia under £300,000.'],
   ['@Evlek', ' What are the median asking prices for apartments for sale in Kyrenia?'],
-  ['@Evlek', ' Compare EVL-101366 and EVL-101348.'],
+  ['@Evlek', ' Compare EVL‑101366 and EVL‑101348.'], // bölünmeyen tire: kimlik satır sonunda bölünmez
 ];
 const EvlekPage: React.FC<{t: number}> = ({t}) => {
   const spin = false; // dönen halka gerçek kayıtta doğrulanamadı
@@ -383,8 +387,8 @@ const EvlekPage: React.FC<{t: number}> = ({t}) => {
       <Circ x={SW - 110} y={228}><div style={{position: 'relative', width: 56, height: 56}}><div style={{position: 'absolute', inset: 0, opacity: 1 - gearK}}>{Ico.share()}</div><div style={{position: 'absolute', inset: 0, opacity: gearK}}>{Ico.gear()}</div></div></Circ>
       <div style={{position: 'absolute', left: 64, right: 64, top: 340}}>
         <EvIcon size={168} r={0.26} />
-        <div style={{marginTop: 40, fontSize: 84, fontWeight: 700, letterSpacing: '-0.03em'}}>Evlek</div>
-        <div style={{marginTop: 8, fontSize: 44, color: K.sub}}>Northern Cyprus property data</div>
+        <div style={{marginTop: 40, fontSize: 84, fontWeight: 400, letterSpacing: '-0.02em'}}>Evlek</div>
+        <div style={{marginTop: 8, fontSize: 44, color: '#D0D0D0'}}>Northern Cyprus property data</div>
         <div style={{marginTop: 50, borderRadius: 56, padding: 36, background: 'linear-gradient(135deg,#6FC3D9 0%,#5B9BEA 38%,#8FD6C9 78%,#B9E6C4 100%)'}}>
           {PROMPTS.map(([a, b], i) => (
             <div key={i} style={{display: 'flex', alignItems: 'center', gap: 24, padding: '30px 34px', borderRadius: 38, background: 'rgba(255,255,255,.80)', marginTop: i ? 24 : 0, color: '#0D1520', fontSize: 38, lineHeight: '52px'}}>
@@ -393,13 +397,13 @@ const EvlekPage: React.FC<{t: number}> = ({t}) => {
             </div>
           ))}
         </div>
-        <div style={{marginTop: 44, fontSize: 40, lineHeight: '58px', color: '#C5CBD4'}}>Evlek brings live Northern Cyprus (KKTC/TRNC) property listings into ChatGPT. Ask in Turkish, English, Russian, German or Arabic and… <span style={{color: '#4A9EFF'}}>Daha fazla</span></div>
+        <div style={{marginTop: 44, fontSize: 40, lineHeight: '58px', color: '#DCDCDC'}}>Evlek brings live Northern Cyprus (KKTC/TRNC) property listings into ChatGPT. Ask in Turkish, English, Russian, German or Arabic and… <span style={{color: '#4A9EFF'}}>Daha fazla</span></div>
         <div style={{marginTop: 40, fontSize: 44, fontWeight: 600}}>Uygulama</div>
         <div style={{marginTop: 22, display: 'flex', alignItems: 'center', gap: 28}}>
           <EvIcon size={104} r={0.28} />
           <div>
-            <div style={{fontSize: 46, fontWeight: 600}}>Evlek</div>
-            {bound && <div style={{fontSize: 42, color: '#9B9B9B', opacity: lin(t, TL.bound, TL.bound + 0.15)}}>Bağlı</div>}
+            <div style={{fontSize: 46, fontWeight: 400}}>Evlek</div>
+            {bound && <div style={{fontSize: 42, color: '#C8C8C8', opacity: lin(t, TL.bound, TL.bound + 0.15)}}>Bağlı</div>}
           </div>
         </div>
       </div>
@@ -426,7 +430,7 @@ const ScreenBody: React.FC<{t: number}> = ({t}) => {
     const all = QL.join('\n');
     const n = tt.filter((x) => x <= t).length;
     const lines = all.slice(0, n).split('\n');
-    return <NewChat t={t} chip={t >= TL.chunks[0]} lines={lines} caret ready={n > 0} />;
+    return <NewChat t={t} chip={t >= TL.chunks[0]} lines={lines} caret ready={t >= TL.chunks[0]} />;
   }
   // gönder: metin kutudan balona uçar, klavye iner, kutu boşalır
   if (t < TL.rise[1]) {
@@ -479,7 +483,7 @@ const ScreenBody: React.FC<{t: number}> = ({t}) => {
   }
   const k = PUSH(lin(t, TL.newChat[0], TL.newChat[1]));
   const chip = true; // v17: bitişte Evlek çipli yeni sohbet kalır
-  const nc = <NewChat t={t} chip={chip} caret />;
+  const nc = <NewChat t={t} chip={chip} caret ready x />; // gerçek kayıt 31_5: sol üstte ×, yalnız çip varken mavi ↑
   if (k >= 1) return nc;
   return (
     <>
