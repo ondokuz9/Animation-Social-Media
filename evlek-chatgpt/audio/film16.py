@@ -89,12 +89,12 @@ def music(tl):
     for i, m in enumerate([74, 69, 76, 69, 78, 69, 76, 69]):
         place(bus['pluck'], F.ks_pluck(m, 0.8, 0.06, pan=0.25 if i % 2 else -0.25), RES + BEAT + i * BEAT / 2)
     # ---- EV (5,5): davul yok, lidyen akor 2,5 sn, filtre 1800 → 6000 Hz / 0,6 sn, tek piyano notası (F#5)
-    place(bus['pad'], pad(CH['Glyd'][1], 2.5 + 1.2, 1800, 6000, 0.6, amp=0.034, a=0.35, r=1.4), HOUSE)
-    place(bus['keys'], F.felt(78, 3.0, 0.04), HOUSE + 0.02)
-    place(bus['bass'], stereo(np.sin(2 * np.pi * midi(31) * t_(2.4)) * env_adsr(int(2.4 * SR), a=0.3, d=0.4, s=0.6, r=1.0) * 0.06), HOUSE)
-    place(bus['keys'], F.felt(81, 2.6, 0.045, 0.1), HOUSE + 1.0); place(bus['keys'], F.felt(74, 2.4, 0.03, -0.15), HOUSE + 1.5)
+    place(bus['pad'], pad(CH['Glyd'][1], 2.5 + 1.2, 1800, 6000, 0.6, amp=0.024, a=0.35, r=1.4), HOUSE)
+    place(bus['keys'], F.felt(78, 3.0, 0.028), HOUSE + 0.02)
+    place(bus['bass'], stereo(np.sin(2 * np.pi * midi(31) * t_(2.4)) * env_adsr(int(2.4 * SR), a=0.3, d=0.4, s=0.6, r=1.0) * 0.035), HOUSE)
+    place(bus['keys'], F.felt(81, 2.6, 0.03, 0.1), HOUSE + 1.0); place(bus['keys'], F.felt(74, 2.4, 0.02, -0.15), HOUSE + 1.5)
     for i, m in enumerate([71, 78, 74, 78]):
-        place(bus['pluck'], F.ks_pluck(m, 0.9, 0.03, pan=0.3 if i % 2 else -0.3), HOUSE + 1.0 + i * BEAT / 2)
+        place(bus['pluck'], F.ks_pluck(m, 0.9, 0.02, pan=0.3 if i % 2 else -0.3), HOUSE + 1.0 + i * BEAT / 2)
     # ---- ilan (10,0–12,0): ritim hafifçe döner (yarım groove), Asus4 → A
     place(bus['pad'], pad(CH['Asus4'][1], 1.0 + 0.6, 4200, amp=0.065, a=0.1, r=0.5), LAND)
     place(bus['pad'], pad(CH['A'][1], 1.0 + 0.5, 4200, amp=0.065, a=0.05, r=0.4), LAND + 1.0)
