@@ -1,0 +1,553 @@
+[
+ {
+  "uzman": "Cihaz ve ürün render uzmanı (telefon reklamları, keynote cihaz planları)",
+  "bulgular": [
+   {
+    "madde": "telefon",
+    "saniye": "0–30 (en belirgin 0–2,3; 19,3–25,35; 26,15–30)",
+    "gozlem": "Telefonun dış hattı zeminde kayboluyor. first.png, y=1200: sol çerçeve 2–4 px genişliğinde, rengi (44,64,83); zemin (15,41,70). Parlaklık kontrastı yalnız 1,38:1. Sağ kenarda (x≈826–834, y=1000) piksel (5,17,30): çerçeve, sağ-alta düşen gölgeyle birleşiyor ve sağ kenar hiç seçilmiyor. Telefon 'lacivertin içinde koyu bir dikdörtgen' gibi okunuyor.",
+    "neden": "Phone.tsx:82'de ön çerçeve mavi-grafit (#3C4D59 → #2B3B47 → #16232D), zemin #0A2540–#163E68. İki renk aynı ton ailesinde. Satır 39–42'de yan tonların %76'sı #384955/#121D26, yani çok koyu. Kenar ışığı (satır 89) yalnız inset 3 px rgba(255,255,255,.16); 0,45 ölçekte 1,35 px ve %16 opaklığa düşüyor. Satır 61–63'teki gölgeler sağ-alta kaydığı için sağ kenarı kendisi karartıyor.",
+    "duzeltme": "Mavi grafiti bırakın, nötr açık titanyum kullanın. Önden görünen metal halka (12 px): linear-gradient(135deg, #E4E8EB 0%, #9AA1A7 18%, #5A6168 50%, #8C949A 78%, #D2D7DB 100%). Halkanın en dış 2 px'ine kenar ışığı: inset 0 0 0 2px rgba(255,255,255,.38). Bu ışığı üst-sol köşe ve sağ kenarda %100, alt-solda %25 bırakan bir maske verin. Hedef: siluet kenarının zemine kontrastı ≥3:1; kenar pikseli en az (120,128,136) olmalı. Zemin ışığı (V13: 50% 38%) telefon gövdesinin üst 1/3'ünün arkasına denk gelsin.",
+    "oncelik": "P0"
+   },
+   {
+    "madde": "telefon",
+    "saniye": "0–2,3; 24,45–30 (≈7,9 sn, filmin %26'sı)",
+    "gozlem": "Kapakta telefon alanındaki piksellerin %87,3'ü siyaha yakın (parlaklık <8). Gövde, cam bordürü ve ekran tek bir siyah levha gibi duruyor; ekranın nerede başladığı görünmüyor. Üstüne 0,15 karartma biniyor (V13.tsx:61, dimAt), ekran daha da sönüyor. Kapalı bir cihaz ya da 'siyah kart' izlenimi veriyor.",
+    "neden": "Cam bordürü #030507 (Phone.tsx:83), ekran zemini #000 (satır 84 ve Screen K.bg). Fark 3–7 birim, gözle sıfır. Camın kenarında ne yansıma ne çizgi var. Not: gerçek iOS kaydında ChatGPT koyu zemini de (0,0,0) (eklenti_10_5.png ölçüldü), yani ekran rengi doğru; eksik olan cihazın camı.",
+    "duzeltme": "Ekran #000 kalsın. Bordür mürekkebini #0B0D10 yapın (OLED siyahından bir kademe açık; gerçek cihazda da böyle görünür). Ekran dikdörtgeninin 1,5 px DIŞINA, yani bordürün üstüne, 1,5 px rgba(255,255,255,.06) bir halka koyun; arayüzün üstüne hiçbir şey binmesin. Cam kenar parıltısı yalnız bordür halkasında (22 px) kalsın: radial-gradient(120% 60% at 15% 0%, rgba(255,255,255,.07), transparent 60%) uygulayın, ekran dikdörtgeni maskeyle dışarıda bırakılsın. dimAt karartmasını telefona değil zemine uygulayın; ekran karede en parlak yüzey kalmalı.",
+    "oncelik": "P0"
+   },
+   {
+    "madde": "ekran yarım",
+    "saniye": "3,0–6,35 (COMP); 6,95–12,75 (PR, Rumi'nin karesi ≈11–12); 13,45–18,15 (PT)",
+    "gozlem": "PR pozu (540;1698;0,8;2;−4;−1): gövde kutusu y 639–2763. Üstte 639 px (karenin %33'ü) boş lacivert, altta 843 px kesik. Ekranın yalnız %59'u görünüyor (ekran y 707–1920, toplam 707–2733). PT'de alt 372 px kesik. COMP'ta (530;−40;0,92) üstte ≈1000 px düz siyah ekran, altta ≈730 px boş zemin; telefonun ortası karede ama anlamlı bölümü yok. 2,3–18,75 arasında, yani filmin ≈%55'inde telefon hiç tam görünmüyor.",
+    "neden": "Okunurluk için telefon büyütülmüş ama dikey konumu 'telefon tam görünecekmiş gibi' bırakılmış (y=1698). Kesim, içeriğin karşı tarafından yapılmamış; boşluk bir kenarda, kesik öbür kenarda. Ürün fotoğrafında en kötü kombinasyon budur.",
+    "duzeltme": "Kural: ya telefonun tamamı ≥80 px kenar payıyla karede olur, ya da tek kenardan en az %25 kesilir ve karşı kenarda ≤120 px boşluk kalır. Pozlar: SONUÇ/KART/İLAN için LIST = P(540, 1020, 0.62, 4, −12, 0) → kutu [165, 943, 196, 1863]; ekran 703–728 px genişliğinde, widget gövde yazısı ≈22–24 px, okunur. Üst metin için 196 px kalıyor: \"Sor. Evlek göstersin.\" y≈70–160'a taşınsın. Daha fazla metin alanı gerekirse RES = P(540, 1100, 0.57, 4, −12, 0) → [195, 910, 343, 1872]. Yazım yakın planı için COMP = P(560, 300, 1.0, 8, −16, 0) → alt kenar y=1736, iki alt köşe ve yan bant karede, yazım kutusu y≈1453; alttaki boşluk 184 px. Yakın plan en çok 2,5 sn sürsün.",
+    "oncelik": "P0"
+   },
+   {
+    "madde": "telefon",
+    "saniye": "0–30 (bütün pozlar)",
+    "gozlem": "Yedi pozun hepsinde rx 2, ry −4, rz −1. Yan yüzün çıktıdaki görünür genişliği COVER'da −1,2 px, PR'de −10,2 px (eksi: yan yüz perspektif yüzünden gizli). 150 px kalınlık hiç görünmüyor, telefon kâğıt inceliğinde bir kart gibi okunuyor. rz −1° kararlı bir açı değil, 'yamuk kalmış' hissi veriyor. Açı hiç değişmediği için kenar ışığı maskesi de (satır 90, rx/ry'ye bağlı) 30 sn boyunca yerinde duruyor; ışık cihazın üstünde hiç gezmiyor.",
+    "neden": "ry ±4°, kalınlığı göstermek için fazla küçük, 'bilinçli önden çekim' için de fazla büyük; arada kalan, hata gibi görünen bir açı. perspectiveOrigin poz merkezinde olduğu için, kenar görüş ekseninden uzaklaştıkça yan yüz kendiliğinden gizleniyor.",
+    "duzeltme": "İki poz ailesi kullanın, rz okuma pozlarında hep 0. (1) Okuma: rx 4, ry −12, rz 0, s 0,57–0,62. Sağ yan yüz 8–9 px görünür, ekran keystone'u %3–4. (2) Kapak/kapanış (3/4): P(550, 1235, 0.46, 8, −18, −2) → kutu [273, 875, 616, 1855]; yan yüz 15,7 px, alt pay 65 px. Başlık bloğu y ≤580'de bitmeli. Pozlar arasında ry, −18 → −12 → −16 gibi küçük değişsin ki kenar ışığı her geçişte 4–6° kaysın (ürün filmi hissi). Gövdeyi kendi ekseninde döndürmeyin.",
+    "oncelik": "P1"
+   },
+   {
+    "madde": "telefon",
+    "saniye": "0–2,3 ve 26–30 (Rumi'nin karesinde de x≈805)",
+    "gozlem": "Delik kamera ekranın ortasında değil. Kapakta çıktıda x≈502, gövdenin ortası ≈544; Rumi'nin karesinde delik x 805, gövdenin ortası ≈852. Durum çubuğunda saat ile ikonlar arasında belirgin biçimde sola kaymış. Gözün 'bir şey yanlış' dediği küçük ayrıntılardan biri.",
+    "neden": "Kod hatası, Phone.tsx:88: `left: 589.5 - 22`. 589,5 ekran koordinatında merkez, ama bu katman gövde koordinatında; OX=60 eklenmemiş. Doğru merkez gövdede 649,5. Ayrıca y=130 (gövde), durum çubuğu metninin optik merkezinden (ekran y≈76, gövde ≈148) 18 px yukarıda.",
+    "duzeltme": "Delik merkezi gövde koordinatında (649,5; 146) olsun, yani left = 649.5 − 24 = 625.5, top = 122, Ø48. Dolgu: radial-gradient(circle at 42% 38%, #3A4B5A 0 9%, #0E1418 30%, #000 62%). Dışına 2 px halka: inset 0 0 0 2px rgba(255,255,255,.06). Saat 4 yönünde 3×3 px yansıma noktası, rgba(140,170,200,.55).",
+    "oncelik": "P1"
+   },
+   {
+    "madde": "telefon",
+    "saniye": "0–30 (sağ yan)",
+    "gozlem": "Yalnız sağda tek bir tuş var: 140 px boyunda, 9 px dışarı taşıyor, düz #2F404C. 0,45 ölçekte 63×4 px'lik koyu bir çubuk kalıyor. Mevcut açılarda sol yan zaten görünmüyor; görünen tek yanda tek, kısa bir tuş var, oysa telefonu tanıtan en güçlü siluet ipucu yan tuşlardır.",
+    "neden": "Satır 44–46 ve 76: tuş tek renk, ışık almıyor. Uzunluk gövde boyunun %5'i (gerçek güç tuşları ≈%8–10, ses tuşları ≈%14–16). Sol tuşları kaldırma kararı iPhone'a benzememek içindi; tuşlar sağda toplanınca zaten Android düzeni olur ve bu amaçla çelişmez.",
+    "duzeltme": "İki tuşun ikisi de sağda olsun. Güç: gövde y 700–930 (230 px). Ses tek parça: y 1040–1480 (440 px). Dışa taşma 7 px, köşe 4 px. Yalnız k∈[0,34; 0,66] dilimlerinde çizilsin (≈2,7 mm). Renk: linear-gradient(90deg, #6B737A 0%, #C3C9CE 45%, #7A828A 100%). Yan yüz en az 8 px göründüğünde (okuma pozu) tuşlar 10–14 px'lik açık çıkıntılar olarak okunur.",
+    "oncelik": "P1"
+   },
+   {
+    "madde": "telefon",
+    "saniye": "0–30; özellikle 12,75–19,3 (havuz fotoğrafı zemin)",
+    "gozlem": "Gölge sağ-alta 150/260 × s × lift kaydırılmış (0,45 ölçekte ≈70/120 px), 260 px bulanık. Telefon yüzeyden 10 cm havada süzülen bir kart gibi duruyor; temas yok. Zemin ilanın bulanık fotoğrafına dönünce de aynı lacivert gölge sürüyor, sağ-altta kirli koyu bir lekeye dönüşüyor.",
+    "neden": "Phone.tsx:61–63'teki üç katman, arayüz kartı gölgesi gibi kurulmuş. V13.tsx:211 her zaman onPhoto={0} gönderiyor; fotoğraf zemini için yazılmış temas gölgesi hiç kullanılmıyor.",
+    "duzeltme": "Gölgeleri şunlarla değiştirin. Ortam: aynı yuvarlak dikdörtgen, ofset (0; 24·s), blur 40·s, rgba(0,6,14,.45), ölçek 0,98. Yumuşak düşen gölge: ofset (−0,25·ry·s px; 110·s), blur 150·s, rgba(0,6,14,.32), ölçek 0,96. Çapraz 150/260 kaymayı kaldırın. Havuz zemininde (12,75–19,3) onPhoto = poolBg(t) verin.",
+    "oncelik": "P1"
+   },
+   {
+    "madde": "ChatGPT kullanımı",
+    "saniye": "3,05–6,2 (yazım)",
+    "gozlem": "Soru yazılırken ekranda klavye yok; yazım kutusu siyah boşluğun altında tek başına duruyor. Gerçek bir telefonda yazı yazmanın en tanıdık görüntüsü ekranın alt ≈%34'ünü kaplayan klavyedir. Klavye olmayınca hem telefon hissi hem 'şu an kullanıyorum' hissi kayboluyor; üstteki ≈1000 px siyah alan da bu yüzden ölü kalıyor.",
+    "neden": "Screen.tsx'te yazım sahnesi yalnız yazım kutusundan oluşuyor; klavye katmanı yok.",
+    "duzeltme": "Markasız, Apple logosuz bir Türkçe Q klavye: ekranın altından 873 px (291 pt × 3). Zemin #2B2B2E; tuşlar #6B6B70, 96×126 px, köşe 14 px; harfler #F2F2F2, 50 px. Yazım kutusu klavyenin hemen üstüne çıksın (alt = 873+20). Her harfte basılan tuş 60 ms parlasın (#8E8E93). Bu sahnede telefon LIST pozunda tam görünsün, ya da yeni COMP yakın planı kutu + klavyenin üst iki sırasını kadraja alsın.",
+    "oncelik": "P1"
+   },
+   {
+    "madde": "görseller garip",
+    "saniye": "6,95–19,3",
+    "gozlem": "Gerçek widget ve ilan PNG'leri rz −1° ve ry −4° ile yeniden örnekleniyor. Haritanın ve kartların yatay çizgileri, fiyat satırları 1° eğik ve yumuşamış görünüyor (Rumi'nin karesinde 'Lapta · Satılık', filtre çipleri ve kart altları kayık). Gerçek pikselin keskin hissi kayboluyor.",
+    "neden": "Sabit rz −1° her karede bütün arayüzü döndürüyor; okuma sahnelerinde buna hiçbir gerek yok.",
+    "duzeltme": "Okuma pozlarında rz tam 0, rx ≤4, |ry| ≤12. Yazının 1080 px karede en az 22 px kalması için s ≥0,57. Eğim yalnız kapak/kapanış pozunda kalsın (rz −2).",
+    "oncelik": "P2"
+   },
+   {
+    "madde": "telefon",
+    "saniye": "0–2,3 ve 26,15–30",
+    "gozlem": "Kapakta gövde kutusunun altı y=1927; telefon alttan 7 px kesik ve karenin kenarına teğet. Ne tam kadraj ne kararlı bir kesim, 'kayık' görünüyor.",
+    "neden": "COVER = P(540, 1330, 0.45, …); kenar payı hesaplanmamış (bodyBox zaten var).",
+    "duzeltme": "Yeni COVER P(550, 1235, 0.46, 8, −18, −2): alt pay 65 px. QC'ye kural ekleyin: bodyBox y1 ≤ 1920 − 48, ya da y1 − 1920 ≥ 0,25 × kutu yüksekliği. İkisinin arası hata sayılsın.",
+    "oncelik": "P2"
+   },
+   {
+    "madde": "telefon",
+    "saniye": "0–30",
+    "gozlem": "Gövde köşesi 128 px (genişliğin %10,3'ü), ekran köşesi 96 px (ekran genişliğinin %8,1'i). Güncel telefonlarda ekran köşeleri daha yuvarlak; bu oran siluete eski model ya da tablet havası veriyor. Kenar oranları ise doğru: gövde 1:2,107, bordür eşmerkezli 34 px.",
+    "neden": "Satır 8–9: BR=128, SR=96.",
+    "duzeltme": "BR 148, SR 114. Fark 34 px kalsın (eşmerkezli). OX/OY/SW/SH değişmediği için Screen.tsx'teki koordinatlar kaymaz. Kontrol: yazım kutusunun köşesi (x 36, alttan 70, r 64), ekran köşe merkezine 24 px uzakta; 64+24 = 88 < 114, kırpılmaz. Bordür: 12 px metal + 22 px #0B0D10 mürekkep.",
+    "oncelik": "P2"
+   },
+   {
+    "madde": "telefon",
+    "saniye": "0–30 (yan bant)",
+    "gozlem": "Yan bant görünse bile 18 dilimin %76'sı #384955/#121D26, yani malzeme metal değil boyalı plastik gibi. Kalınlık boyunca uzanan speküler şerit yok.",
+    "neden": "sideTone yalnız ön ve arka dudağı açık yapıyor; orta bant düz ve koyu. N=18, ry 18°'de 15–19 px'lik yüzde 1 px'lik basamaklar oluşturuyor.",
+    "duzeltme": "N=30, k=(i+0,5)/30. Tonlar: k<0,06 #C9CFD4 (ön pah) · 0,06–0,20 #8F979E · 0,20–0,42 #B9C0C6 (speküler şerit) · 0,42–0,85 #5B636A · 0,85–0,94 #3A4147 · >0,94 #8A9298 (arka pah). Her dilim için linear-gradient(180deg, ton+%8 L 0%, ton 40%, ton−%12 L 100%). Arka kapak: linear-gradient(135deg, #3A4046, #1E2327).",
+    "oncelik": "P2"
+   }
+  ],
+  "korunacaklar": [
+   "Ekran geometrisi (src/v12/Phone.tsx:7): SW×SH 1179×2556, OX=60, OY=72. Screen.tsx'teki bütün koordinatlar buna bağlı; yeni spesifikasyon bunları değiştirmiyor.",
+   "Gövde oranı 1:2,107 ve eşmerkezli 34 px bordür. Oranlar doğru, sorun malzemede ve ışıkta.",
+   "bodyToOut / projectOut / bodyBox (satır 18–36): doğru 3B izdüşüm; poz QC'si ve kenar payı kontrolü için aynen kullanılmalı.",
+   "Perspektif 3200 ve perspectiveOrigin = poz merkezi; ılımlı, abartısız bir lens hissi veriyor.",
+   "Delik kamera kimliği (Dynamic Island yok): telefonu iPhone kopyası olmaktan çıkaran temel ayrım. Yalnız ortalanması gerekiyor.",
+   "ChatGPT koyu zemini #000: gerçek iOS kaydında da (0,0,0) ölçüldü; değiştirilmemeli.",
+   "Gerçek widget ve ilan pikselleri (public/v12/w/*.png); yalnız ölçek, açı ve ışık değişsin.",
+   "Portal geçişi: ilan fotoğrafının kahramana uçması ve 14,45–17,55'te geri inmesi.",
+   "Son karenin ilk kareyle aynı olduğu döngü (COVER pozu başta ve sonda aynı kalmalı).",
+   "Kenar ışığı maskesinin rx/ry'ye bağlı olması: doğru fikir. Açı değişmeye başlayınca kendiliğinden canlanacak."
+  ],
+  "ozel_oneri": "Tek en etkili öneri: telefonu 'açık titanyum cihaz + iki sabit poz' paketiyle yeniden kurmak. Ekran koordinatları değişmez, böylece Screen.tsx'e dokunulmaz. Katman sırası, arkadan öne (preserve-3d içinde, translateZ değerleriyle):\n(0) 3B dışında gölgeler: ortam gölgesi ofset (0; 24·s), blur 40·s, rgba(0,6,14,.45), ölçek 0,98; yumuşak düşen gölge ofset (−0,25·ry·s; 110·s), blur 150·s, rgba(0,6,14,.32), ölçek 0,96. Havuz zemininde onPhoto = poolBg(t).\n(1) Z −150, arka kapak: BR 148, linear-gradient(135deg, #3A4046, #1E2327).\n(2) Z −k·150, 30 yan dilim, k=(i+0,5)/30. Tonlar: <0,06 #C9CFD4 · 0,06–0,20 #8F979E · 0,20–0,42 #B9C0C6 · 0,42–0,85 #5B636A · 0,85–0,94 #3A4147 · >0,94 #8A9298. Her dilime 180° dikey degrade: +%8 L, ton, −%12 L.\n(3) Yalnız k 0,34–0,66 dilimlerinde, sağ kenarda x = BX+BW−2, 9 px genişliğinde (7 px taşar), iki tuş: güç y 700–930, ses y 1040–1480, köşe 4, linear-gradient(90deg, #6B737A, #C3C9CE 45%, #7A828A).\n(4) Z 0, metal halka (tam gövde, BR 148): linear-gradient(135deg, #E4E8EB 0%, #9AA1A7 18%, #5A6168 50%, #8C949A 78%, #D2D7DB 100%).\n(5) Z 0,3, pah ışığı: inset 0 0 0 2px rgba(255,255,255,.38). Maske radial-gradient(farthest-corner at (30−2·ry)% (10+2·rx)%, #000 0%, rgba(0,0,0,.25) 55%, #000 100%).\n(6) Z 0,5, cam mürekkebi: 12 px içeride, BR−12 = 136, #0B0D10.\n(7) Z 0,6, cam kenarı: yalnız mürekkep halkasında (ekran maskeyle dışarıda). Dış kenarda 1,5 px rgba(255,255,255,.09) ve radial-gradient(120% 60% at 15% 0%, rgba(255,255,255,.07), transparent 60%).\n(8) Z 1, ekran: OX 60, OY 72, 1179×2556, SR 114, #000, içerik. Üstüne hiçbir katman binmez; karartma zemine uygulanır.\n(9) Z 1,2, ekranın 1,5 px dışında rgba(255,255,255,.06) halka (bordürün üstünde).\n(10) Z 1,5, delik kamera: merkez (649,5; 146), Ø48, radial-gradient(circle at 42% 38%, #3A4B5A 0 9%, #0E1418 30%, #000 62%), 2 px halka rgba(255,255,255,.06).\nPozlar (rz okumada hep 0):\n• LIST: P(540, 1020, 0.62, 4, −12, 0) → kutu [165, 943, 196, 1863]; sonuç, kart ve ilan.\n• RES: P(540, 1100, 0.57, 4, −12, 0) → [195, 910, 343, 1872]; üstte metin olan anlar.\n• COMP: P(560, 300, 1.0, 8, −16, 0) → alt kenar 1736, yazım kutusu y≈1453, klavyeyle; en çok 2,5 sn.\n• COVER: P(550, 1235, 0.46, 8, −18, −2) → [273, 875, 616, 1855]; yan yüz 15,7 px.\nQC kuralı: bodyBox ya ≥48 px payla karede olur ya da tek kenardan ≥%25 kesilir. Okuma pozlarında yan yüz ≥8 px, kapakta ≥15 px. Telefon silueti kenarının zemine kontrastı ≥3:1 (bugün 1,38:1)."
+ },
+ {
+  "uzman": "Kurgu ve kadraj uzmanı (reklam kurgucusu + görüntü yönetmeni). Kaynaklar: BRIF-v14.md, Rumi'nin ekran görüntüsü (images/1.webp), out/v13qc/blok_0..5.jpg, docs/v13/kareler/*, v13_okunurluk_360x640.jpg, src/v13/V13.tsx, src/v13/Screen.tsx, src/v13/tl.ts, src/v12/Phone.tsx, public/v12/w/*.png. Gövde kutuları Phone.tsx'teki bodyToOut/bodyBox zinciri birebir yeniden hesaplanarak bulundu (betik: /tmp/claude-0/-home-user-Animation-Social-Media/8061e222-fdd3-5eed-88a7-976b512a043c/scratchpad/k12/kadraj/box.py). v13 pozları brifteki tabloyla piksel piksel tuttu. ÖZET KARAR: Telefon her karede TAM kadrajda olacak; gövde kutusu [≥24 px kenar payı] içinde kalacak. Meşru tek istisna portal (14,45–17,55): orada telefon değil ilanın fotoğrafı kahraman; o an tam ekran ara plan (cutaway) olur ve telefon tamamen gizlenir. Yakın plan (telefonu kesen kadraj) v14'te hiç yok. Okunurluk ile tam telefon arasındaki gerilim beş yoldan çözülür. (1) Dış metin ile büyük telefon aynı anda ekranda olmaz; metin girerken kamera geri çekilir, metin çıkınca kamera içeri iter. (2) Bizim temsilî ChatGPT arayüzündeki yazılar iOS varsayılan boyutlarına çıkar (gövde 17 pt = 51 px, alt satır 15 pt = 45 px). Bunlar bugün %6–20 küçük. (3) Anlam taşıyan içerik kamera ile değil ekran içi kaydırma ile ekranın orta bandına getirilir. (4) Okuma planlarında açı neredeyse cepheden olur, hikâye planlarında açılı. (5) Gerçek widget'ın 40 px'lik künye satırı ancak s≥0,70'te 28 px olur; bu yüzden kart planı metinsiz, en büyük tam telefon planıdır.",
+  "bulgular": [
+   {
+    "madde": "ekran yarım",
+    "saniye": "6,95–12,75 (Rumi'nin ekran görüntüsü ≈11,5 sn; blok_1 7,00–9,83; blok_2 10,00–12,83; kare v13_09,30 ve v13_11,50)",
+    "gozlem": "PR pozu (540;1698;0,80;2;−4;−1). Gövde kutusu x[36,1068] y[639,2763]: alttan 843 px kesik (gövdenin %40'ı), üstte 639 px boş lacivert (kadrajın %33'ü). Sol pay 36, sağ pay 12 px; ry −4 nedeniyle telefon sağa kaçık. Ekranın alt yarısı (kart şeridi, 'Haritada tümü', 'Evlek'te aç') hiç görünmüyor. Kadrajın üst üçte biri yalnız 8,5–10,35'te 'Sor. Evlek göstersin.' ile doluyor (y 480–559, telefonla 80 px pay). Sloganın çıktığı 10,35'ten sonra 2,4 sn boyunca üst bant tamamen boş kalıyor. Rumi'nin gördüğü kare tam olarak bu: yarım telefon ve dengesiz boşluk.",
+    "neden": "V13.tsx:25'teki yorum: 'kart şeridi önce kadraj dışında'. Açılış hamlesi ekran içi kaydırma ile değil telefonu kadrajın altına iterek yapılmış. Kamera açılış aracı olarak kullanıldığı için kadraj yarım kalmış. Ayrıca x=540 sabit; ry −4 izdüşümü kutuyu 12 px sağa kaydırıyor.",
+    "duzeltme": "İki plan. (a) 8,3–10,15 sonuç ve slogan: A61 = (534;1072;0,61;2;−5;−1), kutu x[149,935] y[262,1881], payları L149 R145 T262 B39. Slogan top 130'a, 72 px'e alınır (glif 130–209, telefonla 53 px pay). (b) 10,25–12,6 kart: B70 = (534;958;0,70;1;−3;−0,5), kutu x[96,983] y[32,1885], dış metin yok. Açılışı ekran içi kaydırma yapar: LAPTA_SCROLL 900 → ≈620. Kart satırı ekran y 946–1772'ye gelir, çıktıda ≈730–1310 olur, yani orta band. Kart künyesi (gerçek widget, 40 px) 0,70'te 28,0 px, fiyat (49 px) 34 px olur. 'Lapta, Girne' (37 px → 26) anlam taşımaz, kabul.",
+    "oncelik": "P0"
+   },
+   {
+    "madde": "ekran yarım",
+    "saniye": "2,3–6,35 (blok_0 2,50–4,83; blok_1 5,00–6,50; kare v13_04,50)",
+    "gozlem": "COMP pozu (530;−40;0,92;2;−4;−1). Kutu x[−48,1139] y[−1258,1188]: üstten 1258 px, soldan 48, sağdan 59 px kesik. Kadraj şöyle bölünüyor: 0–≈720 dümdüz siyah ekran, ≈780–1150 yazım kutusu, 1188–1920 arası 732 px boş lacivert (kadrajın %38'i). Telefonun kalan tek göstergesi alt köşe yuvarlağı, bu yüzden 'telefon telefona benzemiyor'. 3,35 sn, filmin %11'i bu kadrajda.",
+    "neden": "Yazım kutusundaki 48 px yazının okunması için yakın plan seçilmiş. Ama yeni sohbet ekranı boş olduğundan yakın plan yalnız siyahı ve zemini büyütüyor. Klavye yok; gerçek bir telefonda yazarken klavye kalkar ve ekranın alt %38'ini doldurur.",
+    "duzeltme": "Tam telefon: YAZ = B66 (534;960;0,66;1;−3;−0,5), kutu ≈x[120,957] y[87,1833]. 3,0–6,2 arası doğrusal kayma ile s 0,66→0,675, y 960→952. Yazım kutusu 48 px → 31,7 px (iOS 51 px ile 33,7). Ekranın siyah boşluğunu markasız iOS benzeri bir klavye doldurur: ekran y 1583–2556, 291 pt×3 = 873 px tuş alanı + 100 px alt çubuk. Logo yok. Her harfte tuş 80 ms #3A3A3C→#5A5A5E parlar. Yazım kutusu klavyenin üstüne (ekran y≈1420–1560) çıkar, çıktıda y≈1010–1100, kadrajın tam ortası. Böylece yakın plana gerek kalmaz.",
+    "oncelik": "P0"
+   },
+   {
+    "madde": "ekran yarım",
+    "saniye": "12,75–14,45 ve 17,55–18,75 (blok_2 13,00–14,50; blok_3 17,17–18,33; kare v13_13,80, v13_17,90)",
+    "gozlem": "PT pozu (540;1255;0,78;2;−4;−1). Kutu y[222,2292]: alttan 372 px kesik, sağ pay 26 px. İlanın alt yarısı ('Temel bilgiler' ızgarası ve 'Emlakçıya sor' çubuğu) kadraj dışında. 18,15–18,75'te kamera PF'ye (0,58) çekilerek çubuğu gösteriyor; 0,58'de dBar yazısı (≈45 px) 26 px'e düşüyor.",
+    "neden": "İlan fiyatı ve künyesi okunsun diye büyütülmüş, ama metinsiz bir planda tam telefonun sığdığı en büyük ölçek (0,70) zaten yeterli. 0,78 gereksiz yere taşıyor.",
+    "duzeltme": "İLAN = B68 (534;962;0,68;1;−3;−0,5), kutu x[108,970] y[63,1862], payları T63 B58. Fiyat 75 px → 51 px. Künye 46 → 31 px. Başlık 'Lapta'da Deniz Manzaralı 2+1 Daire' 42 → 28,6 px. 'Emlakçıya sor' çubuğu ekran y 2348–2555'te, çıktıda ≈1690–1835, kadrajın içinde. 18,15'teki PF'ye geri çekilmeye gerek kalmaz; galeri ve ızgara ekran içi kaydırmayla açılır, kamera 1,5 dr kaymasıyla durur.",
+    "oncelik": "P0"
+   },
+   {
+    "madde": "eklenti",
+    "saniye": "19,3–24,6 (blok_3 19,33–19,83; blok_4 20,00–24,33; kare v13_21,60, v13_23,60)",
+    "gozlem": "CHAT 0,55 ve PBTN 0,60. Telefon 709–774 px genişlikte, kadrajın %66–72'si. İki satırlık başlık (64 + 52 px, y 128–285) ile telefon arasında 60–80 px pay var ve ekranın içi küçük kalıyor. Çıktı boyutları: kenar menü öğeleri 50 → 27,5 px; arama 'evlek' 48 → 26,4; 'Northern Cyprus property data' 40 → 22; örnek istemler 38 → 21–23; 'Bağlı' 42 → 25,2 px (ana anlam bu!). PBTN alttan 16 px kesik (y1 1936). Sonuç: kur → Bağlı anı küçük ve okunmuyor; Rumi'nin 'eklenti ekleme düzgün anlatılmamış' itirazının kadraj tarafı bu.",
+    "neden": "Başlık ile adım şeridi iki satır yer kaplıyor, telefon hep küçük pozda. Temsilî arayüz yazıları iOS varsayılanının altında (42/40/38 px). Bağlı anında kamera itmiyor; 22,2–22,8 itmesi 'Eklentiyi kur' düğmesine gidiyor ve alt kenarı kesiyor.",
+    "duzeltme": "19,3–23,35: EKLENTİ = L58 (534;1112;0,58;2;−5;−1), kutu x[167,914] y[342,1880]. Başlığın (128–285) altında 57 px, altta 40 px pay. Arayüz yazıları iOS boyutuna: menü, arama ve sonuç adı 51 px (0,58'de 29,6 ✓); alt satır, açıklama ve 'Bağlı' 45 px. 23,35 'Bağlı' vuruşu: adım şeridi 'Ekle ✓' halinde 0,25 sn tutulur, 23,45–23,65'te başlık bloğu yukarı söner. 23,45–24,05'te kamera IOE ile B66'ya (534;960;0,66;1;−3;−0,5) iter. 'Bağlı' 45 px → 29,7 px, 'Sohbette dene' 52 → 34 px. PBTN pozu kaldırılır.",
+    "oncelik": "P0"
+   },
+   {
+    "madde": "diğer (kamera ritmi)",
+    "saniye": "6,35–6,95 ve 12,75–13,45 (blok_1 6,33–6,83; blok_2 12,83–13,33)",
+    "gozlem": "6,35–6,95'te balon yukarı uçarken kamera aynı anda COMP'tan PR'ye gidiyor: y −40→1698, yani 0,6 sn'de 1738 px dikey yol (≈2900 px/sn), s 0,92→0,80. Kadraj 'savruluyor'; 6,50 karesinde telefon üstten kesik, sağ altta yüzüyor. 12,75–13,45'te kart fotoğrafı kahraman alanına uçarken telefon da PR'den PT'ye kayıyor (y 1698→1255, 443 px). Göz iki hareketten hangisini izleyeceğini bilemiyor.",
+    "neden": "KEYS dizisinde kamera anahtarları içerik geçişleriyle aynı zaman aralığına (TL.rise, TL.expand) bağlanmış.",
+    "duzeltme": "Tek hareket kuralı: içerik hareket ederken kamera ≤%2 kayar; kamera hareket ederken ekran içeriği durur. Kamera hamleleri 0,6–0,8 sn, IOE (0,45,0,0,55,1), ≤900 px/sn. v14 kamera çizelgesi: 2,40–3,10 KAPAK→YAZ · 3,10–6,20 durur (+%2) · 6,20 dokunuş vuruşu · 6,35–8,30 durur (balon ve arama ekranda) · 8,30–8,90 YAZ→A61 (slogan 8,60'ta girer) · 8,90–10,15 durur · 10,25–10,85 A61→B70 (kaydırma 10,60'ta başlar) · 10,85–12,60 durur · 12,75–13,45 B70→B68 yalnız %3 (içerik uçarken) · 14,45–17,55 portal (kamera sabit) · 17,55–19,30 durur · 19,30–19,90 B68→L58 · 19,90–23,45 durur (+%1,5) · 23,45–24,05 L58→B66 · 25,35–26,15 B66→KAPAK (FLY). Toplam 7 hamle; aralar 2–6 sn.",
+    "oncelik": "P1"
+   },
+   {
+    "madde": "ekran yarım",
+    "saniye": "14,45–17,55 portal (blok_2 14,67–14,83; blok_3 15,00–16,83; kare v13_15,90)",
+    "gozlem": "Portal karartması rgba(6,26,46,.78) olduğundan arkadaki PT telefonu %22 görünür kalıyor. Hayalet '10:24' ve durum çubuğu (çıktı y≈307–346), 'Lapta · 2+1 · 107 m²' satırına (y 262–319) değiyor. Altta 1680–1920 bandında hayalet 'Temel bilgiler / Daire / 2+1 Oda düzeni' okunuyor. Fotoğraf iki yarım telefon şeridi arasında sıkışmış görünüyor; yine 'yarım ekran' hissi.",
+    "neden": "Portal katmanı yalnız yarı saydam bir örtü. Arkadaki PT pozu kesik ve metne değiyor; portal sırasında kamera da sabit tutulmuş (V13.tsx:38).",
+    "duzeltme": "Portal filmdeki tek meşru 'telefonsuz' plan. Telefon tamamen gizlenir: örtü .78 → .96 ya da örtü yerine Background'daki bulanık havuz katmanı (blur 30, brightness .72, lacivert multiply .5) k ile tam opak. Fotoğraf çerçevesi FRAME (0;380;1080;1300) kalır; etiket ile pay 61 px. Dönüşte (16,85–17,55) örtü k ile açılır, telefon B68'de bulunur. Köşe eşleşmesi için p0 = B68 ile hesaplanır.",
+    "oncelik": "P1"
+   },
+   {
+    "madde": "telefon",
+    "saniye": "0–2,3 ve 26,15–30 (blok_0 0,00–2,33; blok_5 26,00–29,83; kare v13_00,50, v13_27,80)",
+    "gozlem": "KAPAK (540;1330;0,45;2;−4;−1) kutusu y[734,1927]: alttan 7 px kesik. İlk ve son kare (küçük resim) telefonu kenara yapışık gösteriyor. Ekran simsiyah, %15 karartılmış, yazım kutusu 9 px. ry −4 ile yan kalınlık neredeyse görünmüyor (150×0,45×sin4° ≈ 5 px); telefon düz yuvarlak bir siyah levha gibi okunuyor.",
+    "neden": "Kapak pozunda alt pay hesaplanmamış. Ürün açısı okuma açısıyla aynı (−4°), kapakta gövde hissi verecek açı yok.",
+    "duzeltme": "KAPAK = (534;1300;0,44;4;−8;−1), kutu x[259,826] y[717,1885]. Başlıkla (440–541) 176 px, dipnotla (572–652) 65 px, altla 35 px pay. ry −8, rx 4 ile yan kalınlık ≈9 px, güç tuşu da görünür. Logo→çip ve çip→logo yolu projectOut kullandığından kendiliğinden uyar.",
+    "oncelik": "P1"
+   },
+   {
+    "madde": "diğer (geçiş çakışmaları)",
+    "saniye": "1,50 / 1,67 / 2,50–2,83 (blok_0)",
+    "gozlem": "1,50'de uçan 'Evlek' logosu 'artık ChatGPT'de.' satırının (y 440–541) tam üstünden geçiyor; iki yazı üst üste biniyor. 2,50–2,83'te telefon yukarı iterken başlık hâlâ %40–60 opak ve siyah ekranın üstüne biniyor ('artık ChatGPT'de.' ekranın içinde okunuyor). Dış metin ile gövde arası pay 0.",
+    "neden": "Title katmanı Phone'dan sonra çiziliyor. titleO = 1−tOut doğrusal, kamera ile aynı aralıkta (TL.push 2,3–3,0). Logo yayı (−160·sin) başlık satırını kesiyor.",
+    "duzeltme": "Başlık 2,30–2,50'de (0,2 sn) tamamen söner, kamera 2,40'ta başlar. Telefon üst kenarı y 589'u ancak 2,52'de geçer, çakışma kalmaz. Logo yayı yana alınır: orta noktada x+200, y−60. Ya da başlık 1,45–2,0'da 0,35 opaklığa iner, 2,1'de geri gelir.",
+    "oncelik": "P1"
+   },
+   {
+    "madde": "diğer (kurgu)",
+    "saniye": "19,30 (blok_3 19,17→19,33)",
+    "gozlem": "PF (0,58×1,006) → CHAT (0,55) sert kesme: ölçek farkı %5, açı aynı, y farkı ≈80 px. Aynı nesnede bu kadar küçük fark atlama kesmesi (jump cut) gibi okunuyor, kare tökezliyor. İçerik de aynı anda ilandan sohbete atlıyor.",
+    "neden": "V13.tsx:40, K(TL.cut, CHAT, L_, true): sahne geçişi kesmeyle yapılmış ama boy farkı yaratılmamış.",
+    "duzeltme": "Kesme yerine 19,30–19,90 arası B68→L58 hareketi (%15 ölçek, ry −3→−5). Başlık 19,45–19,75'te düşer. Ekranda ilan → kenar menü kayışı aynı yöne akar. Kesme şartsa boy farkı ≥%25 olmalı (örn. B70→0,52); bu da okunurluğu bozar, önerilmez.",
+    "oncelik": "P1"
+   },
+   {
+    "madde": "ChatGPT kullanımı",
+    "saniye": "3,0–10,35 (blok_0–blok_1)",
+    "gozlem": "Yazım ve sonuç bölümünde temsilî arayüz yazıları iOS varsayılanının altında: balon 46 px (iOS gövde 17 pt = 51), yazım kutusu 48, 'Birkaç saniye düşündü' 42. Yan yana gelince gerçek widget (51 px başlık) arayüzden iri, sohbet 'küçültülmüş web taslağı' gibi duruyor. 0,61'de balon 28,1 px ile sınırda.",
+    "neden": "Screen.tsx'te K/fontSize değerleri elle seçilmiş; Dynamic Type ölçeğine bağlanmamış.",
+    "duzeltme": "Temsilî arayüzü iOS ×3 ölçeğine bağla: gövde ve balon 51 px, satır 66; yazım kutusu 51; alt satır ve dipnot 45 (15 pt); başlık 52–54. Etki: A61'de balon 31 px, B66'da yazım kutusu 33,7 px. Gerçek widget pikselleri değişmez. Satır sarması kontrol edilmeli: balon maxWidth 1000, 'Lapta'da £160 bin altı,' 51 px'te ≈560 px.",
+    "oncelik": "P1"
+   },
+   {
+    "madde": "diğer (platform güvenli alanı)",
+    "saniye": "tüm film",
+    "gozlem": "Reels/TikTok arayüzü altta ≈380 px'i (açıklama, ses), sağda ≈140 px'i (beğeni ve yorum sütunu) örter. v13'te anlam taşıyan bazı öğeler bu bantta: 6,2'de gönder düğmesi (y≈1700), 18,95'te 'Emlakçıya sor' çubuğu (y≈1700–1840), 22,8'de 'Eklentiyi kur'.",
+    "neden": "Yerleşim yalnız 1080×1920 tam ekran izleyiciye göre yapılmış (Rumi claude.ai tam ekranda izledi).",
+    "duzeltme": "Telefon tam kadrajda kalır (kural). Ama dokunuş hedefleri ve okunacak satırlar ekran içi kaydırmayla çıktı y 250–1540 ve x 60–940 bandına getirilir. Arayüz düğmesi doğası gereği altta kalıyorsa (Eklentiyi kur, Emlakçıya sor), dokunuş halkası ve 'kick' görünür kalır; anlamı dış metin ya da adım şeridi taşır.",
+    "oncelik": "P2"
+   }
+  ],
+  "korunacaklar": [
+   "Portal fikri: ev fotoğrafı ilanın kendi kahraman çerçevesinden doğar, tam kare olur, geri iner. Filmin tek meşru 'telefonsuz' planı (yalnız arkadaki hayalet telefon gizlenmeli).",
+   "Logo → yazım kutusundaki Evlek çipi ve geri dönüş imzası (A′); projectOut ile poza bağlı olduğu için yeni pozlara kendiliğinden uyar.",
+   "Dokunuş vuruşu (kick): gönder, kart ve kur anlarında 0,18 sn, %0,4 ölçek, 3 px. Fiziksel geri bildirim, abartısız.",
+   "Durma anında 'dr' kayması (%0,6–1,5 ölçek, 3–6 px): planlar ölü durmuyor.",
+   "Perspektif 3200 ve bodyToOut/bodyBox zinciri. v14 QC'si için doğru araç: her karede gövde kutusu ve metin payı buradan doğrulanmalı.",
+   "Gerçek widget'ın 1:1 ya da daha küçük ölçekte kullanılması (yumuşama yok); FRAME 1300 px yüksekliğinde havuz fotoğrafı (≈1,08×, özgüne yakın).",
+   "Adım şeridi (ChatGPT › Eklentiler › Evlek › Ekle) ve mercan #B84E3B alt çizgi. Etkin adımı gösteren tek renk vurgusu, az ve yerinde.",
+   "Son kare = ilk kare döngüsü ve 'artık ChatGPT'de.' harf harf kapanışı.",
+   "Ana mesaj sayısı 3; slogan ve fiyat etiketi dış metin olarak ≥52 px."
+  ],
+  "ozel_oneri": "'İki kat kadraj + metin/kamera nöbeti' sistemi. Telefon hiç kesilmez; okunurluk, dış metin ile büyük telefonu zamanda ayırarak kazanılır. POZLAR (x;y;s;rx;ry;rz → gövde kutusu):\n• KAPAK (534;1300;0,44;4;−8;−1) → x[259,826] y[717,1885]\n• KAT A, metinli hikâye planı (534;1072;0,61;2;−5;−1) → x[149,935] y[262,1881]. Dış metin tek satır, top 130, 72 px.\n• KAT A2, iki satır başlıklı eklenti planı (534;1112;0,58;2;−5;−1) → x[167,914] y[342,1880]. Başlık 128–285.\n• KAT B, metinsiz okuma planı. Yazım ve Bağlı: B66 (534;960;0,66;1;−3;−0,5). İlan ve galeri: B68 (534;962;0,68;1;−3;−0,5) → y[63,1862]. Kart: B70 (534;958;0,70;1;−3;−0,5) → x[96,983] y[32,1885].\nx=534, ry'nin sağa kaydırmasını dengeler (L/R farkı ≤5 px).\nKURALLAR:\n(1) Dış metin girerken kamera A'ya çekilir: metin, kamera hamlesinin %40'ında girer. Metin çıkınca kamera B'ye iter: metin, hamle başlamadan 0,1 sn önce söner.\n(2) Kamera ve içerik aynı anda büyük hareket etmez. Hamle 0,6–0,8 sn, IOE, ≤900 px/sn. Durma anında %1–2 kayma.\n(3) Açı: okuma planında ry −3, rx 1, rz −0,5; hikâye planında ry −5; kapakta ry −8, rx 4. Açı değişimi hamle içinde olur ve gövdeye derinlik verir.\n(4) Anlam taşıyan ekran içi satır, ekran içi kaydırmayla çıktı y 250–1540 bandına getirilir.\n(5) Temsilî arayüz iOS ×3 boyutlarında: 51/45/39 px. Bu, gerçeklik ile okunurluğu aynı anda artırır.\nOKUNURLUK SINAMASI (çıktı px = ekran px × s): balon 51×0,61 = 31 · yazım kutusu 51×0,66 = 34 · kart fiyatı 49×0,70 = 34 · kart künyesi 40×0,70 = 28,0 · ilan künyesi 46×0,68 = 31 · ilan başlığı 42×0,68 = 28,6 · menü ve arama 51×0,58 = 29,6 · 'Bağlı' 45×0,66 = 29,7.\nQC İDDİASI (her kare için kodla): bodyBox ⊂ [24,1056]×[24,1896]; portal k>0,9 iken muaf. Her dış metin kutusu ile bodyBox arası ≥48 px. Listelenen anlam satırları için font×s ≥28. Bu üç iddia v14 render'ında karede bir kez çalışıp ilk ihlali saniyesiyle raporlamalı. Böylece 'ekran yarım' bir daha göze değil sayıya bağlanır."
+ },
+ {
+  "uzman": "Hareket tasarımcısı: ChatGPT ürün deneyimi ve uygulama lansman filmlerinde UI hareketi. Kapsam: v13'ün 2,3–19,3 sn arası Gelişme bölümü. Kanıtlar: 6 fps bloklar (blok_0–5), anahtar kareler, f6 karelerinde ölçülen siyah oranı ve ortalama parlaklık, `src/v13/{V13,Screen,tl}.tsx`, `src/v12/Phone.tsx`, gerçek iOS kayıtları (eklenti_13_0, 28_5, 31_5, 57_0) ve Rumi'nin 1.webp ekran görüntüsü. Pozları Phone.tsx'teki bodyToOut fonksiyonunu birebir taşıyan bir betikle yeniden hesapladım: scratchpad/pose.py.",
+  "bulgular": [
+   {
+    "madde": "ChatGPT kullanımı",
+    "saniye": "2,3–6,2 (yazma)",
+    "gozlem": "Soru klavye olmadan yazılıyor. Ekranda yalnız yazım kutusu var, altında ana ekran çubuğu duruyor. Gerçek iOS kaydında (eklenti_31_5) Evlek çipi kutuya düştüğünde Türkçe Q klavye açık oluyor. Klavye zemini #161815, tuşlar #343633 ve #424441, kutu klavyenin hemen üstünde. Tuşa basınca harf önizlemesi de çıkmıyor. v13'te hiçbir tuşa basılmıyor, harfler kendiliğinden beliriyor.",
+    "neden": "`NewChat` ve `Composer` yalnız yazım kutusunu çiziyor; klavye bileşeni yok. Kutunun altı ekranın altına sabit: `COMP.bottom = 70`. Telefonu telefon gibi gösteren en güçlü işaret, yani klavye, eksik.",
+    "duzeltme": "ChatGPT kabuğunun parçası olarak koyu iOS klavyesi ekle. Evlek pikseline dokunmaz; marka ya da logo yok. Ölçüler: yükseklik 840 tasarım px (ekranın %33'ü, ekranda 1716–2556), dört sıra (qwertyuıopğü / asdfghjklşi / ⇧zxcvbnmöç⌫ / 123 ☺ boşluk ↵), en alta küre ve mikrofon. Renkler: zemin #161815, tuş #343633, işlev tuşu #424441, harf #F2F2F2. Açılış 2,38–2,74 sn (0,36 sn), bezier(0.2,0.8,0.2,1); kutu klavyeyle birlikte yukarı çıkar. Her harfte tuşun 1,5 katı büyüklüğünde önizleme balonu (#6C6C70) 90 ms görünsün. Göz kırpıştırmasın diye saniyede en çok 12 önizleme, yani 30 karede 1. 'altı,' sonrasında satır kaydığında kutu 68 px büyüsün: 0,15 sn ease-out, şu an atlayarak büyüyor (4,0→4,17).",
+    "oncelik": "P0"
+   },
+   {
+    "madde": "ekran yarım",
+    "saniye": "3,0–6,35 (COMP pozu)",
+    "gozlem": "Kare 960×540'a küçültülüp ölçüldü: 2,5–6,0 sn arası karenin %46–50'si saf siyah (RGB<12), ortalama parlaklık 15/255. Kadraj üstten aşağıya şöyle: 0–850 boş sohbetin siyahı, 850–1070 yazım kutusu, 1070–1190 telefonun alt çerçevesi, 1190–1920 boş lacivert (karenin %38'i). Telefonun üstü kesik, altında da boşluk var: ne yakın plan ne tam telefon.",
+    "neden": "COMP = P(530, −40, 0.92, 2, −4, −1). Klavye olmadığı için kutu ekranın en altında (ekran y 2364, çıktıda ≈970); tasarım bu alttaki boşluğu dolduracak hiçbir şey koymuyor.",
+    "duzeltme": "Kutu ve klavyeyi kasıtlı bir makro planla göster: TYPE = P(540, 318, 1.00, 6, −6, −1.5). Hesaplanan gövde kutusu [−75, 1239, −979, 1688]; telefon üstten ve iki yandan taşar, alt çerçevesi görünür. Klavyeli kutunun merkezi y≈601, klavye 760–1645, yazı 48 px. Siyah alan yalnız 0–480 bandında kalır (≈%25). Alttaki 232 px lacivert alana ekrandan sızan ışık düşsün: radial-gradient(50% 0%, rgba(150,170,190,.10)). Kadraj kuralı: telefon ya bütün olsun ve her yanda ≥60 px pay kalsın, ya da ≥3 kenardan taşsın. Karenin %15'inden geniş boş lacivert bant ve kenara teğet duran gövde olmasın.",
+    "oncelik": "P0"
+   },
+   {
+    "madde": "ChatGPT kullanımı",
+    "saniye": "6,2–7,8 (gönder → ara)",
+    "gozlem": "6,25'te kutu birden boşalıyor. Balon ekranın 1750 px altından fırlıyor: `translateY((1−bk)·1750)`. 6,5 sn karesinin %72'si siyah, ortalama parlaklık 7/255; filmin en karanlık anı gönderdikten hemen sonra geliyor. 7,0–7,8 arası ekranda yalnız 35 px boyunda parlayan bir 'Evlek' etiketi var; 0,8 sn boyunca hiçbir şey olmuyor. Gerçek ChatGPT'de durum farklı. Gönderilen metin kutudan kalkıp balona dönüşüyor, klavye iniyor. Yanıt üretilirken gönder düğmesi mavi daire içinde beyaz kare (■) durdur düğmesine dönüşüyor (eklenti_57_0). Yazım kutusu yanıtın üstünde yüzen bir hap olarak kalıyor.",
+    "neden": "Balonun kalkışı kamera geri çekilirken ayrıca canlandırılmış; kaynağı ekran dışı, ortak öğe geçişi yok. Durdur düğmesi ve klavye inişi yok. Arama durumu 0,8 sn ve küçük bir kadrajda.",
+    "duzeltme": "5,62'de gönder düğmesine bas: ölçek 0,90, 90 ms in, 120 ms dön. Aynı karelerde kamera 0,4% sarssın; `kick` yeterli. 5,70–6,00 arası klavye 840 px iner, bezier(0.3,0,0.2,1). 5,70–6,08 arası yazılı metin ortak öğe olarak kutudan balona uçar; renk #181818'den gerçek balon rengine (#010455) döner. 5,70–6,50 arası kamera TYPE pozundan RES = P(540, 1040, 0.60, 3, −8, −1) pozuna geçer, IOE. Hesap: balon ekranda y≈340 → çıktıda ≈547; metin TYPE'ta ≈570'teydi. Yani mesaj karede yerinde kalır, dünya etrafında açılır; göz kilitlenir. 6,10–6,75: 'Evlek' etiketi (Ø60 ikon, 44 px) parlar, tarama süresi 0,9 sn; kutu durdur düğmesini gösterir. 6,65'te 'Birkaç saniye düşündü ›' gelir. Siyah ekran süresi 1,45 sn'den 0'a iner.",
+    "oncelik": "P0"
+   },
+   {
+    "madde": "ekran yarım",
+    "saniye": "7,8–10,35 (sonuç; Rumi'nin ekran görüntüsü 11–12 sn)",
+    "gozlem": "Sonuç PR pozunda geliyor: P(540, 1698, 0.80). Gövde 639–2763, yani alttan 843 px kesik; üstte 0–639 arası boş lacivert (%33). Hesap: widget'ın üstü çıktıda y≈1294. Kart şeridi 1957–2569'da, tamamen kadraj dışında. Asıl 'vay' (ev fotoğrafları ve fiyatlar) 2,55 sn boyunca görünmüyor; ekranda yalnız karanlık harita var (ortalama parlaklık 31). 8,3–10,35 arası kareler blok_1'de birebir aynı: 2 sn donuk tutuş. Slogan y=480'de, telefonun üstündeki boşluğa düşüyor.",
+    "neden": "Poz, kartları sonradan 'kaydırma ve sürükleme' ile ortaya çıkarmak için kurulmuş; kartlar ancak 10,35'te geliyor. Gerçek telefonda sonuç ilk ekranda harita, başlık ve kartları birlikte gösteriyor (eklenti_57_0: kartlar ekranın %65–84 yüksekliğinde).",
+    "duzeltme": "Sonucu tam telefonda göster: RES = P(540, 1040, 0.60, 3, −8, −1), gövde kutusu [167, 937, 242, 1842]. Widget 737'den başlar, kartlar 1234–1694'te tamamen görünür; yüzen kutu (≈1698) gerçekteki gibi kartların altına biner. Slogan y=118'e (72 px, #FAF8F2) taşınsın, telefonun üstüyle arasında 45 px boşluk kalsın. Sonuç geldikten sonra ekranı kaydırma (`chatScroll`) kalksın. Tutuş donuk olmasın: 7,85–9,0 arası kamera s 0,604→0,62 ilerlesin, ry −8→−5 dönsün.",
+    "oncelik": "P0"
+   },
+   {
+    "madde": "ChatGPT kullanımı",
+    "saniye": "7,8–8,3 (sonucun gelişi)",
+    "gozlem": "Widget'ın tamamı 0,12 sn'de opaklaşıyor, harita 40 px kayıyor, başlık 0,15 sn sonra geliyor. Kademe yok, oturma yok, ışık değişmiyor. 'Birkaç saniye düşündü' ile widget aynı anda geliyor, oysa gerçekte önce düşünme satırı biter, sonra widget yüklenir.",
+    "neden": "`LaptaWidget` sonucu tek opaklık eğrisiyle getiriyor; parçalar ayrı ayrı kırpılmıyor.",
+    "duzeltme": "Gerçek pikselleri yalnız kırpıp sırayla getir; çizim değişmez. Sıra: 6,75 harita (`wLaptaTop` 0–564; opaklık ve 24 px yükseliş, 0,25 sn). 6,85 haritadaki '£105–147 bin · 8' fiyat hapı ayrı kırpılır; ölçek 1→1,06→1 yay, 0,35 sn, %3 aşma. 6,95 başlık ve çipler, 0,18 sn. 7,05–7,30 kartlar, `manifest.cards` dikdörtgenleriyle 70 ms arayla, 36 px aşağıdan, bezier(0.2,0.9,0.3,1). 7,35 alt eylem satırı. 7,40'ta durdur düğmesi gri gönder okuna döner (#2C2C2E). 7,40–7,70 arası kamera s 0,600→0,606→0,604 oturur. Işık: fotoğraflar gelirken telefonun altına camgöbeği sızsın, rgba(80,170,220,.14) radyal, 6,9–7,5 arası 0→1.",
+    "oncelik": "P1"
+   },
+   {
+    "madde": "ChatGPT kullanımı",
+    "saniye": "10,35–12,6 (kart şeridi)",
+    "gozlem": "Fizik bozuk: `cardIdx` kaymaya 10,5'te başlıyor (`TL.drag[0] − 0.4`), oysa parmak 10,8'de çıkıyor (`Drag`, `drag[0] − 0.1`). İçerik parmaktan 0,3 sn önce kayıyor. Sürükleme tek bezier eğrisinden ibaret: parmağı 1:1 izleme, bırakınca savrulma, yavaşlama yok. 12,6'daki dokunuşta kartın kendisi tepki vermiyor; yalnız üstüne beyaz bir leke biniyor (11,5 sn karesinde lekenin altında kalan kart fotoğrafı).",
+    "neden": "Sürükleme bir eğriyle tanımlanmış, fizikle değil. Kartın basılma durumu yok.",
+    "duzeltme": "9,05–9,30 arası parmak 300 px sola, içerik parmağı 1:1 izler. Bırakınca 9,30–9,85 üstel yavaşlama: x(t) = x0 + v·τ·(1 − e^(−t/τ)), τ = 0,32 sn. Sonda kaydırma yakalaması £139.000 kartını sol kenara oturtur (idx 5), aşma olmaz. 10,25'te dokunuş: kart kırpımı 0,975'e küçülür, 100 ms; 10,37'de bırakılır.",
+    "oncelik": "P1"
+   },
+   {
+    "madde": "diğer (mikro-etkileşim)",
+    "saniye": "6,2 · 12,6 · 17,7 · 18,95",
+    "gozlem": "`Ring`, rgba(255,255,255,.35) dolgulu, yarıçapı 86–130 tasarım px bir disk; çıktıda 176–208 px çap, kare genişliğinin ≈%19'u. Gerçek parmak ucu ≈132 px; disk bunun 2 katı. Bir yerden gelmiyor, olduğu yerde beliriyor. Android dalgalanmasına benziyor. 18,97 karesinde 'Emlakçıya sor' düğmesinin üstündeki %22 siyah katman ve beyaz disk, mercan rengini çamurlu pembe-griye çeviriyor.",
+    "neden": "Dokunuş göstergesi tek bir dalgalanma bileşeni. Yaklaşma, basınç ve bırakma evreleri yok.",
+    "duzeltme": "Dokunuş noktası: Ø120 tasarım px (40 pt). Dolgu rgba(255,255,255,.18), kenar 3 px rgba(255,255,255,.55), gölge 0 6 18 rgba(0,0,0,.35). Yaklaşma: önceki noktadan yay çizerek 0,35 sn, bezier(0.3,0,0.2,1); ilk 0,12 sn'de belirir. Basınç: ölçek 1→0,82 80 ms içinde, dolgu .18→.32. Bırakma: 0,82→1; dış halka 1→1,5 büyürken opaklık .4→0, 220 ms. Çıkış 150 ms. Basılan öğe kendi ölçeğiyle tepki versin (0,96–0,975). Rengi karartma katmanıyla değiştirme.",
+    "oncelik": "P1"
+   },
+   {
+    "madde": "ChatGPT kullanımı",
+    "saniye": "12,75–13,45 (ilanın açılışı)",
+    "gozlem": "Fotoğraf karttan kahraman alanına uçuyor, ama ilan sayfası opaklıkla beliriyor: `lin(k, .25, .85)`. blok_2'nin 13,0 sn karesinde iki yoğun arayüz üst üste biniyor: '£139.000 / Lapta'da Deniz…' yazıları, 'Haritada tümü / Evlek'te aç' satırının üstünde. iOS iki dolu ekranı hiçbir zaman birbirine eritmez.",
+    "neden": "Ortak öğe geçişi yalnız fotoğrafta var; sayfa kaptan büyümüyor.",
+    "duzeltme": "iOS'un yakınlaşma geçişi kullanılsın: ilan sayfasının kırpma dikdörtgeni kart dikdörtgeninden tam ekrana büyüsün. Köşe 36→0, içerik kart genişliğinden ölçeklensin, opaklıkla geçiş olmasın. Fotoğraf aynı eğriyle kahraman alanına otursun: yay, tepki 0,5 sn, sönüm 0,9. Alttaki sohbet 0,96'ya küçülüp %40 kararsın. Süre 10,37–10,90.",
+    "oncelik": "P1"
+   },
+   {
+    "madde": "diğer (ev fotoğrafı, 'görseller garip')",
+    "saniye": "14,45–17,55 (portal)",
+    "gozlem": "Havuz fotoğrafı telefondan çıkıp 1080×1300 boyutunda düz bir dikdörtgen olarak telefonun üstüne biniyor. Telefon %78 lacivert katmanın altında hayalet gibi kalıyor. 15,9 sn karesinde dış metin 'Lapta · 2+1 · 107 m²' telefonun üst çerçevesine ve '10:24' saatine biniyor. Fotoğrafa sepya .06 ve kontrast 1.05 uygulanmış; telefona geri dönerken (16,85–17,55) renk sıçrıyor. Ölçülen parlaklık 15–16,5 sn arasında 126 ile filmin zirvesi. Yani en parlak an ürünün dışındaki bir stok görsel gibi. £139.000 dördüncü dış mesaj oluyor; brif en çok 3 diyor.",
+    "neden": "'Ev' anı ürünün dışında kurgulanmış. Dış metin ve renk ayarı, ekrandaki gerçek fiyatın kopyasını üretiyor.",
+    "duzeltme": "Portal, dış fiyat etiketi ve GRADE ayarı kaldırılsın. Ev, telefonun içinde gösterilsin: kamera kahraman fotoğrafına yaklaşsın. HERO = P(540, 1261, 1.00, 3, −5, −1), gövde kutusu [−80, 1210, −58, 2612]: telefon dört kenardan taşar, kasıtlı bir makro olur. Fotoğraf 276–1142'de, 1179×866 boyutunda; '× Evlek' başlığı ≈220'de, gerçek piksel £139.000 ≈1515'te, 66 px. Galeri geçişi parmakla yapılsın. Arkada bulanık gerçek fotoğraf kalsın; ekrandan sızan ışık camgöbeği rim olsun, rgba(90,175,215,.16).",
+    "oncelik": "P0"
+   },
+   {
+    "madde": "ekran yarım",
+    "saniye": "13,45–18,15 (PT pozu)",
+    "gozlem": "PT = P(540, 1255, 0.78): alttan 372 px kesik. Bu yüzden ilanın alt çubuğu ('£139.000 · Emlakçıya sor', `dBar`) 4,7 sn boyunca kadraj dışında. Kadraja ancak 18,15–18,75 arası geri çekilmede giriyor; dokunuştan yalnız 0,2 sn önce yerine oturuyor.",
+    "neden": "Eylem çağrısı (CTA) dokunuşa kadar hazırlanmıyor. Dokunuşun ne anlama geldiğini görmeye zaman kalmıyor.",
+    "duzeltme": "Kahraman makrosundan sonra 14,9–15,7 arası tam ilana dön: LIST = P(540, 1000, 0.60, 3, −6, −1), gövde [164, 936, 205, 1799]. 15,75–16,55 arası ilan içeriği 640 px yukarı kayar, iOS yavaşlamasıyla, τ = 0,32 sn. 'Temel bilgiler' ızgarası görünür; alt çubuk sabit kalır. CTA en az 1,3 sn ekranda durduktan sonra 17,62'de basılsın.",
+    "oncelik": "P1"
+   },
+   {
+    "madde": "telefon (hareket)",
+    "saniye": "2,3–19,3 tümü",
+    "gozlem": "Bütün pozlarda açı aynı (rx 2, ry −4, rz −1); değişen yalnız s, x ve y. Telefon hiç dönmüyor. Yan kalınlık ≈150·sin4°·s, yani 6–8 px; telefon düz bir kart gibi okunuyor. Kamera sarsıntısı (`kick`) yalnız %0,4. Ekran ortama ışık vermiyor, zemin hep aynı lacivert.",
+    "neden": "Hareket yalnız 2B kaydırma ve ölçek. Derinlik ve ışık ipuçları yok.",
+    "duzeltme": "Her ana geçişte açı da değişsin: TYPE (6, −6, −1.5) → RES (3, −8, −1) → tutuşta ry −8→−5 → HERO (3, −5, −1) → LIST (3, −6, −1). Böylece yan kalınlık 12–20 px görünür. Ekran içeriğinin ortalama renginden zemine sızan ışık: telefonun alt-orta kısmında elips 60%×34%, opaklık .10–.16, içerik değiştikçe 0,4 sn'de geçsin. Arayüzün üstüne filtre ya da yansıma konmaz.",
+    "oncelik": "P1"
+   },
+   {
+    "madde": "diğer (galeri)",
+    "saniye": "17,7–18,95",
+    "gozlem": "`TL.next`'te dFull_1 ani kesmeyle dFull_2'ye geçiyor; yatay sayfa kayması yok. dFull_2'nin gerçek piksellerinde sol üstte geri '<' ve ortada önceki '<' alt alta duruyor (17,9 sn karesi, x≈80, y≈285 ve 410). Büyük ölçekte 1,25 sn tutulunca hata gibi okunuyor.",
+    "neden": "Galeri geçişi kesmeyle yapılmış; kadraj da bu bölgede uzun tutuluyor.",
+    "duzeltme": "13,30–13,90 arası kaydırmayla geç. Parmak 13,30–13,50 arası 1:1 sola sürükler; sayfa yayı 13,50–13,90, sönüm 1,0. dFull_1 ve dFull_2'nin kahraman kırpımları yan yana kayar. Yerine oturunca (13,90) sayfanın tamamı n=2'ye geçer; küçük resim seçimi de değişir. Çift '<' bulunan sol üst bölgede ≥1 sn yakın plan tutma.",
+    "oncelik": "P2"
+   },
+   {
+    "madde": "diğer (renk sadakati)",
+    "saniye": "3–19",
+    "gozlem": "Gerçek kayıttan ölçülen değerler v13'ten farklı: balon #010453–#010456 (v13 #0D1A66), yazım kutusu #181818 (v13 #1C1C1E), widget zemini #1E1E1E (v13 #212121). İmleç 0,5 sn açık, 0,5 sn kapalı, sert yanıp sönüyor; iOS imleci yumuşak söner.",
+    "neden": "Kabuk renkleri yaklaşık seçilmiş.",
+    "duzeltme": "Kabuk renklerini ölçülen değerlere eşitle: #010455, #181818 ve widget kabı #1E1E1E. Evlek pikselleri değişmez. İmleç 1,0 sn döngüde opaklık 1→0→1, ease-in-out.",
+    "oncelik": "P2"
+   }
+  ],
+  "korunacaklar": [
+   "Gerçek widget pikselleri ve sırası: harita → Lapta başlığı → kart şeridi → ilan 1/14 → 2/14 → dBar ve 'Emlakçıya sor'.",
+   "Logonun çipe dönüştüğü imza hareketi (1,4–2,1) ve sorunun birebir metni: 'Lapta’da £160 bin altı, / deniz manzaralı 2+1 daire'.",
+   "Balondaki Evlek çipi; ardından 'Birkaç saniye düşündü ›' ve parlayan 'Evlek' etiketi (gerçek ChatGPT durumları).",
+   "Karttan kahraman alanına uçan fotoğraf (ortak öğe) fikri: yalnız sayfa açılışı opaklık geçişi yerine yakınlaşma geçişine çevrilecek.",
+   "İlan açıkken arkadaki bulanık gerçek havuz fotoğrafı.",
+   "HERO_D, CONTACT ve card5Rect ile kurulan, piksele denk koordinat eşlemesi; projectOut ve bodyBox ile ölçülebilir kadraj.",
+   "Dokunuşlarda %0,4'lük kamera sarsıntısı (`kick`).",
+   "'Sor. Evlek göstersin.' metni; 19,3'te Sonuç bölümüne kesme; tl.ts'teki deterministik zaman çizelgesi."
+  ],
+  "ozel_oneri": "Tek ve en etkili öneri: 'vay' anını sonucun telefona inişine taşı. Bugün o an ürünün dışında, 15–16,5 sn'deki portal fotoğrafında. Bunun yolu iki kasıtlı makro ile tam telefon arasında gidip gelen bir kamera dili ve gerçek piksellerin kademeli inişi. Saniye saniye akış (60 fps; pozlar P(x; y; s; rx; ry; rz), gövde kutuları pose.py ile doğrulandı):\n\n2,30–2,95 · Yaklaşma ve klavye. COVER'dan TYPE = (540; 318; 1.00; 6; −6; −1.5) pozuna geçiş, IOE. 2,38–2,74 arası koyu Q klavye açılır, bezier(0.2,0.8,0.2,1); kutu klavyeyle yukarı çıkar ve y≈601'de durur. Siyah oran %46'dan ≈%25'e iner.\n\n2,95–5,55 · Yazma, 48 px. Üç atış: 'Lapta’da' 2,95–3,45 · '£160 bin altı,' 3,55–4,35 · 0,2 sn duraksama · 'deniz manzaralı 2+1 daire' 4,55–5,45. Tuş önizlemesi 90 ms, en çok 12 Hz. Satır kayınca kutu 0,15 sn'de büyür. İsteğe bağlı: '£160' için 123 düzenine 0,35 sn geçiş.\n\n5,55–5,70 · Dokunuş noktası gönder düğmesine yay çizerek gelir; 5,62'de basar (ölçek 0,90).\n\n5,70–6,50 · Klavye iner (0,30 sn). Metin kutudan balona uçar (0,38 sn, #181818→#010455). Kamera TYPE'tan RES = (540; 1040; 0.60; 3; −8; −1) pozuna geçer. Mesaj karede y≈550–570'te sabit kalır, telefon etrafında açılır.\n\n6,10–6,75 · 'Evlek' etiketi parlar (0,9 sn tarama). Kutuda durdur düğmesi (mavi daire, beyaz kare). 6,65'te 'Birkaç saniye düşündü ›'.\n\n6,75–7,40 · Sonucun inişi, yalnız kırpımla: 6,75 harita (0,25 sn, 24 px yükseliş). 6,85 '£105–147 bin · 8' hapı 1→1,06→1 yay (0,35 sn). 6,95 başlık ve çipler. 7,05–7,30 üç kart, 70 ms arayla, 36 px aşağıdan, bezier(0.2,0.9,0.3,1). 7,35 alt eylemler. 7,40 durdur düğmesi gri oka döner.\n\n7,40–7,70 · Oturma. Kamera s 0,600→0,606→0,604 yayıyla oturur. Telefonun altında camgöbeği ışık doruğa çıkar: rgba(80,170,220,.14). Hedef ortalama parlaklık ≥45 (v13: 18).\n\n7,55–7,85 · 'Sor. Evlek göstersin.' y=118'de, 72 px #FAF8F2, 14 px yükselerek gelir; 9,9–10,1 arası söner.\n\n7,85–9,00 · Canlı tutuş. Kamera s 0,604→0,62 ilerler, ry −8→−5 döner.\n\n9,00–9,85 · Kart şeridi kaydırılır. Parmak 9,05–9,30 arası 1:1, sonra üstel yavaşlama (τ = 0,32 sn); yakalama £139.000 kartını sola oturtur, aşma olmaz.\n\n10,05–10,37 · Nokta £139.000 kartına gelir; 10,25'te basar, kart 0,975'e küçülür.\n\n10,37–10,90 · iOS yakınlaşma geçişi. İlan sayfası kart dikdörtgeninden büyür (köşe 36→0, yay 0,5 sn, sönüm 0,9). Fotoğraf kahraman alanına oturur. Sohbet 0,96'ya küçülüp %40 kararır. Ekranlar opaklıkla birbirine erimez.\n\n10,90–11,40 · Tam ilan okunur; £139.000 gerçek pikselde, ≈31 px.\n\n11,40–12,20 · Kamera HERO = (540; 1261; 1.00; 3; −5; −1) pozuna geçer. Telefon dört kenardan taşar; fotoğraf 276–1142'de, '× Evlek' başlığı görünür, fiyat 1515'te. Arkada bulanık havuz fotoğrafı belirir.\n\n12,20–13,30 · Fotoğraf üzerinde tutuş. Kamera s 1,00→1,015 kayar, camgöbeği rim ışığı yanar.\n\n13,30–13,90 · Galeri parmakla kaydırılır: sürükleme 0,2 sn, sayfa yayı 0,4 sn. 1/14'ten 2/14'e, deniz manzaralı salona.\n\n13,90–14,90 · Salon üzerinde tutuş. Kamera kaymaya devam eder.\n\n14,90–15,70 · Kamera LIST = (540; 1000; 0.60; 3; −6; −1) pozuna çekilir. Tam ilan ve alt çubuk görünür.\n\n15,75–16,55 · İlan 640 px kayar (τ = 0,32 sn); 'Temel bilgiler' görünür.\n\n16,55–17,30 · Okuma payı. CTA ekranda sabit.\n\n17,30–17,75 · Nokta 'Emlakçıya sor'a gelir; 17,62'de basar. Düğme 0,96'ya küçülür, karartma yok.\n\n17,75–18,60 · Kamera s 0,60→0,64 ile çubuğa hafif yaklaşır. Zemine az miktarda mercan ışık sızar: #B84E3B, %8.\n\n18,60–19,30 · Oturma; 19,3'te kesme.\n\nÖlçülebilir kabul ölçütleri:\n- Bu aralığın hiçbir karesinde siyah oranı %25'i geçmesin (v13: %46–72).\n- Karenin %15'inden büyük boş lacivert bant olmasın.\n- Telefon ya her yanda ≥60 px payla bütün olsun ya da ≥3 kenardan taşsın.\n- Parlaklık zirvesi telefonun içinde olsun: HERO, 12,2–13,9.\n- Dış metin yalnız slogan olsun; £139.000 etiketi ve portal kalksın.\n- Hiçbir Evlek pikseli yeniden çizilmesin; yalnız kırpım, ölçek, opaklık, konum ve ışık değişsin."
+ },
+ {
+  "uzman": "Eklenti öğreticisi (onboarding) uzmanı: uygulama kurulum ve nasıl yapılır reklamları",
+  "bulgular": [
+   {
+    "madde": "eklenti",
+    "saniye": "19,3–24,6 (bütün bölüm)",
+    "gozlem": "Arayüz okunmuyor. CHAT pozunda s=0,55, PBTN'de 0,60. Kenar menü öğeleri 50 px yazılmış, kadrajda 27,5 px görünüyor; aranan 'evlek' 48 px → 26 px; 'Northern Cyprus property data' 40 px → 22 px; 'Bağlı' 42 px → 25 px. 360×640 okunurluk ızgarasının (v13_okunurluk_360x640.jpg, 5. satır) eklenti karelerinde kenar menüdeki 'Eklentiler', 'evlek' araması ve sonuç satırı okunmuyor; yalnız 'Eklentiyi kur' ve 'Sohbette dene' düğme yazıları seçilebiliyor. Sessiz izleyen kişi neye dokunulduğunu yazıdan değil yalnız konumdan tahmin etmek zorunda kalıyor.",
+    "neden": "Bölümün tamamı tek bir uzak pozda geçiyor (V13.tsx CHAT = P(540,1080,0,55) ve PBTN = P(540,1140,0,60)). Hedef öğeyi büyüten hiçbir araç yok: yakınlaştırma da büyüteç de kullanılmamış. Telefonun bütünü ve üstteki yazı bandı birlikte kadraja sığsın diye s ≤0,58 olmak zorunda; bu sınırda arayüz yazısı okunmuyor.",
+    "duzeltme": "Kamera tek bir sabit ADIM pozunda dursun: P(540,1090,0,58,2,−3,−1). Gövde kadrajda y 307–1873 arasında kalır; telefon kesilmez, böylece 'ekran yarım' sorunu doğmaz. Okunurluğu kamera değil 'kaldır-bas' sağlar: dokunulacak öğenin kopyası ekrandan kalkar ve büyür. Üç öğe kalkar. Eklentiler satırı 1,8× büyür: 830×121 px, yazı 52 px. Arama alanı 1,6×: 862×119 px, 'evlek' 45 px. 'Eklentiyi kur' 1,5×: 914×131 px. Kalkış 0,22 sn sürer (bezier .2,.8,.2,1); bırakılınca öğe 0,25 sn'de (bezier .4,0,.2,1) ekrandaki yerine birebir oturur. Ayrıntılar özel öneride.",
+    "oncelik": "P0"
+   },
+   {
+    "madde": "eklenti",
+    "saniye": "19,6 · 20,25 · 21,8 · 22,9 · 24,4",
+    "gozlem": "Dokunuşlar görünmüyor. Halka ekranda r=110 px, beyaz %35, 0,3 sn sürüyor; kadrajda bu yaklaşık r=60 px eder. Her dokunuştan yalnız 0,05 sn sonra ekran değişiyor: ≡ 19,60 → kenar menü 19,65; Eklentiler 20,25 → 20,30; Evlek satırı 21,80 → sayfa 21,85; Sohbette dene 24,40 → yeni sohbet 24,45. Halkanın en parlak anı +0,09 sn'ye, yani ekran kayarken düşüyor. 6 fps bloklarda 19,67, 20,33 ve 24,50 karelerinde halka yok; yalnız 21,0'da arama alanında soluk gri bir leke var. 22,9'daki 'Eklentiyi kur' halkası beyaz (rgba 255,255,255,.35), düğme ise #F2F2F2; beyaz üstünde beyaz olduğu için hiç görünmüyor (blok_4, 22,83).",
+    "neden": "Screen.tsx'teki Ring tek tonlu ve ekranın içinde çiziliyor, bu yüzden s=0,55 ile birlikte küçülüyor. tl.ts'de dokunuşla geçiş arasına önden pay bırakılmamış. İzleyiciye bir sonraki hedefi gösteren, hedefe giden bir imleç de yok.",
+    "duzeltme": "Kadraj uzayında kalıcı bir parmak imleci eklenir.\n- Boyut ve görünüm: Ø84 px (s=0,58'de ≈145 ekran px, yani parmak ucu kadar). Dolgu rgba(255,255,255,.20); 4 px rgba(255,255,255,.90) çizgi; dışında 2 px rgba(10,37,64,.55) lacivert kontur, bu kontur beyaz düğmede de görünmesini sağlar. Gölge: 0 6 18 rgba(0,0,0,.35).\n- Hareket: hedefe 0,25–0,30 sn'de gider (bezier .45,0,.15,1), −30 px yay çizer.\n- Basma: 0,08 sn'de ölçek 1 → 0,82, dolgu .20 → .45.\n- Bırakma: dalga r 42 → 84 px, 3 px çizgi, opaklık .6 → 0, 0,35 sn.\n- Geçiş zamanı: basmadan ekran geçişine en az 0,18 sn (11 kare) kalır.",
+    "oncelik": "P0"
+   },
+   {
+    "madde": "eklenti",
+    "saniye": "20,9–21,5",
+    "gozlem": "Klavye çıkmıyor. 'evlek' 21,0–21,4 arasında, 0,4 sn'de beş harf olarak beliriyor; bu saniyede 12,5 harf eder. Arama alanı ekranın en altında kalıyor (kadrajda y≈1682). Hem Rumi'nin ekran görüntüsünde (ss3, 3. panel) hem Onur'un kaydında (eklenti_13_0) TR Q klavyesi açık, alan klavyenin üstüne çıkmış (ekran y≈1610, yüksekliğin %63'ü), alanın içinde temizleme ⊗ simgesi var, liste iskelet halinde yükleniyor. v13'teki hâliyle yazı kendiliğinden doluyor gibi okunuyor; izleyici bir şey yazıldığını anlamıyor.",
+    "neden": "KISA-RAPOR'daki 1. 'bilinçli tercih': iPhone kopyası riskine karşı klavye çıkarılmış. Oysa klavye işletim sisteminin klavyesi; telefonun markasını ele vermez. Asıl öğretici an olan 'ne yazacağım?' bu karar yüzünden kayboldu.",
+    "duzeltme": "Arama alanına dokunuştan 0,18 sn sonra klavye açılır: 0,28 sn, bezier(.38,.7,.125,1). Düzen referanstaki TR Q. Renkler: klavye zemini #121212, tuşlar #343434, ara düğmesi #0A84FF. Alan klavyeyle birlikte ekran y≈1610'a çıkar (kadrajda y≈1283) ve sağına ⊗ eklenir. Yazma hızı harf başına 0,15 sn (6,7 harf/sn); her harfte iOS tuş balonu 0,12 sn görünür. Yazarken liste iskelete döner; bu Onur'un 13,0 karesine sadık. Yeni sohbete geçerken klavye push hareketiyle birlikte iner.",
+    "oncelik": "P0"
+   },
+   {
+    "madde": "eklenti",
+    "saniye": "19,6–24,4",
+    "gozlem": "Göz sürekli zıplıyor. Hedeflerin kadrajdaki y değerleri sırasıyla: ≡ 502 → Eklentiler 715 → arama 1682 → sonuç 610 → Eklentiyi kur 1796 → Bağlı 1450 → Sohbette dene 1796. Yol şeridi ise y 190–260'ta duruyor. Her adımda göz 1000–1500 px yol alıyor ve bunun için 0,3–0,6 sn'si var. 'Eklentiyi kur' (y 1796) ve 'Sohbette dene' Reels/TikTok'un alt bindirme alanında (y>1600) kalıyor; yayında kullanıcı adı ve açıklama metninin altında kalırlar.",
+    "neden": "iOS bu iki eylemi ekranın altına sabitlemiş: ekranda 2372 ve 2371 px. Kamera bunu telafi etmiyor; tersine, 22,2–22,8'de PBTN ile düğmeyi daha da aşağı itiyor. Dış metin de her adımda gözü en üste çağırıyor.",
+    "duzeltme": "Kamera ADIM pozunda sabit kalır, hiç kaymaz. Hedefler kaldır-bas sayesinde y 480–1600 aralığına toplanır. Kenar menüde 'Eklentiler' satırı y 705'te kalkar. Arama alanı klavyeyle y 1283'e çıkar. Evlek sonuç satırı y 609'da. 'Eklentiyi kur' kalkarken −160 px yükselir (1724 → 1564). Bağlı satırı y≈1390. Dış metin yalnız tek bir adım satırından oluşur (bkz. bir sonraki bulgu); göz bir kez yukarı bakar, sonra imleci izler.",
+    "oncelik": "P1"
+   },
+   {
+    "madde": "eklenti",
+    "saniye": "19,35–24,6 (yol şeridi)",
+    "gozlem": "Yol şeridi 'ChatGPT › Eklentiler › Evlek › Ekle' ekrandaki kelimelerle örtüşmüyor:\n- 'Ekle' diye bir düğme yok; ekranda 'Eklentiyi kur' yazıyor.\n- Asıl öğretici adım olan 'evlek yaz' şeritte hiç yok. Yazma 21,0–21,4'te, 'Eklentiler' etkinken oluyor; 'Evlek' ancak 21,8'de, satıra dokunulunca yanıyor.\n- 'ChatGPT' bir eylem değil.\n- Etkin adımın altındaki çizgi 4 px mercan (#B84E3B). Lacivert (#0A2540) üstünde karşıtlık ≈2,9:1, okunmuyor. Pasif adımlar %45 opaklıkta.\n- 4 öğe ve 3 ayraç 52 px'te yan yana; satır kadrajın neredeyse tamamını dolduruyor (21,6 karesinde x 67–473 / 540).",
+    "neden": "Şerit konum gösteren bir 'breadcrumb' olarak tasarlanmış, oysa izleyicinin ihtiyacı yapacağı eylemin talimatı. Kelimeler de arayüzden birebir alınmamış.",
+    "duzeltme": "Adım numarası gerekli. Üç numaralı adım 'kolay, üç dokunuş' hissini verir ve sessiz izleyene sırayı söyler. Tek satır, her seferinde tek adım; kelimeler arayüzden birebir:\n- '1  Eklentiler' (≡ dokunuşu bu adımın içinde, ayrıca yazılmaz)\n- '2  \"evlek\" ara'\n- '3  Eklentiyi kur'\n- '✓  Bağlı'\nYazı tipi 56 px/600, krem #FAF8F2, y=196. Numara Ø64 #B84E3B dolgulu bir daire içinde, rakam 40 px/700 krem; mercan aynı anda tek bir dairede kalır. Adım değişirken 0,2 sn geçiş yapılır, yazı 14 px yükselir. Başlık 'Eklentiler'den ekle.' 60 px, y=112'de bölüm boyunca kalır. 'ChatGPT ›' ve ayraçlar kaldırılır.",
+    "oncelik": "P1"
+   },
+   {
+    "madde": "eklenti",
+    "saniye": "19,3–24,45",
+    "gozlem": "Adım süreleri çok kısa:\n- Kenar menü: 0,65 sn\n- Eklentiler kataloğu: 0,3 sn (20,6–20,9)\n- Yazma: 0,4 sn\n- Sonucun okunması: 0,3 sn (21,5–21,8)\n- Evlek sayfası: 0,75 sn; bunun 0,6 sn'sinde (22,2–22,8) kamera PBTN'ye kayıyor, metin okunurken kadraj hareket ediyor\n- Dönen gösterge: 0,45 sn\n- Bağlı: 1,05 sn\n7 adım için toplam 5,15 sn, adım başına ≈0,7 sn. Bir dokunuşun anlaşılması için ortalama ≈0,3 sn yaklaşma, 0,1 sn basma, ≥0,4 sn yeni durumda bekleme gerekir; bu adım başına ≈0,8–1,0 sn eder. Bölümün başında başlık (19,35–19,6) ile ≡ dokunuşu (19,6) üst üste geliyor: izleyici başlığı okurken dokunuş kaçıyor.",
+    "neden": "Bölüme 5,15 sn ayrılmış. 'Ev' bölümündeki künye beklemesi (15,6–16,7, 1,1 sn) ve kapanıştaki dipnot (2,25 sn) bu süreden daha cömert tutulmuş.",
+    "duzeltme": "Bölüm 18,70–25,75 arasına alınır: 7,05 sn, v13'teki 19,3–25,35'e göre +1,0 sn. Gereken süre şöyle bulunur: künye beklemesi 1,1 → 0,5 sn (−0,6), çip→logo dönüşü 0,8 → 0,7 sn (−0,1), kapanış 3,85 → 3,55 sn (−0,3). Adım bütçesi:\n- Giriş ve ≡: 0,85 sn\n- 1. adım: 0,9 sn\n- 2. adım (katalog, dokunuş, klavye, yazma, sonuç): 2,35 sn\n- 3. adım (sayfayı okuma, kur, dönen gösterge): 1,45 sn\n- Bağlı: 0,65 sn\n- Sohbette dene: 0,5 sn\n- Çipte bekleme: 0,35 sn\nKamera bölüm boyunca hareketsiz. Tam zamanlama özel öneride.",
+    "oncelik": "P1"
+   },
+   {
+    "madde": "telefon",
+    "saniye": "19,65–20,6 · 21,85–22,15 · 24,45–24,75",
+    "gozlem": "Durum çubuğu ekranın içeriğiyle birlikte kayıyor. 19,80 karesinde iki ayrı '10:24' var: biri kenar menüde (x≈124/540), biri alttaki sohbette (x≈365/540). Kenar menünün sinyal ve pil simgeleri kamera deliğinin hemen yanına düşüyor (x≈250). Push geçişlerinde de durum çubuğu sayfayla birlikte kayıyor; 24,5'te sol kenarda yarım bir '4' görünüyor. Gerçek iOS'ta durum çubuğu sistemin parçasıdır ve sabit durur. Telefonun 'telefona benzememesinin' bölümdeki somut nedenlerinden biri bu.",
+    "neden": "Screen.tsx'te Sidebar, Plugins ve EvlekPage bileşenlerinin her biri kendi StatusBar'ını çiziyor. Push ve kenar menü dönüşümleri (translateX) bu çubukları da sayfayla birlikte taşıyor.",
+    "duzeltme": "StatusBar sayfalardan çıkarılır. Screen'in en üstünde tek ve sabit bir katman olarak çizilir: 10:24, x=120, y=48, 50 px. Kenar menü ve push hareketleri bu katmanın altında kalır. Kenar menü açıkken 'ChatGPT' başlığı yine y=192'de durur.",
+    "oncelik": "P1"
+   },
+   {
+    "madde": "görseller garip",
+    "saniye": "19,65–21,5",
+    "gozlem": "Bölümde gri yer tutucular göze batıyor.\n- Eklentiler kataloğu 20,33–21,33 arasında 1 sn boyunca açık kalıyor. 'Kurulu' altında 6 boş gri kare var (132 px, #1C1C1E); 'Popüler' altında 4 satır, her birinde gri kare ve gri çubuklar (#1F1F22 / #151517). Rumi'nin görüntüsünde aynı yerde renkli simgeler var. Ekran bozuk ya da yüklenmemiş gibi duruyor.\n- Kenar menüde Sabitlenenler ve sohbet geçmişinin yerinde 4 gri çubuk var.\n- Evlek sayfasının açıklama metni '…' ile bitiyor; referanstaki mavi 'Daha fazla' bağlantısı yok.",
+    "neden": "Üçüncü taraf logo ve adı kullanılamadığı için katalog iskeletle doldurulmuş ve fazla uzun ekranda tutulmuş. İskelet görüntüsü gerçekte yalnız arama sırasında var (Onur 13,0); arama öncesindeki katalogda yok.",
+    "duzeltme": "Katalog en çok 0,35 sn görünür; o sırada kamera ve imleç alttaki 'Eklenti ara' alanındadır. Klavye açılınca liste iskelete döner, bu da gerçeğe uygundur. Kenar menüde gri çubuklar kaldırılır; yerine tek bir sohbet başlığı gelir: filmdeki sohbetin kendisi, örneğin 'Lapta'da deniz manzaralı 2+1'. Başlık metni Rumi'ye sorulmalı. Evlek sayfasındaki açıklamanın sonuna 'Daha fazla' (#4A9EFF) eklenir.",
+    "oncelik": "P1"
+   },
+   {
+    "madde": "eklenti",
+    "saniye": "23,35–24,4 (Bağlı)",
+    "gozlem": "Kurulumdan sonraki durum referanstan sapıyor:\n- v13'te 'Bağlı' yeşil ✓ ile yazılmış (#3DDC97, 42 px; kadrajda 25 px). Onur'un 28,5 karesinde 'Bağlı' düz gri (#9B9B9B), onay işareti yok.\n- v13'te 'Sohbette dene' #3A3A3C zemin üstünde açık renk yazı. Referansta zemin #9E9E9E, yazı koyu.\n- Referansta kurulumdan sonra sağ üstteki paylaş simgesi dişliye dönüşüyor; v13'te paylaş simgesi kalıyor.\n- Kurulumun gerçekleştiğini izleyiciye yalnız şeritteki 'Ekle ✓' ve 25 px'lik yeşil satır söylüyor; ayrıca bir onay anı yok.",
+    "neden": "Ekrandaki onay, referansa bakılmadan 'kazandın' rengiyle süslenmiş. Okunurluk eksiği de dışarıdaki ✓ ile kapatılmaya çalışılmış.",
+    "duzeltme": "Referansa sadık kalınır:\n- 'Bağlı' 42 px, renk #9B9B9B, onay işareti yok.\n- 'Sohbette dene' zemini #9E9E9E, yazısı #1A1A1A.\n- Paylaş simgesi 0,2 sn içinde dişliye dönüşür.\nOnay anlamını dışarıdaki adım satırı taşır: '✓  Bağlı' 0,65 sn ekranda kalır. Bağlı satırı kadrajda y≈1390'da ve okunur; 'Eklentiyi kur' kaldırılmış düğme olarak dönen göstergeyi gösterdikten sonra 'Sohbette dene'ye dönüşerek yerine oturur. Ses uzmanı için bu ana bir onay sesi ayrılır.",
+    "oncelik": "P1"
+   },
+   {
+    "madde": "eklenti",
+    "saniye": "18,95–19,6",
+    "gozlem": "Bölüme giriş belirsiz. 'Emlakçıya sor' 18,95'te dokunuluyor; 0,35 sn sonra, 19,3'te ilan detayından gerekçesiz bir kesmeyle Lapta sohbetine dönülüyor. Kamera da aynı anda PF'den CHAT pozuna sıçrıyor. Başlık 19,35–19,6 arasında belirirken ≡ dokunuşu 19,6'da geliyor; izleyici hem yeni bölümü okuyor hem dokunuşu izlemek zorunda.",
+    "neden": "Bölüm kesmesiyle ilk dokunuş arasında okuma payı bırakılmamış. Kesmenin bölüm değişimi olduğu da görsel olarak işaretlenmemiş.",
+    "duzeltme": "Kesme 18,70'te yapılır ve kamera doğrudan ADIM pozuna geçer. Başlık 18,70–18,95 arasında gelir. İmleç 18,90'da ≡'nin yakınında belirir ve 19,10'da ≡'ye ulaşır; dokunuş 19,12'de, kenar menü 19,30–19,60 arasında açılır. Başlık ile ilk dokunuş arasında 0,4 sn okuma payı kalır.",
+    "oncelik": "P2"
+   },
+   {
+    "madde": "eklenti",
+    "saniye": "24,45–25,35",
+    "gozlem": "Yeni sohbet ekranı referanstan farklı. Onur'un 31,5 karesinde: sol üstte X, klavye açık, yazım kutusunda 'Ev Evlek |' çipi ve imleç. v13'te sol üstte ≡ var, klavye yok, çip kadrajda ≈25 px ve y≈1780'de; görünür görünmez logoya dönüyor. Ayrıca Rumi'nin arama görüntüsünde 'Evlek'in altında 'Evlek MCP' satırı da var; v13'te tek satır gösteriliyor.",
+    "neden": "Döngü kuralı (son kare ilk kareyle aynı) yeni sohbeti klavyesiz ve ≡'li tutmayı zorunlu kılıyor.",
+    "duzeltme": "Yeni sohbet ekranı 25,40–25,70 arasında push ile gelir; klavye açık, çip görünür ve 0,35 sn bekler. 25,75–26,45 arasında çip logoya kalkarken klavye 0,28 sn'de iner. Döngü kuralı korunsun diye ≡ kalır; referanstan bu sapma bilinçli. 'Evlek MCP' satırı gösterilmez: herkese açık kullanıcıya görünüp görünmediğini Rumi'ye sor.",
+    "oncelik": "P2"
+   }
+  ],
+  "korunacaklar": [
+   "Kenar menünün öğe sırası ve simgeleri: Kitaplık, Projeler, Eklentiler, Planlanmış, Codex, Keşfet. Alttaki beyaz 'Sohbet' hapı ve dişli de kalır. Rumi'nin görüntüsüyle birebir.",
+   "Kenar menü açılışı: bezier(.2,.8,.2,1), 0,3 sn. Alttaki sohbet sağa kayar ve %45 kararır.",
+   "Push geçişi: bezier(.4,0,.2,1), 0,3 sn. Alttaki sayfa −%30 kayar, üstüne 0,3 karartma gelir.",
+   "Eklentiler ekranının başlığı ('≡' ve 'Eklentiler ˅'), alttaki 'Eklenti ara' hapı ve arama açıkken sağdaki ✕ dairesi.",
+   "Evlek sayfasının düzeni: Ev simgesi, 'Evlek / Northern Cyprus property data', degrade öneri kartındaki üç gerçek @Evlek önerisi, Uygulama bölümü. 'Eklentiyi kur' → dönen gösterge → 'Sohbette dene' akışı.",
+   "Evlek sonuç satırının '+' ile gösterilmesi. Eklentiyi henüz kurmamış kullanıcı için doğru durum.",
+   "'Eklentiler'den ekle.' ana mesajı; dış metin ≥52 px.",
+   "Çipin logoya dönmesi ve son karenin ilk kareyle aynı olması.",
+   "Tek kamera açısı (rx 2, ry −4/−3, rz −1) ve telefonun hiç kesilmeden tam görünmesi. 'Ekran yarım' sorununa düşmemenin güvencesi bu.",
+   "Arayüz üstünde grain ya da filtre yok; ChatGPT ve Apple logosu yok."
+  ],
+  "ozel_oneri": "'Parmak + kaldır-bas' sistemi: kamera sabit, telefon her an tam görünür; dokunulacak öğe ekrandan kalkar, büyür ve basılır.\n\nKADRAJ\nADIM pozu: P(540,1090,0,58,2,−3,−1). Gövde kadrajda x 163–917, y 307–1873 arasında. Bölüm boyunca kamera kaymaz; dokunuşlarda yalnız v13'teki 'kick' kalır.\n\nDIŞ METİN\n- Başlık 'Eklentiler'den ekle.' 60 px/700, y=112, bölüm boyunca ekranda.\n- Altında tek adım satırı: 56 px/600, krem #FAF8F2, y=196. Numara Ø64 mercan #B84E3B dairede, rakam 40 px/700.\n- Sıra: '1  Eklentiler' → '2  \"evlek\" ara' → '3  Eklentiyi kur' → '✓  Bağlı'.\n- Adım geçişi 0,2 sn sürer, yazı 14 px yükselir.\n\nPARMAK İMLECİ\nÇıktı uzayında çizilir; konumu projectOut ile hesaplanır.\n- Ø84 px. Dolgu rgba(255,255,255,.20); 4 px rgba(255,255,255,.90) çizgi; dışında 2 px rgba(10,37,64,.55) kontur. Gölge: 0 6 18 rgba(0,0,0,.35).\n- Hedefe 0,25–0,30 sn'de gider (bezier .45,0,.15,1), −30 px yay çizer.\n- Basma 0,08 sn sürer: ölçek 0,82'ye, dolgu .45'e çıkar.\n- Bırakınca 0,35 sn'lik dalga: r 42 → 84 px, opaklık .6 → 0.\n- Basmadan ekran geçişine en az 0,18 sn kalır.\n\nKALDIR-BAS\nYalnız numaralı üç adımın öğesi kalkar. Kopya çıktı uzayında çizilir; kalkık kaldığı sürece ekrandaki asıl öğe gizlenir.\n- Kalkış: 0,22 sn, bezier(.2,.8,.2,1).\n- Basma: 0,08 sn, ölçek 0,96.\n- Yerine oturma: 0,25 sn, bezier(.4,0,.2,1), ekrandaki konumuna birebir.\n- Görünüm: gölge 0 24 60 rgba(0,0,0,.55), kenar 1,5 px rgba(255,255,255,.10).\n\nKalkan öğeler:\n- L1, Eklentiler satırı. Ekran dikdörtgeni (50,556, 795×116). 1,8× büyür; kadrajda merkez (457,705), boyut 830×121, yazı 52 px. Zemin basılı durum rengi #2C2C2E.\n- L2, arama alanı. Klavyeyle yukarı çıktıktan sonra (ekran y≈1546) kalkar. 1,6× büyür; merkez (511,1283), boyut 862×119, 'evlek' 45 px. İmleç rengi #8FB4FF.\n- L3, 'Eklentiyi kur'. Ekran dikdörtgeni (64,2296, 1051×150). 1,5× büyür ve −160 px yükselir; merkez (540,1564), boyut 914×131. Dönen gösterge bu kalkık düğmenin içinde döner.\n\nZAMANLAMA\nBölüm 18,70'te başlar; t0 = 18,70.\n- 18,70: kesme, kamera ADIM pozunda. Başlık 18,70–18,95 arasında gelir.\n- 18,90: imleç belirir. 19,12'de ≡'ye dokunur. Kenar menü 19,30–19,60 arasında açılır.\n- 19,45: adım satırı '1'.\n- 19,62–19,84: L1 kalkar. 19,95'te basılır. 20,05–20,25'te yerine oturur. 20,15–20,45'te Eklentiler ekranı gelir.\n- 20,45: adım satırı '2'. Katalog en çok 0,35 sn görünür.\n- 20,80: 'Eklenti ara' alanına dokunuş. Klavye 20,98–21,26 arasında açılır; TR Q düzeni, zemin #121212, tuşlar #343434.\n- 21,20–21,42: L2 kalkar.\n- Yazma: e 21,45 · v 21,60 · l 21,75 · e 21,90 · k 22,05. Her harfte tuş balonu 0,12 sn.\n- 22,25–22,45: Evlek satırı gelir. 22,30–22,50'de L2 yerine oturur.\n- 22,80: Evlek satırına dokunuş. 22,98–23,28 arasında push ile Evlek sayfası gelir; klavye push'la birlikte iner.\n- 23,10: adım satırı '3'. Kamera sabit, 23,28–23,75 arası sayfayı okuma payı.\n- 23,70–23,92: L3 kalkar. 24,00'te basılır. Dönen gösterge 24,10–24,55.\n- 24,55: kurulum tamam.\n  - 'Bağlı' gri #9B9B9B olarak belirir.\n  - Paylaş simgesi dişliye döner.\n  - Düğme #9E9E9E zemin ve koyu yazıyla 'Sohbette dene' olarak 24,50–24,70 arasında yerine oturur.\n  - Adım satırı '✓ Bağlı' olur ve 24,55–25,20 arasında ekranda kalır.\n- 25,22: 'Sohbette dene'ye dokunuş. 25,40–25,70 arasında yeni sohbet gelir; klavye açık, Evlek çipi görünür.\n- 25,60–25,85: yazı bandı söner.\n- 25,75–26,45: çip logoya döner, klavye iner.\n- 26,45–27,30: 'artık ChatGPT'de.' harf harf yazılır.\n- 27,40–29,90: dipnot.\n\ntl.ts karşılığı:\n- cut 18,70; path [18,70, 18,95, 25,60, 25,85]\n- menu 19,12; side [19,30, 19,60]\n- plug 19,95; plugOpen [20,15, 20,45]\n- searchTap 20,80; kbd [20,98, 21,26] (yeni anahtar)\n- ptype [21,45, 22,20]; pres 22,25\n- row 22,80; page [22,98, 23,28]\n- install 24,00; spin [24,10, 24,55]; bound 24,55\n- tryTap 25,22; newChat [25,40, 25,70]\n- back [25,75, 26,45]; title2 [26,45, 27,30]\n- foot [27,40, 27,65, 29,70, 29,90]\n\nSÜRE BÜTÇESİ (toplam 30,0 sn)\n- Giriş: 0–2,3 (değişmez)\n- Gelişme: 2,3–18,7 = 16,4 sn (−0,6). Künye beklemesi 1,1 sn'den 0,5 sn'ye iner: tag[2] = tag[1] + 0,5.\n- Eklenti: 18,7–25,75 = 7,05 sn (+1,0)\n- Çip → logo: 0,7 sn (−0,1)\n- Kapanış: 26,45–30 = 3,55 sn (−0,3)\n\nNot: Bu öneri gelişme ve kapanış zamanlarını da kaydırıyor. Uygulamadan önce Rumi'nin onayı gerekir; CLAUDE.md belirsiz zamanlamada sormayı şart koşuyor."
+ },
+ {
+  "uzman": "Ses tasarımcısı (reklam ve ürün filmi; müzik ve UI efektlerinin tamamı numpy/scipy ile sentez)",
+  "bulgular": [
+   {
+    "madde": "ses",
+    "saniye": "5,0–10,0 ve 25,0–27,5",
+    "gozlem": "Mevcut audio/film.py müziği kurguya göre değil, 2,5 sn'lik ölçülerin başına göre başlatıyor. Davul ve bas 7,8'de (gerçek Lapta sonucu) değil 10,0'da giriyor; sonuç geldiğinde ritim yok, ritim sohbet kaymasının ortasında başlıyor. Elektrik piyano 3,05'te değil 5,0'te giriyor. Davul ve piyano 25,0–27,5 ölçüsünde de çalıyor, yani logo dönüşünün (25,35–26,15) ve 'artık ChatGPT'de.' yazımının üstüne biniyor. Shaker 19,3'te değil 20,0'da başlıyor.",
+    "neden": "music() içinde ölçüler t0 = 0, 2,5, 5 … değerleriyle dönüyor. Koşullar şunlar: `g_res-0.01 <= t0` (7,79 ≤ t0 olduğu için ilk eşleşme 10,0), `type[0]-0.4 <= t0` (2,65 ≤ t0 olduğu için 5,0) ve `t0 < back` (25,0 < 25,35 olduğu için son ölçü de dahil oluyor). Görüntüdeki bölüm sınırları (2,3 / 6,2 / 7,8 / 19,3 / 25,35) 96 BPM ızgarasına denk gelmiyor: cut 19,3 en yakın ölçü başından 300 ms uzakta.",
+    "duzeltme": "Tempoyu 104 BPM, 4/4 ve faz φ=0,850 sn olarak kur. 13 ölçü × 2,3077 sn = 30,000 sn eder. Ölçü başları: 0,850 · 3,158 · 5,465 · 7,773 · 10,081 · 12,388 · 14,696 · 17,004 · 19,312 · 21,619 · 23,927 · 26,235 · 28,542 (≡0,850). Önemli olaylar ızgaraya kendiliğinden oturuyor: res 7,80 → B4.1 (+27 ms), send 6,20 → 16'lık (+13 ms), slogan 8,50 → B4 2.2 (+6 ms), cut 19,30 → B9.1 (−12 ms), menu 19,60 (0 ms), bound 23,35 → B10 4. vuruş (0 ms). Bölüm geçişlerini zamanla değil ölçü numarasıyla yaz. Davul B4–B10'da çalsın ve 25,081'de (B11, 3. vuruş) sussun.",
+    "oncelik": "P0"
+   },
+   {
+    "madde": "ses",
+    "saniye": "tüm film; özellikle 6,22 / 12,6 / 17,7 / 18,95 / 19,6–24,4",
+    "gozlem": "Efektlerin ve davulun gövdesi telefon hoparlörünün duyamadığı bantta kalıyor. tap() gövdesi 150 Hz'lik sinüs (τ 18 ms), kick 55 Hz'e iniyor, gönderdeki kick 55 Hz. Telefonda dokunuştan geriye yalnız 2,5 ms'lik bir 2,5 kHz klik kalıyor: 'dokunuş' değil cızırtı gibi bir 'tik' duyuluyor. Master'daki shelf_low(160 Hz, −4 dB) gövdeyi kulaklıkta da inceltiyor.",
+    "neden": "Küçük telefon hoparlörü pratikte ≈300 Hz'in altını vermez. Reçetelerde 300–600 Hz arasında harmonik katman yok. Bas `BASS+12` (185–247 Hz) olduğu için kulaklıkta da alt uç yok. sat() aşırı örneklemesiz tanh, yani yüksek frekansta aliasing üretiyor.",
+    "duzeltme": "Her darbeye 'telefonda duyulan' bir katman ekle. Dokunuşa 310→260 Hz sinüs (20 ms içinde, τ 22 ms) ve 170 Hz haptik (kare dalga → tanh, 25 ms, −18 dB rel; 340/510 Hz harmonikleri telefonda duyulur). Kick'e 190 Hz 'knock' (τ 35 ms, −8 dB rel) ekle, tanh(1,6) uygula. Basın temeli 49–98 Hz'te kalsın (G1–D2), tanh(2,2) ile 4× aşırı örneklemede 2.–5. harmonikleri 150–450 Hz'e taşı. Master low-shelf'i −2 dB @120 Hz'e indir. QC: miksi 300 Hz–12 kHz arası 4. derece bant geçirenden ve +4 dB @2,8 kHz'ten geçir; her UI olayı bu simülasyonda duyulmalı.",
+    "oncelik": "P0"
+   },
+   {
+    "madde": "ChatGPT kullanımı",
+    "saniye": "3,05–5,8 (yazma), 26,15–27,10 (başlık)",
+    "gozlem": "Soru 49 karakter (23 harf + satır sonu + 25 harf). Ekranda 2,55 sn'lik net yazma süresine yayılıyor: 1. satır 50 ms/harf, 2. satır 54 ms/harf, yani 18–20 harf/sn. Bu, hızlı bir başparmakla yazanın ≈3 katı. Göz bunu teleks gibi görüyor. Her harfe tık konursa kulak 20 Hz'lik bir vızıltı duyar, yazma ritmi duymaz. Ayrıca film.py tıkları karakterin göründüğü kareden 25–27 ms önce koyuyor: `a+(p0-a)*i/n1` kullanıyor, oysa Screen.tsx'te harf `round()` ile `a+(i−0,5)/n·dur` anında görünüyor. 'evlek' araması (21,0–21,4) 40 ms erken. Başlık yazımına konan tıklar daktilo klişesi.",
+    "neden": "Screen.tsx:370 doğrusal `lin()` ile yazıyor: kelime öbeği yok, duraklama yok (tek istisna 4,25–4,45). Ses tarafında ise her harfe bir tık konmuş.",
+    "duzeltme": "Zamanlamayı karelere kilitle: t_i = ceil(60·(a+(i−0,5)/n·(b−a)))/60. 1. satır 3,083–4,233, 2. satır 4,483–5,783. Jitter yalnız ±3 ms (bir karenin içinde). Yoğunluk kuralı: kelimenin ilk harfi tam seviye (−30 dBFS), kelime içinde yalnız her 3. harf −38 dBFS, 7 boşluk/satır sonu 'thock' olarak −28 dBFS. Toplam ≈23 olay, ≈9/sn, vızıltı değil ritim. Başlık yazımında (26,15–27,10) tık olmasın. Görüntü önerisi (Rumi onayı gerekir): yazma ritmini kelime öbekleriyle kur. Kelime içi 3 kare (50 ms), kelime arası 16'lık (144 ms), kelime başları 104 BPM'in 16'lıklarına otursun. Böylece yazım tıkları B2–B3'te hi-hat yerine geçen bir 'yazma grubu' olur.",
+    "oncelik": "P0"
+   },
+   {
+    "madde": "ChatGPT kullanımı",
+    "saniye": "10,50–11,70",
+    "gozlem": "Kart şeridi parmaktan önce hareket ediyor. Şerit 10,50'de kıpırdıyor, idx 4'ü 10,705'te geçiyor; parmak halkası 10,80'de beliriyor ve 10,90'da hareket etmeye başlıyor. O anda şerit yolun %77'sini (idx 4,577 / 3,1→5) zaten almış. Ayrıca sohbet kayması (10,35–10,90) ile şerit hareketi 10,50–10,90 arasında üst üste biniyor: aynı anda iki hareket var. Rumi'nin 'garip' ve 'seksi değil' hissinin bir kaynağı bu: neden-sonuç ters.",
+    "neden": "Screen.tsx:122 `cardIdx = … lin(t, TL.drag[0] - 0.4, TL.drag[1])` ile çalışıyor; Drag bileşeni (150–153) ise `lin(t, TL.drag[0], TL.drag[1])` ile. İkisi aynı Bezier'i (0,25; 0,6; 0,2; 1) farklı başlangıçla kullanıyor.",
+    "duzeltme": "Görüntü: cardIdx'teki −0,4'ü kaldır, şerit ve parmak aynı `lin(t, 10,90, 11,70)` ile gitsin. Sohbet kaymasını 10,35–10,85'te bitir (çakışma olmasın). Ses: sürtünmenin genliği şerit hızına |d cardIdx/dt| bağlansın: pembe gürültü BP 2–5 kHz, tepe −32 dBFS. 220 Hz kütle sinüsü −36. Her kart eşiği geçişinde detent klik (0,6 ms + 2,6 kHz rezonans, τ 5 ms) −30. Oturma 11,667'de −22. Pan şerit yönüyle +0,3'ten −0,3'e. Görüntü düzelmezse ses 10,50'den başlayan şerit hareketini izlesin, parmağı değil.",
+    "oncelik": "P0"
+   },
+   {
+    "madde": "ChatGPT kullanımı",
+    "saniye": "6,2–8,5",
+    "gozlem": "Bu filmin 'an'ı (sor → Evlek arıyor → gerçek sonuç) seste düz geçiyor. 7,00–7,67 arası kare neredeyse boş: siyah ekranda ≈150 px'lik 'Ev Evlek' etiketi var (blok_1, 3. satır). film.py burada shimmer(base=84) çalıyor: C6, G6, C7, E7. O anki akorlar Bm9 (C#) ve A6sus (B, F#). C ile C#/B, G ile F# yarım ses sürtüşüyor: en önemli anda akort dışı bir ışıltı.",
+    "neden": "shimmer'ın taban notası tonaliteden bağımsız sabit. Sonuç anında ritim yok (ilk bulguya bak). 'Build → nefes → drop' kurgusu yok.",
+    "duzeltme": "Tek bir build kur. 6,33–7,63 arasında ped LPF'i 1,8→4 kHz açılsın, pluck ostinatosu 8'likten 16'lığa geçsin. 7,00–7,77 arasında ton içi granüler ışıltı (D6/A6/E7/F#7 = MIDI 86/93/100/102), tane yoğunluğu 8→24/sn, −32 dBFS. 7,629–7,773 arası bir 16'lık nefes: ped hariç her şey −12 dB. 7,773'te drop: kick, bas, Dmaj9 keçe akoru ve kart oturması (240+480 Hz τ 60 ms + kâğıt 'tuck' BP 0,6–2 kHz) birlikte. Kısa süreli ses yüksekliği −18'den −12,5 LUFS'a çıksın. Slogan 8,494'te keçe aksan F#5 −24 alsın.",
+    "oncelik": "P0"
+   },
+   {
+    "madde": "eklenti",
+    "saniye": "19,3–24,6",
+    "gozlem": "5,3 sn'de 7 eylem var (menü 19,6 · Eklentiler 20,25 · arama 20,9 · 'evlek' 21,0–21,4 · satır 21,8 · kur 22,9 · Bağlı 23,35 · dene 24,4), adım başına ≈0,7 sn. Telefon CHAT pozunda s=0,55; liste metni 1080 karede ≈20 px, 360 px genişlikte ≈7 px. 20,33–21,33 arasında Eklentiler sayfası gri iskelet bloklarıyla görünüyor (blok_4); gerçek içerik değil, 'yükleniyor' hissi veriyor. Seste her adım aynı tap(0,12) ile çalınıyor: kulak kaç adım olduğunu sayamıyor. 'Bağlı' (23,35) iki notalı bir marimba, 2,3 sn sonra da üç notalı logo geliyor: art arda iki jingle.",
+    "neden": "Yol şeridindeki 4 adımın (V13.tsx:145 STEPS: cut 19,3 / plug 20,25 / row 21,8 / install 22,9) seste karşılığı yok. Dokunuşların hepsi aynı örnek.",
+    "duzeltme": "Ses: yola bir 'adım motifi' koy. Yükselen dizi A4 (19,312) · B4 (20,250) · C#5 (21,800) · D5 (22,900), keçe + pluck katmanı, −22 dBFS. Yol şeridi her kelimeyi vurguladığında bir basamak çıkar; kulak 1-2-3-4'ü sayar. Döndürücü 22,917/23,061/23,206'da üç yumuşak tık (2,4/2,6/2,8 kHz, −36). Bağlı (23,350): mandal (9 ms arayla iki klik, 4 kHz) + D5/A5 aynı anda (7 ms strum), −16. Arpej yok, jingle yok. Müzik bu vuruşta A/C# ile B11'e çeker. Görüntü (Rumi'ye sorulmalı): iskelet bloklar yerine gerçek kayıttaki Eklentiler içeriği; adım başına ≥0,9 sn.",
+    "oncelik": "P0"
+   },
+   {
+    "madde": "ekran yarım",
+    "saniye": "6,95–12,75 ve 13,45–18,15",
+    "gozlem": "PR pozunda (s 0,80, y 1698) gövde kutusu [36, 1068, 639, 2763]. Alt 843 px kesik, yani gövde yüksekliğinin (2124 px) %40'ı kadraj dışında. Üstte 639 px (karenin %33'ü) boş lacivert. Rumi'nin ≈11–12 sn ekran görüntüsü tam bu. PT pozunda (s 0,78) altta 372 px kesik. Toplam 10,5 sn, yani filmin %35'i yarım ekran. Seste bir karşılığı yok, ama bu sürede müzik en yoğun bölümünde (B4–B8) olduğu için göz kayıp kadrajla baş başa kalıyor.",
+    "neden": "Ölçek widget'ı okutmak için büyütülmüş; kadraj merkezi (y≈1700) ekranın üst yarısına göre hesaplanmış.",
+    "duzeltme": "Görüntü için öneri (görüntü ekibine): s=0,80'de gövde 1920'ye sığmaz. Ya s ≤ 0,66 ve y≈960 (gövde ≈[114, 966, 84, 1836], tam sığar), ya da bilinçli 'ekran-içi' yakın plan (telefon kenarları her iki yandan da kadraj dışında, çerçeve hissi yok). Yarım kesik ara durum olmasın. Ses tarafı: kamera hareketlerine (push 2,3–3,0, rise 6,35–6,95, pull 18,15–18,75, back 25,35–26,15) whoosh koyma. Hareketi ped filtresi ve oda ıslaklığıyla taşı.",
+    "oncelik": "P1"
+   },
+   {
+    "madde": "telefon",
+    "saniye": "0–2,3 ve 26,15–30",
+    "gozlem": "Telefon bir nesne gibi değil, siyah bir dikdörtgen gibi okunuyor. Kalınlık 150 px, ama ry −4°'de görünen yan yüz ≈150·sin4°·s: COVER'da 4,7 px, PR'de 8,4 px. Kenar neredeyse görünmüyor. Ekran alanının ≈%85'i saf #000; çerçeve #16232D–#3C4D59, zemin #0A2540/#061A2E ile düşük kontrastlı. Seste de 'cam/nesne' maddesi yok: dokunuşlar ağırlıksız.",
+    "neden": "Kamera açısı çok cepheden (ry −4°, rx 2°). Kenar ve ekran zemini kontrastı düşük. Efekt reçetelerinde cam/gövde rezonansı yok.",
+    "duzeltme": "Ses: her dokunuşta cam 'tok'u (310→260 Hz) + 1,2 kHz BP gövde (τ 10 ms) + haptik 170 Hz katmanı olsun, 4 varyasyon round-robin. Pan = 0,4·(x_ekran−540)/540. Hepsi aynı kısa oda IR'ında (0,35 sn; erken yansımalar 7/13/19/23 ms; ıslak %8): nesne bir odada duruyor gibi duyulsun. Görüntü için öneri (Rumi'ye sor): kapakta ry −4°→−14°, rx 2°→6°. Yan yüz 150·sin14°·0,45 ≈ 16 px olur.",
+    "oncelik": "P1"
+   },
+   {
+    "madde": "ses",
+    "saniye": "12,6 · 17,7 · 18,95 · 19,6 · 20,25 · 20,9 · 21,8 · 22,9 · 24,4; 19,65 / 20,3 / 21,85 / 24,45",
+    "gozlem": "Dokuz dokunuşun hepsi aynı tap(0,12) örneği; dört panel geçişi aynı swipe(0,35). swipe() gürültü süpürmesi, yani yasak whoosh klişesinin kendisi. sonic_logo FM oranı 3,5 (uyumsuz kısmiler, 'ucuz DX zili'). Üç nota 120 ms arayla arpejleniyor: bildirim jingle'ı gibi.",
+    "neden": "Varyasyon yok, katman yok, reçeteler tek osilatörlü.",
+    "duzeltme": "Her UI sesi üç katmanlı olsun: klik + gövde + hava. 4–8 round-robin varyasyon, her vuruşta perde ±%3, seviye ±1,5 dB, filtre ±%10, gürültü başlangıç ofseti rastgele. Panel geçişi: LP 400 Hz gürültü (300 ms) + bitişte detent klik, −34. FM oranları tamsayı olsun (1:1, 2:1). Logo yeni imza ile değişsin (özel öneri, H).",
+    "oncelik": "P1"
+   },
+   {
+    "madde": "ses",
+    "saniye": "mastering; 25,65–30,0 döngü dikişi",
+    "gozlem": "film.py miksi tepe 0,7'ye normalize ediyor, 16-bit'e ditersiz kırpıyor, ardından ffmpeg loudnorm planlanmış. Tek geçişli loudnorm dinamik modda çalışır, pompalar. −1 dBTP'de teslim edilen WAV, AAC 320k kodlamada ≈0,3–0,5 dB aşar. Efekt busu döngüde başa sarılmıyor: sonic_logo 25,65'te başlıyor, 3,2 sn sürüyor, üstüne 2,4 sn IR kuyruğu geliyor, ≈31,2 sn'ye kadar uzuyor ve 30,0'da kesiliyor. Döngüde tık duyulur.",
+    "neden": "Ses yüksekliği yalnız tepe değerine göre ayarlanıyor; kuyruk sarma yalnız music() içinde var.",
+    "duzeltme": "Önce numpy'de true-peak limitle: 4× aşırı örnekleme, ileri bakış 5 ms, bırakma 60 ms, tavan −1,5 dBTP. Sonra ölç: entegre −14,0 ±0,5 LUFS, LRA 5–7 LU. loudnorm gerekirse iki geçiş ve linear=true. Ara format 24-bit/float, 16-bit'e TPDF dither. Mux sonrası MP4'te `ebur128=peak=true` ile ≤ −1,0 dBTP doğrula. Efekt ve ambiyans busunu da 30,0'dan başa sar. Mux: `-c:v copy`; video md5'i sessiz master ile karşılaştır.",
+    "oncelik": "P1"
+   },
+   {
+    "madde": "diğer",
+    "saniye": "14,45–17,55",
+    "gozlem": "Ev anında havuz geniş kareye büyüyor ve fiyat etiketi çıkıyor (≈3,1 sn). Seste yalnız iki air() gürültüsü var, mekân yok. Filmin 'ev' duygusunun taşındığı yer seste boş.",
+    "neden": "Ambiyans katmanı tasarlanmamış.",
+    "duzeltme": "Sentetik deniz/hava ambiyansı ekle. Kahverengi gürültü LPF 700 Hz; 0,11 Hz rastgele genlik modülasyonu (dalga); BP 3–8 kHz serpinti −52; L ve R ilintisiz. RMS −40 dBFS. portalOut'ta (14,45–15,15) 0,7 sn'de açılsın, portalIn'de (16,85–17,55) kapansın. Aynı anda UI oda ıslaklığı %8→%30→%8. B7'de (14,696–17,004) davul yalnız hat ve rim'e çekilsin. 15,35 fiyat etiketine keçe F#5, −28.",
+    "oncelik": "P2"
+   }
+  ],
+  "korunacaklar": [
+   "Tamamen kodla sentez yaklaşımı (audio/synth.py): bant sınırlı toplamsal testere (saw_bl), RBJ peaking/shelf filtreleri, sabit tohumlu RNG (20261115). Determinist ve lisans sorunsuz.",
+   "film.py'nin zamanları regex ile doğrudan src/v1x/tl.ts'den okuması. Elle yazılmış zaman yok; aynı yapı v14'te de kalsın.",
+   "Müzikte kuyruğu 30,0'dan başa sarma fikri (son kare ilk kare). Yalnız efekt busuna da uygulanmalı.",
+   "Efektlerin altında müziğin çekilmesi (ducking) fikri. Bas/kick sidechain'i ve UI tetikli dinamik EQ ile inceltilmeli.",
+   "Boşluk tuşunun harften farklı ve daha tok tıkı: gerçekçi bir ayrım.",
+   "Seslendirme yok; 48 kHz stereo; mux `-c:v copy`; WAV'lar git dışında.",
+   "Görüntüde zaten ızgaraya oturan anlar (104 BPM, φ 0,85): send 6,20, res 7,80, slogan 8,50, cut 19,30, menü 19,60, bound 23,35. Bu zamanlara dokunulmasın.",
+   "Kanca A′: logo → çip, kapanışta çip → logo, ardından 'artık ChatGPT'de.' Ses imzası bu palindromu izlesin.",
+   "Gerçek widget pikselleri (public/v12/w/*.png). Ses tasarımı hiçbir arayüz pikseline dokunmaz.",
+   "Marka tavrı: sakin, mimari, kendinden emin. Whoosh yok, her kesmeye riser yok, 'kurumsal uplift' yok."
+  ],
+  "ozel_oneri": "TEK SAAT. Müzik, efekt ve kurgu aynı ızgaradan konuşsun. Tempo 104 BPM, 4/4, faz φ=0,850 sn. 13 ölçü × 2,3077 sn = 30,000 sn (52 vuruş, 16'lık = 0,1442 sn). Her olay saniyeyle değil (ölçü, vuruş, 16'lık) olarak tanımlansın; ses sentezi ve döngü dikişi bu tek saatten çıksın.\n\nA) IZGARA\nÖlçü başları: B1 0,850 · B2 3,158 · B3 5,465 · B4 7,773 · B5 10,081 · B6 12,388 · B7 14,696 · B8 17,004 · B9 19,312 · B10 21,619 · B11 23,927 · B12 26,235 · B13 28,542, ardından 30,850 ≡ 0,850.\nMevcut TL büyük ölçüde bu ızgaraya oturuyor. Yalnız üç küçük kaydırma önerisi var (TL değişikliği, Rumi onayı ister): tap 12,60 → 12,533 (−4 kare), contact 18,95 → 18,883 (−4 kare), plug 20,25 → 20,317 (+4 kare). Onay gelmezse efektler kareye kilitli kalır, müzik ızgarada kalır.\n\nB) TONALİTE VE AKOR DİZİSİ (Re majör, Lidya rengi)\n- B13 + B1: Gmaj9 (G2 | G3 B3 D4 F#4 A4)\n- B2: Em9\n- B3: Asus4, 3. vuruşta (6,619) A'ya çözülür\n- B4: Dmaj9 (DROP)\n- B5: Bm11\n- B6: Gmaj9#11 (C#5 renk notası)\n- B7: Em9\n- B8: Asus4, 3. vuruşta (18,158) A/C#\n- B9: D/F#\n- B10: Gmaj9, 4. vuruşta (23,350) A/C#\n- B11: Bm9, 3. vuruşta (25,081) A\n- B12: Dadd9\n- B13: Gmaj9 (döngü)\n\nC) ENSTRÜMANLAR VE SENTEZ REÇETELERİ\n1. Ped 'cam'. Nota başına 3 bant sınırlı testere (−7, 0, +7 cent) ve bir oktav altta sinüs (−12 dB). 2 kutuplu LPF: girişte 900 Hz, 1,4–2,1 arasında 2,4 kHz'e açılır, drop'ta 4,2 kHz. LFO 0,07 Hz ile kesim ±%6. ADSR 0,6 / 0,8 / 0,85 / 1,6 sn. Kayma: ±3 cent rastgele yürüyüş (0,2 Hz) ve 0,5 Hz ±2 cent teyp sallantısı. Stereo: L −7 c, R +7 c, orta düz (mono toplamda kayıp <1 dB). Plaka reverb 2,6 sn, ön gecikme 22 ms, ıslak %28.\n2. Keçe piyano (ana renk). FM 1:1, indeks 1,4·e^(−t/0,25)+0,1. 2. kısmi −14 dB. Çekiç: LP 1,2 kHz gürültü, 6 ms, −20 dB. ADSR 3 ms / 0,7 / 0,2 / 0,45. Vuruş gücü LPF'i 2–6 kHz arasında sürer. Akorlar 6–12 ms strum ile çalınır.\n3. Susturulmuş pluck (Karplus–Strong). Gecikme hattı = SR/f, geri besleme 0,985, iki noktalı ortalama + LPF 3 kHz, uyarım 4 ms pembe gürültü. 8'lik ostinato: D5 A4 E5 A4 / F#5 A4 E5 A4. Pan ±0,35 sırayla. Seviye −12 dB rel. B2–B8 ve B9–B10'da çalar.\n4. Bas. Sinüs, temel G1–D2 arası (49–98 Hz). tanh(2,2), 4× aşırı örnekleme; 2.–5. harmonikler 150–450 Hz'e düşer (telefonda duyulan bölge). LPF 1,1 kHz. ADSR 5 ms / 0,15 / 0,8 / 0,12. Kick'e sidechain: −4 dB, bırakma 110 ms.\n5. Davul.\n   - Kick: sinüs 150→52 Hz (τ 28 ms), gövde τ 120 ms, 190 Hz 'knock' τ 35 ms −8 dB, klik HP 2,5 kHz τ 4 ms, tanh 1,6.\n   - Clap: 0 / 11 / 23 ms arayla üç gürültü patlaması, BP 0,9–4,5 kHz, τ 7 ms; kuyruk τ 80 ms; 190 Hz gövde.\n   - Hat: 6 kare dalga (205,3 / 304,4 / 369,6 / 522,7 / 540 / 800 Hz × 3,5), HP 7,5 kHz. Kapalı τ 22 ms, açık τ 160 ms.\n   - Kalıp (yarım tempo hissi): kick 1. ve 3.3'te, clap 3'te. Hat 16'lık, %55 swing, vurgu 0 / −9 / −4 / −9 dB. B7'de yalnız hat ve rim. B8'de 4.4'e ek kick.\n   - Zamanlama: insan jitter'ı σ 5 ms (hat, keçe, pluck). Yapısal kick'lerde jitter 0.\n\nD) BÖLÜM DİNAMİĞİ (kısa süreli LUFS, master sonrası)\n- Giriş, 0–3,16: −22\n- Yazma, 3,16–7,63: −18. Filmdeki tek build 6,33–7,63 arasında.\n- Nefes, 7,629–7,773: müzik −12 dB, yalnız ped kalır.\n- Drop ve kartlar, 7,773–14,70: −12,5\n- Ev, 14,70–17,00: −15\n- B8, 17,00–19,31: −13,5\n- Eklenti, 19,31–23,93: −13\n- Logo, 25,35–26,9: o ana kadarki en yüksek UI anı\n- Çıkış, 27–30: −19'dan −22'ye. Döngü dikişi girişle aynı seviyede.\n\nE) UI EFEKT REÇETELERİ\nSeviyeler master sonrası tepe dBFS. Tüm UI tek bir oda IR'ında: 0,35 sn, erken yansımalar 7 / 13 / 19 / 23 ms, ıslak %8. Ortam tonu: pembe gürültü −62 dBFS, film boyunca sürekli; dijital sessizlik yok.\n1. Yazma tıkı (8 round-robin varyasyon)\n   - Klik: 1,5 ms yarım sinüs → BP 3,5–6 kHz.\n   - Rezonatör: 1,9 ve 3,1 kHz, Q 8, τ 6 ms.\n   - 'Thock': 420 Hz, τ 8 ms, −12 dB rel.\n   - Toplam süre 40 ms. Her vuruşta perde ±%4, seviye ±1,5 dB.\n   - Boşluk: rezonatör 1,4 kHz, thock 320 Hz, 55 ms.\n   - Seviye: kelime başı −30, kelime içi her 3. harf −38, boşluk −28. Pan ±0,08.\n   - Zaman: kare = ceil(60·(a+(i−0,5)/n·(b−a))).\n2. Dokunuş (4 varyasyon)\n   - Klik: 0,8 ms HP 3 kHz, −10 dB.\n   - Cam 'tok': 310→260 Hz, τ 22 ms.\n   - Gövde: BP 1,2 kHz, τ 10 ms, −8 dB.\n   - Haptik: 170 Hz → tanh, 25 ms, −18 dB.\n   - Seviye −20. Pan = 0,4·(x−540)/540.\n3. Gönder: dokunuş + 380→760 Hz 'pop' (40 ms, τ 60 ms) + BP gürültü 1–4 kHz, 30 ms. Seviye −17. Balon kalkışı: A5+E6 sinüs, 2 cent detune, LPF 1,5→6 kHz, −30.\n4. Sürükleme\n   - Sürtünme: pembe gürültü BP 2–5 kHz, genlik şerit hızına bağlı, −32.\n   - Kütle: 220 Hz, −36.\n   - Detent klik −30; oturma −22.\n   - Pan +0,3'ten −0,3'e.\n5. Kart oturma: 240 + 480 Hz, τ 60 ms + kâğıt 'tuck' (BP 0,6–2 kHz, τ 25 ms). Seviye −19.\n6. İlan açılışı: ped LPF 1,2→5 kHz, oda ıslaklığı %8→%30. 13,45'te kapı sesi: 180 + 360 Hz, τ 80 ms, −24. Deniz ambiyansı: 'diğer' bulgusundaki reçete.\n7. Bağlı: döndürücüde üç tık (−36), ardından mandal (iki klik, 9 ms arayla, 4 kHz) + D5/A5 aynı anda, −16.\n8. Logo imzası 'Ev·lek': iki hece, iki nota; yükselen dörtlü A4→D5.\n   - Keçe piyano + cam harmoniği (×2, ×3 sinüs, −18 dB, τ 1,2 sn).\n   - İkinci notada sub: D2 73 Hz + 147 Hz, −22.\n   - İkinci notadan 120 ms önce nefes: BP 0,8–3 kHz gürültü, −40.\n   - Plaka 3,2 sn, ıslak %30.\n   - Girişte ters yönde (D5→A4), kapanışta yukarı (A4→D5). Böylece ses de son kare–ilk kare palindromunu izler.\n\nF) MİKS VE MASTERING\n- Busler: MÜZİK / UI / AMB / LOGO.\n- Müzik UI'ya sidechain: −2,5 dB, atak 5 ms, bırakma 180 ms. Müzik busunda UI tetikli dinamik EQ: −2 dB @3 kHz.\n- Master EQ:\n  - HPF 30 Hz, 24 dB/okt\n  - Low-shelf −2 dB @120 Hz\n  - −2 dB @250 Hz, Q 1\n  - +1,5 dB @1,6 kHz, Q 0,8\n  - Dinamik −2 dB @3,8 kHz, Q 2 (telefon hoparlör rezonansı, yalnız yüksekken)\n  - +1,5 dB shelf @10 kHz\n- Dinamik ve doygunluk: yapıştırıcı kompresör 2:1, atak 30 ms, kazanç azaltma ≤2 dB. Teyp doygunluğu tanh 1,3, 4× aşırı örnekleme.\n- Limitleyici: true-peak, 4× aşırı örnekleme, ileri bakış 5 ms, tavan −1,5 dBTP. AAC kodlamadan sonra ≤ −1,0 dBTP kalır.\n- Hedef: entegre −14,0 ±0,5 LUFS, LRA 5–7 LU, kısa süreli maks ≤ −11.\n- Mono uyum: toplam kayıp <1,5 dB, korelasyon >0,3.\n- Telefon simülasyonu QC: 300 Hz–12 kHz bant + 2,8 kHz'te +4 dB'den geçen miksde her UI olayı duyulmalı.\n\nG) CUE LİSTESİ (saniye · ses · tepe dBFS)\nGİRİŞ\n- 0,000 · oda tonu (sürekli) · −62 RMS; döngüden sarılan B13 ped kuyruğu · −26\n- 0,273 · anakruz keçe A3 · −28\n- 0,850 · B1 Gmaj9 keçe + ped · −22\n- 1,400 · logo inişi, keçe D5 · −20; hava 1,40–2,05 · −40\n- 2,100 · çip pop: A4 + mini dokunuş · −20\n- 2,30–3,00 · kamera itişi: efekt yok, ped açılır\n\nYAZMA VE ARAMA\n- 3,083–4,233 · 1. satır tıkları · −30 / −38 / −28\n- 4,483–5,783 · 2. satır tıkları · aynı seviyeler\n- 6,200 · gönder · −17\n- 6,35–6,95 · balon kalkışı · −30\n- 6,33–7,63 · tek build\n- 7,00–7,77 · ton içi ışıltı · −32\n- 7,629 · nefes\n- 7,773 · DROP: kick + bas + Dmaj9 · müzik −14, oturma −19\n- 8,494 · slogan aksanı F#5 · −24\n\nKART VE İLAN\n- 10,35–10,90 · sohbet kayması · −38\n- 10,50–11,70 · şerit sürtünmesi · −32; detent 10,705 · −30; oturma 11,667 · −22\n- 12,600 · karta dokunuş · −20\n- 12,75–13,45 · ilan açılışı; 13,45 varış · −24\n\nEV\n- 14,45–15,15 · deniz ambiyansı açılır · −40 RMS\n- 14,696 · B7: davul çekilir\n- 15,35 · fiyat etiketi F#5 · −28\n- 16,85–17,55 · ambiyans kapanır; 17,55 varış · −26\n- 17,004 · B8: kick geri gelir\n\nGALERİ VE EMLAKÇIYA SOR\n- 17,700 · galeri dokunuşu · −22; cam kayması 120 ms · −32\n- 18,158 · A/C# gerilim\n- 18,950 · Emlakçıya sor dokunuşu · −20\n\nEKLENTİ YOLU\n- 19,312 · B9 D/F# + adım 1, A4 · −22\n- 19,600 · menü dokunuşu · −22; 19,65–19,95 panel · −34\n- 20,250 · Eklentiler dokunuşu + adım 2, B4 · −22; 20,30–20,60 sayfa · −34\n- 20,900 · arama alanı dokunuşu · −24\n- 21,04 / 21,12 / 21,20 / 21,28 / 21,36 · 'evlek' tıkları · −30\n- 21,500 · sonuç satırı mini oturma · −32\n- 21,619 · B10 Gmaj9\n- 21,800 · Evlek satırı dokunuşu + adım 3, C#5 · −22; 21,85–22,15 sayfa · −34\n- 22,900 · Eklentiyi kur dokunuşu + adım 4, D5 · −18\n- 22,917 / 23,061 / 23,206 · döndürücü · −36\n- 23,350 · Bağlı: mandal + D5/A5 · −16\n\nKAPANIŞ\n- 23,927 · B11 Bm9\n- 24,400 · Sohbette dene dokunuşu · −22; 24,45–24,75 yeni sohbet · −34\n- 25,081 · davul susar, A akoru\n- 25,350 · 'Ev' A4 · −18; nefes 25,6–26,1 · −40\n- 26,150 · 'lek' D5 + sub · −14\n- 26,235 · B12 Dadd9 · −18\n- 26,15–27,10 · başlık yazımı: tık yok\n- 27,2 · dipnot: sessiz\n- 28,542 · B13 Gmaj9 · −22; 30,000'de dikişsiz, tüm kuyruklar başa sarılır\n\nUygulama notu: bu bir film.py yeniden yazımıdır. Görüntü kurallarına dokunmaz. Sesi sessiz master'a göre mikslenir ve `-c:v copy` ile muxlanır. TL kaydırmaları Rumi onayı olmadan yapılmaz."
+ }
+]
