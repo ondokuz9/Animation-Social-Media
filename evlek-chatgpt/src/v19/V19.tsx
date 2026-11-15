@@ -29,7 +29,7 @@ const DS = 0.6, DY = 862;
 const DETAIL = P(540, DY, DS); // tam telefon: ilan; "Emlakçıya sor" y≈1566
 const LIST = view(0, 140, 0.916); // ekran tam genişlikte (kenar yazıları kırpılmaz) // Ç1–Ç2: ilan üstü (✕ Evlek, galeri, fiyat), kart yakınıyla aynı ölçek
 /** Ç3: salon fotoğrafına yaklaşma; sabit nokta pencerede görünen deniz (ekran 470, 760) */
-const zoomAt = (k: number): Pose => { const s = mix(0.95, 1.4, k); const sx = 470, sy = 760; const fx = 540, fy = 950; // kırpılan yazı kadraj dışında kalır return P(fx + (PW / 2 - OX - sx) * s, fy + (PH / 2 - OY - sy) * s, s); };
+const zoomAt = (k: number): Pose => { const s = mix(0.95, 1.4, k); const sx = 470, sy = 760; const fx = 540, fy = 950; /* kırpılan yazı kadraj dışında kalır */ return P(fx + (PW / 2 - OX - sx) * s, fy + (PH / 2 - OY - sy) * s, s); };
 const FEAT = view(0, 760, 0.916); // ilan yakın: fiyat, başlık, Temel bilgiler, Özellikler çipleri, alt çubuk
 const PLUG = P(540, 1140, 0.55); // eklenti bölümü: üstte başlık + adımlar; düğme altı ≈1793 (Reels alt bandının üstü)
 const END = P(540, 1196, 0.47); // telefonun altı ≈1830: kareye ≥90 px pay, Reels bandının dışında
