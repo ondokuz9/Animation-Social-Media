@@ -57,6 +57,6 @@ print('== telefon bandı sıçrama (dB):',{k:round(jump(v),1) for k,v in ev.item
 L=x[:,0]; R=x[:,1]; st=signal.sosfilt(signal.butter(4,[300,12000],'bandpass',fs=sr,output='sos'),x,axis=0)
 r=lambda z: 10*np.log10(np.mean(z**2)+1e-12)
 print('== mono toplama kaybı (dB):', round((r(st[:,0])+r(st[:,1]))/2 - r(st.mean(1)),2))
-sec=[('açılış',0,1.7),('sonuç+groove',2.5,7.4),('ev',8.0,10.0),('ilan',10.0,12.0),('CTA',12.0,15.0),('kapanış',15.0,16.5)]
+sec=[('açılış',0,1.7),('sonuç+groove',2.5,6.9),('ev',7.5,9.5),('ilan',9.5,11.5),('CTA',11.5,14.0),('kapanış',14.0,15.5)]
 print('== bölüm seviyesi (dBFS):',{n:round(r(m[int(a*sr):int(b*sr)]),1) for n,a,b in sec})
 PY

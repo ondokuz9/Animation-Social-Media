@@ -13,7 +13,7 @@ import film15_2 as F2          # film15'i CC0 örneklerle yamalar
 import film15 as F
 from synth import SR, RNG, t_, stereo, env_adsr, lp, hp, bp, noise, saw_bl, midi, make_ir, place, to_wav
 
-DUR = 19.0
+DUR = 18.0
 KI, KU = F2.KI, F2.KU
 BEAT = 0.5
 
@@ -102,14 +102,14 @@ def music(tl):
     for i in range(4): place(bus['bass'], F.synth_bass(45, BEAT * 0.9, 0.04), LAND + i * BEAT)
     place(bus['fx'], F.reverse_swell(0.45, 0.04), CTA - 0.47)
     # ---- CTA (12,0–15,0): groove tam; Bağlı (13,5) ikinci vuruş
-    place(bus['pad'], pad(CH['Dmaj9'][1], 1.5 + 0.6, 4500, amp=0.07, a=0.02, r=0.5), CTA)
-    place(bus['pad'], pad(CH['Bm9'][1], 1.0 + 0.5, 4500, amp=0.07, a=0.03, r=0.4), BOUND)
-    place(bus['pad'], pad(CH['A'][1], 0.5 + 0.4, 5000, amp=0.07, a=0.03, r=0.3), BOUND + 1.0)
+    place(bus['pad'], pad(CH['Dmaj9'][1], 1.5 + 0.4, 4500, amp=0.07, a=0.02, r=0.4), CTA)
+    place(bus['pad'], pad(CH['Bm9'][1], 0.5 + 0.4, 4500, amp=0.07, a=0.03, r=0.3), BOUND)
+    place(bus['pad'], pad(CH['A'][1], 0.5 + 0.3, 5000, amp=0.07, a=0.03, r=0.25), BOUND + 0.5)
     place(bus['drums'], F.kick(0.28), CTA); place(bus['drums'], F.clap(0.07), CTA)
     for i, m in enumerate((62, 66, 69, 76)):
         place(bus['keys'], F.felt(m, 1.6, 0.04, pan=(i - 1.5) * 0.12), CTA + 0.006 * i)
-    groove(CTA + BEAT, END - BEAT, True, lambda at: 50 if at < BOUND else (47 if at < BOUND + 1.0 else 45))
-    for i, m in enumerate([74, 69, 76, 69, 78, 69, 76, 69, 74, 69]):
+    groove(CTA + BEAT, END - BEAT, True, lambda at: 50 if at < BOUND else (47 if at < BOUND + 0.5 else 45))
+    for i, m in enumerate([74, 69, 76, 69, 78, 69, 76, 69]):
         place(bus['pluck'], F.ks_pluck(m, 0.8, 0.06, pan=0.25 if i % 2 else -0.25), CTA + i * BEAT / 2)
     place(bus['fx'], F.impact(0.24, bells=(86, 90)), BOUND)
     for i in range(4): place(bus['drums'], F.clap(0.02 + 0.012 * i), END - 0.5 + i * BEAT / 4)
@@ -141,7 +141,7 @@ def music(tl):
     mix = mix + lp(hp(wet, 250), 9000)
     out = mix[: int(DUR * SR)].copy()
     t2 = np.arange(len(out)) / SR
-    return out * np.where(t2 < 17.4, 1.0, np.clip(1 - (t2 - 17.4) / 1.5, 0, 1) ** 2.0)[:, None]
+    return out * np.where(t2 < DUR - 1.6, 1.0, np.clip(1 - (t2 - (DUR - 1.6)) / 1.5, 0, 1) ** 2.0)[:, None]
 
 
 def ui(tl):

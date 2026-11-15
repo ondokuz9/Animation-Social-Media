@@ -1,7 +1,7 @@
-// v16 · zaman çizelgesi (sn, 60 fps) · 19,0 sn = 1140 kare. docs/v16/V16-KREATIF-RAPOR.md
+// v16 · zaman çizelgesi (sn, 60 fps) · 18,0 sn = 1080 kare. docs/v16/V16-KREATIF-RAPOR.md
 // Açılış A (evle açılan) kazandı. Izgara: 120 BPM (vuruş 0,5 sn).
-// Vuruşlar: sonuç 2,5 · ilan 5,5 · ev 8,0 · dönüş 10,0 · CTA 12,0 · Bağlı 13,5 · kapanış 15,0.
-export const DUR = 19;
+// Vuruşlar: sonuç 2,5 · ilan 5,0 · ev 7,5 · dönüş 9,5 · CTA 11,5 · Bağlı 13,0 · kapanış 14,0.
+export const DUR = 18;
 export const MUSIC = {bpm: 120, phi: 0.5};
 const X = 99; // v16'da tetiklenmeyen v15 olayları
 const PAST = -9; // film başlamadan olmuş sayılan olaylar (sohbet sonucu hazır)
@@ -9,15 +9,15 @@ export const TL = {
   // AÇILIŞ · gerçek ilan fotoğrafı + üstünde sorgu (4 öbek) → fotoğraf ChatGPT'deki gerçek karta iner
   chunks: [-1, 0.4, 0.7, 1.0], shrink: [1.75, 2.5],
   // ÜRÜN · tam telefon + söz
-  pull: [3.0, 3.7], title: [3.62, 4.12], titleOut: [4.95, 5.2],
+  pull: [2.9, 3.5], title: [3.4, 3.85], titleOut: [4.45, 4.7],
   // İLAN · karta dokun → gerçek ilan (kart fotoğrafı kahraman fotoğrafa birebir oturur)
-  tap: 5.0, expand: [5.08, 5.5], swipe: [6.7, 6.93], page2: [6.93, 7.3],
+  tap: 4.5, expand: [4.58, 5.0], swipe: [6.0, 6.23], page2: [6.23, 6.6],
   // EV · ilan fotoğrafı 1080×1600 pencereye büyür
-  expand2: [7.45, 8.0], land: [10.0, 10.6],
+  expand2: [6.95, 7.5], land: [9.5, 10.1],
   // SONRAKİ ADIM
-  contact: 11.5, cut: 12.0, ctaIn: [12.0, 12.45], install: 13.0, bound: 13.5, ctaOut: [14.55, 15.0],
+  contact: 10.9, cut: 11.5, ctaIn: [11.5, 11.9], install: 12.45, bound: 13.0, ctaOut: [13.6, 14.0],
   // KAPANIŞ
-  end: [15.0, 15.6], etitle: [15.45, 16.1], cta: [16.4, 16.8],
+  end: [14.0, 14.6], etitle: [14.45, 15.1], cta: [15.3, 15.7],
   // sohbet durumu: sonuç gelmiş, şerit £139.000 kartında durmuş
   send: PAST, rise: [PAST, PAST], search: [PAST, PAST], think: PAST, res: [PAST, PAST + 0.1], stopOff: PAST + 0.2,
   scroll: [PAST, PAST + 0.1], drag: [PAST + 0.2, PAST + 0.4], coast: [PAST + 0.4, PAST + 1.2],
