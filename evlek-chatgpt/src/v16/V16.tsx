@@ -18,17 +18,19 @@ const M = 72; // sol hiza çizgisi
 
 // ---------------- kamera: düz pozlar ----------------
 const view = (sx0: number, sy0: number, s: number): Pose => P((PW / 2 - OX - sx0) * s, (PH / 2 - OY - sy0) * s, s);
-const CLOSE1 = view(0, 150, 0.916); // balon + harita + kartların başı
 const CARDS = view(0, 560, 1); // kart şeridi 1:1 gerçek piksel
+const FULL = P(540, 1166, 0.52); // tam telefon + söz
+const DCLOSE = view(0, 120, 0.916); // ilan, kenardan kenara
 const DS = 0.6, DY = 862;
-const DETAIL = P(540, DY, DS); // düğme y≈1566: Reels alt arayüzünün üstünde // tam telefon: ilan
-const CTAP = P(540, 968, 0.5); // "Eklentiyi kur" düğmesi y≈1525 // tam telefon: Evlek eklenti sayfası
+const DETAIL = P(540, DY, DS); // tam telefon: ilan; düğme y≈1566 (Reels alt arayüzünün üstünde)
+const CTAP = P(540, 968, 0.5); // "Eklentiyi kur" düğmesi y≈1525
 const dy = (p: Pose, y: number): Pose => ({...p, y: p.y + y});
 export const poseAt = (t: number): Pose => {
-  if (t < TL.sheet[1]) return dy(CLOSE1, (1 - OUT(lin(t, TL.sheet[0], TL.sheet[1]))) * 2000);
-  if (t < TL.cam2[0]) return dy(CLOSE1, -14 * lin(t, TL.sheet[1], TL.cam2[0]));
-  if (t < TL.cam2[1]) return mixPose(dy(CLOSE1, -14), CARDS, IO(lin(t, TL.cam2[0], TL.cam2[1])));
-  if (t < TL.expand[1]) { const b = Math.sin(Math.PI * lin(t, TL.tap, TL.tap + 0.18)); return {...CARDS, s: 1 - 0.004 * b}; }
+  if (t < TL.pull[0]) return dy(CARDS, -10 * lin(t, TL.shrink[1], TL.pull[0]));
+  if (t < TL.pull[1]) return mixPose(dy(CARDS, -10), FULL, IO(lin(t, TL.pull[0], TL.pull[1])));
+  if (t < TL.expand[0]) { const b = Math.sin(Math.PI * lin(t, TL.tap, TL.tap + 0.16)); return {...FULL, s: FULL.s * (1 - 0.006 * b)}; }
+  if (t < TL.expand[1]) return mixPose(FULL, DCLOSE, EXP(lin(t, TL.expand[0], TL.expand[1])));
+  if (t < TL.expand2[1]) return dy(DCLOSE, -8 * lin(t, TL.expand[1], TL.expand2[0]));
   if (t < TL.cut) return DETAIL;
   if (t < TL.ctaOut[0]) return dy(CTAP, (1 - OUT(lin(t, TL.ctaIn[0], TL.ctaIn[1]))) * 520);
   return dy(CTAP, EIN(lin(t, TL.ctaOut[0], TL.ctaOut[1])) * 1800);
@@ -48,52 +50,6 @@ const Eyebrow: React.FC<{children: React.ReactNode; color?: string; style?: Reac
 );
 const Rule: React.FC<{w?: number; color?: string}> = ({w = 56, color = CORAL}) => <div style={{width: w, height: 4, borderRadius: 2, background: color}} />;
 const rise = (k: number, d = 22): React.CSSProperties => ({opacity: k, transform: `translateY(${(1 - k) * d}px)`});
-
-// ---------------- AÇILIŞ: sorgu, büyük ve açık temalı bir yazım kutusunda ----------------
-const BOX = {x: 48, y: 400, w: 984, h: 900};
-const BUBBLE_C = {x: 668, y: 268}; // CLOSE1'de sohbet balonunun merkezi
-const SendBtn: React.FC<{s: number; on: boolean}> = ({s, on}) => (
-  <div style={{width: 128, height: 128, borderRadius: 64, background: on ? '#305BEE' : '#D8D3C6', display: 'flex', alignItems: 'center', justifyContent: 'center', transform: `scale(${s})`, boxShadow: on ? '0 10px 28px rgba(48,91,238,.35)' : 'none'}}>
-    <svg width={64} height={64} viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth={2.6} strokeLinecap="round" strokeLinejoin="round"><path d="M12 19V5M6 11l6-6 6 6" /></svg>
-  </div>
-);
-export const QueryBox: React.FC<{t: number; hand: number}> = ({t, hand}) => {
-  if (hand >= 1) return null;
-  const n = TL.chunks.filter((c) => t >= c).length;
-  const blink = 0.5 + 0.5 * Math.cos(2 * Math.PI * ((t * 1.25) % 1));
-  const pr = lin(t, TL.send - 0.02, TL.send + 0.08) * (1 - lin(t, TL.send + 0.08, TL.send + 0.22));
-  const k = EXP(hand);
-  const cx = mix(BOX.x + BOX.w / 2, BUBBLE_C.x, k), cy = mix(BOX.y + BOX.h / 2, BUBBLE_C.y, k);
-  const sc = mix(1, 0.34, k);
-  const dark = lin(k, 0.15, 0.75);
-  const cur = lin(t, TL.send - 0.42, TL.send - 0.3) * (1 - lin(t, TL.send + 0.16, TL.send + 0.28));
-  const ck = EXP(lin(t, TL.send - 0.42, TL.send - 0.06));
-  return (
-    <div style={{position: 'absolute', left: cx - BOX.w / 2, top: cy - BOX.h / 2, width: BOX.w, height: BOX.h, transform: `scale(${sc})`, opacity: 1 - lin(k, 0.8, 1)}}>
-      <div style={{position: 'absolute', inset: 0, borderRadius: 84, background: '#FFFFFF', boxShadow: '0 2px 0 rgba(10,37,64,.04), 0 40px 90px rgba(10,37,64,.13), inset 0 0 0 2px rgba(10,37,64,.06)'}} />
-      <div style={{position: 'absolute', inset: 0, borderRadius: 84, background: '#010456', opacity: dark}} />
-      <div style={{position: 'absolute', left: 64, top: 62, display: 'flex', alignItems: 'center', gap: 20, fontFamily: F, fontSize: 40, fontWeight: 600, color: NAVY, letterSpacing: '-0.01em'}}>
-        <EvIcon size={60} r={0.28} />Evlek<span style={{fontWeight: 500, color: 'rgba(10,37,64,.5)'}}>· ChatGPT’de</span>
-      </div>
-      <div style={{position: 'absolute', left: 64, top: 176, fontFamily: F, fontSize: 116, fontWeight: 700, lineHeight: '124px', letterSpacing: '-0.045em', color: dark > 0 ? `rgb(${mix(10, 242, dark)},${mix(37, 242, dark)},${mix(64, 242, dark)})` : NAVY, whiteSpace: 'nowrap', fontFeatureSettings: '"tnum","ss01"'}}>
-        {CHUNKS.map((c, i) => {
-          const a = OUT(lin(t, TL.chunks[i], TL.chunks[i] + 0.14));
-          return (
-            <div key={c} style={{height: 124}}>
-              <span style={{display: 'inline-block', ...rise(a, 26)}}>{c}</span>
-              {i === Math.max(0, n - 1) && <span style={{display: 'inline-block', width: 8, height: 100, marginLeft: 12, verticalAlign: -14, borderRadius: 4, background: CORAL, opacity: t < TL.send ? blink : 0}} />}
-            </div>
-          );
-        })}
-      </div>
-      <div style={{position: 'absolute', left: 64, bottom: 62, display: 'flex', alignItems: 'center', gap: 36, color: 'rgba(10,37,64,.38)'}}>
-        <svg width={64} height={64} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round"><path d="M12 5v14M5 12h14" /></svg>
-      </div>
-      <div style={{position: 'absolute', right: 56, bottom: 50}}><SendBtn s={1 - 0.1 * pr} on={n >= 4} /></div>
-      {cur > 0 && <div style={{position: 'absolute', left: mix(600, BOX.w - 56 - 64, ck) - 56, top: mix(BOX.h + 60, BOX.h - 50 - 64, ck) - 56, width: 112, height: 112, borderRadius: 56, background: 'rgba(10,37,64,.16)', boxShadow: 'inset 0 0 0 3px rgba(10,37,64,.55)', opacity: cur, transform: `scale(${1 - 0.18 * pr})`}} />}
-    </div>
-  );
-};
 
 /** kart kadrajında sorguyu ekranda tutan etiket */
 export const QueryTag: React.FC<{o: number}> = ({o}) =>
@@ -138,28 +94,76 @@ export const PriceCaption: React.FC<{k: number; top?: number}> = ({k, top = 262}
       <div style={{fontSize: 44, fontWeight: 500, letterSpacing: '-0.02em', ...rise(OUT(lin(k, 0.35, 1)))}}>2+1 · 107 m² · deniz manzaralı</div>
     </div>
   );
-const PhotoStage: React.FC<{t: number}> = ({t}) => {
-  if (t < TL.expand[0] || t >= TL.land[1]) return null;
-  const k1 = EXP(lin(t, TL.expand[0], TL.expand[1]));
-  const lk = EXP(lin(t, TL.land[0], TL.land[1]));
-  const sk = IO(lin(t, TL.swipe[0], TL.swipe[1]));
-  const cover = t < TL.land[0] ? lin(k1, 0.06, 0.5) : 1 - lin(lk, 0.05, 0.5);
-  const pan1 = Easing.out(Easing.quad)(lin(t, TL.expand[1] - 0.2, TL.swipe[1]));
-  const i1 = k1 < 1 ? mixR({x: 0, y: 0, w: CARD.w, h: CARD.h}, POOL_A, k1) : mixR(POOL_A, POOL_B, pan1);
-  const push2 = Easing.out(Easing.quad)(lin(t, TL.swipe[0], TL.land[0] + 0.1));
-  const r2 = mixR(ROOM_A, ROOM_B, push2);
-  const capK = lin(t, TL.expand[1] - 0.12, TL.expand[1] + 0.55) * (1 - lin(t, TL.swipe[0] - 0.25, TL.swipe[0]));
-  const pass = lin(k1, 0.6, 1) * (1 - lin(lk, 0, 0.3));
+const HEROC: Rect = {x: 0, y: (275 - 120) * 0.916 - 8, w: 1080, h: 884.25 * 0.916}; // DCLOSE'da ilanın kahraman fotoğrafı
+const HEROC_IMG: Rect = {x: 0, y: -(1080 * (4 / 3) - HEROC.h) / 2, w: 1080, h: 1440};
+/** AÇILIŞ: havuz fotoğrafı (1080×1600) + sorgu → gerçek karta iner */
+const Opening: React.FC<{t: number}> = ({t}) => {
+  if (t >= TL.shrink[1]) return null;
+  const k = EXP(lin(t, TL.shrink[0], TL.shrink[1]));
+  const pan = Easing.out(Easing.quad)(lin(t, 0, TL.shrink[0] + 0.2));
+  const a = mixR(POOL_A, POOL_B, pan);
+  const c = mixR(WIN, CARD, k), i = mixR(a, {x: 0, y: 0, w: CARD.w, h: CARD.h}, k);
+  const txt = 1 - lin(t, TL.shrink[0] - 0.05, TL.shrink[0] + 0.16);
+  const pass = 1 - lin(k, 0, 0.3);
   return (
     <>
-      <AbsoluteFill style={{opacity: cover}}><Stage /></AbsoluteFill>
-      <Passe o={pass} n={sk > 0.5 ? '2' : '1'} />
-      {sk < 1 && <Pic src={POOL} c={mixR(CARD, WIN, k1)} i={i1} r={mix(36, 0, lin(k1, 0, 0.6))} dx={-sk * 1120} shadow={Math.sin(Math.PI * k1)}>
-        <div style={{position: 'absolute', inset: 0, opacity: lin(t, TL.expand[0], TL.expand[0] + 0.07) < 1 ? 0 : 0}} />
-      </Pic>}
-      {sk < 1 && <div style={{position: 'absolute', left: -sk * 1120, top: 0, width: 1080, height: 1920}}><PriceCaption k={capK} /></div>}
-      {sk > 0 && <Pic src={ROOM} c={mixR(WIN, HERO, lk)} i={lk > 0 ? mixR(r2, HERO_IMG, lk) : r2} dx={(1 - sk) * 1120} shadow={Math.sin(Math.PI * lk)} />}
+      <AbsoluteFill style={{opacity: 1 - lin(k, 0.35, 0.85)}}><Stage /><Grain /></AbsoluteFill>
+      <Passe o={pass} n="1" />
+      <Pic src={POOL} c={c} i={i} r={mix(0, 36, lin(k, 0.4, 1))} shadow={Math.sin(Math.PI * k)} />
+      <div style={{position: 'absolute', left: M, top: 250, fontFamily: F, color: NAVY, opacity: txt, transform: `translateY(${(1 - txt) * -18}px)`}}>
+        <div style={{display: 'flex', alignItems: 'center', gap: 18, fontSize: 36, fontWeight: 600, letterSpacing: '-0.01em'}}><EvIcon size={56} r={0.28} />Evlek’e sor<span style={{fontWeight: 500, opacity: 0.6}}>· ChatGPT’de</span></div>
+        <div style={{marginTop: 20, fontSize: 100, fontWeight: 700, lineHeight: '106px', letterSpacing: '-0.045em', whiteSpace: 'nowrap', fontFeatureSettings: '"tnum"'}}>
+          {CHUNKS.map((s_, j) => {
+            const o = OUT(lin(t, TL.chunks[j], TL.chunks[j] + 0.14));
+            const last = j === TL.chunks.filter((q) => t >= q).length - 1;
+            return (
+              <div key={s_} style={{height: 106}}>
+                <span style={{display: 'inline-block', ...rise(o, 24)}}>{s_}</span>
+                {last && <span style={{display: 'inline-block', width: 8, height: 84, marginLeft: 12, verticalAlign: -10, borderRadius: 4, background: CORAL, opacity: 0.5 + 0.5 * Math.cos(2 * Math.PI * ((t * 1.25) % 1))}} />}
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </>
+  );
+};
+/** EV: ilanın 2/14 fotoğrafı → 1080×1600 pencere → tam telefondaki ilana geri iner */
+const PhotoStage: React.FC<{t: number}> = ({t}) => {
+  if (t < TL.expand2[0] || t >= TL.land[1]) return null;
+  const k1 = EXP(lin(t, TL.expand2[0], TL.expand2[1]));
+  const lk = EXP(lin(t, TL.land[0], TL.land[1]));
+  const cover = t < TL.land[0] ? lin(k1, 0.06, 0.5) : 1 - lin(lk, 0.05, 0.5);
+  const push = Easing.out(Easing.quad)(lin(t, TL.expand2[1] - 0.2, TL.land[0] + 0.1));
+  const r2 = mixR(ROOM_A, ROOM_B, push);
+  const c = lk > 0 ? mixR(WIN, HERO, lk) : mixR(HEROC, WIN, k1);
+  const i = lk > 0 ? mixR(r2, HERO_IMG, lk) : mixR(HEROC_IMG, r2, k1);
+  const pass = lin(k1, 0.6, 1) * (1 - lin(lk, 0, 0.3));
+  const cap = OUT(lin(t, TL.expand2[1] + 0.05, TL.expand2[1] + 0.5)) * (1 - lin(t, TL.land[0] - 0.2, TL.land[0]));
+  return (
+    <>
+      <AbsoluteFill style={{opacity: cover}}><Stage /><Grain /></AbsoluteFill>
+      <Passe o={pass} n="2" />
+      <Pic src={ROOM} c={c} i={i} shadow={Math.max(Math.sin(Math.PI * k1), Math.sin(Math.PI * lk))} />
+      <div style={{position: 'absolute', left: M, top: 1480, fontFamily: F, ...rise(cap, 24)}}>
+        <div style={{display: 'inline-flex', flexDirection: 'column', padding: '26px 38px 30px', borderRadius: 40, background: 'rgba(250,248,242,.96)', boxShadow: '0 24px 60px rgba(10,37,64,.25)', color: NAVY}}>
+          <Eyebrow color={CORAL} style={{fontSize: 24}}>Lapta · Girne · 2+1 · 107 m²</Eyebrow>
+          <div style={{marginTop: 4, fontSize: 92, fontWeight: 700, letterSpacing: '-0.05em', lineHeight: '98px', fontFeatureSettings: '"tnum"'}}>£139.000</div>
+        </div>
+      </div>
+    </>
+  );
+};
+/** ÜRÜN sözü: tam telefonun üstünde */
+const Promise_: React.FC<{t: number}> = ({t}) => {
+  const a = OUT(lin(t, TL.title[0], TL.title[1])) * (1 - lin(t, TL.titleOut[0], TL.titleOut[1]));
+  const b = OUT(lin(t, TL.title[0] + 0.12, TL.title[1] + 0.12)) * (1 - lin(t, TL.titleOut[0], TL.titleOut[1]));
+  if (a <= 0 && b <= 0) return null;
+  return (
+    <div style={{position: 'absolute', left: M, top: 150}}>
+      <div style={rise(a, 26)}><Logo h={132} color={NAVY} style={{marginLeft: -6}} /></div>
+      <div style={{marginTop: 8, fontFamily: F, fontSize: 84, fontWeight: 700, letterSpacing: '-0.045em', lineHeight: '96px', color: NAVY, whiteSpace: 'nowrap', ...rise(b, 26)}}>artık ChatGPT’de.</div>
+    </div>
   );
 };
 
@@ -192,21 +196,21 @@ export const EndCard: React.FC<{t: number; t0?: number}> = ({t, t0 = TL.end[0]})
   const q = t - t0;
   if (q < 0) return null;
   const a = OUT(lin(q, 0, 0.55)), ph = OUT(lin(q, 0.12, 0.75)), c = OUT(lin(q, TL.cta[0] - TL.end[0], TL.cta[1] - TL.end[0]));
-  const n = Math.round(TITLE.length * lin(q, TL.title[0] - TL.end[0], TL.title[1] - TL.end[0]));
+  const n = Math.round(TITLE.length * lin(q, TL.etitle[0] - TL.end[0], TL.etitle[1] - TL.end[0]));
   const z = 1 + 0.035 * lin(q, 0, 4);
-  const PW_ = 936, PH_ = 660;
+  const PW_ = 936, PH_ = 700;
   return (
     <>
-      <div style={{position: 'absolute', left: M - 6, top: 268, ...rise(a, 30)}}><Logo h={168} color={NAVY} /></div>
-      <div style={{position: 'absolute', left: M, top: 448, fontFamily: F, fontSize: 96, fontWeight: 700, letterSpacing: '-0.045em', lineHeight: '110px', color: NAVY, whiteSpace: 'nowrap'}}>
+      <div style={{position: 'absolute', left: M - 6, top: 300, ...rise(a, 30)}}><Logo h={168} color={NAVY} /></div>
+      <div style={{position: 'absolute', left: M, top: 480, fontFamily: F, fontSize: 96, fontWeight: 700, letterSpacing: '-0.045em', lineHeight: '110px', color: NAVY, whiteSpace: 'nowrap'}}>
         <span>{TITLE.slice(0, n)}</span>
         {n < TITLE.length && n > 0 && <span style={{display: 'inline-block', width: 7, height: 84, marginLeft: 8, verticalAlign: -10, borderRadius: 3, background: CORAL}} />}
       </div>
-      <div style={{position: 'absolute', left: M, top: 640, width: PW_, height: PH_, borderRadius: 40, overflow: 'hidden', boxShadow: '0 40px 90px rgba(10,37,64,.22)', ...rise(ph, 60)}}>
-        <Img src={img(POOL)} style={{position: 'absolute', left: (PW_ - PW_ * z) / 2, top: -42 - (PW_ * 0.75 * z - PW_ * 0.75) / 2, width: PW_ * z, height: PW_ * 0.75 * z}} />
+      <div style={{position: 'absolute', left: M, top: 680, width: PW_, height: PH_, borderRadius: 40, overflow: 'hidden', boxShadow: '0 40px 90px rgba(10,37,64,.22)', ...rise(ph, 60)}}>
+        <Img src={img(POOL)} style={{position: 'absolute', left: (PW_ - PW_ * z) / 2, top: -2 - (PW_ * 0.75 * z - PW_ * 0.75) / 2, width: PW_ * z, height: PW_ * 0.75 * z}} />
         <div style={{position: 'absolute', left: 28, bottom: 28, height: 68, padding: '0 26px', borderRadius: 34, background: 'rgba(250,248,242,.94)', display: 'flex', alignItems: 'center', fontFamily: F, fontSize: 32, fontWeight: 600, color: NAVY, letterSpacing: '-0.01em', fontFeatureSettings: '"tnum"'}}>Lapta · 2+1 · £139.000</div>
       </div>
-      <div style={{position: 'absolute', left: M, top: 1366, width: PW_, height: 136, borderRadius: 68, background: NAVY, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 20px 0 50px', boxSizing: 'border-box', fontFamily: F, fontSize: 48, fontWeight: 600, color: CREAM, letterSpacing: '-0.025em', boxShadow: '0 24px 60px rgba(10,37,64,.28)', ...rise(c, 30)}}>
+      <div style={{position: 'absolute', left: M, top: 1436, width: PW_, height: 136, borderRadius: 68, background: NAVY, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 20px 0 50px', boxSizing: 'border-box', fontFamily: F, fontSize: 48, fontWeight: 600, color: CREAM, letterSpacing: '-0.025em', boxShadow: '0 24px 60px rgba(10,37,64,.28)', ...rise(c, 30)}}>
         Eklentiler’den Evlek’i ekle
         <span style={{width: 96, height: 96, borderRadius: 48, background: CORAL, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
           <svg width={48} height={48} viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth={2.6} strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
@@ -221,20 +225,19 @@ export const V16: React.FC = () => {
   const ok = useFontsV10();
   const t = useCurrentFrame() / FPS;
   if (!ok) return <AbsoluteFill style={{background: CREAM}} />;
-  const phoneOn = t >= TL.sheet[0] && t < TL.ctaOut[1] && !(t >= TL.expand[1] && t < TL.land[0]);
-  const hand = lin(t, TL.send + 0.1, TL.rise[1] + 0.05);
-  const tag = OUT(lin(t, TL.cam2[1] - 0.2, TL.cam2[1] + 0.15)) * (1 - lin(t, TL.expand[0], TL.expand[0] + 0.15));
+  const phoneOn = t >= TL.shrink[0] && t < TL.ctaOut[1] && !(t >= TL.expand2[1] && t < TL.land[0]);
+  const tag = OUT(lin(t, TL.shrink[1] - 0.2, TL.shrink[1] + 0.2)) * (1 - lin(t, TL.pull[0], TL.pull[0] + 0.2));
   return (
     <AbsoluteFill style={{background: CREAM, overflow: 'hidden'}}>
       <Stage />
       <Grain />
       {phoneOn && <Phone pose={poseAt(t)} lit={1} sweep={-1} flash={0}><Screen t={t} /></Phone>}
-      <QueryBox t={t} hand={hand} />
       <QueryTag o={tag} />
+      <Promise_ t={t} />
+      <Opening t={t} />
       <PhotoStage t={t} />
       <CtaText t={t} />
       <EndCard t={t} />
-      {t >= TL.expand[0] && t < TL.land[1] && <Grain o={0.05} />}
     </AbsoluteFill>
   );
 };

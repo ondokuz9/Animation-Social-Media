@@ -144,7 +144,8 @@ const Composer: React.FC<{t: number; lines: string[]; chip: boolean; caret?: boo
 // ---------- parmak imleci (ekran koordinatı) ----------
 type WP = [number, number, number]; // t, x, y
 const CUR_TRACKS: {a: number; b: number; pts: WP[]; taps: number[]; row?: boolean}[] = [
-  {a: TL.drag[0] - 0.22, b: TL.tap + 0.14, row: true, pts: [[TL.drag[0] - 0.22, 1010, 0], [TL.drag[0], 980, 0], [TL.drag[1], 680, 0], [TL.coast[1], 680, 0], [TL.tap - 0.1, 396, 1], [TL.tap, 396, 1]], taps: [TL.tap]},
+  {a: TL.tap - 0.5, b: TL.tap + 0.14, row: true, pts: [[TL.tap - 0.5, 640, 0], [TL.tap - 0.1, 396, 1], [TL.tap, 396, 1]], taps: [TL.tap]},
+  {a: TL.swipe[0] - 0.3, b: TL.swipe[1] + 0.1, pts: [[TL.swipe[0] - 0.3, 940, 760], [TL.swipe[0], 900, 715], [TL.swipe[1], 520, 715]], taps: []},
   {a: TL.contact - 0.5, b: TL.contact + 0.5, pts: [[TL.contact - 0.5, 640, 2180], [TL.contact - 0.08, 881, 2452]], taps: [TL.contact]},
   {a: TL.install - 0.5, b: TL.install + 0.3, pts: [[TL.install - 0.5, 760, 2050], [TL.install - 0.08, INSTALL_BTN.x, INSTALL_BTN.y]], taps: [TL.install]},
 ];
@@ -159,7 +160,7 @@ const Cursor: React.FC<{t: number; cardY: number}> = ({t, cardY}) => {
   if (tr.row) y = cardY; // kart şeridi: dikey konum şeride bağlı
   const o = lin(t, tr.a, tr.a + 0.1) * (1 - lin(t, tr.b - 0.1, tr.b));
   const pr = tr.taps.reduce((m, at) => Math.min(m, press(t, at)), 1);
-  const down = tr.row && t >= TL.drag[0] && t < TL.drag[1] ? 0.88 : pr === 1 ? 1 : mix(1, 0.8, (1 - pr) / 0.04);
+  const down = false ? 0.88 : pr === 1 ? 1 : mix(1, 0.8, (1 - pr) / 0.04);
   return <div style={{position: 'absolute', left: x - 62, top: y - 62, width: 124, height: 124, borderRadius: 62, background: 'rgba(255,255,255,.26)', boxShadow: 'inset 0 0 0 3px rgba(255,255,255,.85), 0 8px 24px rgba(0,0,0,.35)', opacity: o, transform: `scale(${down})`}} />;
 };
 
@@ -248,7 +249,11 @@ export const FS_TOP = 275;
 export const HERO_D = {x: 0, y: FS_TOP, w: SW, h: 294.75 * PT};
 export const CONTACT = {x: 881, y: FS_TOP + 691 * PT + 104.5, x0: 633, x1: 1130, y0: FS_TOP + 691 * PT + 39, y1: FS_TOP + 691 * PT + 170};
 /** galeri: sürükle (1:1) + sayfa yayı → 2/14 */
-const galleryOffset = (_t: number) => SW; // v16: ilan 2/14 fotoğrafıyla açılır (dışarıdaki fotoğraf oraya iner)
+const galleryOffset = (t: number) => {
+  if (t < TL.swipe[0]) return 0;
+  if (t < TL.swipe[1]) return 380 * lin(t, TL.swipe[0], TL.swipe[1]);
+  return mix(380, SW, Easing.bezier(0.25, 0.9, 0.3, 1)(lin(t, TL.page2[0], TL.page2[1])));
+};
 const FsDetail: React.FC<{t: number; heroHidden?: boolean}> = ({t, heroHidden}) => {
   const off = galleryOffset(t);
   const n = off > SW * 0.5 ? 2 : 1;
@@ -404,8 +409,9 @@ const EvlekPage: React.FC<{t: number}> = ({t}) => {
 const cardCenterY = (t: number) => TOP + FLOW.widget - chatScroll(t) + (LAP.rowY + LAP.cardY + LAP.cardH * 0.42) * WS;
 
 const ScreenBody: React.FC<{t: number}> = ({t}) => {
-  if (t < TL.expand[1]) return <LaptaChat t={t} />;
-  if (t < TL.cut) return <FsDetail t={t} heroHidden={t < TL.land[1]} />;
+  if (t < TL.expand[0]) return <LaptaChat t={t} />;
+  if (t < TL.expand[1]) return <Zoom t={t} k={PUSH(lin(t, TL.expand[0], TL.expand[1]))} under={<LaptaChat t={t} />} />;
+  if (t < TL.cut) return <FsDetail t={t} heroHidden={t >= TL.expand2[0] + 0.03 && t < TL.land[1]} />;
   return <EvlekPage t={t} />;
 };
 
