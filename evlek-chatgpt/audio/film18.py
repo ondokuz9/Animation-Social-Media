@@ -131,10 +131,19 @@ def ui(tl):
     place(bus, stereo(bp(noise(len(a)), 500, 3500) * np.sin(np.pi * kk) ** 2 * 0.012), tl['push'][0])
     # yazma: çip + 4 öbek (öbek başına iki tık + yükselen vibrafon notası)
     place(bus, k(KI + 'select_002', F.tap(-24), TAP, jit()), tl['chunks'][0])
-    for i, at in enumerate(tl['chunks'][1:]):
-        place(bus, k(KI + 'click_003', F.key_tick(-27, False), 0, jit()), at)
-        place(bus, k(KI + 'click_005', F.key_tick(-33, False), 0, jit()), at + 0.05)
-        place(bus, F.ks_pluck([74, 76, 78, 81][i], 0.7, 0.04, pan=(i - 1.5) * 0.15), at)
+    # harf harf yazım: tl.ts typeTimes ile aynı ritim (harf 2–3 kare, boşluk 3, satır sonu 7); her tuşa ayrı kayıt, sözcük başı biraz güçlü
+    q = 'Lapta’da £160 bin altı,\ndeniz manzaralı 2+1 daire'
+    f = round(tl['chunks'][1] * 60); j = 0; prev = ' '
+    for ch in q:
+        at = f / 60
+        if ch in ' \n':
+            place(bus, k(KI + 'tick_002', F.key_tick(-27, True), -1.0, jit()), at)
+        else:
+            ref = F.key_tick(-28 if prev in ' \n' else -33, False)
+            place(bus, k(KI + ['click_002', 'click_003', 'click_005'][RNG.integers(3)], ref, 1.5, jit(), RNG.uniform(-0.12, 0.12)), at)
+        f += 3 if ch == ' ' else 7 if ch == '\n' else (2 if j % 3 == 1 else 3)
+        if ch not in ' \n': j += 1
+        prev = ch
     place(bus, k(KI + 'select_002', F.tap(-22), TAP, jit(), pan(1000)), tl['send'] - 0.01)
     place(bus, k(KI + 'maximize_009', F.send_snd(-17), -3.0), tl['send'])
     place(bus, tuned(KI + 'drop_003', 77.85, 78, F.tone_pair(240, 480, 0.06, 0.4, -24, paper=True)), tl['res'][0] + 0.02)
@@ -195,7 +204,7 @@ def main():
     duck = 1 - np.clip(e / (np.max(e) + 1e-9) * 1.2, 0, 0.2)
     mix = m * duck[:, None] + u * 1.3
     R_, H_, L_, C_ = tl['res'][0], tl['portalOut'][1], tl['portalIn'][0], 16.5
-    pts = [(0, 7.0), (1.0, 8.0), (2.4, 7.0), (R_ - 0.6, 5.5), (R_ - 0.12, 3.0), (R_ - 0.02, -3.0), (R_ + 0.75, -3.0), (R_ + 1.0, 0), (H_ - 0.6, 0), (H_, 6.5), (L_ - 0.1, 6.5), (L_ + 0.1, 7.0),
+    pts = [(0, 7.0), (1.0, 8.0), (2.4, 7.0), (R_ - 0.6, 5.5), (R_ - 0.12, 3.0), (R_ - 0.02, -3.0), (R_ + 0.75, -3.0), (R_ + 1.0, 0), (8.2, 0), (8.5, 3.0), (10.1, 3.0), (10.4, 0), (H_, 6.5), (L_ - 0.1, 6.5), (L_ + 0.1, 7.0),
            (16.4, 7.0), (16.5, 2.0), (21.3, 2.0), (21.5, 0), (23.4, 0), (23.48, 2.0), (24.4, 2.0), (25.0, 0), (DUR, 0)]  # ses uzmanı: eklenti bölümü dolu, bitiş en yüksek
     tg = np.arange(len(mix)) / SR
     mix = mix * (10 ** (np.interp(tg, [a_ for a_, _ in pts], [b_ for _, b_ in pts]) / 20))[:, None]

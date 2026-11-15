@@ -74,11 +74,11 @@ const ChatHeader: React.FC<{t: number; empty?: boolean; x?: boolean}> = ({t, emp
 // ---------- klavye (Türkçe Q; gerçek kayıt 13_0/31_5: küre + mikrofon satırı, boş kutuda büyük harf; dil etiketi yok) ----------
 export const KB = {top: 1715, h: SH - 1715};
 const ROWS = ['qwertyuıopğü', 'asdfghjklşi', 'zxcvbnmöç'];
-const Keyboard: React.FC<{k: number; search?: boolean; caps?: boolean}> = ({k, search, caps}) => {
+const Keyboard: React.FC<{k: number; search?: boolean; caps?: boolean; hit?: string}> = ({k, search, caps, hit}) => {
   if (k <= 0) return null;
   const kw = 79, gap = 18;
   const key = (ch: string, x: number, y: number, w = kw, fn = false, blue = false) => (
-    <div key={`${ch}${x}${y}`} style={{position: 'absolute', left: x, top: y, width: w, height: 123, borderRadius: 15, background: blue ? '#006DFD' : '#343633', color: '#F2F2F2', fontFamily: F, fontSize: 56, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{ch === '#S' ? Ico.search('#FFFFFF', 56) : ch === '#R' ? <svg width={48} height={48} viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round"><path d="M20 5v7a3 3 0 0 1-3 3H5M9 11l-4 4 4 4" /></svg> : ch}</div>
+    <div key={`${ch}${x}${y}`} style={{position: 'absolute', left: x, top: y, width: w, height: 123, borderRadius: 15, background: blue ? '#006DFD' : hit && (ch.toLowerCase() === hit || (hit === ' ' && ch === '' && w > 300)) ? '#6A6C69' : '#343633', color: '#F2F2F2', fontFamily: F, fontSize: 56, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{ch === '#S' ? Ico.search('#FFFFFF', 56) : ch === '#R' ? <svg width={48} height={48} viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round"><path d="M20 5v7a3 3 0 0 1-3 3H5M9 11l-4 4 4 4" /></svg> : ch}</div>
   );
   const rowX = (n: number, w = kw) => (SW - (n * w + (n - 1) * gap)) / 2;
   const tops = [1781, 1932, 2083, 2234].map((y) => y - KB.top);
@@ -255,11 +255,11 @@ const LaptaChat: React.FC<{t: number}> = ({t}) => {
   );
 };
 /** yeni sohbet (kapak, yazma, kapanış): klavye açık */
-const NewChat: React.FC<{t: number; chip: boolean; lines?: string[]; caret?: boolean; kb?: number; ready?: boolean; textO?: number; x?: boolean}> = ({t, chip, lines = [''], caret, kb = 1, ready, textO, x}) => (
+const NewChat: React.FC<{t: number; chip: boolean; lines?: string[]; caret?: boolean; kb?: number; ready?: boolean; textO?: number; x?: boolean; hit?: string}> = ({t, chip, lines = [''], caret, kb = 1, ready, textO, x, hit}) => (
   <div style={{position: 'absolute', inset: 0, background: K.bg}}>
     <ChatHeader t={t} empty={!lines.some((l) => l)} x={x} />
     <Composer t={t} lines={lines} chip={chip} caret={caret} kb={kb} sendState={ready ? 'ready' : 'empty'} textO={textO} />
-    <Keyboard k={kb} caps={!chip && !lines.some((l) => l)} />
+    <Keyboard k={kb} caps={!chip && !lines.some((l) => l)} hit={hit} />
   </div>
 );
 
@@ -445,7 +445,10 @@ const ScreenBody: React.FC<{t: number}> = ({t}) => {
     const all = QL.join('\n');
     const n = tt.filter((x) => x <= t).length;
     const lines = all.slice(0, n).split('\n');
-    return <NewChat t={t} chip={t >= TL.chunks[0]} lines={lines} caret ready={t >= TL.chunks[0]} />;
+    // basılan tuş 3 kare açık kalır (iOS'taki gibi), sesle aynı karede
+    const last = n > 0 && t - tt[n - 1] < 3 / 60 ? all[n - 1].toLocaleLowerCase('tr') : undefined;
+    const hit = last === '’' || last === '\n' || last === ',' || last === '£' || last === '+' ? undefined : last;
+    return <NewChat t={t} chip={t >= TL.chunks[0]} lines={lines} caret ready={t >= TL.chunks[0]} hit={hit} />;
   }
   // gönder (v17): metin her karede görünür; balon yazım kutusundaki konumundan sağa ve yukarı akar, zemini sonradan dolar
   if (t < TL.rise[1]) {
