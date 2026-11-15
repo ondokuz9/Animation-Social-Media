@@ -278,6 +278,25 @@ const galleryOffset = (t: number) => {
 };
 /** ilan sayfası kaydırması: Özellikler çipleri görünür, sonra sayfa orada kalır (kapanış kaydırılmış sayfadan başlar) */
 export const featY = (t: number) => FEAT_PX * Easing.bezier(0.38, 0.7, 0.125, 1)(lin(t, TL.featScroll[0], TL.featScroll[1]));
+/** galeri sayfası: fotoğrafın gerçek kaynağı + dFull pikselinden gerçek oklar ve sayaç (sol üstteki ikinci "‹" yok) */
+const HERO_SRC: Record<number, {src: string; top: number; h: number}> = {
+  1: {src: 'v12/EVL-100102_00_l2560.png', top: 1, h: SW * 0.75},
+  2: {src: 'v12/EVL-100102_01_l1584.png', top: -(SW * 4 / 3 - 884.25) / 2 - 1, h: SW * 4 / 3},
+};
+const HERO_CHROME: Record<number, number[][]> = {
+  1: [[1011, 376, 132, 132], [956, 773, 196, 86]],
+  2: [[34, 373, 132, 132], [1011, 376, 132, 132], [956, 773, 196, 86]],
+};
+const Hero: React.FC<{n: number; dx: number}> = ({n, dx}) => (
+  <div style={{position: 'absolute', left: dx, top: 0, width: SW, height: HERO_D.h, overflow: 'hidden'}}>
+    <Img src={img(HERO_SRC[n].src)} style={{position: 'absolute', left: 0, top: HERO_SRC[n].top, width: SW, height: HERO_SRC[n].h}} />
+    {HERO_CHROME[n].map(([bx, by, bw, bh]) => (
+      <div key={`${bx}${by}`} style={{position: 'absolute', left: bx, top: by, width: bw, height: bh, overflow: 'hidden'}}>
+        <Img src={W_(`dFull_${n}.png`)} style={{position: 'absolute', left: -bx, top: -by, width: SW}} />
+      </div>
+    ))}
+  </div>
+);
 const FsDetail: React.FC<{t: number; heroHidden?: boolean}> = ({t, heroHidden}) => {
   const off = galleryOffset(t);
   const n = off > SW * 0.5 ? 2 : 1;
@@ -287,25 +306,12 @@ const FsDetail: React.FC<{t: number; heroHidden?: boolean}> = ({t, heroHidden}) 
       <div style={{position: 'absolute', left: 0, top: FS_TOP, width: SW, height: SH - FS_TOP, overflow: 'hidden'}}>
         <div style={{position: 'absolute', left: 0, top: -featY(t), width: SW, height: 4185}}>
         <Img src={W_(`dFull_${n}.png`)} style={{position: 'absolute', left: 0, top: 0, width: SW}} />
-        {off > 0 && off < SW && (
-          <div style={{position: 'absolute', left: 0, top: 0, width: SW, height: HERO_D.h, overflow: 'hidden'}}>
-            <Img src={W_('dFull_1.png')} style={{position: 'absolute', left: -off, top: 0, width: SW}} />
-            <Img src={W_('dFull_2.png')} style={{position: 'absolute', left: SW - off, top: 0, width: SW}} />
-          </div>
-        )}
+        {/* kahraman fotoğraf: gerçek kaynak (piksel hizalı) + gerçek galeri arayüzü (yalnız ‹ › ve sayaç); widget'ın sol üstteki ikinci "‹" düğmesi
+            marka sahibinin isteğiyle gösterilmez (üstte zaten ✕ var) */}
+        <div style={{position: 'absolute', left: 0, top: 0, width: SW, height: HERO_D.h, overflow: 'hidden'}}>
+          {off > 0 && off < SW ? (<><Hero n={1} dx={-off} /><Hero n={2} dx={SW - off} /></>) : <Hero n={n} dx={0} />}
+        </div>
         {heroHidden && <div style={{position: 'absolute', left: 0, top: 0, width: SW, height: HERO_D.h, background: '#151515'}} />}
-        {n === 2 && t >= TL.zoom[0] - 0.2 && t < TL.featScroll[1] + 0.2 && (
-          <div style={{position: 'absolute', left: 0, top: 0, width: SW, height: HERO_D.h, overflow: 'hidden'}}>
-            {/* aynı fotoğrafın gerçek kaynağı (1200×1600 → Lanczos 1584), dFull_2 kahramanıyla piksel hizalı; yaklaşmada keskin kalır */}
-            <Img src={img('v12/EVL-100102_01_l1584.png')} style={{position: 'absolute', left: 0, top: -(SW * 4 / 3 - HERO_D.h) / 2 - 1.7, width: SW, height: SW * 4 / 3}} />
-            {/* gerçek galeri arayüzü (oklar, sayaç) dFull_2 pikselinden üstte */}
-            {[[34, 34, 132, 132], [34, 373, 132, 132], [1011, 376, 132, 132], [956, 773, 196, 86]].map(([bx, by, bw, bh]) => (
-              <div key={`${bx}${by}`} style={{position: 'absolute', left: bx, top: by, width: bw, height: bh, overflow: 'hidden'}}>
-                <Img src={W_('dFull_2.png')} style={{position: 'absolute', left: -bx, top: -by, width: SW}} />
-              </div>
-            ))}
-          </div>
-        )}
         </div>
       </div>
       <div style={{position: 'absolute', left: 0, top: FS_TOP + 691 * PT, width: SW, height: 69 * PT, transform: `scale(${cp})`, transformOrigin: `${CONTACT.x}px ${104}px`}}>

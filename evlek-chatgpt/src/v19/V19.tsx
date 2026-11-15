@@ -20,17 +20,20 @@ const M = 72; // sol hiza çizgisi
 // ---------------- kamera ----------------
 const view = (sx0: number, sy0: number, s: number): Pose => P((PW / 2 - OX - sx0) * s, (PH / 2 - OY - sy0) * s, s);
 const OPEN = P(540, 1196, 0.52); // başlığın altında tam telefon
-const TYPE = {...view(0, 760, 0.88), x: 540}; // ekran yatayda ortalı (ince işler)
-const SEND = P(540, (PH / 2 - OY - 300) * 0.78 + 40, 0.78); // gönderince balonu izler: ekranın üstü (balon, Evlek) + telefonun altı
-const SEND2 = P(540, (PH / 2 - OY - 300) * 0.82 + 40, 0.82); // aranırken yavaşça yaklaşır
-const CHAT = view(0, 150, 0.916); // balon + Evlek + sonuç
-const CARDS = view(0, 560, 1); // kart şeridi 1:1 gerçek piksel
+/** ekran yatayda ortalı, ekranın sy0 satırı kadrajın üstünde; telefonun gövdesi ve kenarları görünür kalır (marka sahibi: "telefona çok yaklaşıyor") */
+const vc = (sy0: number, s: number): Pose => P(540, (PH / 2 - OY - sy0) * s, s);
+const TYPE = vc(300, 0.78); // yazım kutusu + klavye, telefonun alt kenarı kadrajda
+const SEND = vc(260, 0.74); // gönderince balonu izler
+const SEND2 = vc(260, 0.76); // aranırken yavaşça yaklaşır
+const CHAT = vc(150, 0.82); // balon + Evlek + sonuç; telefon kenarları görünür
+const CARDS = vc(560, 0.88); // kart şeridi
 const DS = 0.6, DY = 862;
 const DETAIL = P(540, DY, DS); // tam telefon: ilan; "Emlakçıya sor" y≈1566
-const LIST = view(0, 140, 0.916); // ekran tam genişlikte (kenar yazıları kırpılmaz) // Ç1–Ç2: ilan üstü (✕ Evlek, galeri, fiyat), kart yakınıyla aynı ölçek
+const LIST = vc(140, 0.80); // ilan üstü (✕ Evlek, galeri, fiyat); telefon kenarları görünür
 /** Ç3: salon fotoğrafına yaklaşma; sabit nokta pencerede görünen deniz (ekran 470, 760) */
-const zoomAt = (k: number): Pose => { const s = mix(0.95, 1.4, k); const sx = 470, sy = 760; const fx = 540, fy = 950; /* kırpılan yazı kadraj dışında kalır */ return P(fx + (PW / 2 - OX - sx) * s, fy + (PH / 2 - OY - sy) * s, s); };
-const FEAT = view(0, 760, 0.916); // ilan yakın: fiyat, başlık, Temel bilgiler, Özellikler çipleri, alt çubuk
+/** salon fotoğrafına ölçülü yaklaşma; sabit nokta pencerede görünen deniz */
+const zoomAt = (k: number): Pose => { const s = mix(0.83, 1.08, k); const sx = 520, sy = 760, fx = 540, fy = 820; return P(fx + (PW / 2 - OX - sx) * s, fy + (PH / 2 - OY - sy) * s, s); };
+const FEAT = vc(700, 0.84); // fiyat, Temel bilgiler, Özellikler çipleri, alt çubuk
 const PLUG = P(540, 1140, 0.55); // eklenti bölümü: üstte başlık + adımlar; düğme altı ≈1793 (Reels alt bandının üstü)
 const END = P(540, 1196, 0.47); // telefonun altı ≈1830: kareye ≥90 px pay, Reels bandının dışında
 const dy = (p: Pose, y: number): Pose => ({...p, y: p.y + y});
@@ -47,7 +50,7 @@ export const poseAt = (t: number): Pose => {
   if (t < TL.cam2[1]) return mixPose(dy(CHAT, -10), CARDS, IO(lin(t, TL.cam2[0], TL.cam2[1])));
   if (t < TL.expand[0]) return bump(CARDS, t, TL.tap);
   if (t < TL.expand[1]) return mixPose(CARDS, LIST, EXP(lin(t, TL.expand[0], TL.expand[1])));
-  const l2 = view(0, 140, 0.95); // fiyat okunurken çok yavaş yaklaşma
+  const l2 = vc(140, 0.83); // fiyat okunurken çok yavaş yaklaşma
   if (t < TL.zoom[0]) return mixPose(LIST, l2, Easing.inOut(Easing.quad)(lin(t, TL.expand[1], TL.zoom[0])));
   if (t < TL.zoom[1]) return mixPose(l2, zoomAt(1), Easing.bezier(0.33, 0, 0.15, 1)(lin(t, TL.zoom[0], TL.zoom[1])));
   if (t < TL.featCam[1]) return mixPose(zoomAt(1), FEAT, Easing.bezier(0.45, 0, 0.2, 1)(lin(t, TL.featCam[0], TL.featCam[1])));
@@ -59,7 +62,22 @@ export const poseAt = (t: number): Pose => {
 };
 
 // ---------------- zemin, gren, tipografi ----------------
-const Stage: React.FC = () => { const k = useCurrentFrame() / (26 * 60); return <AbsoluteFill style={{background: `radial-gradient(120% 70% at ${30 + 4 * k}% ${18 + 2 * k}%, #FFFEFB 0%, ${CREAM} 46%, #F0EBDF 100%)`}} />; };
+const Stage: React.FC = () => {
+  const f = useCurrentFrame(); const k = f / (26 * 60);
+  return (
+    <AbsoluteFill style={{background: `radial-gradient(120% 70% at ${30 + 4 * k}% ${18 + 2 * k}%, #FFFEFB 0%, ${CREAM} 46%, #F0EBDF 100%)`, overflow: 'hidden'}}>
+      {/* pencereden düşen ışık: sıcak ışık şeritleri + kayıt gölgeleri (ürün fotoğrafçılığı dokusu), çok yavaş kayar */}
+      <div style={{position: 'absolute', left: -700, top: -500, width: 2600, height: 3000, transform: `rotate(-26deg) translateX(${-80 + 160 * k}px)`,
+        background: 'repeating-linear-gradient(90deg, rgba(255,247,228,0) 0px, rgba(255,247,228,0) 120px, rgba(255,245,222,.75) 200px, rgba(255,245,222,.75) 330px, rgba(255,247,228,0) 410px, rgba(255,247,228,0) 640px)',
+        filter: 'blur(46px)', mixBlendMode: 'screen', opacity: 0.55}} />
+      <div style={{position: 'absolute', left: -700, top: -500, width: 2600, height: 3000, transform: `rotate(-26deg) translateX(${-80 + 160 * k}px)`,
+        background: 'repeating-linear-gradient(90deg, rgba(92,70,40,0) 0px, rgba(92,70,40,0) 395px, rgba(92,70,40,.16) 410px, rgba(92,70,40,.16) 440px, rgba(92,70,40,0) 455px, rgba(92,70,40,0) 640px)',
+        filter: 'blur(22px)', mixBlendMode: 'multiply', opacity: 0.55}} />
+      {/* zemin: alt kısım hafif koyu (masa yüzeyi), üst kenar sıcak */}
+      <AbsoluteFill style={{background: 'linear-gradient(180deg, rgba(255,250,240,.0) 0%, rgba(255,250,240,0) 55%, rgba(120,96,60,.07) 100%)'}} />
+    </AbsoluteFill>
+  );
+};
 const Grain: React.FC<{o?: number}> = ({o = 0.1}) => {
   const f = Math.floor(useCurrentFrame() / 2);
   const gx = (f * 197) % 512, gy = (f * 331) % 512; // deterministik kayma
@@ -82,8 +100,8 @@ const TitleBlock: React.FC<{t: number}> = ({t}) => {
   const up = endOn ? 0 : -40 * outK;
   return (
     <div style={{position: 'absolute', left: M, top: endOn ? 112 : 150, transform: `translateY(${up}px)`}}>
-      <div style={rise(a, 26)}><Logo h={endOn ? 132 : 150} color={NAVY} style={{marginLeft: -13}} /></div>
-      <div style={{marginTop: 4, marginLeft: -3, fontFamily: F, fontSize: endOn ? 84 : 92, fontWeight: 700, letterSpacing: '-0.045em', lineHeight: endOn ? '94px' : '102px', color: NAVY, whiteSpace: 'nowrap', ...rise(b, 26)}}>artık ChatGPT’de.</div>
+      <div style={{overflow: 'hidden', paddingBottom: 6}}><div style={{transform: `translateY(${(1 - a) * 105}%)`, opacity: Math.min(1, a * 1.6)}}><Logo h={endOn ? 132 : 150} color={NAVY} style={{marginLeft: -13}} /></div></div>
+      <div style={{marginTop: 4, marginLeft: -3, fontFamily: F, fontSize: endOn ? 84 : 92, fontWeight: 700, letterSpacing: '-0.045em', lineHeight: endOn ? '94px' : '102px', color: NAVY, whiteSpace: 'nowrap', overflow: 'hidden', paddingBottom: 8}}><div style={{transform: `translateY(${(1 - b) * 105}%)`, opacity: Math.min(1, b * 1.6)}}>artık ChatGPT’de.</div></div>
     </div>
   );
 };
