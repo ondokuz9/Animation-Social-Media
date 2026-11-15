@@ -1,0 +1,201 @@
+{
+  "_not": "Tüm metinler burada. HTML build.py ile bundan üretilir. \\n = satır sonu. Kare: film saniyesi; src = kaynak karede [x0, x1, y0]; cardH = sayfadaki kart yüksekliği (kart sayfanın altına taşar).",
+  "film": "/home/user/Animation-Social-Media/evlek-chatgpt/out/evlek_chatgpt_V19_FINAL_1080x1920_60fps_sessiz.mp4",
+  "toplam": 9,
+  "pages": [
+    {
+      "id": 1,
+      "layout": "screen",
+      "variant": "cover",
+      "eyebrow": "Evlek · ChatGPT uygulaması",
+      "title": "Bir cümle yazdık.\nHangi cevaba güvenirsiniz?",
+      "sub": "Lapta’da bir ev aramasının anatomisi.",
+      "img": {
+        "t": 5.3,
+        "src": [
+          100,
+          1000,
+          25
+        ],
+        "cardH": 520
+      }
+    },
+    {
+      "id": 2,
+      "layout": "screen",
+      "eyebrow": "Sorgu",
+      "title": "Filtre yok.\nKendi cümlesi.",
+      "sub": "Sonuçlar fotoğraf, ilan fiyatı ve konumla gelir.\nEvlek hesabı gerekmez.",
+      "img": {
+        "t": 4.4,
+        "src": [
+          80,
+          1002,
+          815
+        ],
+        "cardH": 681
+      }
+    },
+    {
+      "id": 3,
+      "layout": "screen",
+      "eyebrow": "Sonuç · harita",
+      "title": "8 ilan\n£105–147 bin",
+      "tag": "İlan fiyatı",
+      "tagNote": "14 Kasım 2026 itibarıyla",
+      "sub": "Önce Girne geneli: 52 ilan.\nLapta’ya daraltınca: 8.",
+      "img": {
+        "t": 6.8,
+        "src": [
+          60,
+          1020,
+          125
+        ],
+        "cardH": 616,
+        "ring": [
+          399,
+          706,
+          435,
+          510
+        ]
+      }
+    },
+    {
+      "id": 4,
+      "layout": "screen",
+      "variant": "price",
+      "eyebrow": "İlan fiyatı · EVL-100102",
+      "price": "£139.000",
+      "specs": "2+1 · 107 m² · Lapta",
+      "img": {
+        "t": 10.3,
+        "src": [
+          44,
+          1050,
+          425
+        ],
+        "cardH": 961,
+        "ring": [
+          82,
+          398,
+          1172,
+          1230
+        ]
+      }
+    },
+    {
+      "id": 5,
+      "layout": "screen",
+      "eyebrow": "Özellikler",
+      "title": "Veride “ortak havuz” yazıyorsa, biz “havuzlu daire” demeyiz.",
+      "img": {
+        "t": 13.6,
+        "src": [
+          60,
+          1020,
+          560
+        ],
+        "cardH": 789,
+        "ring": [
+          427,
+          680,
+          1163,
+          1243
+        ]
+      }
+    },
+    {
+      "id": 6,
+      "layout": "list",
+      "eyebrow": "Güven ilkeleri",
+      "title": "Cevabın arkasındaki\nbeş ilke.",
+      "items": [
+        "İlanlar yalnız Evlek’in onayladığı ofislerden gelir ve yayından önce incelenir.",
+        "Rakamlar ilan fiyatıdır.",
+        "Yapay zekâ ile oluşturulan görseller etiketlidir.",
+        "Bir koşul uygulanamazsa\nuygulama bunu belirtir.",
+        "İletişim, ilanın Evlek sayfası üzerinden ofisle doğrudan kurulur."
+      ]
+    },
+    {
+      "id": 7,
+      "layout": "figures",
+      "eyebrow": "Kapsam",
+      "title": "Lapta yalnızca bir örnek.",
+      "rows": [
+        {
+          "n": "6",
+          "label": "bölge",
+          "detail": "Girne, Lefkoşa, Gazimağusa, İskele, Güzelyurt, Lefke"
+        },
+        {
+          "n": "5",
+          "label": "dil",
+          "detail": "Türkçe, İngilizce, Rusça, Almanca, Arapça"
+        },
+        {
+          "n": "4",
+          "label": "para birimi",
+          "detail": "Sterlin, euro, dolar ve Türk lirası arasında çeviri"
+        },
+        {
+          "n": "2–4",
+          "label": "ilan karşılaştırması",
+          "detail": "İlanlar yan yana"
+        }
+      ],
+      "foot": "Şehir ve semt bazında ilan fiyatı istatistikleri."
+    },
+    {
+      "id": 8,
+      "layout": "steps",
+      "eyebrow": "Nasıl eklenir",
+      "title": "ChatGPT’de üç adım.",
+      "steps": [
+        {
+          "label": "Menüden Eklentiler",
+          "t": 17.7,
+          "src": [
+            216,
+            656,
+            664,
+            884
+          ]
+        },
+        {
+          "label": "“evlek” ara",
+          "t": 19.4,
+          "src": [
+            235,
+            855,
+            515,
+            728
+          ]
+        },
+        {
+          "label": "Eklentiyi kur",
+          "t": 20.6,
+          "src": [
+            240,
+            840,
+            1690,
+            1818
+          ]
+        }
+      ],
+      "scale": 1.1,
+      "frameW": 688
+    },
+    {
+      "id": 9,
+      "layout": "close",
+      "eyebrow": "13 Kasım duyurusundan",
+      "quote": "Bu insanlar için en değerli şey güven: ilanın gerçek, fiyatın açık, bilginin kendi dilinde olması.",
+      "name": "Onur Dokuzoğlu",
+      "role": "Kurucu, Evlek",
+      "url": "evlek.app",
+      "urlLine": "ChatGPT’de “evlek” diye arayın.",
+      "note": "Görsellerdeki ChatGPT arayüzü temsilîdir; Evlek ekranları ve ilan bilgileri gerçektir.\nRakamlar ilan fiyatıdır. Arama: 14 Kasım 2026 · EVL-100102: 15 Kasım 2026."
+    }
+  ]
+}
