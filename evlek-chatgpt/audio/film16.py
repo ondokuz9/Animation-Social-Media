@@ -89,7 +89,7 @@ def music(tl):
     for i, m in enumerate([74, 69, 76, 69, 78, 69, 76, 69]):
         place(bus['pluck'], F.ks_pluck(m, 0.8, 0.06, pan=0.25 if i % 2 else -0.25), RES + BEAT + i * BEAT / 2)
     # ---- EV (5,5): davul yok, lidyen akor 2,5 sn, filtre 1800 → 6000 Hz / 0,6 sn, tek piyano notası (F#5)
-    place(bus['pad'], pad(CH['Glyd'][1], 2.5 + 1.2, 1800, 6000, 0.6, amp=0.045, a=0.35, r=1.4), HOUSE)
+    place(bus['pad'], pad(CH['Glyd'][1], 2.5 + 1.2, 1800, 6000, 0.6, amp=0.034, a=0.35, r=1.4), HOUSE)
     place(bus['keys'], F.felt(78, 3.0, 0.04), HOUSE + 0.02)
     place(bus['bass'], stereo(np.sin(2 * np.pi * midi(31) * t_(2.4)) * env_adsr(int(2.4 * SR), a=0.3, d=0.4, s=0.6, r=1.0) * 0.06), HOUSE)
     place(bus['keys'], F.felt(81, 2.6, 0.045, 0.1), HOUSE + 1.0); place(bus['keys'], F.felt(74, 2.4, 0.03, -0.15), HOUSE + 1.5)
@@ -168,7 +168,7 @@ def ui(tl):
     # ev: açılırken hava, sonra deniz (400–4000 Hz), ilana dönüşte söner
     a = t_(tl['expand2'][1] - tl['expand2'][0]); kk = a / a[-1]
     place(bus, stereo(bp(noise(len(a)), 500, 4000) * kk ** 2 * 0.02), tl['expand2'][0])
-    sea = F.sea(tl['land'][1] - tl['expand2'][1] + 0.6, amp=0.03)
+    sea = F.sea(tl['land'][1] - tl['expand2'][1] + 0.6, amp=0.022)
     place(bus, bp(sea, 400, 4000), tl['expand2'][1] - 0.4)
     place(bus, tuned(KI + 'drop_004', 74.7, 74, F.tone_pair(180, 360, 0.08, 0.5, -24)), tl['land'][1] - 0.03)
     place(bus, k(KI + 'select_002', F.tap(-16), TAP, jit(), pan(881)), tl['contact'])
@@ -199,6 +199,8 @@ def main():
     for b0 in (tl['shrink'][1], tl['end'][0]):
         g = np.minimum(g, 1 - 0.9 * np.clip((tt - (b0 - 0.17)) / 0.03, 0, 1) * (tt < b0 - 0.002))
     mix = mix * g[:, None]
+    # mono uyumu (telefon hoparlörü): yan kanal −3,5 dB
+    mid = mix.mean(1, keepdims=True); mix = mid + (mix - mid) * 0.67
     pad_n = SR // 2
     mix = F2.F.master_pre(np.concatenate([np.zeros((pad_n, 2)), mix, np.zeros((pad_n, 2))]))[pad_n:-pad_n]
     mix = mix / np.max(np.abs(mix)) * 0.5
