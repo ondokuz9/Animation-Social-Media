@@ -3,6 +3,7 @@
 # 360 px okunurluk ızgarası, siyah kare, kare farkı, telefon bandı ses testi.   Kullanım: bash scripts/v16-qc.sh
 set -e
 cd "$(dirname "$0")/.."
+# ses masteri: LRA=20 bash audio/master.sh … (doğrusal kazanç; dinamik moda düşmesin)
 Q=out/v16qc; rm -rf $Q; mkdir -p $Q/f6
 SIL=out/evlek_chatgpt_FINAL_1080x1920_60fps_sessiz.mp4
 FIN=out/evlek_chatgpt_FINAL_1080x1920_60fps.mp4
@@ -50,7 +51,7 @@ from scipy import signal
 from scipy.io import wavfile
 sr,x=wavfile.read('out/audio/v16_master_48k.wav'); x=x.astype(float); m=x.mean(1)
 y=signal.sosfilt(signal.butter(4,[300,12000],'bandpass',fs=sr,output='sos'),m)
-s=open('src/v16/tl.ts').read(); g=lambda k: json.loads(re.search(k+r':\s*(\[[^\]]*\]|-?[\d.]+)',s).group(1))
+s=open('src/v16/tl.ts').read(); g=lambda k: json.loads(re.search(r'\b'+k+r':\s*(\[[^\]]*\]|-?[\d.]+)',s).group(1))
 def jump(t): i=int(t*sr); w=int(0.05*sr); r=lambda z: np.sqrt(np.mean(z**2)+1e-12); return 20*np.log10(r(y[i:i+w])/r(y[i-w:i]))
 ev={'sonuç':g('res')[0],'dokunuş (kart)':g('tap'),'dokunuş (emlakçı)':g('contact'),'dokunuş (kur)':g('install'),'Bağlı':g('bound'),'kapanış':g('end')[0]}
 print('== telefon bandı sıçrama (dB):',{k:round(jump(v),1) for k,v in ev.items()})

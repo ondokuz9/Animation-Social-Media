@@ -1,6 +1,6 @@
 # V16 · Evlek × ChatGPT lansman filmi · Kreatif rapor
 
-15 Kasım 2026 · dal `video/evlek-chatgpt-v10` · yeni kompozisyon `V16-916` (`src/v16/`). V15 (`src/v15/`, `V15-916`) kıyas için değişmeden duruyor.
+15 Kasım 2026 · dal `video/evlek-chatgpt-v10` · yeni kompozisyon `V16-916` (`src/v16/`); teslim adı FINAL. V15 (`src/v15/`, `V15-916`) kıyas için değişmeden duruyor.
 
 ## Yöntem
 
@@ -94,47 +94,51 @@ Editoryal değerlendirmedir; gerçek izleyici testi yapılmadı. Kareler: `acili
 
 Marka sahibinin daha önceki şartı ("önce sorulur, sonra sonuç gelir") korunuyor: sorgu fotoğrafın üstüne yazılıyor, fotoğraf cevap olarak ChatGPT'deki karta iniyor.
 
-## Final kurgu (18,0 sn · 120 BPM · vuruş 0,5 sn)
+## FINAL kurgu (19,5 sn · 120 BPM · vuruş 0,5 sn)
+
+İlk V16 kurgusunda (18 sn, commit `a0b572e`) sorgu fotoğrafın üstüne yazılıyordu; ChatGPT'de Evlek'e yazma anı yoktu. Marka sahibi bu sahneyi istedi. Final kurguda açılış fotoğrafı korunuyor, yazma sahnesi gerçek ChatGPT yazım kutusunda geri geliyor.
 
 | Zaman | İçerik | Kadraj |
 |---|---|---|
-| 0,00–1,75 | Gerçek ilanın havuz fotoğrafı; üstünde sorgu 4 öbekte | Fotoğraf penceresi 1080×1600, krem paspartu |
-| 1,75–2,50 | Fotoğraf küçülüp gerçek £139.000 kartına oturur | Geçiş |
-| 2,50–2,90 | Kart şeridi; sorgu krem üst bantta | Arayüz düz, 1:1 gerçek piksel |
-| 2,90–4,50 | Tam telefon + "Evlek artık ChatGPT'de." | Telefon, krem sahne |
-| 4,50–5,00 | Karta dokunuş; kart ilanın kahraman fotoğrafına büyür | Telefon |
-| 5,00–6,95 | Gerçek ilan: £139.000, 2+1, 107 m²; galeri 2/14 | Telefon |
-| 6,95–9,50 | Salon fotoğrafı (içeriden deniz); fiyat etiketi | Fotoğraf penceresi 1080×1600 |
-| 9,50–11,50 | Fotoğraf ilana geri iner; "Emlakçıya sor" dokunuşu (10,9) | Telefon |
-| 11,50 | Kesme | |
-| 11,50–14,00 | "Eklentiler'den Evlek'i ekle." · Eklentiyi kur (12,45) → Bağlı (13,0) | Telefon |
-| 14,00–18,00 | Logo · "artık ChatGPT'de." · ev fotoğrafı · tek CTA | Kapanış kartı |
+| 0,00–1,40 | Gerçek ilanın havuz fotoğrafı + "Evlek artık ChatGPT'de." | Fotoğraf penceresi 1080×1600, krem paspartu |
+| 1,40–2,00 | Fotoğraf üste çekilir; altta ChatGPT yazım kutusu ve klavye açılır | Üstte fotoğraf, altta arayüz yaprağı |
+| 2,10–3,00 | Evlek çipi + sorgu, dört öbekte | Arayüz düz, kenardan kenara |
+| 3,50–4,00 | Gönder → balon, gri "Evlek" araması, "Birkaç saniye düşündü" | Aynı; fotoğraf üstte kalır |
+| 4,00–4,80 | Sonuç: arayüz kadrajı doldurur (balon, harita, kartlar) | Arayüz düz |
+| 4,80–6,00 | Kart şeridi: £139.000 · 2+1 · 107 m² · Lapta, Girne | 1:1 gerçek piksel |
+| 6,00–8,45 | Karta dokunuş → gerçek ilan; galeri 2/14 | Telefon |
+| 8,45–11,00 | Salon fotoğrafı (içeriden deniz) + fiyat etiketi | Fotoğraf penceresi 1080×1600 |
+| 11,00–13,00 | Fotoğraf ilana iner; "Emlakçıya sor" dokunuşu (12,4) | Telefon |
+| 13,00 | Kesme | |
+| 13,00–15,50 | "Eklentiler'den Evlek'i ekle." · Eklentiyi kur (13,95) → Bağlı (14,5) | Telefon |
+| 15,50–19,50 | Logo · "artık ChatGPT'de." · ev fotoğrafı · tek CTA | Kapanış kartı |
 
 **Grafik tasarım kararları:**
-- **Sahne:** krem zemin (lacivert üstünde koyu arayüz yerine), lacivert tipografi, mercan yalnız vurgu. %7 gren; degradede bantlanma yok.
+- **Sahne:** krem zemin, lacivert tipografi, mercan yalnız vurgu. %7 gren; degradede bantlanma yok.
 - **Tipografi:** Inter 700, −0,045em; etiketler 24–30 px, +0,14em, Türkçe büyük harf elle yazıldı ("GİRNE", "İLAN"). Rakamlar eş genişlikli.
 - **Hiza:** bütün dış metin sola hizalı, x = 72.
-- **Arayüz:** her karede düz (eğim 0°); perspektifli yeniden örnekleme yok. Kart yakın planı 1:1.
+- **Arayüz:** her karede düz (eğim 0°). Yazma, sonuç ve kart anlarında kenardan kenara; kart yakın planı 1:1.
+- **Boş siyah ekran yok:** yazma ve arama sırasında arayüz yalnız alt yaprakta; üstte ev fotoğrafı duruyor. Arayüz kadrajı ancak sonuç gelince dolduruyor.
 - **Fotoğraf:** 1080×1600 pencere; havuz kaynağa göre 1,333× → 1,36×, salon 1,00× → 1,10×. Yapay zekâ işlemi yok; yalnız kırpma ve Lanczos.
-- **Güvenli alan:** dokunulan düğmeler ve CTA y ≤ 1600 (Reels alt arayüzünün üstü); ana metin y ≥ 84.
+- **Güvenli alan:** dokunulan düğmeler ve CTA y ≤ 1600 (Reels alt arayüzünün üstü).
 
-## Düzeltme turu (ilk tam render → final)
+## Düzeltme turları
 
-İlk tam render 19,0 sn'ydi (`out/v16_ilk_render_sessiz.mp4`). Kreatif direktör ve denetçi onu gördü; yapılanlar:
+İlk tam render 19,0 sn'ydi; kreatif direktör ve denetçi onu gördü.
 
 | Bulgu | Kaynak | Yapılan |
 |---|---|---|
-| 2,0 sn: fotoğraf grileşmiş arayüzün üstünde yapıştırma gibi | KD | Krem örtü 4 karede kalkar; köşe yarıçapı erkenden kart yuvasına eşlenir. |
-| 3,0–5,0: telefon küçük, 2 sn yeni bilgi yok | KD | 1,6 sn'ye indi; telefon %8 büyüdü. |
-| 5,0–10,5: dört kadraj sistemi | KD | İkiye indi: telefon ve fotoğraf penceresi. Çerçevesiz koyu ilan yakın planı kaldırıldı. |
+| Telefon küçük, 2 sn yeni bilgi yok | KD | O sahne kaldırıldı; söz açılış fotoğrafına taşındı. |
+| Dört kadraj sistemi art arda | KD | Üçe indi: fotoğraf penceresi, düz arayüz, telefon. |
 | Eklenti bölümü 3 sn; iki ayrı CTA yazımı | KD | 2,5 sn; her iki yerde "Eklentiler'den Evlek'i ekle". |
-| Sorgu hapı gerçek haritanın üstünde | denetçi | Sorgu krem üst banda taşındı; arayüzün üstünde etiket yok. |
+| Sorgu hapı gerçek haritanın üstünde | denetçi | Kaldırıldı; sorgu artık gerçek sohbet balonunda. |
 | "107 M²" | denetçi | "107 m²"; büyük harf dönüşümü kaldırıldı. |
 | Açılışta "Ev" simgeli etiket gerçek arayüz gibi | denetçi | Düz başlık: "CHATGPT'DE EVLEK'E SOR". |
-| Salon fotoğrafı ilana inerken 17 px sıçrama | kendi ölçümüm | Hiza düzeltildi; kalkış ve inişte kare kare kayma 0 px (kare 416↔418, 605↔607). |
-| Fiyat etiketi Reels alt alanında | kendi kontrolüm | 90 px yukarı alındı. |
+| Salon fotoğrafı ilana inerken 17 px sıçrama | kendi ölçümüm | Hiza düzeltildi; kalkış ve inişte kayma 0 px (kare 506↔508, 695↔697). |
+| Gönderdikten sonra ~1 sn siyah kadraj | kendi kontrolüm | Arama alt yaprakta kalıyor, fotoğraf üstte; kadraj sonuçla açılıyor. |
+| Ses yükseklik eşitleyicisi sakin bölümleri kendiliğinden yükseltiyordu | kendi ölçümüm | Master doğrusal kazançla alınıyor; bölüm dengesi mikste kuruldu. |
 
-**Kabul edilmeyen öneri:** KD "Emlakçıya sor" dokunuşunun çıkarılmasını istedi. Kurgucu ve denetçi "dokunuşta kes" dedi; marka sahibi de bu anı daha önce istemişti. Dokunuş korundu, 0,6 sn sonra kesiliyor.
+**Kabul edilmeyen öneri:** KD "Emlakçıya sor" dokunuşunun çıkarılmasını istedi. Kurgucu ve denetçi "dokunuşta kes" dedi; marka sahibi anın kalmasını onayladı. Dokunuş korundu, 0,6 sn sonra kesiliyor.
 
 ## Final kontrol
 
@@ -142,51 +146,51 @@ Marka sahibinin daha önceki şartı ("önce sorulur, sonra sonuç gelir") korun
 
 | Dosya | sha256 |
 |---|---|
-| `evlek_chatgpt_v16_1080x1920_60fps.mp4` (sesli, 14,4 MB) | `bed941dfe7700aaf276b00db0711abf717e5fefff0bf91a7a88c4223f6ac61cf` |
-| `evlek_chatgpt_v16_1080x1920_60fps_sessiz.mp4` | `7077fd222dad40110296026f254063621594884236d27ef22d2216376c2dcd98` |
-| `evlek_chatgpt_v16_kapak.png` (kare 0) | `ea4eeefb44bfccf56714776cda6af3e17e9bc9ef66997afc587fa9ca1eabf4d4` |
-| `audio/v16_master_48k.wav` | `e7c5995df5614688892057b41d326c38aa77f3d1b30bdd76dc5ff3b9e3b18de0` |
+| `evlek_chatgpt_FINAL_1080x1920_60fps.mp4` (sesli, 14,7 MB) | `cdfc6d85e7d371a55c47fd8cc59fa3ed75b009765b25790acb566fd047cbba51` |
+| `evlek_chatgpt_FINAL_1080x1920_60fps_sessiz.mp4` | `af94b4a8f9c7660e5d6abc16c9e6bb7ff4e064289c67bb21e953bde45f445635` |
+| `evlek_chatgpt_FINAL_kapak.png` (0,8 sn karesi) | `45d138310e4711e4ae33879cb549a484319a42bf9ab1688c898acce64d7174c6` |
+| `audio/v16_master_48k.wav` | `d842c5921aa67081ab2be9d68ec86602508790ba4890167712a576c65821bb28` |
 | `v16_acilis_A.mp4`, `v16_acilis_B.mp4` | açılış denemeleri |
 
 **Teknik çıktı** (`bash scripts/v16-qc.sh`):
-- **Görüntü:** 1080×1920 · 9:16 · 60/1 · 1080 kare · 18,000 sn · h264 yuv420p · bt709.
-- **Ses:** AAC 320 kb/sn, 48 kHz stereo · −14,0 LUFS · LRA 7,7 · gerçek tepe −2,5 dBTP.
-- **Eşleşme:** sessiz ve sesli dosyada video MD5 aynı (`4da486d4…`); ses `-c:v copy` ile eklendi.
-- **Kesmeler:** siyah kare 0; tek sert kesme planlanan 11,50 sn'de. Diğer büyük kare farkları akan geçişler (3,2 / 4,75 / 7,15 / 9,7 / 13,95).
+- **Görüntü:** 1080×1920 · 9:16 · 60/1 · 1170 kare · 19,500 sn · h264 yuv420p · bt709.
+- **Ses:** AAC 320 kb/sn, 48 kHz stereo · −13,9 LUFS · LRA 7,6 · gerçek tepe −3,8 dBTP.
+- **Eşleşme:** sessiz ve sesli dosyada video MD5 aynı (`e1db0cc6…`); ses `-c:v copy` ile eklendi.
+- **Kesmeler:** siyah kare 0; tek sert kesme planlanan 13,00 sn'de.
 - **Döngü:** film döngü olarak kurulmadı; son kare kapanış kartı.
 
 **Uzman testleri:**
 
 | Test | Sonuç | Kanıt |
 |---|---|---|
-| KD: 5. sn'ye kadar sorgu + £139.000 kartı aynı karede, 360 px'te | GEÇER | 2,5–2,9 sn (krem bant + kart). Süre 18,0 sn; CTA yazımı 1. |
-| Görüntü yön.: fotoğraf ≥1080×1600, ölçek ≤1,36× | GEÇER | Kod değerleri: 1,333–1,36× ve 1,00–1,10×. Ufuk konumu ve kontrast final karede ayrıca ölçülmedi; kırpma uzmanın verdiği değerlerle aynı. |
-| Kurgu: 2,40 sn'de sonuç kartı kadrajda | SINIRDA | Kart 2,50 sn'de tam oturuyor; 2,40 geçişin son kareleri. İlk gerçek sonuç: hedef ≤5,0 sn, gerçekleşen 2,5 sn. |
-| Hareket: eğim 0°, siyah ≤%20, fotoğraf ≤6. sn'de ≥1,5 sn | KISMEN | Eğim 0° ve fotoğraf (0–1,75 sn) geçer. Siyah oranı 12–13. sn'de %27 (Evlek eklenti sayfasının kendi siyah boşluğu), 3. sn'de %21. Telefon sahnelerinde arayüz 1,7–1,8 px/pt (KD'nin "iki kadraj sistemi" kararıyla çelişen ölçüt). |
-| Ses: sonuç sıçraması ≥+8 dB ve dokunuşlardan ≥3 dB büyük | GEÇER | Telefon bandında sonuç +19,6 dB; dokunuşlar −0,3…+3,9 dB. Mono kaybı 1,1 dB (hedef ≤1,5). Ev bölümü ritimli bölümden 2,5 dB sakin (hedef 3–5; biraz altında). |
-| Denetçi: okunan her sayı ve etiket kaynakla uyumlu | GEÇER | Final renderda 11 kare tam çözünürlükte incelendi: dört düzeltmenin dördü yapılmış, sekiz maddenin sekizi geçer, uyumsuzluk 0, yeni bulgu yok. |
+| KD: 5. sn'ye kadar sorgu + £139.000 kartı, 360 px'te | GEÇER | Sorgu 3,0 sn'de tam; 4,0–4,8 sn'de balon ve kartlar aynı karede; £139.000 4,8 sn'den itibaren 1:1. Süre 19,5 sn; CTA yazımı 1. |
+| Görüntü yön.: fotoğraf ≥1080×1600, ölçek ≤1,36× | GEÇER | Kod değerleri: 1,333–1,36× ve 1,00–1,10×. Ufuk konumu ve kontrast final karede ayrıca ölçülmedi. |
+| Kurgu: ilk gerçek sonuç ≤5 sn | GEÇER | Hedef ≤5,0 sn, gerçekleşen 4,0 sn (V15: 8,45). Kurgucunun 2,40 sn hedefi, yazma sahnesi geri geldiği için tutmuyor. |
+| Hareket: eğim 0°, siyah ≤%20, fotoğraf ≤6. sn'de ≥1,5 sn | KISMEN | Eğim 0° ve fotoğraf (0–1,4 sn tam, 3,5 sn'ye kadar üstte) geçer. Koyu piksel oranı yazma sırasında %36–46 (klavye ve yazım kutusu; boş ekran değil), eklenti sayfasında %27. |
+| Ses: sonuç sıçraması ≥+8 dB ve dokunuşlardan ≥3 dB büyük | GEÇER | Telefon bandında sonuç +20,4 dB; dokunuşlar +0,2…+4,9 dB. Mono kaybı 1,1 dB. Ev bölümü ritimli bölümden 4,2 dB sakin (hedef 3–5). |
+| Denetçi: okunan her sayı ve etiket kaynakla uyumlu | DENETCI_SONUC |
 
-**Mobil ve sessiz izleme:** 360 px ızgarada (`v16_izgara_2fps_360.jpg`) sorgu, £139.000, "artık ChatGPT'de." ve CTA okunuyor. Sessizde üç şey anlaşılıyor: ne arandığı, ChatGPT'de gerçek bir ilanın geldiği, tek sonraki adım. Gerçek telefonda izleme yapılmadı; küçültülmüş karelerle değerlendirildi.
+**Mobil ve sessiz izleme:** 360 px ızgarada (`FINAL_izgara_2fps_360.jpg`) söz, sorgu, £139.000 ve CTA okunuyor. Sessizde üç şey anlaşılıyor: ne sorulduğu, ChatGPT'de gerçek bir ilanın geldiği, tek sonraki adım. Gerçek telefonda izleme yapılmadı; küçültülmüş karelerle değerlendirildi.
 
 **Ses:** Dinlenemedi; yalnız ölçüldü. Sonuç anı ritmik vuruş (150 ms nefes, sonra kick + klap + glockenspiel + piyano); ev anı ritmin açılması (davul bir vuruş önce çıkar, uzun akor, deniz, tek piyano notası). Kaynaklar CC0 (`audio/SAMPLES.md`).
 
-## V15 → V16
+## V15 → FINAL
 
-| | V15 (30 sn) | V16 (18 sn) |
+| | V15 (30 sn) | FINAL (19,5 sn) |
 |---|---|---|
-| İlk gerçek sonuç | 8,45 sn | 2,5 sn |
-| Ev büyük görünüyor | 15,4–16,5 sn (1,1 sn, ortada bant) | 0–1,75 ve 6,95–9,5 sn (4,3 sn, 1080×1600) |
-| Yazım | 3,15–7,16 sn, harf harf | 0–1,0 sn, 4 öbek, fotoğrafın üstünde |
-| Kurulum | 19,2–26,15 sn, 7 dokunuş | 11,5–14,0 sn, 1 dokunuş |
-| Kapanış | 27–30 sn, boş telefon | 14–18 sn, logo + ev + tek CTA |
+| Açılış | 0–2,2 sn: koyu zeminde küçük telefon | 0–1,4 sn: ev fotoğrafı + söz |
+| Yazma | 3,15–7,16 sn, harf harf, kadrajın %55'i siyah | 2,1–3,0 sn, dört öbek; üstte ev fotoğrafı |
+| İlk gerçek sonuç | 8,45 sn | 4,0 sn |
+| Ev büyük görünüyor | 15,4–16,5 sn (1,1 sn, ortada bant) | 0–1,4 ve 8,45–11,0 sn (3,9 sn, 1080×1600) |
+| Kurulum ve kapanış | 19,2–30 sn: 7 dokunuş, boş telefon | 13–19,5 sn: 1 dokunuş, logo + ev + tek CTA |
 
 ## Açık noktalar
 
 1. **Yayın günü kontrolü:** İlan yayında mı, fiyat £139.000 mı, "8 ilan" sayısı aynı mı. Canlı sayfa 15 Kasım 2026'da doğrulandı.
 2. **Doğrulanamayan:** Kurulu olmayan genel bir hesapta "Eklentiyi kur" akışı.
-3. **Temsil notu:** ChatGPT kabuğu yeniden çizimdir. Not film içinde yok (marka sahibinin kararı); gönderi açıklamasına yazılmalı.
-4. **Ses dinlenmedi.** Kulağa ters gelen yer olursa `audio/film16.py`'de tek tek değişir.
-5. **Eklenti sayfası** gerçek sayfa gibi İngilizce ve büyük kısmı siyah; filmin en zayıf 2,5 saniyesi.
+3. **Zaman sıkıştırması:** Gönder ile sonuç arası filmde 0,5 sn; ekranda gerçek etiket "Birkaç saniye düşündü" duruyor. Hız üzerine metin ya da seslendirme yok.
+4. **Temsil notu:** ChatGPT kabuğu yeniden çizimdir. Not film içinde yok (marka sahibinin kararı); gönderi açıklamasına yazılmalı.
+5. **Ses dinlenmedi.** Kulağa ters gelen yer olursa `audio/film16.py`'de tek tek değişir.
 
 ## Yeniden üretim
 
@@ -198,9 +202,9 @@ Marka sahibinin daha önceki şartı ("önce sorulur, sonra sonuç gelir") korun
    ```bash
    cd audio && python3 film16.py ../src/v16/tl.ts ../out/audio/v16 && cd ..
    ```
-3. Mastering:
+3. Mastering (doğrusal kazanç):
    ```bash
-   bash audio/master.sh out/audio/v16_raw.wav out/audio/v16_master_48k.wav
+   LRA=20 bash audio/master.sh out/audio/v16_raw.wav out/audio/v16_master_48k.wav
    ```
 4. Mux ve kontrol:
    ```bash

@@ -202,6 +202,11 @@ def main():
     e = np.abs(u).max(1); e = signal.lfilter([1 - np.exp(-1 / (0.18 * SR))], [1, -np.exp(-1 / (0.18 * SR))], e)
     duck = 1 - np.clip(e / (np.max(e) + 1e-9) * 1.2, 0, 0.2)
     mix = m * duck[:, None] + u * 1.3
+    # bölüm dengesi (doğrusal master öncesi): sakin bölümler telefon hoparlöründe kaybolmasın
+    R_, H_, L_, C_ = tl['res'][0], tl['expand2'][1], tl['land'][0], tl['cut']
+    pts = [(0, 4.0), (1.4, 4.0), (1.9, 5.5), (R_ - 0.6, 5.5), (R_ - 0.1, 0), (H_ - 0.6, 0), (H_, 6.5), (L_ - 0.1, 6.5), (L_ + 0.1, 7.0), (C_ - 0.1, 7.0), (C_, 0), (DUR, 0)]
+    tg = np.arange(len(mix)) / SR
+    mix = mix * (10 ** (np.interp(tg, [a_ for a_, _ in pts], [b_ for _, b_ in pts]) / 20))[:, None]
     # nefes: sonuçtan ve kapanıştan önce 150 ms gerçek boşluk (−20 dB), vuruşta tam açılır
     tt = np.arange(len(mix)) / SR; g = np.ones(len(mix))
     for b0 in (tl['res'][0], tl['end'][0]):
