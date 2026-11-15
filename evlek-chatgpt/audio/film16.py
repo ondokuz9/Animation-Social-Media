@@ -36,7 +36,7 @@ def pad(notes, dur, cut0, cut1=None, sweep=0.6, amp=0.06, a=0.5, r=1.4):
     t = t_(dur); out = np.zeros((len(t), 2))
     for m in notes:
         f = midi(m)
-        for c, p in ((-5, -0.5), (0, 0.0), (5, 0.5)):
+        for c, p in ((-5, -0.28), (0, 0.0), (5, 0.28)):
             v = saw_bl(f * 2 ** (c / 1200), t + RNG.uniform(0, 1) / f, maxf=7000)
             out += stereo(v, p) * (0.8 if c == 0 else 0.6)
         out += stereo(0.12 * np.sin(2 * np.pi * f / 2 * t))
@@ -61,9 +61,10 @@ def music(tl):
     for i in range(3): place(bus['drums'], F.clap(0.02 + 0.012 * i), RES - 0.5 + i * BEAT / 4)
     # ---- SONUÇ (2,5): ritmik vuruş + groove (2,5–5,0)
     place(bus['fx'], F.impact(0.42, bells=(86, 93)), RES)
-    place(bus['drums'], F.kick(0.3), RES); place(bus['drums'], F.clap(0.08), RES)
+    place(bus['drums'], F.kick(0.3), RES); place(bus['drums'], F.clap(0.14), RES)
+    place(bus['fx'], F.fm_bell((86, 93, 98), 2.2, 0.07), RES); place(bus['keys'], F.saw_stab([62, 66, 69, 73], 1.2, 0.08), RES)
     for i, m in enumerate((62, 66, 69, 74, 78)):
-        place(bus['keys'], F.felt(m, 2.2, 0.05, pan=(i - 2) * 0.12), RES + 0.006 * i)
+        place(bus['keys'], F.felt(m, 2.2, 0.075, pan=(i - 2) * 0.1), RES + 0.004 * i)
     place(bus['pad'], pad(CH['Dmaj9'][1], 2.0 + 0.8, 4200, amp=0.07, a=0.02, r=0.8), RES)
     place(bus['pad'], pad(CH['Bm11'][1], 1.0 + 0.5, 3600, amp=0.065, a=0.05, r=0.5), RES + 2.0)
     kicks = []
@@ -88,8 +89,8 @@ def music(tl):
     for i, m in enumerate([74, 69, 76, 69, 78, 69, 76, 69]):
         place(bus['pluck'], F.ks_pluck(m, 0.8, 0.06, pan=0.25 if i % 2 else -0.25), RES + BEAT + i * BEAT / 2)
     # ---- EV (5,5): davul yok, lidyen akor 2,5 sn, filtre 1800 → 6000 Hz / 0,6 sn, tek piyano notası (F#5)
-    place(bus['pad'], pad(CH['Glyd'][1], 2.5 + 1.2, 1800, 6000, 0.6, amp=0.075, a=0.25, r=1.4), HOUSE)
-    place(bus['keys'], F.felt(78, 3.0, 0.06), HOUSE)
+    place(bus['pad'], pad(CH['Glyd'][1], 2.5 + 1.2, 1800, 6000, 0.6, amp=0.045, a=0.35, r=1.4), HOUSE)
+    place(bus['keys'], F.felt(78, 3.0, 0.04), HOUSE + 0.02)
     place(bus['bass'], stereo(np.sin(2 * np.pi * midi(31) * t_(2.4)) * env_adsr(int(2.4 * SR), a=0.3, d=0.4, s=0.6, r=1.0) * 0.06), HOUSE)
     place(bus['keys'], F.felt(81, 2.6, 0.045, 0.1), HOUSE + 1.0); place(bus['keys'], F.felt(74, 2.4, 0.03, -0.15), HOUSE + 1.5)
     for i, m in enumerate([71, 78, 74, 78]):
@@ -115,7 +116,8 @@ def music(tl):
     place(bus['fx'], F.reverse_swell(0.4, 0.045), END - 0.42)
     # ---- KAPANIŞ (15,0): en yüksek an; Dadd9 uzun kuyruk
     place(bus['fx'], F.impact(0.8, 36.7, 80, 0.06, (86, 93, 98)), END)
-    place(bus['drums'], F.kick(0.32), END); place(bus['drums'], F.clap(0.08), END)
+    place(bus['drums'], F.kick(0.32), END); place(bus['drums'], F.clap(0.14), END)
+    place(bus['fx'], F.fm_bell((86, 93, 98), 3.0, 0.08), END)
     place(bus['keys'], F.saw_stab([50, 54, 57, 61, 64], 2.2, 0.12), END)
     place(bus['pad'], pad(CH['Dadd9'][1], 3.6, 5000, amp=0.07, a=0.02, r=2.4), END)
     for i, m in enumerate((62, 69, 74, 78, 81)):
@@ -166,7 +168,7 @@ def ui(tl):
     # ev: açılırken hava, sonra deniz (400–4000 Hz), ilana dönüşte söner
     a = t_(tl['expand2'][1] - tl['expand2'][0]); kk = a / a[-1]
     place(bus, stereo(bp(noise(len(a)), 500, 4000) * kk ** 2 * 0.02), tl['expand2'][0])
-    sea = F.sea(tl['land'][1] - tl['expand2'][1] + 0.6, amp=0.045)
+    sea = F.sea(tl['land'][1] - tl['expand2'][1] + 0.6, amp=0.03)
     place(bus, bp(sea, 400, 4000), tl['expand2'][1] - 0.4)
     place(bus, tuned(KI + 'drop_004', 74.7, 74, F.tone_pair(180, 360, 0.08, 0.5, -24)), tl['land'][1] - 0.03)
     place(bus, k(KI + 'select_002', F.tap(-16), TAP, jit(), pan(881)), tl['contact'])
@@ -192,6 +194,11 @@ def main():
     e = np.abs(u).max(1); e = signal.lfilter([1 - np.exp(-1 / (0.18 * SR))], [1, -np.exp(-1 / (0.18 * SR))], e)
     duck = 1 - np.clip(e / (np.max(e) + 1e-9) * 1.2, 0, 0.2)
     mix = m * duck[:, None] + u * 1.3
+    # nefes: sonuçtan ve kapanıştan önce 150 ms gerçek boşluk (−20 dB), vuruşta tam açılır
+    tt = np.arange(len(mix)) / SR; g = np.ones(len(mix))
+    for b0 in (tl['shrink'][1], tl['end'][0]):
+        g = np.minimum(g, 1 - 0.9 * np.clip((tt - (b0 - 0.17)) / 0.03, 0, 1) * (tt < b0 - 0.002))
+    mix = mix * g[:, None]
     pad_n = SR // 2
     mix = F2.F.master_pre(np.concatenate([np.zeros((pad_n, 2)), mix, np.zeros((pad_n, 2))]))[pad_n:-pad_n]
     mix = mix / np.max(np.abs(mix)) * 0.5
