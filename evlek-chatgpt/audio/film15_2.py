@@ -16,6 +16,8 @@ from synth import SR, RNG, t_, stereo, place, lp, hp, bp, noise, midi
 KI = 'kenney-interface-sounds/addons/kenney_interface_sounds/'
 KU = 'kenney-ui-audio/addons/kenney_ui_audio/'
 RR = np.random.default_rng(20261116)
+TAP_DB = -3.0    # kayıtlı dokunuşlar sentezden belirgin (telefon bandında +11 dB); +8'e çekildi
+KEY_DB = 1.5     # harf tıkları v15'te çekingendi
 
 # ---------------- enstrümanlar (VCSL) ----------------
 PIANO = {v: S.Pitched(S.files(f'vcsl/**/NoSus/*_vl{v}_rr1.wav'), r'Close_([A-G]#?\d)_', max_s=6.0) for v in (2, 3)}
@@ -106,7 +108,7 @@ def ui(tl):
     place(bus, F.logo_note(74, -27), tl['sig'][0])
     a = np.linspace(0, 1, int(0.65 * SR)); place(bus, stereo(bp(noise(len(a)), 800, 3000) * np.sin(np.pi * a) * 0.01), tl['sig'][0])
     place(bus, F.logo_note(69, -27), tl['sig'][1])
-    place(bus, k(KI + 'select_002', F.tap(-28), 0, jit()), tl['sig'][1])
+    place(bus, k(KI + 'select_002', F.tap(-28), TAP_DB, jit()), tl['sig'][1])
     # yazma: harf = Kenney click_002/003/005, boşluk/satır = tick_002 (daha pes "tok", iOS'taki gibi)
     prev = ' '; letters = ['click_002', 'click_003', 'click_005']
     for at, ch in F.type_times(tl):
@@ -114,9 +116,9 @@ def ui(tl):
             place(bus, k(KI + 'tick_002', F.key_tick(-25, True), -1.0, jit()), at)
         else:
             ref = F.key_tick(-26 if prev in ' \n' else -33, False)
-            place(bus, k(KI + letters[RR.integers(3)], ref, 0.0, jit(), RR.uniform(-0.1, 0.1)), at)
+            place(bus, k(KI + letters[RR.integers(3)], ref, KEY_DB, jit(), RR.uniform(-0.1, 0.1)), at)
         prev = ch
-    place(bus, k(KI + 'select_002', F.tap(-22), 0, jit(), pan(900)), tl['send'] - 0.01)
+    place(bus, k(KI + 'select_002', F.tap(-22), TAP_DB, jit(), pan(900)), tl['send'] - 0.01)
     place(bus, k(KI + 'maximize_009', F.send_snd(-17), -1.0), tl['send'])
     t = t_(0.38); place(bus, stereo(lp(np.sin(2 * np.pi * 880 * t) + np.sin(2 * np.pi * 1318.5 * 1.001 * t), 3000) * np.sin(np.pi * t / 0.38) * 0.02), tl['rise'][0])
     place(bus, tuned(KI + 'drop_003', 77.85, 78, F.tone_pair(240, 480, 0.06, 0.4, -19, paper=True)), tl['res'][0])
@@ -129,7 +131,7 @@ def ui(tl):
     place(bus, stereo(F.friction(d, -34, v), 0.0), tl['drag'][0])
     for i in range(2): place(bus, k(KI + 'tick_001', F.detent(-30), 0, jit() + 2), tl['drag'][0] + 0.28 + i * 0.3)
     place(bus, tuned(KI + 'drop_002', 78.6, 79, F.tone_pair(240, 480, 0.06, 0.3, -22, paper=True), -1), tl['coast'][1])
-    place(bus, k(KI + 'select_007', F.tap(-17), 0, jit(), pan(420)), tl['tap'])
+    place(bus, k(KI + 'select_007', F.tap(-17), TAP_DB, jit(), pan(420)), tl['tap'])
     place(bus, tuned(KI + 'drop_004', 74.7, 74, F.tone_pair(180, 360, 0.08, 0.5, -24)), tl['expand'][1])
     # ev: deniz (sentez ambiyans)
     place(bus, F.sea(tl['portalIn'][1] - tl['portalOut'][0] + 0.3), tl['portalOut'][0])
@@ -137,22 +139,22 @@ def ui(tl):
     # galeri, emlakçıya sor, kapat
     d = tl['swipe'][1] - tl['swipe'][0] + 0.1; place(bus, stereo(F.friction(d, -34, np.sin(np.pi * np.linspace(0, 1, int(d * SR))))), tl['swipe'][0])
     place(bus, tuned(KI + 'glass_006', 89.6, 90, F.tone_pair(200, 400, 0.05, 0.3, -28), -2), tl['page2'][1])
-    place(bus, k(KI + 'select_002', F.tap(-16), 0, jit(), pan(881)), tl['contact'])
-    place(bus, k(KI + 'select_007', F.tap(-16), 0, jit(), pan(110)), tl['close'])
+    place(bus, k(KI + 'select_002', F.tap(-16), TAP_DB, jit(), pan(881)), tl['contact'])
+    place(bus, k(KI + 'select_007', F.tap(-16), TAP_DB, jit(), pan(110)), tl['close'])
     place(bus, tuned(KI + 'drop_004', 74.7, 74, F.tone_pair(180, 360, 0.08, 0.5, -28), -1), tl['collapse'][1])
     # eklenti: bölüm notaları (piyano + vibrafon), dokunuşlar, panel geçişleri
     for at, m in ((tl['menu'], 69), (tl['plugOpen'][0], 71), (tl['page'][0], 73)):
         place(bus, F.felt(m, 1.4, 0.05), at); place(bus, F.ks_pluck(m + 12, 0.6, 0.02), at)
     taps = {'menu': 'select_002', 'plug': 'select_007', 'searchTap': 'select_002', 'row': 'select_007', 'tryTap': 'select_002'}
     for key, x in (('menu', 110), ('plug', 260), ('searchTap', 589), ('row', 330), ('tryTap', 589)):
-        place(bus, k(KI + taps[key], F.tap(-20 if key == 'tryTap' else -17 if key != 'searchTap' else -19), 0, jit(), pan(x)), tl[key])
+        place(bus, k(KI + taps[key], F.tap(-20 if key == 'tryTap' else -17 if key != 'searchTap' else -19), TAP_DB, jit(), pan(x)), tl[key])
     for key in ('side', 'plugOpen', 'page', 'newChat'):
         place(bus, k(KU + 'switch13', F.detent(-36), -2, jit()), tl[key][1])
     a, b = tl['ptype']
     for i in range(5):
         place(bus, k(KI + letters[RR.integers(3)], F.key_tick(-30 if i == 0 else -40), 0, jit()), np.ceil((a + i * 4 / 60) * 60) / 60)
     place(bus, tuned(KI + 'select_005', 86.3, 86, F.tone_pair(240, 480, 0.05, 0.3, -32, paper=True)), tl['pres'])
-    place(bus, k(KI + 'select_002', F.tap(-18), 0, jit()), tl['install'])
+    place(bus, k(KI + 'select_002', F.tap(-18), TAP_DB, jit()), tl['install'])
     for i in range(3):
         ref = stereo(np.sin(2 * np.pi * 2400 * t_(0.03)) * np.exp(-t_(0.03) / 0.004) * 10 ** (-36 / 20))
         place(bus, k(KU + 'switch14', ref, -2, 1.0 * i), tl['spin'][0] + 0.15 * i)
@@ -171,6 +173,25 @@ def ui(tl):
 
 
 F.ui = ui
+
+_master_pre = F.master_pre
+
+
+def peak_limit(x, cut_db=3.0, look=0.0015, rel=0.06):
+    """ileri bakışlı tepe sınırlayıcı (stereo bağlı). Kayıtlı dokunuşların 1–2 ms'lik atakları final vuruşundan
+    sivri; bunları cut_db tıraşlar ki loudnorm doğrusal kalsın (dinamik moda düşüp LRA'yı ezmesin)."""
+    from scipy.ndimage import minimum_filter1d
+    a = np.abs(x).max(1); thr = a.max() * 10 ** (-cut_db / 20)
+    g = np.minimum(1.0, thr / (a + 1e-12))
+    L = int(look * SR)
+    g = minimum_filter1d(g, 2 * L + 1)                                  # atak öncesinden in (ileri bakış)
+    k = np.exp(-1 / (rel * SR)); g = -signal.lfilter([1 - k], [1, -k], -g)  # bırakma yumuşatması
+    g = np.minimum(g, minimum_filter1d(np.minimum(1.0, thr / (a + 1e-12)), 2 * L + 1))
+    g = np.convolve(g, np.ones(L) / L, 'same')                           # tıksız geçiş
+    return x * g[:, None]
+
+
+F.master_pre = lambda x: peak_limit(_master_pre(x))
 
 if __name__ == '__main__':
     F.main()
