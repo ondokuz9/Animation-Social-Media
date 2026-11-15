@@ -164,7 +164,7 @@ Marka sahibinin daha önceki şartı ("önce sorulur, sonra sonuç gelir") korun
 | Kurgu: 2,40 sn'de sonuç kartı kadrajda | SINIRDA | Kart 2,50 sn'de tam oturuyor; 2,40 geçişin son kareleri. İlk gerçek sonuç: hedef ≤5,0 sn, gerçekleşen 2,5 sn. |
 | Hareket: eğim 0°, siyah ≤%20, fotoğraf ≤6. sn'de ≥1,5 sn | KISMEN | Eğim 0° ve fotoğraf (0–1,75 sn) geçer. Siyah oranı 12–13. sn'de %27 (Evlek eklenti sayfasının kendi siyah boşluğu), 3. sn'de %21. Telefon sahnelerinde arayüz 1,7–1,8 px/pt (KD'nin "iki kadraj sistemi" kararıyla çelişen ölçüt). |
 | Ses: sonuç sıçraması ≥+8 dB ve dokunuşlardan ≥3 dB büyük | GEÇER | Telefon bandında sonuç +19,6 dB; dokunuşlar −0,3…+3,9 dB. Mono kaybı 1,1 dB (hedef ≤1,5). Ev bölümü ritimli bölümden 2,5 dB sakin (hedef 3–5; biraz altında). |
-| Denetçi: okunan her sayı ve etiket kaynakla uyumlu | GEÇER | İlk renderda uyumsuzluk 0; dört düzeltme isteği final renderda yeniden doğrulandı (aşağıda). |
+| Denetçi: okunan her sayı ve etiket kaynakla uyumlu | GEÇER | Final renderda 11 kare tam çözünürlükte incelendi: dört düzeltmenin dördü yapılmış, sekiz maddenin sekizi geçer, uyumsuzluk 0, yeni bulgu yok. |
 
 **Mobil ve sessiz izleme:** 360 px ızgarada (`v16_izgara_2fps_360.jpg`) sorgu, £139.000, "artık ChatGPT'de." ve CTA okunuyor. Sessizde üç şey anlaşılıyor: ne arandığı, ChatGPT'de gerçek bir ilanın geldiği, tek sonraki adım. Gerçek telefonda izleme yapılmadı; küçültülmüş karelerle değerlendirildi.
 
